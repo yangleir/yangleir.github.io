@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="有时会用到高性能服务器去做一些计算，其中包含GMT计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译GMT以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。 安装环境假设在如下环境下安装GMT6，系统：Redhat Enterprise Linux网络：无界面：无 编译步">
+<meta name="description" content="有时会用到高性能服务器去做一些计算，其中包含GMT计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译GMT以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。 安装环境假设在如下环境下安装GMT6:  系统：Red Hat Enterprise Linux Server 6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Building GMT under redhat server without internet">
 <meta property="og:url" content="http://yoursite.com/2019/12/29/GMT-under-redhat/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="有时会用到高性能服务器去做一些计算，其中包含GMT计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译GMT以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。 安装环境假设在如下环境下安装GMT6，系统：Redhat Enterprise Linux网络：无界面：无 编译步">
+<meta property="og:description" content="有时会用到高性能服务器去做一些计算，其中包含GMT计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译GMT以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。 安装环境假设在如下环境下安装GMT6:  系统：Red Hat Enterprise Linux Server 6">
 <meta property="og:locale" content="cn">
 <meta property="article:published_time" content="2019-12-29T06:33:59.000Z">
-<meta property="article:modified_time" content="2019-12-30T07:48:11.675Z">
+<meta property="article:modified_time" content="2019-12-30T08:07:16.983Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
 <meta name="twitter:card" content="summary">
@@ -311,7 +311,10 @@
 
       
         <p>有时会用到高性能服务器去做一些计算，其中包含<code>GMT</code>计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译<code>GMT</code>以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。</p>
-<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>假设在如下环境下安装GMT6，<br>系统：Redhat Enterprise Linux<br>网络：无<br>界面：无</p>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>假设在如下环境下安装GMT6:</p>
+<blockquote>
+<p>系统：Red Hat Enterprise Linux Server 6.4 (Santiago)<br>网络：无</p>
+</blockquote>
 <h2 id="编译步骤"><a href="#编译步骤" class="headerlink" title="编译步骤"></a>编译步骤</h2><p>因为没有网络，在这种情况下<code>yum</code>命令无法使用，需要下载依赖源文件进行手工编译。因此在没有网络的Linux服务器或者个人电脑上安装GMT主要就是编译依赖源。</p>
 <h3 id="依赖源文件准备"><a href="#依赖源文件准备" class="headerlink" title="依赖源文件准备"></a>依赖源文件准备</h3><p>登录GMT的<a href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT" target="_blank" rel="noopener">Building</a>帮助页，按照其给出的提示准备依赖程序，由于其假设是链接互联网情况下的安装依赖，而有的依赖还需要依赖别的库或者程序，因此最终准备的依赖要比官网给出多。<br>官网给的依赖：</p>
 <blockquote>
@@ -341,7 +344,7 @@
 <blockquote>
 <p>Error when bootstrapping CMake:<br>Cannot find a C++ compiler that supports both C++11 and the specified C++ flags.<br>Please specify one using environment variable CXX.<br>The C++ flags are “”.<br>They can be changed using the environment variable CXXFLAGS.<br>See cmake_bootstrap.log for compilers attempted.</p>
 <hr>
-<p>Log of errors:<br>/gpfs/users/home/yanglei/gmt/cmake-3.16.1/Bootstrap.cmk/cmake_bootstrap.log</p>
+<p>Log of errors:<br> ~/gmt/cmake-3.16.1/Bootstrap.cmk/cmake_bootstrap.log</p>
 </blockquote>
 <p>因此需要下载新的GCC源，并编译GCC。因为服务器根目录已经有低版本的GCC了，因此系统将存在多个GCC编译器。在具体使用的时候要提高新版本GCC的优先级。网上有多种办法，我是将新GCC的bin路径放到了系统路径的前面。然后查看GCC版本为9.2.0.在进行CMAKE的编译不会上述错误提示。GCC的安装编译时间较长，大概1小时。<br>GCC的安装编译还需要依赖其他库，可参考<a href="https://segmentfault.com/a/1190000002982589" target="_blank" rel="noopener">安装教程</a><br>CMAKE安装还依赖openssl（一套描述文件处理、加密算法和其他信息技术标准），下载源码并编译openssl。编程成功后再回到CMAKE，</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./<span class="keyword">bootstrap</span></span><br><span class="line"><span class="keyword">gmake</span></span><br><span class="line"><span class="keyword">gmake </span>install</span><br></pre></td></tr></table></figure>
@@ -357,9 +360,10 @@
 <p>为配合GDAL，我还安装了<a href="https://trac.osgeo.org/geos/wiki/BuildingOnUnixWithAutotools" target="_blank" rel="noopener">geos</a>，虽然看起来没起到作用。</p>
 <p>回到GDAL，进行编译，可能还出现如下错误：</p>
 <blockquote>
-<p>checking for PROJ &gt;= 6 library… checking for proj_create_from_wkt in -lproj… no<br>checking for internal_proj_create_from_wkt in -lproj… no<br>checking for internal_proj_create_from_wkt in -linternalproj… no<br>configure: error: PROJ 6 symbols not found<br>需要进行如下设置，使其找到正确的路径。</p>
+<p>checking for PROJ &gt;= 6 library… checking for proj_create_from_wkt in -lproj… no<br>checking for internal_proj_create_from_wkt in -lproj… no<br>checking for internal_proj_create_from_wkt in -linternalproj… no<br>configure: error: PROJ 6 symbols not found</p>
 </blockquote>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="regexp">/configure --prefix=/g</span>pfs<span class="regexp">/users/</span>home<span class="regexp">/yanglei/</span>local<span class="regexp">/gdal --with-proj=/g</span>pfs<span class="regexp">/users/</span>home<span class="regexp">/yanglei/</span>local</span><br></pre></td></tr></table></figure>
+<p>需要进行如下设置，使其找到正确的路径。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">./configure</span> <span class="params">--prefix=</span> ~<span class="string">/local/gdal</span> <span class="params">--with-proj=</span> ~<span class="string">/local</span></span><br></pre></td></tr></table></figure>
 <p>然后编译GDAL，无错误。大概需要1个小时，其编译速度很慢。</p>
 <p>编译三个数学库，FFTW较为简单，其他两个可参考<a href="http://blog.sciencenet.cn/blog-3233813-1001369.html" target="_blank" rel="noopener">教程</a>，编译起来一般没有问题。</p>
 <p>为了制作动画，选择性的编译GraphicsMagick（GM），GM依赖<a href="http://www.libpng.org/pub/png/libpng.html" target="_blank" rel="noopener">libpng-devel</a>,编译没有出现问题。</p>
@@ -372,18 +376,19 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;path to&gt;/gmt</span><br><span class="line">mkdir build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 <blockquote>
 <hr>
-<p>– Found NETCDF: /gpfs/users/home/yanglei/local/netcdf/lib/libnetcdf.so<br>CMake Error at /gpfs/users/home/yanglei/local/cmake/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake:146 (message):<br> Could NOT find CURL (missing: CURL_LIBRARY CURL_INCLUDE_DIR)</p>
+<p>– Found NETCDF:  ~/local/netcdf/lib/libnetcdf.so<br>CMake Error at  ~/local/cmake/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake:146 (message):<br> Could NOT find CURL (missing: CURL_LIBRARY CURL_INCLUDE_DIR)</p>
 <hr>
 </blockquote>
 <p>提示找不到curl的两个安装路径，找到ConfigUser.cmake中的如下位置，进行编辑。</p>
 <blockquote>
-<p>#Set location of CURL (can be root directory or path to header file) [auto]:<br>set (CURL_ROOT /gpfs/users/home/yanglei/local/curl)</p>
+<p>#Set location of CURL (can be root directory or path to header file) [auto]:<br>set (CURL_ROOT  ~/local/curl)</p>
 </blockquote>
 <p>然后再次make，发现lapack还有点问题，于是注释掉liblapack行，保留BLAS行。</p>
 <blockquote>
-<p>#Set LAPACK location. Use this when want to link with LAPACK and it’s not found automatically<br>#set (LAPACK_LIBRARY /gpfs/users/home/yanglei/local/lib/liblapack.a)<br>set (BLAS_LIBRARY /gpfs/users/home/yanglei/local/lib/libblas.a)</p>
+<p>#Set LAPACK location. Use this when want to link with LAPACK and it’s not found automatically<br>#set (LAPACK_LIBRARY  ~/local/lib/liblapack.a)<br>set (BLAS_LIBRARY  ~/local/lib/libblas.a)</p>
 </blockquote>
 <p>再次make，编程GMT成功。</p>
+<p>在此次编译中，虽然<code>成功安装</code>(?)liblapack，并且在cmake文件中制定了路径，但是GMT安装中依然无法识别<code>liblapack.a</code>静态库文件。</p>
 
       
     </div>
