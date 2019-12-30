@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="安装环境假设在如下环境下安装GMT，系统：redhat 服务器网络：无界面：无 步骤因为没有网络，在这种情况下yum命令无法使用，需要下载依赖源文件进行手工编译。">
+<meta name="description" content="有时会用到高性能服务器去做一些计算，其中包含GMT计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译GMT以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。 安装环境假设在如下环境下安装GMT6，系统：Redhat Enterprise Linux网络：无界面：无 编译步">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Building GMT under redhat server without internet">
 <meta property="og:url" content="http://yoursite.com/2019/12/29/GMT-under-redhat/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="安装环境假设在如下环境下安装GMT，系统：redhat 服务器网络：无界面：无 步骤因为没有网络，在这种情况下yum命令无法使用，需要下载依赖源文件进行手工编译。">
+<meta property="og:description" content="有时会用到高性能服务器去做一些计算，其中包含GMT计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译GMT以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。 安装环境假设在如下环境下安装GMT6，系统：Redhat Enterprise Linux网络：无界面：无 编译步">
 <meta property="og:locale" content="cn">
 <meta property="article:published_time" content="2019-12-29T06:33:59.000Z">
-<meta property="article:modified_time" content="2019-12-29T06:59:33.566Z">
+<meta property="article:modified_time" content="2019-12-30T07:48:11.675Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
 <meta name="twitter:card" content="summary">
@@ -310,8 +310,80 @@
       
 
       
-        <h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>假设在如下环境下安装GMT，<br>系统：redhat 服务器<br>网络：无<br>界面：无</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>因为没有网络，在这种情况下yum命令无法使用，需要下载依赖源文件进行手工编译。</p>
+        <p>有时会用到高性能服务器去做一些计算，其中包含<code>GMT</code>计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译<code>GMT</code>以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。</p>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>假设在如下环境下安装GMT6，<br>系统：Redhat Enterprise Linux<br>网络：无<br>界面：无</p>
+<h2 id="编译步骤"><a href="#编译步骤" class="headerlink" title="编译步骤"></a>编译步骤</h2><p>因为没有网络，在这种情况下<code>yum</code>命令无法使用，需要下载依赖源文件进行手工编译。因此在没有网络的Linux服务器或者个人电脑上安装GMT主要就是编译依赖源。</p>
+<h3 id="依赖源文件准备"><a href="#依赖源文件准备" class="headerlink" title="依赖源文件准备"></a>依赖源文件准备</h3><p>登录GMT的<a href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT" target="_blank" rel="noopener">Building</a>帮助页，按照其给出的提示准备依赖程序，由于其假设是链接互联网情况下的安装依赖，而有的依赖还需要依赖别的库或者程序，因此最终准备的依赖要比官网给出多。<br>官网给的依赖：</p>
+<blockquote>
+<p>Install:</p>
+<p>-<a href="http://www.ghostscript.com" target="_blank" rel="noopener">Ghostscript</a><br><del>-<a href="http://subversion.apache.org" target="_blank" rel="noopener">Subversion</a></del><br>-<a href="http://www.cmake.org/" target="_blank" rel="noopener">CMake</a> (&gt;=2.8.5)<br>-<a href="http://www.unidata.ucar.edu/downloads/netcdf/" target="_blank" rel="noopener">netCDF</a> (&gt;=4.0, netCDF-4/HDF5 support mandatory)<br>-<a href="https://curl.haxx.se/" target="_blank" rel="noopener">libcurl</a> [for GMT &gt;= 5.4]</p>
+<p>Optionally install for more capabilities within GMT:</p>
+<p>-<a href="https://www.pcre.org/original/doc/html/" target="_blank" rel="noopener">PCRE</a> (Regular expression support for gmt convert and -e)<br>Alternatively, for GMT &gt;= 5.4.4, or the current SVN version, <a href="https://www.pcre.org/current/doc/html/" target="_blank" rel="noopener">PCRE2</a> can be used.<br>-<a href="http://www.gdal.org/" target="_blank" rel="noopener">GDAL</a> (Ability to read and write numerous grid and image formats)<br>-<a href="http://www.fftw.org/" target="_blank" rel="noopener">FFTW</a> Single-precision (Fast FFTs [not needed under OS X])<br>-<a href="http://www.netlib.org/lapack/" target="_blank" rel="noopener">LAPACK</a> (Fast matrix inversion [not needed under OS X])<br>-<a href="http://www.netlib.org/blas/" target="_blank" rel="noopener">BLAS</a> (Fast matrix multiplications [not needed underr OS X])</p>
+<p>Optionally install for building the documentation:</p>
+<p>-<a href="http://www.netlib.org/blas/" target="_blank" rel="noopener">Texlive</a><br>-<a href="http://sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a> (1.4.x or younger)</p>
+<p>Optionally install for running the tests:</p>
+<p>-<a href="http://http//www.graphicsmagick.org/" target="_blank" rel="noopener">GraphicsMagick</a></p>
+</blockquote>
+<p>其中subversion（是一个自由开源的版本控制系统）的安装，如果从源程序进行编译（<a href="https://svn.apache.org/repos/asf/subversion/trunk/INSTALL" target="_blank" rel="noopener">地址1</a>,<a href="http://subversion.apache.org/docs/community-guide/building.html" target="_blank" rel="noopener">地址2</a>），需要较多的依赖（和别的程序比较），因此快捷方法是用编译好的rpm。但是网上下载到的subversion rpm不允许修改安装路径，因此需要管理员权限，在没有权限的情况下，我没有安装这个程序。结果表明不安装这个程序，并不影响GMT的最终编译。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">yanglei@</span>ln01 gmt]$ rpm -qpi CollabNetSubversion-client<span class="number">-1.12</span><span class="number">.2</span><span class="number">-1.</span>x86_64.rpm</span><br><span class="line">warning: CollabNetSubversion-client<span class="number">-1.12</span><span class="number">.2</span><span class="number">-1.</span>x86_64.rpm: Header V4 RSA/SHA1 Signature, key ID <span class="number">2e45</span>c0ca: NOKEY</span><br><span class="line">Name        : CollabNetSubversion-client   Relocations: (<span class="keyword">not</span> relocatable)</span><br><span class="line">Version     : <span class="number">1.12</span><span class="number">.2</span>                            Vendor: CollabNet</span><br><span class="line">Release     : <span class="number">1</span>                             Build Date: Fri Jul <span class="number">26</span> <span class="number">11</span>:<span class="number">55</span>:<span class="number">39</span> <span class="number">2019</span></span><br><span class="line">Install Date: (<span class="keyword">not</span> installed)               Build Host: <span class="number">1</span>bbe4d7a7f3e</span><br><span class="line">Group       : Utilities/System              Source RPM: CollabNetSubversion-client<span class="number">-1.12</span><span class="number">.2</span><span class="number">-1.</span>src.rpm</span><br><span class="line">Size        : <span class="number">55135440</span>                         License: Proprietary</span><br><span class="line">Signature   : RSA/SHA1, Fri Jul <span class="number">26</span> <span class="number">11</span>:<span class="number">55</span>:<span class="number">53</span> <span class="number">2019</span>, Key ID <span class="number">16682</span>a5b2e45c0ca</span><br><span class="line">Packager    : Build User (CollabNet) &lt;<span class="symbol">build@</span>collab.net&gt;</span><br><span class="line">URL         : http:<span class="comment">//open.collab.net</span></span><br><span class="line">Summary     : A Concurrent Versioning system similar to but better than CVS.</span><br><span class="line">Description :</span><br><span class="line">CollabNet Subversion client <span class="keyword">is</span> a free download of open-source Subversion,</span><br><span class="line">compiled <span class="keyword">and</span> tested by CollabNet. For more information about CollabNet</span><br><span class="line">Subversion, visit the CollabNet community at http:<span class="comment">//open.collab.net.</span></span><br><span class="line">[<span class="symbol">yanglei@</span>ln01 gmt]$</span><br></pre></td></tr></table></figure>
+
+<p>最终从互联网下载源程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">GraphicsMagick-1.3.34.tar.gz  jpegsr6.zip</span><br><span class="line">cmake-3.16.1.tar.gz           lapack-3.9.0.tar.gz</span><br><span class="line">curl-7.67.0.tar.gz            libpng-1.6.37.tar.gz</span><br><span class="line">dcw-gmt-1.1.4.tar.gz          mpc-1.0.3.tar.gz</span><br><span class="line">fftw-3.3.8.tar.gz             mpfr-3.1.4.tar.bz2</span><br><span class="line">gcc-9.2.0.tar.gz              netcdf-c-4.7.3.tar.gz</span><br><span class="line">gdal-3.0.2.tar.gz             openssl-1.1.1d.tar.gz</span><br><span class="line">geos-3.8.0.tar.bz2            pcre2-10.34.tar.gz</span><br><span class="line">ghostscript-9.50.tar.gz       proj-6.2.1.tar.gz</span><br><span class="line">gmp-6.1.0.tar.bz2             proj-datumgrid-1.8.zip</span><br><span class="line">gmt-6.0.0-src.tar.gz          sqlite-autoconf-3300100.tar.gz</span><br><span class="line">gshhg-gmt-2.3.7.tar.gz        subversion-1.10.6.tar.gz</span><br><span class="line">hdf5-1.10.5.tar.gz            zlib-1.2.11.tar.gz</span><br><span class="line">isl-0.18.tar.bz2</span><br></pre></td></tr></table></figure>
+<h3 id="登录服务器"><a href="#登录服务器" class="headerlink" title="登录服务器"></a>登录服务器</h3><p>通过ssh远程登录服务器，为了方便管理依赖文件，建立了<code>GMT</code>文件夹存放，个人的全部程序安装在用户主目录下<code>local</code>文件夹，因为个人用户没有管理员用户权限，无法安装到服务器根目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh name@ip</span><br><span class="line">mkdir ~/gmt</span><br><span class="line">mkdir ~/<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+<p>解压全部的源程序文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar xvf *.tar.*</span><br><span class="line">unzip *.zip</span><br></pre></td></tr></table></figure>
+<h3 id="编译依赖源程序"><a href="#编译依赖源程序" class="headerlink" title="编译依赖源程序"></a>编译依赖源程序</h3><p>依次编译源程序，编译的顺序按照官网顺序依次编译即可。前后不存在密切的关联，但是CMAKE作为一个编译工具，或许需要提前安装。大部分依赖比较容易安装，以Ghostscript为例。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf ghostscript-9.25.tar.gz</span><br><span class="line"><span class="keyword">cd</span> ghostscript-9.50</span><br><span class="line"><span class="string">./configure</span> <span class="params">--prefix=</span>~<span class="string">/local</span> <span class="comment">#此处需要使用绝对路径</span></span><br><span class="line">make all</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>修改系统变量，使系统能够找到手动安装的bin和lib等文件夹位置。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi ~<span class="regexp">/.bash_profile # 修改下面内容</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">LOCALPATH=~/local</span> <span class="comment">#绝对路径</span></span><br><span class="line">export LOCALPATH</span><br><span class="line">PATH=$<span class="symbol">PATH:</span>$LOCALPATH/bin</span><br><span class="line">export LD_LIBRARY_PATH=$LOCALPATH/<span class="class"><span class="keyword">lib</span></span></span><br><span class="line"></span><br><span class="line">source ~<span class="regexp">/.bash_profile # 现在生效</span></span><br></pre></td></tr></table></figure>
+<p>安装中遇到的主要困难是CMAKE，首先如果gcc版本低，会出现下面的报错：</p>
+<blockquote>
+<p>Error when bootstrapping CMake:<br>Cannot find a C++ compiler that supports both C++11 and the specified C++ flags.<br>Please specify one using environment variable CXX.<br>The C++ flags are “”.<br>They can be changed using the environment variable CXXFLAGS.<br>See cmake_bootstrap.log for compilers attempted.</p>
+<hr>
+<p>Log of errors:<br>/gpfs/users/home/yanglei/gmt/cmake-3.16.1/Bootstrap.cmk/cmake_bootstrap.log</p>
+</blockquote>
+<p>因此需要下载新的GCC源，并编译GCC。因为服务器根目录已经有低版本的GCC了，因此系统将存在多个GCC编译器。在具体使用的时候要提高新版本GCC的优先级。网上有多种办法，我是将新GCC的bin路径放到了系统路径的前面。然后查看GCC版本为9.2.0.在进行CMAKE的编译不会上述错误提示。GCC的安装编译时间较长，大概1小时。<br>GCC的安装编译还需要依赖其他库，可参考<a href="https://segmentfault.com/a/1190000002982589" target="_blank" rel="noopener">安装教程</a><br>CMAKE安装还依赖openssl（一套描述文件处理、加密算法和其他信息技术标准），下载源码并编译openssl。编程成功后再回到CMAKE，</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./<span class="keyword">bootstrap</span></span><br><span class="line"><span class="keyword">gmake</span></span><br><span class="line"><span class="keyword">gmake </span>install</span><br></pre></td></tr></table></figure>
+<p>这是可能会提示找不到openssl，如果有该提示，输入如下命令</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">OPENSSL_ROOT_DIR</span>=~/local/openssl/ #绝对路径</span><br></pre></td></tr></table></figure>
+<p>将cmake目录下的CMakeCache.txt删掉，重新从bootstrap开始进行编译。<br>CMAKE安装结束。</p>
+<p>安装NetCDF，需要先安装zlib和hdf5。此外在无网络环境下，可以设置<code>--disable-dap</code>。<br>安装NetCDF提示找不到hdf5，实际上已经安装并且设置系统路径变量。如果出现类似错误，根据错误提示可以做如下设置：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CPPFLAGS='-I~/local/hdf5/include -I~/local/zlib/include' LDFLAGS='-L~/local/hdf5/lib -L~/local/zlib/lib' ./configure --prefix=~/local/ --disable-dap</span><br><span class="line">make<span class="built_in"> check </span>install</span><br></pre></td></tr></table></figure>
+<p>libcurl是一些程序的依赖，可以提前安装。但是在没有联网的情况下，安装libcurl可能起不到作用。GMT6的一个特点是数据的网络化，例如以前例子中的数据不再经过安装包提供，而是通过网络进行自动下载到本地。</p>
+<h3 id="编译可选择源程序"><a href="#编译可选择源程序" class="headerlink" title="编译可选择源程序"></a>编译可选择源程序</h3><p>接下来编译其他的可选程序，PCRE是(Perl Compatible Regular Expressions)是一个Perl库，包括 perl 兼容的正则表达式库。GDAL(Geospatial Data Abstraction Library)是一个在X/MIT许可协议下的开源栅格空间数据转换库，它利用抽象数据模型来表达所支持的各种文件格式，它还有一系列命令行工具来进行数据转换和处理，GDAL在遥感领域使用较多。FFTW、LAPACK、BLAS主要是数学运算的底层库。</p>
+<p>GDAL的编译需要依赖<a href="https://proj.org/install.html#compilation-and-installation-from-source-code" target="_blank" rel="noopener">proj6</a>和<a href="https://www.sqlite.org/index.html" target="_blank" rel="noopener">sqlite3</a>. Proj软件自1983至今在不断的维护。主要是先坐标转换功能，GMT中的mapproject等程序直接或间接调用了proj接口，其用法和proj非常接近。在安装proj时，根据提示可能需要设置PKG_CONFIG_PATH。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PKG_CONFIG_PATH=~local/<span class="class"><span class="keyword">lib</span>/<span class="title">pkgconfig</span>/</span></span><br></pre></td></tr></table></figure>
+<p>为配合GDAL，我还安装了<a href="https://trac.osgeo.org/geos/wiki/BuildingOnUnixWithAutotools" target="_blank" rel="noopener">geos</a>，虽然看起来没起到作用。</p>
+<p>回到GDAL，进行编译，可能还出现如下错误：</p>
+<blockquote>
+<p>checking for PROJ &gt;= 6 library… checking for proj_create_from_wkt in -lproj… no<br>checking for internal_proj_create_from_wkt in -lproj… no<br>checking for internal_proj_create_from_wkt in -linternalproj… no<br>configure: error: PROJ 6 symbols not found<br>需要进行如下设置，使其找到正确的路径。</p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="regexp">/configure --prefix=/g</span>pfs<span class="regexp">/users/</span>home<span class="regexp">/yanglei/</span>local<span class="regexp">/gdal --with-proj=/g</span>pfs<span class="regexp">/users/</span>home<span class="regexp">/yanglei/</span>local</span><br></pre></td></tr></table></figure>
+<p>然后编译GDAL，无错误。大概需要1个小时，其编译速度很慢。</p>
+<p>编译三个数学库，FFTW较为简单，其他两个可参考<a href="http://blog.sciencenet.cn/blog-3233813-1001369.html" target="_blank" rel="noopener">教程</a>，编译起来一般没有问题。</p>
+<p>为了制作动画，选择性的编译GraphicsMagick（GM），GM依赖<a href="http://www.libpng.org/pub/png/libpng.html" target="_blank" rel="noopener">libpng-devel</a>,编译没有出现问题。</p>
+<h3 id="编译文档生成工具"><a href="#编译文档生成工具" class="headerlink" title="编译文档生成工具"></a>编译文档生成工具</h3><p>因为服务器没有界面，故忽略了帮助文档的编译工具安装。</p>
+<h3 id="编译GMT"><a href="#编译GMT" class="headerlink" title="编译GMT"></a>编译GMT</h3><p>按照官网的<a href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT" target="_blank" rel="noopener">说明</a>进行编译。需要先下载GSHHG和DCW数据，并解压到任意路径。<br>首先设置GMT的安装和海岸线、国界线数据搜索路径：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> (CMAKE_INSTALL_PREFIX /opt/gmt)</span><br><span class="line"><span class="built_in">set</span> (GSHHG_ROOT &lt;path to gshhg&gt;)</span><br><span class="line"><span class="built_in">set</span> (DCW_ROOT &lt;path to dcw&gt;)</span><br></pre></td></tr></table></figure>
+<p>复制cmake文件，并根据自己的系统进行设置。主要是设置路径。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp cmake/<span class="module-access"><span class="module"><span class="identifier">ConfigUserTemplate</span>.</span></span>cmake  cmake/<span class="module-access"><span class="module"><span class="identifier">ConfigUser</span>.</span></span>cmake</span><br><span class="line">vi cmake/<span class="module-access"><span class="module"><span class="identifier">ConfigUser</span>.</span></span>cmake</span><br></pre></td></tr></table></figure>
+<p>编译GMT:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;path to&gt;/gmt</span><br><span class="line">mkdir build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<blockquote>
+<hr>
+<p>– Found NETCDF: /gpfs/users/home/yanglei/local/netcdf/lib/libnetcdf.so<br>CMake Error at /gpfs/users/home/yanglei/local/cmake/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake:146 (message):<br> Could NOT find CURL (missing: CURL_LIBRARY CURL_INCLUDE_DIR)</p>
+<hr>
+</blockquote>
+<p>提示找不到curl的两个安装路径，找到ConfigUser.cmake中的如下位置，进行编辑。</p>
+<blockquote>
+<p>#Set location of CURL (can be root directory or path to header file) [auto]:<br>set (CURL_ROOT /gpfs/users/home/yanglei/local/curl)</p>
+</blockquote>
+<p>然后再次make，发现lapack还有点问题，于是注释掉liblapack行，保留BLAS行。</p>
+<blockquote>
+<p>#Set LAPACK location. Use this when want to link with LAPACK and it’s not found automatically<br>#set (LAPACK_LIBRARY /gpfs/users/home/yanglei/local/lib/liblapack.a)<br>set (BLAS_LIBRARY /gpfs/users/home/yanglei/local/lib/libblas.a)</p>
+</blockquote>
+<p>再次make，编程GMT成功。</p>
 
       
     </div>
@@ -477,7 +549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装环境"><span class="nav-number">1.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装环境"><span class="nav-number">1.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译步骤"><span class="nav-number">2.</span> <span class="nav-text">编译步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖源文件准备"><span class="nav-number">2.1.</span> <span class="nav-text">依赖源文件准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录服务器"><span class="nav-number">2.2.</span> <span class="nav-text">登录服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译依赖源程序"><span class="nav-number">2.3.</span> <span class="nav-text">编译依赖源程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译可选择源程序"><span class="nav-number">2.4.</span> <span class="nav-text">编译可选择源程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译文档生成工具"><span class="nav-number">2.5.</span> <span class="nav-text">编译文档生成工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译GMT"><span class="nav-number">2.6.</span> <span class="nav-text">编译GMT</span></a></li></ol></li></ol></div>
             
 
           </div>
