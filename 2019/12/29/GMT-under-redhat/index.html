@@ -87,7 +87,7 @@
 <meta property="og:description" content="有时会用到高性能服务器去做一些计算，其中包含GMT计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译GMT以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。 安装环境假设在如下环境下安装GMT6:  系统：Red Hat Enterprise Linux Server 6">
 <meta property="og:locale" content="cn">
 <meta property="article:published_time" content="2019-12-29T06:33:59.000Z">
-<meta property="article:modified_time" content="2019-12-30T08:07:16.983Z">
+<meta property="article:modified_time" content="2019-12-31T02:33:28.059Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
 <meta name="twitter:card" content="summary">
@@ -313,7 +313,7 @@
         <p>有时会用到高性能服务器去做一些计算，其中包含<code>GMT</code>计算程序的调用。而高性能计算机并不给一般用户登录互联网和管理员权限，因此需要在Linux服务器上，使用一般用户的身份手动编译<code>GMT</code>以及全部所需要的依赖程序。最初以为这个很麻烦，但是经过陆续一周的依赖源编译，还是安装成功了，确实很麻烦。</p>
 <h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>假设在如下环境下安装GMT6:</p>
 <blockquote>
-<p>系统：Red Hat Enterprise Linux Server 6.4 (Santiago)<br>网络：无</p>
+<p>系统：Red Hat Enterprise Linux Server 6.4 (Santiago)<br>网络：无<br>权限：无管理员权限</p>
 </blockquote>
 <h2 id="编译步骤"><a href="#编译步骤" class="headerlink" title="编译步骤"></a>编译步骤</h2><p>因为没有网络，在这种情况下<code>yum</code>命令无法使用，需要下载依赖源文件进行手工编译。因此在没有网络的Linux服务器或者个人电脑上安装GMT主要就是编译依赖源。</p>
 <h3 id="依赖源文件准备"><a href="#依赖源文件准备" class="headerlink" title="依赖源文件准备"></a>依赖源文件准备</h3><p>登录GMT的<a href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT" target="_blank" rel="noopener">Building</a>帮助页，按照其给出的提示准备依赖程序，由于其假设是链接互联网情况下的安装依赖，而有的依赖还需要依赖别的库或者程序，因此最终准备的依赖要比官网给出多。<br>官网给的依赖：</p>
@@ -346,7 +346,7 @@
 <hr>
 <p>Log of errors:<br> ~/gmt/cmake-3.16.1/Bootstrap.cmk/cmake_bootstrap.log</p>
 </blockquote>
-<p>因此需要下载新的GCC源，并编译GCC。因为服务器根目录已经有低版本的GCC了，因此系统将存在多个GCC编译器。在具体使用的时候要提高新版本GCC的优先级。网上有多种办法，我是将新GCC的bin路径放到了系统路径的前面。然后查看GCC版本为9.2.0.在进行CMAKE的编译不会上述错误提示。GCC的安装编译时间较长，大概1小时。<br>GCC的安装编译还需要依赖其他库，可参考<a href="https://segmentfault.com/a/1190000002982589" target="_blank" rel="noopener">安装教程</a><br>CMAKE安装还依赖openssl（一套描述文件处理、加密算法和其他信息技术标准），下载源码并编译openssl。编程成功后再回到CMAKE，</p>
+<p>因此需要下载新的GCC源，并编译GCC。因为服务器根目录已经有低版本的GCC了，因此系统将存在多个GCC编译器。在具体使用的时候要提高新版本GCC的优先级。网上有多种办法，我是将新GCC的bin路径放到了系统路径的前面。然后查看GCC版本为9.2.0。在进行CMAKE的编译不会上述错误提示。 GCC的安装编译时间较长，大概1小时。<br>GCC的安装编译还需要依赖其他库，GMP、MPFR、MPC和ISL。可参考<a href="https://segmentfault.com/a/1190000002982589" target="_blank" rel="noopener">安装教程</a><br>CMAKE安装还依赖openssl（一套描述文件处理、加密算法和其他信息技术标准），下载源码并编译openssl。编程成功后再回到CMAKE，编译CMAKE。</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./<span class="keyword">bootstrap</span></span><br><span class="line"><span class="keyword">gmake</span></span><br><span class="line"><span class="keyword">gmake </span>install</span><br></pre></td></tr></table></figure>
 <p>这是可能会提示找不到openssl，如果有该提示，输入如下命令</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">OPENSSL_ROOT_DIR</span>=~/local/openssl/ #绝对路径</span><br></pre></td></tr></table></figure>
@@ -355,7 +355,7 @@
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CPPFLAGS='-I~/local/hdf5/include -I~/local/zlib/include' LDFLAGS='-L~/local/hdf5/lib -L~/local/zlib/lib' ./configure --prefix=~/local/ --disable-dap</span><br><span class="line">make<span class="built_in"> check </span>install</span><br></pre></td></tr></table></figure>
 <p>libcurl是一些程序的依赖，可以提前安装。但是在没有联网的情况下，安装libcurl可能起不到作用。GMT6的一个特点是数据的网络化，例如以前例子中的数据不再经过安装包提供，而是通过网络进行自动下载到本地。</p>
 <h3 id="编译可选择源程序"><a href="#编译可选择源程序" class="headerlink" title="编译可选择源程序"></a>编译可选择源程序</h3><p>接下来编译其他的可选程序，PCRE是(Perl Compatible Regular Expressions)是一个Perl库，包括 perl 兼容的正则表达式库。GDAL(Geospatial Data Abstraction Library)是一个在X/MIT许可协议下的开源栅格空间数据转换库，它利用抽象数据模型来表达所支持的各种文件格式，它还有一系列命令行工具来进行数据转换和处理，GDAL在遥感领域使用较多。FFTW、LAPACK、BLAS主要是数学运算的底层库。</p>
-<p>GDAL的编译需要依赖<a href="https://proj.org/install.html#compilation-and-installation-from-source-code" target="_blank" rel="noopener">proj6</a>和<a href="https://www.sqlite.org/index.html" target="_blank" rel="noopener">sqlite3</a>. Proj软件自1983至今在不断的维护。主要是先坐标转换功能，GMT中的mapproject等程序直接或间接调用了proj接口，其用法和proj非常接近。在安装proj时，根据提示可能需要设置PKG_CONFIG_PATH。</p>
+<p>GDAL的编译需要依赖<a href="https://proj.org/install.html#compilation-and-installation-from-source-code" target="_blank" rel="noopener">proj6</a>和<a href="https://www.sqlite.org/index.html" target="_blank" rel="noopener">sqlite3</a>. Proj软件自1983至今在不断的维护。主要是用于坐标转换，GMT中的mapproject等程序直接或间接调用了proj接口，其用法和proj非常接近。在安装proj时，根据提示可能需要设置PKG_CONFIG_PATH。</p>
 <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PKG_CONFIG_PATH=~local/<span class="class"><span class="keyword">lib</span>/<span class="title">pkgconfig</span>/</span></span><br></pre></td></tr></table></figure>
 <p>为配合GDAL，我还安装了<a href="https://trac.osgeo.org/geos/wiki/BuildingOnUnixWithAutotools" target="_blank" rel="noopener">geos</a>，虽然看起来没起到作用。</p>
 <p>回到GDAL，进行编译，可能还出现如下错误：</p>
@@ -428,6 +428,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/31/Great-circle/" rel="prev" title="北京到纽约的最短路线经过北冰洋">
+                北京到纽约的最短路线经过北冰洋 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -508,7 +512,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

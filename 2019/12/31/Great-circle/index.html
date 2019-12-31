@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="中科院测地所郝晓光研究员编制了竖版世界地图，并且凸显出了北极的战略性意义，指出北京到纽约最近路线通过北冰洋而不是太平洋。这和人们在传统地图上看到的可能不太符合，通过GMT可以计算大圆距离，并在不同的投影上进行绘图，展示北京到纽约的实际最短航线。 先描述一个概念：  大圆航线(Great circle distance)把地球看做一个球体，通过地面上任意两点和地心做一平面，平面与地球表面相交看到的圆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="北京到纽约的最短路线经过北冰洋">
+<meta property="og:url" content="http://yoursite.com/2019/12/31/Great-circle/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="中科院测地所郝晓光研究员编制了竖版世界地图，并且凸显出了北极的战略性意义，指出北京到纽约最近路线通过北冰洋而不是太平洋。这和人们在传统地图上看到的可能不太符合，通过GMT可以计算大圆距离，并在不同的投影上进行绘图，展示北京到纽约的实际最短航线。 先描述一个概念：  大圆航线(Great circle distance)把地球看做一个球体，通过地面上任意两点和地心做一平面，平面与地球表面相交看到的圆">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="http://yoursite.com/images/ex23.png">
+<meta property="og:image" content="http://yoursite.com/images/1.png">
+<meta property="article:published_time" content="2019-12-31T02:45:44.000Z">
+<meta property="article:modified_time" content="2019-12-31T07:41:01.601Z">
+<meta property="article:author" content="Yang Lei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/ex23.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/31/Great-circle/"/>
+
+
+
+
+
+  <title>北京到纽约的最短路线经过北冰洋 | 学习笔记</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/Great-circle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">北京到纽约的最短路线经过北冰洋</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-31T10:45:44+08:00">
+                2019-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>中科院测地所<a href="http://www.hxgmap.com/" target="_blank" rel="noopener">郝晓光</a>研究员编制了竖版世界地图，并且凸显出了北极的战略性意义，指出北京到纽约最近路线通过北冰洋而不是太平洋。这和人们在传统地图上看到的可能不太符合，通过<a href="https://docs.generic-mapping-tools.org/6.0/index.html" target="_blank" rel="noopener">GMT</a>可以计算大圆距离，并在不同的投影上进行绘图，展示北京到纽约的实际最短航线。</p>
+<p>先描述一个概念：</p>
+<blockquote>
+<p>大圆航线(Great circle distance)<br>把地球看做一个球体，通过地面上任意两点和地心做一平面，平面与地球表面相交看到的圆周就是大圆。两点之间的大圆劣弧线是两点在地面上的最短距离。沿着这一段大圆弧线航行时的航线称为大圆航线。由于大圆航线是两点之间的最短航线，故有时称为最经济航线。</p>
+</blockquote>
+<blockquote>
+<p>大地线<br>大地线（Geodesic Lines）是大地测量学术语，指地球椭球面上两点间的最短程曲线。</p>
+</blockquote>
+<p>大地线和大圆航线是不同领域的同一事物的不同说法。</p>
+<h2 id="大圆航线的计算"><a href="#大圆航线的计算" class="headerlink" title="大圆航线的计算"></a>大圆航线的计算</h2><p>首先计算北京到纽约的最短距离，即大圆航线距离。可以使用<code>mapproject</code>计算两个点之间的大圆距离。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.2f</span></span><br><span class="line"><span class="number">116.40</span>  <span class="number">39.90</span>   <span class="number">11018.99</span></span><br></pre></td></tr></table></figure>
+<p>结果表明北京到纽约的大圆距离是11018km。</p>
+<h2 id="北京到全球的最短路线"><a href="#北京到全球的最短路线" class="headerlink" title="北京到全球的最短路线"></a>北京到全球的最短路线</h2><p>使用grdmath计算出北京到全球各地大圆距离的网格数据（NetCDF格式），图上的大圆航线垂直于网格文件的等值线。代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="comment">#		Based on GMT EXAMPLE 23</span></span><br><span class="line"><span class="comment">#		edited by leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment"># Purpose:	Plot distances from Beijing and draw shortest paths</span></span><br><span class="line"><span class="comment"># GMT modules:	grdmath, grdcontour, coast, plot, text, grdtrack</span></span><br><span class="line"><span class="comment"># Unix progs:	echo, cat, awk</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">gmt begin ex23 pdf,png</span><br><span class="line">	<span class="comment"># Position and name of central point:</span></span><br><span class="line">	lon=116.40</span><br><span class="line">	lat=39.90</span><br><span class="line">	name=<span class="string">"Beijing"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Calculate distances (km) to all points on a global 1x1 grid</span></span><br><span class="line">	gmt grdmath -Rg -I1 <span class="variable">$lon</span> <span class="variable">$lat</span> SDIST = dist.nc</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Location info for 5 other cities + label justification</span></span><br><span class="line">	cat &lt;&lt;- END &gt; cities.txt</span><br><span class="line">	105.87	21.02	LM	HANOI</span><br><span class="line">	282.95	-12.1	LM	LIMA</span><br><span class="line">	178.42	-18.13	LM	SUVA</span><br><span class="line">	237.67	47.58	RM	SEATTLE</span><br><span class="line">	-74.00  40.70   LM	NEWYORK</span><br><span class="line">	28.20	-25.75	LM	PRETORIA</span><br><span class="line">	END</span><br><span class="line">	gmt coast -R0/360/-80/80 -JT330/-45/9i -Glightgreen -Slightblue -A1000 -Bg30 -B+t<span class="string">"Distances from <span class="variable">$name</span> to the World"</span> -Wthinnest</span><br><span class="line"><span class="comment">#	gmt coast -Rg -JH140/9i -Glightgreen -Slightblue -A1000 -Bg30 -B+t"Distances from $name to the World" -Wthinnest</span></span><br><span class="line"></span><br><span class="line">	gmt grdcontour dist.nc -A1000+v+u<span class="string">" km"</span>+fwhite -Glz-/z+ -S8 -C500 -Wathin,white -Wcthinnest,white,-</span><br><span class="line"></span><br><span class="line">	<span class="comment"># For each of the cities, plot great circle arc to Rome with gmt plot</span></span><br><span class="line">	gmt plot -Wthickest,red -Fr<span class="variable">$lon</span>/<span class="variable">$lat</span> cities.txt</span><br><span class="line">	cat cities.txt | grep <span class="string">'NEW'</span> |	gmt plot -Wthickest,lightred,- -Fr<span class="variable">$lon</span>/<span class="variable">$lat</span> -A</span><br><span class="line">	<span class="comment"># Plot red squares at cities and plot names:</span></span><br><span class="line">	gmt plot -Ss0.2 -Glightred -Wthinnest cities.txt</span><br><span class="line"></span><br><span class="line">	gmt text -Dj0.15/0 -F+f12p,Courier-Bold,red+j -N cities.txt</span><br><span class="line">	grdinfo dist.nc -M --FORMAT_FLOAT_OUT=0:%g,1:%g,2:%.0f| grep <span class="string">'z_m'</span>| awk -F: <span class="string">'&#123;print $4&#125;'</span> | awk <span class="string">'&#123;print $5,$8,$1&#125;'</span>| gmt text -D0/-0.2i -N -Gwhite -W -C0.02i -F+f12p,Helvetica-Bold+jCT</span><br><span class="line">	<span class="comment"># Place a yellow star at Rome</span></span><br><span class="line">	grdinfo dist.nc -M | grep <span class="string">'z_m'</span>| awk -F= <span class="string">'&#123;print $(NF-1),$NF&#125;'</span>|awk <span class="string">'&#123;print $1,$3&#125;'</span>|gmt plot -Sc0.1 -Gred -Wthinnest </span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"<span class="variable">$lon</span> <span class="variable">$lat</span>"</span> | gmt plot -Sa0.2i -Gyellow -Wthin</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Sample the distance grid at the cities and use the distance in integer km for labels</span></span><br><span class="line">	gmt grdtrack -Gdist.nc cities.txt -o0-2 --FORMAT_FLOAT_OUT=0:%g,1:%g,2:%.0f \</span><br><span class="line">		| gmt text -D0/-0.2i -N -Gwhite -W -C0.02i -F+f12p,Helvetica-Bold+jCT</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Clean up after ourselves:</span></span><br><span class="line">	rm -f cities.txt</span><br><span class="line">gmt end show</span><br></pre></td></tr></table></figure>
+<h2 id="两种投影的地图"><a href="#两种投影的地图" class="headerlink" title="两种投影的地图"></a>两种投影的地图</h2><h3 id="横轴墨卡托投影-Transverse-Mercator-JT330-45-9i"><a href="#横轴墨卡托投影-Transverse-Mercator-JT330-45-9i" class="headerlink" title="横轴墨卡托投影 Transverse Mercator -JT330/-45/9i"></a>横轴墨卡托投影 Transverse Mercator -JT330/-45/9i</h3><p><img src="/images/ex23.png" alt></p>
+<h3 id="哈默投影-Hammer-projection-JH140-9i"><a href="#哈默投影-Hammer-projection-JH140-9i" class="headerlink" title="哈默投影 Hammer projection -JH140/9i"></a>哈默投影 Hammer projection -JH140/9i</h3><p>Hammer投影属于等面积投影，可以绘制全球地图。<br><img src="/images/1.png" alt><br>从图上可看，北京到纽约的最短路线经过北冰洋上空，且临近北极点。北京到纽约的最短路线不经过太平洋是对的。还可以看出，西海岸的西雅图到北京也基本不经过太平洋，而是临近北冰洋边缘的白令海，如此来说，美国国土发射向北京的导弹需要在近北极区域进行监测，那么我国的北斗等卫星计划考虑增加北极区域的覆盖范围也符合实际的。</p>
+<p>此外可以看出地球上距离北京最远的点在南美洲阿根廷，大圆距离是2万公里。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/29/GMT-under-redhat/" rel="next" title="Building GMT under redhat server without internet">
+                <i class="fa fa-chevron-left"></i> Building GMT under redhat server without internet
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/xingchi.jpg"
+                alt="Yang Lei" />
+            
+              <p class="site-author-name" itemprop="name">Yang Lei</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大圆航线的计算"><span class="nav-number">1.</span> <span class="nav-text">大圆航线的计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#北京到全球的最短路线"><span class="nav-number">2.</span> <span class="nav-text">北京到全球的最短路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种投影的地图"><span class="nav-number">3.</span> <span class="nav-text">两种投影的地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#横轴墨卡托投影-Transverse-Mercator-JT330-45-9i"><span class="nav-number">3.1.</span> <span class="nav-text">横轴墨卡托投影 Transverse Mercator -JT330&#x2F;-45&#x2F;9i</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈默投影-Hammer-projection-JH140-9i"><span class="nav-number">3.2.</span> <span class="nav-text">哈默投影 Hammer projection -JH140&#x2F;9i</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
