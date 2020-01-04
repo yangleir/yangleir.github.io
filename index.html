@@ -463,7 +463,7 @@
 <h2 id="两种投影的地图"><a href="#两种投影的地图" class="headerlink" title="两种投影的地图"></a>两种投影的地图</h2><h3 id="横轴墨卡托投影-Transverse-Mercator-JT330-45-9i"><a href="#横轴墨卡托投影-Transverse-Mercator-JT330-45-9i" class="headerlink" title="横轴墨卡托投影 Transverse Mercator -JT330/-45/9i"></a>横轴墨卡托投影 Transverse Mercator -JT330/-45/9i</h3><p><img src="/images/ex23.png" alt></p>
 <h3 id="哈默投影-Hammer-projection-JH140-9i"><a href="#哈默投影-Hammer-projection-JH140-9i" class="headerlink" title="哈默投影 Hammer projection -JH140/9i"></a>哈默投影 Hammer projection -JH140/9i</h3><p>Hammer投影属于等面积投影，可以绘制全球地图。<br><img src="/images/1.png" alt><br>从图上可看，北京到纽约的最短路线经过北冰洋上空，且临近北极点。北京到纽约的最短路线不经过太平洋是对的。还可以看出，西海岸的西雅图到北京也基本不经过太平洋，而是临近北冰洋边缘的白令海，如此来说，美国国土发射向北京的导弹需要在近北极区域进行监测，那么我国的北斗等卫星计划考虑增加北极区域的覆盖范围也符合实际的。</p>
 <p>此外可以看出地球上距离北京最远的点在南美洲阿根廷，大圆距离是2万公里。</p>
-<p>PS:通过本例子，发现了一个Bug，就是在TM投影下，<code>grdcontour</code>绘制Y轴的等值线在全球地图模式下存在wrap现象，就是等值线出现了不应该的头尾相接，我通过GMT在github的<a href="https://github.com/GenericMappingTools/gmt/issues/2389" target="_blank" rel="noopener">repository</a>提交了Bug，不到一天的时间，GMT的作者Paul教授就修正了这个Bug，而且是周末时间，实在是高效认真负责。</p>
+<p>PS:通过本例子，发现了一个Bug，在TM投影下<code>grdcontour</code>绘制Y轴的等值线在全球地图模式下存在wrap现象，就是等值线出现了不应该的头尾相接，我通过GMT在github的<a href="https://github.com/GenericMappingTools/gmt/issues/2389" target="_blank" rel="noopener">repository</a>提交了Bug，不到一天的时间，GMT的作者Paul教授就修正了这个Bug，而且是周末时间，实在是高效认真负责。</p>
 
           
         
