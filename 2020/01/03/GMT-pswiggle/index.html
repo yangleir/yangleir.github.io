@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用这类的图形。 GMT的官方文档]给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道|传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但主要目的已经表示出来了，这个程序主要是用来绘制数据异常值在沿轨上的填充的。所谓异常值可以理解是均值之外的值都是异常值，大于均值为正，小于均值为负。然">
+<meta name="description" content="本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用到这类的图形。 GMT的官方文档给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道|传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但可以清楚的看出这个程序主要是用来绘制异常值的颜色填充。所谓异常值可以理解为均值之外的值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GMT pswiggle的使用例子">
 <meta property="og:url" content="http://yoursite.com/2020/01/03/GMT-pswiggle/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用这类的图形。 GMT的官方文档]给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道|传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但主要目的已经表示出来了，这个程序主要是用来绘制数据异常值在沿轨上的填充的。所谓异常值可以理解是均值之外的值都是异常值，大于均值为正，小于均值为负。然">
+<meta property="og:description" content="本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用到这类的图形。 GMT的官方文档给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道|传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但可以清楚的看出这个程序主要是用来绘制异常值的颜色填充。所谓异常值可以理解为均值之外的值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://yoursite.com/images/mapwiddge.png">
 <meta property="og:image" content="http://yoursite.com/images/example_30.png">
 <meta property="article:published_time" content="2020-01-03T14:55:30.276Z">
-<meta property="article:modified_time" content="2020-01-03T15:44:43.659Z">
+<meta property="article:modified_time" content="2020-01-04T03:12:33.945Z">
 <meta property="article:author" content="Yang Lei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/mapwiddge.png">
@@ -312,15 +312,15 @@
       
 
       
-        <p>本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用这类的图形。</p>
-<p>GMT的官方文档]给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道<code>|</code>传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但主要目的已经表示出来了，这个程序主要是用来绘制数据异常值在沿轨上的填充的。所谓异常值可以理解是均值之外的值都是异常值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的填充。</p>
+        <p>本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用到这类的图形。</p>
+<p>GMT的官方文档给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道<code>|</code>传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但可以清楚的看出这个程序主要是用来绘制异常值的颜色填充。所谓异常值可以理解为均值之外的值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的填充。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt math -T<span class="number">-8</span>/<span class="number">6</span>/<span class="number">0.01</span> -N3/<span class="number">0</span> -C2 T <span class="number">3</span> DIV <span class="number">2</span> POW NEG EXP T <span class="literal">PI</span> <span class="number">2</span> MUL MUL COS MUL <span class="number">50</span> MUL = | gmt wiggle -R<span class="number">-10</span>/<span class="number">10</span>/<span class="number">-3</span>/<span class="number">3</span> -JM6i -B -Z100i -DjRM+w100+lnT -Tfaint -Gred+p -W1p -BWSne -png map</span><br></pre></td></tr></table></figure>
 <p><img src="/images/mapwiddge.png" alt></p>
-<p>下面给出在笛卡尔坐标系下的简单例子，首先用awk作出正弦函数以及叠加的正余弦周期函数，并用widdge绘制图像。需要注意的时<code>-z</code>的用法。</p>
+<p>下面给出在笛卡尔坐标系下的简单例子，首先用awk作出正弦函数以及叠加的正余弦周期函数，并用widdge绘制图像。需要注意<code>-z</code>比例因子的用法。</p>
 <blockquote>
 <p>-Zscale[units]<br>Gives anomaly scale in data-units/distance-unit, where distance-unit is the currently chosen unit specified by PROJ_LENGTH_UNIT. Alternatively, append a distance-unit among the other choices (c|i|p).</p>
 </blockquote>
-<p>此外如果需要改变坐标轴的方向，设置<code>-JX-20c/10c</code>中的宽度为负。</p>
+<p>此外如果需要改变坐标轴的方向，设置<code>-JX-20c/-10c</code>中的宽度为负。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># test psw ,leiyang@fio.org.cn</span></span><br><span class="line"></span><br><span class="line">ps=example_30.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R0/100/-10/10 -JX-20c/-10c -Bx20f20 -By1g2 -BEN+t<span class="string">"Test pswiggle"</span> -K --MAP_FRAME_TYPE=graph --MAP_VECTOR_SHAPE=0.5 &gt; <span class="variable">$ps</span></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,2,sin(i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -K -J -G+red -G-blue -Z1 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,-2,cos(i)+3*sin(2*i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -J -G+red -G-blue -Z2 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">psconvert <span class="variable">$ps</span> -A -Tg -P</span><br><span class="line">rm *.dat</span><br></pre></td></tr></table></figure>
 <p><img src="/images/example_30.png" alt></p>
 
@@ -427,7 +427,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

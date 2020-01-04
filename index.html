@@ -310,15 +310,15 @@
       
         
           
-            <p>本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用这类的图形。</p>
-<p>GMT的官方文档]给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道<code>|</code>传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但主要目的已经表示出来了，这个程序主要是用来绘制数据异常值在沿轨上的填充的。所谓异常值可以理解是均值之外的值都是异常值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的填充。</p>
+            <p>本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用到这类的图形。</p>
+<p>GMT的官方文档给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道<code>|</code>传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但可以清楚的看出这个程序主要是用来绘制异常值的颜色填充。所谓异常值可以理解为均值之外的值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的填充。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt math -T<span class="number">-8</span>/<span class="number">6</span>/<span class="number">0.01</span> -N3/<span class="number">0</span> -C2 T <span class="number">3</span> DIV <span class="number">2</span> POW NEG EXP T <span class="literal">PI</span> <span class="number">2</span> MUL MUL COS MUL <span class="number">50</span> MUL = | gmt wiggle -R<span class="number">-10</span>/<span class="number">10</span>/<span class="number">-3</span>/<span class="number">3</span> -JM6i -B -Z100i -DjRM+w100+lnT -Tfaint -Gred+p -W1p -BWSne -png map</span><br></pre></td></tr></table></figure>
 <p><img src="/images/mapwiddge.png" alt></p>
-<p>下面给出在笛卡尔坐标系下的简单例子，首先用awk作出正弦函数以及叠加的正余弦周期函数，并用widdge绘制图像。需要注意的时<code>-z</code>的用法。</p>
+<p>下面给出在笛卡尔坐标系下的简单例子，首先用awk作出正弦函数以及叠加的正余弦周期函数，并用widdge绘制图像。需要注意<code>-z</code>比例因子的用法。</p>
 <blockquote>
 <p>-Zscale[units]<br>Gives anomaly scale in data-units/distance-unit, where distance-unit is the currently chosen unit specified by PROJ_LENGTH_UNIT. Alternatively, append a distance-unit among the other choices (c|i|p).</p>
 </blockquote>
-<p>此外如果需要改变坐标轴的方向，设置<code>-JX-20c/10c</code>中的宽度为负。</p>
+<p>此外如果需要改变坐标轴的方向，设置<code>-JX-20c/-10c</code>中的宽度为负。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># test psw ,leiyang@fio.org.cn</span></span><br><span class="line"></span><br><span class="line">ps=example_30.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R0/100/-10/10 -JX-20c/-10c -Bx20f20 -By1g2 -BEN+t<span class="string">"Test pswiggle"</span> -K --MAP_FRAME_TYPE=graph --MAP_VECTOR_SHAPE=0.5 &gt; <span class="variable">$ps</span></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,2,sin(i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -K -J -G+red -G-blue -Z1 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,-2,cos(i)+3*sin(2*i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -J -G+red -G-blue -Z2 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">psconvert <span class="variable">$ps</span> -A -Tg -P</span><br><span class="line">rm *.dat</span><br></pre></td></tr></table></figure>
 <p><img src="/images/example_30.png" alt></p>
 
@@ -696,138 +696,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/29/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/29/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-29T14:00:53+08:00">
-                2019-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -878,7 +746,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
