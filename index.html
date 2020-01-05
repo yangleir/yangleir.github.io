@@ -259,6 +259,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/map-different-view/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/05/map-different-view/" itemprop="url">map-different-view</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-05T23:08:12+08:00">
+                2020-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>郝晓光研究员的竖版地图才用了和传统地图上北下南不一样的视角，展现了一个奇异有趣的世界格局。吸引我的是他的地图可以可以用在极地科学考察领域，将南北极以较小的变形投影到一张图上，因此科学考察的路线一目了然。</p>
+<p>使用GMT绘制传统的全球地图，仅需要下面一行命令，投影采用了Robinson projection:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt pscoast -Rd -JN5i -Bg30 -Df -A10000 -Glightgray -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c -png mapnormal</span><br></pre></td></tr></table></figure>
+<p><img src="/images/mapnormal.png" alt></p>
+<center>GMT绘制的Robinson投影全球地图</center>
+<br>
+
+<p><img src="/images/1106south.jpg" alt></p>
+<center>逆天竖版地图，图片来源：郝晓光个人主页，点击 <a href="http://www.hxgmap.com/" target="_blank" rel="noopener" title="hxgmap">郝晓光 </a>。</center> <br>
+
+<p>可见两种地图给人的感受是完全不一样的。<br>地图投影的基本原理是把球面展开，通过一定的数学关系投影到平面。按照变形基本上又分为等面积投影、等角度投影和任意投影。传统地图照顾到人类的居住大陆的投影变形，而忽略了南北极的变形，且遵从上北下南的常识，而郝晓光的地图则考照顾到南北极的变形，一定程度上增加人类居住区域的变形，例如南美洲。如下图展示，正常地图是东西“撕开”球面，竖版地图则是一种换了方向的球面展开，是南北“撕开”球面。</p>
+<p><img src="/images/%E5%88%87.jfif" alt></p>
+<p>使用GMT的TM投影，大概可以简单的实现此类视角，但是和郝晓光的地图投影还是有所差异。这个问题留给以后解决，有可能的话将加入到GMT投影集。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gmt begin TMcontours ps,png</span><br><span class="line">    gmt coast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT160/<span class="number">-50</span>/<span class="number">4</span>i -Glightgray -A10000 -Df -Ba30g30 -X6i -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c </span><br><span class="line">gmt end</span><br></pre></td></tr></table></figure>
+<p><img src="/images/TMcontours.png" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/GMT-pswiggle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -833,7 +967,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -855,7 +989,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -871,6 +1005,24 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://getmyte.com/" title="getmyte" target="_blank">getmyte</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.economist.com/" title="Economist" target="_blank">Economist</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
