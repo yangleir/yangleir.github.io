@@ -1008,12 +1008,16 @@
 <hr>
 <p>Log of errors:<br> ~/gmt/cmake-3.16.1/Bootstrap.cmk/cmake_bootstrap.log</p>
 </blockquote>
-<p>因此需要下载新的GCC源，并编译GCC。因为服务器根目录已经有低版本的GCC了，因此系统将存在多个GCC编译器。在具体使用的时候要提高新版本GCC的优先级。网上有多种办法，我是将新GCC的bin路径放到了系统路径的前面。然后查看GCC版本为9.2.0。在进行CMAKE的编译不会上述错误提示。 GCC的安装编译时间较长，大概1小时。<br>GCC的安装编译还需要依赖其他库，GMP、MPFR、MPC和ISL。可参考<a href="https://segmentfault.com/a/1190000002982589" target="_blank" rel="noopener">安装教程</a><br>CMAKE安装还依赖openssl（一套描述文件处理、加密算法和其他信息技术标准），下载源码并编译openssl。编程成功后再回到CMAKE，编译CMAKE。</p>
+<p>因此需要下载新的GCC源，并编译GCC。因为服务器根目录已经有低版本的GCC了，因此系统将存在多个GCC编译器。在具体使用的时候要提高新版本GCC的优先级。网上有多种办法，我是将新GCC的bin路径放到了系统路径的前面。然后查看GCC版本为9.2.0。在进行CMAKE的编译不会上述错误提示。 GCC的安装编译时间较长，大概1小时。</p>
+<p>GCC的安装编译还需要依赖其他库，GMP、MPFR、MPC和ISL。可参考<a href="https://segmentfault.com/a/1190000002982589" target="_blank" rel="noopener">安装教程</a>.</p>
+<p>CMAKE安装还依赖openssl（一套描述文件处理、加密算法和其他信息技术标准），下载源码并编译openssl。编程成功后再回到CMAKE，编译CMAKE。</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./<span class="keyword">bootstrap</span></span><br><span class="line"><span class="keyword">gmake</span></span><br><span class="line"><span class="keyword">gmake </span>install</span><br></pre></td></tr></table></figure>
 <p>这是可能会提示找不到openssl，如果有该提示，输入如下命令</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">OPENSSL_ROOT_DIR</span>=~/local/openssl/ #绝对路径</span><br></pre></td></tr></table></figure>
-<p>将cmake目录下的CMakeCache.txt删掉，重新从bootstrap开始进行编译。<br>CMAKE安装结束。</p>
-<p>安装NetCDF，需要先安装zlib和hdf5。此外在无网络环境下，可以设置<code>--disable-dap</code>。<br>安装NetCDF提示找不到hdf5，实际上已经安装并且设置系统路径变量。如果出现类似错误，根据错误提示可以做如下设置：</p>
+<p>将cmake目录下的CMakeCache.txt删掉，重新从bootstrap开始进行编译。</p>
+<p>CMAKE安装结束。</p>
+<p>安装NetCDF，需要先安装zlib和hdf5。此外在无网络环境下，可以设置<code>--disable-dap</code>。</p>
+<p>安装NetCDF提示找不到hdf5，实际上已经安装并且设置系统路径变量。如果出现类似错误，根据错误提示可以做如下设置：</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CPPFLAGS='-I~/local/hdf5/include -I~/local/zlib/include' LDFLAGS='-L~/local/hdf5/lib -L~/local/zlib/lib' ./configure --prefix=~/local/ --disable-dap</span><br><span class="line">make<span class="built_in"> check </span>install</span><br></pre></td></tr></table></figure>
 <p>libcurl是一些程序的依赖，可以提前安装。但是在没有联网的情况下，安装libcurl可能起不到作用。GMT6的一个特点是数据的网络化，例如以前例子中的数据不再经过安装包提供，而是通过网络进行自动下载到本地。</p>
 <h3 id="编译可选择源程序"><a href="#编译可选择源程序" class="headerlink" title="编译可选择源程序"></a>编译可选择源程序</h3><p>接下来编译其他的可选程序，PCRE是(Perl Compatible Regular Expressions)是一个Perl库，包括 perl 兼容的正则表达式库。GDAL(Geospatial Data Abstraction Library)是一个在X/MIT许可协议下的开源栅格空间数据转换库，它利用抽象数据模型来表达所支持的各种文件格式，它还有一系列命令行工具来进行数据转换和处理，GDAL在遥感领域使用较多。FFTW、LAPACK、BLAS主要是数学运算的底层库。</p>
