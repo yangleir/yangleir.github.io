@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="GMT,竖版地图," />
+  <meta name="keywords" content="GMT,landmask," />
 
 
 
@@ -79,24 +79,21 @@
 
 
 
-<meta name="description" content="郝晓光研究员的竖版地图采用了和传统地图上北下南不一样的视角，展现了一个奇异有趣的世界格局。吸引我的是他的地图可以用在极地科学考察领域，将南北极以较小的变形投影到一张图上，科学考察的路线一目了然。 使用GMT绘制传统的全球地图，仅需要下面一行命令，投影采用了Robinson projection: 1$ gmt pscoast -Rd -JN5i -Bg30 -Df -A10000 -Glightg">
+<meta name="description" content="首先解决几个基本的问题。 提问：我有一个tif格式的文件，可以在GMT中直接使用吗？回答：可以直接使用。因为GMT已经引用了GDAL。 提问：我的tif坐标是UTM，能转成经纬度吗？回答：可以，有两种方法可以转化，并互相检验。一种是grdproject，一种是先通过grd2xyz转成文本，然后通过mapproject转换为经纬度，在通过xyz2grd转为nc。经检验，两种方法一致，因此直接采用第一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GMT竖版地图">
-<meta property="og:url" content="http://yoursite.com/2020/01/05/map-different-view/index.html">
+<meta property="og:title" content="grdlandmask和grdmath配合解决陆海数据分离">
+<meta property="og:url" content="http://yoursite.com/2020/01/10/landmask/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="郝晓光研究员的竖版地图采用了和传统地图上北下南不一样的视角，展现了一个奇异有趣的世界格局。吸引我的是他的地图可以用在极地科学考察领域，将南北极以较小的变形投影到一张图上，科学考察的路线一目了然。 使用GMT绘制传统的全球地图，仅需要下面一行命令，投影采用了Robinson projection: 1$ gmt pscoast -Rd -JN5i -Bg30 -Df -A10000 -Glightg">
+<meta property="og:description" content="首先解决几个基本的问题。 提问：我有一个tif格式的文件，可以在GMT中直接使用吗？回答：可以直接使用。因为GMT已经引用了GDAL。 提问：我的tif坐标是UTM，能转成经纬度吗？回答：可以，有两种方法可以转化，并互相检验。一种是grdproject，一种是先通过grd2xyz转成文本，然后通过mapproject转换为经纬度，在通过xyz2grd转为nc。经检验，两种方法一致，因此直接采用第一">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="http://yoursite.com/images/mapnormal.png">
-<meta property="og:image" content="http://yoursite.com/images/1106south.jpg">
-<meta property="og:image" content="http://yoursite.com/images/%E5%88%87.jfif">
-<meta property="og:image" content="http://yoursite.com/images/TMcontours.png">
-<meta property="article:published_time" content="2020-01-05T15:08:12.000Z">
-<meta property="article:modified_time" content="2020-01-08T06:17:28.154Z">
+<meta property="og:image" content="http://yoursite.com/images/tg2_test.png">
+<meta property="article:published_time" content="2020-01-10T14:47:35.000Z">
+<meta property="article:modified_time" content="2020-01-10T16:03:39.183Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
-<meta property="article:tag" content="竖版地图">
+<meta property="article:tag" content="landmask">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/mapnormal.png">
+<meta name="twitter:image" content="http://yoursite.com/images/tg2_test.png">
 
 
 
@@ -126,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/01/05/map-different-view/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/01/10/landmask/"/>
 
 
 
 
 
-  <title>GMT竖版地图 | 学习笔记</title>
+  <title>grdlandmask和grdmath配合解决陆海数据分离 | 学习笔记</title>
   
 
 
@@ -269,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/map-different-view/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/10/landmask/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -286,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GMT竖版地图</h1>
+          <h1 class="post-title" itemprop="name headline">grdlandmask和grdmath配合解决陆海数据分离</h1>
         
 
         <div class="post-meta">
@@ -298,8 +295,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-05T23:08:12+08:00">
-                2020-01-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-10T22:47:35+08:00">
+                2020-01-10
               </time>
             
 
@@ -358,22 +355,22 @@
       
 
       
-        <p>郝晓光研究员的竖版地图采用了和传统地图上北下南不一样的视角，展现了一个奇异有趣的世界格局。吸引我的是他的地图可以用在极地科学考察领域，将南北极以较小的变形投影到一张图上，科学考察的路线一目了然。</p>
-<p>使用GMT绘制传统的全球地图，仅需要下面一行命令，投影采用了Robinson projection:</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt pscoast -Rd -JN5i -Bg30 -Df -A10000 -Glightgray -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c -png mapnormal</span><br></pre></td></tr></table></figure>
-<p><img src="/images/mapnormal.png" alt></p>
-<center>GMT绘制的Robinson投影全球地图</center>
-<br>
+        <p>首先解决几个基本的问题。</p>
+<p>提问：我有一个tif格式的文件，可以在GMT中直接使用吗？<br>回答：可以直接使用。因为GMT已经引用了GDAL。</p>
+<p>提问：我的tif坐标是UTM，能转成经纬度吗？<br>回答：可以，有两种方法可以转化，并互相检验。一种是grdproject，一种是先通过grd2xyz转成文本，然后通过mapproject转换为经纬度，在通过xyz2grd转为nc。经检验，两种方法一致，因此直接采用第一种即可。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">274980</span> <span class="number">4039220</span> |gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -I -F</span><br><span class="line"><span class="number">120.488507928</span>   <span class="number">36.4718659261</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">274980</span> <span class="number">4039220</span> |gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -I -F | gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -F</span><br><span class="line"><span class="number">274979.999879</span>   <span class="number">4039220</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/1106south.jpg" alt></p>
-<center>逆天竖版地图，图片来源：郝晓光个人主页，点击 <a href="http://www.hxgmap.com/" target="_blank" rel="noopener" title="hxgmap">郝晓光 </a>。</center> <br>
 
-<p>可见两种地图给人的感受是完全不一样的。<br>地图投影的基本原理是把球面展开，通过一定的数学关系投影到平面。按照变形基本上又分为等面积投影、等角度投影和任意投影。传统地图照顾到人类的居住大陆的投影变形，而忽略了南北极的变形，且遵从上北下南的常识，而郝晓光的地图则考照顾到南北极的变形，一定程度上增加人类居住区域的变形，例如南美洲。如下图展示，正常地图是东西“撕开”球面，竖版地图则是一种换了方向的球面展开，是南北“撕开”球面。</p>
-<p><img src="/images/%E5%88%87.jfif" alt></p>
-<p>使用GMT的TM投影，大概可以简单的实现此类视角，但是和郝晓光的地图投影还是有所差异。这个问题留给以后解决，有可能的话将加入到GMT投影集。</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gmt begin TMcontours ps,png</span><br><span class="line">    gmt coast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT160/<span class="number">-50</span>/<span class="number">4</span>i -Glightgray -A10000 -Df -Ba30g30 -X6i -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c </span><br><span class="line">gmt end</span><br></pre></td></tr></table></figure>
-<p><img src="/images/TMcontours.png" alt></p>
-
+<p>提问：我有一个nc文件，包含陆地和海洋区域，现在我想把陆地填充为0或者无效值，保留海洋上的数据，怎么办？<br>回答：可以先通过grdlandmask做一个陆地掩模，然后通过grdmath进行运算。</p>
+<p>示例：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdlandmask -<span class="module-access"><span class="module"><span class="identifier">Rgeo2</span>.</span></span>grd -Df -N1/NaN -<span class="module-access"><span class="module"><span class="identifier">Gland_mask</span>.</span></span>nc -V</span><br></pre></td></tr></table></figure>
+<p>设置陆地区域的数据值为NaN，海洋区域的数据为1，并生成等网格间隔的nc文件。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdmath geo2<span class="selector-class">.grd</span> land_mask<span class="selector-class">.nc</span> MUL = geo2.grd</span><br></pre></td></tr></table></figure>
+<p>进行网格文件的数学运算，两个网格文件相乘，NaN相乘得到NaN，海洋数据和1相乘还是海洋数据。</p>
+<p><img src="/images/tg2_test.png" alt></p>
+<p>绘图和数据处理的完整代码，本数据为天宫2数据，可以替换成任意tif数据。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mm:ssF</span><br><span class="line">gmt gmtset <span class="attribute">MAP_FRAME_WIDTH</span>=2p PS_CHAR_ENCODING = ISOLatin1+</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY 7p,Helvetica,black FONT_LABEL 7p,Helvetica,black</span><br><span class="line"></span><br><span class="line"><span class="attribute">tif2</span>=T2_IALT_SRRH_SCI_20170806150925_20170806152709_L4_1_58_20180713110926_V200.tif</span><br><span class="line"></span><br><span class="line"><span class="attribute">ps</span>=tg2_test.ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line"></span><br><span class="line">gmt grdproject -Ju51S/1:1 -C -F -I <span class="variable">$tif2</span> -Ggeo2.grd </span><br><span class="line"></span><br><span class="line">gmt grdlandmask -Rgeo2.grd -Df -N1/NaN -Gland_mask.nc -V</span><br><span class="line">gmt grdmath geo2.grd land_mask.nc MUL = geo3.grd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gmt pscoast -Ju51S/1:1500000  -Df+ -W0.5p,blue -Ba12mg12m -BNESW -K  <span class="attribute">--MAP_ANNOT_OBLIQUE</span>=40 -R  &gt;<span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt grd2cpt geo2.grd -Crainbow &gt; mydata.cpt</span><br><span class="line">gmt grdimage geo2.grd -R -J -Cmydata.cpt -K -Q -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt pscoast -Ju51S/1:1500000  -Df+ -W0.5p,blue -Ba12mg12m -BNESW -K <span class="attribute">--MAP_ANNOT_OBLIQUE</span>=40 -R -O -X2.5i &gt;&gt;<span class="variable">$ps</span></span><br><span class="line">gmt grdimage geo3.grd -R -J -Cmydata.cpt -Q -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -P -Tg</span><br><span class="line">rm *.nc *.cpt *.grd</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -392,7 +389,7 @@
           
             <a href="/tags/GMT/" rel="tag"># GMT</a>
           
-            <a href="/tags/%E7%AB%96%E7%89%88%E5%9C%B0%E5%9B%BE/" rel="tag"># 竖版地图</a>
+            <a href="/tags/landmask/" rel="tag"># landmask</a>
           
         </div>
       
@@ -405,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/03/GMT-pswiggle/" rel="next" title="GMT pswiggle的使用例子">
-                <i class="fa fa-chevron-left"></i> GMT pswiggle的使用例子
+              <a href="/2020/01/08/fft-gmt/" rel="next" title="GMT用于功率谱分析">
+                <i class="fa fa-chevron-left"></i> GMT用于功率谱分析
               </a>
             
           </div>
@@ -414,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/08/fft-gmt/" rel="prev" title="GMT用于功率谱分析">
-                GMT用于功率谱分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
