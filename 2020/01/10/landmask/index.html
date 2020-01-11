@@ -88,7 +88,7 @@
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://yoursite.com/images/tg2_test.png">
 <meta property="article:published_time" content="2020-01-10T14:47:35.000Z">
-<meta property="article:modified_time" content="2020-01-10T16:03:39.183Z">
+<meta property="article:modified_time" content="2020-01-11T12:10:23.123Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
 <meta property="article:tag" content="landmask">
@@ -357,10 +357,12 @@
       
         <p>首先解决几个基本的问题。</p>
 <p>提问：我有一个tif格式的文件，可以在GMT中直接使用吗？<br>回答：可以直接使用。因为GMT已经引用了GDAL。</p>
-<p>提问：我的tif坐标是UTM，能转成经纬度吗？<br>回答：可以，有两种方法可以转化，并互相检验。一种是grdproject，一种是先通过grd2xyz转成文本，然后通过mapproject转换为经纬度，在通过xyz2grd转为nc。经检验，两种方法一致，因此直接采用第一种即可。</p>
+<p>提问：我的tif坐标是UTM，能转成经纬度吗？<br>回答：可以，有两种方法可以转化，并互相检验。一种是grdproject，一种是先通过grd2xyz转成文本，然后通过mapproject转换为经纬度，在通过xyz2grd转为nc。经检验，两种方法一致，因此直接采用第一种即可。需要注意的是选择UTM投影代号。<br>其中grdproject用法：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -F -I $tif2 -Ggeo2.grd</span><br></pre></td></tr></table></figure>
+<p>mapproject用法：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">274980</span> <span class="number">4039220</span> |gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -I -F</span><br><span class="line"><span class="number">120.488507928</span>   <span class="number">36.4718659261</span></span><br></pre></td></tr></table></figure>
+<p>mapproject反转换的用法：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">274980</span> <span class="number">4039220</span> |gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -I -F | gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -F</span><br><span class="line"><span class="number">274979.999879</span>   <span class="number">4039220</span></span><br></pre></td></tr></table></figure>
-
 
 <p>提问：我有一个nc文件，包含陆地和海洋区域，现在我想把陆地填充为0或者无效值，保留海洋上的数据，怎么办？<br>回答：可以先通过grdlandmask做一个陆地掩模，然后通过grdmath进行运算。</p>
 <p>示例：</p>
@@ -369,7 +371,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdmath geo2<span class="selector-class">.grd</span> land_mask<span class="selector-class">.nc</span> MUL = geo2.grd</span><br></pre></td></tr></table></figure>
 <p>进行网格文件的数学运算，两个网格文件相乘，NaN相乘得到NaN，海洋数据和1相乘还是海洋数据。</p>
 <p><img src="/images/tg2_test.png" alt></p>
-<p>绘图和数据处理的完整代码，本数据为天宫2数据，可以替换成任意tif数据。</p>
+<p>绘图和数据处理的完整代码，本数据为天宫2数据，点击<a href="https://pan.baidu.com/s/1PyBFzPU_SxVfrXYvBNoaBg" target="_blank" rel="noopener">下载</a>，提取码cdl3，也可以替换成任意tif数据，但需要根据坐标修改UTM的代号。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mm:ssF</span><br><span class="line">gmt gmtset <span class="attribute">MAP_FRAME_WIDTH</span>=2p PS_CHAR_ENCODING = ISOLatin1+</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY 7p,Helvetica,black FONT_LABEL 7p,Helvetica,black</span><br><span class="line"></span><br><span class="line"><span class="attribute">tif2</span>=T2_IALT_SRRH_SCI_20170806150925_20170806152709_L4_1_58_20180713110926_V200.tif</span><br><span class="line"></span><br><span class="line"><span class="attribute">ps</span>=tg2_test.ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line"></span><br><span class="line">gmt grdproject -Ju51S/1:1 -C -F -I <span class="variable">$tif2</span> -Ggeo2.grd </span><br><span class="line"></span><br><span class="line">gmt grdlandmask -Rgeo2.grd -Df -N1/NaN -Gland_mask.nc -V</span><br><span class="line">gmt grdmath geo2.grd land_mask.nc MUL = geo3.grd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gmt pscoast -Ju51S/1:1500000  -Df+ -W0.5p,blue -Ba12mg12m -BNESW -K  <span class="attribute">--MAP_ANNOT_OBLIQUE</span>=40 -R  &gt;<span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt grd2cpt geo2.grd -Crainbow &gt; mydata.cpt</span><br><span class="line">gmt grdimage geo2.grd -R -J -Cmydata.cpt -K -Q -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt pscoast -Ju51S/1:1500000  -Df+ -W0.5p,blue -Ba12mg12m -BNESW -K <span class="attribute">--MAP_ANNOT_OBLIQUE</span>=40 -R -O -X2.5i &gt;&gt;<span class="variable">$ps</span></span><br><span class="line">gmt grdimage geo3.grd -R -J -Cmydata.cpt -Q -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -P -Tg</span><br><span class="line">rm *.nc *.cpt *.grd</span><br></pre></td></tr></table></figure>
       
     </div>
@@ -411,6 +413,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/11/pscoast-dump/" rel="prev" title="pscoast提取海岸线、湖泊岸线、行政边界">
+                pscoast提取海岸线、湖泊岸线、行政边界 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -485,7 +491,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -507,7 +513,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
