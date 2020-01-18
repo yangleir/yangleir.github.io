@@ -259,6 +259,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/18/awk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/18/awk/" itemprop="url">awk的几点用法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-18T10:00:59+08:00">
+                2020-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>AWK</code>是常用的数据处理工具，内置的变量名称为：</p>
+<blockquote>
+<p>变量名    含义<br>ARGC   命令行变元个数<br>ARGV   命令行变元数组<br>FILENAME   当前输入文件名<br>FNR   当前文件中的记录号<br>FS   输入域分隔符，默认为一个空格<br>RS   输入记录分隔符<br>NF   当前记录里域个数<br>NR   到目前为止记录数<br>OFS   输出域分隔符<br>ORS   输出记录分隔</p>
+</blockquote>
+<p>这里列出几条常用的命令。</p>
+<h1 id="1-编辑"><a href="#1-编辑" class="headerlink" title="1 编辑"></a>1 编辑</h1><p>数据格式如下，输入到GMT的psxy无法识别segment，因此使用awk处理，segment分隔符修改为<code>&gt;</code>。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ head far_xmd_latlon.dat</span><br><span class="line">       <span class="number">0</span></span><br><span class="line">       <span class="number">120.52067</span>       <span class="number">36.022747</span></span><br><span class="line">       <span class="number">120.52073</span>       <span class="number">36.022694</span></span><br><span class="line">       <span class="number">1</span></span><br><span class="line">       <span class="number">120.52075</span>       <span class="number">36.022607</span></span><br><span class="line">       <span class="number">120.52083</span>       <span class="number">36.022572</span></span><br><span class="line">       <span class="number">2</span></span><br><span class="line">       <span class="number">120.52083</span>       <span class="number">36.022554</span></span><br><span class="line">       <span class="number">120.52094</span>       <span class="number">36.022519</span></span><br><span class="line">       <span class="number">120.52102</span>       <span class="number">36.022484</span></span><br><span class="line">       <span class="number">120.52108</span>       <span class="number">36.022397</span></span><br><span class="line">       <span class="number">120.52110</span>       <span class="number">36.022345</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ awk '&#123;if(FNR==<span class="number">1</span>)&#123;tmp2=$<span class="number">2</span>&#125;if($<span class="number">2</span>==null)&#123;$<span class="number">2</span>=$<span class="number">1</span>;$<span class="number">3</span>=$<span class="number">1</span>;$<span class="number">1</span>=<span class="string">"&gt;"</span>&#125;;tmp2=$<span class="number">2</span>;a[FNR]=$<span class="number">1</span><span class="string">" "</span>$<span class="number">2</span>; print a[FNR]&#125;'  far_xmd_latlon.dat | head</span><br><span class="line">&gt; <span class="number">0</span></span><br><span class="line"><span class="number">120.52067</span> <span class="number">36.022747</span></span><br><span class="line"><span class="number">120.52073</span> <span class="number">36.022694</span></span><br><span class="line">&gt; <span class="number">1</span></span><br><span class="line"><span class="number">120.52075</span> <span class="number">36.022607</span></span><br><span class="line"><span class="number">120.52083</span> <span class="number">36.022572</span></span><br><span class="line">&gt; <span class="number">2</span></span><br><span class="line"><span class="number">120.52083</span> <span class="number">36.022554</span></span><br><span class="line"><span class="number">120.52094</span> <span class="number">36.022519</span></span><br><span class="line"><span class="number">120.52102</span> <span class="number">36.022484</span></span><br><span class="line"><span class="number">120.52108</span> <span class="number">36.022397</span></span><br><span class="line"><span class="number">120.52110</span> <span class="number">36.022345</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-判断"><a href="#2-判断" class="headerlink" title="2 判断"></a>2 判断</h1><p>判断某一列不包含NaN，或者不包含任意其他数字或者字符，替换<code>!/NaN/</code>。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">awk</span> <span class="string">' !/NaN/ &#123;print <span class="variable">$1</span>,<span class="variable">$3</span>&#125;'</span> track2.dat &gt;track.dat</span><br></pre></td></tr></table></figure>
+<p>判断包含某一个数字</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'/101/'</span>    <span class="keyword">file</span>      显示文件<span class="keyword">file</span>中包含<span class="number">101</span>的匹配行。 </span><br><span class="line">awk <span class="string">'/101/,/105/'</span>  <span class="keyword">file</span></span><br></pre></td></tr></table></figure>
+
+<p>其他判断</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">awk '$<span class="number">1</span> == <span class="number">5</span>'    file </span><br><span class="line">awk '$<span class="number">1</span> == <span class="string">"CT"</span>'    file    注意必须带双引号 </span><br><span class="line">awk '$<span class="number">1</span> * $<span class="number">2</span> &gt;<span class="number">100</span> '   file  </span><br><span class="line">awk '$<span class="number">2</span> &gt;<span class="number">5</span> &amp;&amp; $<span class="number">2</span>&lt;=<span class="number">15</span>'  file</span><br></pre></td></tr></table></figure>
+<h1 id="3-替换"><a href="#3-替换" class="headerlink" title="3 替换"></a>3 替换</h1><p>待定</p>
+<h1 id="4-应用"><a href="#4-应用" class="headerlink" title="4 应用"></a>4 应用</h1><p>从xml文件中批量提取天宫坐标范围</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">grep</span> -wf vol.d2 tmp.d &gt; result.d</span><br><span class="line">get location of tiangong2 data</span><br><span class="line">cat <span class="regexp">*.xml</span> | grep <span class="string">'CenterPointLat'</span>  | awk -F<span class="string">"&gt;"</span> <span class="string">'&#123;print <span class="variable">$2</span>&#125;'</span> | awk -F<span class="string">"&lt;"</span> <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span> &gt; ../track.dat</span><br><span class="line">cat <span class="regexp">*.xml</span> | grep <span class="string">'CenterPointLon'</span>  | awk -F<span class="string">"&gt;"</span> <span class="string">'&#123;print <span class="variable">$2</span>&#125;'</span> | awk -F<span class="string">"&lt;"</span> <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span> &gt; ../track_lon.dat</span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span> ../track_lon.dat | paste - ../track.dat &gt; ../trc.dat</span><br><span class="line"></span><br><span class="line">cat <span class="regexp">*.xml</span> | grep -e <span class="string">'Latitude'</span> -e <span class="string">'Longitude'</span>  | awk -F<span class="string">"&gt;"</span> <span class="string">'&#123;print <span class="variable">$2</span>&#125;'</span> | awk -F<span class="string">"&lt;"</span> <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span>  | head</span><br><span class="line"></span><br><span class="line">cat <span class="regexp">*.xml</span> | grep <span class="string">'Longitude'</span>  | awk -F<span class="string">"&gt;"</span> <span class="string">'&#123;print <span class="variable">$2</span>&#125;'</span> | awk -F<span class="string">"&lt;"</span> <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span>  &gt; ../track2_lon.dat</span><br><span class="line">cat <span class="regexp">*.xml</span> | grep <span class="string">'Latitude'</span>   | awk -F<span class="string">"&gt;"</span> <span class="string">'&#123;print <span class="variable">$2</span>&#125;'</span> | awk -F<span class="string">"&lt;"</span> <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span>  &gt; ../track2_lat.dat</span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span> ../track2_lon.dat | paste - ../track2_lat.dat &gt; ../trc2.dat</span><br><span class="line">cat trc2.dat | awk <span class="string">'&#123;if(NR%8 == 0) printf("%s\n&gt;\n", <span class="variable">$0</span>); else print <span class="variable">$0</span>&#125;'</span> &gt; trc.new</span><br></pre></td></tr></table></figure>
+
+<p>批量提取GPS结果中测站名称和坐标信息</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#date:2020-1-18</span><br><span class="line"><span class="keyword">cd</span> gamit</span><br><span class="line"><span class="keyword">pwd</span></span><br><span class="line"># <span class="keyword">ls</span> *.xml</span><br><span class="line"># touch ../vol.<span class="keyword">d</span></span><br><span class="line"># touch ../track2_lat.dat</span><br><span class="line">touch ../names.txt</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="keyword">ls</span> *.ios_gamit_detrend.neu`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    echo <span class="variable">$i</span></span><br><span class="line">    # <span class="keyword">cat</span> <span class="variable">$i</span> | grep 'Up    stats'| awk -F<span class="string">":"</span> '&#123;<span class="keyword">print</span> <span class="variable">$0&#125;</span>'|awk '&#123;<span class="keyword">for</span>(i=1;i&lt;13;i=i+1)&#123;printf <span class="variable">$i</span><span class="string">" "</span>&#125;;printf <span class="string">"\n"</span>&#125;' &gt;&gt; ../vol.<span class="keyword">d</span></span><br><span class="line">    # echo <span class="string">"&gt;"</span> &gt;&gt; ../vol.<span class="keyword">d</span></span><br><span class="line">    <span class="keyword">cat</span> <span class="variable">$i</span> | grep '4-character ID'| awk -F<span class="string">":"</span> '&#123;<span class="keyword">print</span> <span class="variable">$0&#125;</span>' &gt;&gt; ../names.txt</span><br><span class="line">    # echo <span class="string">"&gt;"</span> &gt;&gt; ../vol.<span class="keyword">d</span></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">awk -F<span class="string">":"</span> '&#123;<span class="keyword">print</span> <span class="variable">$2&#125;</span>' ../names.txt | paste - ../vol.<span class="keyword">d</span> &gt; ../vol.d2</span><br><span class="line">awk  '&#123;<span class="keyword">print</span> <span class="variable">$3</span>,<span class="variable">$1</span>,<span class="variable">$2&#125;</span>' ../../figs/trc.dat &gt; ../tmp.<span class="keyword">d</span></span><br><span class="line"></span><br><span class="line"># awk 'NR==FNR&#123;a[<span class="variable">$1</span>]=<span class="variable">$0</span>;next&#125;NR&gt;FNR&#123;<span class="keyword">if</span>(<span class="variable">$1</span> <span class="keyword">in</span> a)<span class="keyword">print</span> a[<span class="variable">$1</span>],a[<span class="variable">$2</span>],<span class="variable">$1</span>,<span class="variable">$1&#125;</span>' ../vol.d2 ../../figs/trc.dat &gt; ../result.<span class="keyword">d</span></span><br><span class="line"># 匹配两个文件中的相同内容，并输出到一个文件夹。</span><br><span class="line">awk 'NR==FNR&#123;S[<span class="variable">$1</span>]=<span class="variable">$0</span>;next&#125;NR&gt;FNR&#123;<span class="keyword">print</span> S[<span class="variable">$1</span>],<span class="variable">$5</span>,<span class="variable">$7</span>,<span class="variable">$10</span>,<span class="variable">$13&#125;</span>' tmp.<span class="keyword">d</span> vol.d2 &gt; result.<span class="keyword">d</span></span><br><span class="line"># 第一列匹配，表示为字母</span><br><span class="line">awk  '&#123;<span class="keyword">if</span>(<span class="variable">$1</span> ~ /^[A-Z]+$/) <span class="keyword">print</span> <span class="variable">$0&#125;</span>' result.<span class="keyword">d</span>  &gt; result.d2</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/pscoast-dump/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1455,7 +1618,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1466,7 +1629,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1477,7 +1640,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
