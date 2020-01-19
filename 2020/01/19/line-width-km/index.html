@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="GMT,coastline," />
+  <meta name="keywords" content="GMT,psxy," />
 
 
 
@@ -79,24 +79,21 @@
 
 
 
-<meta name="description" content="以后以提问的形式进行吧，这样可能更有益于学习。 提问：请问我想提取出青海湖的岸线在别的程序使用,能使用GMT吗？回答：可以，pscoast -M 具有这种功能，使用下面的代码 123456789101112131415#!&#x2F;bin&#x2F;bash# GMT EXAMPLE xxxx# 2019-04-14 leiyang@fio.org.cn# Purpose: Using pscoast to get">
+<meta name="description" content="问答问：GMT中psxy绘制线的宽度单位能设置为km吗？答：psxy的线宽单位只有c,i,p，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。  Width is by default measured in points (1&#x2F;72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pscoast提取海岸线、湖泊岸线、行政边界">
-<meta property="og:url" content="http://assz0a.coding-pages.com/2020/01/11/pscoast-dump/index.html">
+<meta property="og:title" content="GMT以公里为单位绘制线的宽度">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2020/01/19/line-width-km/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="以后以提问的形式进行吧，这样可能更有益于学习。 提问：请问我想提取出青海湖的岸线在别的程序使用,能使用GMT吗？回答：可以，pscoast -M 具有这种功能，使用下面的代码 123456789101112131415#!&#x2F;bin&#x2F;bash# GMT EXAMPLE xxxx# 2019-04-14 leiyang@fio.org.cn# Purpose: Using pscoast to get">
+<meta property="og:description" content="问答问：GMT中psxy绘制线的宽度单位能设置为km吗？答：psxy的线宽单位只有c,i,p，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。  Width is by default measured in points (1&#x2F;72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points,">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="http://assz0a.coding-pages.com/images/example_large.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/images/example_border.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/images/example_prov1.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/images/example_prov.png">
-<meta property="article:published_time" content="2020-01-11T12:14:57.000Z">
-<meta property="article:modified_time" content="2020-01-11T13:24:52.946Z">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/xmd.png">
+<meta property="article:published_time" content="2020-01-19T14:21:20.000Z">
+<meta property="article:modified_time" content="2020-01-19T15:26:42.002Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
-<meta property="article:tag" content="coastline">
+<meta property="article:tag" content="psxy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/example_large.png">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/xmd.png">
 
 
 
@@ -126,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://assz0a.coding-pages.com/2020/01/11/pscoast-dump/"/>
+  <link rel="canonical" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/"/>
 
 
 
 
 
-  <title>pscoast提取海岸线、湖泊岸线、行政边界 | 学习笔记</title>
+  <title>GMT以公里为单位绘制线的宽度 | 学习笔记</title>
   
 
 
@@ -269,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/11/pscoast-dump/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -286,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">pscoast提取海岸线、湖泊岸线、行政边界</h1>
+          <h1 class="post-title" itemprop="name headline">GMT以公里为单位绘制线的宽度</h1>
         
 
         <div class="post-meta">
@@ -298,8 +295,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-11T20:14:57+08:00">
-                2020-01-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-19T22:21:20+08:00">
+                2020-01-19
               </time>
             
 
@@ -358,22 +355,15 @@
       
 
       
-        <p>以后以提问的形式进行吧，这样可能更有益于学习。</p>
-<p>提问：请问我想提取出青海湖的岸线在别的程序使用,能使用GMT吗？<br>回答：可以，pscoast -M 具有这种功能，使用下面的代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment"># 2019-04-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment"># Purpose: Using pscoast to get coastline data</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mmF MAP_FRAME_WIDTH=2p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY 7p,Helvetica,black FONT_LABEL 7p,Helvetica,black </span><br><span class="line"></span><br><span class="line">ps=example_large.ps</span><br><span class="line">R2=-R99:25/100:50/36:18/37:23</span><br><span class="line"></span><br><span class="line">gmt psbasemap <span class="variable">$R2</span> -JM4.5i -K -Bag &gt; <span class="variable">$ps</span></span><br><span class="line">gmt pscoast <span class="variable">$R2</span>  -M -W2  -Df &gt; qhlake.txt</span><br><span class="line">gmt psxy <span class="variable">$R2</span>  -J qhlake.txt -W0.4p,green -O &gt;&gt; <span class="variable">$ps</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/example_large.png" alt></p>
+        <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：GMT中psxy绘制线的宽度单位能设置为km吗？<br>答：psxy的线宽单位只有<code>c,i,p</code>，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。</p>
 <blockquote>
-<p>目前有一个bug，-W改变level时，输出不变，都是all level的数据。同理输出河流数据使用-I，-N输出行政边界，-E输出闭合的行政边界。</p>
+<p>Width is by default measured in points (1/72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points, respectively.</p>
 </blockquote>
-<p>提问：那么怎么输出中国的国界线呢？输出的国界线争议部分怎么办？能否用于论文、报告等出版？<br>回答：可使用下面的代码输出国界线，通过叠加我国政府发布的边界线可以看到二者存在差异，出版应以我国政府发布为准。代码中使用的我国官方边界为<a href="https://pan.baidu.com/s/18UrOb5KOd_AMDCcjMF6I8g" target="_blank" rel="noopener">guojie.txt</a> ，数据下载提取码nnx9。此外分享我国省、市、县的边界shp文件，<a href="https://pan.baidu.com/s/1hccXh_X27jwouuFc1xaWww" target="_blank" rel="noopener">点击下载</a>，提取码q8n0。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ps=example_border.ps</span><br><span class="line">gmt pscoast -ECN -M -Df &gt;cn.txt</span><br><span class="line">gmt psbasemap  -JM4.<span class="number">5</span>i -K -Bag `gmt gmtinfo ../GMTnie/guojie<span class="selector-class">.xyz</span> -I0.<span class="number">000001</span>`&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psxy -R -J cn<span class="selector-class">.txt</span> -W0.<span class="number">4</span>p,red -O -K&gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psxy -R -J ../GMTnie/guojie<span class="selector-class">.xyz</span> -W0.<span class="number">8</span>p,black -O&gt;&gt; <span class="variable">$ps</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/example_border.png" alt></p>
-<p>提问：怎么提取一个省的边界呢？（注意，提取的目的还是为了别的用途，如果只是绘图，则没必要提取，直接绘图即可）<br>回答：如下，使用-ECN.N，N表示省的编号，可见于<code>gmt6\share\dcw\dcw-states.txt</code>。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ps=example_prov.ps</span><br><span class="line">gmt pscoast -ECN.<span class="number">37</span> -M -Df &gt;sd.txt</span><br><span class="line">gmt psbasemap  -JM4.<span class="number">5</span>i -K -Bag `gmt gmtinfo sd<span class="selector-class">.txt</span> -I0.<span class="number">000001</span>`&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psxy -R -J sd<span class="selector-class">.txt</span> -W0.<span class="number">4</span>p,red -O -K&gt;&gt; <span class="variable">$ps</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/example_prov1.png" alt></p>
-<p>如果要加上颜色，只需要添加一行，或者单独这一行命令</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> pscoast -J -R -ECN.<span class="number">37</span>+gblue -Df -O -t50 &gt;&gt;<span class="variable">$ps</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/example_prov.png" alt></p>
+<p>问：就没有别的办法了吗？<br>答：可以通过设定地图比例尺<code>scale</code>，然后根据比例尺来计算出地图上1cm表示的实际地理长度。例如比例尺为<code>1:500000</code>时，线宽1m表示500,000米，1cm表示5km。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">R=120:22/120:41/35:55/36:06</span><br><span class="line">J=m120:30/36/1:500000</span><br><span class="line"><span class="comment"># Here use the map scale not the absolute width in map projection. This will allow the line width in cm unit connected to the geographical units km.</span></span><br><span class="line"></span><br><span class="line">PS=xmd.ps</span><br><span class="line"></span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH = 0.1c FORMAT_GEO_MAP = ddd:mm:ssF</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY	= 7p</span><br><span class="line">gmt gmtset FONT_LABEL 7 MAP_LABEL_OFFSET 5p</span><br><span class="line">gmt gmtset MAP_FRAME_TYPE plain MAP_TICK_LENGTH_PRIMARY -5p  MAP_FRAME_PEN black</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -K  -Lx0.3i/0.3i+c120/36+w5k &gt;<span class="variable">$PS</span></span><br><span class="line">gmt pscoast -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -Df -W -I1 -K -Glightyellow -Bpxa5mf -Bpya5mf -BnWSe &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">cat &lt;&lt; EOF &gt; point.txt</span><br><span class="line">120:22 36:06</span><br><span class="line">120:41 35:55</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">gmt sample1d point.txt -Fa -T5k &gt; p5km.txt</span><br><span class="line">awk <span class="string">'&#123;print $1,$2,5&#125;'</span> p5km.txt | gmt psxy -SE- -Gred -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -K -t70 &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">gmt psxy point.txt -W1c,black -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -O -K -t70 &gt;&gt; <span class="variable">$PS</span></span><br><span class="line">gmt psxy point.txt -W0.01c,black+ve0.1i+gblue -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -O -K  &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">angle=`gmt mapproject -R<span class="variable">$R</span> -J<span class="variable">$J</span> -Af  point.txt | gmt gmtmath STDIN -i2 -Sl MEAN 360 SUB 90 SUB NEG =`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"angle:"</span><span class="variable">$angle</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>  120:26:8.53 36:2:55 <span class="string">"Flying@-angle 324@.@-@"</span>|  gmt pstext  -F+f4p,1,black+a<span class="variable">$angle</span>+jLB -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -N -K -D0.1/0. -Gwhite &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>  120:35:03 36:00:0.0 <span class="string">"XGD"</span>|  gmt pstext -F+a<span class="variable">$angle</span>+f4p,1,black+jLB -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -N -D0.1/0. -Gwhite &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">$PS</span> -A -P -Tg</span><br><span class="line"></span><br><span class="line">rm  *.txt *.conf *.<span class="built_in">history</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/xmd.png" alt></p>
+<p>图中圆的直径的5km（通过<code>-SE-</code>），圆的采样间隔也是5km（通过<code>sample1d</code>），线的宽度为5km（通过<code>scale</code>），结果一致。</p>
 
       
     </div>
@@ -393,7 +383,7 @@
           
             <a href="/tags/GMT/" rel="tag"># GMT</a>
           
-            <a href="/tags/coastline/" rel="tag"># coastline</a>
+            <a href="/tags/psxy/" rel="tag"># psxy</a>
           
         </div>
       
@@ -406,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/10/landmask/" rel="next" title="grdlandmask和grdmath配合解决陆海数据分离">
-                <i class="fa fa-chevron-left"></i> grdlandmask和grdmath配合解决陆海数据分离
+              <a href="/2020/01/18/awk/" rel="next" title="awk的几点用法">
+                <i class="fa fa-chevron-left"></i> awk的几点用法
               </a>
             
           </div>
@@ -415,10 +405,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/18/awk/" rel="prev" title="awk的几点用法">
-                awk的几点用法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -473,8 +459,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -560,6 +555,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问答"><span class="nav-number">1.</span> <span class="nav-text">问答</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

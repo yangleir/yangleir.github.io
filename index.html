@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="学习笔记">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://assz0a.coding-pages.com/index.html">
 <meta property="og:site_name" content="学习笔记">
 <meta property="og:locale" content="cn">
 <meta property="article:author" content="Yang Lei">
@@ -115,7 +115,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://assz0a.coding-pages.com/"/>
 
 
 
@@ -259,7 +259,157 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/18/awk/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/19/line-width-km/" itemprop="url">GMT以公里为单位绘制线的宽度</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-19T22:21:20+08:00">
+                2020-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GMT/" itemprop="url" rel="index">
+                    <span itemprop="name">GMT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：GMT中psxy绘制线的宽度单位能设置为km吗？<br>答：psxy的线宽单位只有<code>c,i,p</code>，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。</p>
+<blockquote>
+<p>Width is by default measured in points (1/72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points, respectively.</p>
+</blockquote>
+<p>问：就没有别的办法了吗？<br>答：可以通过设定地图比例尺<code>scale</code>，然后根据比例尺来计算出地图上1cm表示的实际地理长度。例如比例尺为<code>1:500000</code>时，线宽1m表示500,000米，1cm表示5km。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">R=120:22/120:41/35:55/36:06</span><br><span class="line">J=m120:30/36/1:500000</span><br><span class="line"><span class="comment"># Here use the map scale not the absolute width in map projection. This will allow the line width in cm unit connected to the geographical units km.</span></span><br><span class="line"></span><br><span class="line">PS=xmd.ps</span><br><span class="line"></span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH = 0.1c FORMAT_GEO_MAP = ddd:mm:ssF</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY	= 7p</span><br><span class="line">gmt gmtset FONT_LABEL 7 MAP_LABEL_OFFSET 5p</span><br><span class="line">gmt gmtset MAP_FRAME_TYPE plain MAP_TICK_LENGTH_PRIMARY -5p  MAP_FRAME_PEN black</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -K  -Lx0.3i/0.3i+c120/36+w5k &gt;<span class="variable">$PS</span></span><br><span class="line">gmt pscoast -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -Df -W -I1 -K -Glightyellow -Bpxa5mf -Bpya5mf -BnWSe &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">cat &lt;&lt; EOF &gt; point.txt</span><br><span class="line">120:22 36:06</span><br><span class="line">120:41 35:55</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">gmt sample1d point.txt -Fa -T5k &gt; p5km.txt</span><br><span class="line">awk <span class="string">'&#123;print $1,$2,5&#125;'</span> p5km.txt | gmt psxy -SE- -Gred -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -K -t70 &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">gmt psxy point.txt -W1c,black -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -O -K -t70 &gt;&gt; <span class="variable">$PS</span></span><br><span class="line">gmt psxy point.txt -W0.01c,black+ve0.1i+gblue -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -O -K  &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">angle=`gmt mapproject -R<span class="variable">$R</span> -J<span class="variable">$J</span> -Af  point.txt | gmt gmtmath STDIN -i2 -Sl MEAN 360 SUB 90 SUB NEG =`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"angle:"</span><span class="variable">$angle</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>  120:26:8.53 36:2:55 <span class="string">"Flying@-angle 324@.@-@"</span>|  gmt pstext  -F+f4p,1,black+a<span class="variable">$angle</span>+jLB -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -N -K -D0.1/0. -Gwhite &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>  120:35:03 36:00:0.0 <span class="string">"XGD"</span>|  gmt pstext -F+a<span class="variable">$angle</span>+f4p,1,black+jLB -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -N -D0.1/0. -Gwhite &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">$PS</span> -A -P -Tg</span><br><span class="line"></span><br><span class="line">rm  *.txt *.conf *.<span class="built_in">history</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/xmd.png" alt></p>
+<p>图中圆的直径的5km（通过<code>-SE-</code>），圆的采样间隔也是5km（通过<code>sample1d</code>），线的宽度为5km（通过<code>scale</code>），结果一致。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/18/awk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -422,7 +572,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/pscoast-dump/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/11/pscoast-dump/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -579,7 +729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/10/landmask/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/10/landmask/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -737,7 +887,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/fft-gmt/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/08/fft-gmt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -883,7 +1033,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/map-different-view/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/05/map-different-view/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -1039,7 +1189,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/GMT-pswiggle/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/03/GMT-pswiggle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -1191,7 +1341,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/Great-circle/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2019/12/31/Great-circle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -1357,7 +1507,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/29/GMT-under-redhat/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2019/12/29/GMT-under-redhat/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -1618,7 +1768,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1640,7 +1790,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
