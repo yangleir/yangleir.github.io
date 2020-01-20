@@ -331,6 +331,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/10/landmask/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/10/landmask/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -740,6 +750,28 @@
 
 
 
+
+  <script src="//js/src//av-min.js"></script>
+  <script src="//js/src/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+        appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+        placeholder: 'Comment here',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
