@@ -259,6 +259,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/21/proj-api/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/21/proj-api/" itemprop="url">PROJ API调用的一个简单例子</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-21T16:22:07+08:00">
+                2020-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PROJ/" itemprop="url" rel="index">
+                    <span itemprop="name">PROJ</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/21/proj-api/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/21/proj-api/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/01/21/proj-api/" class="leancloud_visitors" data-flag-title="PROJ API调用的一个简单例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h1><h2 id="PROJ是什么？"><a href="#PROJ是什么？" class="headerlink" title="PROJ是什么？"></a>PROJ是什么？</h2><p><b><a href="https://proj.org/" target="_blank" rel="noopener">PROJ</a></b> 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。<br>PROJ项目开始于1983年。</p>
+<h2 id="PROJ怎么安装"><a href="#PROJ怎么安装" class="headerlink" title="PROJ怎么安装"></a>PROJ怎么安装</h2><p>proj使用c++编写，从官网下载源程序，安装官网<b><a href="https://proj.org/install.html" target="_blank" rel="noopener">编译指南</a></b>进行编译。默认安装路径为<code>/usr/local</code>。<br>如果通过在线安装，目录为<code>/usr/bin</code>。</p>
+<h2 id="PROJ命令行怎么用？"><a href="#PROJ命令行怎么用？" class="headerlink" title="PROJ命令行怎么用？"></a>PROJ命令行怎么用？</h2><p>可以通过命令行使用，例如</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">yangleir@</span>DESKTOP-FVRFATD MINGW64 ~</span><br><span class="line">$ echo <span class="number">55.2</span> <span class="number">12.2</span> | proj +proj=merc +lat_ts=<span class="number">56.5</span> +ellps=GRS80</span><br><span class="line"><span class="number">3399483.80</span>      <span class="number">752085.60</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="API的调用"><a href="#API的调用" class="headerlink" title="API的调用"></a>API的调用</h1><p>官网提供的一个C语言例子，经过编译可以正常运行。</p>
+<p>编译时如果找不到库，可以使用：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc projtest.c -I/usr/local/<span class="keyword">include</span> -L/usr/local/<span class="class"><span class="keyword">lib</span> -<span class="title">lproj</span> -<span class="title">o</span> <span class="title">projtest</span></span></span><br></pre></td></tr></table></figure>
+<p>或者简化为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">gcc</span> <span class="selector-tag">projtest</span><span class="selector-class">.c</span>  <span class="selector-tag">-lproj</span> <span class="selector-tag">-o</span> <span class="selector-tag">projtest</span></span><br></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">yl@yl-Precision-Tower-7810:~/test$</span> <span class="string">./projtest</span> </span><br><span class="line"><span class="attr">easting:</span> <span class="number">691875.632</span><span class="string">,</span> <span class="attr">northing:</span> <span class="number">6098907.825</span></span><br><span class="line"><span class="attr">longitude:</span> <span class="number">12</span><span class="string">,</span> <span class="attr">latitude:</span> <span class="number">55</span></span><br></pre></td></tr></table></figure>
+
+<p>PROJ 6示例:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;proj.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    PJ_CONTEXT *C;</span><br><span class="line">    PJ *P;</span><br><span class="line">    PJ* P_for_GIS;</span><br><span class="line">    PJ_COORD a, b;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* or you may set C=PJ_DEFAULT_CTX if you are sure you will     */</span></span><br><span class="line">    <span class="comment">/* use PJ objects from only one thread                          */</span></span><br><span class="line">    C = proj_context_create();</span><br><span class="line"></span><br><span class="line">    P = proj_create_crs_to_crs (C,</span><br><span class="line">                                <span class="string">"EPSG:4326"</span>,</span><br><span class="line">                                <span class="string">"+proj=utm +zone=32 +datum=WGS84"</span>, <span class="comment">/* or EPSG:32632 */</span></span><br><span class="line">                                <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span>==P) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Oops\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This will ensure that the order of coordinates for the input CRS */</span></span><br><span class="line">    <span class="comment">/* will be longitude, latitude, whereas EPSG:4326 mandates latitude, */</span></span><br><span class="line">    <span class="comment">/* longitude */</span></span><br><span class="line">    P_for_GIS = proj_normalize_for_visualization(C, P);</span><br><span class="line">    <span class="keyword">if</span>( <span class="number">0</span> == P_for_GIS )  &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Oops\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    proj_destroy(P);</span><br><span class="line">    P = P_for_GIS;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* a coordinate union representing Copenhagen: 55d N, 12d E    */</span></span><br><span class="line">    <span class="comment">/* Given that we have used proj_normalize_for_visualization(), the order of</span></span><br><span class="line"><span class="comment">    /* coordinates is longitude, latitude, and values are expressed in degrees. */</span></span><br><span class="line">    a = proj_coord (<span class="number">12</span>, <span class="number">55</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* transform to UTM zone 32, then back to geographical */</span></span><br><span class="line">    b = proj_trans (P, PJ_FWD, a);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"easting: %.3f, northing: %.3f\n"</span>, b.enu.e, b.enu.n);</span><br><span class="line">    b = proj_trans (P, PJ_INV, b);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"longitude: %g, latitude: %g\n"</span>, b.lp.lam, b.lp.phi);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Clean up */</span></span><br><span class="line">    proj_destroy (P);</span><br><span class="line">    proj_context_destroy (C); <span class="comment">/* may be omitted in the single threaded case */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1957,7 +2133,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1968,7 +2144,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1979,7 +2155,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

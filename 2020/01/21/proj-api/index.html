@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="GMT,DFT,傅里叶变换,spectrum1d," />
+  <meta name="keywords" content="api,C,PROJ," />
 
 
 
@@ -79,23 +79,20 @@
 
 
 
-<meta name="description" content="傅里叶变换是常用的计算信号频率（功率谱）的工具，各种编程语言都可以简单的快速实现FFT变换。GMT作为绘图工具，不仅可以绘图，也集成了非常强大的地学数据处理功能，对一维、二维的数据都可以实现傅里叶变换，从而确定出信号的频率信息。 spectrum1d(help-page)是计算一维信号频域信息的工具，它采用了Welch的计算方法，该方法在Matlab中也经常使用，优点是可靠、易编程，结果易理解。">
+<meta name="description" content="基本知识PROJ是什么？PROJ 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。PROJ项目开始于1983年。 PROJ怎么安装proj使用c++编写，从官网下载源程序，安装官网编译指南进行编译。默认安装路径为&#x2F;usr&#x2F;local。如果通过在线安装，目录为&#x2F;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GMT用于功率谱分析">
-<meta property="og:url" content="http://assz0a.coding-pages.com/2020/01/08/fft-gmt/index.html">
+<meta property="og:title" content="PROJ API调用的一个简单例子">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2020/01/21/proj-api/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="傅里叶变换是常用的计算信号频率（功率谱）的工具，各种编程语言都可以简单的快速实现FFT变换。GMT作为绘图工具，不仅可以绘图，也集成了非常强大的地学数据处理功能，对一维、二维的数据都可以实现傅里叶变换，从而确定出信号的频率信息。 spectrum1d(help-page)是计算一维信号频域信息的工具，它采用了Welch的计算方法，该方法在Matlab中也经常使用，优点是可靠、易编程，结果易理解。">
+<meta property="og:description" content="基本知识PROJ是什么？PROJ 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。PROJ项目开始于1983年。 PROJ怎么安装proj使用c++编写，从官网下载源程序，安装官网编译指南进行编译。默认安装路径为&#x2F;usr&#x2F;local。如果通过在线安装，目录为&#x2F;">
 <meta property="og:locale" content="cn">
-<meta property="og:image" content="http://assz0a.coding-pages.com/images/power1D.png">
-<meta property="article:published_time" content="2020-01-08T06:16:14.000Z">
-<meta property="article:modified_time" content="2020-01-08T13:38:27.688Z">
+<meta property="article:published_time" content="2020-01-21T08:22:07.000Z">
+<meta property="article:modified_time" content="2020-01-21T08:43:39.828Z">
 <meta property="article:author" content="Yang Lei">
-<meta property="article:tag" content="GMT">
-<meta property="article:tag" content="DFT">
-<meta property="article:tag" content="傅里叶变换">
-<meta property="article:tag" content="spectrum1d">
+<meta property="article:tag" content="api">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="PROJ">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/power1D.png">
 
 
 
@@ -125,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://assz0a.coding-pages.com/2020/01/08/fft-gmt/"/>
+  <link rel="canonical" href="http://assz0a.coding-pages.com/2020/01/21/proj-api/"/>
 
 
 
 
 
-  <title>GMT用于功率谱分析 | 学习笔记</title>
+  <title>PROJ API调用的一个简单例子 | 学习笔记</title>
   
 
 
@@ -268,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/08/fft-gmt/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/21/proj-api/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Lei">
@@ -285,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GMT用于功率谱分析</h1>
+          <h1 class="post-title" itemprop="name headline">PROJ API调用的一个简单例子</h1>
         
 
         <div class="post-meta">
@@ -297,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-08T14:16:14+08:00">
-                2020-01-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-21T16:22:07+08:00">
+                2020-01-21
               </time>
             
 
@@ -320,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GMT/" itemprop="url" rel="index">
-                    <span itemprop="name">GMT</span>
+                  <a href="/categories/PROJ/" itemprop="url" rel="index">
+                    <span itemprop="name">PROJ</span>
                   </a>
                 </span>
 
@@ -338,8 +335,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/08/fft-gmt/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/08/fft-gmt/" itemprop="commentCount"></span>
+                <a href="/2020/01/21/proj-api/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/21/proj-api/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -347,7 +344,7 @@
 
           
           
-             <span id="/2020/01/08/fft-gmt/" class="leancloud_visitors" data-flag-title="GMT用于功率谱分析">
+             <span id="/2020/01/21/proj-api/" class="leancloud_visitors" data-flag-title="PROJ API调用的一个简单例子">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,12 +375,21 @@
       
 
       
-        <p>傅里叶变换是常用的计算信号频率（功率谱）的工具，各种编程语言都可以简单的快速实现FFT变换。GMT作为绘图工具，不仅可以绘图，也集成了非常强大的地学数据处理功能，对一维、二维的数据都可以实现傅里叶变换，从而确定出信号的频率信息。</p>
-<p><code>spectrum1d</code>(<a href="https://docs.generic-mapping-tools.org/latest/spectrum1d.html" target="_blank" rel="noopener">help-page</a>)是计算一维信号频域信息的工具，它采用了Welch的计算方法，该方法在<a href="https://www.mathworks.com/help/signal/ref/pwelch.html" target="_blank" rel="noopener">Matlab</a>中也经常使用，优点是可靠、易编程，结果易理解。</p>
-<p>GMT开发者给出了一个例子，可参考<a href="https://github.com/GenericMappingTools" target="_blank" rel="noopener">github</a>，但是例子中的数学稍微不易理解。经过修改，输入信号修改为两个周期三角函数的叠加，经过测试，GMT可以准确地计算出频率和波长。</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line"># Testing gmt spectrum1d power spectrum values</span><br><span class="line"></span><br><span class="line">ps=power1D.ps</span><br><span class="line"></span><br><span class="line"># First to generate a signal with fixed frequency using math.</span><br><span class="line"></span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"># This is the math example from GMT developer, but hard to understand. So we do not use it here.</span><br><span class="line"># gmt math -T0/<span class="number">10239</span>/<span class="number">1</span> T <span class="number">10240</span> DIV <span class="number">360</span> MUL <span class="number">400</span> MUL COSD = t.txt</span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"># This is the math example that easy to understand. </span><br><span class="line">gmt math -T0/<span class="number">200</span>/<span class="number">0.5</span> T <span class="number">20</span> DIV <span class="number">360</span> MUL COSD T <span class="number">4</span> DIV <span class="number">360</span> MUL SIND <span class="number">3</span> MUL ADD = t.txt</span><br><span class="line"># The same with up line but with unit of radian.</span><br><span class="line"># gmt math -T0/<span class="number">200</span>/<span class="number">0.5</span> T <span class="number">20</span> DIV <span class="number">6.28</span> MUL COS T <span class="number">4</span> DIV <span class="number">6.28</span> MUL SIN <span class="number">3</span> MUL ADD = t.txt</span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">gmt psxy `gmt gmtinfo t.txt -I0<span class="number">.000001</span>` t.txt -JX6i/<span class="number">2</span>i -Bxaf+u@. -Byaf -BWSne+t<span class="string">"y(t) = cosd (360@~\327@~1/20@~\327@~t)+ 3@~\327@~sind (360@~\327@~1/4@~\327@~t)"</span> -W0<span class="number">.2</span>p -P -K -Xc &gt; $ps</span><br><span class="line"></span><br><span class="line">gmt spectrum1d t.txt -S256 -W --GMT_FFT=brenner -N -i1 -D0<span class="number">.5</span> &gt; pow5.txt</span><br><span class="line"></span><br><span class="line">gmt psxy -R0<span class="number">.2</span>/<span class="number">256</span>/<span class="number">1e-19</span>/<span class="number">1e5</span> -JX<span class="number">-6</span>il/<span class="number">6.5</span>il -Bxa2f3+l<span class="string">"Wavelength"</span> -Bya<span class="number">-2</span>p+l<span class="string">"power spectrum"</span> -BWN -O -K -Y3<span class="number">.5</span>i pow5.txt -W6<span class="number">.25</span>p &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -K pow5.txt -Sc0<span class="number">.04</span>i -Gblack -Ey &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt spectrum1d t.txt -S256 --GMT_FFT=brenner -N -i1 -W -L -D0<span class="number">.5</span>&gt; pow5.txt</span><br><span class="line">gmt psxy -R -J -O -K pow5.txt -W0<span class="number">.5</span>p,lightred &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -K -W0<span class="number">.25</span>p,lightred,- &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line"><span class="number">20</span>	<span class="number">1e-19</span></span><br><span class="line"><span class="number">20</span>	<span class="number">1e5</span></span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line"># The same result using -N</span><br><span class="line">cut -f2 t.txt | gmt spectrum1d -S256 -W -Nv4 -D0<span class="number">.5</span></span><br><span class="line">gmt psxy -R -J -O -K v4.xpower -W2<span class="number">.25</span>p,red &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line"># wavelength is the reverse of the frequency, the result is the same but a increasing x-axis and a decreasing x-axis</span><br><span class="line">gmt spectrum1d t.txt -S256 --GMT_FFT=brenner -N -i1 -D0<span class="number">.5</span>&gt; pow5.txt</span><br><span class="line"># The X-axes length of wavelength is the reciprocal of frequency.</span><br><span class="line">gmt psxy -R0<span class="number">.00390625</span>/<span class="number">5</span>/<span class="number">1e-19</span>/<span class="number">1e5</span> -JX6il/<span class="number">6.5</span>il -O -K pow5.txt -BSE -Bxa2f3+l<span class="string">"Frenquency"</span> -W0<span class="number">.5</span>p,green &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -W0<span class="number">.25</span>p,green,- &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line"><span class="number">0.25</span>	<span class="number">1e-19</span></span><br><span class="line"><span class="number">0.25</span>	<span class="number">1e5</span></span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line">gmt psconvert $ps -A -Tg</span><br></pre></td></tr></table></figure>
-<p>结果如下图<br><img src="/images/power1D.png" alt></p>
+        <h1 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h1><h2 id="PROJ是什么？"><a href="#PROJ是什么？" class="headerlink" title="PROJ是什么？"></a>PROJ是什么？</h2><p><b><a href="https://proj.org/" target="_blank" rel="noopener">PROJ</a></b> 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。<br>PROJ项目开始于1983年。</p>
+<h2 id="PROJ怎么安装"><a href="#PROJ怎么安装" class="headerlink" title="PROJ怎么安装"></a>PROJ怎么安装</h2><p>proj使用c++编写，从官网下载源程序，安装官网<b><a href="https://proj.org/install.html" target="_blank" rel="noopener">编译指南</a></b>进行编译。默认安装路径为<code>/usr/local</code>。<br>如果通过在线安装，目录为<code>/usr/bin</code>。</p>
+<h2 id="PROJ命令行怎么用？"><a href="#PROJ命令行怎么用？" class="headerlink" title="PROJ命令行怎么用？"></a>PROJ命令行怎么用？</h2><p>可以通过命令行使用，例如</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">yangleir@</span>DESKTOP-FVRFATD MINGW64 ~</span><br><span class="line">$ echo <span class="number">55.2</span> <span class="number">12.2</span> | proj +proj=merc +lat_ts=<span class="number">56.5</span> +ellps=GRS80</span><br><span class="line"><span class="number">3399483.80</span>      <span class="number">752085.60</span></span><br></pre></td></tr></table></figure>
 
+<h1 id="API的调用"><a href="#API的调用" class="headerlink" title="API的调用"></a>API的调用</h1><p>官网提供的一个C语言例子，经过编译可以正常运行。</p>
+<p>编译时如果找不到库，可以使用：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc projtest.c -I/usr/local/<span class="keyword">include</span> -L/usr/local/<span class="class"><span class="keyword">lib</span> -<span class="title">lproj</span> -<span class="title">o</span> <span class="title">projtest</span></span></span><br></pre></td></tr></table></figure>
+<p>或者简化为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">gcc</span> <span class="selector-tag">projtest</span><span class="selector-class">.c</span>  <span class="selector-tag">-lproj</span> <span class="selector-tag">-o</span> <span class="selector-tag">projtest</span></span><br></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">yl@yl-Precision-Tower-7810:~/test$</span> <span class="string">./projtest</span> </span><br><span class="line"><span class="attr">easting:</span> <span class="number">691875.632</span><span class="string">,</span> <span class="attr">northing:</span> <span class="number">6098907.825</span></span><br><span class="line"><span class="attr">longitude:</span> <span class="number">12</span><span class="string">,</span> <span class="attr">latitude:</span> <span class="number">55</span></span><br></pre></td></tr></table></figure>
+
+<p>PROJ 6示例:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;proj.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    PJ_CONTEXT *C;</span><br><span class="line">    PJ *P;</span><br><span class="line">    PJ* P_for_GIS;</span><br><span class="line">    PJ_COORD a, b;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* or you may set C=PJ_DEFAULT_CTX if you are sure you will     */</span></span><br><span class="line">    <span class="comment">/* use PJ objects from only one thread                          */</span></span><br><span class="line">    C = proj_context_create();</span><br><span class="line"></span><br><span class="line">    P = proj_create_crs_to_crs (C,</span><br><span class="line">                                <span class="string">"EPSG:4326"</span>,</span><br><span class="line">                                <span class="string">"+proj=utm +zone=32 +datum=WGS84"</span>, <span class="comment">/* or EPSG:32632 */</span></span><br><span class="line">                                <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span>==P) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Oops\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This will ensure that the order of coordinates for the input CRS */</span></span><br><span class="line">    <span class="comment">/* will be longitude, latitude, whereas EPSG:4326 mandates latitude, */</span></span><br><span class="line">    <span class="comment">/* longitude */</span></span><br><span class="line">    P_for_GIS = proj_normalize_for_visualization(C, P);</span><br><span class="line">    <span class="keyword">if</span>( <span class="number">0</span> == P_for_GIS )  &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Oops\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    proj_destroy(P);</span><br><span class="line">    P = P_for_GIS;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* a coordinate union representing Copenhagen: 55d N, 12d E    */</span></span><br><span class="line">    <span class="comment">/* Given that we have used proj_normalize_for_visualization(), the order of</span></span><br><span class="line"><span class="comment">    /* coordinates is longitude, latitude, and values are expressed in degrees. */</span></span><br><span class="line">    a = proj_coord (<span class="number">12</span>, <span class="number">55</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* transform to UTM zone 32, then back to geographical */</span></span><br><span class="line">    b = proj_trans (P, PJ_FWD, a);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"easting: %.3f, northing: %.3f\n"</span>, b.enu.e, b.enu.n);</span><br><span class="line">    b = proj_trans (P, PJ_INV, b);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"longitude: %g, latitude: %g\n"</span>, b.lp.lam, b.lp.phi);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Clean up */</span></span><br><span class="line">    proj_destroy (P);</span><br><span class="line">    proj_context_destroy (C); <span class="comment">/* may be omitted in the single threaded case */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -400,13 +406,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GMT/" rel="tag"># GMT</a>
+            <a href="/tags/api/" rel="tag"># api</a>
           
-            <a href="/tags/DFT/" rel="tag"># DFT</a>
+            <a href="/tags/C/" rel="tag"># C</a>
           
-            <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag"># 傅里叶变换</a>
-          
-            <a href="/tags/spectrum1d/" rel="tag"># spectrum1d</a>
+            <a href="/tags/PROJ/" rel="tag"># PROJ</a>
           
         </div>
       
@@ -419,8 +423,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/05/map-different-view/" rel="next" title="GMT竖版地图">
-                <i class="fa fa-chevron-left"></i> GMT竖版地图
+              <a href="/2020/01/19/line-width-km/" rel="next" title="GMT以公里为单位绘制线的宽度">
+                <i class="fa fa-chevron-left"></i> GMT以公里为单位绘制线的宽度
               </a>
             
           </div>
@@ -428,10 +432,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/10/landmask/" rel="prev" title="grdlandmask和grdmath配合解决陆海数据分离">
-                grdlandmask和grdmath配合解决陆海数据分离 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -486,8 +486,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -573,6 +582,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本知识"><span class="nav-number">1.</span> <span class="nav-text">基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PROJ是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">PROJ是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PROJ怎么安装"><span class="nav-number">1.2.</span> <span class="nav-text">PROJ怎么安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PROJ命令行怎么用？"><span class="nav-number">1.3.</span> <span class="nav-text">PROJ命令行怎么用？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API的调用"><span class="nav-number">2.</span> <span class="nav-text">API的调用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
