@@ -374,7 +374,7 @@
         
           
             <h1 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h1><h2 id="PROJ是什么？"><a href="#PROJ是什么？" class="headerlink" title="PROJ是什么？"></a>PROJ是什么？</h2><p><b><a href="https://proj.org/" target="_blank" rel="noopener">PROJ</a></b> 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。<br>PROJ项目开始于1983年。</p>
-<h2 id="PROJ怎么安装"><a href="#PROJ怎么安装" class="headerlink" title="PROJ怎么安装"></a>PROJ怎么安装</h2><p>proj使用c++编写，从官网下载源程序，安装官网<b><a href="https://proj.org/install.html" target="_blank" rel="noopener">编译指南</a></b>进行编译。默认安装路径为<code>/usr/local</code>。<br>如果通过在线安装，目录为<code>/usr/bin</code>。</p>
+<h2 id="PROJ怎么安装"><a href="#PROJ怎么安装" class="headerlink" title="PROJ怎么安装"></a>PROJ怎么安装</h2><p>PROJ使用c++编写，从<a href="https://proj.org/" target="_blank" rel="noopener">官网</a>下载源程序，依照<b><a href="https://proj.org/install.html" target="_blank" rel="noopener">编译指南</a></b>编译。默认安装路径为<code>/usr/local</code>。<br>如果通过在线安装，目录为<code>/usr/bin</code>。</p>
 <h2 id="PROJ命令行怎么用？"><a href="#PROJ命令行怎么用？" class="headerlink" title="PROJ命令行怎么用？"></a>PROJ命令行怎么用？</h2><p>可以通过命令行使用，例如</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">yangleir@</span>DESKTOP-FVRFATD MINGW64 ~</span><br><span class="line">$ echo <span class="number">55.2</span> <span class="number">12.2</span> | proj +proj=merc +lat_ts=<span class="number">56.5</span> +ellps=GRS80</span><br><span class="line"><span class="number">3399483.80</span>      <span class="number">752085.60</span></span><br></pre></td></tr></table></figure>
 
