@@ -1,85 +1,52 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="cn">
+<html lang="cn">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-
-
-<meta property="og:type" content="website">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="学习笔记">
 <meta property="og:url" content="http://assz0a.coding-pages.com/index.html">
 <meta property="og:site_name" content="学习笔记">
@@ -87,39 +54,17 @@
 <meta property="article:author" content="Yang Lei">
 <meta name="twitter:card" content="summary">
 
+<link rel="canonical" href="http://assz0a.coding-pages.com/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://assz0a.coding-pages.com/"/>
-
-
-
-
 
   <title>学习笔记</title>
   
@@ -129,238 +74,182 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+</head>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+    <div>
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">学习笔记</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
   <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Startseite</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>Über</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Schlagwörter<span class="badge">17</span></a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Kategorien<span class="badge">4</span></a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archiv<span class="badge">11</span></a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
-  <section id="posts" class="posts-expand">
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <div class="posts-expand">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/23/cygwin-gmt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/23/cygwin-gmt/" itemprop="url">Windows的cygwin环境下编译GMT</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/23/cygwin-gmt/" class="post-title-link" itemprop="url">Windows的cygwin环境下编译GMT</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-23T20:22:43+08:00">
-                2020-01-23
-              </time>
-            
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-23 20:22:43" itemprop="dateCreated datePublished" datetime="2020-01-23T20:22:43+08:00">2020-01-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-01-24 19:29:16" itemprop="dateModified" datetime="2020-01-24T19:29:16+08:00">2020-01-24</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/cygwin/" itemprop="url" rel="index">
                     <span itemprop="name">cygwin</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/23/cygwin-gmt/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/cygwin-gmt/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/23/cygwin-gmt/" class="post-meta-item leancloud_visitors" data-flag-title="Windows的cygwin环境下编译GMT" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/23/cygwin-gmt/" class="leancloud_visitors" data-flag-title="Windows的cygwin环境下编译GMT">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/23/cygwin-gmt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/cygwin-gmt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -368,12 +257,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h2 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h2><p>问：在windows下通常都是直接安装GMT的exe程序，这样导致不能使用github上最新的开发版，而开发版通常fix了很多的bug。如果想在win上安装编译开发版本，怎么办？<br>答：应该尝试cygwin+cmake。</p>
+          <h2 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h2><p>问：在windows下通常都是直接安装GMT的exe程序，这样导致不能使用github上最新的开发版，而开发版通常fix了很多的bug。如果想在win上安装编译开发版本，怎么办？<br>答：应该尝试cygwin+cmake。</p>
 <p>问：cygwin是什么？怎么使用？<br>答：可以看<a href="https://cygwin.com/index.html" target="_blank" rel="noopener">这里</a>. cygwin的各个库升级都是通过<code>setup**.exe</code>实现的，每一次升级或者安装新的模块，都要打开这个程序。用习惯了，不觉得麻烦。</p>
 <p>问：cmake怎么在这下面安装？<br>答：可以使用<code>setup**.exe</code>，选择cmake进行安装。<br><img src="/images/cygwin.png" alt><br>安装完成后打开命令行界面，查看cygwin版本：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">yangleir@</span>DESKTOP-FVRFATD ~</span><br><span class="line">$ cmake --version</span><br><span class="line">cmake version <span class="number">3.14</span><span class="number">.5</span></span><br><span class="line"></span><br><span class="line">CMake suite maintained <span class="keyword">and</span> supported by Kitware (kitware.com/cmake).</span><br></pre></td></tr></table></figure>
@@ -414,155 +298,94 @@
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>虽然可以编译，但是还需要改进：<br>-找到海岸线<br>-匹配唯一的HDF5等库。<br>-cygwin的gs库有bug，更换。</p>
 <p>不建议使用这种方法进行GMT的开发版安装。</p>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/21/proj-api/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/21/proj-api/" itemprop="url">PROJ API调用的一个简单例子</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/21/proj-api/" class="post-title-link" itemprop="url">PROJ API调用的一个简单例子</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-21T16:22:07+08:00">
-                2020-01-21
-              </time>
-            
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-21 16:22:07" itemprop="dateCreated datePublished" datetime="2020-01-21T16:22:07+08:00">2020-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-01-22 09:01:00" itemprop="dateModified" datetime="2020-01-22T09:01:00+08:00">2020-01-22</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/PROJ/" itemprop="url" rel="index">
                     <span itemprop="name">PROJ</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/21/proj-api/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/21/proj-api/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/21/proj-api/" class="post-meta-item leancloud_visitors" data-flag-title="PROJ API调用的一个简单例子" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/21/proj-api/" class="leancloud_visitors" data-flag-title="PROJ API调用的一个简单例子">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/21/proj-api/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/21/proj-api/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -570,12 +393,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h1><h2 id="PROJ是什么？"><a href="#PROJ是什么？" class="headerlink" title="PROJ是什么？"></a>PROJ是什么？</h2><p><b><a href="https://proj.org/" target="_blank" rel="noopener">PROJ</a></b> 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。<br>PROJ项目开始于1983年。</p>
+          <h1 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h1><h2 id="PROJ是什么？"><a href="#PROJ是什么？" class="headerlink" title="PROJ是什么？"></a>PROJ是什么？</h2><p><b><a href="https://proj.org/" target="_blank" rel="noopener">PROJ</a></b> 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。<br>PROJ项目开始于1983年。</p>
 <h2 id="PROJ怎么安装"><a href="#PROJ怎么安装" class="headerlink" title="PROJ怎么安装"></a>PROJ怎么安装</h2><p>PROJ使用c++编写，从<a href="https://proj.org/" target="_blank" rel="noopener">官网</a>下载源程序，依照<b><a href="https://proj.org/install.html" target="_blank" rel="noopener">编译指南</a></b>编译。默认安装路径为<code>/usr/local</code>。<br>如果通过在线安装，目录为<code>/usr/bin</code>。</p>
 <h2 id="PROJ命令行怎么用？"><a href="#PROJ命令行怎么用？" class="headerlink" title="PROJ命令行怎么用？"></a>PROJ命令行怎么用？</h2><p>可以通过命令行使用，例如</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">yangleir@</span>DESKTOP-FVRFATD MINGW64 ~</span><br><span class="line">$ echo <span class="number">55.2</span> <span class="number">12.2</span> | proj +proj=merc +lat_ts=<span class="number">56.5</span> +ellps=GRS80</span><br><span class="line"><span class="number">3399483.80</span>      <span class="number">752085.60</span></span><br></pre></td></tr></table></figure>
@@ -590,155 +408,88 @@
 
 <p>PROJ 6示例:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;proj.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    PJ_CONTEXT *C;</span><br><span class="line">    PJ *P;</span><br><span class="line">    PJ* P_for_GIS;</span><br><span class="line">    PJ_COORD a, b;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* or you may set C=PJ_DEFAULT_CTX if you are sure you will     */</span></span><br><span class="line">    <span class="comment">/* use PJ objects from only one thread                          */</span></span><br><span class="line">    C = proj_context_create();</span><br><span class="line"></span><br><span class="line">    P = proj_create_crs_to_crs (C,</span><br><span class="line">                                <span class="string">"EPSG:4326"</span>,</span><br><span class="line">                                <span class="string">"+proj=utm +zone=32 +datum=WGS84"</span>, <span class="comment">/* or EPSG:32632 */</span></span><br><span class="line">                                <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">0</span>==P) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Oops\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* This will ensure that the order of coordinates for the input CRS */</span></span><br><span class="line">    <span class="comment">/* will be longitude, latitude, whereas EPSG:4326 mandates latitude, */</span></span><br><span class="line">    <span class="comment">/* longitude */</span></span><br><span class="line">    P_for_GIS = proj_normalize_for_visualization(C, P);</span><br><span class="line">    <span class="keyword">if</span>( <span class="number">0</span> == P_for_GIS )  &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Oops\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    proj_destroy(P);</span><br><span class="line">    P = P_for_GIS;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* a coordinate union representing Copenhagen: 55d N, 12d E    */</span></span><br><span class="line">    <span class="comment">/* Given that we have used proj_normalize_for_visualization(), the order of</span></span><br><span class="line"><span class="comment">    /* coordinates is longitude, latitude, and values are expressed in degrees. */</span></span><br><span class="line">    a = proj_coord (<span class="number">12</span>, <span class="number">55</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* transform to UTM zone 32, then back to geographical */</span></span><br><span class="line">    b = proj_trans (P, PJ_FWD, a);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"easting: %.3f, northing: %.3f\n"</span>, b.enu.e, b.enu.n);</span><br><span class="line">    b = proj_trans (P, PJ_INV, b);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"longitude: %g, latitude: %g\n"</span>, b.lp.lam, b.lp.phi);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Clean up */</span></span><br><span class="line">    proj_destroy (P);</span><br><span class="line">    proj_context_destroy (C); <span class="comment">/* may be omitted in the single threaded case */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/19/line-width-km/" itemprop="url">GMT以公里为单位绘制线的宽度</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/19/line-width-km/" class="post-title-link" itemprop="url">GMT以公里为单位绘制线的宽度</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-19T22:21:20+08:00">
-                2020-01-19
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-19 22:21:20 / Geändert am: 23:26:42" itemprop="dateCreated datePublished" datetime="2020-01-19T22:21:20+08:00">2020-01-19</time>
+            </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/GMT/" itemprop="url" rel="index">
                     <span itemprop="name">GMT</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/19/line-width-km/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/19/line-width-km/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/19/line-width-km/" class="post-meta-item leancloud_visitors" data-flag-title="GMT以公里为单位绘制线的宽度" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/19/line-width-km/" class="leancloud_visitors" data-flag-title="GMT以公里为单位绘制线的宽度">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/19/line-width-km/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/19/line-width-km/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -746,12 +497,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：GMT中psxy绘制线的宽度单位能设置为km吗？<br>答：psxy的线宽单位只有<code>c,i,p</code>，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。</p>
+          <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：GMT中psxy绘制线的宽度单位能设置为km吗？<br>答：psxy的线宽单位只有<code>c,i,p</code>，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。</p>
 <blockquote>
 <p>Width is by default measured in points (1/72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points, respectively.</p>
 </blockquote>
@@ -761,155 +507,88 @@
 <p><img src="/images/xmd.png" alt></p>
 <p>图中圆的直径的5km（通过<code>-SE-</code>），圆的采样间隔也是5km（通过<code>sample1d</code>），线的宽度为5km（通过<code>scale</code>），结果一致。</p>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/18/awk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/18/awk/" itemprop="url">awk的几点用法</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/18/awk/" class="post-title-link" itemprop="url">awk的几点用法</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-18T10:00:59+08:00">
-                2020-01-18
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-18 10:00:59 / Geändert am: 11:09:08" itemprop="dateCreated datePublished" datetime="2020-01-18T10:00:59+08:00">2020-01-18</time>
+            </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/" itemprop="url" rel="index">
                     <span itemprop="name">Linux</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/18/awk/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/18/awk/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/18/awk/" class="post-meta-item leancloud_visitors" data-flag-title="awk的几点用法" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/18/awk/" class="leancloud_visitors" data-flag-title="awk的几点用法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/18/awk/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/18/awk/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -917,12 +596,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p><code>AWK</code>是常用的数据处理工具，内置的变量名称为：</p>
+          <p><code>AWK</code>是常用的数据处理工具，内置的变量名称为：</p>
 <blockquote>
 <p>变量名    含义<br>ARGC   命令行变元个数<br>ARGV   命令行变元数组<br>FILENAME   当前输入文件名<br>FNR   当前文件中的记录号<br>FS   输入域分隔符，默认为一个空格<br>RS   输入记录分隔符<br>NF   当前记录里域个数<br>NR   到目前为止记录数<br>OFS   输出域分隔符<br>ORS   输出记录分隔</p>
 </blockquote>
@@ -945,155 +619,88 @@
 <p>批量提取GPS结果中测站名称和坐标信息</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#date:2020-1-18</span><br><span class="line"><span class="keyword">cd</span> gamit</span><br><span class="line"><span class="keyword">pwd</span></span><br><span class="line"># <span class="keyword">ls</span> *.xml</span><br><span class="line"># touch ../vol.<span class="keyword">d</span></span><br><span class="line"># touch ../track2_lat.dat</span><br><span class="line">touch ../names.txt</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="keyword">ls</span> *.ios_gamit_detrend.neu`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    echo <span class="variable">$i</span></span><br><span class="line">    # <span class="keyword">cat</span> <span class="variable">$i</span> | grep 'Up    stats'| awk -F<span class="string">":"</span> '&#123;<span class="keyword">print</span> <span class="variable">$0&#125;</span>'|awk '&#123;<span class="keyword">for</span>(i=1;i&lt;13;i=i+1)&#123;printf <span class="variable">$i</span><span class="string">" "</span>&#125;;printf <span class="string">"\n"</span>&#125;' &gt;&gt; ../vol.<span class="keyword">d</span></span><br><span class="line">    # echo <span class="string">"&gt;"</span> &gt;&gt; ../vol.<span class="keyword">d</span></span><br><span class="line">    <span class="keyword">cat</span> <span class="variable">$i</span> | grep '4-character ID'| awk -F<span class="string">":"</span> '&#123;<span class="keyword">print</span> <span class="variable">$0&#125;</span>' &gt;&gt; ../names.txt</span><br><span class="line">    # echo <span class="string">"&gt;"</span> &gt;&gt; ../vol.<span class="keyword">d</span></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">awk -F<span class="string">":"</span> '&#123;<span class="keyword">print</span> <span class="variable">$2&#125;</span>' ../names.txt | paste - ../vol.<span class="keyword">d</span> &gt; ../vol.d2</span><br><span class="line">awk  '&#123;<span class="keyword">print</span> <span class="variable">$3</span>,<span class="variable">$1</span>,<span class="variable">$2&#125;</span>' ../../figs/trc.dat &gt; ../tmp.<span class="keyword">d</span></span><br><span class="line"></span><br><span class="line"># awk 'NR==FNR&#123;a[<span class="variable">$1</span>]=<span class="variable">$0</span>;next&#125;NR&gt;FNR&#123;<span class="keyword">if</span>(<span class="variable">$1</span> <span class="keyword">in</span> a)<span class="keyword">print</span> a[<span class="variable">$1</span>],a[<span class="variable">$2</span>],<span class="variable">$1</span>,<span class="variable">$1&#125;</span>' ../vol.d2 ../../figs/trc.dat &gt; ../result.<span class="keyword">d</span></span><br><span class="line"># 匹配两个文件中的相同内容，并输出到一个文件夹。</span><br><span class="line">awk 'NR==FNR&#123;S[<span class="variable">$1</span>]=<span class="variable">$0</span>;next&#125;NR&gt;FNR&#123;<span class="keyword">print</span> S[<span class="variable">$1</span>],<span class="variable">$5</span>,<span class="variable">$7</span>,<span class="variable">$10</span>,<span class="variable">$13&#125;</span>' tmp.<span class="keyword">d</span> vol.d2 &gt; result.<span class="keyword">d</span></span><br><span class="line"># 第一列匹配，表示为字母</span><br><span class="line">awk  '&#123;<span class="keyword">if</span>(<span class="variable">$1</span> ~ /^[A-Z]+$/) <span class="keyword">print</span> <span class="variable">$0&#125;</span>' result.<span class="keyword">d</span>  &gt; result.d2</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/11/pscoast-dump/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/11/pscoast-dump/" itemprop="url">pscoast提取海岸线、湖泊岸线、行政边界</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/11/pscoast-dump/" class="post-title-link" itemprop="url">pscoast提取海岸线、湖泊岸线、行政边界</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-11T20:14:57+08:00">
-                2020-01-11
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-11 20:14:57 / Geändert am: 21:24:52" itemprop="dateCreated datePublished" datetime="2020-01-11T20:14:57+08:00">2020-01-11</time>
+            </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/GMT/" itemprop="url" rel="index">
                     <span itemprop="name">GMT</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/11/pscoast-dump/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/11/pscoast-dump/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/11/pscoast-dump/" class="post-meta-item leancloud_visitors" data-flag-title="pscoast提取海岸线、湖泊岸线、行政边界" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/11/pscoast-dump/" class="leancloud_visitors" data-flag-title="pscoast提取海岸线、湖泊岸线、行政边界">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/11/pscoast-dump/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/11/pscoast-dump/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -1101,12 +708,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>以后以提问的形式进行吧，这样可能更有益于学习。</p>
+          <p>以后以提问的形式进行吧，这样可能更有益于学习。</p>
 <p>提问：请问我想提取出青海湖的岸线在别的程序使用,能使用GMT吗？<br>回答：可以，pscoast -M 具有这种功能，使用下面的代码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment"># 2019-04-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment"># Purpose: Using pscoast to get coastline data</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mmF MAP_FRAME_WIDTH=2p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY 7p,Helvetica,black FONT_LABEL 7p,Helvetica,black </span><br><span class="line"></span><br><span class="line">ps=example_large.ps</span><br><span class="line">R2=-R99:25/100:50/36:18/37:23</span><br><span class="line"></span><br><span class="line">gmt psbasemap <span class="variable">$R2</span> -JM4.5i -K -Bag &gt; <span class="variable">$ps</span></span><br><span class="line">gmt pscoast <span class="variable">$R2</span>  -M -W2  -Df &gt; qhlake.txt</span><br><span class="line">gmt psxy <span class="variable">$R2</span>  -J qhlake.txt -W0.4p,green -O &gt;&gt; <span class="variable">$ps</span></span><br></pre></td></tr></table></figure>
 <p><img src="/images/example_large.png" alt></p>
@@ -1123,155 +725,94 @@
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> pscoast -J -R -ECN.<span class="number">37</span>+gblue -Df -O -t50 &gt;&gt;<span class="variable">$ps</span></span><br></pre></td></tr></table></figure>
 <p><img src="/images/example_prov.png" alt></p>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/10/landmask/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/10/landmask/" itemprop="url">grdlandmask和grdmath配合解决陆海数据分离</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/10/landmask/" class="post-title-link" itemprop="url">grdlandmask和grdmath配合解决陆海数据分离</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-10T22:47:35+08:00">
-                2020-01-10
-              </time>
-            
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-10 22:47:35" itemprop="dateCreated datePublished" datetime="2020-01-10T22:47:35+08:00">2020-01-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-01-11 20:10:23" itemprop="dateModified" datetime="2020-01-11T20:10:23+08:00">2020-01-11</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/GMT/" itemprop="url" rel="index">
                     <span itemprop="name">GMT</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/10/landmask/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/10/landmask/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/10/landmask/" class="post-meta-item leancloud_visitors" data-flag-title="grdlandmask和grdmath配合解决陆海数据分离" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/10/landmask/" class="leancloud_visitors" data-flag-title="grdlandmask和grdmath配合解决陆海数据分离">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/10/landmask/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/10/landmask/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -1279,12 +820,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>首先解决几个基本的问题。</p>
+          <p>首先解决几个基本的问题。</p>
 <p>提问：我有一个tif格式的文件，可以在GMT中直接使用吗？<br>回答：可以直接使用。因为GMT已经引用了GDAL。</p>
 <p>提问：我的tif坐标是UTM，能转成经纬度吗？<br>回答：可以，有两种方法可以转化，并互相检验。一种是grdproject，一种是先通过grd2xyz转成文本，然后通过mapproject转换为经纬度，在通过xyz2grd转为nc。经检验，两种方法一致，因此直接采用第一种即可。需要注意的是选择UTM投影代号。<br>其中grdproject用法：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -F -I $tif2 -Ggeo2.grd</span><br></pre></td></tr></table></figure>
@@ -1302,155 +838,88 @@
 <p><img src="/images/tg2_test.png" alt></p>
 <p>绘图和数据处理的完整代码，本数据为天宫2数据，点击<a href="https://pan.baidu.com/s/1PyBFzPU_SxVfrXYvBNoaBg" target="_blank" rel="noopener">下载</a>，提取码cdl3，也可以替换成任意tif数据，但需要根据坐标修改UTM的代号。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mm:ssF</span><br><span class="line">gmt gmtset <span class="attribute">MAP_FRAME_WIDTH</span>=2p PS_CHAR_ENCODING = ISOLatin1+</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY 7p,Helvetica,black FONT_LABEL 7p,Helvetica,black</span><br><span class="line"></span><br><span class="line"><span class="attribute">tif2</span>=T2_IALT_SRRH_SCI_20170806150925_20170806152709_L4_1_58_20180713110926_V200.tif</span><br><span class="line"></span><br><span class="line"><span class="attribute">ps</span>=tg2_test.ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line"></span><br><span class="line">gmt grdproject -Ju51S/1:1 -C -F -I <span class="variable">$tif2</span> -Ggeo2.grd </span><br><span class="line"></span><br><span class="line">gmt grdlandmask -Rgeo2.grd -Df -N1/NaN -Gland_mask.nc -V</span><br><span class="line">gmt grdmath geo2.grd land_mask.nc MUL = geo3.grd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gmt pscoast -Ju51S/1:1500000  -Df+ -W0.5p,blue -Ba12mg12m -BNESW -K  <span class="attribute">--MAP_ANNOT_OBLIQUE</span>=40 -R  &gt;<span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt grd2cpt geo2.grd -Crainbow &gt; mydata.cpt</span><br><span class="line">gmt grdimage geo2.grd -R -J -Cmydata.cpt -K -Q -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt pscoast -Ju51S/1:1500000  -Df+ -W0.5p,blue -Ba12mg12m -BNESW -K <span class="attribute">--MAP_ANNOT_OBLIQUE</span>=40 -R -O -X2.5i &gt;&gt;<span class="variable">$ps</span></span><br><span class="line">gmt grdimage geo3.grd -R -J -Cmydata.cpt -Q -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -P -Tg</span><br><span class="line">rm *.nc *.cpt *.grd</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/08/fft-gmt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/08/fft-gmt/" itemprop="url">GMT用于功率谱分析</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/fft-gmt/" class="post-title-link" itemprop="url">GMT用于功率谱分析</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-08T14:16:14+08:00">
-                2020-01-08
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-08 14:16:14 / Geändert am: 21:38:27" itemprop="dateCreated datePublished" datetime="2020-01-08T14:16:14+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/GMT/" itemprop="url" rel="index">
                     <span itemprop="name">GMT</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/08/fft-gmt/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/08/fft-gmt/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/08/fft-gmt/" class="post-meta-item leancloud_visitors" data-flag-title="GMT用于功率谱分析" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/08/fft-gmt/" class="leancloud_visitors" data-flag-title="GMT用于功率谱分析">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/08/fft-gmt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/08/fft-gmt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -1458,166 +927,100 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>傅里叶变换是常用的计算信号频率（功率谱）的工具，各种编程语言都可以简单的快速实现FFT变换。GMT作为绘图工具，不仅可以绘图，也集成了非常强大的地学数据处理功能，对一维、二维的数据都可以实现傅里叶变换，从而确定出信号的频率信息。</p>
+          <p>傅里叶变换是常用的计算信号频率（功率谱）的工具，各种编程语言都可以简单的快速实现FFT变换。GMT作为绘图工具，不仅可以绘图，也集成了非常强大的地学数据处理功能，对一维、二维的数据都可以实现傅里叶变换，从而确定出信号的频率信息。</p>
 <p><code>spectrum1d</code>(<a href="https://docs.generic-mapping-tools.org/latest/spectrum1d.html" target="_blank" rel="noopener">help-page</a>)是计算一维信号频域信息的工具，它采用了Welch的计算方法，该方法在<a href="https://www.mathworks.com/help/signal/ref/pwelch.html" target="_blank" rel="noopener">Matlab</a>中也经常使用，优点是可靠、易编程，结果易理解。</p>
 <p>GMT开发者给出了一个例子，可参考<a href="https://github.com/GenericMappingTools" target="_blank" rel="noopener">github</a>，但是例子中的数学稍微不易理解。经过修改，输入信号修改为两个周期三角函数的叠加，经过测试，GMT可以准确地计算出频率和波长。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line"># Testing gmt spectrum1d power spectrum values</span><br><span class="line"></span><br><span class="line">ps=power1D.ps</span><br><span class="line"></span><br><span class="line"># First to generate a signal with fixed frequency using math.</span><br><span class="line"></span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"># This is the math example from GMT developer, but hard to understand. So we do not use it here.</span><br><span class="line"># gmt math -T0/<span class="number">10239</span>/<span class="number">1</span> T <span class="number">10240</span> DIV <span class="number">360</span> MUL <span class="number">400</span> MUL COSD = t.txt</span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"># This is the math example that easy to understand. </span><br><span class="line">gmt math -T0/<span class="number">200</span>/<span class="number">0.5</span> T <span class="number">20</span> DIV <span class="number">360</span> MUL COSD T <span class="number">4</span> DIV <span class="number">360</span> MUL SIND <span class="number">3</span> MUL ADD = t.txt</span><br><span class="line"># The same with up line but with unit of radian.</span><br><span class="line"># gmt math -T0/<span class="number">200</span>/<span class="number">0.5</span> T <span class="number">20</span> DIV <span class="number">6.28</span> MUL COS T <span class="number">4</span> DIV <span class="number">6.28</span> MUL SIN <span class="number">3</span> MUL ADD = t.txt</span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">gmt psxy `gmt gmtinfo t.txt -I0<span class="number">.000001</span>` t.txt -JX6i/<span class="number">2</span>i -Bxaf+u@. -Byaf -BWSne+t<span class="string">"y(t) = cosd (360@~\327@~1/20@~\327@~t)+ 3@~\327@~sind (360@~\327@~1/4@~\327@~t)"</span> -W0<span class="number">.2</span>p -P -K -Xc &gt; $ps</span><br><span class="line"></span><br><span class="line">gmt spectrum1d t.txt -S256 -W --GMT_FFT=brenner -N -i1 -D0<span class="number">.5</span> &gt; pow5.txt</span><br><span class="line"></span><br><span class="line">gmt psxy -R0<span class="number">.2</span>/<span class="number">256</span>/<span class="number">1e-19</span>/<span class="number">1e5</span> -JX<span class="number">-6</span>il/<span class="number">6.5</span>il -Bxa2f3+l<span class="string">"Wavelength"</span> -Bya<span class="number">-2</span>p+l<span class="string">"power spectrum"</span> -BWN -O -K -Y3<span class="number">.5</span>i pow5.txt -W6<span class="number">.25</span>p &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -K pow5.txt -Sc0<span class="number">.04</span>i -Gblack -Ey &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt spectrum1d t.txt -S256 --GMT_FFT=brenner -N -i1 -W -L -D0<span class="number">.5</span>&gt; pow5.txt</span><br><span class="line">gmt psxy -R -J -O -K pow5.txt -W0<span class="number">.5</span>p,lightred &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -K -W0<span class="number">.25</span>p,lightred,- &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line"><span class="number">20</span>	<span class="number">1e-19</span></span><br><span class="line"><span class="number">20</span>	<span class="number">1e5</span></span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line"># The same result using -N</span><br><span class="line">cut -f2 t.txt | gmt spectrum1d -S256 -W -Nv4 -D0<span class="number">.5</span></span><br><span class="line">gmt psxy -R -J -O -K v4.xpower -W2<span class="number">.25</span>p,red &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line"># wavelength is the reverse of the frequency, the result is the same but a increasing x-axis and a decreasing x-axis</span><br><span class="line">gmt spectrum1d t.txt -S256 --GMT_FFT=brenner -N -i1 -D0<span class="number">.5</span>&gt; pow5.txt</span><br><span class="line"># The X-axes length of wavelength is the reciprocal of frequency.</span><br><span class="line">gmt psxy -R0<span class="number">.00390625</span>/<span class="number">5</span>/<span class="number">1e-19</span>/<span class="number">1e5</span> -JX6il/<span class="number">6.5</span>il -O -K pow5.txt -BSE -Bxa2f3+l<span class="string">"Frenquency"</span> -W0<span class="number">.5</span>p,green &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -W0<span class="number">.25</span>p,green,- &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line"><span class="number">0.25</span>	<span class="number">1e-19</span></span><br><span class="line"><span class="number">0.25</span>	<span class="number">1e5</span></span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line">gmt psconvert $ps -A -Tg</span><br></pre></td></tr></table></figure>
 <p>结果如下图<br><img src="/images/power1D.png" alt></p>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/05/map-different-view/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/05/map-different-view/" itemprop="url">GMT竖版地图</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/05/map-different-view/" class="post-title-link" itemprop="url">GMT竖版地图</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-05T23:08:12+08:00">
-                2020-01-05
-              </time>
-            
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-05 23:08:12" itemprop="dateCreated datePublished" datetime="2020-01-05T23:08:12+08:00">2020-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-01-08 14:17:28" itemprop="dateModified" datetime="2020-01-08T14:17:28+08:00">2020-01-08</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/GMT/" itemprop="url" rel="index">
                     <span itemprop="name">GMT</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/05/map-different-view/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/05/map-different-view/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/05/map-different-view/" class="post-meta-item leancloud_visitors" data-flag-title="GMT竖版地图" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/05/map-different-view/" class="leancloud_visitors" data-flag-title="GMT竖版地图">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/05/map-different-view/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/05/map-different-view/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -1625,12 +1028,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>郝晓光研究员的竖版地图采用了和传统地图上北下南不一样的视角，展现了一个奇异有趣的世界格局。吸引我的是他的地图可以用在极地科学考察领域，将南北极以较小的变形投影到一张图上，科学考察的路线一目了然。</p>
+          <p>郝晓光研究员的竖版地图采用了和传统地图上北下南不一样的视角，展现了一个奇异有趣的世界格局。吸引我的是他的地图可以用在极地科学考察领域，将南北极以较小的变形投影到一张图上，科学考察的路线一目了然。</p>
 <p>使用GMT绘制传统的全球地图，仅需要下面一行命令，投影采用了Robinson projection:</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt pscoast -Rd -JN5i -Bg30 -Df -A10000 -Glightgray -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c -png mapnormal</span><br></pre></td></tr></table></figure>
 <p><img src="/images/mapnormal.png" alt></p>
@@ -1646,155 +1044,94 @@
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gmt begin TMcontours ps,png</span><br><span class="line">    gmt coast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT160/<span class="number">-50</span>/<span class="number">4</span>i -Glightgray -A10000 -Df -Ba30g30 -X6i -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c </span><br><span class="line">gmt end</span><br></pre></td></tr></table></figure>
 <p><img src="/images/TMcontours.png" alt></p>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/03/GMT-pswiggle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/03/GMT-pswiggle/" itemprop="url">GMT pswiggle的使用例子</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/03/GMT-pswiggle/" class="post-title-link" itemprop="url">GMT pswiggle的使用例子</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-03T22:55:30+08:00">
-                2020-01-03
-              </time>
-            
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2020-01-03 22:55:30" itemprop="dateCreated datePublished" datetime="2020-01-03T22:55:30+08:00">2020-01-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-01-04 22:40:37" itemprop="dateModified" datetime="2020-01-04T22:40:37+08:00">2020-01-04</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/GMT/" itemprop="url" rel="index">
                     <span itemprop="name">GMT</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/01/03/GMT-pswiggle/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/03/GMT-pswiggle/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2020/01/03/GMT-pswiggle/" class="post-meta-item leancloud_visitors" data-flag-title="GMT pswiggle的使用例子" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2020/01/03/GMT-pswiggle/" class="leancloud_visitors" data-flag-title="GMT pswiggle的使用例子">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/01/03/GMT-pswiggle/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/03/GMT-pswiggle/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -1802,12 +1139,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用到这类的图形。</p>
+          <p>本文介绍pswiggle的用途，希望对不同类型的异常值填充不同颜色，在地震领域可能用到这类的图形。</p>
 <p>GMT的官方文档给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道<code>|</code>传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但可以清楚的看出这个程序主要是用来绘制异常值的颜色填充。所谓异常值可以理解为均值之外的值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的填充。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt math -T<span class="number">-8</span>/<span class="number">6</span>/<span class="number">0.01</span> -N3/<span class="number">0</span> -C2 T <span class="number">3</span> DIV <span class="number">2</span> POW NEG EXP T <span class="literal">PI</span> <span class="number">2</span> MUL MUL COS MUL <span class="number">50</span> MUL = | gmt wiggle -R<span class="number">-10</span>/<span class="number">10</span>/<span class="number">-3</span>/<span class="number">3</span> -JM6i -B -Z100i -DjRM+w100+lnT -Tfaint -Gred+p -W1p -BWSne -png map</span><br></pre></td></tr></table></figure>
 <p><img src="/images/mapwiddge.png" alt></p>
@@ -1819,155 +1151,94 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># test psw ,leiyang@fio.org.cn</span></span><br><span class="line"></span><br><span class="line">ps=example_30.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R0/100/-10/10 -JX-20c/-10c -Bx20f20 -By1g2 -BEN+t<span class="string">"Test pswiggle"</span> -K --MAP_FRAME_TYPE=graph --MAP_VECTOR_SHAPE=0.5 &gt; <span class="variable">$ps</span></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,2,sin(i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -K -J -G+red -G-blue -Z1 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,-2,cos(i)+3*sin(2*i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -J -G+red -G-blue -Z2 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">psconvert <span class="variable">$ps</span> -A -Tg -P</span><br><span class="line">rm *.dat</span><br></pre></td></tr></table></figure>
 <p><img src="/images/example_30.png" alt></p>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2019/12/31/Great-circle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
       <meta itemprop="name" content="Yang Lei">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/xingchi.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="学习笔记">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/31/Great-circle/" itemprop="url">北京到纽约的最短路线经过北冰洋</a></h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/31/Great-circle/" class="post-title-link" itemprop="url">北京到纽约的最短路线经过北冰洋</a>
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-31T10:45:44+08:00">
-                2019-12-31
-              </time>
-            
+              <span class="post-meta-item-text">Veröffentlicht am</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="Erstellt: 2019-12-31 10:45:44" itemprop="dateCreated datePublished" datetime="2019-12-31T10:45:44+08:00">2019-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-01-07 11:11:59" itemprop="dateModified" datetime="2020-01-07T11:11:59+08:00">2020-01-07</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
+              <span class="post-meta-item-text">in</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/GMT/" itemprop="url" rel="index">
                     <span itemprop="name">GMT</span>
                   </a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/12/31/Great-circle/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/31/Great-circle/" itemprop="commentCount"></span>
-                </a>
+            <span id="/2019/12/31/Great-circle/" class="post-meta-item leancloud_visitors" data-flag-title="北京到纽约的最短路线经过北冰洋" title="Aufrufe">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-            
-          
-
-          
-          
-             <span id="/2019/12/31/Great-circle/" class="leancloud_visitors" data-flag-title="北京到纽约的最短路线经过北冰洋">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">Aufrufe: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/31/Great-circle/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/31/Great-circle/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -1975,12 +1246,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>中科院测地所<a href="http://www.hxgmap.com/" target="_blank" rel="noopener">郝晓光</a>研究员编制了竖版世界地图，并且凸显出了北极的战略性意义，指出北京到纽约最近路线通过北冰洋而不是太平洋。这和人们在传统地图上看到的可能不太符合，通过<a href="https://docs.generic-mapping-tools.org/6.0/index.html" target="_blank" rel="noopener">GMT</a>可以计算大圆距离，并在不同的投影上进行绘图，展示北京到纽约的实际最短航线。</p>
+          <p>中科院测地所<a href="http://www.hxgmap.com/" target="_blank" rel="noopener">郝晓光</a>研究员编制了竖版世界地图，并且凸显出了北极的战略性意义，指出北京到纽约最近路线通过北冰洋而不是太平洋。这和人们在传统地图上看到的可能不太符合，通过<a href="https://docs.generic-mapping-tools.org/6.0/index.html" target="_blank" rel="noopener">GMT</a>可以计算大圆距离，并在不同的投影上进行绘图，展示北京到纽约的实际最短航线。</p>
 <p>先描述一个概念：</p>
 <blockquote>
 <p>大圆航线(Great circle distance)<br>把地球看做一个球体，通过地面上任意两点和地心做一平面，平面与地球表面相交看到的圆周就是大圆。两点之间的大圆劣弧线是两点在地面上的最短距离。沿着这一段大圆弧线航行时的航线称为大圆航线。由于大圆航线是两点之间的最短航线，故有时称为最经济航线。</p>
@@ -2006,45 +1272,25 @@
 <p>PS:通过本例子，发现了一个Bug，在TM投影下<code>grdcontour</code>绘制Y轴的等值线在全球地图模式下存在wrap现象，就是等值线出现了不应该的头尾相接，我通过GMT在github的<a href="https://github.com/GenericMappingTools/gmt/issues/2389" target="_blank" rel="noopener">repository</a>提交了Bug，不到一天的时间，GMT的作者Paul教授就修正了这个Bug，而且是周末时间，实在是高效认真负责。</p>
 <p>Bug 修复后，从github下载最新的<a href="https://github.com/GenericMappingTools/gmt" target="_blank" rel="noopener">GMT</a>版本，并编译安装。执行后，bug消失。<br><br><img src="/images/ex23-2.png" alt></p>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
-  </section>
+  </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
   </nav>
 
 
@@ -2052,447 +1298,301 @@
           </div>
           
 
-
-          
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
-        
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Inhaltsverzeichnis
+        </li>
+        <li class="sidebar-nav-overview">
+          Übersicht
+        </li>
+      </ul>
 
-      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/xingchi.jpg"
-                alt="Yang Lei" />
-            
-              <p class="site-author-name" itemprop="name">Yang Lei</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">Artikel</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
           
-
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">Kategorien</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
           
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">schlagwörter</span></a>
+      </div>
+  </nav>
+</div>
 
-          
-          
 
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                链接
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://getmyte.com/" title="getmyte" target="_blank">getmyte</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://www.economist.com/" title="Economist" target="_blank">Economist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://l7.antv.vision/en/" title="AntV" target="_blank">AntV</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
 
-          
-
-        </div>
-      </section>
-
-      
-
-      
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Yang Lei</span>
-
-  
 </div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+  <div class="theme-info">Design – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
   </div>
 
-  
+        
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
 
 
 
 
 
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  <script src="/js/src/av-min.js"></script>
-  <script src="/js/src/Valine.min.js"></script>
-  
-  
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
-        appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
-        placeholder: 'Comment here',
-        avatar:'retro',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz", "YRcXfwqMVEWtFfgTumCdt2il");</script>
   <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
       });
 
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
           if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
             return;
           }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
           }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
             }
           }
         })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
         });
     }
+  }
 
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
         showTime(Counter);
       }
     });
   </script>
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 
   
 
-  
-  
 
-  
-
-  
-
-  
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
