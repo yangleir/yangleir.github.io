@@ -46,23 +46,22 @@
   };
 </script>
 
-  <meta name="description" content="问答问：GMT中psxy绘制线的宽度单位能设置为km吗？答：psxy的线宽单位只有c,i,p，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。  Width is by default measured in points (1&#x2F;72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points,">
+  <meta name="description" content="问答问：上一篇文章尝试了使用cygwin来编译GMT，出现了一些问题。那么有没有别的办法编译GMT的github开发版（还没有正式发布的版本）？答：根据官网指南，使用Visual Studio是一个可行的办法。 问：windows下编译源码复杂吗？需要依赖诸多库怎么办？答：比Linux复杂。具体使用vcpkg来安装库。关于怎么安装和使用vcpkg，详见官网指南。vcpkg的安装较简单，使用的时候需">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GMT以公里为单位绘制线的宽度">
-<meta property="og:url" content="http://assz0a.coding-pages.com/2020/01/19/line-width-km/index.html">
+<meta property="og:title" content="在windows下编译GMT源码">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="问答问：GMT中psxy绘制线的宽度单位能设置为km吗？答：psxy的线宽单位只有c,i,p，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。  Width is by default measured in points (1&#x2F;72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points,">
+<meta property="og:description" content="问答问：上一篇文章尝试了使用cygwin来编译GMT，出现了一些问题。那么有没有别的办法编译GMT的github开发版（还没有正式发布的版本）？答：根据官网指南，使用Visual Studio是一个可行的办法。 问：windows下编译源码复杂吗？需要依赖诸多库怎么办？答：比Linux复杂。具体使用vcpkg来安装库。关于怎么安装和使用vcpkg，详见官网指南。vcpkg的安装较简单，使用的时候需">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://assz0a.coding-pages.com/images/xmd.png">
-<meta property="article:published_time" content="2020-01-19T14:21:20.000Z">
-<meta property="article:modified_time" content="2020-01-19T15:26:42.002Z">
+<meta property="article:published_time" content="2020-02-04T13:33:34.000Z">
+<meta property="article:modified_time" content="2020-02-04T14:28:04.140Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
-<meta property="article:tag" content="psxy">
+<meta property="article:tag" content="vcpkg">
+<meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/xmd.png">
 
-<link rel="canonical" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
+<link rel="canonical" href="http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/">
 
 
 <script id="page-configurations">
@@ -74,7 +73,7 @@
   };
 </script>
 
-  <title>GMT以公里为单位绘制线的宽度 | 学习笔记</title>
+  <title>在windows下编译GMT源码 | 学习笔记</title>
   
 
 
@@ -188,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/xingchi.jpg">
@@ -201,7 +200,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          GMT以公里为单位绘制线的宽度
+          在windows下编译GMT源码
         </h1>
 
         <div class="post-meta">
@@ -212,7 +211,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-01-19 22:21:20 / 修改时间：23:26:42" itemprop="dateCreated datePublished" datetime="2020-01-19T22:21:20+08:00">2020-01-19</time>
+              <time title="创建时间：2020-02-04 21:33:34 / 修改时间：22:28:04" itemprop="dateCreated datePublished" datetime="2020-02-04T21:33:34+08:00">2020-02-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,7 +226,7 @@
             </span>
 
           
-            <span id="/2020/01/19/line-width-km/" class="post-meta-item leancloud_visitors" data-flag-title="GMT以公里为单位绘制线的宽度" title="阅读次数">
+            <span id="/2020/02/04/windows-GMT-building-vcpkg/" class="post-meta-item leancloud_visitors" data-flag-title="在windows下编译GMT源码" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -242,8 +241,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/01/19/line-width-km/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/19/line-width-km/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/04/windows-GMT-building-vcpkg/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/04/windows-GMT-building-vcpkg/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -258,15 +257,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：GMT中psxy绘制线的宽度单位能设置为km吗？<br>答：psxy的线宽单位只有<code>c,i,p</code>，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。</p>
-<blockquote>
-<p>Width is by default measured in points (1/72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points, respectively.</p>
-</blockquote>
-<p>问：就没有别的办法了吗？<br>答：可以通过设定地图比例尺<code>scale</code>，然后根据比例尺来计算出地图上1cm表示的实际地理长度。例如比例尺为<code>1:500000</code>时，线宽1m表示500,000米，1cm表示5km。</p>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">R=120:22/120:41/35:55/36:06</span><br><span class="line">J=m120:30/36/1:500000</span><br><span class="line"><span class="comment"># Here use the map scale not the absolute width in map projection. This will allow the line width in cm unit connected to the geographical units km.</span></span><br><span class="line"></span><br><span class="line">PS=xmd.ps</span><br><span class="line"></span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH = 0.1c FORMAT_GEO_MAP = ddd:mm:ssF</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY	= 7p</span><br><span class="line">gmt gmtset FONT_LABEL 7 MAP_LABEL_OFFSET 5p</span><br><span class="line">gmt gmtset MAP_FRAME_TYPE plain MAP_TICK_LENGTH_PRIMARY -5p  MAP_FRAME_PEN black</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -K  -Lx0.3i/0.3i+c120/36+w5k &gt;<span class="variable">$PS</span></span><br><span class="line">gmt pscoast -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -Df -W -I1 -K -Glightyellow -Bpxa5mf -Bpya5mf -BnWSe &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">cat &lt;&lt; EOF &gt; point.txt</span><br><span class="line">120:22 36:06</span><br><span class="line">120:41 35:55</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">gmt sample1d point.txt -Fa -T5k &gt; p5km.txt</span><br><span class="line">awk <span class="string">'&#123;print $1,$2,5&#125;'</span> p5km.txt | gmt psxy -SE- -Gred -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -K -t70 &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">gmt psxy point.txt -W1c,black -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -O -K -t70 &gt;&gt; <span class="variable">$PS</span></span><br><span class="line">gmt psxy point.txt -W0.01c,black+ve0.1i+gblue -R<span class="variable">$R</span> -J<span class="variable">$J</span> -P -O -K  &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">angle=`gmt mapproject -R<span class="variable">$R</span> -J<span class="variable">$J</span> -Af  point.txt | gmt gmtmath STDIN -i2 -Sl MEAN 360 SUB 90 SUB NEG =`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"angle:"</span><span class="variable">$angle</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>  120:26:8.53 36:2:55 <span class="string">"Flying@-angle 324@.@-@"</span>|  gmt pstext  -F+f4p,1,black+a<span class="variable">$angle</span>+jLB -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -N -K -D0.1/0. -Gwhite &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>  120:35:03 36:00:0.0 <span class="string">"XGD"</span>|  gmt pstext -F+a<span class="variable">$angle</span>+f4p,1,black+jLB -R<span class="variable">$R</span> -J<span class="variable">$J</span> -O -N -D0.1/0. -Gwhite &gt;&gt; <span class="variable">$PS</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">$PS</span> -A -P -Tg</span><br><span class="line"></span><br><span class="line">rm  *.txt *.conf *.<span class="built_in">history</span></span><br></pre></td></tr></table></figure>
+        <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：上一篇文章尝试了使用cygwin来编译GMT，出现了一些问题。那么有没有别的办法编译GMT的github开发版（还没有正式发布的版本）？<br>答：根据<a href="https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md#windows" target="_blank" rel="noopener">官网指南</a>，使用Visual Studio是一个可行的办法。</p>
+<p>问：windows下编译源码复杂吗？需要依赖诸多库怎么办？<br>答：比Linux复杂。具体使用<a href="https://github.com/microsoft/vcpkg" target="_blank" rel="noopener">vcpkg</a>来安装库。关于怎么安装和使用vcpkg，详见<a href="https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md#windows" target="_blank" rel="noopener">官网指南</a>。vcpkg的安装较简单，使用的时候需要在线下载依赖库的压缩文件，这时需要手动下载文件并复制到<code>C:\vcpkg-master\downloads</code>文件夹下，手动下载的地址即为命令窗口最下面的地址，然后根据<code>C:\vcpkg-master\downloads\temp</code>下面的文件名称对其重命名。然后再执行<code>vcpkg install netcdf-c gdal pcre fftw3[core,threads] clapack openblas --triplet x64-windows</code>，程序会根据自动分析是否安装和是否下载，安装好的库将跳过。<br>vcpkg下载的依赖库，以及这些库本身的依赖：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">yangleir@DESKTOP-FVRFATD MINGW64 /c/vcpkg-master/downloads</span><br><span class="line">$ ls -lh | grep ^[^d] | awk '&#123;print $<span class="number">5</span>,<span class="string">"<span class="subst">\t</span>"</span>,$<span class="number">9</span>&#125;'</span><br><span class="line"></span><br><span class="line"><span class="number">988</span>K     <span class="number">7</span>-zip.commandline<span class="number">.18</span><span class="number">.1</span><span class="number">.0</span>.nupkg</span><br><span class="line"><span class="number">5.8</span>M     clapack<span class="number">-3.2</span><span class="number">.1</span>.tgz</span><br><span class="line"><span class="number">2.2</span>M     cmake<span class="number">-3.14</span><span class="number">.0</span>-win32-x86.zip.part</span><br><span class="line"><span class="number">14</span>M      CMake-hdf5<span class="number">-1.10</span><span class="number">.5</span>.tar.gz</span><br><span class="line"><span class="number">2.9</span>M     curl-curl-curl<span class="number">-7</span>_68_0.tar.gz</span><br><span class="line"><span class="number">4.0</span>M     fftw<span class="number">-3.3</span><span class="number">.8</span>.tar.gz</span><br><span class="line"><span class="number">17</span>M      gdal241.zip</span><br><span class="line"><span class="number">1.9</span>M     geos<span class="number">-3.6</span><span class="number">.3</span>.tar.bz2</span><br><span class="line"><span class="number">1.5</span>M     glennrp-libpng-v1<span class="number">.6</span><span class="number">.37</span>.tar.gz</span><br><span class="line"><span class="number">5.0</span>M     GNOME-libxml2-v2<span class="number">.9</span><span class="number">.9</span>.tar.gz</span><br><span class="line"><span class="number">1.2</span>M     jom_1_1_3.zip</span><br><span class="line"><span class="number">7.9</span>M     libexpat-libexpat-R_2_2_7.tar.gz</span><br><span class="line"><span class="number">5.0</span>M     libiconv<span class="number">-1.16</span>.tar.gz</span><br><span class="line"><span class="number">545</span>K     nasm<span class="number">-2.14</span><span class="number">.02</span>-win32.zip</span><br><span class="line"><span class="number">8.5</span>M     openssl<span class="number">-1.1</span><span class="number">.1</span>d.tar.gz</span><br><span class="line"><span class="number">32</span>M      OSGeo-PROJ<span class="number">-6.3</span><span class="number">.0</span>.tar.gz</span><br><span class="line"><span class="number">2.2</span>M     pcre<span class="number">-8.41</span>.zip</span><br><span class="line"><span class="number">20</span>M      postgresql<span class="number">-12.0</span>.tar.bz2</span><br><span class="line"><span class="number">52</span>M      PowerShell<span class="number">-6.2</span><span class="number">.1</span>-win-x86.zip</span><br><span class="line"><span class="number">2.3</span>M     sqlite-amalgamation<span class="number">-3300100.</span>zip</span><br><span class="line"><span class="number">144</span>M     strawberry-perl<span class="number">-5.30</span><span class="number">.0</span><span class="number">.1</span><span class="number">-32</span>bit.zip</span><br><span class="line"><span class="number">407</span>K     szip<span class="number">-2.1</span><span class="number">.1</span>.tar.gz</span><br><span class="line"><span class="number">2.2</span>M     uclouvain-openjpeg-v2<span class="number">.3</span><span class="number">.1</span>.tar.gz</span><br><span class="line"><span class="number">18</span>M      Unidata-netcdf-c-b7cd387bee8c661141fabb490f4969587c008c55.tar.gz</span><br><span class="line"><span class="number">3.5</span>M     webmproject-libwebp-v1<span class="number">.0</span><span class="number">.2</span>.tar.gz</span><br><span class="line"><span class="number">933</span>K     win_flex_bison<span class="number">-2.5</span><span class="number">.16</span>.zip</span><br><span class="line"><span class="number">12</span>M      xianyi-OpenBLAS-v0<span class="number">.3</span><span class="number">.6</span>.tar.gz</span><br><span class="line"><span class="number">613</span>K     xz-mirror-xz-v5<span class="number">.2</span><span class="number">.4</span>.tar.gz</span><br><span class="line"><span class="number">594</span>K     zlib1211.tar.gz</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/xmd.png" alt></p>
-<p>图中圆的直径的5km（通过<code>-SE-</code>），圆的采样间隔也是5km（通过<code>sample1d</code>），线的宽度为5km（通过<code>scale</code>），结果一致。</p>
+<p>此过程较慢，主要是下载时间和编译时间。GMT中文网站给出了一个<a href="https://docs.gmt-china.org/5.4/install/windows/#id3" target="_blank" rel="noopener">提示</a>，可以设置只进行release的编译，可以节约时间。此外注意<code>PATH</code>的设置。</p>
+<blockquote>
+<p>After installing these dependency libraries, you also need to add vcpkg’s bin path (i.e. C:\vcpkg\installed\x64-windows\bin) and GDAL’s bin path (i.e. C:\vcpkg\installed\x64-windows\tools\gdal), to the system environmental variable PATH, so that GMT executables can find the DLL shared libraries and the GDAL tools (gdal_translate and ogr2ogr).</p>
+</blockquote>
+<h1 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h1><p>出现下面一堆的warning，但是最终还是编译成功。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mt_version.h(1,1): warning C4819: 该文件包含不能在当前代码页(936) 中表示的字符。请将该文件保</span><br><span class="line">存为 Unicode 格式以防止数据丢失 [C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mtlib.vcxproj]</span><br><span class="line">  mapproject.c</span><br><span class="line">C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mt_version.h(1,1): warning C4819: 该文件包含不能在当前代码页(936) 中表示的字符。请将该文件保</span><br><span class="line">存为 Unicode 格式以防止数据丢失 [C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mtlib.vcxproj]</span><br><span class="line">  gmtinfo.c</span><br><span class="line">C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mt_version.h(1,1): warning C4819: 该文件包含不能在当前代码页(936) 中表示的字符。请将该文件保</span><br><span class="line">存为 Unicode 格式以防止数据丢失 [C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mtlib.vcxproj]</span><br><span class="line">  nearneighbor.c</span><br><span class="line">C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mt_version.h(1,1): warning C4819: 该文件包含不能在当前代码页(936) 中表示的字符。请将该文件保</span><br><span class="line">存为 Unicode 格式以防止数据丢失 [C:<span class="symbol">\U</span>sers<span class="symbol">\y</span>angleir<span class="symbol">\D</span>ocuments<span class="symbol">\G</span>MT<span class="symbol">\g</span>mt-master<span class="symbol">\b</span>uild<span class="symbol">\s</span>rc<span class="symbol">\g</span>mtlib.vcxproj]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>最后测试了一个老版本中bug，发现已经修复了，说明GMT6的开发版已经顺利安装并可以使用。</p>
+<h1 id="注"><a href="#注" class="headerlink" title="注"></a>注</h1><ul>
+<li>使用GMT6的源码自己编译和直接使用exe安装包（如 gmt-6.x.x-win64.exe）安装有区别，exe安装包已预先打包了<code>GDAL, FFmpeg, and Ghostscript</code>，安装后这些模块可以直接使用。而编译源码则需要使用vcpkg生成的库和工具。</li>
+<li>GMT6编译之后只产生一个gmt.exe可执行文件，而exe安装模式则具有独立模块的可执行文件。</li>
+<li>和linux比较windows下使用Visual Studio编译源码的速度非常快（大概不到1分钟编译完）。</li>
+<li>vcpkg是一个好东西，<b><a href="https://vcpkg.readthedocs.io/en/latest/examples/installing-and-using-packages/" target="_blank" rel="noopener">这里</a></b>有具体的安装和使用说明，以及库的调用方法。</li>
+</ul>
 
     </div>
 
@@ -277,7 +285,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/GMT/" rel="tag"># GMT</a>
-              <a href="/tags/psxy/" rel="tag"># psxy</a>
+              <a href="/tags/vcpkg/" rel="tag"># vcpkg</a>
+              <a href="/tags/windows/" rel="tag"># windows</a>
           </div>
 
         
@@ -286,13 +295,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/01/18/awk/" rel="prev" title="awk的几点用法">
-      <i class="fa fa-chevron-left"></i> awk的几点用法
+    <a href="/2020/01/23/cygwin-gmt/" rel="prev" title="Windows的cygwin环境下编译GMT">
+      <i class="fa fa-chevron-left"></i> Windows的cygwin环境下编译GMT
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/01/21/proj-api/" rel="next" title="PROJ API调用的一个简单例子">
-      PROJ API调用的一个简单例子 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -353,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问答"><span class="nav-number">1.</span> <span class="nav-text">问答</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问答"><span class="nav-number">1.</span> <span class="nav-text">问答</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果："><span class="nav-number">2.</span> <span class="nav-text">结果：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注"><span class="nav-number">3.</span> <span class="nav-text">注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

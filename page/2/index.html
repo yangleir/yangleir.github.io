@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">17</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">19</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">11</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">12</span></a>
 
   </li>
   </ul>
@@ -176,6 +176,127 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2019/12/31/Great-circle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/31/Great-circle/" class="post-title-link" itemprop="url">北京到纽约的最短路线经过北冰洋</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-31 10:45:44" itemprop="dateCreated datePublished" datetime="2019-12-31T10:45:44+08:00">2019-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-07 11:11:59" itemprop="dateModified" datetime="2020-01-07T11:11:59+08:00">2020-01-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GMT/" itemprop="url" rel="index">
+                    <span itemprop="name">GMT</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/12/31/Great-circle/" class="post-meta-item leancloud_visitors" data-flag-title="北京到纽约的最短路线经过北冰洋" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/31/Great-circle/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/31/Great-circle/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>中科院测地所<a href="http://www.hxgmap.com/" target="_blank" rel="noopener">郝晓光</a>研究员编制了竖版世界地图，并且凸显出了北极的战略性意义，指出北京到纽约最近路线通过北冰洋而不是太平洋。这和人们在传统地图上看到的可能不太符合，通过<a href="https://docs.generic-mapping-tools.org/6.0/index.html" target="_blank" rel="noopener">GMT</a>可以计算大圆距离，并在不同的投影上进行绘图，展示北京到纽约的实际最短航线。</p>
+<p>先描述一个概念：</p>
+<blockquote>
+<p>大圆航线(Great circle distance)<br>把地球看做一个球体，通过地面上任意两点和地心做一平面，平面与地球表面相交看到的圆周就是大圆。两点之间的大圆劣弧线是两点在地面上的最短距离。沿着这一段大圆弧线航行时的航线称为大圆航线。由于大圆航线是两点之间的最短航线，故有时称为最经济航线。</p>
+</blockquote>
+<blockquote>
+<p>大地线<br>大地线（Geodesic Lines）是大地测量学术语，指地球椭球面上两点间的最短程曲线。</p>
+</blockquote>
+<p>可近似认为大地线和大圆航线是不同领域的同一事物的不同说法。区别是大圆航线假设地球是球体，大地线则按照参考椭球来计算曲面上的两点距离，计算结果和参考椭球的选择有关系，但是差异很小。</p>
+<h2 id="大圆航线的计算"><a href="#大圆航线的计算" class="headerlink" title="大圆航线的计算"></a>大圆航线的计算</h2><p>首先计算北京到纽约的最短距离，即大圆航线距离。可以使用<code>mapproject</code>计算两个点之间的大圆距离以及大地线距离。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.8f</span> -jg --PROJ_ELLIPSOID=WGS<span class="number">-84</span></span><br><span class="line"><span class="number">116.40000000</span>    <span class="number">39.90000000</span>     <span class="number">11018.99486842</span></span><br><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.8f</span> -je --PROJ_ELLIPSOID=WGS<span class="number">-84</span></span><br><span class="line"><span class="number">116.40000000</span>    <span class="number">39.90000000</span>     <span class="number">11016.52648868</span></span><br><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.8f</span> -je --PROJ_ELLIPSOID=TOPEX</span><br><span class="line"><span class="number">116.40000000</span>    <span class="number">39.90000000</span>     <span class="number">11016.52528943</span></span><br></pre></td></tr></table></figure>
+<p>上面分别计算了大圆、大地线WGS-84椭球、大地线TOPEX椭球的北京到纽约的距离，可见大圆和大地线的差异不大。GMT中用于计算大圆航线的地球半径是采用一个假设与参考椭球等面积的球体半径 （<a href="https://en.wikipedia.org/wiki/Earth_radius#Authalic_radius" target="_blank" rel="noopener">authalic radius</a>）。对于WGS-84椭球，长半轴为6378.1370km，短半轴为6356.7523km，对应等面积的球体半径是6,371.0072km（这就是计算大圆航线的球体半径）。而大地线的计算则选择指定的参考椭球，椭球的选择对大地线的距离影响很小，对于长距离的计算基本可以忽略误差。结果表明北京到纽约的大圆距离是11018km，大地线距离是11016km。</p>
+<p>GMT中大圆航线距离计算的地球半径是指定参考椭球的等面积球体半径在计算大圆航线时也可以通过<code>PROJ_MEAN_RADIUS</code>设置其他半径，例如对应参考椭球的等体积球体半径。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.8f</span> -jg --PROJ_ELLIPSOID=WGS<span class="number">-84</span> --PROJ_MEAN_RADIUS=volumetric</span><br><span class="line"><span class="number">116.40000000</span>    <span class="number">39.90000000</span>     <span class="number">11018.98381501</span></span><br><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.8f</span> -jg --PROJ_ELLIPSOID=WGS<span class="number">-84</span> --PROJ_MEAN_RADIUS=authalic</span><br><span class="line"><span class="number">116.40000000</span>    <span class="number">39.90000000</span>     <span class="number">11018.99486842</span></span><br></pre></td></tr></table></figure>
+
+<p>GMT中大地线的计算有不同的方法，可以通过<code>PROJ_GEODESIC</code>设定，但是改变此算法对计算结果的影响很小。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.8f</span> -je --PROJ_ELLIPSOID=WGS<span class="number">-84</span>  --PROJ_GEODESIC=Rudoe</span><br><span class="line"><span class="number">116.40000000</span>    <span class="number">39.90000000</span>     <span class="number">11016.52656371</span></span><br><span class="line">$ echo <span class="number">116.4</span> <span class="number">39.9</span> | mapproject -G<span class="number">-74</span>/<span class="number">40.7</span>+uk --FORMAT_FLOAT_OUT=%<span class="number">.8f</span> -je --PROJ_ELLIPSOID=WGS<span class="number">-84</span>  --PROJ_GEODESIC=Vincenty</span><br><span class="line"><span class="number">116.40000000</span>    <span class="number">39.90000000</span>     <span class="number">11016.52648868</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="北京到全球的最短路线"><a href="#北京到全球的最短路线" class="headerlink" title="北京到全球的最短路线"></a>北京到全球的最短路线</h2><p>使用grdmath计算出北京到全球各地大圆距离的网格数据（NetCDF格式），图上的大圆航线垂直于网格文件的等值线。代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="comment">#		Based on GMT EXAMPLE 23</span></span><br><span class="line"><span class="comment">#		edited by leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment"># Purpose:	Plot distances from Beijing and draw shortest paths</span></span><br><span class="line"><span class="comment"># GMT modules:	grdmath, grdcontour, coast, plot, text, grdtrack</span></span><br><span class="line"><span class="comment"># Unix progs:	echo, cat, awk</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">gmt begin ex23 pdf,png</span><br><span class="line">	<span class="comment"># Position and name of central point:</span></span><br><span class="line">	lon=116.40</span><br><span class="line">	lat=39.90</span><br><span class="line">	name=<span class="string">"Beijing"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Calculate distances (km) to all points on a global 1x1 grid</span></span><br><span class="line">	gmt grdmath -Rg -I1 <span class="variable">$lon</span> <span class="variable">$lat</span> SDIST = dist.nc</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Location info for 5 other cities + label justification</span></span><br><span class="line">	cat &lt;&lt;- END &gt; cities.txt</span><br><span class="line">	105.87	21.02	LM	HANOI</span><br><span class="line">	282.95	-12.1	LM	LIMA</span><br><span class="line">	178.42	-18.13	LM	SUVA</span><br><span class="line">	237.67	47.58	RM	SEATTLE</span><br><span class="line">	-74.00  40.70   LM	NEWYORK</span><br><span class="line">	28.20	-25.75	LM	PRETORIA</span><br><span class="line">	END</span><br><span class="line">	gmt coast -R0/360/-80/80 -JT330/-45/9i -Glightgreen -Slightblue -A1000 -Bg30 -B+t<span class="string">"Distances from <span class="variable">$name</span> to the World"</span> -Wthinnest</span><br><span class="line"><span class="comment">#	gmt coast -Rg -JH140/9i -Glightgreen -Slightblue -A1000 -Bg30 -B+t"Distances from $name to the World" -Wthinnest</span></span><br><span class="line"></span><br><span class="line">	gmt grdcontour dist.nc -A1000+v+u<span class="string">" km"</span>+fwhite -Glz-/z+ -S8 -C500 -Wathin,white -Wcthinnest,white,-</span><br><span class="line"></span><br><span class="line">	<span class="comment"># For each of the cities, plot great circle arc to Beijing with gmt plot</span></span><br><span class="line">	gmt plot -Wthickest,red -Fr<span class="variable">$lon</span>/<span class="variable">$lat</span> cities.txt</span><br><span class="line">	cat cities.txt | grep <span class="string">'NEW'</span> |	gmt plot -Wthickest,lightred,- -Fr<span class="variable">$lon</span>/<span class="variable">$lat</span> -A</span><br><span class="line">	<span class="comment"># Plot red squares at cities and plot names:</span></span><br><span class="line">	gmt plot -Ss0.2 -Glightred -Wthinnest cities.txt</span><br><span class="line"></span><br><span class="line">	gmt text -Dj0.15/0 -F+f12p,Courier-Bold,red+j -N cities.txt</span><br><span class="line">	grdinfo dist.nc -M --FORMAT_FLOAT_OUT=0:%g,1:%g,2:%.0f| grep <span class="string">'z_m'</span>| awk -F: <span class="string">'&#123;print $4&#125;'</span> | awk <span class="string">'&#123;print $5,$8,$1&#125;'</span>| gmt text -D0/-0.2i -N -Gwhite -W -C0.02i -F+f12p,Helvetica-Bold+jCT</span><br><span class="line">	<span class="comment"># Place a yellow star at Beijing</span></span><br><span class="line">	grdinfo dist.nc -M | grep <span class="string">'z_m'</span>| awk -F= <span class="string">'&#123;print $(NF-1),$NF&#125;'</span>|awk <span class="string">'&#123;print $1,$3&#125;'</span>|gmt plot -Sc0.1 -Gred -Wthinnest </span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"<span class="variable">$lon</span> <span class="variable">$lat</span>"</span> | gmt plot -Sa0.2i -Gyellow -Wthin</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Sample the distance grid at the cities and use the distance in integer km for labels</span></span><br><span class="line">	gmt grdtrack -Gdist.nc cities.txt -o0-2 --FORMAT_FLOAT_OUT=0:%g,1:%g,2:%.0f \</span><br><span class="line">		| gmt text -D0/-0.2i -N -Gwhite -W -C0.02i -F+f12p,Helvetica-Bold+jCT</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Clean up after ourselves:</span></span><br><span class="line">	rm -f cities.txt</span><br><span class="line">gmt end show</span><br></pre></td></tr></table></figure>
+<h2 id="两种投影的地图"><a href="#两种投影的地图" class="headerlink" title="两种投影的地图"></a>两种投影的地图</h2><h3 id="横轴墨卡托投影-Transverse-Mercator-JT330-45-9i"><a href="#横轴墨卡托投影-Transverse-Mercator-JT330-45-9i" class="headerlink" title="横轴墨卡托投影 Transverse Mercator -JT330/-45/9i"></a>横轴墨卡托投影 Transverse Mercator -JT330/-45/9i</h3><p><img src="/images/ex23.png" alt></p>
+<h3 id="哈默投影-Hammer-projection-JH140-9i"><a href="#哈默投影-Hammer-projection-JH140-9i" class="headerlink" title="哈默投影 Hammer projection -JH140/9i"></a>哈默投影 Hammer projection -JH140/9i</h3><p>Hammer投影属于等面积投影，可以绘制全球地图。<br><img src="/images/1.png" alt><br>从图上可看，北京到纽约的最短路线经过北冰洋上空，且临近北极点。北京到纽约的最短路线不经过太平洋而经过北极是完全正确的，尽管这确实和人们的普遍认知相违背。还可以看出，西海岸的西雅图到北京也基本不经过太平洋，而是临近北冰洋边缘的白令海，如此来说，美国国土发射向北京的导弹需要在近北极区域进行监测，那么我国的北斗等卫星计划考虑增加北极区域的覆盖范围也符合实际的。</p>
+<p>此外可以看出地球上距离北京最远的点在南美洲阿根廷，大圆距离是2万公里。</p>
+<p>PS:通过本例子，发现了一个Bug，在TM投影下<code>grdcontour</code>绘制Y轴的等值线在全球地图模式下存在wrap现象，就是等值线出现了不应该的头尾相接，我通过GMT在github的<a href="https://github.com/GenericMappingTools/gmt/issues/2389" target="_blank" rel="noopener">repository</a>提交了Bug，不到一天的时间，GMT的作者Paul教授就修正了这个Bug，而且是周末时间，实在是高效认真负责。</p>
+<p>Bug 修复后，从github下载最新的<a href="https://github.com/GenericMappingTools/gmt" target="_blank" rel="noopener">GMT</a>版本，并编译安装。执行后，bug消失。<br><br><img src="/images/ex23-2.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -427,7 +548,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -440,7 +561,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
