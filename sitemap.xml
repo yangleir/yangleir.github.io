@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://assz0a.coding-pages.com/2020/02/05/gmt-api-c/</loc>
+    
+    <lastmod>2020-02-05T03:34:20.563Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/</loc>
     
-    <lastmod>2020-02-04T14:33:30.685Z</lastmod>
+    <lastmod>2020-02-05T03:17:51.110Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/21/proj-api/</loc>
+    
+    <lastmod>2020-02-04T15:19:07.396Z</lastmod>
     
   </url>
   
@@ -19,13 +33,6 @@
     <loc>http://assz0a.coding-pages.com/2019/12/29/GMT-under-redhat/</loc>
     
     <lastmod>2020-01-23T11:51:03.293Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/21/proj-api/</loc>
-    
-    <lastmod>2020-01-22T01:01:00.519Z</lastmod>
     
   </url>
   
