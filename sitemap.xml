@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/18/awk/</loc>
+    
+    <lastmod>2020-02-09T14:05:32.571Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/</loc>
     
     <lastmod>2020-02-09T02:33:42.360Z</lastmod>
@@ -47,13 +54,6 @@
     <loc>http://assz0a.coding-pages.com/about/index.html</loc>
     
     <lastmod>2020-01-20T15:15:08.545Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/18/awk/</loc>
-    
-    <lastmod>2020-01-18T03:09:08.555Z</lastmod>
     
   </url>
   
