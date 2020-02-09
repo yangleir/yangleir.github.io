@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/19/line-width-km/</loc>
+    
+    <lastmod>2020-02-06T02:39:05.297Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/21/proj-api/</loc>
+    
+    <lastmod>2020-02-05T08:24:11.334Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://assz0a.coding-pages.com/2020/02/05/gmt-api-c/</loc>
     
-    <lastmod>2020-02-05T03:47:15.890Z</lastmod>
+    <lastmod>2020-02-05T03:53:27.178Z</lastmod>
     
   </url>
   
@@ -12,13 +26,6 @@
     <loc>http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/</loc>
     
     <lastmod>2020-02-05T03:17:51.110Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/21/proj-api/</loc>
-    
-    <lastmod>2020-02-04T15:19:07.396Z</lastmod>
     
   </url>
   
@@ -40,13 +47,6 @@
     <loc>http://assz0a.coding-pages.com/about/index.html</loc>
     
     <lastmod>2020-01-20T15:15:08.545Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/19/line-width-km/</loc>
-    
-    <lastmod>2020-01-19T15:26:42.002Z</lastmod>
     
   </url>
   
