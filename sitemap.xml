@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://assz0a.coding-pages.com/tools/index.html</loc>
+    
+    <lastmod>2020-02-10T03:52:54.005Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/about/index.html</loc>
+    
+    <lastmod>2020-02-10T03:26:11.800Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://assz0a.coding-pages.com/2020/01/18/awk/</loc>
     
     <lastmod>2020-02-09T15:55:15.227Z</lastmod>
@@ -47,13 +61,6 @@
     <loc>http://assz0a.coding-pages.com/2019/12/29/GMT-under-redhat/</loc>
     
     <lastmod>2020-01-23T11:51:03.293Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/about/index.html</loc>
-    
-    <lastmod>2020-01-20T15:15:08.545Z</lastmod>
     
   </url>
   
