@@ -1263,7 +1263,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-22 12:43:05" itemprop="dateModified" datetime="2020-02-22T12:43:05+08:00">2020-02-22</time>
+                <time title="修改时间：2020-02-27 23:03:24" itemprop="dateModified" datetime="2020-02-27T23:03:24+08:00">2020-02-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1317,9 +1317,12 @@
 <h2 id="ATTENTION"><a href="#ATTENTION" class="headerlink" title="ATTENTION"></a>ATTENTION</h2><ul>
 <li>GMT功率谱使用的Welch方法，输出的数值服从Parseval 定理。 The sum of the squares of your input data should equal the sum of the squares of the outputs from spectrum1d.</li>
 <li>实际上GMT spectrum1D输出的结果服从这样的能量守恒：sum(x.^2-mean(x)^2)/(length(x)/bin_width)*delta_t=sum(xf). x为输入信号，xf为输出的功率密度，bin_width为-S设置的数据宽度,delta_t为数据采样间隔。</li>
-<li>matlab读入数据测试<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> .\ex\t.txt</span><br><span class="line"><span class="keyword">load</span> .\ex\pow5.txt</span><br><span class="line">tmp = t(:,<span class="number">2</span>);</span><br><span class="line">tmp2 = pow5(:,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">sum(tmp.^<span class="number">2</span>-mean(tmp)^<span class="number">2</span>)/(length(tmp)/<span class="number">1024</span>)*<span class="number">0.1</span></span><br><span class="line">sum(tmp2) % same <span class="keyword">to</span> above <span class="keyword">value</span></span><br></pre></td></tr></table></figure></li>
+<li>功率密度曲线在wavenumber上的积分（就是围城的面积），等于输入信号的方差。</li>
+<li>matlab读入数据测试<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">load .\ex\t.txt</span><br><span class="line">load .\ex\pow<span class="number">5.</span>txt</span><br><span class="line">tmp = t<span class="comment">(:,2)</span>;</span><br><span class="line">tmp<span class="number">2</span> = pow<span class="number">5</span><span class="comment">(:,2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">%</span> 两个守恒，第一个是能量密度的累加守恒</span><br><span class="line">sum<span class="comment">(tmp.^2-mean(tmp)</span>^<span class="number">2</span>)/<span class="comment">(length(tmp)</span>/<span class="number">128</span>)<span class="meta">%</span> 和下面的信号和守恒。delta_t=<span class="number">1</span></span><br><span class="line">sum<span class="comment">(tmp2)</span></span><br><span class="line">sum<span class="comment">(tmp2.*tmp1)</span>*<span class="number">2</span>*<span class="number">10</span> <span class="meta">%</span>这是能量x频率</span><br><span class="line"><span class="meta">%</span> 第二个是方差和积分的关系</span><br><span class="line">sum<span class="comment">(tmp.^2-mean(tmp)</span>^<span class="number">2</span>)/<span class="comment">(length(tmp)</span><span class="number">-1</span>)</span><br><span class="line">trapz <span class="comment">((pow5(:,1)</span>),<span class="comment">(tmp2)</span>)<span class="meta">%</span> 这是面积积分</span><br><span class="line">std<span class="comment">(tmp)</span>^<span class="number">2</span> <span class="meta">%</span> 这是方差</span><br></pre></td></tr></table></figure></li>
 <li>默认使用detrend。如果加-L，则不守恒。</li>
 <li>输入信号波的振幅和功率谱密度的数值有什么关系？这个疑问待解决。</li>
+<li>关于<a href="https://selipot.github.io/blog/variance-preserving-spectra/" target="_blank" rel="noopener">variance-preserving spectra</a></li>
+<li><a href="https://www.sciencedirect.com/topics/mathematics/power-spectral-density" target="_blank" rel="noopener">Mathmaticas</a></li>
 </ul>
 
       
