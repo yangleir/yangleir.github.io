@@ -2,16 +2,107 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://assz0a.coding-pages.com/2020/03/02/distance-to-coast/</loc>
+    <loc>http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/</loc>
     
-    <lastmod>2020-03-02T07:34:56.919Z</lastmod>
+    <lastmod>2020-03-02T08:07:17.600Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://assz0a.coding-pages.com/2020/02/15/wavenumber/</loc>
     
-    <lastmod>2020-03-02T07:06:14.750Z</lastmod>
+    <lastmod>2020-03-02T08:07:08.500Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/11/pscoast-dump/</loc>
+    
+    <lastmod>2020-03-02T08:06:59.949Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/21/proj-api/</loc>
+    
+    <lastmod>2020-03-02T08:06:53.313Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/05/map-different-view/</loc>
+    
+    <lastmod>2020-03-02T08:06:47.403Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/19/line-width-km/</loc>
+    
+    <lastmod>2020-03-02T08:06:38.239Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/10/landmask/</loc>
+    
+    <lastmod>2020-03-02T08:06:32.723Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2019/12/31/Great-circle/</loc>
+    
+    <lastmod>2020-03-02T08:06:22.771Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2019/12/29/GMT-under-redhat/</loc>
+    
+    <lastmod>2020-03-02T08:06:12.384Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/03/GMT-pswiggle/</loc>
+    
+    <lastmod>2020-03-02T08:06:04.676Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/02/05/gmt-api-c/</loc>
+    
+    <lastmod>2020-03-02T08:05:57.306Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/08/fft-gmt/</loc>
+    
+    <lastmod>2020-03-02T08:05:49.127Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/23/cygwin-gmt/</loc>
+    
+    <lastmod>2020-03-02T08:05:36.723Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/01/18/awk/</loc>
+    
+    <lastmod>2020-03-02T08:05:18.202Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://assz0a.coding-pages.com/2020/03/02/distance-to-coast/</loc>
+    
+    <lastmod>2020-03-02T08:04:27.835Z</lastmod>
     
   </url>
   
@@ -23,100 +114,9 @@
   </url>
   
   <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/08/fft-gmt/</loc>
-    
-    <lastmod>2020-02-27T15:03:24.334Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/18/awk/</loc>
-    
-    <lastmod>2020-02-21T05:22:29.895Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://assz0a.coding-pages.com/about/index.html</loc>
     
     <lastmod>2020-02-10T03:26:11.800Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/</loc>
-    
-    <lastmod>2020-02-09T02:33:42.360Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/19/line-width-km/</loc>
-    
-    <lastmod>2020-02-06T02:39:05.297Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/21/proj-api/</loc>
-    
-    <lastmod>2020-02-05T08:24:11.334Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/02/05/gmt-api-c/</loc>
-    
-    <lastmod>2020-02-05T03:53:27.178Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/23/cygwin-gmt/</loc>
-    
-    <lastmod>2020-01-24T11:29:16.838Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2019/12/29/GMT-under-redhat/</loc>
-    
-    <lastmod>2020-01-23T11:51:03.293Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/11/pscoast-dump/</loc>
-    
-    <lastmod>2020-01-11T13:24:52.946Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/10/landmask/</loc>
-    
-    <lastmod>2020-01-11T12:10:23.123Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/05/map-different-view/</loc>
-    
-    <lastmod>2020-01-08T06:17:28.154Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2019/12/31/Great-circle/</loc>
-    
-    <lastmod>2020-01-07T03:11:59.335Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2020/01/03/GMT-pswiggle/</loc>
-    
-    <lastmod>2020-01-04T14:40:37.987Z</lastmod>
     
   </url>
   

@@ -56,7 +56,7 @@
 <meta property="og:image" content="http://assz0a.coding-pages.com/images/cygwin.png">
 <meta property="og:image" content="http://assz0a.coding-pages.com/images/cygwin2.png">
 <meta property="article:published_time" content="2020-01-23T12:22:43.000Z">
-<meta property="article:modified_time" content="2020-01-24T11:29:16.838Z">
+<meta property="article:modified_time" content="2020-03-02T08:05:36.723Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="cygwin">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-24 19:29:16" itemprop="dateModified" datetime="2020-01-24T19:29:16+08:00">2020-01-24</time>
+                <time title="修改时间：2020-03-02 16:05:36" itemprop="dateModified" datetime="2020-03-02T16:05:36+08:00">2020-03-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,6 +272,7 @@
         <h2 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h2><p>问：在windows下通常都是直接安装GMT的exe程序，这样导致不能使用github上最新的开发版，而开发版通常fix了很多的bug。如果想在win上安装编译开发版本，怎么办？<br>答：应该尝试cygwin+cmake。</p>
 <p>问：cygwin是什么？怎么使用？<br>答：可以看<a href="https://cygwin.com/index.html" target="_blank" rel="noopener">这里</a>. cygwin的各个库升级都是通过<code>setup**.exe</code>实现的，每一次升级或者安装新的模块，都要打开这个程序。用习惯了，不觉得麻烦。</p>
 <p>问：cmake怎么在这下面安装？<br>答：可以使用<code>setup**.exe</code>，选择cmake进行安装。<br><img src="/images/cygwin.png" alt><br>安装完成后打开命令行界面，查看cygwin版本：</p>
+<a id="more"></a>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">yangleir@</span>DESKTOP-FVRFATD ~</span><br><span class="line">$ cmake --version</span><br><span class="line">cmake version <span class="number">3.14</span><span class="number">.5</span></span><br><span class="line"></span><br><span class="line">CMake suite maintained <span class="keyword">and</span> supported by Kitware (kitware.com/cmake).</span><br></pre></td></tr></table></figure>
 
 <p>问：GMT的诸多依赖程序怎么办？<br>答：GMT的<a href="http://gmt.soest.hawaii.edu/projects/gmt/wiki/BuildingGMT" target="_blank" rel="noopener">building指南</a>已经给出了依赖库，如下：</p>
