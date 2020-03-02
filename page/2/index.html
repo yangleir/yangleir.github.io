@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">21</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">22</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">14</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,117 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/08/fft-gmt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/fft-gmt/" class="post-title-link" itemprop="url">GMT用于功率谱分析</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-08 14:16:14" itemprop="dateCreated datePublished" datetime="2020-01-08T14:16:14+08:00">2020-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-27 23:03:24" itemprop="dateModified" datetime="2020-02-27T23:03:24+08:00">2020-02-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GMT/" itemprop="url" rel="index">
+                    <span itemprop="name">GMT</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/01/08/fft-gmt/" class="post-meta-item leancloud_visitors" data-flag-title="GMT用于功率谱分析" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/08/fft-gmt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/08/fft-gmt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>傅里叶变换是常用的计算信号频率（功率谱）的工具，各种编程语言都可以简单的快速实现FFT变换。GMT作为绘图工具，不仅可以绘图，也集成了非常强大的地学数据处理功能，对一维、二维的数据都可以实现傅里叶变换，从而确定出信号的频率信息。</p>
+<p><code>spectrum1d</code>(<a href="https://docs.generic-mapping-tools.org/latest/spectrum1d.html" target="_blank" rel="noopener">help-page</a>)是计算一维信号频域信息的工具，它采用了Welch的计算方法，该方法在<a href="https://www.mathworks.com/help/signal/ref/pwelch.html" target="_blank" rel="noopener">Matlab</a>中也经常使用，优点是可靠、易编程，结果易理解。</p>
+<p>GMT开发者给出了一个例子，可参考<a href="https://github.com/GenericMappingTools" target="_blank" rel="noopener">github</a>，但是例子中的数学稍微不易理解。经过修改，输入信号修改为两个周期三角函数的叠加，经过测试，GMT可以准确地计算出频率和波长。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line"># Testing gmt spectrum1d power spectrum values</span><br><span class="line"></span><br><span class="line">ps=power1D.ps</span><br><span class="line"></span><br><span class="line"># First to generate a signal with fixed frequency using math.</span><br><span class="line"></span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"># This is the math example from GMT developer, but hard to understand. So we do not use it here.</span><br><span class="line"># gmt math -T0/<span class="number">10239</span>/<span class="number">1</span> T <span class="number">10240</span> DIV <span class="number">360</span> MUL <span class="number">400</span> MUL COSD = t.txt</span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"># This is the math example that easy to understand. </span><br><span class="line">gmt math -T0/<span class="number">200</span>/<span class="number">0.5</span> T <span class="number">20</span> DIV <span class="number">360</span> MUL COSD T <span class="number">4</span> DIV <span class="number">360</span> MUL SIND <span class="number">3</span> MUL ADD = t.txt</span><br><span class="line"># The same with up line but with unit of radian.</span><br><span class="line"># gmt math -T0/<span class="number">200</span>/<span class="number">0.5</span> T <span class="number">20</span> DIV <span class="number">6.28</span> MUL COS T <span class="number">4</span> DIV <span class="number">6.28</span> MUL SIN <span class="number">3</span> MUL ADD = t.txt</span><br><span class="line"># ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">gmt psxy `gmt gmtinfo t.txt -I0<span class="number">.000001</span>` t.txt -JX6i/<span class="number">2</span>i -Bxaf+u@. -Byaf -BWSne+t<span class="string">"y(t) = cosd (360@~\327@~1/20@~\327@~t)+ 3@~\327@~sind (360@~\327@~1/4@~\327@~t)"</span> -W0<span class="number">.2</span>p -P -K -Xc &gt; $ps</span><br><span class="line"></span><br><span class="line">gmt spectrum1d t.txt -S256 -W --GMT_FFT=brenner -N -i1 -D0<span class="number">.5</span> &gt; pow5.txt</span><br><span class="line"></span><br><span class="line">gmt psxy -R0<span class="number">.2</span>/<span class="number">256</span>/<span class="number">1e-19</span>/<span class="number">1e5</span> -JX<span class="number">-6</span>il/<span class="number">6.5</span>il -Bxa2f3+l<span class="string">"Wavelength"</span> -Bya<span class="number">-2</span>p+l<span class="string">"power spectrum"</span> -BWN -O -K -Y3<span class="number">.5</span>i pow5.txt -W6<span class="number">.25</span>p &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -K pow5.txt -Sc0<span class="number">.04</span>i -Gblack -Ey &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt spectrum1d t.txt -S256 --GMT_FFT=brenner -N -i1 -W -L -D0<span class="number">.5</span>&gt; pow5.txt</span><br><span class="line">gmt psxy -R -J -O -K pow5.txt -W0<span class="number">.5</span>p,lightred &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -K -W0<span class="number">.25</span>p,lightred,- &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line"><span class="number">20</span>	<span class="number">1e-19</span></span><br><span class="line"><span class="number">20</span>	<span class="number">1e5</span></span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line"># The same result using -N</span><br><span class="line">cut -f2 t.txt | gmt spectrum1d -S256 -W -Nv4 -D0<span class="number">.5</span></span><br><span class="line">gmt psxy -R -J -O -K v4.xpower -W2<span class="number">.25</span>p,red &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line"># wavelength is the reverse of the frequency, the result is the same but a increasing x-axis and a decreasing x-axis</span><br><span class="line">gmt spectrum1d t.txt -S256 --GMT_FFT=brenner -N -i1 -D0<span class="number">.5</span>&gt; pow5.txt</span><br><span class="line"># The X-axes length of wavelength is the reciprocal of frequency.</span><br><span class="line">gmt psxy -R0<span class="number">.00390625</span>/<span class="number">5</span>/<span class="number">1e-19</span>/<span class="number">1e5</span> -JX6il/<span class="number">6.5</span>il -O -K pow5.txt -BSE -Bxa2f3+l<span class="string">"Frenquency"</span> -W0<span class="number">.5</span>p,green &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -W0<span class="number">.25</span>p,green,- &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line"><span class="number">0.25</span>	<span class="number">1e-19</span></span><br><span class="line"><span class="number">0.25</span>	<span class="number">1e5</span></span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line">gmt psconvert $ps -A -Tg</span><br></pre></td></tr></table></figure>
+<p>结果如下图<br><img src="/images/power1D.png" alt></p>
+<h2 id="ATTENTION"><a href="#ATTENTION" class="headerlink" title="ATTENTION"></a>ATTENTION</h2><ul>
+<li>GMT功率谱使用的Welch方法，输出的数值服从Parseval 定理。 The sum of the squares of your input data should equal the sum of the squares of the outputs from spectrum1d.</li>
+<li>实际上GMT spectrum1D输出的结果服从这样的能量守恒：sum(x.^2-mean(x)^2)/(length(x)/bin_width)*delta_t=sum(xf). x为输入信号，xf为输出的功率密度，bin_width为-S设置的数据宽度,delta_t为数据采样间隔。</li>
+<li>功率密度曲线在wavenumber上的积分（就是围城的面积），等于输入信号的方差。</li>
+<li>matlab读入数据测试<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">load .\ex\t.txt</span><br><span class="line">load .\ex\pow<span class="number">5.</span>txt</span><br><span class="line">tmp = t<span class="comment">(:,2)</span>;</span><br><span class="line">tmp<span class="number">2</span> = pow<span class="number">5</span><span class="comment">(:,2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">%</span> 两个守恒，第一个是能量密度的累加守恒</span><br><span class="line">sum<span class="comment">(tmp.^2-mean(tmp)</span>^<span class="number">2</span>)/<span class="comment">(length(tmp)</span>/<span class="number">128</span>)<span class="meta">%</span> 和下面的信号和守恒。delta_t=<span class="number">1</span></span><br><span class="line">sum<span class="comment">(tmp2)</span></span><br><span class="line">sum<span class="comment">(tmp2.*tmp1)</span>*<span class="number">2</span>*<span class="number">10</span> <span class="meta">%</span>这是能量x频率</span><br><span class="line"><span class="meta">%</span> 第二个是方差和积分的关系</span><br><span class="line">sum<span class="comment">(tmp.^2-mean(tmp)</span>^<span class="number">2</span>)/<span class="comment">(length(tmp)</span><span class="number">-1</span>)</span><br><span class="line">trapz <span class="comment">((pow5(:,1)</span>),<span class="comment">(tmp2)</span>)<span class="meta">%</span> 这是面积积分</span><br><span class="line">std<span class="comment">(tmp)</span>^<span class="number">2</span> <span class="meta">%</span> 这是方差</span><br></pre></td></tr></table></figure></li>
+<li>默认使用detrend。如果加-L，则不守恒。</li>
+<li>输入信号波的振幅和功率谱密度的数值有什么关系？这个疑问待解决。</li>
+<li>关于<a href="https://selipot.github.io/blog/variance-preserving-spectra/" target="_blank" rel="noopener">variance-preserving spectra</a></li>
+<li><a href="https://www.sciencedirect.com/topics/mathematics/power-spectral-density" target="_blank" rel="noopener">Mathmaticas</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -771,7 +882,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -784,7 +895,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
