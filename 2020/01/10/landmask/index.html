@@ -55,7 +55,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://assz0a.coding-pages.com/images/tg2_test.png">
 <meta property="article:published_time" content="2020-01-10T14:47:35.000Z">
-<meta property="article:modified_time" content="2020-03-02T08:06:32.723Z">
+<meta property="article:modified_time" content="2020-03-14T02:58:29.187Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
 <meta property="article:tag" content="landmask">
@@ -223,7 +223,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-02 16:06:32" itemprop="dateModified" datetime="2020-03-02T16:06:32+08:00">2020-03-02</time>
+                <time title="修改时间：2020-03-14 10:58:29" itemprop="dateModified" datetime="2020-03-14T10:58:29+08:00">2020-03-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,6 +279,9 @@
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">274980</span> <span class="number">4039220</span> |gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -I -F</span><br><span class="line"><span class="number">120.488507928</span>   <span class="number">36.4718659261</span></span><br></pre></td></tr></table></figure>
 <p>mapproject反转换的用法：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">274980</span> <span class="number">4039220</span> |gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -I -F | gmt mapproject -Ju51S/<span class="number">1</span>:<span class="number">1</span> -C -F</span><br><span class="line"><span class="number">274979.999879</span>   <span class="number">4039220</span></span><br></pre></td></tr></table></figure>
+
+<p>转高斯克吕格，使用tm投影，加带号。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="number">121</span> <span class="number">32</span> | gmt mapproject -Jt123/<span class="number">1</span>:<span class="number">1</span> -R120/<span class="number">126</span>/<span class="number">0</span>/<span class="number">90</span> -C -F</span><br></pre></td></tr></table></figure>
 
 <p>提问：我有一个nc文件，包含陆地和海洋区域，现在我想把陆地填充为0或者无效值，保留海洋上的数据，怎么办？<br>回答：可以先通过grdlandmask做一个陆地掩模，然后通过grdmath进行运算。</p>
 <p>示例：</p>
