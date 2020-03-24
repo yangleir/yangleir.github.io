@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://assz0a.coding-pages.com/2020/03/02/distance-to-coast/</loc>
+    <lastmod>2020-03-24</lastmod>
+  </url>  <url>
     <loc>http://assz0a.coding-pages.com/2020/01/10/landmask/</loc>
     <lastmod>2020-03-14</lastmod>
   </url>  <url>
@@ -9,9 +12,6 @@
   </url>  <url>
     <loc>http://assz0a.coding-pages.com/2020/01/18/awk/</loc>
     <lastmod>2020-03-13</lastmod>
-  </url>  <url>
-    <loc>http://assz0a.coding-pages.com/2020/03/02/distance-to-coast/</loc>
-    <lastmod>2020-03-03</lastmod>
   </url>  <url>
     <loc>http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/</loc>
     <lastmod>2020-03-02</lastmod>
