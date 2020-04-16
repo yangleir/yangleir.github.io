@@ -55,7 +55,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://assz0a.coding-pages.com/images/power1D.png">
 <meta property="article:published_time" content="2020-01-08T06:16:14.000Z">
-<meta property="article:modified_time" content="2020-03-14T00:07:08.179Z">
+<meta property="article:modified_time" content="2020-04-16T02:29:48.024Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
 <meta property="article:tag" content="DFT">
@@ -225,7 +225,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 08:07:08" itemprop="dateModified" datetime="2020-03-14T08:07:08+08:00">2020-03-14</time>
+                <time title="修改时间：2020-04-16 10:29:48" itemprop="dateModified" datetime="2020-04-16T10:29:48+08:00">2020-04-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,12 +281,16 @@
 <li>GMT功率谱使用的Welch方法，输出的数值服从Parseval 定理。 The sum of the squares of your input data should equal the sum of the squares of the outputs from spectrum1d.</li>
 <li>实际上GMT spectrum1D输出的结果服从这样的能量守恒：sum(x.^2-mean(x)^2)/(length(x)/bin_width)*delta_t=sum(xf). x为输入信号，xf为输出的功率密度，bin_width为-S设置的数据宽度,delta_t为数据采样间隔。</li>
 <li>功率密度曲线在wavenumber上的积分（就是围城的面积），等于输入信号的方差。</li>
-<li>matlab读入数据测试<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">load .\ex\t.txt</span><br><span class="line">load .\ex\pow<span class="number">5.</span>txt</span><br><span class="line">tmp = t<span class="comment">(:,2)</span>;</span><br><span class="line">tmp<span class="number">2</span> = pow<span class="number">5</span><span class="comment">(:,2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">%</span> 两个守恒，第一个是能量密度的累加守恒</span><br><span class="line">sum<span class="comment">(tmp.^2-mean(tmp)</span>^<span class="number">2</span>)/<span class="comment">(length(tmp)</span>/<span class="number">128</span>)<span class="meta">%</span> 和下面的信号和守恒。delta_t=<span class="number">1</span></span><br><span class="line">sum<span class="comment">(tmp2)</span></span><br><span class="line">sum<span class="comment">(tmp2.*tmp1)</span>*<span class="number">2</span>*<span class="number">10</span> <span class="meta">%</span>这是能量x频率</span><br><span class="line"><span class="meta">%</span> 第二个是方差和积分的关系</span><br><span class="line">sum<span class="comment">(tmp.^2-mean(tmp)</span>^<span class="number">2</span>)/<span class="comment">(length(tmp)</span><span class="number">-1</span>)</span><br><span class="line">trapz <span class="comment">((pow5(:,1)</span>),<span class="comment">(tmp2)</span>)<span class="meta">%</span> 这是面积积分</span><br><span class="line">std<span class="comment">(tmp)</span>^<span class="number">2</span> <span class="meta">%</span> 这是方差</span><br></pre></td></tr></table></figure></li>
+<li>matlab读入数据测试<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">load .\ex\t.txt</span><br><span class="line">load .\ex\pow5.txt</span><br><span class="line">tmp = t(:,<span class="number">2</span>);</span><br><span class="line">tmp2 = pow5(:,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">% 两个守恒，第一个是能量密度的累加守恒</span><br><span class="line">sum(tmp.^<span class="number">2</span>-mean(tmp)^<span class="number">2</span>)/(length(tmp)/<span class="number">128</span>)% 和下面的信号和守恒。delta_t=<span class="number">1</span></span><br><span class="line">sum(tmp2)</span><br><span class="line">sum(tmp2.*tmp1)*<span class="number">2</span>*<span class="number">10</span> %这是能量x频率</span><br><span class="line">% 第二个是方差和积分的关系</span><br><span class="line">sum(tmp.^<span class="number">2</span>-mean(tmp)^<span class="number">2</span>)/(length(tmp)<span class="number">-1</span>) %方差计算和下行一致</span><br><span class="line">mean(tmp.^<span class="number">2</span>)-mean(tmp)^<span class="number">2</span> % 通过方差的计算公式计算方差</span><br><span class="line">trapz ((pow5(:,<span class="number">1</span>)),(tmp2)) % 这是面积积分，结果与方差一致。</span><br><span class="line">std(tmp)^<span class="number">2</span> % 这是MATLAB自带函数的方差计算</span><br></pre></td></tr></table></figure></li>
 <li>默认使用detrend。如果加-L，则不守恒。</li>
 <li>输入信号波的振幅和功率谱密度的数值有什么关系？如果是正玄波，PSD积分得到的方差和幅值的关系是0.5*A^2。</li>
+<li>方差和信号的周期无关，例如正弦波的周期为1和2时，只要振幅一样，那么方差也一样。</li>
+<li>频率越大，PSD的峰值越窄，也就是能量越集中。</li>
 <li>关于<a href="https://selipot.github.io/blog/variance-preserving-spectra/" target="_blank" rel="noopener">variance-preserving spectra</a>，VPS不能很准确的用于寻找周期。例如，在PSD中，两个周期不同但振幅系统的波，在VPS中的幅度就不一样了，VPS改变了PSD形状。</li>
 <li><a href="https://www.sciencedirect.com/topics/mathematics/power-spectral-density" target="_blank" rel="noopener">Mathmaticas</a></li>
+<li><a href="https://www.cnblogs.com/htj10/p/8638275.html" target="_blank" rel="noopener">能量信号、功率信号、频谱、能量谱、功率谱、及一些定理</a></li>
 </ul>
+<p>revised at 2020/04/16</p>
 
     </div>
 
