@@ -46,19 +46,24 @@
   };
 </script>
 
-  <meta name="description" content="内容 对于科学研究有用的小工具 有意思的工具 有用的库  科研工具 通用绘图工具 GMT，主页，论坛 文档格式转换 Pandocs，主页。 坐标转换工具 Proj，主页 GDAL，主页  GEOS，主页 多波束数据处理开源软件 MB-System 论文撰写latex latex编辑工具texmaker 数学 graphing, geometry, 3D geogebra 搜索everything">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tools">
-<meta property="og:url" content="http://assz0a.coding-pages.com/tools/index.html">
+  <meta name="description" content="问：GMT自带的movie程序怎么制作动画？是否简单易用？答：movie是GMT的一个动画制作程序，设计的比较复杂，上手时间长，不易用。希望尝试的话，可以运行自带例子，你会发现它设计的使用方法和经典GMT是差别很大的，个人学习的使用经历比较糟糕。 问：那怎么利用GMT做GIF动画？答：可以使用ImageMagick工具，只需要一行命令即可。 1magick convert -delay 64 -l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GMT 制作GIF动画">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2020/06/07/anni/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="内容 对于科学研究有用的小工具 有意思的工具 有用的库  科研工具 通用绘图工具 GMT，主页，论坛 文档格式转换 Pandocs，主页。 坐标转换工具 Proj，主页 GDAL，主页  GEOS，主页 多波束数据处理开源软件 MB-System 论文撰写latex latex编辑工具texmaker 数学 graphing, geometry, 3D geogebra 搜索everything">
+<meta property="og:description" content="问：GMT自带的movie程序怎么制作动画？是否简单易用？答：movie是GMT的一个动画制作程序，设计的比较复杂，上手时间长，不易用。希望尝试的话，可以运行自带例子，你会发现它设计的使用方法和经典GMT是差别很大的，个人学习的使用经历比较糟糕。 问：那怎么利用GMT做GIF动画？答：可以使用ImageMagick工具，只需要一行命令即可。 1magick convert -delay 64 -l">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-01-04T13:58:24.000Z">
-<meta property="article:modified_time" content="2020-05-10T03:34:30.563Z">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/out.gif">
+<meta property="article:published_time" content="2020-06-07T07:14:42.000Z">
+<meta property="article:modified_time" content="2020-06-07T04:26:58.068Z">
 <meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="GMT">
+<meta property="article:tag" content="ImageMagick">
+<meta property="article:tag" content="GraphicsMagick">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/out.gif">
 
-<link rel="canonical" href="http://assz0a.coding-pages.com/tools/">
+<link rel="canonical" href="http://assz0a.coding-pages.com/2020/06/07/anni/">
 
 
 <script id="page-configurations">
@@ -66,12 +71,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>Tools | 学习笔记
-  </title>
+  <title>GMT 制作GIF动画 | 学习笔记</title>
   
 
 
@@ -181,91 +185,118 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/06/07/anni/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GMT 制作GIF动画
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">Tools
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2020-06-07 15:14:42 / 修改时间：12:26:58" itemprop="dateCreated datePublished" datetime="2020-06-07T15:14:42+08:00">2020-06-07</time>
+            </span>
+
+          
+            <span id="/2020/06/07/anni/" class="post-meta-item leancloud_visitors" data-flag-title="GMT 制作GIF动画" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/07/anni/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/07/anni/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
-</div>
+        </div>
+      </header>
 
-</header>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
-      
-      <div class="post-body">
-          <h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><ul>
-<li>对于科学研究有用的小工具</li>
-<li>有意思的工具</li>
-<li>有用的库</li>
-</ul>
-<h2 id="科研工具"><a href="#科研工具" class="headerlink" title="科研工具"></a>科研工具</h2><ul>
-<li>通用绘图工具 <a href="https://github.com/GenericMappingTools/gmt" target="_blank" rel="noopener">GMT</a>，<a href="http://gmt.soest.hawaii.edu/" target="_blank" rel="noopener">主页</a>，<a href="https://forum.generic-mapping-tools.org/" target="_blank" rel="noopener">论坛</a></li>
-<li>文档格式转换 <a href="https://github.com/jgm/pandoc" target="_blank" rel="noopener">Pandocs</a>，<a href="https://www.pandoc.org/" target="_blank" rel="noopener">主页</a>。</li>
-<li>坐标转换工具 <a href="https://github.com/OSGeo/PROJ" target="_blank" rel="noopener">Proj</a>，<a href="https://proj.org/" target="_blank" rel="noopener">主页</a></li>
-<li><a href="https://github.com/OSGeo/gdal" target="_blank" rel="noopener">GDAL</a>，<a href="https://gdal.org/" target="_blank" rel="noopener">主页</a> </li>
-<li><a href="https://github.com/libgeos/geos" target="_blank" rel="noopener">GEOS</a>，<a href="https://trac.osgeo.org/geos" target="_blank" rel="noopener">主页</a></li>
-<li>多波束数据处理开源软件 <a href="https://github.com/dwcaress/MB-System" target="_blank" rel="noopener">MB-System</a></li>
-<li>论文撰写<a href="https://www.latex-project.org/" target="_blank" rel="noopener">latex</a></li>
-<li>latex编辑工具<a href="https://www.xm1math.net/texmaker/" target="_blank" rel="noopener">texmaker</a></li>
-<li>数学 graphing, geometry, 3D <a href="https://www.geogebra.org/" target="_blank" rel="noopener">geogebra</a></li>
-<li>搜索<a href="https://www.voidtools.com/zh-cn/" target="_blank" rel="noopener">everything</a></li>
-<li>科研文献管理工具 <a href="https://www.zotero.org/" target="_blank" rel="noopener">Zotero</a>，Windows和Linux兼容，和坚果云兼容，开源。</li>
-<li>云存储<a href="https://jianguoyun.com" target="_blank" rel="noopener">坚果云</a>，智能手机、IPAD、window、Linux等多平台兼容。</li>
-<li><a href="https://git-scm.com/" target="_blank" rel="noopener">git</a></li>
-<li><a href="https://github.com" target="_blank" rel="noopener">github</a></li>
-<li>matlab 找峰值<a href="http://billauer.co.il/peakdet.html" target="_blank" rel="noopener">peakdet</a></li>
-<li>海洋大数据分析工具包jlab,Time Series Analysis: Theory and Practice课程<a href="http://www.jmlilly.net/course.html" target="_blank" rel="noopener">Lilly</a>。Lilly是个男子<del>@^@</del></li>
-</ul>
-<h2 id="专业软件"><a href="#专业软件" class="headerlink" title="专业软件"></a>专业软件</h2><ul>
-<li>卫星测高数据处理 <a href="http://www.altimetry.info/toolbox/" target="_blank" rel="noopener">BRAT</a>, <a href="https://github.com/BRAT-DEV/main" target="_blank" rel="noopener">Github地址</a></li>
-<li>Netcdf格式数据初浏览 <a href="https://www.giss.nasa.gov/tools/panoply" target="_blank" rel="noopener">Panoply</a></li>
-<li>海浪模拟<a href="http://www.maths.lth.se/matstat/wafo/index.html" target="_blank" rel="noopener">WAFO</a></li>
-</ul>
-<h2 id="专业网站"><a href="#专业网站" class="headerlink" title="专业网站"></a>专业网站</h2><ul>
-<li>卫星测高<a href="http://www.altimetry.info" target="_blank" rel="noopener">altimetry</a></li>
-<li>(SciHub)(<a href="https://sci-hub.se/" target="_blank" rel="noopener">https://sci-hub.se/</a>)</li>
-<li><a href="https://academic.microsoft.com/home" target="_blank" rel="noopener">微软学术</a></li>
-</ul>
-<h2 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h2><ul>
-<li>测高数据<a href="https://www.aviso.altimetry.fr/en/home.html" target="_blank" rel="noopener">aviso</a></li>
-<li><a href="ftp://ftp.space.dtu.dk/pub/DTU15/1_MIN/DTU15MDT_1min.zip" target="_blank" rel="noopener">DTU MSS/MDT模型</a></li>
-<li><a href="ftp://ftp-access.aviso.altimetry.fr" target="_blank" rel="noopener">Jason,Saral等卫星测高数据</a></li>
-<li>Delft卫星测高再分析数据下载 <a href="http://rads.tudelft.nl/rads/rads.shtml" target="_blank" rel="noopener">rads</a></li>
-</ul>
-<h2 id="兴趣网站"><a href="#兴趣网站" class="headerlink" title="兴趣网站"></a>兴趣网站</h2><ul>
-<li>英语学习 <a href="http://economist.com" target="_blank" rel="noopener">Economist</a>，<a href="https://getmyte.com/" target="_blank" rel="noopener">下载mobi、PDF格式</a>（此地址目前作者已收费），可以使用<a href="https://github.com/hehonghui/the-economist-ebooks" target="_blank" rel="noopener">site2</a></li>
-<li>网站、文档图标 <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener">fontawesome</a></li>
-<li>地理开源 <a href="https://www.osgeo.org/projects/" target="_blank" rel="noopener">osgeo</a></li>
-<li>科学上网 <a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">lantern</a>,由于无法说明的原因，当无法使用时，尝试更新最新版。</li>
-<li>博客模板 <a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">Next</a></li>
-<li>博客引擎 <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">HEXO</a></li>
+        <h3 id="问：GMT自带的movie程序怎么制作动画？是否简单易用？"><a href="#问：GMT自带的movie程序怎么制作动画？是否简单易用？" class="headerlink" title="问：GMT自带的movie程序怎么制作动画？是否简单易用？"></a>问：GMT自带的movie程序怎么制作动画？是否简单易用？</h3><p>答：<a href="https://docs.generic-mapping-tools.org/dev/movie.html#s" target="_blank" rel="noopener">movie</a>是GMT的一个动画制作程序，设计的比较复杂，上手时间长，不易用。希望尝试的话，可以运行自带例子，你会发现它设计的使用方法和经典GMT是差别很大的，个人学习的使用经历比较糟糕。</p>
+<h3 id="问：那怎么利用GMT做GIF动画？"><a href="#问：那怎么利用GMT做GIF动画？" class="headerlink" title="问：那怎么利用GMT做GIF动画？"></a>问：那怎么利用GMT做GIF动画？</h3><p>答：可以使用<a href="https://imagemagick.org" target="_blank" rel="noopener">ImageMagick</a>工具，只需要一行命令即可。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magick convert -<span class="keyword">delay</span> <span class="number">64</span> -<span class="keyword">loop</span> <span class="number">0</span> *.png  <span class="keyword">out</span>.gif</span><br></pre></td></tr></table></figure>
+<p>首先使用GMT制作每一个png，然后用上面的命令把连续的png图像制作成GIF动画。</p>
+<a id="more"></a>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">gmt <span class="built_in">set</span> FORMAT_DATE_MAP <span class="string">"o dd"</span> FORMAT_CLOCK_MAP hh:mm </span><br><span class="line">gnss1=./gnss_b1_hlf_allppk.txt</span><br><span class="line">R=-R32400/119700/-0.565631/0.828242</span><br><span class="line"><span class="comment"># ==========================================================================================================</span></span><br><span class="line"><span class="keyword">for</span>((i=1;i&lt;=23;i++));  </span><br><span class="line"><span class="keyword">do</span>   </span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">	((name = <span class="variable">$i</span> + 100))</span><br><span class="line">	ps=a00<span class="variable">$name</span>.ps <span class="comment"># define the png names</span></span><br><span class="line">	r=$((<span class="variable">$RANDOM</span>%255)) <span class="comment"># random color for each png</span></span><br><span class="line">	g=$((<span class="variable">$RANDOM</span>%255))</span><br><span class="line">	b=$((<span class="variable">$RANDOM</span>%255))</span><br><span class="line">	</span><br><span class="line">	((max =  <span class="variable">$i</span> * 3600)) <span class="comment"># define the boundary of data for each png</span></span><br><span class="line">	((min = (<span class="variable">$i</span>-1) * 3600))</span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$min</span></span><br><span class="line"></span><br><span class="line">	gmt psbasemap -R2019-03-31T09:00:00/2019-04-01T09:00:00/-0.565631/0.828242 -Bpxa4Hf1h -Bsxa1Df1D -Bpya0.4g0.2f0.2+l<span class="string">"WSSE(HPF)/m"</span> -JX10c/4c -BWSne -K &gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psbasemap -R2/20/1e-4/1e0 -JX-10cl/10cl -Bxa2f3g3+l<span class="string">"period:second"</span> -Bya-1pg+l<span class="string">"power spectrum:m@+2@+/cycle/s"</span> -BWNse -K  -Y2.7i -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	</span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span> | gmt spectrum1d  -S256 -W --GMT_FFT=brenner -N -i1 -D1 &gt; pow5.txt</span><br><span class="line">	awk <span class="string">' NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">'   &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,lightgray -P -K -O -Y-2.7i &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -P -K -O  &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psxy -R2/20/1e-4/1e0 -JX-10cl/10cl -K pow5.txt -W2.25p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -O -Y2.7i -i0,1 &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">	gmt psbasemap -R0.05/0.5/1e-4/1e0 -JX10cl/10cl -Bxa2f3g3+l<span class="string">"Frequency:cycle/second"</span> -BS  -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -Tg</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># ==========================================================================================================</span></span><br><span class="line">magick convert -delay 64 -loop 0 *.png  out.gif</span><br></pre></td></tr></table></figure>
+
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="/images/out.gif" alt></p>
+<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><p><a href="https://www.jianguoyun.com/p/DXyywDoQ2PCQBxjrxaAD" target="_blank" rel="noopener">GNSS data</a></p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ul>
+<li><a href="http://www.graphicsmagick.org" target="_blank" rel="noopener">GraphicsMagick</a>是从<a href="https://imagemagick.org/" target="_blank" rel="noopener">ImageMagick</a>中分离出来的，推荐下载ImageMagick</li>
 </ul>
 
-      </div>
-      
-      
-      
     </div>
-    
 
     
     
     
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GMT/" rel="tag"># GMT</a>
+              <a href="/tags/ImageMagick/" rel="tag"># ImageMagick</a>
+              <a href="/tags/GraphicsMagick/" rel="tag"># GraphicsMagick</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/02/distance-to-coast/" rel="prev" title="GMT 计算任意点到海岸线的最短距离">
+      <i class="fa fa-chevron-left"></i> GMT 计算任意点到海岸线的最短距离
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
 
@@ -318,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容"><span class="nav-number">1.</span> <span class="nav-text">内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#科研工具"><span class="nav-number">2.</span> <span class="nav-text">科研工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专业软件"><span class="nav-number">3.</span> <span class="nav-text">专业软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专业网站"><span class="nav-number">4.</span> <span class="nav-text">专业网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据下载"><span class="nav-number">5.</span> <span class="nav-text">数据下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兴趣网站"><span class="nav-number">6.</span> <span class="nav-text">兴趣网站</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问：GMT自带的movie程序怎么制作动画？是否简单易用？"><span class="nav-number">1.</span> <span class="nav-text">问：GMT自带的movie程序怎么制作动画？是否简单易用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问：那怎么利用GMT做GIF动画？"><span class="nav-number">2.</span> <span class="nav-text">问：那怎么利用GMT做GIF动画？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">3.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取数据"><span class="nav-number">5.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意点"><span class="nav-number">6.</span> <span class="nav-text">注意点</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
