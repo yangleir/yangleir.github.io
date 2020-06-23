@@ -46,24 +46,24 @@
   };
 </script>
 
-  <meta name="description" content="问：GMT自带的movie程序怎么制作动画？是否简单易用？答：movie是GMT的一个动画制作程序，设计的比较复杂，上手时间长，不易用。希望尝试的话，可以运行自带例子，你会发现它设计的使用方法和经典GMT是差别很大的，个人学习的使用经历比较糟糕。 问：那怎么利用GMT做GIF动画？答：可以使用ImageMagick工具，只需要一行命令即可。 1magick convert -delay 64 -l">
+  <meta name="description" content="问：GMT有几种计算波数谱的方法spectrum1D和grdfft可以计算波数谱。-spectrum1D:一维-grdfft:二维，含x,y和径向三个方向的计算。 模拟下面利用完全GMT工具进行波数谱的模拟，首先利用grdmath模拟出一个规范的正弦波二维矩阵，形成网格文件。然后使用grdfft计算三个方向的谱，使用spectrum1D计算X方向的一维波数谱。 123456789101112131">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GMT 制作GIF动画">
-<meta property="og:url" content="http://assz0a.coding-pages.com/2020/06/07/anni/index.html">
+<meta property="og:title" content="GMT模拟波数谱(二)">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2020/06/23/wavenumber-grdfft-spectrum1d/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="问：GMT自带的movie程序怎么制作动画？是否简单易用？答：movie是GMT的一个动画制作程序，设计的比较复杂，上手时间长，不易用。希望尝试的话，可以运行自带例子，你会发现它设计的使用方法和经典GMT是差别很大的，个人学习的使用经历比较糟糕。 问：那怎么利用GMT做GIF动画？答：可以使用ImageMagick工具，只需要一行命令即可。 1magick convert -delay 64 -l">
+<meta property="og:description" content="问：GMT有几种计算波数谱的方法spectrum1D和grdfft可以计算波数谱。-spectrum1D:一维-grdfft:二维，含x,y和径向三个方向的计算。 模拟下面利用完全GMT工具进行波数谱的模拟，首先利用grdmath模拟出一个规范的正弦波二维矩阵，形成网格文件。然后使用grdfft计算三个方向的谱，使用spectrum1D计算X方向的一维波数谱。 123456789101112131">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://assz0a.coding-pages.com/images/out.gif">
-<meta property="article:published_time" content="2020-06-07T07:14:42.000Z">
-<meta property="article:modified_time" content="2020-06-07T04:26:58.068Z">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/testgrd.png">
+<meta property="article:published_time" content="2020-06-23T09:57:28.000Z">
+<meta property="article:modified_time" content="2020-06-23T10:08:28.365Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="GMT">
-<meta property="article:tag" content="ImageMagick">
-<meta property="article:tag" content="GraphicsMagick">
+<meta property="article:tag" content="spectrum1d">
+<meta property="article:tag" content="grdfft">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/out.gif">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/testgrd.png">
 
-<link rel="canonical" href="http://assz0a.coding-pages.com/2020/06/07/anni/">
+<link rel="canonical" href="http://assz0a.coding-pages.com/2020/06/23/wavenumber-grdfft-spectrum1d/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>GMT 制作GIF动画 | 学习笔记</title>
+  <title>GMT模拟波数谱(二) | 学习笔记</title>
   
 
 
@@ -194,7 +194,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/06/07/anni/">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/06/23/wavenumber-grdfft-spectrum1d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/xingchi.jpg">
@@ -207,7 +207,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          GMT 制作GIF动画
+          GMT模拟波数谱(二)
         </h1>
 
         <div class="post-meta">
@@ -218,11 +218,11 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-06-07 15:14:42 / 修改时间：12:26:58" itemprop="dateCreated datePublished" datetime="2020-06-07T15:14:42+08:00">2020-06-07</time>
+              <time title="创建时间：2020-06-23 17:57:28 / 修改时间：18:08:28" itemprop="dateCreated datePublished" datetime="2020-06-23T17:57:28+08:00">2020-06-23</time>
             </span>
 
           
-            <span id="/2020/06/07/anni/" class="post-meta-item leancloud_visitors" data-flag-title="GMT 制作GIF动画" title="阅读次数">
+            <span id="/2020/06/23/wavenumber-grdfft-spectrum1d/" class="post-meta-item leancloud_visitors" data-flag-title="GMT模拟波数谱(二)" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -237,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/06/07/anni/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/07/anni/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/06/23/wavenumber-grdfft-spectrum1d/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/wavenumber-grdfft-spectrum1d/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,18 +253,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="问：GMT自带的movie程序怎么制作动画？是否简单易用？"><a href="#问：GMT自带的movie程序怎么制作动画？是否简单易用？" class="headerlink" title="问：GMT自带的movie程序怎么制作动画？是否简单易用？"></a>问：GMT自带的movie程序怎么制作动画？是否简单易用？</h3><p>答：<a href="https://docs.generic-mapping-tools.org/dev/movie.html#s" target="_blank" rel="noopener">movie</a>是GMT的一个动画制作程序，设计的比较复杂，上手时间长，不易用。希望尝试的话，可以运行自带例子，你会发现它设计的使用方法和经典GMT是差别很大的，个人学习的使用经历比较糟糕。</p>
-<h3 id="问：那怎么利用GMT做GIF动画？"><a href="#问：那怎么利用GMT做GIF动画？" class="headerlink" title="问：那怎么利用GMT做GIF动画？"></a>问：那怎么利用GMT做GIF动画？</h3><p>答：可以使用<a href="https://imagemagick.org" target="_blank" rel="noopener">ImageMagick</a>工具，只需要一行命令即可。</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magick convert -<span class="keyword">delay</span> <span class="number">64</span> -<span class="keyword">loop</span> <span class="number">0</span> *.png  <span class="keyword">out</span>.gif</span><br></pre></td></tr></table></figure>
-<p>首先使用GMT制作每一个png，然后用上面的命令把连续的png图像制作成GIF动画。</p>
-<a id="more"></a>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">gmt <span class="built_in">set</span> FORMAT_DATE_MAP <span class="string">"o dd"</span> FORMAT_CLOCK_MAP hh:mm </span><br><span class="line">gnss1=./gnss_b1_hlf_allppk.txt</span><br><span class="line">R=-R32400/119700/-0.565631/0.828242</span><br><span class="line"><span class="comment"># ==========================================================================================================</span></span><br><span class="line"><span class="keyword">for</span>((i=1;i&lt;=23;i++));  </span><br><span class="line"><span class="keyword">do</span>   </span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">	((name = <span class="variable">$i</span> + 100))</span><br><span class="line">	ps=a00<span class="variable">$name</span>.ps <span class="comment"># define the png names</span></span><br><span class="line">	r=$((<span class="variable">$RANDOM</span>%255)) <span class="comment"># random color for each png</span></span><br><span class="line">	g=$((<span class="variable">$RANDOM</span>%255))</span><br><span class="line">	b=$((<span class="variable">$RANDOM</span>%255))</span><br><span class="line">	</span><br><span class="line">	((max =  <span class="variable">$i</span> * 3600)) <span class="comment"># define the boundary of data for each png</span></span><br><span class="line">	((min = (<span class="variable">$i</span>-1) * 3600))</span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$min</span></span><br><span class="line"></span><br><span class="line">	gmt psbasemap -R2019-03-31T09:00:00/2019-04-01T09:00:00/-0.565631/0.828242 -Bpxa4Hf1h -Bsxa1Df1D -Bpya0.4g0.2f0.2+l<span class="string">"WSSE(HPF)/m"</span> -JX10c/4c -BWSne -K &gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psbasemap -R2/20/1e-4/1e0 -JX-10cl/10cl -Bxa2f3g3+l<span class="string">"period:second"</span> -Bya-1pg+l<span class="string">"power spectrum:m@+2@+/cycle/s"</span> -BWNse -K  -Y2.7i -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	</span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span> | gmt spectrum1d  -S256 -W --GMT_FFT=brenner -N -i1 -D1 &gt; pow5.txt</span><br><span class="line">	awk <span class="string">' NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">'   &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,lightgray -P -K -O -Y-2.7i &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -P -K -O  &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psxy -R2/20/1e-4/1e0 -JX-10cl/10cl -K pow5.txt -W2.25p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -O -Y2.7i -i0,1 &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">	gmt psbasemap -R0.05/0.5/1e-4/1e0 -JX10cl/10cl -Bxa2f3g3+l<span class="string">"Frequency:cycle/second"</span> -BS  -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -Tg</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># ==========================================================================================================</span></span><br><span class="line">magick convert -delay 64 -loop 0 *.png  out.gif</span><br></pre></td></tr></table></figure>
+        <h2 id="问：GMT有几种计算波数谱的方法"><a href="#问：GMT有几种计算波数谱的方法" class="headerlink" title="问：GMT有几种计算波数谱的方法"></a>问：GMT有几种计算波数谱的方法</h2><p>spectrum1D和grdfft可以计算波数谱。<br>-spectrum1D:一维<br>-grdfft:二维，含x,y和径向三个方向的计算。</p>
+<h2 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h2><p>下面利用完全GMT工具进行波数谱的模拟，首先利用grdmath模拟出一个规范的正弦波二维矩阵，形成网格文件。然后使用grdfft计算三个方向的谱，使用spectrum1D计算X方向的一维波数谱。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">ps=testgrd.ps</span><br><span class="line"></span><br><span class="line"># gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X Y ADD SIN = x.nc</span><br><span class="line">gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X SIN = x.nc</span><br><span class="line"></span><br><span class="line">gmt makecpt -Crainbow -T<span class="number">-1</span>/<span class="number">1</span>/<span class="number">0.1</span> &gt; t.cpt</span><br><span class="line">gmt grdimage x.nc -R<span class="number">-30</span>/<span class="number">30</span>/<span class="number">-30</span>/<span class="number">30</span> -JX3i -Ct.cpt -Bxa -Bya -BWSne -P -K -Y7i &gt; $ps</span><br><span class="line"></span><br><span class="line">gmt grd2xyz x.nc | awk '&#123;if ($<span class="number">2</span> == <span class="number">0</span>) print $<span class="number">0</span>&#125;' &gt; x.txt</span><br><span class="line">gmt psxy -R -J -O -K x.txt -Sc0<span class="number">.03</span>i -Gblack &gt;&gt; $ps</span><br><span class="line"># Do grdfft</span><br><span class="line">gmt grdfft x.nc -Er+w+n -Gfft.txt</span><br><span class="line">gmt grdfft x.nc -Ex+w+n -Gfftx.txt</span><br><span class="line">gmt grdfft x.nc -Ey+w+n -Gffty.txt</span><br><span class="line"></span><br><span class="line"># Plot specrum result from grdfft</span><br><span class="line">gmt psbasemap -R1/<span class="number">20</span>/<span class="number">1e-14</span>/<span class="number">1e-2</span> -JX<span class="number">-2.8</span>il/<span class="number">3</span>il -Bxa1pf2g3+l<span class="string">"Wavelength"</span> -Bya1pg+l<span class="string">"power spectrum"</span> -BwNsE -K -X3<span class="number">.2</span>i -O &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fft.txt  -J -W0<span class="number">.5</span>p,red, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fftx.txt  -J -W0<span class="number">.5</span>p,blue, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R ffty.txt  -J -W0<span class="number">.5</span>p,green, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psbasemap -R0<span class="number">.05</span>/<span class="number">1e0</span>/<span class="number">1e-14</span>/<span class="number">1e-2</span> -JX2<span class="number">.8</span>il/<span class="number">3</span>il -BSE -Bxa1p+l<span class="string">"wavenumber/cycle"</span> -O -K&gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt pslegend -D+w1<span class="number">.2</span>i+jBL+o0<span class="number">.1</span>i/<span class="number">0.1</span>i -R -J -O -K -F+p1p+glightgray --FONT_ANNOT_PRIMARY=<span class="number">10</span>p,<span class="number">1</span>,black &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,red, <span class="number">0.5</span>i r</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,blue <span class="number">0.5</span>i x</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,green, <span class="number">0.5</span>i y</span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line"># Do spectrum1D</span><br><span class="line">gmt psxy -R<span class="number">-30</span>/<span class="number">30</span>/<span class="number">-1</span>/<span class="number">1</span> -JX3i/<span class="number">3</span>i x.txt -i0,<span class="number">2</span> -Bxaf -Byaf -BWSne -O -K -X<span class="number">-3.2</span>i -Y<span class="number">-4.5</span>i &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J x.txt -i0,<span class="number">2</span> -Sc0<span class="number">.03</span>i -Gred -O -K &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">awk '&#123;print $<span class="number">1</span>,$<span class="number">3</span>&#125;' x.txt | gmt spectrum1d  -S256 -W --GMT_FFT=brenner -N -i1 -D0<span class="number">.2</span>  &gt; fft_spec.txt</span><br><span class="line">gmt psbasemap -R1/<span class="number">20</span>/<span class="number">1e-12</span>/<span class="number">1e2</span> -JX<span class="number">-2.8</span>il/<span class="number">3</span>il -Bxa1pf2g3+l<span class="string">"Wavelength"</span> -Bya1pg+l<span class="string">"power spectrum"</span> -BwNsE -K -X3<span class="number">.2</span>i -O &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fft_spec.txt -J -W0<span class="number">.5</span>p,red, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psbasemap -R0<span class="number">.05</span>/<span class="number">1e0</span>/<span class="number">1e-12</span>/<span class="number">1e2</span> -JX2<span class="number">.8</span>il/<span class="number">3</span>il -BSE -Bxa1p+l<span class="string">"wavenumber/cycle"</span> -O &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">awk '&#123;print $<span class="number">3</span>&#125;' x.txt| gmt gmtmath STDIN -Sl STD  SQR =</span><br><span class="line"></span><br><span class="line">gmt psconvert  $ps -P -Tg -A</span><br></pre></td></tr></table></figure>
 
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="/images/out.gif" alt></p>
-<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><p><a href="https://www.jianguoyun.com/p/DXyywDoQ2PCQBxjrxaAD" target="_blank" rel="noopener">GNSS data</a></p>
-<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ul>
-<li><a href="http://www.graphicsmagick.org" target="_blank" rel="noopener">GraphicsMagick</a>是从<a href="https://imagemagick.org/" target="_blank" rel="noopener">ImageMagick</a>中分离出来的，推荐下载ImageMagick</li>
-</ul>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/testgrd.png" alt></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>-spectrum1D得到的波数谱符合能量守恒定律，即输入信号的方差等于功率谱密度的积分，也就是谱和X轴围起来的面积。例如正弦波的方差为0.5，而功率密度的积分也恰好为0.5。<br>-grdfft得到的波数谱不是密度谱，所以不遵循能量守恒。<br>-grdfft的三个方向的谱的关系是什么？r^2=x^2+y^2？</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://yangleir.github.io/2020/02/15/wavenumber/" target="_blank" rel="noopener">wavenumber的模拟计算</a></p>
 
     </div>
 
@@ -275,8 +270,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/GMT/" rel="tag"># GMT</a>
-              <a href="/tags/ImageMagick/" rel="tag"># ImageMagick</a>
-              <a href="/tags/GraphicsMagick/" rel="tag"># GraphicsMagick</a>
+              <a href="/tags/spectrum1d/" rel="tag"># spectrum1d</a>
+              <a href="/tags/grdfft/" rel="tag"># grdfft</a>
           </div>
 
         
@@ -285,13 +280,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/02/distance-to-coast/" rel="prev" title="GMT 计算任意点到海岸线的最短距离">
-      <i class="fa fa-chevron-left"></i> GMT 计算任意点到海岸线的最短距离
+    <a href="/2020/06/13/math-fun/" rel="prev" title="math fun">
+      <i class="fa fa-chevron-left"></i> math fun
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/06/13/math-fun/" rel="next" title="math fun">
-      math fun <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -352,7 +344,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问：GMT自带的movie程序怎么制作动画？是否简单易用？"><span class="nav-number">1.</span> <span class="nav-text">问：GMT自带的movie程序怎么制作动画？是否简单易用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问：那怎么利用GMT做GIF动画？"><span class="nav-number">2.</span> <span class="nav-text">问：那怎么利用GMT做GIF动画？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">3.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取数据"><span class="nav-number">5.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意点"><span class="nav-number">6.</span> <span class="nav-text">注意点</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问：GMT有几种计算波数谱的方法"><span class="nav-number">1.</span> <span class="nav-text">问：GMT有几种计算波数谱的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟"><span class="nav-number">2.</span> <span class="nav-text">模拟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
