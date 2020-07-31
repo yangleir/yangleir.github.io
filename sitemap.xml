@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://assz0a.coding-pages.com/about/index.html</loc>
+    
+    <lastmod>2020-07-31T12:21:33.898Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://assz0a.coding-pages.com/2020/06/23/wavenumber-grdfft-spectrum1d/</loc>
     
     <lastmod>2020-06-24T16:06:35.255Z</lastmod>
@@ -131,13 +138,6 @@
     <loc>http://assz0a.coding-pages.com/2020/01/23/cygwin-gmt/</loc>
     
     <lastmod>2020-03-02T08:05:36.723Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/about/index.html</loc>
-    
-    <lastmod>2020-02-10T03:26:11.800Z</lastmod>
     
   </url>
   
