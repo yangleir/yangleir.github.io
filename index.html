@@ -208,10 +208,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-01-31 22:29:34 / 修改时间：23:34:51" itemprop="dateCreated datePublished" datetime="2021-01-31T22:29:34+08:00">2021-01-31</time>
+              <time title="创建时间：2021-01-31 22:29:34" itemprop="dateCreated datePublished" datetime="2021-01-31T22:29:34+08:00">2021-01-31</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-01 19:35:02" itemprop="dateModified" datetime="2021-02-01T19:35:02+08:00">2021-02-01</time>
+              </span>
 
           
             <span id="/2021/01/31/qgis/" class="post-meta-item leancloud_visitors" data-flag-title="qgis" title="阅读次数">
@@ -249,9 +255,22 @@
 <blockquote>
 <p>qgis图层导出时可以选择坐标系，导出地理坐标系选4326就可以了。<br><a href="https://www.zhihu.com/question/439563168/answer/1682326935" target="_blank" rel="noopener">转</a></p>
 </blockquote>
+<p>或者</p>
+<blockquote>
+<p>qgis-toolbox;<br>搜索reproject<br>打开GDAL-Raster projections-warp(reproject)<br>(右键可以批处理)</p>
+</blockquote>
 <p>或者使用</p>
 <blockquote>
 <p>gdalwarp  -t_srs EPSG:4326 yunchengxian_2020.tif yunchengxian_2020_wgs.tif<br>参考：<a href="https://gdal.org/programs/gdalwarp.html" target="_blank" rel="noopener">https://gdal.org/programs/gdalwarp.html</a></p>
+</blockquote>
+<h2 id="配准"><a href="#配准" class="headerlink" title="配准"></a>配准</h2><p>我下载了USGS的间谍卫星影像，为胶片拍摄，无投影坐标，因此如果用于比对看图，需要配准。<br>使用QGIS：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">菜单栏点击“栅格”<span class="comment">--“配准工具”，会重新打开一个配准窗口</span></span><br><span class="line">配准<span class="comment">--打开栅格</span></span><br><span class="line">设置坐标系统</span><br><span class="line">采集栅格和矢量同名的点，采集的点越多（要控制采集精度），位置越准确</span><br><span class="line">可手工输入，也可从画布中获取</span><br><span class="line">集完点之后，对校正后的地图的矫正方法、名称、坐标系等进行设置，最后点击运行按钮</span><br></pre></td></tr></table></figure>
+
+<h2 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h2><blockquote>
+<p>raster-extraction-clip raster by extent</p>
+</blockquote>
+<h2 id="调用google-地图、影像"><a href="#调用google-地图、影像" class="headerlink" title="调用google 地图、影像"></a>调用google 地图、影像</h2><blockquote>
+<p>安装QuickMapServices</p>
 </blockquote>
 
       
