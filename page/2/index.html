@@ -504,7 +504,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/16/linux-tools/" class="post-title-link" itemprop="url">linux tools</a>
+            <a href="/2020/08/16/linux-tools/" class="post-title-link" itemprop="url">命令工具常用操作</a>
         </h1>
 
         <div class="post-meta">
@@ -521,7 +521,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-03 17:04:16" itemprop="dateModified" datetime="2021-02-03T17:04:16+08:00">2021-02-03</time>
+                <time title="修改时间：2021-02-13 12:07:12" itemprop="dateModified" datetime="2021-02-13T12:07:12+08:00">2021-02-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -536,7 +536,7 @@
             </span>
 
           
-            <span id="/2020/08/16/linux-tools/" class="post-meta-item leancloud_visitors" data-flag-title="linux tools" title="阅读次数">
+            <span id="/2020/08/16/linux-tools/" class="post-meta-item leancloud_visitors" data-flag-title="命令工具常用操作" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -567,8 +567,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="这里列举一些常用的，又不容易记忆的linux工具命令"><a href="#这里列举一些常用的，又不容易记忆的linux工具命令" class="headerlink" title="这里列举一些常用的，又不容易记忆的linux工具命令"></a>这里列举一些常用的，又不容易记忆的linux工具命令</h1><h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p>下面是简单的上传博客文章的hexo命令，其中<code>hexo d -m &quot;message&quot;</code> 可以产生<code>commit</code>。</p>
+          <p>这里列举一些常用的，又不容易记忆的linux工具命令</p>
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p>下面是简单的上传博客文章的hexo命令，其中<code>hexo d -m &quot;message&quot;</code> 可以产生<code>commit</code>。</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type">post</span> <span class="string">"linux tools"</span></span><br><span class="line">hexo g</span><br><span class="line">hexo d -m <span class="string">"linux tools"</span></span><br></pre></td></tr></table></figure>
+
+<p>插入公式：</p>
+<blockquote>
+<p>行内的公式用<code>$</code>公式内容<code>$</code>包裹起来，在公式中右键即可查看公式$\TeX$代码。<br>同样右键可查看公式代码。</p>
+</blockquote>
+<p>例如：<br>\begin{equation} \sum_{k=1}^{n} \frac{1}{1+8 \sin ^{2} \frac{k \pi}{n}}=\frac{n\left(2^{n}+1\right)}{3\left(2^{n}-1\right)} \end{equation}</p>
+<p>文章抬头需要加入类似：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">hexo中插入数学公式</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019</span><span class="number">-05</span><span class="number">-09</span> <span class="number">12</span><span class="string">:40:16</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>常用git命令</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">status</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"add dac"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure>
@@ -1463,6 +1472,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
