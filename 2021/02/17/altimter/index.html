@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="海洋测绘期刊发表文献分析CNKI检索时间范围1994年至2021年内，共计约3000篇文献，转化为有效数据为2994条。知网检索格式： 1JN&#x3D;海洋测绘 发文单位 发文单位   发文单位时间轴 此图可以反映，我国海洋测绘研究机构、高校的时代变化。例如军改之后，一些部队研究所、大学发生大的变动，新组建的一些机构开始出现。如解放军信息工程大学改名战略支援部队信息工程大学，新的海军研究院。地方高校的变化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于CiteSpace的《海洋测绘》20余年文献计量分析">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2021/02/17/altimter/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="海洋测绘期刊发表文献分析CNKI检索时间范围1994年至2021年内，共计约3000篇文献，转化为有效数据为2994条。知网检索格式： 1JN&#x3D;海洋测绘 发文单位 发文单位   发文单位时间轴 此图可以反映，我国海洋测绘研究机构、高校的时代变化。例如军改之后，一些部队研究所、大学发生大的变动，新组建的一些机构开始出现。如解放军信息工程大学改名战略支援部队信息工程大学，新的海军研究院。地方高校的变化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/ORG_v812e9261.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/ORG_v812e18283.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/burst_au2.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/COA_v877e1897.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/a_b.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/%E5%88%98%E9%9B%81%E6%98%A5.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/CO-DESC_v829e1630.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/k_au.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/CO-DESC_v829e16301.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/COA_v812e1441.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/ORG_v542e773.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/ORG_v542e7731.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/CO-DESC_v953e1919.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/CO-DESC_v922e1709.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/CO-DESC_v922e17091.png">
+<meta property="article:published_time" content="2021-02-17T14:21:20.000Z">
+<meta property="article:modified_time" content="2021-02-17T14:36:12.952Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="citespace">
+<meta property="article:tag" content="marine survry">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/ORG_v812e9261.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2021/02/17/altimter/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>基于CiteSpace的《海洋测绘》20余年文献计量分析 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">36</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">36</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/17/altimter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于CiteSpace的《海洋测绘》20余年文献计量分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-17 22:21:20 / 修改时间：22:36:12" itemprop="dateCreated datePublished" datetime="2021-02-17T22:21:20+08:00">2021-02-17</time>
+            </span>
+
+          
+            <span id="/2021/02/17/altimter/" class="post-meta-item leancloud_visitors" data-flag-title="基于CiteSpace的《海洋测绘》20余年文献计量分析" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/17/altimter/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/17/altimter/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="海洋测绘期刊发表文献分析"><a href="#海洋测绘期刊发表文献分析" class="headerlink" title="海洋测绘期刊发表文献分析"></a>海洋测绘期刊发表文献分析</h3><h4 id="CNKI检索"><a href="#CNKI检索" class="headerlink" title="CNKI检索"></a>CNKI检索</h4><p>时间范围1994年至2021年内，共计约3000篇文献，转化为有效数据为2994条。知网检索格式：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">JN</span>=海洋测绘</span><br></pre></td></tr></table></figure>
+<h4 id="发文单位"><a href="#发文单位" class="headerlink" title="发文单位"></a>发文单位</h4><p><img src="/images/ORG_v812e9261.png" alt></p>
+<center>发文单位</center>
+
+<p><img src="/images/ORG_v812e18283.png" alt></p>
+<center>发文单位时间轴</center>
+此图可以反映，我国海洋测绘研究机构、高校的时代变化。例如军改之后，一些部队研究所、大学发生大的变动，新组建的一些机构开始出现。如解放军信息工程大学改名战略支援部队信息工程大学，新的海军研究院。地方高校的变化也可以反映，如新组建的山东科技大学海洋研究院。
+
+<p><img src="/images/burst_au2.jpg" alt></p>
+<center>发文单位burst</center>
+
+<h4 id="发文作者"><a href="#发文作者" class="headerlink" title="发文作者"></a>发文作者</h4><p><img src="/images/COA_v877e1897.png" alt></p>
+<center>发文作者</center>
+
+<p>聚类分析让合作紧密的作者分布在临近区域，如欧阳永忠和翟国军作为发文最高的两位作者，节点重合一半，表明二者文章有一半是共同署名。<br>部队海洋测绘工作者的合作非常密切，几乎都是共同合作完成。</p>
+<p><img src="/images/a_b.jpg" alt></p>
+<center>发文作者burst</center>
+
+<p><img src="/images/%E5%88%98%E9%9B%81%E6%98%A5.png" alt></p>
+<center>发文作者burst,以刘雁春为例</center>
+作者刘雁春在《海洋测绘》发表了许多文章，具有较大的聚类指数，也具有较高的爆发，但是其发文多集中，而2013至后不发文。
+
+<h4 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h4><p><img src="/images/CO-DESC_v829e1630.png" alt></p>
+<center>海洋测绘主要关键词</center>
+
+
+<p><img src="/images/k_au.jpg" alt></p>
+<center>关键词busrt</center>
+
+<p><img src="/images/CO-DESC_v829e16301.png" alt></p>
+<center>海洋测绘主要关键词时间轴</center>
+
+<p>通过本图，可发现一些有意思的结论。</p>
+<ul>
+<li>多波束测深、水深测量是海洋测绘的主要研究对象；</li>
+<li>地理信息系统、数字高程模型两个关键词已经消失在时间长河，基本无人再用。</li>
+<li>全球定位系统和gps作为关键词也逐渐无人使用，取而代之应该是gnss或者我国的北斗。</li>
+<li>测深仪无人使用，多波束取而代之。</li>
+</ul>
+<h3 id="卫星测高领域"><a href="#卫星测高领域" class="headerlink" title="卫星测高领域"></a>卫星测高领域</h3><h4 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h4><p>知网检索：<code>卫星高度计</code>和<code>卫星测高</code>，来源为期刊，时间从1970-2021，得到1092条有效数据。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">SU</span>=<span class="string">'卫星测高'</span>+<span class="string">'高度计'</span> and AB=<span class="string">'卫星'</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="研究人员"><a href="#研究人员" class="headerlink" title="研究人员"></a>研究人员</h4><p><img src="/images/COA_v812e1441.png" alt></p>
+<center>卫星测高研究人员</center>
+卫星测高是我上学以及工作后的主要研究方向，本以为做的还不错，但是通过这幅图才发现了人外有人，天外有天，自己的想法简直是《庄子》里面未见北海的河伯，或者不知春秋的蟪蛄，不知晦朔的朝菌而已。
+可能有的老师会疑问，我也发了很多论文，怎么不见名字呢？这主要和数据源有关系，如果老师发表的文章是英文SCI，那么这里面确实不会出现。不出现并不代表没有实力，反而英文文章更能说明示例。
+那么这个作者谱图也仅能代表过去和中文文献，请没有大名的老师不要介意，如果以后支持多多国产期刊，把论文发表在祖国大地上，名字就有啦。
+
+<h4 id="研究单位"><a href="#研究单位" class="headerlink" title="研究单位"></a>研究单位</h4><p><img src="/images/ORG_v542e773.png" alt></p>
+<center>卫星测高研究单位</center>
+
+<p>可见武汉大学在国内处于核心地位，其节点的圆环颜色中间为灰色，表示涉入本行业年代较久远，属于最早一批使用卫星测高数据的机构，其外环仍保持亮丽色彩，表示至今仍在本领域耕耘。中国测绘科学研究院、中科院测地所和中国海洋大学也都是很早就研究卫星测高的机构，且早期成果较多，使得图中的节点颜色灰色面积较大，但图谱表明目前阶段这三家单位的热点已较低，这说明随着时间的更迭，这些单位已经不在热衷于卫星测高研究。海洋一所、中科院大学、西安测绘研究所等机构现在仍旧在此领域发表论文，说明其卫星测高数据应用有需求，研究热度增加。</p>
+<p><img src="/images/ORG_v542e7731.png" alt></p>
+<center>卫星测高研究单位时间图谱</center>
+1979年中科院海洋所齐孟鹗发表第一篇提及卫星测高领域的文章，此时仅仅为介绍，并未实际应用。到80年达，测地所、武汉大学、海洋一所等机构开始引用测高数据，2000以后，国家海洋卫星应用中心开始研究高度计，2010年后国土卫星遥感应用中心开始研究激光测高卫星，这两单位的介入表明我国对测高卫星提出了自主化要求。
+
+
+
+
+<h4 id="关键词-1"><a href="#关键词-1" class="headerlink" title="关键词"></a>关键词</h4><p><img src="/images/CO-DESC_v953e1919.png" alt></p>
+<center>卫星测高关聚类键词</center>
+通过聚类，卫星测高主要涵盖：南海、有效波高、激光测高、海平面变化、重力异常、大地水准面、大洋环流、卫星轨道等类别。基本包含了卫星的主要研究领域，在大地测量、物理海洋等领域的应用。
+
+<p><img src="/images/CO-DESC_v922e1709.png" alt></p>
+<center>卫星测高论文关键词</center>
+
+<h4 id="时间轴"><a href="#时间轴" class="headerlink" title="时间轴"></a>时间轴</h4><p><img src="/images/CO-DESC_v922e17091.png" alt></p>
+<center>卫星测高论文关键词演变</center>
+
+
+<h3 id="海洋遥感"><a href="#海洋遥感" class="headerlink" title="海洋遥感"></a>海洋遥感</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">SU</span>=<span class="string">'遥感'</span>+<span class="string">'测绘'</span>+<span class="string">'测量'</span>+‘反演’ and AB=<span class="string">'卫星'</span>*<span class="string">'海洋'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="WOS-SCIE-中的海洋测绘"><a href="#WOS-SCIE-中的海洋测绘" class="headerlink" title="WOS SCIE 中的海洋测绘"></a>WOS SCIE 中的海洋测绘</h3><h4 id="检索-1"><a href="#检索-1" class="headerlink" title="检索"></a>检索</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TS=(marine geodesy* <span class="keyword">OR </span>marine surveying* <span class="keyword">OR </span>remote sensing * <span class="keyword">OR </span><span class="keyword">bathymetry </span>* <span class="keyword">OR </span><span class="keyword">multi-beam </span>* gravity* <span class="keyword">OR </span>altimetry <span class="keyword">OR </span>altimter <span class="keyword">OR </span>sea surface <span class="keyword">OR </span>topography <span class="keyword">OR </span>marine geoid <span class="keyword">OR </span>hydrographic <span class="keyword">OR </span>hydrography <span class="keyword">OR </span>tide* ) <span class="keyword">AND </span>AB=(marine <span class="keyword">OR </span>sea <span class="keyword">OR </span>ocean <span class="keyword">OR </span>coastal * <span class="keyword">OR </span>lake <span class="keyword">OR </span>river)</span><br></pre></td></tr></table></figure>
+<p>时间为2000-2021</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/citespace/" rel="tag"># citespace</a>
+              <a href="/tags/marine-survry/" rel="tag"># marine survry</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/16/marine-survey/" rel="prev" title="海洋测绘哪家强">
+      <i class="fa fa-chevron-left"></i> 海洋测绘哪家强
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#海洋测绘期刊发表文献分析"><span class="nav-number">1.</span> <span class="nav-text">海洋测绘期刊发表文献分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CNKI检索"><span class="nav-number">1.1.</span> <span class="nav-text">CNKI检索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发文单位"><span class="nav-number">1.2.</span> <span class="nav-text">发文单位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发文作者"><span class="nav-number">1.3.</span> <span class="nav-text">发文作者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键词"><span class="nav-number">1.4.</span> <span class="nav-text">关键词</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卫星测高领域"><span class="nav-number">2.</span> <span class="nav-text">卫星测高领域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检索"><span class="nav-number">2.1.</span> <span class="nav-text">检索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#研究人员"><span class="nav-number">2.2.</span> <span class="nav-text">研究人员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#研究单位"><span class="nav-number">2.3.</span> <span class="nav-text">研究单位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键词-1"><span class="nav-number">2.4.</span> <span class="nav-text">关键词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时间轴"><span class="nav-number">2.5.</span> <span class="nav-text">时间轴</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#海洋遥感"><span class="nav-number">3.</span> <span class="nav-text">海洋遥感</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WOS-SCIE-中的海洋测绘"><span class="nav-number">4.</span> <span class="nav-text">WOS SCIE 中的海洋测绘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检索-1"><span class="nav-number">4.1.</span> <span class="nav-text">检索</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
