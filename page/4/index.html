@@ -1046,7 +1046,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/01/05/map-different-view/" class="post-title-link" itemprop="url">一行代码绘制竖版地图</a>
+            <a href="/2020/01/05/map-different-view/" class="post-title-link" itemprop="url">竖版地图的科学绘制</a>
         </h1>
 
         <div class="post-meta">
@@ -1063,7 +1063,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-22 22:27:30" itemprop="dateModified" datetime="2021-02-22T22:27:30+08:00">2021-02-22</time>
+                <time title="修改时间：2021-02-25 09:31:07" itemprop="dateModified" datetime="2021-02-25T09:31:07+08:00">2021-02-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1078,7 +1078,7 @@
             </span>
 
           
-            <span id="/2020/01/05/map-different-view/" class="post-meta-item leancloud_visitors" data-flag-title="一行代码绘制竖版地图" title="阅读次数">
+            <span id="/2020/01/05/map-different-view/" class="post-meta-item leancloud_visitors" data-flag-title="竖版地图的科学绘制" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1110,6 +1110,9 @@
 
       
           <h2 id="竖地图"><a href="#竖地图" class="headerlink" title="竖地图"></a>竖地图</h2><p>竖版地图其实也是一种地图投影，国内的竖版地图由长期从事<code>大地测量学</code>、<code>地球物理学</code>、<code>地震学</code>、<code>地图学</code>、<code>地理学</code>、<code>马克思主义哲学</code>研究的<code>诗人</code><a href="http://www.hxgmap.com" target="_blank" rel="noopener">郝晓光</a>研究员编制，他的竖版地图采用了和传统地图上北下南不一样的视角，展现了一个奇异有趣的世界格局，特别是提高了人们对极地的认知，将南北极以较小的变形投影到一张图上，科学考察的路线一目了然。</p>
+<blockquote>
+<p>“经向世界地图”采用“等差分纬线多圆锥投影方法”，而我们所做的只是将“经向世界地图”的纵坐标线（经线）与横坐标线（纬线），变换成“纬向世界地图”的横坐标（经线）与纵坐标线（纬线）。也就是说，“纬向世界地图”与“经向世界地图”在投影方法上的区别仅仅是“坐标换轴”。</p>
+</blockquote>
 <p>GMT是地学领域使用最普遍的开源绘图工具，使用GMT绘制传统的全球地图非常方便，仅需要下面一行命令，例如下面这幅图的投影采用了Robinson projection（罗宾逊投影）:</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt pscoast -Rd -JN5i -Bg30 -Df -A10000 -Glightgray -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c -png mapnormal</span><br></pre></td></tr></table></figure>
 <p><img src="/images/mapnormal.png" alt></p>
@@ -1125,6 +1128,15 @@
 <h2 id="GMT绘图"><a href="#GMT绘图" class="headerlink" title="GMT绘图"></a>GMT绘图</h2><p>使用GMT的TM（Transverse Mercator projection）投影，可以仅一行代码实现此类投影视角。</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gmt begin TMcontours ps,png</span><br><span class="line">    gmt coast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT160/<span class="number">-50</span>/<span class="number">4</span>i -Glightgray -A10000 -Df -Ba30g30 -X6i -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c </span><br><span class="line">gmt end</span><br></pre></td></tr></table></figure>
 <p><img src="/images/TMcontours.png" alt></p>
+<p>下面进行微调，换一个视角。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gmt begin TMcontours ps,png</span><br><span class="line">	gmt coast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT330/<span class="number">-40</span>/<span class="number">4</span>i -Glightgray -A10000 -Df -Ba30g30 -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c</span><br><span class="line">gmt end</span><br></pre></td></tr></table></figure>
+<p><img src="/images/TMcontours_3.png" alt></p>
+<h2 id="版块运动"><a href="#版块运动" class="headerlink" title="版块运动"></a>版块运动</h2><p>上图可以清晰看出陆地的版块运动。非洲大陆的南非为什么有企鹅？地图上可以看出南极版块与好望角有明显的对接关系。另外为什么南美洲海岸也有企鹅，澳大利亚也有企鹅。地图上一目了然，因为（这才叫）自古以来，南极和非洲、南美洲、澳洲是连在一起的。</p>
+<p><img src="/images/dis_p.webp" alt></p>
+<center>企鹅分布。</center> 
+
+<p><a href="https://www.reddit.com/r/MapPorn/comments/d45pxl/global_distribution_of_penguins" target="_blank" rel="noopener">图片来源</a></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://arxiv.org/abs/2102.08176" target="_blank" rel="noopener">https://arxiv.org/abs/2102.08176</a></p>
 
       
     </div>
