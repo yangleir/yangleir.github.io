@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="绘制前的处理卫星遥感影像一般是Geotif格式，UTM笛卡尔数学投影，灰度值一般是Float32，而GMT不支持Float32，此外高分影像分辨率可到m级，绘图非常大。所以需要做的是  将Float32转为Byte格式。 将影像降低分辨率如果整幅区域过大，则还需要裁剪出目标区域: 裁剪影像如果不希望绘图时UTM坐标，偏向于WGS-84，还可以进行坐标转换 坐标转换  完全可以使用GMT内置的gda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gmt 绘制遥感TIFF影像">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2021/02/27/gmt-plot-tiff/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="绘制前的处理卫星遥感影像一般是Geotif格式，UTM笛卡尔数学投影，灰度值一般是Float32，而GMT不支持Float32，此外高分影像分辨率可到m级，绘图非常大。所以需要做的是  将Float32转为Byte格式。 将影像降低分辨率如果整幅区域过大，则还需要裁剪出目标区域: 裁剪影像如果不希望绘图时UTM坐标，偏向于WGS-84，还可以进行坐标转换 坐标转换  完全可以使用GMT内置的gda">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/image.png">
+<meta property="article:published_time" content="2021-02-26T23:36:17.000Z">
+<meta property="article:modified_time" content="2021-02-27T01:07:27.062Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="gmt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/image.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2021/02/27/gmt-plot-tiff/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>gmt 绘制遥感TIFF影像 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">41</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">44</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/27/gmt-plot-tiff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gmt 绘制遥感TIFF影像
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-27 07:36:17 / 修改时间：09:07:27" itemprop="dateCreated datePublished" datetime="2021-02-27T07:36:17+08:00">2021-02-27</time>
+            </span>
+
+          
+            <span id="/2021/02/27/gmt-plot-tiff/" class="post-meta-item leancloud_visitors" data-flag-title="gmt 绘制遥感TIFF影像" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/27/gmt-plot-tiff/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/27/gmt-plot-tiff/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="绘制前的处理"><a href="#绘制前的处理" class="headerlink" title="绘制前的处理"></a>绘制前的处理</h2><p>卫星遥感影像一般是Geotif格式，UTM笛卡尔数学投影，灰度值一般是Float32，而GMT不支持Float32，此外高分影像分辨率可到m级，绘图非常大。所以需要做的是</p>
+<ul>
+<li>将Float32转为Byte格式。</li>
+<li>将影像降低分辨率<br>如果整幅区域过大，则还需要裁剪出目标区域:</li>
+<li>裁剪影像<br>如果不希望绘图时UTM坐标，偏向于WGS-84，还可以进行坐标转换</li>
+<li>坐标转换</li>
+</ul>
+<p>完全可以使用GMT内置的gdal工具包。如果版本不合适，GMT不带有gdal，则手动下载gdal即可。GDAL在window和linux通用，使用方法：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Prepare</span><br><span class="line"># <span class="number">1</span>-Transform <span class="keyword">from</span> UTM to WGS<span class="number">-84</span> latitude/longitude</span><br><span class="line">gdalwarp -t_srs EPSG:<span class="number">4326</span> name.tif name_wgs.tif</span><br><span class="line"># <span class="number">2</span>- resample Geotif to <span class="number">90</span>m resolution(<span class="number">0.00075</span> degree)</span><br><span class="line">gdal_translate -tr <span class="number">9.6891898092e-05</span> <span class="number">0.0002</span>  -r average -ot Float32  -co COMPRESS=LZW -q name_wgs.tif name_wgs_low.tif</span><br><span class="line"># <span class="number">3</span>-Transform the DoubleFloat format to byte format.</span><br><span class="line">gdal_translate -ot Byte -q -scale <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">255</span> name_wgs_low.tif name_wgs_lowbyte.tif</span><br><span class="line"># Crop</span><br><span class="line">gdalwarp -t_srs EPSG:<span class="number">4326</span> -te <span class="number">115.8152</span> <span class="number">35.4555</span> <span class="number">116.0756</span> <span class="number">35.7101</span> name.tif name_out.tif</span><br></pre></td></tr></table></figure>
+
+<h2 id="RGB真彩色绘制"><a href="#RGB真彩色绘制" class="headerlink" title="RGB真彩色绘制"></a>RGB真彩色绘制</h2><p>完成预处理后，绘图仅需一行：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> grdimage area_cal_low_byte.tif+b2,<span class="number">1</span>,<span class="number">0</span> -J<span class="variable">$J</span> -R<span class="variable">$R</span> -K -O &gt;&gt; <span class="variable">$PS</span></span><br></pre></td></tr></table></figure>
+<p>需要注意的是，<code>+b2,1,0</code>表示波段的顺序，是红绿蓝三个的叠加产生真彩色。其顺序不可颠倒，波段的编号和具体卫星有关，需要提前查找准确。</p>
+<h2 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h2><p>有时候（审稿人）可能要求在地图上加一个图片表达，图片没有坐标，但也可通过相对位置插入</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt psimage gnss2.jpg -Dx0<span class="number">.2</span>/<span class="number">0.1</span>+w1<span class="number">.5</span>c -O -K &gt;&gt; $PS</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制小地图"><a href="#绘制小地图" class="headerlink" title="绘制小地图"></a>绘制小地图</h2><p>在大比例尺的地图上添加一个小比例尺的位置指示地图是常用做法，也很简单：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gmt pscoast -Rg -JG120/<span class="number">41</span>/<span class="number">1</span>c  -Dc -A5000 -Gpink -Swhite  -O -X2<span class="number">.5</span>c -Y2<span class="number">.1</span>c -K &gt;&gt;$PS</span><br><span class="line">echo  <span class="number">120</span>:<span class="number">26</span>:<span class="number">30</span> <span class="number">36</span>:<span class="number">02</span>:<span class="number">57</span> | gmt psxy -Sa0<span class="number">.1</span>c -Gred -R -J -O  &gt;&gt; $PS</span><br></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/image.png" alt></p>
+<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p>回复本公众号0226，可以获得卫星遥感的绘图代码和示例数据（还有原始的练习数据）。</p>
+<h2 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">R=<span class="number">120</span>:<span class="number">22</span>/<span class="number">120</span>:<span class="number">33</span>/<span class="number">35</span>:<span class="number">57</span>/<span class="number">36</span>:<span class="number">05</span></span><br><span class="line">J=m120:<span class="number">30</span>/<span class="number">36</span>/<span class="number">1</span>:<span class="number">500000</span></span><br><span class="line"># Here use the map scale <span class="keyword">not</span> the absolute width <span class="keyword">in</span> map projection. This will allow the line width <span class="keyword">in</span> cm unit connected to the geographical units km.</span><br><span class="line"></span><br><span class="line">PS=map.ps</span><br><span class="line"></span><br><span class="line">gmt gmtset  FORMAT_GEO_MAP = ddd:mm:ssF MAP_FRAME_PEN <span class="number">0.010</span>c</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY	= <span class="number">3</span>p</span><br><span class="line">gmt gmtset FONT_LABEL <span class="number">7</span> MAP_LABEL_OFFSET <span class="number">5</span>p MAP_ANNOT_OBLIQUE=<span class="number">42</span></span><br><span class="line">gmt gmtset MAP_FRAME_TYPE plain MAP_TICK_LENGTH_PRIMARY <span class="number">5</span>p  MAP_FRAME_PEN black</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R$R -J$J -P -K  -Bpxa5mf -Bpya5mf -BnWSe &gt;$PS</span><br><span class="line"># Add image. </span><br><span class="line">gmt grdimage area_cal_low_byte.tif+b2,<span class="number">1</span>,<span class="number">0</span> -J$J -R$R -K -O &gt;&gt; $PS</span><br><span class="line">gmt pscoast -R$R -J$J -O  -W -I1 -K  -Lx1<span class="number">.0</span>i/<span class="number">0.15</span>i+c120/<span class="number">36</span>+w5k &gt;&gt; $PS</span><br><span class="line">awk <span class="string">'&#123;print $1, $2&#125;'</span> track.dat | gmt psxy -W0<span class="number">.2</span>c,black -R$R -J$J -P -O -K -t70 &gt;&gt; $PS</span><br><span class="line">awk <span class="string">'&#123;print $1, $2&#125;'</span> track.dat | gmt psxy -W0<span class="number">.01</span>c,black+ve0<span class="number">.1</span>i+gblue -R$R -J$J -P -O -K  &gt;&gt; $PS</span><br><span class="line"></span><br><span class="line">angle=`gmt mapproject -R$R -J$J -Af  track.dat | gmt gmtmath STDIN -i2 -Sl MEAN <span class="number">360</span> SUB <span class="number">90</span> SUB NEG =`</span><br><span class="line">echo <span class="string">"angle:"</span>$angle</span><br><span class="line"></span><br><span class="line">awk <span class="string">'NR==3 &#123;print $1, $2&#125;'</span> buoy.txt | gmt psxy -Sa0<span class="number">.1</span>c -Gred -R$R -J$J -P -O -K &gt;&gt; $PS</span><br><span class="line">awk <span class="string">'NR==3 &#123;print $1, $2,"XMD"&#125;'</span> buoy.txt |  gmt pstext -F+f4p,<span class="number">1</span>,black+a$angle+jRB -R$R -J$J -O -N -K -D0./<span class="number">0.1</span> -Gwhite &gt;&gt; $PS</span><br><span class="line"></span><br><span class="line">echo  <span class="number">120</span>:<span class="number">26</span>:<span class="number">30</span> <span class="number">36</span>:<span class="number">02</span>:<span class="number">57</span> | gmt psxy -Sc0<span class="number">.1</span>c -Gred -R$R -J$J -O -K &gt;&gt; $PS</span><br><span class="line">echo  <span class="number">120</span>:<span class="number">26</span>:<span class="number">30</span> <span class="number">36</span>:<span class="number">02</span>:<span class="number">57</span> <span class="string">"Wave Buoy"</span>|  gmt pstext  -F+f4p,<span class="number">1</span>,red+a$angle+jLB -R$R -J$J -O -N -K -D0<span class="number">.1</span>/<span class="number">0.0</span> -Gwhite &gt;&gt; $PS</span><br><span class="line"></span><br><span class="line">echo  <span class="number">120</span>:<span class="number">26</span>:<span class="number">8.53</span> <span class="number">36</span>:<span class="number">2</span>:<span class="number">59</span> <span class="string">"GNSS Buoy@-2@-@"</span>|  gmt pstext  -F+f4p,<span class="number">1</span>,black+a$angle+jLT -R$R -J$J -O -N -K -D0./<span class="number">-0.1</span> -Gwhite &gt;&gt; $PS</span><br><span class="line">echo  <span class="number">120</span>:<span class="number">30</span>:<span class="number">41.03</span> <span class="number">36</span>:<span class="number">1</span>:<span class="number">36.69</span> <span class="string">"GNSS Buoy@-1@-@"</span>|  gmt pstext -F+a$angle+f4p,<span class="number">1</span>,black+jLB -R$R -J$J -O -N -K -D0<span class="number">.1</span>/<span class="number">0.</span> -Gwhite &gt;&gt; $PS</span><br><span class="line">echo  <span class="number">120</span>:<span class="number">26</span>:<span class="number">8.53</span> <span class="number">36</span>:<span class="number">2</span>:<span class="number">59</span> | gmt psxy -Sc0<span class="number">.1</span>c -Gyellow -R$R -J$J -O -K &gt;&gt; $PS</span><br><span class="line">echo  <span class="number">120</span>:<span class="number">31</span>:<span class="number">38.03</span> <span class="number">36</span>:<span class="number">1</span>:<span class="number">1.69</span> | gmt psxy -Sc0<span class="number">.1</span>c -Gyellow -R$R -J$J -O -K&gt;&gt; $PS</span><br><span class="line"></span><br><span class="line"># Add jpg</span><br><span class="line">gmt psimage gnss2.jpg -Dx0<span class="number">.2</span>/<span class="number">0.1</span>+w1<span class="number">.5</span>c -O -K &gt;&gt; $PS</span><br><span class="line"># Add small map <span class="keyword">in</span> Up-Right corner</span><br><span class="line">gmt pscoast -Rg -JG120/<span class="number">41</span>/<span class="number">1</span>c  -Dc -A5000 -Gpink -Swhite  -O -X2<span class="number">.5</span>c -Y2<span class="number">.1</span>c -K &gt;&gt;$PS</span><br><span class="line">echo  <span class="number">120</span>:<span class="number">26</span>:<span class="number">30</span> <span class="number">36</span>:<span class="number">02</span>:<span class="number">57</span> | gmt psxy -Sa0<span class="number">.1</span>c -Gred -R -J -O  &gt;&gt; $PS</span><br><span class="line"></span><br><span class="line">gmt psconvert $PS -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/gmt/" rel="tag"># gmt</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/20/SWOT-water-depth/" rel="prev" title="以雷达和SWOT合成孔径雷达测高推求南海高分辨率重力和海深">
+      <i class="fa fa-chevron-left"></i> 以雷达和SWOT合成孔径雷达测高推求南海高分辨率重力和海深
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/27/gmt-UTMtogeo/" rel="next" title="gmt UTMtogeo">
+      gmt UTMtogeo <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制前的处理"><span class="nav-number">1.</span> <span class="nav-text">绘制前的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RGB真彩色绘制"><span class="nav-number">2.</span> <span class="nav-text">RGB真彩色绘制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加图片"><span class="nav-number">3.</span> <span class="nav-text">添加图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制小地图"><span class="nav-number">4.</span> <span class="nav-text">绘制小地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">5.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据获取"><span class="nav-number">6.</span> <span class="nav-text">数据获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全部代码"><span class="nav-number">7.</span> <span class="nav-text">全部代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
