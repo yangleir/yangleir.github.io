@@ -199,7 +199,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/27/gmt-UTMtogeo/" class="post-title-link" itemprop="url">gmt UTMtogeo</a>
+            <a href="/2021/02/27/gmt-UTMtogeo/" class="post-title-link" itemprop="url">gmt 绘制UTM投影数据</a>
         </h1>
 
         <div class="post-meta">
@@ -208,13 +208,19 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-02-27 07:41:00 / 修改时间：07:41:42" itemprop="dateCreated datePublished" datetime="2021-02-27T07:41:00+08:00">2021-02-27</time>
+              <time title="创建时间：2021-02-27 07:41:00" itemprop="dateCreated datePublished" datetime="2021-02-27T07:41:00+08:00">2021-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-16 21:55:23" itemprop="dateModified" datetime="2021-03-16T21:55:23+08:00">2021-03-16</time>
+              </span>
 
           
-            <span id="/2021/02/27/gmt-UTMtogeo/" class="post-meta-item leancloud_visitors" data-flag-title="gmt UTMtogeo" title="阅读次数">
+            <span id="/2021/02/27/gmt-UTMtogeo/" class="post-meta-item leancloud_visitors" data-flag-title="gmt 绘制UTM投影数据" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -245,7 +251,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="UTM-投影"><a href="#UTM-投影" class="headerlink" title="UTM 投影"></a>UTM 投影</h2><h2 id="转经纬度"><a href="#转经纬度" class="headerlink" title="转经纬度"></a>转经纬度</h2><h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2>
+          <p>今天分享一个GMT绘制平面几何坐标的例子，以UTM投影为例子。</p>
+<h2 id="UTM-投影"><a href="#UTM-投影" class="headerlink" title="UTM 投影"></a>UTM 投影</h2><ul>
+<li>UTM为投影后的平面坐标，即把球面展开到纸面的坐标。</li>
+</ul>
+<p>可使用<code>grdinfo</code>查看文件投影类型：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ gmt grdinfo test3.tiff</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">Title:</span> Grid imported via GDAL</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">Command:</span></span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">Remark:</span></span><br><span class="line">test3.<span class="string">tiff:</span> Gridline node registration used [Cartesian grid]</span><br><span class="line">test3.<span class="string">tiff:</span> Grid file <span class="string">format:</span> gd = Import/export through GDAL</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">x_min:</span> <span class="number">564600</span> <span class="string">x_max:</span> <span class="number">640200</span> <span class="string">x_inc:</span> <span class="number">100</span> <span class="string">name:</span> x <span class="string">n_columns:</span> <span class="number">757</span></span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">y_min:</span> <span class="number">7158800</span> <span class="string">y_max:</span> <span class="number">7241000</span> <span class="string">y_inc:</span> <span class="number">100</span> <span class="string">name:</span> y <span class="string">n_rows:</span> <span class="number">823</span></span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">z_min:</span> <span class="number">-4458.4609375</span> <span class="string">z_max:</span> <span class="number">-1930.5826416</span> <span class="string">name:</span> z</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">scale_factor:</span> <span class="number">1</span> <span class="string">add_offset:</span> <span class="number">0</span></span><br><span class="line">+proj=utm +zone=<span class="number">42</span> +south +ellps=WGS84 +towgs84=<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span> +units=m +no_defs</span><br></pre></td></tr></table></figure>
+
+<p>信息显示该数据为UTM带号为42的南半球投影。代号和字母编码可以通过下图查询：</p>
+<p><img src="/images/utm.png" alt></p>
+<center>UTM代号（来源：GMT官网）</center>
+
+<h2 id="绘制经纬度地图"><a href="#绘制经纬度地图" class="headerlink" title="绘制经纬度地图"></a>绘制经纬度地图</h2><p>不转坐标，直接绘图(windows版)：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">REM Test Geotif format using GMT </span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mmF</span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">12</span>p,Helvetica,black FONT_LABEL <span class="number">16</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line">gmt makecpt -Cbathy -T<span class="number">-5000</span>/<span class="number">-2000</span>/<span class="number">20</span> &gt;test.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage test3.tiff -Jx1:<span class="number">500000</span> -I+a45+nt1 -Ctest.cpt  -K -P -Q &gt; test.ps</span><br><span class="line"></span><br><span class="line">gmt pscoast -Rtest3.tiff -Ju42K/<span class="number">1</span>:<span class="number">500000</span> -O -Df+ -Gyellow -W0<span class="number">.5</span>p -Ba12mg12m -BNE -K --MAP_ANNOT_OBLIQUE=<span class="number">45</span>&gt;&gt;test.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R -J -O -LjRB+c25:<span class="number">00</span>S+f+w10k+l1:<span class="number">500</span>,<span class="number">000</span>+u+o0<span class="number">.2</span>i --FONT_ANNOT_PRIMARY=<span class="number">9</span>p --FONT_LABEL=<span class="number">10</span>p -K&gt;&gt;test.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -Rtest3.tiff+Uk -Jx1:<span class="number">500</span> -B10g10+u<span class="string">"@:8:000m@::"</span> -BWSne -O --FONT_ANNOT_PRIMARY=<span class="number">10</span>p --MAP_GRID_CROSS_SIZE_PRIMARY=<span class="number">0.1</span>i --FONT_LABEL=<span class="number">10</span>p -K &gt;&gt; test.ps</span><br><span class="line"></span><br><span class="line">gmt psscale -DjBL+o1c+w2i/<span class="number">0.15</span>i -R -J -Ctest.cpt -Bx500f100 -By+lm -I -O -F+gwhite+p1p &gt;&gt; test.ps</span><br><span class="line"></span><br><span class="line">gmt psconvert test.ps -A -P -Tg</span><br></pre></td></tr></table></figure>
+
+<p>效果：<br><img src="/images/mss.png" alt></p>
+<p>这张水深地图上有两种坐标标注，一种是UTM坐标，一种是经纬度坐标。它们之间的切换是通过<code>-J</code>的变化实现的，UTM使用了<code>-JX1:500000</code>，经纬度投影使用了<code>-Ju42K/1:500000</code>。</p>
+<p>第二种方法是先转坐标：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdproject -Ju42K/<span class="number">1</span>:<span class="number">1</span> test3.tiff -C -F -I  -Gtest3_geo.tiff</span><br></pre></td></tr></table></figure>
+<p>查看坐标转换：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ gmt grdinfo test3_geo.tiff</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">Title:</span> Produced by grdproject</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">Command:</span> grdproject -Ju42K/<span class="number">1</span>:<span class="number">1</span> test3.tiff -C -F -I -Gtest3_geo.tiff</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">Remark:</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> Gridline node registration used [Geographic grid]</span><br><span class="line">test3_geo.<span class="string">tiff:</span> Grid file <span class="string">format:</span> nf = GMT netCDF format (<span class="number">32</span>-bit <span class="keyword">float</span>), CF<span class="number">-1.7</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">x_min:</span> <span class="number">69.6398826025</span> <span class="string">x_max:</span> <span class="number">70.3970837978</span> <span class="string">x_inc:</span> <span class="number">0.00100158888272</span> <span class="string">name:</span> longitude <span class="string">n_columns:</span> <span class="number">757</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">y_min:</span> <span class="number">-25.687188402</span> <span class="string">y_max:</span> <span class="number">-24.9398146068</span> <span class="string">y_inc:</span> <span class="number">0.00090921386277</span> <span class="string">name:</span> latitude <span class="string">n_rows:</span> <span class="number">823</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">z_min:</span> <span class="number">-4459.3125</span> <span class="string">z_max:</span> <span class="number">-1926.97009277</span> <span class="string">name:</span> z</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">scale_factor:</span> <span class="number">1</span> <span class="string">add_offset:</span> <span class="number">0</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">format:</span> netCDF<span class="number">-4</span> <span class="string">chunk_size:</span> <span class="number">152</span>,<span class="number">138</span> <span class="string">shuffle:</span> on <span class="string">deflation_level:</span> <span class="number">3</span></span><br><span class="line">GEOGCS[<span class="string">"unnamed ellipse"</span>,</span><br><span class="line">    DATUM[<span class="string">"unknown"</span>,</span><br><span class="line">        SPHEROID[<span class="string">"unnamed"</span>,<span class="number">6378137</span>,<span class="number">298.257223563</span>]],</span><br><span class="line">    PRIMEM[<span class="string">"Greenwich"</span>,<span class="number">0</span>],</span><br><span class="line">    UNIT[<span class="string">"degree"</span>,<span class="number">0.0174532925199433</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>已经完成转换，按照正常方法进行经纬度地图绘制即可。</p>
+<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p><a href="https://www.jianguoyun.com/p/Ddn04lUQ2PCQBximq-cD" target="_blank" rel="noopener">https://www.jianguoyun.com/p/Ddn04lUQ2PCQBximq-cD</a></p>
+
       
     </div>
 
