@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="上两篇的研究对象是《海洋科学进展》和《海洋工程》，本文研究海洋领域另一份北大核心期刊《海洋工程》。海洋科学和技术的面貌已大致呈现，本文首先展现海洋工程的研究范围，其次分析科学、技术和工程的区别和共性，是不是海洋科学技术在海洋工程中开花结果呢？  以中国知网1992～2020年间的北大核心期刊《海洋工程》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋工程》所发表论文的研究内容及其演变。研">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《海洋工程》知识图谱">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2021/03/15/haiyanggongcheng/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="上两篇的研究对象是《海洋科学进展》和《海洋工程》，本文研究海洋领域另一份北大核心期刊《海洋工程》。海洋科学和技术的面貌已大致呈现，本文首先展现海洋工程的研究范围，其次分析科学、技术和工程的区别和共性，是不是海洋科学技术在海洋工程中开花结果呢？  以中国知网1992～2020年间的北大核心期刊《海洋工程》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋工程》所发表论文的研究内容及其演变。研">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/num.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/jig.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/jigou.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/key.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/key2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/key3.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/author.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/jishugongc.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/kexuejishu.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hygc/kxjsgc.png">
+<meta property="article:published_time" content="2021-03-15T12:33:10.000Z">
+<meta property="article:modified_time" content="2021-03-16T09:06:29.334Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="citespace">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/hygc/num.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2021/03/15/haiyanggongcheng/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>《海洋工程》知识图谱 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">54</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/15/haiyanggongcheng/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《海洋工程》知识图谱
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-15 20:33:10" itemprop="dateCreated datePublished" datetime="2021-03-15T20:33:10+08:00">2021-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-16 17:06:29" itemprop="dateModified" datetime="2021-03-16T17:06:29+08:00">2021-03-16</time>
+              </span>
+
+          
+            <span id="/2021/03/15/haiyanggongcheng/" class="post-meta-item leancloud_visitors" data-flag-title="《海洋工程》知识图谱" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/15/haiyanggongcheng/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/15/haiyanggongcheng/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>上两篇的研究对象是《海洋科学进展》和《海洋工程》，本文研究海洋领域另一份北大核心期刊《海洋工程》。海洋<code>科学</code>和<code>技术</code>的面貌已大致呈现，本文首先展现海洋<code>工程</code>的研究范围，其次分析<code>科学</code>、<code>技术</code>和<code>工程</code>的区别和共性，是不是海洋<code>科学技术</code>在海洋<code>工程</code>中开花结果呢？</p>
+</blockquote>
+<p>以中国知网1992～2020年间的北大核心期刊《海洋工程》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋工程》所发表论文的研究内容及其演变。研究表明，《海洋工程》期刊的研究内容主要涉及海洋平台、平台动力环境分析等方面，论文主要以不同的海洋平台系统、环境影响因子组成文献簇，包含<code>系泊系统</code>、<code>海洋平台</code>、<code>两层流体</code>、<code>不规则波</code>、<code>振动</code>、<code>潜水器</code>、<code>海底管线</code>、<code>吸力锚</code>、<code>力学模型</code>等，发文趋势分析表明海洋工程的关注点正从传统的波浪作用向内孤立波等深层水下因子转变。研究机构以数家国家重点实验室为主，机构间合作强度偏弱。</p>
+<h2 id="文献计量学"><a href="#文献计量学" class="headerlink" title="文献计量学"></a>文献计量学</h2><blockquote>
+<p>文献计量学是利用数学和统计学方法定量分析科技文献外部表征，进而揭示学术研究活动特征，已广泛地应用于多学科领域的发展现状和规律探索。文献计量学可以用于期刊评价，例如核心期刊的遴选，也可以从宏观角度揭示某一种学科的发展规律，并在微观角度揭示学科的知识流动。</p>
+</blockquote>
+<p>本文将使用文献计量方式分析《海洋工程》历年发文情况，制作关键词、作者、机构等知识共现谱图，通过共现聚类使主要研究内容、人员、机构的分布和关联清晰展现。因为受知识水平限制，本文不做过多的微观解释分析，主要以知识图谱展示，从宏观角度展现《海洋工程》。</p>
+<h2 id="海洋工程"><a href="#海洋工程" class="headerlink" title="海洋工程"></a>海洋工程</h2><blockquote>
+<p>《海洋工程》是由中国科学技术协会主管，中国海洋学会主办，南京水利科学研究院、上海交通大学承办的综合性学术刊物。已被美国剑桥科学文摘(CSA)；联合国《水科学和渔业文摘》(ASFA)；日本科学技术振兴机构中国文献数据库（JST）；中国科技核心期刊（中信所）；中国科技期刊精品数据库（中国知识资源总库）；中国核心期刊（遴选）数据库（万方数据库）；中国期刊全文数据库（CJFD）；中国学术期刊综合评价数据库（CAJCED）；中国科学引文数据库来源期刊（中科院文献中心）；中文科技期刊数据库；中国学术期刊文摘及中国期刊网收录。主要刊载近海工程、海岸工程、水下潜水救捞技术、海洋能源利用等方面学术论文，报道科技动态，并开展问题讨论和技术交流。主要栏目有海洋工程研究、设计、试验、生产、使用、管理及学会动态。读者对象为海洋工程领域的科研教学和工程技术人员。</p>
+</blockquote>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>由于《海洋工程》无曾用名，因此中国知网检索：</p>
+<blockquote>
+<p>JN=海洋工程</p>
+</blockquote>
+<p>此处，一般应剔除卷首语、编辑部声明等文献，进而得到纯粹的科学研究文献。</p>
+<h2 id="刊文数量"><a href="#刊文数量" class="headerlink" title="刊文数量"></a>刊文数量</h2><p><img src="/images/hygc/num.png" alt></p>
+<p>1992-2020年共发表2068篇文章，年发文一般不超过110篇，发文量在同类期刊属于中游水平。</p>
+<h2 id="机构"><a href="#机构" class="headerlink" title="机构"></a>机构</h2><p><img src="/images/hygc/jig.png" alt></p>
+<p>机构节点数共计611个（表示研究单位总数），共现连接线321（表示合作关系），各单位之间合作关系相对上一篇《海洋科学进展》所得结论（比例接近1:1）偏弱。<br>发文最多的单位为<code>上海交通大学海洋工程国家重点实验室</code>，表现在图谱上的特点就是节点中心性强，节点圈大（最大的圈），其文献的节点数超过149。其次为<code>大连理工大学海岸与近海工程国家重点实验室</code>，其文献的节点数为110，第一和第二之间的发文数量差距不大。此外海洋工程领域发文较多的还有<code>天津大学水利工程仿真与安全国家重点实验室</code>、<code>大连理工大学工业装备结构分析国家重点实验室</code>、<code>华东师范大学河口海岸学国家重点实验室</code>等国家重点实验室。</p>
+<p>图中的节点（圆圈）的颜色表示时间，灰色表示年代久远的文献，彩虹色表示为近几年的文献。比如<code>南京水利科学研究院</code>内部为灰色，外部为较少的彩虹色，表示其文献的历史较早，目前活跃度不高，而<code>高新船舶与深海开发装备协同创新中心</code>主要为彩色，2016年之后才开始较多的发表海洋工程方向文章。</p>
+<p><img src="/images/hygc/jigou.png" alt></p>
+<center>研究机构、关键词共现的聚类图谱</center>
+
+<p>这张图展示的是研究机构和关键词的共现聚类，通俗理解为研究机构的研究兴趣。</p>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="/images/hygc/key.png" alt></p>
+<center>关键词共现聚类</center>
+
+<p>这张图表明《海洋工程》文章的主要关注点是<code>系泊系统</code>、<code>海洋平台</code>、<code>力学模拟</code>、<code>吸力锚</code>、<code>不规则波</code>、<code>振动</code>、<code>海表风速</code>、<code>动力响应</code>、<code>海底管线</code>等，此外<code>长江口</code>是唯一一个以海域聚类的文献簇，且强度第一。可见，《海洋工程》发文围绕海洋平台、海底管线、海洋装备等，形成了各类海洋平台装备、水动力影响因子的文献聚类簇，这说明实际上，海洋工程主要是海洋平台（含水面、水下、水中）的工程，主要研究力学、海洋波动影响等。</p>
+<p><img src="/images/hygc/key2.png" alt></p>
+<center>关键词聚类时间图谱</center>
+
+<p>这张时间图谱中不同聚类由平行轴线代表，不同关键词频次由节点大小代表，关键词首次出现年份由位置代，水平线的虚实表示其持续性，<code>#</code>前面的数字表示聚类的强度，<code>0</code>表示最强的聚类簇。从中可以基本判断，<code>长江口</code>持久性最强，说明热度持续，节点连线最为丰富，表明知识流动性好。<code>系泊系统</code>、<code>海洋平台</code>、<code>潜水器</code>、<code>海底管线</code>、<code>吸力锚</code>等平台设施、装备也形成了较强的聚类簇。<code>系泊系统</code>聚类簇自1994年出现，在2000年出现数值模拟的研究热潮。</p>
+<h2 id="研究热点突现"><a href="#研究热点突现" class="headerlink" title="研究热点突现"></a>研究热点突现</h2><p><img src="/images/hygc/key3.png" alt></p>
+<p>突现（Burst）是指特定时间段内通过关键词频次的变化将频次高的词探测出来，在一定程度上反映《海洋工程》的研究趋势。与上一幅时间轴的展示相差不多，但此处更加清晰的展现了海洋技术整体的发展趋势，<code>内孤立波</code>、<code>动力响应</code>、<code>系泊系统</code>等关键词为近十年来的主要研究趋势，可见海洋工程从传统的表面风浪因子向内部波动发展。</p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="/images/hygc/author.png" alt><br>《海洋工程》刊发丰富的海洋技术类文章，不同海洋技术形成了不同的研究人才队伍，因此作者聚类效果明显。颜色的含义为，彩色表示时代较近，灰色表示时代较久。节点大小和位置表示作者的发文频次和中心性。连接线粗细表示不同作者之间的合作强度。</p>
+<blockquote>
+<p>网络中节点的<code>中心性</code>测量的是网络中节点的位置重要性。有两类节点可能具有较高的中介中心性：1）与其他节点高度相连的枢纽节点；2）位于不同聚类之间的节点。</p>
+</blockquote>
+<h2 id="文献共引"><a href="#文献共引" class="headerlink" title="文献共引"></a>文献共引</h2><p>遗憾的是，CNKI导出的数据不含有引用信息，因此无法通过程序进行文献共引的计量分析，而文献的引用关系最能代表知识的流动脉络。这里，仅列举利用CNKI数据库检索到引用次数最多的前10个文献：</p>
+<blockquote>
+<p>[1]赵志高,杨建民,王磊,程俊勇.动力定位系统发展状况及研究方法[J].海洋工程,2002(01):91-97.<br>[2]黄维平,刘建军,赵战华.海上风电基础结构研究现状及发展趋势[J].海洋工程,2009,27(02):130-134.<br>[3]欧进萍,肖仪清,黄虎杰,段忠东,张涛,李维星.海洋平台结构实时安全监测系统[J].海洋工程,2001(02):1-6.<br>[4]刘学敏,徐玉如.水下机器人运动的S面控制方法[J].海洋工程,2001(03):81-84.<br>[5]朱克强,李道根,李维扬.海洋缆体系统的统一凝集参数时域分析法[J].海洋工程,2002(02):100-104.<br>[6]苏玉民,黄胜,庞永杰,徐玉如,吴强.仿鱼尾潜器推进系统的水动力分析[J].海洋工程,2002(02):54-59.<br>[7]李孟国.海岸河口泥沙数学模型研究进展[J].海洋工程,2006(01):139-154.<br>[8]李孟国,王正林,蒋德才.近岸波浪传播变形数学模型的研究与进展[J].海洋工程,2002(04):43-57.<br>[9]李典庆,唐文勇,张圣坤.海洋工程风险接受准则研究进展[J].海洋工程,2003(02):96-102.<br>[10]余龙,谭家华.基于准静定方法的多成分锚泊线优化[J].海洋工程,2005(01):69-73.</p>
+</blockquote>
+<p>截止本文发布，《海洋工程》被引用最多的文献为赵志高等发表于2002年的<code>动力定位系统发展状况及研究方法</code>，次数为239次，其次为黄维平等人2009年发表的<code>海上风电基础结构研究现状及发展趋势</code>，被引199次。</p>
+<p>此外CNKI可以统计文献下载次数，下载频次可反映文献受关注的程度。前五位为：</p>
+<blockquote>
+<p>[1]赵志高,杨建民,王磊,程俊勇.动力定位系统发展状况及研究方法[J].海洋工程,2002(01):91-97.<br>[2]黄维平,刘建军,赵战华.海上风电基础结构研究现状及发展趋势[J].海洋工程,2009,27(02):130-134.<br>[3]李孟国.海岸河口泥沙数学模型研究进展[J].海洋工程,2006(01):139-154.<br>[4]唐友刚,张素侠,张若瑜,刘海笑.深海系泊系统动力特性研究进展[J].海洋工程,2008(01):120-126.<br>[5]王天英.浅海新型FPSO-IQFP多点系泊系统设计研究[J].海洋工程,2014,32(03):89-95.</p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过对核心期刊《海洋工程》1992～2020年的文献计量分析，从期刊引文、关键词突现和研究热点时序聚类分析发现：《海洋工程》所刊论文的主要研究方向为海洋平台以及影响平台稳定性、安全性的相关海洋动力学分析，不同的动力因子以及不同平台类型分别形成各自的文献集合，并且研究热点正在从表面波浪向内孤立波转变，潜水器也以成为当下的一个聚类簇；5家国家实验室是该领域的龙头，然而机构合作指数偏低。</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="科学、技术、工程关联"><a href="#科学、技术、工程关联" class="headerlink" title="科学、技术、工程关联"></a><code>科学</code>、<code>技术</code>、<code>工程</code>关联</h3><p><img src="/images/hygc/jishugongc.png" alt><br>我们把<code>技术</code>和<code>工程</code>的文献打包分析，得到上面的关键词图谱，<code>海洋观测</code>的聚类稍微在二者之间建立联系，但相对较弱。</p>
+<p><img src="/images/hygc/kexuejishu.png" alt><br>我们把<code>技术</code>和<code>科学</code>的文献打包分析，得到上面的关键词图谱，<code>海洋观测</code>的聚类在二者之间建立较强联系。</p>
+<p><img src="/images/hygc/kxjsgc.png" alt><br>我们把<code>科学</code>、<code>技术</code>和<code>工程</code>的文献打包分析，得到上面的关键词图谱，<code>数值模拟</code>、<code>长江口</code>的聚类在<code>科学</code>和<code>工程</code>之间建立强烈联系。</p>
+<!-- 另外，作者发现`技术`文献的色度较灰，`科学`和`工程`文献则相对偏亮。这仅能说明我国海洋`技术`的更迭速度太快。简单来说，海洋技术可能亟需海洋`科学`的创新支援，且亟需向`工程`应用靠拢。 -->
+
+<p>因其中隐含的信息量太大，作者未来将撰写一份详细的中国海洋科学技术以及工程应用的情报分析文章。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/citespace/" rel="tag"># citespace</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/14/haiyangjishuxuebao/" rel="prev" title="《海洋技术学报》知识图谱">
+      <i class="fa fa-chevron-left"></i> 《海洋技术学报》知识图谱
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文献计量学"><span class="nav-number">1.</span> <span class="nav-text">文献计量学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#海洋工程"><span class="nav-number">2.</span> <span class="nav-text">海洋工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据"><span class="nav-number">3.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刊文数量"><span class="nav-number">4.</span> <span class="nav-text">刊文数量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机构"><span class="nav-number">5.</span> <span class="nav-text">机构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词"><span class="nav-number">6.</span> <span class="nav-text">关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#研究热点突现"><span class="nav-number">7.</span> <span class="nav-text">研究热点突现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者"><span class="nav-number">8.</span> <span class="nav-text">作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文献共引"><span class="nav-number">9.</span> <span class="nav-text">文献共引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">10.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附"><span class="nav-number">11.</span> <span class="nav-text">附</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#科学、技术、工程关联"><span class="nav-number">11.1.</span> <span class="nav-text">科学、技术、工程关联</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
