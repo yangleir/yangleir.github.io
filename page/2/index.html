@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">55</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">57</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,177 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/28/grdview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/28/grdview/" class="post-title-link" itemprop="url">grdview</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-28 21:01:18 / 修改时间：21:22:01" itemprop="dateCreated datePublished" datetime="2021-02-28T21:01:18+08:00">2021-02-28</time>
+            </span>
+
+          
+            <span id="/2021/02/28/grdview/" class="post-meta-item leancloud_visitors" data-flag-title="grdview" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/28/grdview/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/28/grdview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天分享的GMT绘图比较常见：<code>地形图</code>。以印度洋的洋中脊的天成热液口为例子，简单介绍怎么绘制一副高质量的论文插图。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>绘图数据为多波束调查数据，来源于中国大洋科学考察航次。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>这个绘图比较简单，就不多写了。如果有问题，很可能是GMT版本造成，一般微调一下即可达到效果。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">rem </span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mmF</span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">8</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> ps=<span class="number">3</span>d3.ps</span><br><span class="line"><span class="keyword">set</span> R=-R63<span class="number">.6</span>/<span class="number">64.1</span>/<span class="number">-28.1</span>/<span class="number">-27.70</span></span><br><span class="line"><span class="keyword">set</span> R3=%R%/<span class="number">-5500</span>/<span class="number">-2000</span></span><br><span class="line">gmt grd2xyz <span class="number">26</span>VI_DBS02.grd %R% | gawk <span class="string">"!/NaN/ &#123;print $1,$2,$3&#125;"</span> | gmt makecpt -Cseafloor -E200 -i2&gt; t.cpt</span><br><span class="line">gmt grdgradient <span class="number">26</span>VI_DBS02.grd -A0 -Gt_intens.nc -Nt0<span class="number">.75</span> %R%</span><br><span class="line"></span><br><span class="line">gmt grdview <span class="number">26</span>VI_DBS02.grd -It_intens.nc %R3% -JM5i -p40/<span class="number">40</span> -JZ3i -Ct.cpt  -K -Y0<span class="number">.5</span>i -Qs -B5m -N<span class="number">-5500</span>+glightgray -BNESW &gt; %ps%</span><br><span class="line">echo <span class="number">63.9233156</span> <span class="number">-27.8508410</span> JL<span class="number">-87</span>| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">63.9227</span>	<span class="number">-27.8508</span> TianTang| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">63.9218</span>	<span class="number">-27.8504</span> TC<span class="number">-2</span>| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">4.25</span> <span class="number">5.5</span> <span class="symbol">T@</span>#ian @# <span class="symbol">C@</span>#<span class="symbol">heng@</span># | gmt pstext -R0/<span class="number">10</span>/<span class="number">0</span>/<span class="number">10</span> -Jx1i -F+f20p,<span class="number">4</span>+jCB -O -K &gt;&gt; %ps%</span><br><span class="line">gmt psscale %R% -JM5i -p -DjTC+o0/<span class="number">-0.7</span>i+w3i/<span class="number">0.15</span>i+h+e -Ct.cpt -I -O -Bx500 -By+lm  --FONT_LABEL=<span class="number">10</span>p,Helvetica,black &gt;&gt; %ps%</span><br><span class="line">gmt psconvert %ps% -A -P -Tg</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/3d3.png" alt></p>
+<p>发送0301（微信公众号：海洋遥感数据共享），获得多波束网格数据。（数据分辨率较高，仅供学习交流，勿作他用。）</p>
+<p>参考文献：[1]J. Sun et al., “Nearest vent, dearest friend: biodiversity of Tiancheng vent field reveals cross-ridge similarities in the Indian Ocean,” Royal Society Open Science, vol. 7, no. 3, p. 200110, 2020, doi: 10.1098/rsos.200110.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/28/fund-searching/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/28/fund-searching/" class="post-title-link" itemprop="url">fund searching</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-28 19:54:15 / 修改时间：20:12:46" itemprop="dateCreated datePublished" datetime="2021-02-28T19:54:15+08:00">2021-02-28</time>
+            </span>
+
+          
+            <span id="/2021/02/28/fund-searching/" class="post-meta-item leancloud_visitors" data-flag-title="fund searching" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/28/fund-searching/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/28/fund-searching/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这里介绍国际科研发达地区的科研基金查询。</p>
+<h2 id="台湾"><a href="#台湾" class="headerlink" title="台湾"></a>台湾</h2><p><a href="https://www.grb.gov.tw/search;keyword=Radar%20altimetry;type=GRB05;scope=1" target="_blank" rel="noopener">https://www.grb.gov.tw/search;keyword=Radar%20altimetry;type=GRB05;scope=1</a><br>查询关键词，检索出立项项目，可下载研究报告。</p>
+<p><img src="/images/taiwan_fund.png" alt></p>
+<h2 id="美国"><a href="#美国" class="headerlink" title="美国"></a>美国</h2><p><a href="https://www.nsf.gov/index.jsp" target="_blank" rel="noopener">https://www.nsf.gov/index.jsp</a><br>进入主页后，点击<code>Award</code>搜索关键词，可以查询历年美国政府支持的自然科学基金。点击项目后可以查看项目摘要。<br><img src="/images/usa_fund.png" alt></p>
+<h2 id="中国"><a href="#中国" class="headerlink" title="中国"></a>中国</h2><p>Letpub已经收录我国的基金信息<br><a href="http://www.letpub.com.cn/index.php?page=grant#fundlisttable" target="_blank" rel="noopener">http://www.letpub.com.cn/index.php?page=grant#fundlisttable</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -990,203 +1161,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/18/keyanduli/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/18/keyanduli/" class="post-title-link" itemprop="url">科研独立</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-02-18 12:47:10 / 修改时间：12:49:44" itemprop="dateCreated datePublished" datetime="2021-02-18T12:47:10+08:00">2021-02-18</time>
-            </span>
-
-          
-            <span id="/2021/02/18/keyanduli/" class="post-meta-item leancloud_visitors" data-flag-title="科研独立" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/02/18/keyanduli/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/18/keyanduli/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="科研合作"><a href="#科研合作" class="headerlink" title="科研合作"></a>科研合作</h2><h2 id="科研独立"><a href="#科研独立" class="headerlink" title="科研独立"></a>科研独立</h2><h2 id="科研署名"><a href="#科研署名" class="headerlink" title="科研署名"></a>科研署名</h2><h2 id="交易"><a href="#交易" class="headerlink" title="交易"></a>交易</h2><h2 id="单独作者的重要性"><a href="#单独作者的重要性" class="headerlink" title="单独作者的重要性"></a>单独作者的重要性</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/17/altimter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/17/altimter/" class="post-title-link" itemprop="url">卫星测高领域文献计量分析</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-17 22:21:20" itemprop="dateCreated datePublished" datetime="2021-02-17T22:21:20+08:00">2021-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-11 20:35:51" itemprop="dateModified" datetime="2021-03-11T20:35:51+08:00">2021-03-11</time>
-              </span>
-
-          
-            <span id="/2021/02/17/altimter/" class="post-meta-item leancloud_visitors" data-flag-title="卫星测高领域文献计量分析" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/02/17/altimter/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/17/altimter/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="卫星测高领域"><a href="#卫星测高领域" class="headerlink" title="卫星测高领域"></a>卫星测高领域</h3><h4 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h4><p>知网检索：<code>卫星高度计</code>和<code>卫星测高</code>，来源为期刊，时间从1970-2021，得到1092条有效数据。</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">SU</span>=<span class="string">'卫星测高'</span>+<span class="string">'高度计'</span> and AB=<span class="string">'卫星'</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="研究人员"><a href="#研究人员" class="headerlink" title="研究人员"></a>研究人员</h4><p><img src="/images/COA_v812e1441.png" alt></p>
-<center>卫星测高研究人员</center>
-卫星测高是我上学以及工作后的主要研究方向，本以为做的还不错，但是通过这幅图才发现了人外有人，天外有天，自己的想法简直是《庄子》里面未见北海的河伯，或者不知春秋的蟪蛄，不知晦朔的朝菌而已。
-可能有的老师会疑问，我也发了很多论文，怎么不见名字呢？这主要和数据源有关系，如果老师发表的文章是英文SCI，那么这里面确实不会出现。不出现并不代表没有实力，反而英文文章更能说明示例。
-那么这个作者谱图也仅能代表过去和中文文献，请没有大名的老师不要介意，如果以后支持多多国产期刊，把论文发表在祖国大地上，名字就有啦。
-
-<h4 id="研究单位"><a href="#研究单位" class="headerlink" title="研究单位"></a>研究单位</h4><p><img src="/images/ORG_v542e773.png" alt></p>
-<center>卫星测高研究单位</center>
-
-<p>可见武汉大学在国内处于核心地位，其节点的圆环颜色中间为灰色，表示涉入本行业年代较久远，属于最早一批使用卫星测高数据的机构，其外环仍保持亮丽色彩，表示至今仍在本领域耕耘。中国测绘科学研究院、中科院测地所和中国海洋大学也都是很早就研究卫星测高的机构，且早期成果较多，使得图中的节点颜色灰色面积较大，但图谱表明目前阶段这三家单位的热点已较低，这说明随着时间的更迭，这些单位已经不在热衷于卫星测高研究。海洋一所、中科院大学、西安测绘研究所等机构现在仍旧在此领域发表论文，说明其卫星测高数据应用有需求，研究热度增加。</p>
-<p><img src="/images/ORG_v542e7731.png" alt></p>
-<center>卫星测高研究单位时间图谱</center>
-1979年中科院海洋所齐孟鹗发表第一篇提及卫星测高领域的文章，此时仅仅为介绍，并未实际应用。到80年达，测地所、武汉大学、海洋一所等机构开始引用测高数据，2000以后，国家海洋卫星应用中心开始研究高度计，2010年后国土卫星遥感应用中心开始研究激光测高卫星，这两单位的介入表明我国对测高卫星提出了自主化要求。
-
-
-<h4 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h4><p><img src="/images/CO-DESC_v953e1919.png" alt></p>
-<center>卫星测高关聚类键词</center>
-通过聚类，卫星测高主要涵盖：南海、有效波高、激光测高、海平面变化、重力异常、大地水准面、大洋环流、卫星轨道等类别。基本包含了卫星的主要研究领域，在大地测量、物理海洋等领域的应用。
-
-<p><img src="/images/CO-DESC_v922e1709.png" alt></p>
-<center>卫星测高论文关键词</center>
-
-<h4 id="时间轴"><a href="#时间轴" class="headerlink" title="时间轴"></a>时间轴</h4><p><img src="/images/CO-DESC_v922e17091.png" alt></p>
-<center>卫星测高论文关键词演变</center>
-
-
-<h3 id="海洋遥感"><a href="#海洋遥感" class="headerlink" title="海洋遥感"></a>海洋遥感</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">SU</span>=<span class="string">'遥感'</span>+<span class="string">'测绘'</span>+<span class="string">'测量'</span>+‘反演’ and AB=<span class="string">'卫星'</span>*<span class="string">'海洋'</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="WOS-SCIE-中的海洋测绘"><a href="#WOS-SCIE-中的海洋测绘" class="headerlink" title="WOS SCIE 中的海洋测绘"></a>WOS SCIE 中的海洋测绘</h3><h4 id="检索-1"><a href="#检索-1" class="headerlink" title="检索"></a>检索</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TS=(marine geodesy* <span class="keyword">OR </span>marine surveying* <span class="keyword">OR </span>remote sensing * <span class="keyword">OR </span><span class="keyword">bathymetry </span>* <span class="keyword">OR </span><span class="keyword">multi-beam </span>* gravity* <span class="keyword">OR </span>altimetry <span class="keyword">OR </span>altimter <span class="keyword">OR </span>sea surface <span class="keyword">OR </span>topography <span class="keyword">OR </span>marine geoid <span class="keyword">OR </span>hydrographic <span class="keyword">OR </span>hydrography <span class="keyword">OR </span>tide* ) <span class="keyword">AND </span>AB=(marine <span class="keyword">OR </span>sea <span class="keyword">OR </span>ocean <span class="keyword">OR </span>coastal * <span class="keyword">OR </span>lake <span class="keyword">OR </span>river)</span><br></pre></td></tr></table></figure>
-<p>时间为2000-2021</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1259,7 +1233,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
