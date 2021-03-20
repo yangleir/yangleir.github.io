@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="以中国知网1972～2020年间的北大核心期刊《海洋通报》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋通报》所发表论文的研究内容及其演变。 文献计量学 文献计量学是利用数学和统计学方法定量分析科技文献外部表征，进而揭示学术研究活动特征，已广泛地应用于多学科领域的发展现状和规律探索。文献计量学可以用于期刊评价，例如核心期刊的遴选，也可以从宏观角度揭示某一种学科的发展规律，并在微观角度揭示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《海洋通报》知识谱图">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2021/03/20/haiyangtongbao/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="以中国知网1972～2020年间的北大核心期刊《海洋通报》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋通报》所发表论文的研究内容及其演变。 文献计量学 文献计量学是利用数学和统计学方法定量分析科技文献外部表征，进而揭示学术研究活动特征，已广泛地应用于多学科领域的发展现状和规律探索。文献计量学可以用于期刊评价，例如核心期刊的遴选，也可以从宏观角度揭示某一种学科的发展规律，并在微观角度揭示">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hytb/num.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hytb/jg.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hytb/key.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hytb/key3.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hytb/b.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/hytb/author.png">
+<meta property="article:published_time" content="2021-03-20T14:40:59.000Z">
+<meta property="article:modified_time" content="2021-03-20T16:02:19.721Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="citespace">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/hytb/num.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2021/03/20/haiyangtongbao/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>《海洋通报》知识谱图 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">59</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/20/haiyangtongbao/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《海洋通报》知识谱图
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-20 22:40:59" itemprop="dateCreated datePublished" datetime="2021-03-20T22:40:59+08:00">2021-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-21 00:02:19" itemprop="dateModified" datetime="2021-03-21T00:02:19+08:00">2021-03-21</time>
+              </span>
+
+          
+            <span id="/2021/03/20/haiyangtongbao/" class="post-meta-item leancloud_visitors" data-flag-title="《海洋通报》知识谱图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/20/haiyangtongbao/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/20/haiyangtongbao/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>以中国知网1972～2020年间的北大核心期刊《海洋通报》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋通报》所发表论文的研究内容及其演变。</p>
+<h2 id="文献计量学"><a href="#文献计量学" class="headerlink" title="文献计量学"></a>文献计量学</h2><blockquote>
+<p>文献计量学是利用数学和统计学方法定量分析科技文献外部表征，进而揭示学术研究活动特征，已广泛地应用于多学科领域的发展现状和规律探索。文献计量学可以用于期刊评价，例如核心期刊的遴选，也可以从宏观角度揭示某一种学科的发展规律，并在微观角度揭示学科的知识流动。</p>
+</blockquote>
+<p>本文将使用文献计量方式分析《海洋通报》历年发文情况，制作关键词、作者、机构等知识共现谱图，通过共现聚类使主要研究内容、人员、机构的分布和关联清晰展现。因为受知识水平限制，本文不做过多的微观解释分析，主要以知识图谱展示，从宏观角度展现《海洋通报》。</p>
+<h2 id="海洋通报"><a href="#海洋通报" class="headerlink" title="海洋通报"></a>海洋通报</h2><blockquote>
+<p>《海洋通报》前身为《海洋科技资料》，1982年改现用名《海洋通报》，中国工程院院士方国洪担任主编，由自然资源部主管，国家海洋信息中心和中国海洋学会主办，自然资源部北海局、东海局和南海局协办，是国内海洋领域具有较大影响的综合学术刊物之一。双月刊 (CN 12-1076/P，ISSN 1001-6392)，大16开本，120页，逢双月 15 日出版，国内外公开发行。主旨为：坚持科学技术面向经济建设的方针，反映现代海洋科技发展的方向与水平，推广科技成果，传播科技信息，团结广大海洋科技工作者，积极开展学术交流，为繁荣我国的海洋事业服务。设有论文与综述等栏目。主要报道内容包括海洋水文、气象、物理、化学、生物、地质等基础理论研究和应用研究，以及海洋通报、资源开发、水产养殖、环境保护、环境预报、仪器设备等方面调查、研究和管理的新发展、新理论、新观点、新方法、新经验。它集学术性与技术性于一体，适合于广大海洋科技工作者、管理人员和有关大专院校的师生阅读。</p>
+</blockquote>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>由于《海洋通报》曾用名《海洋科技资料》，因此中国知网检索：</p>
+<blockquote>
+<p>检索条件： ( 拼音刊名= CJFD_HUTB or 出版物代码= CJFD_HUTB )；检索范围：总库。 </p>
+</blockquote>
+<p>此处，一般应剔除卷首语、编辑部声明等文献，进而得到纯粹的科学研究文献。</p>
+<h2 id="刊文数量"><a href="#刊文数量" class="headerlink" title="刊文数量"></a>刊文数量</h2><p><img src="/images/hytb/num.png" alt></p>
+<p>1971-2020年共发表4110篇文章，年发文一般不超过120篇，发文量在同类期刊属于中游水平。</p>
+<h2 id="机构"><a href="#机构" class="headerlink" title="机构"></a>机构</h2><p><img src="/images/hytb/jg.png" alt></p>
+<p>本图展现的机构节点数共计1081个（按照一定的节点强度阈值展现，表示研究单位数，并非全部），共现连接线477（表示合作关系），各单位之间合作关系相对上一篇《海洋科学进展》所得结论（比例接近1:1）偏弱。<br>发文最多的单位为<code>国家海洋信息中心</code>，表现在图谱上的特点就是节点中心性强，节点圈大（最大的圈），其文献的节点数超过167。其次为<code>海洋一所</code>，其文献的节点数为114，第一和第二之间的发文数量差距不太大。</p>
+<p>图中的节点（圆圈）的颜色表示时间，灰色表示年代久远的文献，彩虹色表示为近几年的文献。比如<code>海洋三所</code>多为为灰色，表示其文献的历史较早，目前活跃度不高。</p>
+<!-- 
+![](/images/hytb/jigou.png)
+<center>研究机构、关键词共现的聚类图谱</center>
+
+这张图展示的是研究机构和关键词的共现聚类，通俗理解为研究机构的研究兴趣。
+ -->
+
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="/images/hytb/key.png" alt></p>
+<center>关键词共现聚类</center>
+
+<p>这张图表明《海洋通报》文章的主要关注点是<code>浮游植物</code>、<code>沉积物分布</code>、<code>数值模拟</code>、<code>政府间海洋学委员会</code>、<code>大气环流</code>、<code>加里曼丹</code>、<code>黄河口</code>、<code>水下实验室</code>、<code>沿海国</code>等，和其他学术不同的是，《海洋通报》形成了<code>沿海国</code>、<code>加里曼丹</code>、<code>政府间**</code>等国际热点聚类文献簇，以及<code>海洋经济</code>文献簇，可见，《海洋通报》发文除了形成海洋科学、海洋调查等文献聚类簇，也形成了一些软课题文献聚类簇。这也是和其他学术所显著不同的。</p>
+<p><img src="/images/hytb/key3.png" alt></p>
+<center>关键词聚类时间图谱</center>
+
+<p>这张时间图谱中不同聚类由平行轴线代表，不同关键词频次由节点大小代表，关键词首次出现年份由位置代，水平线的虚实表示其持续性，<code>#</code>前面的数字表示聚类的强度，<code>0</code>表示最强的聚类簇。从中可以基本判断，<code>浮游植物</code>持久性最强，说明热度持续，节点连线最为丰富，表明知识流动性好。</p>
+<h2 id="研究热点突现"><a href="#研究热点突现" class="headerlink" title="研究热点突现"></a>研究热点突现</h2><p><img src="/images/hytb/b.png" alt></p>
+<p>突现（Burst）是指特定时间段内通过关键词频次的变化将频次高的词探测出来，在一定程度上反映《海洋通报》的研究趋势。与上一幅时间轴的展示相差不多，但此处更加清晰的展现整体发文趋势，然而仅<code>余流</code>为近十年的一个突现词，可见《海洋通报》的热点突现并不明显。</p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="/images/hytb/author.png" alt><br>《海洋通报》发文作者合作脉络极为特别，聚类之后形成了奇特的长条形，说明作者合作关系扁平化，不发散，大批作者由于节点的强度不足，而游离在长条之外，这和《海洋科学进展》、《海洋技术学报》等期刊的作者群落（发散合作，交叉性强）是明显不同的。其背后的原因尚待分析。</p>
+<p>图谱颜色的含义为，彩色表示时代较近，灰色表示时代较久。节点大小和位置表示作者的发文频次和中心性。连接线粗细表示不同作者之间的合作强度。</p>
+<blockquote>
+<p>网络中节点的<code>中心性</code>测量的是网络中节点的位置重要性。有两类节点可能具有较高的中介中心性：1）与其他节点高度相连的枢纽节点；2）位于不同聚类之间的节点。</p>
+</blockquote>
+<h2 id="文献共引"><a href="#文献共引" class="headerlink" title="文献共引"></a>文献共引</h2><p>遗憾的是，CNKI导出的数据不含有引用信息，因此无法通过程序进行文献共引的计量分析，而文献的引用关系最能代表知识的流动脉络。这里，仅列举利用CNKI数据库检索到引用次数最多的前10个文献：</p>
+<blockquote>
+<p>[1]王晓坤,马家海,叶道才,陈孝德.浒苔(Enteromorpha prolifera)生活史的初步研究[J].海洋通报,2007(05):112-116.<br>[2]许妍,梁斌,鲍晨光,兰冬东,于春艳,马明辉.渤海生态红线划定的指标体系与技术方法研究[J].海洋通报,2013,32(04):361-367.<br>[3]王建伟,阎斌伦,林阿朋,胡静平,沈颂东.浒苔(Enteromorpha prolifera)生长及孢子释放的生态因子研究[J].海洋通报,2007(02):60-65.<br>[4]王金辉,黄秀清,刘阿成,张有份.长江口及邻近水域的生物多样性变化趋势分析[J].海洋通报,2004(01):32-39.<br>[5]彭云辉,孙丽华,陈浩如,王肇鼎.大亚湾海区营养盐的变化及富营养化研究[J].海洋通报,2002(03):44-49.<br>[6]李加林,杨晓平,童亿勤,张殿发,沈永明,张忍顺.互花米草入侵对潮滩生态系统服务功能的影响及其管理[J].海洋通报,2005(05):33-38.<br>[7]杨建强,崔文林,张洪亮,徐子钧.莱州湾西部海域海洋生态系统健康评价的结构功能指标法[J].海洋通报,2003(05):58-63.<br>[8]赵焕庭,王丽荣.中国海岸湿地的类型[J].海洋通报,2000(06):72-82.<br>[9]沈焕庭,朱建荣.论我国海岸带陆海相互作用研究[J].海洋通报,1999(06):11-17.<br>[10]周洪军,何广顺,王晓惠,李长如,杨娜.我国海洋产业结构分析及产业优化对策[J].海洋通报,2005(02):46-51.</p>
+</blockquote>
+<p>截止本文发布，《海洋通报》被引用最多的文献为王晓坤等发表于2007年的<code>浒苔(Enteromorpha prolifera)生活史的初步研究</code>，次数为172次，其次为许妍等人2013年发表的<code>渤海生态红线划定的指标体系与技术方法研究</code>，被引199次。</p>
+<p>此外CNKI可以统计文献下载次数，下载频次可反映文献受关注的程度，期刊最高下载量的两篇论文为2500左右，稍显偏低。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过对核心期刊《海洋通报》1972～2020年的文献计量分析，从期刊引文、关键词突现和研究热点时序聚类分析发现：《海洋通报》所刊论文的主要研究方向不仅涉及海洋科学技术，还涉及如<code>海洋经济</code>、<code>沿海国</code>等领域的研究；期刊最显著的特色是作者的合作脉络呈现扁平化，合作不发散，初步分析原因为海洋信息数据的不流通限制了合作作者的范围，这是海洋科学研究的极大弊端。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/citespace/" rel="tag"># citespace</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/20/haiyanghuzhao/" rel="prev" title="海洋湖沼">
+      <i class="fa fa-chevron-left"></i> 海洋湖沼
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文献计量学"><span class="nav-number">1.</span> <span class="nav-text">文献计量学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#海洋通报"><span class="nav-number">2.</span> <span class="nav-text">海洋通报</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据"><span class="nav-number">3.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刊文数量"><span class="nav-number">4.</span> <span class="nav-text">刊文数量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机构"><span class="nav-number">5.</span> <span class="nav-text">机构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词"><span class="nav-number">6.</span> <span class="nav-text">关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#研究热点突现"><span class="nav-number">7.</span> <span class="nav-text">研究热点突现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者"><span class="nav-number">8.</span> <span class="nav-text">作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文献共引"><span class="nav-number">9.</span> <span class="nav-text">文献共引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">10.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
