@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="近日，英国杂志《Economist》报道未来航母为了躲避卫星侦察和导弹打击，可能在天上航行，因为它们在那里可能比在海上更安全、更有效。为此，美国国防部的高级研究项目机构DARPA正在实施一项名为 “Gremlins “的计划。https:&#x2F;&#x2F;www.economist.com&#x2F;science-and-technology&#x2F;2021&#x2F;03&#x2F;25&#x2F;aircraft-carriers-take-to-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="航空母舰上天">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2021/03/29/hangmu/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="近日，英国杂志《Economist》报道未来航母为了躲避卫星侦察和导弹打击，可能在天上航行，因为它们在那里可能比在海上更安全、更有效。为此，美国国防部的高级研究项目机构DARPA正在实施一项名为 “Gremlins “的计划。https:&#x2F;&#x2F;www.economist.com&#x2F;science-and-technology&#x2F;2021&#x2F;03&#x2F;25&#x2F;aircraft-carriers-take-to-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/aircraft.png">
+<meta property="article:published_time" content="2021-03-29T14:27:49.000Z">
+<meta property="article:modified_time" content="2021-03-29T14:48:34.396Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="科技">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/aircraft.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2021/03/29/hangmu/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>航空母舰上天 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">66</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/29/hangmu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          航空母舰上天
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-29 22:27:49 / 修改时间：22:48:34" itemprop="dateCreated datePublished" datetime="2021-03-29T22:27:49+08:00">2021-03-29</time>
+            </span>
+
+          
+            <span id="/2021/03/29/hangmu/" class="post-meta-item leancloud_visitors" data-flag-title="航空母舰上天" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/29/hangmu/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/29/hangmu/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>近日，英国杂志《Economist》报道未来航母为了躲避卫星侦察和导弹打击，可能在天上航行，因为它们在那里可能比在海上更安全、更有效。为此，美国国防部的高级研究项目机构DARPA正在实施一项名为 “Gremlins “的计划。<br><a href="https://www.economist.com/science-and-technology/2021/03/25/aircraft-carriers-take-to-the-air" target="_blank" rel="noopener">https://www.economist.com/science-and-technology/2021/03/25/aircraft-carriers-take-to-the-air</a></p>
+</blockquote>
+<p><img src="/images/aircraft.png" alt></p>
+<p>空中运载工具是诱人的目标，它们也是越来越脆弱的目标。就像大炮时代的中世纪城堡一样，技术进步有可能使它们变得多余。<code>卫星和超视距雷达</code>意味着更容易确定它们的位置。而一枚瞄准得当、装备精良的导弹可能就足以让一艘航母失去作用，即使一发子弹没有将其彻底击沉。</p>
+<p>美国的海军规划人员特别担心中国的<code>DF-26</code>。这种武器于2018年服役，是一种<code>机动弹道导弹</code>（意味着它可以改变最终的接近路径，而不是完全受制于重力法则），被称为”航母杀手”。DF-26可以从卡车上发射，可以携带常规或核弹头。</p>
+<p>智库哈德逊研究所的海军战略家布莱恩-克拉克认为，这种威胁足以让美国航母距离中国海岸至少1600公里。这比航母战机的航程要远得多，除非航母战机可以在空中加油。因此，美国国防部正在寻找一个变通的办法。正在测试的一个回到未来的想法（它的历史最早可追溯到1917年）是将一架合适的飞机变成能够<code>发射和回收飞行中的无人机的航空母舰</code>,这样就可以让海上航母远离伤害。</p>
+<h2 id="天空中的城堡"><a href="#天空中的城堡" class="headerlink" title="天空中的城堡"></a>天空中的城堡</h2><p>为此，国防部的高级研究项目机构DARPA正在实施一项名为 “Gremlins”的计划，这个名字也适用于单个无人机本身。<code>一架&quot;小精灵&quot;无人机重680公斤，翼展近3.5米</code>。一旦它被投放，展开翅膀并启动涡轮风扇发动机，它就可以飞到500公里以外的区域，用”小精灵”计划负责人斯科特-维兹巴诺夫斯基的话说，就是”进去制造破坏”,完成后，它就会返回空中母舰。</p>
+<p>格雷姆林会在人类的最终控制下，以舰队的形式行动。在这一点上，它们类似于”忠诚的僚机”的想法，即无人机中队伴随着有人驾驶的战机投入战斗。然而，忠诚的僚机将从陆地起飞并降落在陆地上，或者可能是常规的、海军的、航空母舰上。<code>作战中的 &quot;小精灵 &quot;永远不需要接触地面</code>。</p>
+<p>Gremlins的主要工作将是拦截通信、干扰信号和猎取要摧毁的东西，从而软化有争议空域的防御，使其对有机组人员的飞机更加安全。这种无人机还可以装备小型导弹或炸药，进行神风特攻。而且它们之间既可以共享数据和合作，又可以将侦察和目标信息传回给能够发射比它们携带的更大导弹的军舰和飞机。</p>
+<p>小精灵群无疑会遭受损失。但吸引敌人的火力其实会是一个目标，一家名为Solarium的防务咨询公司的老板安德鲁-克雷皮涅维奇说，该公司就海空战的各个方面向防务部门提供建议。这样一来，”绿巨人”就会冲出任何开启瞄准雷达的敌方导弹炮台的位置，将其标记出来，以便随后销毁。</p>
+<p><code>在战斗的计算中，牺牲一两架无人机来打掉敌方的防空炮台，是一个不错的交换</code>。因此，Gremlins应该被认为是 “可交易”的，以换取价值更大的系统，Wierzbanowski先生说。为了更好地愚弄敌人，军事规划者还设想了空射无人机，模仿大型战斗机和轰炸机的雷达和热信号。这将通过使用能反射而不是吸收雷达信号的形状和材料来实现，并使发动机的热信号不被掩盖。无人机的飞行速度和模式可以增强这种错觉，显示出大型飞机的特征。</p>
+<p><code>除此之外，防御者需要将宝贵的注意力和昂贵的导弹挥霍在来袭的廉价无人机上</code>，这将使对手的能力更强的飞机得到更自由的控制。因此，空射无人机的爱好者们看到了数量上的价值。在雷达屏幕上放上大量的昙花一现，是一个让敌人感到不安的好办法，”复杂和多重困境”，DARPA项目的主要承包商Dynetics公司管理Gremlins项目的Tim Keeter说。</p>
+<p>为此，必须保持低成本。国防部计划为Gremlins支付不到80万美元的费用，尽管那是为了订购<code>1000架</code>。因此，如果一对飞机在行动中被击落，”没关系，这真的不重要，”Wierzbanowski先生说。在军事术语中，他将这些东西描述为”可损耗”。Dynetics公司的工作假设是，每架Gremlin最多可飞行20次。这意味着它们可以用不太耐用的材料和部件来制造，因此也更便宜。</p>
+<p>格雷姆林项目选择的空中载具是一架经过改装的C-130货机，它的机翼下悬挂的炸弹架最多可以搭载4架无人机。这将是一个小型的中队，但可以通过从随行的战斗机或轰炸机上投放更多的无人机来增加数量。因此，部署无人机是相当容易的。棘手的部分是当它们完成任务返回时从空中捞起它们。为此，Dynetics公司设计了一种特殊的回收系统，可以安装在C-130的货舱坡道上方。</p>
+<p>当 “小精灵 “飞回母舰时，货舱坡道打开，回收系统就会从里面放下一个吊杆。这个吊杆在十米长的系绳上释放出一个吊舱，这个吊舱夹在一个短的啮合臂上，这个短的啮合臂从Gremlin本身的顶部弹出。捕获成功后，就会关闭Gremlin的引擎。然后用绞盘将无人机吊上船。这种安排应该能够每小时从空中拉出八只 “灰熊”。</p>
+<p>至少是这样的想法。到目前为止，虽然Gremlins已经成功捕捉到了几厘米以内，但这种捕捉还没有实现。但Dynetics公司希望一些软件调整能在夏天之前解决这个问题，<code>届时空军应该会开始对Gremlins系统进行作战测试</code>。</p>
+<p>这个测试将包括各种有效载荷的飞行。但最重要的是测试 “绿巨人”的合作能力–例如，随着情况的变化交换任务。为此，空军正在开发从另一个DARPA计划中产生的软件，名为 “拒绝环境下的协同作战”。至少在目前，它还不能协调一个完全自主的 “机群”。相反，它的目标是让单个无人机拥有足够的自主权，让一个人类操作员能够监督它们的集群。</p>
+<p>Gremlin-mothership的安排以其规模为特色。但基本想法的几个较小版本也在开发中。其中一个由 “捕食者 “无人机的制造者通用原子公司（General Atomics）正在筹划。捕食者正在显示出他们的年龄，但通用原子公司希望通过生产一个版本为它们注入新的生命，该版本是一个名为”麻雀鹰”的小型无人机的母体，将携带情报、监视和侦察设备、电子干扰设备，可能还有爆炸物。飞行测试于2020年9月开始，不过 “麻雀鹰 “还没有空射，该公司也没有解释如何在飞行中回收它们。</p>
+<h2 id="雀鹰的夫人"><a href="#雀鹰的夫人" class="headerlink" title="雀鹰的夫人"></a>雀鹰的夫人</h2><p>美军则计划使用装有无人机发射气动管的直升机作为母舰。这些无人机像”小精灵”一样，发射后展开翅膀，翼展为2.5米。在去年夏天进行的一次试验中，6架发射出去的这种无人机在空中被回收，不过不是被它们发射出去的 “黑鹰”回收的。而是被一架四旋翼无人机吊着一根绳索卡住了目标无人机机翼上的钩子。5月，军队计划使用轨道弹射器从直升机上发射更大的无人机。</p>
+<p>与 “绿巨人 “和 “麻雀鹰 “一样，军方推动所谓的 “空中发射效果”是由美国从反叛乱转向与外国势力的潜在战争驱动的。位于阿拉巴马州的陆军未来司令部负责监督该技术发展的安东尼-弗洛伊德中校说，<code>中国和俄罗斯雷达精确定位部队</code>和支持他们的飞机的能力的进步是一个特别的问题。他说，这将把陆军直升机从前线赶回来，所以它们将排出众多无人机，而不是在前面溜达。它们要猎取目标，分散敌人的注意力，并作为一个额外的通信网络。这种能力应该在不到三年的时间内投入使用。</p>
+<p>这类空中航母确实有缺点。从半空中抢夺无人机会耗费宝贵的时间。再加上所需的机动性，可能会让敌人更容易击落母舰。但是可以重复使用20次的无人机提供了优势，尤其是成本，比起消耗性的单发替代品。</p>
+<p>城堡的建造者通过重新设计堡垒，使之成为低矮、厚实的墙体，并由堡垒保护，从而解决了大炮带来的问题。这很有效。向天空发射航空母舰是否会同样成功地应对技术进步，还有待观察。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A7%91%E6%8A%80/" rel="tag"># 科技</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/29/icesat2-ocean-bath/" rel="prev" title="icesat-2观测海岛礁水深">
+      <i class="fa fa-chevron-left"></i> icesat-2观测海岛礁水深
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/04/GNSS-V/" rel="next" title="GMT绘制GNSS速度场">
+      GMT绘制GNSS速度场 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#天空中的城堡"><span class="nav-number">1.</span> <span class="nav-text">天空中的城堡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#雀鹰的夫人"><span class="nav-number">2.</span> <span class="nav-text">雀鹰的夫人</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
