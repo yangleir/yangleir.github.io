@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">53</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">54</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">80</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">81</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,91 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/09/03/proj/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/03/proj/" class="post-title-link" itemprop="url">PROJ 坐标转换的几个例子</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 08:08:27 / 修改时间：08:13:16" itemprop="dateCreated datePublished" datetime="2020-09-03T08:08:27+08:00">2020-09-03</time>
+            </span>
+
+          
+            <span id="/2020/09/03/proj/" class="post-meta-item leancloud_visitors" data-flag-title="PROJ 坐标转换的几个例子" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/03/proj/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/03/proj/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="PROJ-转ITRF地心坐标到经纬度"><a href="#PROJ-转ITRF地心坐标到经纬度" class="headerlink" title="PROJ 转ITRF地心坐标到经纬度"></a>PROJ 转ITRF地心坐标到经纬度</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">4097216.6805</span>  <span class="number">4429119.0287</span> <span class="number">-2065771.3676</span> <span class="number">0</span> | cct -I +proj=cart +ellps=GRS80</span><br><span class="line"> <span class="number">47.2292116930</span>  <span class="number">-19.0183060232</span>     <span class="number">1552.9924</span>        <span class="number">0.0000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="PROJ-转经纬度到ITRF地心坐标"><a href="#PROJ-转经纬度到ITRF地心坐标" class="headerlink" title="PROJ 转经纬度到ITRF地心坐标"></a>PROJ 转经纬度到ITRF地心坐标</h2> <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">47.2292116930</span>  <span class="number">-19.0183060232</span>     <span class="number">1552.9924</span> <span class="number">0</span> | cct +proj=cart +ellps=GRS80</span><br><span class="line"><span class="number">4097216.6805</span>   <span class="number">4429119.0287</span>  <span class="number">-2065771.3676</span>        <span class="number">0.0000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件的批量转换"><a href="#文件的批量转换" class="headerlink" title="文件的批量转换"></a>文件的批量转换</h2> <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> $ cat points_xyz.dat | head</span><br><span class="line"><span class="number">2919786.0</span>        <span class="number">-5383745.0</span>      <span class="number">1774604.0</span></span><br><span class="line"><span class="number">4097216.6805</span>     <span class="number">4429119.0287</span>    <span class="number">-2065771.3676</span></span><br><span class="line"><span class="number">6347491.3770</span>     <span class="number">-22944.8191</span>     <span class="number">622823.1488</span></span><br><span class="line"><span class="number">4913652.948</span>      <span class="number">3945922.493</span>     <span class="number">995383.145</span></span><br><span class="line">+<span class="number">2765120.9</span>       <span class="number">-4449250.25</span>     <span class="number">-3626405.6</span></span><br><span class="line"><span class="number">-3530185.489</span>     <span class="number">4118797.337</span>     <span class="number">3344036.931</span></span><br><span class="line"><span class="number">4696990.000</span>      <span class="number">723994.000</span>      <span class="number">4239678.000</span></span><br><span class="line"><span class="number">-2341332.8840</span>    <span class="number">-3539049.5090</span>   <span class="number">4745791.3600</span></span><br><span class="line"><span class="number">918129.40</span>        <span class="number">-4346071.20</span>     <span class="number">4561977.80</span></span><br><span class="line"><span class="number">-4052051.767</span>     <span class="number">4212836.215</span>     <span class="number">-2545106.027</span></span><br><span class="line"></span><br><span class="line"> $ cat points_xyz.dat | cct -I +proj=cart +ellps=GRS80 | head</span><br><span class="line"><span class="number">-61.5275339092</span>   <span class="number">16.2622989639</span>      <span class="number">-25.6724</span>           inf</span><br><span class="line"> <span class="number">47.2292116930</span>  <span class="number">-19.0183060232</span>     <span class="number">1552.9924</span>           inf</span><br><span class="line"> <span class="number">-0.2071110447</span>    <span class="number">5.6414771807</span>       <span class="number">83.4568</span>           inf</span><br><span class="line"> <span class="number">38.7663016596</span>    <span class="number">9.0351340011</span>     <span class="number">2439.1542</span>           inf</span><br><span class="line"><span class="number">-58.1398674816</span>  <span class="number">-34.8737126913</span>       <span class="number">42.0708</span>           inf</span><br><span class="line"><span class="number">130.5995927060</span>   <span class="number">31.8240613970</span>      <span class="number">314.6402</span>           inf</span><br><span class="line">  <span class="number">8.7626079453</span>   <span class="number">41.9274508625</span>       <span class="number">98.7752</span>           inf</span><br><span class="line"><span class="number">-123.4874696602</span>   <span class="number">48.3897817140</span>       <span class="number">31.7442</span>           inf</span><br><span class="line"><span class="number">-78.0713675911</span>   <span class="number">45.9558003990</span>      <span class="number">200.8294</span>           inf</span><br><span class="line"><span class="number">133.8855132190</span>  <span class="number">-23.6701238732</span>      <span class="number">603.3581</span>           inf</span><br></pre></td></tr></table></figure>
+<p> 注意到第四列是时间信息，如果文件中缺少，则转换结果中提示<code>inf</code>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1160,117 +1245,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/23/cygwin-gmt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/23/cygwin-gmt/" class="post-title-link" itemprop="url">Windows的cygwin环境下编译GMT</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-23 20:22:43" itemprop="dateCreated datePublished" datetime="2020-01-23T20:22:43+08:00">2020-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-02 16:05:36" itemprop="dateModified" datetime="2020-03-02T16:05:36+08:00">2020-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cygwin/" itemprop="url" rel="index">
-                    <span itemprop="name">cygwin</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/23/cygwin-gmt/" class="post-meta-item leancloud_visitors" data-flag-title="Windows的cygwin环境下编译GMT" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/23/cygwin-gmt/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/cygwin-gmt/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h2><p>问：在windows下通常都是直接安装GMT的exe程序，这样导致不能使用github上最新的开发版，而开发版通常fix了很多的bug。如果想在win上安装编译开发版本，怎么办？<br>答：应该尝试cygwin+cmake。</p>
-<p>问：cygwin是什么？怎么使用？<br>答：可以看<a href="https://cygwin.com/index.html" target="_blank" rel="noopener">这里</a>. cygwin的各个库升级都是通过<code>setup**.exe</code>实现的，每一次升级或者安装新的模块，都要打开这个程序。用习惯了，不觉得麻烦。</p>
-<p>问：cmake怎么在这下面安装？<br>答：可以使用<code>setup**.exe</code>，选择cmake进行安装。<br><img src="/images/cygwin.png" alt><br>安装完成后打开命令行界面，查看cygwin版本：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/23/cygwin-gmt/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1338,7 +1317,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1351,7 +1330,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
