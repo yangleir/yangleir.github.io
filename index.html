@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">85</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">86</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,105 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/28/open-software3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/28/open-software3/" class="post-title-link" itemprop="url">开源共享软件3-海浪谱相关</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-28 20:55:36 / 修改时间：22:03:36" itemprop="dateCreated datePublished" datetime="2021-05-28T20:55:36+08:00">2021-05-28</time>
+            </span>
+
+          
+            <span id="/2021/05/28/open-software3/" class="post-meta-item leancloud_visitors" data-flag-title="开源共享软件3-海浪谱相关" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/28/open-software3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/28/open-software3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天分享三个有用的程序，主要是海浪谱相关程序，分别是WAFO、WEC-Sim和P-M海浪谱模拟程序。</p>
+<h2 id="WAFO"><a href="#WAFO" class="headerlink" title="WAFO"></a>WAFO</h2><p><img src="/images/wafo.png" alt></p>
+<p> WAFO是一个Matlab程序工具箱，主要用于海浪、负荷模拟以及统计分析。WAFO是开源软件，参照GNU通用公共许可证（GPL）。WAFO由隆德大学数学系开发，版本已经由2008版发展到2018版，程序托管在GitHub。WAFO也有对Octave以及Python版本。WAFO包含以下工具：</p>
+<ul>
+<li>疲劳分析<br>  随机载荷的疲劳寿命预测<br>  雨流循环的理论密度</li>
+<li>海洋建模<br>  线性和非线性的高斯和非高斯波的模拟<br>  海浪频谱的模拟：常见的PM、Jonswap、bi-modal Torsethaugen等。<br>  联合波高、波陡、波期分布</li>
+<li>统计学<br>  极值分析<br>  核心密度估计<br>  隐马尔科夫模型</li>
+</ul>
+<p><img src="/images/wafo2.png" alt><br><img src="/images/wafo3.png" alt></p>
+<p>代码：<a href="https://github.com/wafo-project" target="_blank" rel="noopener">https://github.com/wafo-project</a><br>主页：<a href="http://www.maths.lth.se/matstat/wafo" target="_blank" rel="noopener">http://www.maths.lth.se/matstat/wafo</a></p>
+<h2 id="Wave-Energy-Converter-SIMulator（WEC-Sim）"><a href="#Wave-Energy-Converter-SIMulator（WEC-Sim）" class="headerlink" title="Wave Energy Converter SIMulator（WEC-Sim）"></a>Wave Energy Converter SIMulator（WEC-Sim）</h2><p><img src="/images/MoorDyn_Graphic.png" alt></p>
+<p>WEC-Sim（波浪能转换模拟器）是一个用于模拟波浪能转换的开源程序。该代码是在MATLAB/SIMULINK中使用多体动力学求解器开发的。WEC-Sim有能力对由本体、连接、动力输出系统和系泊系统组成的设备进行建模。WEC-Sim可以对刚性体和具有广义体模式的柔性体进行建模。通过求解6个笛卡尔自由度的波浪能转换运动方程，加上任何数量的用户定义的模式，在时域内进行仿真计算。WEC-Sim应用库包含了WEC-Sim可用于建模的各种场景，包括海水淡化、系泊动力学、非线性水动力体、被动偏航、批量模拟和其他许多情况。该代码非常灵活，可以适应波浪能行业的许多场景。</p>
+<p>WEC-Sim是美国国家可再生能源实验室（NREL）和桑迪亚国家实验室（Sandia）的合作项目，由美国能源部水电技术办公室资助。由于代码的开源性质，WEC-Sim也有许多外部贡献。</p>
+<p>主页：<a href="https://wec-sim.github.io/WEC-Sim/" target="_blank" rel="noopener">https://wec-sim.github.io/WEC-Sim/</a><br>代码：<a href="https://github.com/WEC-Sim/WEC-Sim" target="_blank" rel="noopener">https://github.com/WEC-Sim/WEC-Sim</a></p>
+<h2 id="P-M谱海浪模拟"><a href="#P-M谱海浪模拟" class="headerlink" title="P-M谱海浪模拟"></a>P-M谱海浪模拟</h2><p><img src="/images/waveElevation2d-1024x598.png" alt></p>
+<p>这是一个简单的波浪模拟的小型MATLAB程序，可以获得P-M谱模拟的三维海面高度信息，也可以加入时间维度，得到四维信息，不过计算量巨大。</p>
+<p>代码：<a href="https://www.smart-coding.net/irregular-waves/" target="_blank" rel="noopener">https://www.smart-coding.net/irregular-waves/</a></p>
+<h2 id="海浪动态模拟"><a href="#海浪动态模拟" class="headerlink" title="海浪动态模拟"></a>海浪动态模拟</h2><p><img src="/images/vJYXyLS.gif" alt><br><img src="/images/yMLYeJ4.gif" alt></p>
+<p>外国网友制作的海浪动画模拟程序，使用MATLAB编写，比较耗内存。</p>
+<p>网页：<a href="https://stackoverflow.com/questions/28279337/matlab-cuda-ocean-wave-simulation" target="_blank" rel="noopener">https://stackoverflow.com/questions/28279337/matlab-cuda-ocean-wave-simulation</a><br>代码：<a href="https://www.dropbox.com/s/qow7cdf5z95t7hx/ocean_simulator.m?dl=0" target="_blank" rel="noopener">https://www.dropbox.com/s/qow7cdf5z95t7hx/ocean_simulator.m?dl=0</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1165,97 +1264,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/04/21/daoqian/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/21/daoqian/" class="post-title-link" itemprop="url">致歉信</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-21 19:52:19 / 修改时间：21:18:38" itemprop="dateCreated datePublished" datetime="2021-04-21T19:52:19+08:00">2021-04-21</time>
-            </span>
-
-          
-            <span id="/2021/04/21/daoqian/" class="post-meta-item leancloud_visitors" data-flag-title="致歉信" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/21/daoqian/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/21/daoqian/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="事件经过"><a href="#事件经过" class="headerlink" title="事件经过"></a>事件经过</h2><p>2021年3月21日发表《数据共享宣言》，批评国家海洋信息中心为“数据黑洞”；</p>
-<p>2021年4月9日发表《国家海洋科学数据中心的申请经历》，再次批评国家海洋信息中心和国家海洋科学数据中心的工作。</p>
-<p>经身对方和身边人员的善意提醒，以上两篇文章，内容具有误导性和片面性，与实际情况不符合，给信息中心和数据中心的数据共享工作带来了困扰，对海洋事业的长远发展带了不利影响。对此我非常抱歉，良心深感不安。</p>
-<h2 id="深刻反思"><a href="#深刻反思" class="headerlink" title="深刻反思"></a>深刻反思</h2><p>非常抱歉此事的发生，希望各位能给我这个机会，来反思过错。</p>
-<p>《宪法》第41条规定“中华人民共和国公民对于任何国家机关和国家工作人员，有提出批评和建议的权利”，但随后规定“对于任何国家机关和国家工作人员的违法失职行为，有向有关国家机关提出申诉、控告或者检举的权利，但是不得捏造或者歪曲事实进行诬告陷害。”</p>
-<p>我不当地或者过度地使用了宪法赋予的批评和建议权，批评的方式、方法不恰当，没有做到严格的实事求是，在没有充分调研的情况下，盲目指责信息中心为“数据黑洞”是不对的。</p>
-<p>近几年，特别是国务院办公厅出台《科学数据管理办法》后，我明显感到海洋数据共享的力度加大。2018年，在别人都不看好的情况下，我报着试一试的心态申请了海洋站验潮数据，尽管中间仍有些小曲折，但最终拿到了高频（10分钟）的潮汐数据。数据中心的工作人员态度诚恳、友善，真正的解决了我的科研需求，对此我深表感谢，并积极向身边朋友表扬信息中心的共享工作，鼓励他们也积极申请所需数据。我想，广大海洋科研工作者应该也都能顺利的申请到自己所需要的科学数据。</p>
-<p>现在，由于国家安全的需要，还有一些数据不能做到公开共享，可能对一些用户造成了不满，但对此数据中心工作人员给予耐心的解释，并非有意为难。</p>
-<p>海洋信息是国家的战略资源，需要妥善的、科学的管理维护，才能更好的服务人民需要。信息中心和数据中心为此付出了巨大的人力物力，并在一步步的、依法依规的开放数据共享。</p>
-<p>建设海洋强国，建设科技强国，实施大数据战略，是习近平总书记作出的重大部署。这些战略的具体实施需要人民，需要党领导下的科技工作者，也需要良好的数据管理和共享环境。</p>
-<p>在深刻的反思之后，我认为数据共享应该依靠党的带领，而不应该依靠一个个人的推动，我为此犯了典型的小知识分子急躁病和个人英雄主义毛病，这只能激化问题而不能解决问题。我对误导民众、伤害信息中心和数据中心同胞感情、浪费公共资源表示郑重的道歉。</p>
-<p>最后，我再次真诚的致歉，并将公众号广告收入(包括未来无限期的收入)全部捐献国家海洋科学数据中心用于共享事业，将过去几年我所负责的财政资助课题所采集的海洋科学数据全部交由数据中心负责共享，希望你们能接受这份特殊的赔礼道歉，希望能获得你们的谅解。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1328,7 +1336,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
