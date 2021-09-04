@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">91</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">92</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,94 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/09/04/gmt-trend/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/04/gmt-trend/" class="post-title-link" itemprop="url">使用GMT计算二维网格数据的均值、标准差和趋势</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-04 17:39:55 / 修改时间：18:37:52" itemprop="dateCreated datePublished" datetime="2021-09-04T17:39:55+08:00">2021-09-04</time>
+            </span>
+
+          
+            <span id="/2021/09/04/gmt-trend/" class="post-meta-item leancloud_visitors" data-flag-title="使用GMT计算二维网格数据的均值、标准差和趋势" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/09/04/gmt-trend/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/04/gmt-trend/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>下面介绍GMT中<code>blockmean</code>和<code>grdmath</code>的统计计算功能，包含均值、标准差和趋势。</p>
+<h2 id="案例：高度计大气湿延迟的中国周边海域分布"><a href="#案例：高度计大气湿延迟的中国周边海域分布" class="headerlink" title="案例：高度计大气湿延迟的中国周边海域分布"></a>案例：高度计大气湿延迟的中国周边海域分布</h2><p>以中国周边海域的高度计湿延迟为例，计算湿延迟的空间均值、标准差和趋势。</p>
+<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2021-03-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using blockmean, grdmath to calculate the STD abd trend </span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=jason_wet_global_new.ps</span><br><span class="line"><span class="built_in">set</span> R=<span class="number">105</span>/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span></span><br><span class="line"><span class="built_in">set</span> J=M5c</span><br><span class="line"></span><br><span class="line"><span class="comment">REM Calculate mean value and plot mean wet path delay</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">350</span>/<span class="number">5</span>&gt; t.cpt</span><br><span class="line"><span class="comment">REM use Jason-2 data of cycle 1-294 (6years), downloaded from RADS.</span></span><br><span class="line"><span class="comment">rem gawk "!/NaN/ &amp;&amp; NR&gt;13 &amp;&amp; $3&gt;100 &#123;print $3,$2,(-$4)*1000&#125;" D:\rads\wet\radsdata_ok\j2*c*.asc &gt; model.dd</span></span><br><span class="line">gmt blockmean model.dd -R<span class="variable">%R%</span> -I20m &gt;tmp_.dd</span><br><span class="line">gmt surface tmp_.dd -R<span class="variable">%R%</span> -I20m -Ggridded2_j2_s.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_s.nc is the averaged file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_s.nc -R<span class="variable">%R%</span> -J<span class="variable">%J%</span> -K -Ct.cpt -Y13c&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> a)mean of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N  -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate STD and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">150</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt blockmean model.dd -As -E -R -I20m -Ggridded2_j2_std.nc</span><br><span class="line">gmt grd2xyz gridded2_j2_std.nc | gawk "!/NaN/ &#123;<span class="built_in">print</span> $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;" | gmt surface -R -I20m -Ggridded2_j2_std2.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_std2.nc is the STD file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_std2.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> b)STD of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -K -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate trend and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T-<span class="number">30</span>/<span class="number">30</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt grdsample gridded2_j2_s.nc -I60m -Ggridded2_j2_s_re.nc</span><br><span class="line"></span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDX = slope3.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  D2DY2 = slope1.nc</span><br><span class="line"></span><br><span class="line">gmt grdimage slope2.nc -R -J -K -Ct.cpt -O  -X-<span class="number">7</span>c -Y-<span class="number">10</span>c&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> c)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt grdimage slope3.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> d)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/jason_wet_global_new.png" alt></p>
+<p>大气湿延迟和大气水汽和液态云有关，均值呈现出南高北低的自然特征。在北纬25-35度之间，时间变化（STD）最为剧烈，说明这段区间可能四季分明，不过度干燥，不过分潮湿，适合人类居住（xia che）。变化趋势图表示南北和东西方向一度距离上湿延迟的变化，因为网格的空间单位是度，所以这里一阶导数结果表示一度空间距离上的湿延迟变化量。</p>
+<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><p><code>blockmean model.dd -As -E</code>中的<code>-As</code>设置输出为<code>STD</code>。如果不做设置，默认输出的是均值。</p>
+<p><code>gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</code>中的<code>DDY</code>或者<code>DDX</code>设置一个固定方向的一阶导数计算，因为网格被提前预设为1度，因此计算结果是1度距离上的变化率。<code>grdmath</code>也可以计算二阶导数，使用<code>D2DY2</code>或者<code>D2DX2</code>。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>可以直接小编从RADS数据库中提取的文件model.dd，它是 Jason-2 cycle 1-294的全部模型湿延迟原始数据汇总：<br>model.dd： <a href="https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE</a> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -216,7 +304,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-20 12:03:56" itemprop="dateModified" datetime="2021-08-20T12:03:56+08:00">2021-08-20</time>
+                <time title="修改时间：2021-08-20 21:44:11" itemprop="dateModified" datetime="2021-08-20T21:44:11+08:00">2021-08-20</time>
               </span>
 
           
@@ -252,19 +340,24 @@
 
       
           <p>下面介绍：使用GMT和海岸线数据绘任意距离的海岸延伸线（如12海里线等）；使用海岸线距离进行站点数据的筛选（如提取沿海50km以内的GNSS点位）。</p>
-<h2 id="根据离岸的距离对GNSS站点进行提取"><a href="#根据离岸的距离对GNSS站点进行提取" class="headerlink" title="根据离岸的距离对GNSS站点进行提取"></a>根据离岸的距离对GNSS站点进行提取</h2><p>在利用GNSS水汽对卫星高度计进行湿延迟评估时，需要提取距离海岸线小于50km的站点做比对。</p>
-<p>绘图采用的数据主要是中国地震局陆态网、IGS和自然资源部沿海业务化GNSS系统，卫星数据主要是我国的海洋二号以及国外的Jason。</p>
-<p>主要步骤大概总结为：</p>
+<h2 id="根据离岸的距离对GNSS站点进行提取"><a href="#根据离岸的距离对GNSS站点进行提取" class="headerlink" title="根据离岸的距离对GNSS站点进行提取"></a>根据离岸的距离对GNSS站点进行提取</h2><p>在利用GNSS水汽对卫星高度计进行湿延迟评估时，需要提取距离海岸线小于50km的站点做比对。这里我们使用GMT快速分析提取数据并绘图展示。</p>
+<p>绘图采用的数据主要是中国地震局陆态网、IGS和自然资源部沿海业务化GNSS系统，卫星数据主要是我国的海洋二号以及国外的Jason，绘图数据见文末链接。</p>
+<blockquote>
+<p>中国陆态网数据和国际IGS数据为共享开放资料。由于政策原因，沿海业务化GNSS资料暂未公开。海洋二号高度计资料和国外高度计资料已全面开放共享。</p>
+</blockquote>
+<p>绘图任务主要步骤总结为：</p>
 <ul>
-<li><code>grdmath</code>的<code>LDISTG</code>计算网格点到<code>GSHHG</code>的距离，生成网格文件；</li>
+<li><code>grdmath</code>的<code>LDISTG</code>计算网格点到<code>GSHHG</code>岸线的距离，生成网格文件；</li>
 <li><code>grdlandmask</code>分离陆海；</li>
 <li><code>grdcontour</code>提取某值的等值线；</li>
 <li><code>select</code>依据点位到某等值线的距离筛选站点。</li>
 </ul>
-<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2019-04-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using grdmath to show the distance from GSHHG  coastline data</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=wet.ps</span><br><span class="line"></span><br><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br><span class="line">gmt grdlandmask -R -Dl -I10m -N1/-<span class="number">1</span> -Gland_mask.nc -V</span><br><span class="line">gmt grdmath dist_to_gshhg.nc land_mask.nc MUL = file.nc</span><br><span class="line">gmt grdsample dist_to_gshhg.nc -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -I1m -Gfile2.nc</span><br><span class="line"><span class="comment">REM Outut 50km coordinates.</span></span><br><span class="line">gmt grdcontour file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C50, -D &gt; out.d50</span><br><span class="line">gmt makecpt -Ccopper -T-<span class="number">0</span>/<span class="number">50</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt -t80&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J out.d50 -W0.<span class="number">4</span>p,green -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -JM4.<span class="number">5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -K -Swhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt pscoast -R -M -W -Dc -A10000&gt; coastal.txt</span><br><span class="line">gmt select trc.dat -Lcoastal.txt+d50k -fg &gt; subset.d2</span><br><span class="line"></span><br><span class="line">gmt psxy -R -J ja.dat -W1p,black -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J hy2.dat -W1p,red -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psxy -R -J trc.dat -Sc0.<span class="number">1</span> -Gblack -O -K -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">3</span>, $<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">1</span>&#125;" yh_tide.txt2  &gt;temp.d</span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss.txt &gt;temp.d01</span><br><span class="line">gmt psxy temp.d01  -R  -J  -K -O  -Gblack -St0.<span class="number">05</span>i -t70 &gt;&gt;<span class="variable">%ps%</span> </span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt psxy -R -J -O -Gred -Sc0.<span class="number">08</span>i -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psxy -R -J subset.d2 -Ss0.<span class="number">15</span> -GDEEPSKYBLUE1 -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">2</span> -Gred -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">12</span> -Gblue -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span> | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">118</span>.<span class="number">38</span>,<span class="number">24</span>.<span class="number">46</span>  | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gawk "!/SDYT/ &amp;&amp; !/SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "/SDYT/ || /SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D-<span class="number">0</span>.<span class="number">5</span>/<span class="number">0</span>.<span class="number">4</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span>,TWTF | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">05</span>c black <span class="number">1</span>p,black <span class="number">0</span>.<span class="number">3</span>i Total CMONOC &gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">15</span>c DEEPSKYBLUE1 .<span class="number">7</span>p,DEEPSKYBLUE1 <span class="number">0</span>.<span class="number">3</span>i Coastal CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">2</span>c blue <span class="number">0</span>.<span class="number">7</span>p,red <span class="number">0</span>.<span class="number">3</span>i Selected CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i t <span class="number">0</span>.<span class="number">05</span>i gray - <span class="number">0</span>.<span class="number">3</span>i Costal CGN&gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">08</span>i  red - <span class="number">0</span>.<span class="number">3</span>i Selected CGN &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i a <span class="number">0</span>.<span class="number">15</span>c blue <span class="number">0</span>.<span class="number">7</span>p,blue <span class="number">0</span>.<span class="number">3</span>i IGS &gt;&gt;le.d</span><br><span class="line"></span><br><span class="line">gmt pslegend -D+w1.<span class="number">6</span>i+jBL+o2.<span class="number">8</span>i/<span class="number">0</span>.<span class="number">2</span>i -R -J -O -F+p1p+gwhite --FONT_ANNOT_PRIMARY=<span class="number">7</span>p le.d &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt <span class="number">2</span>kml subset.d2 -Gred+f -<span class="built_in">Fs</span> &gt; mypoints.kml</span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br><span class="line"></span><br><span class="line"><span class="built_in">del</span> coastal.txt *.history *.d  out.* *.cpt temp.*</span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>下面是windows下的代码：</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2019-04-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using grdmath to show the distance from GSHHG  coastline data</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=wet.ps</span><br><span class="line"></span><br><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br><span class="line">gmt grdlandmask -R -Dl -I10m -N1/-<span class="number">1</span> -Gland_mask.nc -V</span><br><span class="line">gmt grdmath dist_to_gshhg.nc land_mask.nc MUL = file.nc</span><br><span class="line">gmt grdsample dist_to_gshhg.nc -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -I1m -Gfile2.nc</span><br><span class="line"><span class="comment">REM Outut 50km coordinates.</span></span><br><span class="line">gmt grdcontour file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C50, -D &gt; out.d50</span><br><span class="line">gmt makecpt -Ccopper -T-<span class="number">0</span>/<span class="number">50</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt -t80&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J out.d50 -W0.<span class="number">4</span>p,green -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -JM4.<span class="number">5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -K -Swhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Begin the sites selection.</span></span><br><span class="line">gmt pscoast -R -M -W -Dc -A10000&gt; coastal.txt</span><br><span class="line">gmt select trc.dat -Lcoastal.txt+d50k -fg &gt; subset.d2</span><br><span class="line"></span><br><span class="line"><span class="comment">REM satellite tracks</span></span><br><span class="line">gmt psxy -R -J ja.dat -W1p,black -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J hy2.dat -W1p,red -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM All CMONOC sites</span></span><br><span class="line">gmt psxy -R -J trc.dat -Sc0.<span class="number">1</span> -Gblack -O -K -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM tide sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">3</span>, $<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">1</span>&#125;" yh_tide.txt2  &gt;temp.d</span><br><span class="line"><span class="comment">REM Coastal GNSS sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss.txt &gt;temp.d01</span><br><span class="line">gmt psxy temp.d01  -R  -J  -K -O  -Gblack -St0.<span class="number">05</span>i -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Plot the selected sites </span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt psxy -R -J -O -Gred -Sc0.<span class="number">08</span>i -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J subset.d2 -Ss0.<span class="number">15</span> -GDEEPSKYBLUE1 -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">2</span> -Gred -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">12</span> -Gblue -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span> | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">118</span>.<span class="number">38</span>,<span class="number">24</span>.<span class="number">46</span>  | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gawk "!/SDYT/ &amp;&amp; !/SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "/SDYT/ || /SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D-<span class="number">0</span>.<span class="number">5</span>/<span class="number">0</span>.<span class="number">4</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span>,TWTF | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM add legend</span></span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">05</span>c black <span class="number">1</span>p,black <span class="number">0</span>.<span class="number">3</span>i Total CMONOC &gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">15</span>c DEEPSKYBLUE1 .<span class="number">7</span>p,DEEPSKYBLUE1 <span class="number">0</span>.<span class="number">3</span>i Coastal CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">2</span>c blue <span class="number">0</span>.<span class="number">7</span>p,red <span class="number">0</span>.<span class="number">3</span>i Selected CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i t <span class="number">0</span>.<span class="number">05</span>i gray - <span class="number">0</span>.<span class="number">3</span>i Costal CGN&gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">08</span>i  red - <span class="number">0</span>.<span class="number">3</span>i Selected CGN &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i a <span class="number">0</span>.<span class="number">15</span>c blue <span class="number">0</span>.<span class="number">7</span>p,blue <span class="number">0</span>.<span class="number">3</span>i IGS &gt;&gt;le.d</span><br><span class="line">gmt pslegend -D+w1.<span class="number">6</span>i+jBL+o2.<span class="number">8</span>i/<span class="number">0</span>.<span class="number">2</span>i -R -J -O -F+p1p+gwhite --FONT_ANNOT_PRIMARY=<span class="number">7</span>p le.d &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Creat kml file to be loaded in Google earth.</span></span><br><span class="line">gmt <span class="number">2</span>kml subset.d2 -Gred+f -<span class="built_in">Fs</span> &gt; mypoints.kml</span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
 
 
-<h2 id="200公里线绘制"><a href="#200公里线绘制" class="headerlink" title="200公里线绘制"></a>200公里线绘制</h2><p>稍微对<code>grdcontour</code>的<code>-C</code>做一下修改，设置为<code>-C200,</code>。其他距离可以任意设定<code>-C</code>。</p>
+<h2 id="200公里线绘制"><a href="#200公里线绘制" class="headerlink" title="200公里线绘制"></a>200公里线绘制</h2><p>使用GMT岸线绘制领海线、专属经济区等政治界线比较危险，因为上面的数据分析使用了低分辨率的岸线，并忽略了很多海岛。这里选择绘制距离大陆200km的等值线。</p>
+<p>具体做法是对<code>grdcontour</code>的<code>-C</code>做修改，设置为<code>-C200,</code>。其他距离可以通过设定<code>-C</code>后面的数值实现。</p>
 <h4 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gmt grdcontour file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C200, -D &gt; <span class="keyword">out</span>.d50</span><br><span class="line">gmt makecpt -Ccopper -T<span class="number">-0</span>/<span class="number">200</span>/<span class="number">10</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt &gt; %ps%</span><br><span class="line">gmt psxy -R -J <span class="keyword">out</span>.d50 -W0<span class="number">.4</span>p,green -O -K &gt;&gt;%ps%</span><br><span class="line">gmt pscoast -R -JM4<span class="number">.5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0<span class="number">.1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; %ps%</span><br></pre></td></tr></table></figure>
 
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/gnss_sites.png" alt></p>
@@ -1134,108 +1227,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/12/phd-num/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/12/phd-num/" class="post-title-link" itemprop="url">我国博士人口是多少？</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-12 11:41:17" itemprop="dateCreated datePublished" datetime="2021-05-12T11:41:17+08:00">2021-05-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-13 22:06:17" itemprop="dateModified" datetime="2021-05-13T22:06:17+08:00">2021-05-13</time>
-              </span>
-
-          
-            <span id="/2021/05/12/phd-num/" class="post-meta-item leancloud_visitors" data-flag-title="我国博士人口是多少？" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/12/phd-num/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/12/phd-num/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近第七次人口普查结果公开了人口总量和结构组成。那么，我国人口的学历组成如何呢？经常听人说博士已经烂大街了，具体是不是如此呢？</p>
-<h2 id="博士总人口"><a href="#博士总人口" class="headerlink" title="博士总人口"></a>博士总人口</h2><p><img src="/images/phd_num.png" alt><br>图片来源：教育部</p>
-<p>根据教育部2020年6月公开的我国各级各类学历教育学生情况，我国博士毕业人数为<code>62578</code>人，招生数为<code>105169</code>人，在校生为<code>424182</code>人，相对2019年博士扩招约1万人（增幅10%）。</p>
-<blockquote>
-<p>我国博士培养始于1978年，这一年因此被称为我国博士培养的“元年”。但是，这一年全国上下仅仅招录了18名博士生。直到1981年1月1日，我国才正式实行学位制度。1982年，第一届18名博士生终于迎来博士毕业季，但却只有马中骐等6人获得博士学位顺利毕业，毕业率不足34%。<a href="https://zhuanlan.zhihu.com/p/287919269" target="_blank" rel="noopener">来源</a></p>
-</blockquote>
-<p><img src="/images/phd1.jpg" alt><br>图片来源：中国国家博物馆官网</p>
-<p>自1978年以来，我国博士规模持续扩招，博士学位授予人数从1982年的6人增加到2019年的62578人。根据历年《全国教育事业发展统计公报》官方数据统计，截止2020年6月，授予博士学位的人数约为94.33万人，第七次人口普查全国总人口141178万人，博士比重为1：1496，也就是万分之6.68，而远低于西方发达国家的博士人口比例，如美国一百人有约2人拥有博士学位。</p>
-<p><img src="/images/phd_num2.png" alt><br>图片来源：至道教育</p>
-<p>从人口统计数据看，我国的博士数量比例还是远远落后发达国家，在中国拥有博士学位是非常罕见的，一万人中不到7人。尽管现在的博士数量和GDP的比例已经超越了部分发达国家，但是我国GDP的增速也远大于一些发达国家。因此在国家未来的发展道路上，扩大博士培养规模仍然是有必要的。</p>
-<h3 id="博士在高等教育中的比例不高"><a href="#博士在高等教育中的比例不高" class="headerlink" title="博士在高等教育中的比例不高"></a>博士在高等教育中的比例不高</h3><p>据统计，我国现有博士学位授予单位426个，年授予博士学位约7万人，仅占学士、硕士和博士三级学位授予总数的1%，硕博比约为11:1；而同期美国年博士学位授予数约18万人（含专业博士/职业博士），占三级学位授予总数的6.3%，硕博比为4.25:1；英国博士学位授予数约2.5万人，占三级学位授予总数的3.94%，硕博比为7.25:1；德国博士学位授予数约3万人，占三级学位授予总数的6.86%，硕博比为4.66:1。</p>
-<p>这意味着在国际比较的视角中，我国学历授予层次结构中，研究生占比，<code>尤其是博士研究生占比明显不足</code>。过低的研究生占比不仅意味着难以为本科毕业生提供充足的深造机会，更意味着博士培养规模无法满足本科培养规模所需的教师数量，最终导致博士供求之间失衡。</p>
-<blockquote>
-<p>王顶明. 为什么需要适度扩大博士生培养规模[J]. 中国研究生, 2019(06): 60–61.<br>徐志平, 沈红. 过剩还是不足?  我国博士生培养规模适切性分析[J]. 研究生教育研究, 2018(06): 1–6.</p>
-</blockquote>
-<h2 id="探讨"><a href="#探讨" class="headerlink" title="探讨"></a>探讨</h2><p>最新的人口统计显示具有大学文化程度的人口为21836万人。与2010年相比，每10万人中具有大学文化程度（含专科）的由8930人上升为15467人，大学文化人口比例约15%。根据教育部数据，全国本科学历6002万人（截止2020年，含在校生），占4.3%，也就是100人中有4人是大学生。我国硕士人口累计约959万人万（截止2020年，含在校生），比例约0.67%，也就是1000人中不到7人是研究生。即便这些年扩招，本科生和硕士生的数量也还没有达到烂大街的地步，更不用说博士了。</p>
-<p>大家常说博士烂大街了，其实一种认知错觉。根据GDP增长、科研经费投入增长速度，我国的博士规模反而是要适度扩大的。一般来讲，一个教育强国的人才占总人口的比例应该是：博士毕业生占1%、硕士毕业生10%、本科毕业生30%。按141178万人口计算，中国要成为真正的教育强国，应该有约1400万博士毕业生，1.4亿硕士毕业生，4.2亿本科毕业生。显然，现在博士数量还差得远。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1308,7 +1299,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

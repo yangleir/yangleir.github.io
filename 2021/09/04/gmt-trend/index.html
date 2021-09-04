@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="下面介绍GMT中blockmean和grdmath的统计计算功能，包含均值、标准差和趋势。 案例：高度计大气湿延迟的中国周边海域分布以中国周边海域的高度计湿延迟为例，计算湿延迟的空间均值、标准差和趋势。 code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用GMT计算二维网格数据的均值、标准差和趋势">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2021/09/04/gmt-trend/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="下面介绍GMT中blockmean和grdmath的统计计算功能，包含均值、标准差和趋势。 案例：高度计大气湿延迟的中国周边海域分布以中国周边海域的高度计湿延迟为例，计算湿延迟的空间均值、标准差和趋势。 code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/jason_wet_global_new.png">
+<meta property="article:published_time" content="2021-09-04T09:39:55.000Z">
+<meta property="article:modified_time" content="2021-09-04T10:37:52.641Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="GMT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/jason_wet_global_new.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2021/09/04/gmt-trend/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>使用GMT计算二维网格数据的均值、标准差和趋势 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">58</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">92</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/09/04/gmt-trend/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用GMT计算二维网格数据的均值、标准差和趋势
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-04 17:39:55 / 修改时间：18:37:52" itemprop="dateCreated datePublished" datetime="2021-09-04T17:39:55+08:00">2021-09-04</time>
+            </span>
+
+          
+            <span id="/2021/09/04/gmt-trend/" class="post-meta-item leancloud_visitors" data-flag-title="使用GMT计算二维网格数据的均值、标准差和趋势" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/09/04/gmt-trend/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/04/gmt-trend/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>下面介绍GMT中<code>blockmean</code>和<code>grdmath</code>的统计计算功能，包含均值、标准差和趋势。</p>
+<h2 id="案例：高度计大气湿延迟的中国周边海域分布"><a href="#案例：高度计大气湿延迟的中国周边海域分布" class="headerlink" title="案例：高度计大气湿延迟的中国周边海域分布"></a>案例：高度计大气湿延迟的中国周边海域分布</h2><p>以中国周边海域的高度计湿延迟为例，计算湿延迟的空间均值、标准差和趋势。</p>
+<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2021-03-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using blockmean, grdmath to calculate the STD abd trend </span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=jason_wet_global_new.ps</span><br><span class="line"><span class="built_in">set</span> R=<span class="number">105</span>/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span></span><br><span class="line"><span class="built_in">set</span> J=M5c</span><br><span class="line"></span><br><span class="line"><span class="comment">REM Calculate mean value and plot mean wet path delay</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">350</span>/<span class="number">5</span>&gt; t.cpt</span><br><span class="line"><span class="comment">REM use Jason-2 data of cycle 1-294 (6years), downloaded from RADS.</span></span><br><span class="line"><span class="comment">rem gawk "!/NaN/ &amp;&amp; NR&gt;13 &amp;&amp; $3&gt;100 &#123;print $3,$2,(-$4)*1000&#125;" D:\rads\wet\radsdata_ok\j2*c*.asc &gt; model.dd</span></span><br><span class="line">gmt blockmean model.dd -R<span class="variable">%R%</span> -I20m &gt;tmp_.dd</span><br><span class="line">gmt surface tmp_.dd -R<span class="variable">%R%</span> -I20m -Ggridded2_j2_s.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_s.nc is the averaged file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_s.nc -R<span class="variable">%R%</span> -J<span class="variable">%J%</span> -K -Ct.cpt -Y13c&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> a)mean of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N  -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate STD and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">150</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt blockmean model.dd -As -E -R -I20m -Ggridded2_j2_std.nc</span><br><span class="line">gmt grd2xyz gridded2_j2_std.nc | gawk "!/NaN/ &#123;<span class="built_in">print</span> $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;" | gmt surface -R -I20m -Ggridded2_j2_std2.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_std2.nc is the STD file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_std2.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> b)STD of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -K -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate trend and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T-<span class="number">30</span>/<span class="number">30</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt grdsample gridded2_j2_s.nc -I60m -Ggridded2_j2_s_re.nc</span><br><span class="line"></span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDX = slope3.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  D2DY2 = slope1.nc</span><br><span class="line"></span><br><span class="line">gmt grdimage slope2.nc -R -J -K -Ct.cpt -O  -X-<span class="number">7</span>c -Y-<span class="number">10</span>c&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> c)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt grdimage slope3.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> d)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/jason_wet_global_new.png" alt></p>
+<p>大气湿延迟和大气水汽和液态云有关，均值呈现出南高北低的自然特征。在北纬25-35度之间，时间变化（STD）最为剧烈，说明这段区间可能四季分明，不过度干燥，不过分潮湿，适合人类居住（xia che）。变化趋势图表示南北和东西方向一度距离上湿延迟的变化，因为网格的空间单位是度，所以这里一阶导数结果表示一度空间距离上的湿延迟变化量。</p>
+<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><p><code>blockmean model.dd -As -E</code>中的<code>-As</code>设置输出为<code>STD</code>。如果不做设置，默认输出的是均值。</p>
+<p><code>gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</code>中的<code>DDY</code>或者<code>DDX</code>设置一个固定方向的一阶导数计算，因为网格被提前预设为1度，因此计算结果是1度距离上的变化率。<code>grdmath</code>也可以计算二阶导数，使用<code>D2DY2</code>或者<code>D2DX2</code>。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>可以直接小编从RADS数据库中提取的文件model.dd，它是 Jason-2 cycle 1-294的全部模型湿延迟原始数据汇总：<br>model.dd： <a href="https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE</a> </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GMT/" rel="tag"># GMT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/18/distance/" rel="prev" title="GMT的海岸线空间数据分析功能">
+      <i class="fa fa-chevron-left"></i> GMT的海岸线空间数据分析功能
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例：高度计大气湿延迟的中国周边海域分布"><span class="nav-number">1.</span> <span class="nav-text">案例：高度计大气湿延迟的中国周边海域分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#code"><span class="nav-number">2.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点"><span class="nav-number">4.</span> <span class="nav-text">要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据"><span class="nav-number">5.</span> <span class="nav-text">数据</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
