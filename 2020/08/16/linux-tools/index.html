@@ -46,15 +46,15 @@
   };
 </script>
 
-  <meta name="description" content="这里列举一些常用的，又不容易记忆的linux工具命令 CondaConda是一种python包管理工具，可以对环境进行封闭管理，不同环境之间不相互干扰。 1234567891011121314conda --version # 版本号conda env list # 列出所有环境conda list -n python_3.9 # 列出非当前环境的包conda list # 列出当前环境的包con">
+  <meta name="description" content="这里列举一些常用的，又不容易记忆的linux工具命令 ColabColaboratory is built on top of Jupyter Notebook. GPU可以快速提高训练的速度。Colab提供K80显卡，价格一万多元。 123456789101112131415# 查看显存情况!&#x2F;opt&#x2F;bin&#x2F;nvidia-smi# 查看GPUimport tensorflow as tftf.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="命令工具常用操作">
 <meta property="og:url" content="http://assz0a.coding-pages.com/2020/08/16/linux-tools/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="这里列举一些常用的，又不容易记忆的linux工具命令 CondaConda是一种python包管理工具，可以对环境进行封闭管理，不同环境之间不相互干扰。 1234567891011121314conda --version # 版本号conda env list # 列出所有环境conda list -n python_3.9 # 列出非当前环境的包conda list # 列出当前环境的包con">
+<meta property="og:description" content="这里列举一些常用的，又不容易记忆的linux工具命令 ColabColaboratory is built on top of Jupyter Notebook. GPU可以快速提高训练的速度。Colab提供K80显卡，价格一万多元。 123456789101112131415# 查看显存情况!&#x2F;opt&#x2F;bin&#x2F;nvidia-smi# 查看GPUimport tensorflow as tftf.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-16T02:29:04.000Z">
-<meta property="article:modified_time" content="2021-09-05T12:53:43.828Z">
+<meta property="article:modified_time" content="2021-09-12T13:59:34.603Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -220,7 +220,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-05 20:53:43" itemprop="dateModified" datetime="2021-09-05T20:53:43+08:00">2021-09-05</time>
+                <time title="修改时间：2021-09-12 21:59:34" itemprop="dateModified" datetime="2021-09-12T21:59:34+08:00">2021-09-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,6 +267,11 @@
 
       
         <p>这里列举一些常用的，又不容易记忆的linux工具命令</p>
+<h3 id="Colab"><a href="#Colab" class="headerlink" title="Colab"></a>Colab</h3><p>Colaboratory is built on top of Jupyter Notebook.</p>
+<p>GPU可以快速提高训练的速度。Colab提供K80显卡，价格一万多元。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 查看显存情况</span></span><br><span class="line">!/opt/bin/nvidia-smi</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="title">tf</span>.test.gpu_device_name()</span><br><span class="line"><span class="meta"># 在使用哪个GPU</span></span><br><span class="line"><span class="title">from</span> tensorflow.python.client <span class="keyword">import</span> device_lib</span><br><span class="line"><span class="title">device_lib</span>.list_local_devices()</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看CPU</span></span><br><span class="line">!cat  /<span class="keyword">proc</span>/cpuinfo</span><br><span class="line"></span><br><span class="line"><span class="meta"># RAM大小</span></span><br><span class="line">!cat /<span class="keyword">proc</span>/meminfo</span><br></pre></td></tr></table></figure>
+
+<p>使用google drive数据的方法：<a href="https://colab.research.google.com/notebooks/io.ipynb" target="_blank" rel="noopener">https://colab.research.google.com/notebooks/io.ipynb</a></p>
 <h3 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h3><p>Conda是一种python包管理工具，可以对环境进行封闭管理，不同环境之间不相互干扰。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="comment">--version # 版本号</span></span><br><span class="line">conda env list <span class="comment"># 列出所有环境</span></span><br><span class="line">conda list -n python_3.9 <span class="comment"># 列出非当前环境的包</span></span><br><span class="line">conda list <span class="comment"># 列出当前环境的包</span></span><br><span class="line">conda <span class="keyword">create</span> -n env_name package_name <span class="comment"># 创建环境，如conda create -n python2 python=2.7 </span></span><br><span class="line">conda <span class="keyword">activate</span> python2<span class="number">.7</span> <span class="comment"># 激活某环境</span></span><br><span class="line">conda deactivate <span class="comment"># 退出当前环境</span></span><br><span class="line">conda <span class="keyword">install</span> package_name <span class="comment">#在当前环境中安装包</span></span><br><span class="line">conda remove <span class="keyword">package</span> <span class="comment">#删除当前环境中的包</span></span><br><span class="line">conda <span class="keyword">install</span> <span class="comment">--name env_name package_name #在指定环境中安装包</span></span><br><span class="line">conda remove <span class="comment">-- name env_name package </span></span><br><span class="line">conda <span class="keyword">create</span> -n tensorflow_env tensorflow <span class="comment">#安装tensorflow的CPU版本</span></span><br><span class="line">conda <span class="keyword">install</span> tensorflow <span class="comment"># 在当前环境下安装tensorflow</span></span><br><span class="line">conda <span class="keyword">search</span> tensorflow <span class="comment"># 查找</span></span><br></pre></td></tr></table></figure>
 
@@ -413,7 +418,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda"><span class="nav-number">1.</span> <span class="nav-text">Conda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker"><span class="nav-number">2.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo"><span class="nav-number">3.</span> <span class="nav-text">hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git"><span class="nav-number">4.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量解压gz"><span class="nav-number">5.</span> <span class="nav-text">批量解压gz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量转换图片格式"><span class="nav-number">6.</span> <span class="nav-text">批量转换图片格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频编辑"><span class="nav-number">7.</span> <span class="nav-text">视频编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Latex转word"><span class="nav-number">8.</span> <span class="nav-text">Latex转word</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-解压乱码问题"><span class="nav-number">9.</span> <span class="nav-text">Linux 解压乱码问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Colab"><span class="nav-number">1.</span> <span class="nav-text">Colab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda"><span class="nav-number">2.</span> <span class="nav-text">Conda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker"><span class="nav-number">3.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo"><span class="nav-number">4.</span> <span class="nav-text">hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git"><span class="nav-number">5.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量解压gz"><span class="nav-number">6.</span> <span class="nav-text">批量解压gz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量转换图片格式"><span class="nav-number">7.</span> <span class="nav-text">批量转换图片格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频编辑"><span class="nav-number">8.</span> <span class="nav-text">视频编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Latex转word"><span class="nav-number">9.</span> <span class="nav-text">Latex转word</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-解压乱码问题"><span class="nav-number">10.</span> <span class="nav-text">Linux 解压乱码问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
