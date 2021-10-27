@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">59</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">61</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">93</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">94</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -185,6 +185,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/27/gmt-UTMtogeo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/27/gmt-UTMtogeo/" class="post-title-link" itemprop="url">gmt 绘制UTM投影数据</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-27 07:41:00" itemprop="dateCreated datePublished" datetime="2021-02-27T07:41:00+08:00">2021-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-16 21:55:23" itemprop="dateModified" datetime="2021-03-16T21:55:23+08:00">2021-03-16</time>
+              </span>
+
+          
+            <span id="/2021/02/27/gmt-UTMtogeo/" class="post-meta-item leancloud_visitors" data-flag-title="gmt 绘制UTM投影数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/27/gmt-UTMtogeo/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/27/gmt-UTMtogeo/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天分享一个GMT绘制平面几何坐标的例子，以UTM投影为例子。</p>
+<h2 id="UTM-投影"><a href="#UTM-投影" class="headerlink" title="UTM 投影"></a>UTM 投影</h2><ul>
+<li>UTM为投影后的平面坐标，即把球面展开到纸面的坐标。</li>
+</ul>
+<p>可使用<code>grdinfo</code>查看文件投影类型：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ gmt grdinfo test3.tiff</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">Title:</span> Grid imported via GDAL</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">Command:</span></span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">Remark:</span></span><br><span class="line">test3.<span class="string">tiff:</span> Gridline node registration used [Cartesian grid]</span><br><span class="line">test3.<span class="string">tiff:</span> Grid file <span class="string">format:</span> gd = Import/export through GDAL</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">x_min:</span> <span class="number">564600</span> <span class="string">x_max:</span> <span class="number">640200</span> <span class="string">x_inc:</span> <span class="number">100</span> <span class="string">name:</span> x <span class="string">n_columns:</span> <span class="number">757</span></span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">y_min:</span> <span class="number">7158800</span> <span class="string">y_max:</span> <span class="number">7241000</span> <span class="string">y_inc:</span> <span class="number">100</span> <span class="string">name:</span> y <span class="string">n_rows:</span> <span class="number">823</span></span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">z_min:</span> <span class="number">-4458.4609375</span> <span class="string">z_max:</span> <span class="number">-1930.5826416</span> <span class="string">name:</span> z</span><br><span class="line">test3.<span class="string">tiff:</span> <span class="string">scale_factor:</span> <span class="number">1</span> <span class="string">add_offset:</span> <span class="number">0</span></span><br><span class="line">+proj=utm +zone=<span class="number">42</span> +south +ellps=WGS84 +towgs84=<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span> +units=m +no_defs</span><br></pre></td></tr></table></figure>
+
+<p>信息显示该数据为UTM带号为42的南半球投影。代号和字母编码可以通过下图查询：</p>
+<p><img src="/images/utm.png" alt></p>
+<center>UTM代号（来源：GMT官网）</center>
+
+<h2 id="绘制经纬度地图"><a href="#绘制经纬度地图" class="headerlink" title="绘制经纬度地图"></a>绘制经纬度地图</h2><p>不转坐标，直接绘图(windows版)：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">REM Test Geotif format using GMT </span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mmF</span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">12</span>p,Helvetica,black FONT_LABEL <span class="number">16</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line">gmt makecpt -Cbathy -T<span class="number">-5000</span>/<span class="number">-2000</span>/<span class="number">20</span> &gt;test.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage test3.tiff -Jx1:<span class="number">500000</span> -I+a45+nt1 -Ctest.cpt  -K -P -Q &gt; test.ps</span><br><span class="line"></span><br><span class="line">gmt pscoast -Rtest3.tiff -Ju42K/<span class="number">1</span>:<span class="number">500000</span> -O -Df+ -Gyellow -W0<span class="number">.5</span>p -Ba12mg12m -BNE -K --MAP_ANNOT_OBLIQUE=<span class="number">45</span>&gt;&gt;test.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R -J -O -LjRB+c25:<span class="number">00</span>S+f+w10k+l1:<span class="number">500</span>,<span class="number">000</span>+u+o0<span class="number">.2</span>i --FONT_ANNOT_PRIMARY=<span class="number">9</span>p --FONT_LABEL=<span class="number">10</span>p -K&gt;&gt;test.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -Rtest3.tiff+Uk -Jx1:<span class="number">500</span> -B10g10+u<span class="string">"@:8:000m@::"</span> -BWSne -O --FONT_ANNOT_PRIMARY=<span class="number">10</span>p --MAP_GRID_CROSS_SIZE_PRIMARY=<span class="number">0.1</span>i --FONT_LABEL=<span class="number">10</span>p -K &gt;&gt; test.ps</span><br><span class="line"></span><br><span class="line">gmt psscale -DjBL+o1c+w2i/<span class="number">0.15</span>i -R -J -Ctest.cpt -Bx500f100 -By+lm -I -O -F+gwhite+p1p &gt;&gt; test.ps</span><br><span class="line"></span><br><span class="line">gmt psconvert test.ps -A -P -Tg</span><br></pre></td></tr></table></figure>
+
+<p>效果：<br><img src="/images/mss.png" alt></p>
+<p>这张水深地图上有两种坐标标注，一种是UTM坐标，一种是经纬度坐标。它们之间的切换是通过<code>-J</code>的变化实现的，UTM使用了<code>-JX1:500000</code>，经纬度投影使用了<code>-Ju42K/1:500000</code>。</p>
+<p>第二种方法是先转坐标：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdproject -Ju42K/<span class="number">1</span>:<span class="number">1</span> test3.tiff -C -F -I  -Gtest3_geo.tiff</span><br></pre></td></tr></table></figure>
+<p>查看坐标转换：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ gmt grdinfo test3_geo.tiff</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">Title:</span> Produced by grdproject</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">Command:</span> grdproject -Ju42K/<span class="number">1</span>:<span class="number">1</span> test3.tiff -C -F -I -Gtest3_geo.tiff</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">Remark:</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> Gridline node registration used [Geographic grid]</span><br><span class="line">test3_geo.<span class="string">tiff:</span> Grid file <span class="string">format:</span> nf = GMT netCDF format (<span class="number">32</span>-bit <span class="keyword">float</span>), CF<span class="number">-1.7</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">x_min:</span> <span class="number">69.6398826025</span> <span class="string">x_max:</span> <span class="number">70.3970837978</span> <span class="string">x_inc:</span> <span class="number">0.00100158888272</span> <span class="string">name:</span> longitude <span class="string">n_columns:</span> <span class="number">757</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">y_min:</span> <span class="number">-25.687188402</span> <span class="string">y_max:</span> <span class="number">-24.9398146068</span> <span class="string">y_inc:</span> <span class="number">0.00090921386277</span> <span class="string">name:</span> latitude <span class="string">n_rows:</span> <span class="number">823</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">z_min:</span> <span class="number">-4459.3125</span> <span class="string">z_max:</span> <span class="number">-1926.97009277</span> <span class="string">name:</span> z</span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">scale_factor:</span> <span class="number">1</span> <span class="string">add_offset:</span> <span class="number">0</span></span><br><span class="line">test3_geo.<span class="string">tiff:</span> <span class="string">format:</span> netCDF<span class="number">-4</span> <span class="string">chunk_size:</span> <span class="number">152</span>,<span class="number">138</span> <span class="string">shuffle:</span> on <span class="string">deflation_level:</span> <span class="number">3</span></span><br><span class="line">GEOGCS[<span class="string">"unnamed ellipse"</span>,</span><br><span class="line">    DATUM[<span class="string">"unknown"</span>,</span><br><span class="line">        SPHEROID[<span class="string">"unnamed"</span>,<span class="number">6378137</span>,<span class="number">298.257223563</span>]],</span><br><span class="line">    PRIMEM[<span class="string">"Greenwich"</span>,<span class="number">0</span>],</span><br><span class="line">    UNIT[<span class="string">"degree"</span>,<span class="number">0.0174532925199433</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>已经完成转换，按照正常方法进行经纬度地图绘制即可。</p>
+<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p><a href="https://www.jianguoyun.com/p/Ddn04lUQ2PCQBximq-cD" target="_blank" rel="noopener">https://www.jianguoyun.com/p/Ddn04lUQ2PCQBximq-cD</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/27/gmt-plot-tiff/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -208,10 +316,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-02-27 07:36:17 / 修改时间：22:16:42" itemprop="dateCreated datePublished" datetime="2021-02-27T07:36:17+08:00">2021-02-27</time>
+              <time title="创建时间：2021-02-27 07:36:17" itemprop="dateCreated datePublished" datetime="2021-02-27T07:36:17+08:00">2021-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-27 10:36:47" itemprop="dateModified" datetime="2021-10-27T10:36:47+08:00">2021-10-27</time>
+              </span>
 
           
             <span id="/2021/02/27/gmt-plot-tiff/" class="post-meta-item leancloud_visitors" data-flag-title="gmt 绘制遥感TIFF影像" title="阅读次数">
@@ -255,6 +369,9 @@
 <p>上述预处理完全使用GMT内置的gdal工具包。如果因版本问题，GMT不带有gdal，则手动下载gdal即可。GDAL在window和linux通用，使用方法：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Prepare</span><br><span class="line"># <span class="number">1</span>-Transform <span class="keyword">from</span> UTM to WGS<span class="number">-84</span> latitude/longitude</span><br><span class="line">gdalwarp -t_srs EPSG:<span class="number">4326</span> name.tif name_wgs.tif</span><br><span class="line"># <span class="number">2</span>- resample Geotif to <span class="number">90</span>m resolution(<span class="number">0.00075</span> degree)</span><br><span class="line">gdal_translate -tr <span class="number">0.00075</span> <span class="number">0.00075</span>  -r average -ot Float32  -co COMPRESS=LZW -q name_wgs.tif name_wgs_low.tif</span><br><span class="line"># <span class="number">3</span>-Transform the DoubleFloat format to byte format.</span><br><span class="line">gdal_translate -ot Byte -q -scale <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">255</span> name_wgs_low.tif name_wgs_lowbyte.tif</span><br><span class="line"># <span class="number">4</span>-Crop (Can <span class="keyword">do</span> first)</span><br><span class="line">gdalwarp -t_srs EPSG:<span class="number">4326</span> -te <span class="number">115.8152</span> <span class="number">35.4555</span> <span class="number">116.0756</span> <span class="number">35.7101</span> name.tif name_out.tif</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>GMT也默认打爆了GDAL一些程序，但是这些程序不完整，仅能实现一些基本读写。坐标转换等工作需要独立安装gdal，官网建议是使用conda安装，安装之后，不仅可以使用python调用代码，也可以调用exe程序。</p>
+</blockquote>
 <h2 id="RGB真彩色绘制"><a href="#RGB真彩色绘制" class="headerlink" title="RGB真彩色绘制"></a>RGB真彩色绘制</h2><p>完成预处理后，添加真彩色的绘图仅需一行：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> grdimage area_cal_low_byte.tif+b2,<span class="number">1</span>,<span class="number">0</span> -J<span class="variable">$J</span> -R<span class="variable">$R</span> -K -O &gt;&gt; <span class="variable">$PS</span></span><br></pre></td></tr></table></figure>
 <p>需要注意的是，<code>+b2,1,0</code>表示波段的顺序，红绿蓝三个波段的叠加产生真彩色，其顺序不可颠倒，波段的编号和具体卫星有关，需要提前查找准确。</p>
@@ -1147,168 +1264,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/14/citespace/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/14/citespace/" class="post-title-link" itemprop="url">citespace</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-14 10:34:57" itemprop="dateCreated datePublished" datetime="2021-02-14T10:34:57+08:00">2021-02-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-17 10:25:39" itemprop="dateModified" datetime="2021-02-17T10:25:39+08:00">2021-02-17</time>
-              </span>
-
-          
-            <span id="/2021/02/14/citespace/" class="post-meta-item leancloud_visitors" data-flag-title="citespace" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/02/14/citespace/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/14/citespace/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Citespace-分析研究趋势和热点"><a href="#Citespace-分析研究趋势和热点" class="headerlink" title="Citespace 分析研究趋势和热点"></a>Citespace 分析研究趋势和热点</h1><h2 id="citespace安装和使用"><a href="#citespace安装和使用" class="headerlink" title="citespace安装和使用"></a>citespace安装和使用</h2><p>百度、知乎</p>
-<h2 id="web-of-science"><a href="#web-of-science" class="headerlink" title="web of science"></a>web of science</h2><p>需要账号。<br>可以从淘宝购买：<a href="https://item.taobao.com/item.htm?_u=ears19s341b&amp;id=626203048883" target="_blank" rel="noopener">https://item.taobao.com/item.htm?_u=ears19s341b&amp;id=626203048883</a></p>
-<h2 id="wos导出文献"><a href="#wos导出文献" class="headerlink" title="wos导出文献"></a>wos导出文献</h2><p>选择纯文本格式，全纪录和引文</p>
-<h2 id="运行citespace"><a href="#运行citespace" class="headerlink" title="运行citespace"></a>运行citespace</h2><p>直接放到data中，go.</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>这里以最近我的一个研究点为例子，通过上述步骤，运行citespace得到：</p>
-<p><img src="/images/CollaboratingCountries_v45e109.png" alt></p>
-<center>国家和地区分布</center>
-
-<p><img src="/images/CO-DESC_v519e1609.png" alt></p>
-<center>机构和关键词</center>
-
-<p><img src="/images/COT_v735e1886.png" alt></p>
-<center>术语共现</center>
-
-<p><img src="/images/SubjectCategories_v59e271.png" alt></p>
-<center>领域共现</center>
-
-<h2 id="burst"><a href="#burst" class="headerlink" title="burst"></a>burst</h2><blockquote>
-</blockquote>
-<ul>
-<li>选择想要分析的参数，如keyword，country或者institution等</li>
-<li>go</li>
-<li>点击citation/Frequency burst</li>
-<li>visualization-citation/Frequency burst history</li>
-</ul>
-<p><img src="/images/burst.png" alt></p>
-<center>burst</center>
-
-
-<h2 id="CNKI"><a href="#CNKI" class="headerlink" title="CNKI"></a>CNKI</h2><p>CNKI的信息完整性很差，无法实现共引分析、合作分析等。以GNSS浮标的研究文献为例：</p>
-<p><img src="/images/COT_v474e836.png" alt></p>
-<center>聚类</center>
-
-<p><img src="/images/ORG_v477e972.png" alt></p>
-<center>关键词聚类</center>
-
-<p><img src="/images/COT_v474e8362.png" alt></p>
-<center>时间轴</center>
-
-
-<p><img src="/images/COA_v395e4953.png" alt></p>
-<center>作者合作关系</center>
-
-<p><img src="/images/ORG_v179e114.png" alt></p>
-<center>作者单位关系</center>
-
-<p>国内这方面的合作不密切，各自为核心。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
-<li><p>标签重复</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">聚类时候常常出现同一个意思不同的表达，或者同一个作者不同的写法（尤其英文）</span><br><span class="line"></span><br><span class="line">这个时候就需要合并同义词</span><br><span class="line"></span><br><span class="line">有两种方法：</span><br><span class="line"></span><br><span class="line">方法一：在视图模式下，右键关键词节点，<span class="built_in">add</span> <span class="built_in">to</span> <span class="built_in">alias</span> list(primary)，右键另一个关键词，<span class="built_in">add</span> <span class="built_in">to</span> <span class="built_in">alias</span> list(secondary)，这样关掉窗口，重新GO，就可以发现第二个关键词被第一个关键词合并了。但这个时候关键词肯能不容易选中，尤其其节点比较小的时候。于是有了第二种方法</span><br><span class="line"></span><br><span class="line">方法二：右键关键词节点的不好选中，或者当需要合并的关键词过多时，在project文件夹里新建一个txt文件，命名为citespace.<span class="built_in">alias</span>，内容格式如：@PHRASEXXX<span class="comment">#@PHRASE***，这样第二个词就被合并到第一个词里面去了。（如果你已经按方法1进行了操作，这个文件就自动生成了，你之要用记事本打开进行操作就可以了）</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">要注意的是：第二种方法英文一般不会出问题，但中文的时候会出现不起作用的情况（而且citespace.<span class="built_in">alias</span>文件里的关键词是乱码），这时候你需要把该文件另存为utf<span class="number">-8</span>编码格式就OK了。</span><br><span class="line">(<span class="keyword">https</span>://zhuanlan.zhihu.com/p/<span class="number">81028371</span>)</span><br></pre></td></tr></table></figure>
-<p>例如：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@PHRASEgnss</span> buoy#<span class="variable">@PHRASEgps</span> buoy</span><br><span class="line">Chinese Acad Sci#Chinese Acad Sciences</span><br><span class="line"><span class="variable">@PHRASEGPS</span>#<span class="variable">@PHRASEgp</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>聚类重复</p>
-<blockquote>
-<p>在cluster-extract cluster labels那里选择cast by top n%=100<br>use keyword</p>
-</blockquote>
-</li>
-<li><p>聚类较多</p>
-<blockquote>
-<p>clusters&gt;show clusters by IDs，之后在出来的对话框里填写你想要保留的标签序号，用英文状态下的逗号隔开即可。</p>
-</blockquote>
-</li>
-</ul>
-<p>那么这里面能得到什么信息呢？很多信息。</p>
-<ul>
-<li>研究机构分布</li>
-<li>国家分布</li>
-<li>作者合作关系</li>
-<li>共同引用文献</li>
-<li>等等</li>
-</ul>
-<p>当然里面的信息不能直接转化为所需要的价值，还需要自己分析一下。</p>
-<p>注：</p>
-<blockquote>
-<p>比较遗憾的是Google Earth Kml的功能现在不能使用。<br>CNKI如果出现时间错误信息，可以点击<code>Tern type</code>–&gt;<code>Noun Phrases</code>，然后选择<code>Tern</code>，即可分析。不做次操作可能有时间段内找不到数据的提示，无法工作。原因不详。<br>CNKI遗憾的是，由于信息不完备，不能做太多的分析，如引文分析、引文作者、引文期刊等。<br>注意：A引用了B文献，那么A为施引文献，B为被引文献。如果在node types选择Author则分析施引文献，就是下载到的数据条目的作者分析，如果选择cited author，就是从下载到的条目数据的引文中进行分析，看这些文献引用了哪些作者的文章。<br>简单理解就是：对施引文献聚类分析，更能够得到当下的研究热点以及趋势。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1381,7 +1336,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1394,7 +1349,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -55,7 +55,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://assz0a.coding-pages.com/images/image.png">
 <meta property="article:published_time" content="2021-02-26T23:36:17.000Z">
-<meta property="article:modified_time" content="2021-02-27T14:16:42.356Z">
+<meta property="article:modified_time" content="2021-10-27T02:36:47.002Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="gmt">
 <meta name="twitter:card" content="summary">
@@ -148,7 +148,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">59</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">61</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -158,7 +158,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">93</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">94</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -214,10 +214,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-02-27 07:36:17 / 修改时间：22:16:42" itemprop="dateCreated datePublished" datetime="2021-02-27T07:36:17+08:00">2021-02-27</time>
+              <time title="创建时间：2021-02-27 07:36:17" itemprop="dateCreated datePublished" datetime="2021-02-27T07:36:17+08:00">2021-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-27 10:36:47" itemprop="dateModified" datetime="2021-10-27T10:36:47+08:00">2021-10-27</time>
+              </span>
 
           
             <span id="/2021/02/27/gmt-plot-tiff/" class="post-meta-item leancloud_visitors" data-flag-title="gmt 绘制遥感TIFF影像" title="阅读次数">
@@ -261,6 +267,9 @@
 <p>上述预处理完全使用GMT内置的gdal工具包。如果因版本问题，GMT不带有gdal，则手动下载gdal即可。GDAL在window和linux通用，使用方法：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Prepare</span><br><span class="line"># <span class="number">1</span>-Transform <span class="keyword">from</span> UTM to WGS<span class="number">-84</span> latitude/longitude</span><br><span class="line">gdalwarp -t_srs EPSG:<span class="number">4326</span> name.tif name_wgs.tif</span><br><span class="line"># <span class="number">2</span>- resample Geotif to <span class="number">90</span>m resolution(<span class="number">0.00075</span> degree)</span><br><span class="line">gdal_translate -tr <span class="number">0.00075</span> <span class="number">0.00075</span>  -r average -ot Float32  -co COMPRESS=LZW -q name_wgs.tif name_wgs_low.tif</span><br><span class="line"># <span class="number">3</span>-Transform the DoubleFloat format to byte format.</span><br><span class="line">gdal_translate -ot Byte -q -scale <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">255</span> name_wgs_low.tif name_wgs_lowbyte.tif</span><br><span class="line"># <span class="number">4</span>-Crop (Can <span class="keyword">do</span> first)</span><br><span class="line">gdalwarp -t_srs EPSG:<span class="number">4326</span> -te <span class="number">115.8152</span> <span class="number">35.4555</span> <span class="number">116.0756</span> <span class="number">35.7101</span> name.tif name_out.tif</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>GMT也默认打爆了GDAL一些程序，但是这些程序不完整，仅能实现一些基本读写。坐标转换等工作需要独立安装gdal，官网建议是使用conda安装，安装之后，不仅可以使用python调用代码，也可以调用exe程序。</p>
+</blockquote>
 <h2 id="RGB真彩色绘制"><a href="#RGB真彩色绘制" class="headerlink" title="RGB真彩色绘制"></a>RGB真彩色绘制</h2><p>完成预处理后，添加真彩色的绘图仅需一行：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> grdimage area_cal_low_byte.tif+b2,<span class="number">1</span>,<span class="number">0</span> -J<span class="variable">$J</span> -R<span class="variable">$R</span> -K -O &gt;&gt; <span class="variable">$PS</span></span><br></pre></td></tr></table></figure>
 <p>需要注意的是，<code>+b2,1,0</code>表示波段的顺序，红绿蓝三个波段的叠加产生真彩色，其顺序不可颠倒，波段的编号和具体卫星有关，需要提前查找准确。</p>
@@ -373,7 +382,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -386,7 +395,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

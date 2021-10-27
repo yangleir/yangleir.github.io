@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="最近学习了GMT的python库pygmt，感觉相当值得推荐。下面简单介绍安装和使用。 安装步骤基本的准备工作和安装步骤如下：  安装miniconda； 安装conda加速器mamba，提高python库的安装速度（可选）； 安装jupyter lab（可选）; 安装pygmt;  minicondaMiniconda是一款小巧的python环境管理工具，其安装程序中包含conda软件包管理器和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pygmt">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2021/10/27/pygmt/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="最近学习了GMT的python库pygmt，感觉相当值得推荐。下面简单介绍安装和使用。 安装步骤基本的准备工作和安装步骤如下：  安装miniconda； 安装conda加速器mamba，提高python库的安装速度（可选）； 安装jupyter lab（可选）; 安装pygmt;  minicondaMiniconda是一款小巧的python环境管理工具，其安装程序中包含conda软件包管理器和">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pygmt/g.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pygmt/test0.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pygmt/test4.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pygmt/test.png">
+<meta property="article:published_time" content="2021-10-27T13:10:45.000Z">
+<meta property="article:modified_time" content="2021-10-27T14:37:36.848Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="pygmt">
+<meta property="article:tag" content="tif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/pygmt/g.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2021/10/27/pygmt/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>pygmt | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">61</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">94</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/10/27/pygmt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pygmt
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-27 21:10:45 / 修改时间：22:37:36" itemprop="dateCreated datePublished" datetime="2021-10-27T21:10:45+08:00">2021-10-27</time>
+            </span>
+
+          
+            <span id="/2021/10/27/pygmt/" class="post-meta-item leancloud_visitors" data-flag-title="pygmt" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/27/pygmt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/27/pygmt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近学习了<code>GMT</code>的python库<code>pygmt</code>，感觉相当值得推荐。下面简单介绍安装和使用。</p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>基本的准备工作和安装步骤如下：</p>
+<ul>
+<li>安装<code>miniconda</code>；</li>
+<li>安装<code>conda</code>加速器<code>mamba</code>，提高python库的安装速度（可选）；</li>
+<li>安装<code>jupyter lab</code>（可选）;</li>
+<li>安装<code>pygmt</code>;</li>
+</ul>
+<h2 id="miniconda"><a href="#miniconda" class="headerlink" title="miniconda"></a>miniconda</h2><p>Miniconda是一款小巧的python环境管理工具，其安装程序中包含conda软件包管理器和Python。一旦安装了Miniconda，就可以使用conda命令安装任何其他软件工具包并创建环境等。去官网<a href="https://conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">https://conda.io/en/latest/miniconda.html</a> 下载安装包即可完成安装。</p>
+<p>安装后，创建一个新的独立python环境(随便取名，此处为<code>gmt</code>)，以备pygmt的安装和调用：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">conda</span> <span class="string">create -n gmt python=3.9</span></span><br><span class="line"><span class="attr">conda</span> <span class="string">activate gmt</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="mamba"><a href="#mamba" class="headerlink" title="mamba"></a>mamba</h2><p>虽然conda是个安装软件的神器，但镜像不稳定，下载安装软件的速度有时很慢。对于几十Mb甚至上百Mb的软件往往下不动，下了半天可能失败。特别是安装的软件多了后，对软件依赖关系的解析时间特别长。mamba加速神器，可以用来并行下载和安装，大大加快速度，减少失败几率。</p>
+<p>首先，mamba本身需要先通过conda来安装：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> -c conda-forge mamba</span><br></pre></td></tr></table></figure>
+<p>mamba安装成功后，后续所有软件安装都可将conda替换为mamba了。</p>
+<h2 id="jupyter-lab"><a href="#jupyter-lab" class="headerlink" title="jupyter lab"></a>jupyter lab</h2><p>JupyterLab是Jupyter主打的最新数据科学生产工具，作为一种基于web的集成开发环境，你可以使用它编写notebook、操作终端、编辑markdown文本、打开交互模式、查看csv文件及图片等功能。pygmt对jupyter lab有很好的衔接，可以方便的查看和记录中间过程，显示绘图结果。安装命令为：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge jupyterlab</span><br></pre></td></tr></table></figure>
+
+<h2 id="pygmt"><a href="#pygmt" class="headerlink" title="pygmt"></a>pygmt</h2><p>pygmt可以在python中直接使用GMT进行数据处理和绘图，实现了和python的交互操作。下面命令将自动安装pygmt以及依赖，包括<code>proj,gdal,netcdf</code>等：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge pygmt</span><br></pre></td></tr></table></figure>
+
+<p>在命令栏输入<code>jupyter lab</code>，启动<code>jupyter lab</code>，新建一个lab，查看版本并绘制一个简单的例子：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import pygmt</span><br><span class="line">pygmt.show_versions()</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.coast(<span class="attribute">region</span>=<span class="string">"g"</span>, <span class="attribute">frame</span>=<span class="literal">True</span>, <span class="attribute">shorelines</span>=1)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pygmt/g.png" alt></p>
+<h2 id="遥感影像绘制"><a href="#遥感影像绘制" class="headerlink" title="遥感影像绘制"></a>遥感影像绘制</h2><p>遥感影像绘制不是GMT常用的功能，因此疑问也较多，这里从遥感数据的下载、格式转换、拉伸、裁剪，到最终绘制，给出完整的步骤。</p>
+<h3 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h3><p>免费下载worldview开放数据：<a href="https://www.maxar.com/open-data/" target="_blank" rel="noopener">https://www.maxar.com/open-data/</a> 。<br>本例子采用数据土耳其地震影像（<a href="https://www.maxar.com/open-data/turkey-earthquake）" target="_blank" rel="noopener">https://www.maxar.com/open-data/turkey-earthquake）</a> 。</p>
+<p>使用GMT查看影像信息：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gmt grdinfo <span class="number">10300500</span>A4F8E700.tif</span><br><span class="line"># 分辨率约为<span class="number">4.32089651661e-06</span>*<span class="number">120000</span>=<span class="number">0.5</span>m</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>10300500A4F8E700.tif: Title: Grid imported via GDAL<br>10300500A4F8E700.tif: Command:<br>10300500A4F8E700.tif: Remark:<br>10300500A4F8E700.tif: Pixel node registration used [Geographic grid]<br>10300500A4F8E700.tif: Grid file format: gd = Import/export through GDAL<br>10300500A4F8E700.tif: x_min: 26.8895518746 x_max: 27.0835860536 x_inc: 4.32089651661e-06 name: x n_columns: 44906<br>10300500A4F8E700.tif: y_min: 37.6434216334 y_max: 37.8210061593 y_inc: 4.32089651661e-06 name: y n_rows: 41099<br>10300500A4F8E700.tif: v_min: 0 v_max: 229 name: z<br>10300500A4F8E700.tif: scale_factor: 1 add_offset: 0<br>+proj=longlat +datum=WGS84 +no_defs</p>
+</blockquote>
+<p>或者也可以使用gdal查看：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">print</span>(<span class="string">"GDAL info"</span>)</span><br><span class="line"><span class="comment"># 使用gdal查看</span></span><br><span class="line">!gdalinfo 10300500A4F8E700.tif</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>信息略</p>
+</blockquote>
+<p>或者也可以使用pygmt.grdinfo查看,不过格式不太美观，没有换行：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pygmt</span><span class="selector-class">.grdinfo</span>("10300500<span class="selector-tag">A4F8E700</span><span class="selector-class">.tif</span>")</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>信息略</p>
+</blockquote>
+<h3 id="降低影像分辨率"><a href="#降低影像分辨率" class="headerlink" title="降低影像分辨率"></a>降低影像分辨率</h3><p>降低分辨率为9m（0.000075*120000=9m），并改为Byte格式（GMT不识别TIF的float32格式）:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte.tif</span><br></pre></td></tr></table></figure>
+<p>这里的<code>gdal</code>程序应该可以在安装pygmt之后可以自动调佣，因为同时已经安装了gdal依赖，并创建了这些可执行文件。</p>
+<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig = pygmt.Figure()</span><br><span class="line"></span><br><span class="line"><span class="attribute">data</span>=<span class="string">"10300500A4F8E700_lowbyte.tif+b0,1,2"</span></span><br><span class="line"></span><br><span class="line">fig.grdimage(</span><br><span class="line">    <span class="attribute">grid</span>=data,</span><br><span class="line">    frame=[<span class="string">"af"</span>],</span><br><span class="line">    <span class="attribute">projection</span>=<span class="string">"M6.5i"</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pygmt/test0.png" alt></p>
+<h3 id="色调"><a href="#色调" class="headerlink" title="色调"></a>色调</h3><p>如果喜欢亮色，可以适当拉伸灰度值：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte2.tif</span><br></pre></td></tr></table></figure>
+<p>重复<code>绘图</code>的代码，效果：<br><img src="/images/pygmt/test4.png" alt></p>
+<h3 id="局部"><a href="#局部" class="headerlink" title="局部"></a>局部</h3><p>为了保持清晰，局部绘图使用原始分辨率。为了防止图像过大，处理时间长，将裁剪成小区域绘图，并转格式和拉伸：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gdalwarp  -te <span class="number">26.966</span> <span class="number">37.7</span> <span class="number">27.0</span> <span class="number">37.7166</span> <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_small.tif</span><br><span class="line">!gdal_translate -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700_small.tif <span class="number">10300500</span>A4F8E700_lowbyte4.tif</span><br></pre></td></tr></table></figure>
+<p>重复<code>绘图</code>的代码：<br><img src="/images/pygmt/test.png" alt></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>遥感影像一般为底图，在此基础上可以使用pygmt任意添加<code>点、线、面、文字</code>等要素，除了可以识别文本格式，它已经可以读取<code>shp</code>格式。</li>
+<li>导出的最终图的格式可以通过后缀修改。比如可以导出高清pdf图片，方便的插入latex使用。</li>
+<li>本例使用的遥感影像已经转为经纬度坐标，无需再次转换坐标。如果是UTM，则可以通过gdal快速转换。</li>
+<li>本例子未展示地震前后对比，大家可以下载数据后自行对比。</li>
+</ul>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>可以下载本例子的jupyter 版本：<a href="https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE</a> </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pygmt/" rel="tag"># pygmt</a>
+              <a href="/tags/tif/" rel="tag"># tif</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/22/tensorflowGPU/" rel="prev" title="TensorFlow GPU 在Ubuntu 18.04的安装">
+      <i class="fa fa-chevron-left"></i> TensorFlow GPU 在Ubuntu 18.04的安装
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装步骤"><span class="nav-number">1.</span> <span class="nav-text">安装步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#miniconda"><span class="nav-number">2.</span> <span class="nav-text">miniconda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mamba"><span class="nav-number">3.</span> <span class="nav-text">mamba</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jupyter-lab"><span class="nav-number">4.</span> <span class="nav-text">jupyter lab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pygmt"><span class="nav-number">5.</span> <span class="nav-text">pygmt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遥感影像绘制"><span class="nav-number">6.</span> <span class="nav-text">遥感影像绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据下载"><span class="nav-number">6.1.</span> <span class="nav-text">数据下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#降低影像分辨率"><span class="nav-number">6.2.</span> <span class="nav-text">降低影像分辨率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘图"><span class="nav-number">6.3.</span> <span class="nav-text">绘图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#色调"><span class="nav-number">6.4.</span> <span class="nav-text">色调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部"><span class="nav-number">6.5.</span> <span class="nav-text">局部</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">7.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">8.</span> <span class="nav-text">下载</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
