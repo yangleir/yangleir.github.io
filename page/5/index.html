@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">62</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">63</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">96</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">97</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,119 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/19/GMT-donghua/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/19/GMT-donghua/" class="post-title-link" itemprop="url">GMT动画案例讲解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-19 12:18:43 / 修改时间：21:19:39" itemprop="dateCreated datePublished" datetime="2021-03-19T12:18:43+08:00">2021-03-19</time>
+            </span>
+
+          
+            <span id="/2021/03/19/GMT-donghua/" class="post-meta-item leancloud_visitors" data-flag-title="GMT动画案例讲解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/19/GMT-donghua/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/19/GMT-donghua/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>GMT的动画功能是版本6之后新增加的，主要是调用<code>movie</code>程序，隐藏中间过程，直接制作gif图或者视频。因为偏难，用的人也不多，至今<code>movie</code>的使用和反馈都不如其他功能。本文也仅仅以官方提供的两个例子为例，并非小编自己写的代码。自己编程写动画的话，可替代的途径是写<code>for</code>循环制图，然后使用<code>GM</code>一键制作动画。</p>
+<blockquote>
+<p>The movie module can generate GMT animation sequences using a single-plot script that is repeated for all frames, with some variation using specific frame variables. The module simplifies (and hides) most of the steps normally needed to set up a full-blown animation job. Instead, the user can focus on composing the main frame plot and let the parallel execution of frames and assembly of images into a movie take place in the background. Individual frames are converted from PostScript plots to lossless, transparent PNG images and optionally assembled into an animation (this last step requires external tools that must be present in your path; see Technical Details below). For opaque PNG images, simply specify a background color via -G.</p>
+</blockquote>
+<p>GMT提供了12个案例，今天用<code>地震分布</code>的例子简单介绍其用法。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>GMT动画需要安装<code>GraphicsMagick</code>（图片GIF）和<code>FFmpeg</code>（视频），下载地址：</p>
+<blockquote>
+<p><a href="http://www.graphicsmagick.org/" target="_blank" rel="noopener">http://www.graphicsmagick.org/</a><br><a href="https://www.ffmpeg.org/" target="_blank" rel="noopener">https://www.ffmpeg.org/</a></p>
+</blockquote>
+<p>安装后，确保window系统<code>path</code>路径中已经包含上述程序，一般情况下，win和linux都可以自动添加路径，无需再操作。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>先运行例1进行测试，检查是否已经具备条件。</p>
+<p>注意，需要修改主程序中<code>$# -eq 0</code>为<code>$# -eq 1</code>，或改为任意个非<code>0</code>数字。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -eq 1 ]; <span class="keyword">then</span>	<span class="comment"># Just make master PostScript frame 0</span></span><br><span class="line">	opt=<span class="string">"-Mps -Fnone"</span></span><br><span class="line"><span class="keyword">else</span>	<span class="comment"># Make animated GIF</span></span><br><span class="line">	opt=<span class="string">"-A+l"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>然后运行，期间中间会产生许多临时文件，结束后会自动删除这些文件，仅仅保留动画。结果如下：</p>
+<p><img src="/images/anim01.gif" alt></p>
+<h2 id="地震随时间演变的视频"><a href="#地震随时间演变的视频" class="headerlink" title="地震随时间演变的视频"></a>地震随时间演变的视频</h2><p>下面是例子8的代码，作者是GMT创始人Paul，同样需要注意修改<code>0</code>为非<code>0</code>。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env bash</span></span><br><span class="line"><span class="comment">#               GMT ANIMATION 08</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Purpose:      Show one year (2013) of Pacific seismicity events</span></span><br><span class="line"><span class="comment"># GMT modules:  convert, math, makecpt, movie, coast, plot, events</span></span><br><span class="line"><span class="comment"># Unix progs:   cat</span></span><br><span class="line"><span class="comment"># <span class="doctag">Note:</span>         Run with any argument to build movie; otherwise one frame is plotted only.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -eq 1 ]; then   # Just make master PostScript frame 100</span><br><span class="line">        <span class="attribute">opt</span>=<span class="string">"-M100,ps -Fnone"</span></span><br><span class="line">        <span class="attribute">ps</span>=anim_08.ps</span><br><span class="line"><span class="keyword">else</span>    # Make movie <span class="keyword">in</span> MP4 format <span class="keyword">and</span> a thumbnail animated GIF using every 5th frame</span><br><span class="line">        <span class="attribute">opt</span>=<span class="string">"-Fmp4 -A+l+s5"</span></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test reading directly from URL</span></span><br><span class="line"><span class="comment"># <span class="doctag">Note:</span> The URL tends to change every few years...</span></span><br><span class="line"><span class="comment"># 1. Extract 2018 data from URL and prepare inputs and frame times</span></span><br><span class="line">cat &lt;&lt; EOF &gt; pre.sh</span><br><span class="line"><span class="attribute">SITE</span>=<span class="string">"https://earthquake.usgs.gov/fdsnws/event/1/query.csv"</span></span><br><span class="line"><span class="attribute">TIME</span>=<span class="string">"starttime=2013-01-01%2000:00:00&amp;endtime=2013-12-31%2000:00:00"</span></span><br><span class="line"><span class="attribute">MAG</span>=<span class="string">"minmagnitude=5"</span></span><br><span class="line"><span class="attribute">ORDER</span>=<span class="string">"orderby=time-asc"</span></span><br><span class="line"><span class="attribute">URL</span>=<span class="string">"\$&#123;SITE&#125;?\$&#123;TIME&#125;&amp;\$&#123;MAG&#125;&amp;\$&#123;ORDER&#125;"</span></span><br><span class="line"></span><br><span class="line">gmt begin</span><br><span class="line">	gmt convert \<span class="variable">$URL</span> -i2,1,3,4+s50,0 -hi1 &gt; q.txt</span><br><span class="line">	gmt makecpt -Cred,green,blue -T0,70,300,10000 -H &gt; movie_dem.cpt</span><br><span class="line">	gmt math -T2013-01-01T/2013-12-31T/2 <span class="attribute">--TIME_UNIT</span>=d TNORM 40 MUL 200 <span class="builtin-name">ADD</span> = times.txt</span><br><span class="line">gmt end</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Set up main script</span></span><br><span class="line">cat &lt;&lt; EOF &gt; main.sh</span><br><span class="line">gmt begin</span><br><span class="line">	gmt coast -Rg -JG\<span class="variable">$&#123;MOVIE_COL1&#125;</span>/5/6i -G128 -S32 -X0 -Y0 -A500</span><br><span class="line">	gmt plot @ridge.txt -W0.5p,darkyellow</span><br><span class="line">	gmt events q.txt -SE- -Cmovie_dem.cpt <span class="attribute">--TIME_UNIT</span>=d -T\<span class="variable">$&#123;MOVIE_COL0&#125;</span> -Es+r2+d6 -Ms5+c0.5 -Mi1+c-0.6 -Mt+c0</span><br><span class="line">gmt end</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Run the movie</span></span><br><span class="line">gmt movie main.sh -Sbpre.sh -C6ix6ix100 -Ttimes.txt -Nanim_08 -Gblack -H2 -Lc1 -Z <span class="attribute">--FONT_TAG</span>=20p,Helvetica,white <span class="attribute">--FORMAT_CLOCK_MAP</span>=- <span class="variable">$opt</span></span><br><span class="line">rm -rf main.sh pre.sh</span><br></pre></td></tr></table></figure>
+
+<p>中间依旧产生许多文件，不需要管。最后得到的结果为：<br><img src="/images/anim_08.gif" alt></p>
+<center>GIF图</center>
+
+<p>视频：<br><video id="video" controls preload="none"><br>    <source id="mp4" src="/images/anim_08.mp4" type="video/mp4"><br></video></p>
+<center>2013年大于5级的地震发生分布</center>
+
+<h2 id="加入地形图的视频渲染"><a href="#加入地形图的视频渲染" class="headerlink" title="加入地形图的视频渲染"></a>加入地形图的视频渲染</h2><p>Paul还制作了一个更为复杂的动画视频，加入了地形和光照，渲染时间花费约1个小时。</p>
+<video id="video" controls preload="none">
+    <source id="mp4" src="/images/ani.mp4" type="video/mp4">
+</video>
+<center>Pacific Earthquakes in 2018</center>
+
+<blockquote>
+<p>The movie took ~1 hour to render on a 24-core MacPro 2013.</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1334,93 +1447,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/28/grdview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/28/grdview/" class="post-title-link" itemprop="url">grdview</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-02-28 21:01:18 / 修改时间：21:22:01" itemprop="dateCreated datePublished" datetime="2021-02-28T21:01:18+08:00">2021-02-28</time>
-            </span>
-
-          
-            <span id="/2021/02/28/grdview/" class="post-meta-item leancloud_visitors" data-flag-title="grdview" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/02/28/grdview/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/28/grdview/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天分享的GMT绘图比较常见：<code>地形图</code>。以印度洋的洋中脊的天成热液口为例子，简单介绍怎么绘制一副高质量的论文插图。</p>
-<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>绘图数据为多波束调查数据，来源于中国大洋科学考察航次。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>这个绘图比较简单，就不多写了。如果有问题，很可能是GMT版本造成，一般微调一下即可达到效果。</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">rem </span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mmF</span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">8</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> ps=<span class="number">3</span>d3.ps</span><br><span class="line"><span class="keyword">set</span> R=-R63<span class="number">.6</span>/<span class="number">64.1</span>/<span class="number">-28.1</span>/<span class="number">-27.70</span></span><br><span class="line"><span class="keyword">set</span> R3=%R%/<span class="number">-5500</span>/<span class="number">-2000</span></span><br><span class="line">gmt grd2xyz <span class="number">26</span>VI_DBS02.grd %R% | gawk <span class="string">"!/NaN/ &#123;print $1,$2,$3&#125;"</span> | gmt makecpt -Cseafloor -E200 -i2&gt; t.cpt</span><br><span class="line">gmt grdgradient <span class="number">26</span>VI_DBS02.grd -A0 -Gt_intens.nc -Nt0<span class="number">.75</span> %R%</span><br><span class="line"></span><br><span class="line">gmt grdview <span class="number">26</span>VI_DBS02.grd -It_intens.nc %R3% -JM5i -p40/<span class="number">40</span> -JZ3i -Ct.cpt  -K -Y0<span class="number">.5</span>i -Qs -B5m -N<span class="number">-5500</span>+glightgray -BNESW &gt; %ps%</span><br><span class="line">echo <span class="number">63.9233156</span> <span class="number">-27.8508410</span> JL<span class="number">-87</span>| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">63.9227</span>	<span class="number">-27.8508</span> TianTang| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">63.9218</span>	<span class="number">-27.8504</span> TC<span class="number">-2</span>| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">4.25</span> <span class="number">5.5</span> <span class="symbol">T@</span>#ian @# <span class="symbol">C@</span>#<span class="symbol">heng@</span># | gmt pstext -R0/<span class="number">10</span>/<span class="number">0</span>/<span class="number">10</span> -Jx1i -F+f20p,<span class="number">4</span>+jCB -O -K &gt;&gt; %ps%</span><br><span class="line">gmt psscale %R% -JM5i -p -DjTC+o0/<span class="number">-0.7</span>i+w3i/<span class="number">0.15</span>i+h+e -Ct.cpt -I -O -Bx500 -By+lm  --FONT_LABEL=<span class="number">10</span>p,Helvetica,black &gt;&gt; %ps%</span><br><span class="line">gmt psconvert %ps% -A -P -Tg</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/3d3.png" alt></p>
-<p>发送0301（微信公众号：海洋遥感数据共享），获得多波束网格数据。（数据分辨率较高，仅供学习交流，勿作他用。）</p>
-<p>参考文献：[1]J. Sun et al., “Nearest vent, dearest friend: biodiversity of Tiancheng vent field reveals cross-ridge similarities in the Indian Ocean,” Royal Society Open Science, vol. 7, no. 3, p. 200110, 2020, doi: 10.1098/rsos.200110.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1493,7 +1519,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1506,7 +1532,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1548,7 +1574,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
