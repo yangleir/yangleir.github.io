@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Zotero是一款开源的文献管理软件，管理文献信息（如作者、标题、出版社、摘要、阅读笔记等）及相关材料（如PDF文件等)。在使用Linux之前，Endnote作为一款非常流行的知识管理软件，功能已经非常强大，可以满足windows用户需求。但Endnote跨平台和实时同步体验不够好，没有标签功能，非开源，过于臃肿等。类似的文献管理软件还有许多，也有一些可以跨平台同步使用，但使用了Zotero之后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zotero基础操作和主要功能">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/03/06/zotero/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="Zotero是一款开源的文献管理软件，管理文献信息（如作者、标题、出版社、摘要、阅读笔记等）及相关材料（如PDF文件等)。在使用Linux之前，Endnote作为一款非常流行的知识管理软件，功能已经非常强大，可以满足windows用户需求。但Endnote跨平台和实时同步体验不够好，没有标签功能，非开源，过于臃肿等。类似的文献管理软件还有许多，也有一些可以跨平台同步使用，但使用了Zotero之后">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/zotero2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/zotero.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/cnki.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/cnki2.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/cnki3.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/edit.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/word.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/add.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/add2.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/add3.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/out.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/add4.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/jian.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/feed.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/feed2.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/feed3.jpg">
+<meta property="article:published_time" content="2022-03-06T11:34:06.000Z">
+<meta property="article:modified_time" content="2022-03-06T13:56:00.565Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="gmt">
+<meta property="article:tag" content="srtm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/zotero2.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/03/06/zotero/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>zotero基础操作和主要功能 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">63</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">99</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/03/06/zotero/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          zotero基础操作和主要功能
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-06 19:34:06 / 修改时间：21:56:00" itemprop="dateCreated datePublished" datetime="2022-03-06T19:34:06+08:00">2022-03-06</time>
+            </span>
+
+          
+            <span id="/2022/03/06/zotero/" class="post-meta-item leancloud_visitors" data-flag-title="zotero基础操作和主要功能" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/06/zotero/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/06/zotero/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/images/zotero2.png" alt></p>
+<p>Zotero是一款开源的文献管理软件，管理文献信息（如作者、标题、出版社、摘要、阅读笔记等）及相关材料（如PDF文件等)。在使用Linux之前，Endnote作为一款非常流行的知识管理软件，功能已经非常强大，可以满足windows用户需求。但Endnote跨平台和实时同步体验不够好，没有标签功能，非开源，过于臃肿等。类似的文献管理软件还有许多，也有一些可以跨平台同步使用，但使用了Zotero之后，发现所有需求都已经满足，不需要再学习别的工具了。</p>
+<h1 id="读音和含义"><a href="#读音和含义" class="headerlink" title="读音和含义"></a>读音和含义</h1><p>Zotero读音为/zoʊˈtɛroʊ/，源于阿尔巴尼亚语<code>zotëroj</code>，意思是<code>to master</code>。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>到官网（<a href="https://www.zotero.org/）" target="_blank" rel="noopener">https://www.zotero.org/）</a> 下载相应操作系统的软件包，目前软件版本是5.0。Windows用户下载<code>exe</code>安装即可。Linux用户下载对应的32或者64位软件包，解压后在当前目录执行<code>zotero</code>可以启动软件，对于Ubuntu用户，可以使用下面的方法将图标添加到快速启动栏。</p>
+<blockquote>
+<p>For Ubuntu, the tarball includes a .desktop file that can be used to add Zotero to the launcher. Move the extracted directory to a location of your choice (e.g., /opt/zotero), run the set_launcher_icon script from a terminal to update the .desktop file for that location, and symlink zotero.desktop into ~/.local/share/applications/ (e.g., ln -s /opt/zotero/zotero.desktop ~/.local/share/applications/zotero.desktop). Zotero should then appear either in your launcher or in the applications list when click the grid icon (“Show Applications”), from which you can drag it to the launcher. </p>
+</blockquote>
+<p>之后，可在快速启动栏找到Zotero。</p>
+<p>更多信息：<a href="https://www.zotero.org/support/installation" target="_blank" rel="noopener">https://www.zotero.org/support/installation</a></p>
+<h1 id="文献下载类插件"><a href="#文献下载类插件" class="headerlink" title="文献下载类插件"></a>文献下载类插件</h1><h4 id="Zotero-Connector"><a href="#Zotero-Connector" class="headerlink" title="Zotero Connector"></a>Zotero Connector</h4><p><img src="/images/zotero.jpg" alt></p>
+<p>以Firefox为例，首先安装必备的<code>Zotero Connector</code>，它可以自动识别网页中的文献信息，并通过点击插件按钮保存在<code>Zotero</code>本地数据库。该功能对于谷歌学术、ScienceDirect、WOS、Wiley Online Library、Springer Link、IEEE数据库、Nature、Science等数据和期刊平台通用。它的基本原理是识别网页中的DOI号。</p>
+<h4 id="中文知网插件"><a href="#中文知网插件" class="headerlink" title="中文知网插件"></a>中文知网插件</h4><p><code>Zotero Connector</code>对于中文文献较为无力，因此Zotero的中文文献识别需要借助一个插件–Jasminum。下载地址为：<a href="https://github.com/l0o0/jasminum" target="_blank" rel="noopener">https://github.com/l0o0/jasminum</a> 。<br>基本功能有：</p>
+<blockquote>
+<ul>
+<li>拆分或合并 Zotero 中条目作者姓和名</li>
+<li>根据知网上下载的文献文件来抓取引用信息（就是根据文件名）</li>
+<li>添加中文PDF/CAJ时，自动拉取知网数据，该功能默认关闭。需要到设置中开启，注意添加的文件名需要含有中文，全英文没有效果（还是根据文件名）</li>
+<li>为知网的学位论文 PDF 添加书签</li>
+<li>更新中文 translators</li>
+<li>拉取文献引用次数，是否核心期刊</li>
+</ul>
+</blockquote>
+<p><img src="/images/cnki.jpg" alt></p>
+<p>如果浏览器登录了CNKI，并有下载权限，则Zotero可自动下载知网文献，若无下载权限，则仅保存文献信息。</p>
+<p>该插件还有一个常用功能是把手动下载的知网文献拖入Zotero，然后右键提取知网文献信息，即可自动完成文献信息的抓取。<br><img src="/images/cnki2.jpg" alt><br>PDF文献也自动归到该文献目录下<br><img src="/images/cnki3.jpg" alt></p>
+<h4 id="SCI-hub的接入"><a href="#SCI-hub的接入" class="headerlink" title="SCI-hub的接入"></a>SCI-hub的接入</h4><p>很多时候，我们没有各大数据库的下载权限，<code>Zotero Connector</code>只能抓取文献信息，不能下载文献。这时可以将Zotero和SCI-hub联合起来，达到几乎全能的下载效果。我们打开Zotero的首选项，进入<code>Advanced--&gt;Config Editor</code>。<br><img src="/images/edit.jpg" alt><br>搜索<code>extensions.zotero.findPDFs.resolvers</code>，双击编辑，删除<code>[]</code>，并将以下代码粘贴进去:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>:<span class="string">"Sci-Hub"</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"GET"</span>,</span><br><span class="line">    <span class="attr">"url"</span>:<span class="string">"https://sci-hub.se/&#123;doi&#125;"</span>,</span><br><span class="line">    <span class="attr">"mode"</span>:<span class="string">"html"</span>,</span><br><span class="line">    <span class="attr">"selector"</span>:<span class="string">"#pdf"</span>,</span><br><span class="line">    <span class="attr">"attribute"</span>:<span class="string">"src"</span>,</span><br><span class="line">    <span class="attr">"automatic"</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>选中单篇或者多篇文献，手动点击右键菜单中的<code>Find Available PDF</code>，会弹出单独的窗口显示下载进度。但SCI-hub对新文献收录较慢，新文献无法下载。这时，我们只需要淘宝10元包年或者15元永久账号就行了。</p>
+<h1 id="写作类插件"><a href="#写作类插件" class="headerlink" title="写作类插件"></a>写作类插件</h1><h4 id="word-插件"><a href="#word-插件" class="headerlink" title="word 插件"></a>word 插件</h4><p>Zotero自动在windows平台上安装了<code>Word Processor Plugins</code>，可以从Tools → Add-ons查看。<br><img src="/images/word.jpg" alt></p>
+<blockquote>
+<p>You can reinstall the plugins later from the Cite → Word Processor Plugins pane of the Zotero preferences. If you’re having trouble, see Manually Installing the Zotero Word Processor Plugin or Word Processor Plugin Troubleshooting.<br>If you previously installed the Firefox versions of the word processor plugins into Zotero 5.0 or Zotero Standalone 4.0, you should uninstall them from Tools → Add-ons. </p>
+</blockquote>
+<p>更多信息：<a href="https://www.zotero.org/support/word_processor_plugin_installation" target="_blank" rel="noopener">https://www.zotero.org/support/word_processor_plugin_installation</a></p>
+<h4 id="LibreOffice-插件"><a href="#LibreOffice-插件" class="headerlink" title="LibreOffice 插件"></a>LibreOffice 插件</h4><p>在linux系统下，Zotero支持LibreOffice插件，安装和使用类似Word。另外，Zotero对WPS的支持不是很好，虽然有，但是缺少维护，现在不能用了。</p>
+<h1 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h1><h4 id="word"><a href="#word" class="headerlink" title="word"></a>word</h4><p>一般由于安装了word插件，word界面将中自动显示<code>zotero</code>按钮，可以直接使用。点击<code>Add /Edit Citation</code>，弹出第一个对话框，选择一个期刊要求的文献引用格式，如中文常用的GB/T7714-1987。如果系统没带想要的期刊文献格式，可以通过右下角的<code>Manage Styles</code>查找，一般期刊都可快速找到。<br><img src="/images/add.jpg" alt><br>确认后，将弹出一个输入框，这里和Endnote明显不同，Zotero的插入是需要手动输入一些单词进行搜索提示，比如输入<code>zotero</code>这个单词，系统自动显示数据库的文献。使用技巧是输入文献作者姓名加年份或者标题关键词，熟练之后发现这样也挺好。<br><img src="/images/add2.jpg" alt></p>
+<p>然后，点击<code>Add/Edit Bibliography</code>，插入参考文献。效果为：<br><img src="/images/add3.jpg" alt></p>
+<h4 id="latex"><a href="#latex" class="headerlink" title="latex"></a>latex</h4><p>以<code>overleaf</code>在线编辑为例。首先使用Zotero将需要的文献归类到一个目录，右键<code>Export collection</code>，导出bibTex文件。将bib文件上传到<code>overleaf</code>项目目录，进一步使用latex语法<code>\cite</code>插入文献即可。<br><img src="/images/out.jpg" alt></p>
+<p><code>overleaf</code>会根据输入的单词（通常是作者姓氏）自动搜索bib文件中的文献。<br><img src="/images/add4.jpg" alt><br>由于期刊通常提供latex模板，这也包含了引文格式模板，因此用户不需要关心引文格式。</p>
+<h1 id="文献跨平台同步"><a href="#文献跨平台同步" class="headerlink" title="文献跨平台同步"></a>文献跨平台同步</h1><h4 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h4><p>坚果云是一款办公云存储和同步系统。坚果云和zotero的搭配可以实现多个电脑之间（包括夸操作系统）的文献同步。这方便的教程网上已有很多，不再赘述。<br><img src="/images/jian.jpg" alt></p>
+<p>需要注意的是，有时候重装系统后，数据库全部丢失，需要从云端重新下载。这时zotero的<code>Data Syncing</code>和<code>File Syncing</code>将发挥重要作用。我们无需手动copy，只要输入正确的云端地址，点击同步即可得到之前一模一样的数据库。这里不建议使用<code>Data Syncing</code>下面的<code>Sync full-text content</code>，可能和下面的<code>File Syncing</code>重复更新，增加流量消耗。</p>
+<h1 id="Endnote-转入"><a href="#Endnote-转入" class="headerlink" title="Endnote 转入"></a>Endnote 转入</h1><p>Endnote用户尝试Zotero的第一步也是将Endnote数据库导入到Zotero中，这方面的教程也非常多，基本可以无缝导入了，包括文献文件。可参考：<a href="https://www.bilibili.com/read/cv7160554" target="_blank" rel="noopener">https://www.bilibili.com/read/cv7160554</a></p>
+<h1 id="Feeds"><a href="#Feeds" class="headerlink" title="Feeds"></a>Feeds</h1><p><code>Feeds</code>即<code>RSS</code>更新订阅，一般的大点的期刊提供该功能，如JGR、Nature等。</p>
+<blockquote>
+<p>Feeds are a great way to discover new research. With feeds, you can subscribe to updates from a journal, website, publisher, institution, research group, or other source and quickly find new articles or works. If you find an item in a publication’s feed that you want to save and read further, you can add it to your Zotero library with the click of a button. </p>
+</blockquote>
+<p>以Nature为例，官网右上角点击<code>RSS feed</code>，复制浏览器网址<code>http://feeds.nature.com/nature/rss/current</code>。<br><img src="/images/feed.jpg" alt><br>回到Zotero，按下面操作添加即可。<br><img src="/images/feed2.jpg" alt><br><img src="/images/feed3.jpg" alt></p>
+<h1 id="文献查重"><a href="#文献查重" class="headerlink" title="文献查重"></a>文献查重</h1><p><code>Duplicate Items</code>功能可以通过文献doi等信息，查找数据库中的重复文献，进一步可以合并同类文献，是数据库简洁无重复。</p>
+<h1 id="我的文献"><a href="#我的文献" class="headerlink" title="我的文献"></a>我的文献</h1><p><code>My publications</code>可以集中保存管理自己发表的文献，这些文献也可以存在于其他文献集。哦，Zotero中任一个文献都可以存在于任意文献集（目录），通过按住<code>Ctrl</code>+点击文献，可以显示文献保存在那些文献目录中（显示黄色）。</p>
+<p>本文仅列举一些常用的操作，Zotero的功能还有很多，网上也有非常多的学习教程。但对于一般用户来说，这些足够了。</p>
+<p>综上，我们可以看到Zotero构建的不仅是文献管理生态，更是一个知识生态，期待大家可以利用好这个科研利器。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/gmt/" rel="tag"># gmt</a>
+              <a href="/tags/srtm/" rel="tag"># srtm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/03/haiyangcehui-30/" rel="prev" title="从《海洋测绘》创刊四十年载文分析中国海洋测绘研究特征">
+      <i class="fa fa-chevron-left"></i> 从《海洋测绘》创刊四十年载文分析中国海洋测绘研究特征
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读音和含义"><span class="nav-number">1.</span> <span class="nav-text">读音和含义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文献下载类插件"><span class="nav-number">3.</span> <span class="nav-text">文献下载类插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Zotero-Connector"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">Zotero Connector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中文知网插件"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">中文知网插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCI-hub的接入"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">SCI-hub的接入</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写作类插件"><span class="nav-number">4.</span> <span class="nav-text">写作类插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#word-插件"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">word 插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LibreOffice-插件"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">LibreOffice 插件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写作"><span class="nav-number">5.</span> <span class="nav-text">写作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#word"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">word</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#latex"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">latex</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文献跨平台同步"><span class="nav-number">6.</span> <span class="nav-text">文献跨平台同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#坚果云"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">坚果云</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Endnote-转入"><span class="nav-number">7.</span> <span class="nav-text">Endnote 转入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Feeds"><span class="nav-number">8.</span> <span class="nav-text">Feeds</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文献查重"><span class="nav-number">9.</span> <span class="nav-text">文献查重</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的文献"><span class="nav-number">10.</span> <span class="nav-text">我的文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
