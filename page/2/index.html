@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">103</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">104</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,146 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/10/27/pygmt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/27/pygmt/" class="post-title-link" itemprop="url">pygmt</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-27 21:10:45 / 修改时间：22:37:36" itemprop="dateCreated datePublished" datetime="2021-10-27T21:10:45+08:00">2021-10-27</time>
+            </span>
+
+          
+            <span id="/2021/10/27/pygmt/" class="post-meta-item leancloud_visitors" data-flag-title="pygmt" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/27/pygmt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/27/pygmt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近学习了<code>GMT</code>的python库<code>pygmt</code>，感觉相当值得推荐。下面简单介绍安装和使用。</p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>基本的准备工作和安装步骤如下：</p>
+<ul>
+<li>安装<code>miniconda</code>；</li>
+<li>安装<code>conda</code>加速器<code>mamba</code>，提高python库的安装速度（可选）；</li>
+<li>安装<code>jupyter lab</code>（可选）;</li>
+<li>安装<code>pygmt</code>;</li>
+</ul>
+<h2 id="miniconda"><a href="#miniconda" class="headerlink" title="miniconda"></a>miniconda</h2><p>Miniconda是一款小巧的python环境管理工具，其安装程序中包含conda软件包管理器和Python。一旦安装了Miniconda，就可以使用conda命令安装任何其他软件工具包并创建环境等。去官网<a href="https://conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">https://conda.io/en/latest/miniconda.html</a> 下载安装包即可完成安装。</p>
+<p>安装后，创建一个新的独立python环境(随便取名，此处为<code>gmt</code>)，以备pygmt的安装和调用：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">conda</span> <span class="string">create -n gmt python=3.9</span></span><br><span class="line"><span class="attr">conda</span> <span class="string">activate gmt</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="mamba"><a href="#mamba" class="headerlink" title="mamba"></a>mamba</h2><p>虽然conda是个安装软件的神器，但镜像不稳定，下载安装软件的速度有时很慢。对于几十Mb甚至上百Mb的软件往往下不动，下了半天可能失败。特别是安装的软件多了后，对软件依赖关系的解析时间特别长。mamba加速神器，可以用来并行下载和安装，大大加快速度，减少失败几率。</p>
+<p>首先，mamba本身需要先通过conda来安装：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> -c conda-forge mamba</span><br></pre></td></tr></table></figure>
+<p>mamba安装成功后，后续所有软件安装都可将conda替换为mamba了。</p>
+<h2 id="jupyter-lab"><a href="#jupyter-lab" class="headerlink" title="jupyter lab"></a>jupyter lab</h2><p>JupyterLab是Jupyter主打的最新数据科学生产工具，作为一种基于web的集成开发环境，你可以使用它编写notebook、操作终端、编辑markdown文本、打开交互模式、查看csv文件及图片等功能。pygmt对jupyter lab有很好的衔接，可以方便的查看和记录中间过程，显示绘图结果。安装命令为：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge jupyterlab</span><br></pre></td></tr></table></figure>
+
+<h2 id="pygmt"><a href="#pygmt" class="headerlink" title="pygmt"></a>pygmt</h2><p>pygmt可以在python中直接使用GMT进行数据处理和绘图，实现了和python的交互操作。下面命令将自动安装pygmt以及依赖，包括<code>proj,gdal,netcdf</code>等：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge pygmt</span><br></pre></td></tr></table></figure>
+
+<p>在命令栏输入<code>jupyter lab</code>，启动<code>jupyter lab</code>，新建一个lab，查看版本并绘制一个简单的例子：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import pygmt</span><br><span class="line">pygmt.show_versions()</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.coast(<span class="attribute">region</span>=<span class="string">"g"</span>, <span class="attribute">frame</span>=<span class="literal">True</span>, <span class="attribute">shorelines</span>=1)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pygmt/g.png" alt></p>
+<h2 id="遥感影像绘制"><a href="#遥感影像绘制" class="headerlink" title="遥感影像绘制"></a>遥感影像绘制</h2><p>遥感影像绘制不是GMT常用的功能，因此疑问也较多，这里从遥感数据的下载、格式转换、拉伸、裁剪，到最终绘制，给出完整的步骤。</p>
+<h3 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h3><p>免费下载worldview开放数据：<a href="https://www.maxar.com/open-data/" target="_blank" rel="noopener">https://www.maxar.com/open-data/</a> 。<br>本例子采用数据土耳其地震影像（<a href="https://www.maxar.com/open-data/turkey-earthquake）" target="_blank" rel="noopener">https://www.maxar.com/open-data/turkey-earthquake）</a> 。</p>
+<p>使用GMT查看影像信息：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gmt grdinfo <span class="number">10300500</span>A4F8E700.tif</span><br><span class="line"># 分辨率约为<span class="number">4.32089651661e-06</span>*<span class="number">120000</span>=<span class="number">0.5</span>m</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>10300500A4F8E700.tif: Title: Grid imported via GDAL<br>10300500A4F8E700.tif: Command:<br>10300500A4F8E700.tif: Remark:<br>10300500A4F8E700.tif: Pixel node registration used [Geographic grid]<br>10300500A4F8E700.tif: Grid file format: gd = Import/export through GDAL<br>10300500A4F8E700.tif: x_min: 26.8895518746 x_max: 27.0835860536 x_inc: 4.32089651661e-06 name: x n_columns: 44906<br>10300500A4F8E700.tif: y_min: 37.6434216334 y_max: 37.8210061593 y_inc: 4.32089651661e-06 name: y n_rows: 41099<br>10300500A4F8E700.tif: v_min: 0 v_max: 229 name: z<br>10300500A4F8E700.tif: scale_factor: 1 add_offset: 0<br>+proj=longlat +datum=WGS84 +no_defs</p>
+</blockquote>
+<p>或者也可以使用gdal查看：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">print</span>(<span class="string">"GDAL info"</span>)</span><br><span class="line"><span class="comment"># 使用gdal查看</span></span><br><span class="line">!gdalinfo 10300500A4F8E700.tif</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>信息略</p>
+</blockquote>
+<p>或者也可以使用pygmt.grdinfo查看,不过格式不太美观，没有换行：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pygmt</span><span class="selector-class">.grdinfo</span>("10300500<span class="selector-tag">A4F8E700</span><span class="selector-class">.tif</span>")</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>信息略</p>
+</blockquote>
+<h3 id="降低影像分辨率"><a href="#降低影像分辨率" class="headerlink" title="降低影像分辨率"></a>降低影像分辨率</h3><p>降低分辨率为9m（0.000075*120000=9m），并改为Byte格式（GMT不识别TIF的float32格式）:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte.tif</span><br></pre></td></tr></table></figure>
+<p>这里的<code>gdal</code>程序应该可以在安装pygmt之后可以自动调佣，因为同时已经安装了gdal依赖，并创建了这些可执行文件。</p>
+<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig = pygmt.Figure()</span><br><span class="line"></span><br><span class="line"><span class="attribute">data</span>=<span class="string">"10300500A4F8E700_lowbyte.tif+b0,1,2"</span></span><br><span class="line"></span><br><span class="line">fig.grdimage(</span><br><span class="line">    <span class="attribute">grid</span>=data,</span><br><span class="line">    frame=[<span class="string">"af"</span>],</span><br><span class="line">    <span class="attribute">projection</span>=<span class="string">"M6.5i"</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pygmt/test0.png" alt></p>
+<h3 id="色调"><a href="#色调" class="headerlink" title="色调"></a>色调</h3><p>如果喜欢亮色，可以适当拉伸灰度值：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte2.tif</span><br></pre></td></tr></table></figure>
+<p>重复<code>绘图</code>的代码，效果：<br><img src="/images/pygmt/test4.png" alt></p>
+<h3 id="局部"><a href="#局部" class="headerlink" title="局部"></a>局部</h3><p>为了保持清晰，局部绘图使用原始分辨率。为了防止图像过大，处理时间长，将裁剪成小区域绘图，并转格式和拉伸：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gdalwarp  -te <span class="number">26.966</span> <span class="number">37.7</span> <span class="number">27.0</span> <span class="number">37.7166</span> <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_small.tif</span><br><span class="line">!gdal_translate -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700_small.tif <span class="number">10300500</span>A4F8E700_lowbyte4.tif</span><br></pre></td></tr></table></figure>
+<p>重复<code>绘图</code>的代码：<br><img src="/images/pygmt/test.png" alt></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>遥感影像一般为底图，在此基础上可以使用pygmt任意添加<code>点、线、面、文字</code>等要素，除了可以识别文本格式，它已经可以读取<code>shp</code>格式。</li>
+<li>导出的最终图的格式可以通过后缀修改。比如可以导出高清pdf图片，方便的插入latex使用。</li>
+<li>本例使用的遥感影像已经转为经纬度坐标，无需再次转换坐标。如果是UTM，则可以通过gdal快速转换。</li>
+<li>本例子未展示地震前后对比，大家可以下载数据后自行对比。</li>
+</ul>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>可以下载本例子的jupyter 版本：<a href="https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE</a> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1183,106 +1323,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/12/share-code2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/12/share-code2/" class="post-title-link" itemprop="url">开源程序共享3</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-12 21:44:26 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2021-05-12T21:44:26+08:00">2021-05-12</time>
-            </span>
-
-          
-            <span id="/2021/05/12/share-code2/" class="post-meta-item leancloud_visitors" data-flag-title="开源程序共享3" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/12/share-code2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/12/share-code2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天向大家分享三个和GMT有关的开源程序，分别是多波束处理程序MB-system、SAR遥感图像处理程序GMT SAR和重力资料处理程序。</p>
-<h2 id="MB-system"><a href="#MB-system" class="headerlink" title="MB-system"></a>MB-system</h2><p><img src="/images/mbsystem_logo.gif" alt></p>
-<p>MB-system是多波束测深数据处理程序，MB最初是由哥伦比亚大学拉蒙特-多尔蒂地球观测站（L-DEO）开发的，现在是由蒙特雷湾水族馆研究所（MBARI）、新罕布什尔大学和MARUM合作开发。自1993年以来，美国国家科学基金会一直支持MB的研发。自1998年以来，Packard基金会通过MBARI为MB提供了主要支持。</p>
-<p>MB由操作、处理、列出或显示声纳测深、振幅和侧扫数据的程序组成。该软件是以Unix平台的源代码形式免费分发的，程序的核心是一个名为MBIO的输入/输出库。这种方法允许创建 “通用 “工具，可以以统一的方式应用于各种来源的声纳数据。大多数程序是命令行工具，但该软件包也包括用于编辑测深线、编辑导航、建模测深计算和调整调查导航的图形工具。MB依赖GMT进行网格插值以及绘图。</p>
-<p>NOAA维护的NGDC数据中心所共享的历史多波束数据使用了MB处理，这使得其共享的数据有统一的数据格式。</p>
-<p>目前国内高校、研究机构以及企业界多使用Caris等商业化软件处理多波束资料，少数科研人员使用MB-System，原因可能可能与MB的运行环境是Linux有关，这导致了程序使用的友好性降低。</p>
-<p>经过安装测试，发现这个程序其实也不是很复杂，因为它和GMT有很好的联通性，如果熟悉GMT，则MB较容易上手。不足的是它的帮助文件有些古老。</p>
-<p>源代码地址：<a href="https://github.com/dwcaress/MB-System" target="_blank" rel="noopener">https://github.com/dwcaress/MB-System</a><br>下载和安装：<a href="https://www.mbari.org/products/research-software/mb-system/how-to-download-and-install-mb-system/" target="_blank" rel="noopener">https://www.mbari.org/products/research-software/mb-system/how-to-download-and-install-mb-system/</a><br>应用论文：GREVEMEYER I, RÜPKE L H, MORGAN J P, 等. Extensional Tectonics and Two-Stage Crustal Accretion at Oceanic Transform Faults: 7850[J]. Nature, 2021, 591(7850): 402–407. DOI:10.1038/s41586-021-03278-9.</p>
-<p>程序开发者还提供了一些教学视频，但是在YouTube。</p>
-<p>视频教学：</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SoWjpkmx034" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<h2 id="GMTSAR"><a href="#GMTSAR" class="headerlink" title="GMTSAR"></a>GMTSAR</h2><p><img src="/images/gmtsar.png" alt><br>来源：GMTSAR帮助文件</p>
-<p>GMTSAR是一个开源的（GNU通用公共许可证）InSAR处理系统，为熟悉通用绘图工具（GMT）的用户而设计。该代码是用C语言编写的用C语言编写，并将在任何安装了GMT和NETCDF的计算机上进行编译。</p>
-<p>该系统有三个主要组成部分:<br>1）每个卫星数据类型的预处理程序，用于将本地格式和轨道信息转换成通用格式；<br>2）一个InSAR处理器，用于聚焦和对准图像，将地形绘制成相位，并形成复杂的干涉图；<br>3）一个后处理程序，主要是基于GMT，以过滤干涉图，并构建相位、相干、相位梯度的干涉测量产品，以及雷达和地理坐标中的位移。</p>
-<p>源代码：<a href="https://github.com/gmtsar/gmtsar" target="_blank" rel="noopener">https://github.com/gmtsar/gmtsar</a><br>例子和帮助：<a href="https://topex.ucsd.edu/gmtsar/downloads/" target="_blank" rel="noopener">https://topex.ucsd.edu/gmtsar/downloads/</a><br>应用论文：XU X, SANDWELL D T, WARD L A, 等. Surface Deformation Associated with Fractures near the 2019 Ridgecrest Earthquake Sequence[J]. Science, 2020, 370(6516): 605–608. DOI:10.1126/science.abd1690.</p>
-<h2 id="重力资料处理"><a href="#重力资料处理" class="headerlink" title="重力资料处理"></a>重力资料处理</h2><p><img src="/images/A10_absolute_gravity_meter.jpg" alt><br>来源：USGS</p>
-<p>这是一套PYTHON重力资料处理程序和教学文档，提供了南非的国家重力测量数据（来自BGS，<a href="https://www.bgs.ac.uk/datasets/gb-land-gravity-survey/）" target="_blank" rel="noopener">https://www.bgs.ac.uk/datasets/gb-land-gravity-survey/）</a> 。</p>
-<p>这应该是重力资料处理的入门级学习程序。</p>
-<p>它的作者leouieda是由GMT开发者之一。</p>
-<p>源代码：<a href="https://github.com/leouieda/gravity-processing" target="_blank" rel="noopener">https://github.com/leouieda/gravity-processing</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1355,7 +1395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
