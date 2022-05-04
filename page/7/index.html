@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">67</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">68</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">106</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">107</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,93 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/28/grdview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/28/grdview/" class="post-title-link" itemprop="url">grdview</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-28 21:01:18 / 修改时间：21:22:01" itemprop="dateCreated datePublished" datetime="2021-02-28T21:01:18+08:00">2021-02-28</time>
+            </span>
+
+          
+            <span id="/2021/02/28/grdview/" class="post-meta-item leancloud_visitors" data-flag-title="grdview" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/28/grdview/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/28/grdview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天分享的GMT绘图比较常见：<code>地形图</code>。以印度洋的洋中脊的天成热液口为例子，简单介绍怎么绘制一副高质量的论文插图。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>绘图数据为多波束调查数据，来源于中国大洋科学考察航次。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>这个绘图比较简单，就不多写了。如果有问题，很可能是GMT版本造成，一般微调一下即可达到效果。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">rem </span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = ddd:mmF</span><br><span class="line">gmt gmtset MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">8</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> ps=<span class="number">3</span>d3.ps</span><br><span class="line"><span class="keyword">set</span> R=-R63<span class="number">.6</span>/<span class="number">64.1</span>/<span class="number">-28.1</span>/<span class="number">-27.70</span></span><br><span class="line"><span class="keyword">set</span> R3=%R%/<span class="number">-5500</span>/<span class="number">-2000</span></span><br><span class="line">gmt grd2xyz <span class="number">26</span>VI_DBS02.grd %R% | gawk <span class="string">"!/NaN/ &#123;print $1,$2,$3&#125;"</span> | gmt makecpt -Cseafloor -E200 -i2&gt; t.cpt</span><br><span class="line">gmt grdgradient <span class="number">26</span>VI_DBS02.grd -A0 -Gt_intens.nc -Nt0<span class="number">.75</span> %R%</span><br><span class="line"></span><br><span class="line">gmt grdview <span class="number">26</span>VI_DBS02.grd -It_intens.nc %R3% -JM5i -p40/<span class="number">40</span> -JZ3i -Ct.cpt  -K -Y0<span class="number">.5</span>i -Qs -B5m -N<span class="number">-5500</span>+glightgray -BNESW &gt; %ps%</span><br><span class="line">echo <span class="number">63.9233156</span> <span class="number">-27.8508410</span> JL<span class="number">-87</span>| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">63.9227</span>	<span class="number">-27.8508</span> TianTang| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">63.9218</span>	<span class="number">-27.8504</span> TC<span class="number">-2</span>| gmt grdtrack -G26VI_DBS02.grd  | gmt psxyz -R -J -JZ -Sc0<span class="number">.1</span>c -Gblack -O -K -p&gt;&gt; %ps%</span><br><span class="line">echo <span class="number">4.25</span> <span class="number">5.5</span> <span class="symbol">T@</span>#ian @# <span class="symbol">C@</span>#<span class="symbol">heng@</span># | gmt pstext -R0/<span class="number">10</span>/<span class="number">0</span>/<span class="number">10</span> -Jx1i -F+f20p,<span class="number">4</span>+jCB -O -K &gt;&gt; %ps%</span><br><span class="line">gmt psscale %R% -JM5i -p -DjTC+o0/<span class="number">-0.7</span>i+w3i/<span class="number">0.15</span>i+h+e -Ct.cpt -I -O -Bx500 -By+lm  --FONT_LABEL=<span class="number">10</span>p,Helvetica,black &gt;&gt; %ps%</span><br><span class="line">gmt psconvert %ps% -A -P -Tg</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/3d3.png" alt></p>
+<p>发送0301（微信公众号：海洋遥感数据共享），获得多波束网格数据。（数据分辨率较高，仅供学习交流，勿作他用。）</p>
+<p>参考文献：[1]J. Sun et al., “Nearest vent, dearest friend: biodiversity of Tiancheng vent field reveals cross-ridge similarities in the Indian Ocean,” Royal Society Open Science, vol. 7, no. 3, p. 200110, 2020, doi: 10.1098/rsos.200110.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1089,85 +1176,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/18/keyanduli/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/18/keyanduli/" class="post-title-link" itemprop="url">科研独立</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-02-18 12:47:10 / 修改时间：12:49:44" itemprop="dateCreated datePublished" datetime="2021-02-18T12:47:10+08:00">2021-02-18</time>
-            </span>
-
-          
-            <span id="/2021/02/18/keyanduli/" class="post-meta-item leancloud_visitors" data-flag-title="科研独立" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/02/18/keyanduli/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/18/keyanduli/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="科研合作"><a href="#科研合作" class="headerlink" title="科研合作"></a>科研合作</h2><h2 id="科研独立"><a href="#科研独立" class="headerlink" title="科研独立"></a>科研独立</h2><h2 id="科研署名"><a href="#科研署名" class="headerlink" title="科研署名"></a>科研署名</h2><h2 id="交易"><a href="#交易" class="headerlink" title="交易"></a>交易</h2><h2 id="单独作者的重要性"><a href="#单独作者的重要性" class="headerlink" title="单独作者的重要性"></a>单独作者的重要性</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1240,7 +1248,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">107</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1253,7 +1261,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">68</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
