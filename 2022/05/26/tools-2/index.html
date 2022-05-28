@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="工欲善其事，必先利其器。科研软件非常重要，正确的使用科研工具，能提高科研生产力。  文献管理 Zotero：https:&#x2F;&#x2F;www.zotero.org&#x2F;；文献、知识管理工具  可能大部分人的第一个文献管理软件是Endnote，但Endnote作为商业软件，存在版权问题。Zotero作为开源的文献管理软件，自由度高，生态环境好，社区已经有很多实用插件，可以在Linux、Windows下工作，跨平">
+<meta property="og:type" content="article">
+<meta property="og:title" content="科研神器">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/05/26/tools-2/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="工欲善其事，必先利其器。科研软件非常重要，正确的使用科研工具，能提高科研生产力。  文献管理 Zotero：https:&#x2F;&#x2F;www.zotero.org&#x2F;；文献、知识管理工具  可能大部分人的第一个文献管理软件是Endnote，但Endnote作为商业软件，存在版权问题。Zotero作为开源的文献管理软件，自由度高，生态环境好，社区已经有很多实用插件，可以在Linux、Windows下工作，跨平">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.zotero.org/static/images/home/screenshot-1.4@2x.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/05/26/tools-2/images/cites.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/05/26/tools-2/images/bibl.png">
+<meta property="og:image" content="https://www.vosviewer.com/media/images/content/ea30284dd349a3651f465ac581592983_large.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/05/26/tools-2/images/phd.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/05/26/tools-2/images/zy.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/05/26/tools-2/images/overl.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/05/26/tools-2/images/qu.png">
+<meta property="og:image" content="https://www.generic-mapping-tools.org/_static/figures/lithospheric-age.png">
+<meta property="og:image" content="https://www.ncl.ucar.edu/Applications/Images/hycom_1_lg.png">
+<meta property="article:published_time" content="2022-05-26T14:13:16.000Z">
+<meta property="article:modified_time" content="2022-05-26T14:42:41.670Z">
+<meta property="article:author" content="Yang Lei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.zotero.org/static/images/home/screenshot-1.4@2x.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/05/26/tools-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>科研神器 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">70</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">111</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/26/tools-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          科研神器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-26 22:13:16 / 修改时间：22:42:41" itemprop="dateCreated datePublished" datetime="2022-05-26T22:13:16+08:00">2022-05-26</time>
+            </span>
+
+          
+            <span id="/2022/05/26/tools-2/" class="post-meta-item leancloud_visitors" data-flag-title="科研神器" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/26/tools-2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/26/tools-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>工欲善其事，必先利其器。<br>科研软件非常重要，正确的使用科研工具，能提高科研生产力。</p>
+</blockquote>
+<h3 id="文献管理"><a href="#文献管理" class="headerlink" title="文献管理"></a>文献管理</h3><ul>
+<li><strong>Zotero</strong>：<a href="https://www.zotero.org/；文献、知识管理工具" target="_blank" rel="noopener">https://www.zotero.org/；文献、知识管理工具</a><br><img src="https://www.zotero.org/static/images/home/screenshot-1.4@2x.png" alt></li>
+</ul>
+<p>可能大部分人的第一个文献管理软件是<code>Endnote</code>，但<code>Endnote</code>作为商业软件，存在版权问题。<code>Zotero</code>作为开源的文献管理软件，自由度高，生态环境好，社区已经有很多实用插件，可以在Linux、Windows下工作，跨平台云同步，关键还免费。</p>
+<blockquote>
+<p><code>Zotero</code>可以作为科研小白的首款文献管理软件。</p>
+</blockquote>
+<h3 id="文献计量、综述"><a href="#文献计量、综述" class="headerlink" title="文献计量、综述"></a>文献计量、综述</h3><ul>
+<li><strong>Citespace</strong>:<a href="https://citespace.podia.com/download" target="_blank" rel="noopener">https://citespace.podia.com/download</a>, 文献计量分析，了解学科动态<br><img src="./images/cites.png" alt></li>
+<li><strong>Bibliometrix</strong>：<a href="https://www.bibliometrix.org/" target="_blank" rel="noopener">https://www.bibliometrix.org/</a>, R语言包<br><img src="./images/bibl.png" alt></li>
+<li><strong>VOSviewer</strong>:<a href="https://www.vosviewer.com/" target="_blank" rel="noopener">https://www.vosviewer.com/</a>, 上手快<br><img src="https://www.vosviewer.com/media/images/content/ea30284dd349a3651f465ac581592983_large.png" alt></li>
+</ul>
+<p><strong>文献计量分析工具</strong>可以将国内外文献进行可视化分析，来帮助了解一门学科的前世今生和未来趋势，也是文献综述的得力工具。<strong>Citespace</strong>功能复杂，属于学院派；<strong>VOSviewer</strong>上手简单，具备主要分析功能；<strong>Bibliometrix</strong>基于R语言开发，有不少特色，统计功能强大。</p>
+<blockquote>
+<p>三款软件，可综合使用，取长补短。</p>
+</blockquote>
+<h3 id="文献查询和下载"><a href="#文献查询和下载" class="headerlink" title="文献查询和下载"></a>文献查询和下载</h3><ul>
+<li><strong>Scihub</strong>：<a href="https://sci-hub.se/，下载SCI文献" target="_blank" rel="noopener">https://sci-hub.se/，下载SCI文献</a></li>
+<li><strong>Web of Science</strong>:<br><a href="https://clarivate.com/webofsciencegroup/solutions/web-of-science/" target="_blank" rel="noopener">https://clarivate.com/webofsciencegroup/solutions/web-of-science/</a>, <code>SCI论文检索，淘宝有10元包年账号</code></li>
+<li><strong>oatd</strong>: <a href="https://oatd.org/" target="_blank" rel="noopener">https://oatd.org/</a>, Open Access Theses and Dissertations. 国外硕士、博士论文<br><img src="./images/phd.png" alt></li>
+</ul>
+<p><code>Scihub</code>可下载大部分历史文献，但最近的文献无法下载；若希望获得最新文献，可在<strong>淘宝</strong>购买数据库账号，通常含大部分中外数据库；<code>Web of Science</code>即SCI检索，它的数据库质量高且内容丰富，还提供初步的文献计量分析；国外博士论文可使用<code>Open Access Theses and Dissertations</code>数据库。</p>
+<blockquote>
+<p>知网好像因为垄断出事了。</p>
+</blockquote>
+<h2 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h2><ul>
+<li><strong>DEEPL翻译</strong>：<a href="https://www.deepl.com/translator" target="_blank" rel="noopener">https://www.deepl.com/translator</a></li>
+<li><strong>谷歌翻译</strong>：<a href="https://translate.google.cn/" target="_blank" rel="noopener">https://translate.google.cn/</a></li>
+<li><strong>知云</strong>：<a href="http://www.zhiyunwenxian.cn/" target="_blank" rel="noopener">http://www.zhiyunwenxian.cn/</a><br><img src="./images/zy.png" alt></li>
+</ul>
+<p>很多同学并不能做到无障碍阅读英文文献，这时候就需要借助一些翻译软件。英语水平高的同学通过翻译器也可以偷偷懒，实现快速阅读，之后再决定是否精读。</p>
+<p>在众多免费翻译软件中，<code>DeepL</code> 的翻译更加到位，并且支持文档翻译，<code>谷歌翻译</code>速度更快。<code>知云PDF阅读器</code>可以做到 PDF 文献的划词翻译，非常便利。</p>
+<blockquote>
+<p>当然还有汉译英功能。</p>
+</blockquote>
+<h2 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h2><ul>
+<li><strong>overleaf</strong>：<a href="https://www.overleaf.com/project；在线Latex" target="_blank" rel="noopener">https://www.overleaf.com/project；在线Latex</a></li>
+<li><strong>pandoc</strong>：<a href="https://pandoc.org/；开源的、多平台的文件格式转换工具" target="_blank" rel="noopener">https://pandoc.org/；开源的、多平台的文件格式转换工具</a></li>
+<li><strong>alltoal</strong>l：<a href="https://www.alltoall.net/；文件格式转换" target="_blank" rel="noopener">https://www.alltoall.net/；文件格式转换</a><br><img src="./images/overl.png" alt></li>
+</ul>
+<p>在攥写论文（毕业论文和小论文）环节，大部分同学都是直接选择使用 word 。但是用 word 写大量的公式和论文排版简直太痛苦啦！！</p>
+<p>所以建议大家花一点时间去学习使用Latex。大部分SCI学术期刊和毕业论文都有自己的 Latex 论文模板，只需要按照语法把你自己的论文填入到模板当中即可。也无需下载安装庞大的<code>Texlive</code>，直接使用 <code>overleaf</code> 在线编写，非常方便实用！</p>
+<blockquote>
+<ul>
+<li>20美元可以开通<code>overleaf</code>的多人共享编辑和修订模式，可邀请导师或者合作者协同修改。</li>
+<li><code>overleaf</code>可以开发票。</li>
+</ul>
+</blockquote>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li><strong>quillbot</strong>：<a href="https://quillbot.com/；可以提供拼写错误、语法检查和润色，专业版20美元。" target="_blank" rel="noopener">https://quillbot.com/；可以提供拼写错误、语法检查和润色，专业版20美元。</a></li>
+<li><strong>Phrasebank</strong>：<a href="https://www.phrasebank.manchester.ac.uk/；学术写作常见的词句库。有时候一个句型或者单词被用烂了，可以来这里查一查同义词。" target="_blank" rel="noopener">https://www.phrasebank.manchester.ac.uk/；学术写作常见的词句库。有时候一个句型或者单词被用烂了，可以来这里查一查同义词。</a></li>
+</ul>
+<p><img src="./images/qu.png" alt></p>
+<p>同学们直接写出的英文基本上是不太完美的，在提交之前，可以先通过<code>quillbot</code>这款软件进行语言修改，能很方便找出语法错误。<code>quillbot</code>专业版还能帮助你扩展句子，很神奇的工具。</p>
+<blockquote>
+<ul>
+<li><strong>quillbot</strong>可以开发票。</li>
+</ul>
+</blockquote>
+<h3 id="制图"><a href="#制图" class="headerlink" title="制图"></a>制图</h3><ul>
+<li><strong>GMT</strong>：<a href="https://github.com/GenericMappingTools/gmt；通用地学绘图工具，地球物理、大地测量方向常用。" target="_blank" rel="noopener">https://github.com/GenericMappingTools/gmt；通用地学绘图工具，地球物理、大地测量方向常用。</a></li>
+</ul>
+<p><img src="https://www.generic-mapping-tools.org/_static/figures/lithospheric-age.png" alt></p>
+<ul>
+<li><strong>NCL</strong>：<a href="https://www.ncl.ucar.edu/；地学科学绘图工具，海洋、大气、气候科学常用" target="_blank" rel="noopener">https://www.ncl.ucar.edu/；地学科学绘图工具，海洋、大气、气候科学常用</a></li>
+</ul>
+<p><img src="https://www.ncl.ucar.edu/Applications/Images/hycom_1_lg.png" alt></p>
+<ul>
+<li><strong>plotly</strong>:<a href="https://plotly.com/graphing-libraries/" target="_blank" rel="noopener">https://plotly.com/graphing-libraries/</a>, 支持Python、R等，功能强，可绘制gantt、PIE、Bar、Map等图。</li>
+</ul>
+<p>漂亮的插图可以给论文加分不少，同学们都要熟练掌握一种制图软件。这儿仅仅列出众多软件的几种常用工具，而且是偏向地学类。</p>
+<blockquote>
+<p>掌握一种制图工具可能需要很长的时间，但往往能有意想不到的收获。</p>
+</blockquote>
+<center><font face="黑体" size="4" color="red">最后祝大家都按时完成自己的论文</font></center>
+<center><font face="黑体" size="4" color="gold">给自己的学业交上一份满意答卷</font></center>
+<center><font face="黑体" size="4" color="green">今天的分享就到这里啦</font></center>  
+<center><font face="黑体" size="4" color="blue">拜拜！</font></center>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/25/spetial-issue/" rel="prev" title="Remote Sensing 专刊：卫星测高进展">
+      <i class="fa fa-chevron-left"></i> Remote Sensing 专刊：卫星测高进展
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/28/munk/" rel="next" title="Walter Munk">
+      Walter Munk <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#文献管理"><span class="nav-number">1.</span> <span class="nav-text">文献管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文献计量、综述"><span class="nav-number">2.</span> <span class="nav-text">文献计量、综述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文献查询和下载"><span class="nav-number">3.</span> <span class="nav-text">文献查询和下载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻译"><span class="nav-number"></span> <span class="nav-text">翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写作"><span class="nav-number"></span> <span class="nav-text">写作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number"></span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#制图"><span class="nav-number">1.</span> <span class="nav-text">制图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
