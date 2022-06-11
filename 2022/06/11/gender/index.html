@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="这篇对海洋学中过去几十年性别平的进展进行评估，并对仍需开展的工作给出了展望。本次调查受益于正在进行的联合国海洋科学促进可持续发展国际十年（United Nations Decade of Ocean Science for Sustainable Development）的一些准备工作，包括赋予女性权力促进海洋十年计划（Empowering Women for the Ocean Decade P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="海洋科学中的性别平等研究">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/06/11/gender/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="这篇对海洋学中过去几十年性别平的进展进行评估，并对仍需开展的工作给出了展望。本次调查受益于正在进行的联合国海洋科学促进可持续发展国际十年（United Nations Decade of Ocean Science for Sustainable Development）的一些准备工作，包括赋予女性权力促进海洋十年计划（Empowering Women for the Ocean Decade P">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/06/11/gender/images/wm1.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/06/11/gender/images/wm2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/06/11/gender/images/wm3.png">
+<meta property="article:published_time" content="2022-06-11T01:14:47.000Z">
+<meta property="article:modified_time" content="2022-06-11T08:24:36.284Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="女性">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/06/11/gender/images/wm1.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/06/11/gender/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>海洋科学中的性别平等研究 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">71</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">113</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/06/11/gender/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          海洋科学中的性别平等研究
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-11 09:14:47 / 修改时间：16:24:36" itemprop="dateCreated datePublished" datetime="2022-06-11T09:14:47+08:00">2022-06-11</time>
+            </span>
+
+          
+            <span id="/2022/06/11/gender/" class="post-meta-item leancloud_visitors" data-flag-title="海洋科学中的性别平等研究" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/06/11/gender/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/06/11/gender/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇对海洋学中过去几十年性别平的进展进行评估，并对仍需开展的工作给出了展望。本次调查受益于正在进行的<strong>联合国海洋科学促进可持续发展国际十年</strong>（United Nations Decade of Ocean Science for Sustainable Development）的一些准备工作，包括<strong>赋予女性权力促进海洋十年计划</strong>（Empowering Women for the Ocean Decade Programme）。</p>
+<p>文章第一作者Sonya Legg 一直是<strong>指导女性物理海洋学以增加保留(MPOWIR)</strong>的联合首席研究员，现任世界气候研究计划CLIVAR项目科学指导小组的联合主席。 </p>
+<blockquote>
+<p>原文：<a href="https://eartharxiv.org/repository/view/3357/" target="_blank" rel="noopener">https://eartharxiv.org/repository/view/3357/</a></p>
+</blockquote>
+<p><img src="./images/wm1.png" alt></p>
+<h2 id="历史问题"><a href="#历史问题" class="headerlink" title="历史问题"></a>历史问题</h2><p>从历史上看，有许多障碍阻碍女性参与海洋学。其中一些在其他专业和科学领域很常见，例如工作和家庭结合的障碍、强调学徒模式的晋升结构、亲和力偏见 。在这里，我们主要关注海洋学特有的障碍。</p>
+<h3 id="禁止女性参与远海调查"><a href="#禁止女性参与远海调查" class="headerlink" title="禁止女性参与远海调查"></a>禁止女性参与远海调查</h3><p>在西欧和北美，基于长期的封建迷信思想，往往禁止女性上船，无论是作为船员还是科学家。尽管有这些限制，植物学家珍妮·巴雷特在1676-1679年伪装成男性加入了法国探险队，但没有女性加入1872-1876年的挑战者调查（Challenger expedition，这通常被认为是西方海洋科学调查的开始）。</p>
+<p>英国和美国都有少数女性参与出海，但主要是短期沿海探险。相比之下，在苏联，海洋地质学家Maria Klenova在1920年代领导北极海洋学研究考察，大力支持女性参与海洋学调查。美国在二战期间和之后，女性参与远海调查受到了更多限制，例如斯克里普斯海洋研究所正式禁止女性登船，这归因于斯克里普斯与美国海军之间的关系强化，拉蒙特地质观测站和伍兹霍尔海洋研究所 (WHOI) 也有类似的限制。在1950年代，WHOI研究生罗伯塔·艾克认为，出海调查对她的职业生涯很重要。虽然WHOI的许多男性海洋学家愿意让女性出海，但他们表示前提是“船更大、更舒适”。1956年，艾克厌倦了等待，并藏匿在一艘研究船上，导致她被WHOI解雇，并结束了她的海洋学生涯。</p>
+<p>1963年斯克里普斯的R/V Argo航次促使阻止女性参与出海研究的制度变化，两名苏联科学家加入其中，其中一名是女性，地球物理学家埃琳娜·卢比莫娃。从那时起，斯克里普斯允许女性出海，伍兹霍尔也是如此，拉蒙特第一次允许女性上船时间在1965年。在英国，微生物学家Betty Kirtley是国家海洋学研究所的第一位女性，她于1963年乘坐Discovery III 号参加海上探险，西德的女性海洋学家在1974 年被允许出海调查。</p>
+<p>尽管越来越多的女性出海，但调查船仍然缺乏女性基本便利设施，例如用于卫生产品的废物处理箱。即使在最近几年，许多船只也没有储存适合女性尺寸的防护服。</p>
+<h3 id="限制女性在海洋学方面的教育和就业"><a href="#限制女性在海洋学方面的教育和就业" class="headerlink" title="限制女性在海洋学方面的教育和就业"></a>限制女性在海洋学方面的教育和就业</h3><p>女性接受海洋学教育的时间比出海的时间长：统计学家Rosa Lee在1900年代初受雇于英国海洋生物协会，Easter Ellen Cupp 是首位从斯克里普斯获得博士学位的女性（1934年），Mary Sears于1933年从拉德克利夫学院获得博士学位。 然而，他们的就业经常受到性别偏见阻碍，例如Rosa Lee 的公务员职位在结婚后被终止，Ellen Cupp在斯克里普斯被主任<strong>Harald Svedrup</strong>解雇，这很可能是因为她是一个女人。 <strong>反裙带关系</strong>规则还阻止与其他海洋学家结婚的女性在同一机构受雇，例如，Laura Clark Hubbs与她的丈夫Carl Hubbs在一起工作了35 年，但没有薪水。</p>
+<p>尽管女性可以在整个20世纪获得海洋学高等教育，但她们的成功取决于男性教师是否愿意为她们提供指导。斯克里普斯在1960年代讨论过禁止招收女性博士，因为她们的失败率太高。</p>
+<h3 id="降低女性对海洋学的贡献"><a href="#降低女性对海洋学的贡献" class="headerlink" title="降低女性对海洋学的贡献"></a>降低女性对海洋学的贡献</h3><p>尽管女性参与海洋学存在这些障碍，但仍有几位女性从岸上的实验室为美国海洋学做出了重要贡献，其中包括 <strong>June Pattullo（第一位获得物理海洋学博士学位的美国女性）</strong>，Mary Robinson领导了SIO的深海温度计设备发展，海军的海洋生物学Mary Sears，和制作了第一张大西洋中脊裂谷水深图的拉蒙特地图学家玛Marie Tharpe。然而，与男性同行相比，这些女性的工作往往被低估。人们往往认为这些女性海洋学家的工作是常规的和无聊的，最重要的是“非英雄式的”，因为它不涉及出海调查。</p>
+<h3 id="海上骚扰"><a href="#海上骚扰" class="headerlink" title="海上骚扰"></a>海上骚扰</h3><p>女性参与出海调查的一个持续障碍是性骚扰，包括从贬低言论到性侵犯。有限的海上空间使女性难以避免骚扰者。随着英国船只上的女性人数增加，骚扰事件也随之增加。骚扰也是其他海洋学工作场所的一个问题，骚扰继续将女性和其他边缘化群体排除在海洋学之外。</p>
+<h2 id="性别平等的进展和现状"><a href="#性别平等的进展和现状" class="headerlink" title="性别平等的进展和现状"></a>性别平等的进展和现状</h2><p>下面通过各种指标来评估海洋学中性别平等的现状。</p>
+<h3 id="就业"><a href="#就业" class="headerlink" title="就业"></a>就业</h3><blockquote>
+<p>在全球范围内，女性占海洋科学科研人员的39%，比自然科学整体高出约10%。但全球女性海洋科学家的比例仅比2013年IOC调查中的38%略有增加。</p>
+</blockquote>
+<p>不同国家之间存在很大差异，克罗地亚的女性海洋研究人员比例最高,为63%，日本的比例最低，为12%。其他国家的女性海洋研究人员的比例是：美国：35%，英国：43%，德国：40%，西班牙：43%，巴西：50%，南非：33%。未提供中国或印度的数据。</p>
+<h3 id="PhD"><a href="#PhD" class="headerlink" title="PhD"></a>PhD</h3><p>海洋学性别平等的一个有用指标是博士完成数据。美国国家科学基金会跟踪不同科学领域的博士完成情况以及相关的人口统计数据，自2007年左右以来，美国海洋学博士的女性比例一直保持在 50% 左右，而1988年是30%，2000年是40%，美国在海洋学领域获得博士学位的女性比例超过了其他地球科学领域。</p>
+<p>巴西也出现了类似的性别均等，自2004 年以来，女性占海洋学博士的50%或更多。我们使用公开数据对2019-2021年中国4所不同大学的博士和硕士学位获得者的性别进行了调查，发现女性在硕士阶段的比例在38-65%之间，博士水平的40-60%。</p>
+<h3 id="职业和职称"><a href="#职业和职称" class="headerlink" title="职业和职称"></a>职业和职称</h3><p>海洋学博士学位只是海洋学研究生涯的第一步。为了让女性充分为海洋学做出贡献，她们的专业知识需要得到保留和奖励。从历史上看，担任海洋学教师职位的女性比例一直低于获得海洋学博士学位的女性比例的预期。</p>
+<p>2014年对于 26 所不同的美国机构的调查显示，平均40%的女教师处于助理教授级别，30%处于副教授级别，15%处于正教授级别。<strong>女性从一个职业阶段晋升到下一个职业阶段的可能性低于男性</strong>。对于海洋科学，2020年助理教授的性别比例与博士的性别比例相当（即接近50%），但仅39%的海洋学副教授是女性，比例因子为0.78；即女性从助理晋升为副教授的可能性仅为男性的 0.78，对于海洋学正教授而言只有22%是女性。</p>
+<p>其他地方也注意到较高职称的女性人数减少：在欧洲所有自然科学领域，2016年女性占博士毕业生的近40%，但仅占教授的15%;来自法国CNRS、意大利学术界和西班牙CSIC的2021年数据均显示，女性的比例从博士水平的50%左右下降到最高学术水平（教授）的25%左右；在欧洲海洋科学机构的波罗的海性别联盟中，女性的比例从博士后级别的30-60%左右下降到正教授级别的25%左右。2001年在西班牙，女性占海洋学本科生的63%，但仅占海洋学研究人员的42%，而大约50%的西班牙男性海洋学研究人员担任永久（即最高职称级别）职位，只有22%的女性海洋学研究人员担任长期职位。</p>
+<p>在中国也看到了类似的趋势，我们从公开数据中调查了当前（2022年初）<strong>15所不同大学</strong>海洋学系的教师人数，女性占讲师（相当于助理教授）的38.1%、副教授的30.7%和教授的18.2%，在每个职业生涯的各个阶段都在下降。<strong>讲师级别的女性比例低于其中四个机构获得博士学位的女性比例，这表明女性博士找到教职工作的可能性较小。</strong>教授级别的性别差异在不同学科之间差异很大：<strong>物理海洋学教授中只有12%是女性</strong>，<strong>而海洋生物学教授中有23.2%是女性</strong>。在讲师层面，海洋生态学中女性超过男性（61.4%），物理海洋学（46.2%女性）接近平等，但在海洋地质学中仍然只占很小的比例（29.5%）。</p>
+<p><img src="./images/wm2.png" alt></p>
+<p>女性在领导层中的比例仍然很低，2019年只有24%的法国CNRS海洋实验室由女性领导，西班牙海洋科学研究所负责人中只有33%是女性。巴西7个海洋科学研究所中只有1个由女性领导，国家海洋和水道研究所18位高级研究人员中只有3位是一个女性。然而，在美国，6个海洋学机构中的3个任命了女性主任，表明取得了一定的进展。</p>
+<p>跟踪女性职业发展的另一种方法是关注博士生群体，通过互联网搜索她们目前的就业情况。汤普森等人追踪6个美国机构的物理海洋学中男性和女性博士的职业轨迹，首先将学生群体是分为1980-1995年和1996-2009年两个阶段。对于这两个队列，大约四分之一的男性博士获得终身教职；然而，对于1996-2009年队列中的女性博士，获得终身职位的可能性从早期的 23% 降低到 8%。我们试图在2010-2019年的最近十年重复这一分析，使用相同的就业类别，再次从分析中剔除那些仍在博士后职位的人，并且只检查物理海洋学博士。我们的分析仅限于汤普森等人最初的6所学校中的3所，即MIT-WHOI、华盛顿大学和罗德岛大学。对于最近的这一队列，男性和女性博士获得终身教职的比例相似（分别为 30% 和 29%）。该分析证实，物理海洋学领域的男性和女性现在获得教师职位的可能性相同。 </p>
+<p>职称晋升并不是唯一衡量标准，但这可能是其他潜在不平等的结果。伍兹霍尔海洋研究所进行了性别平等审查表明，在科学人员的薪酬方面存在性别不平等，男女在就业后存在差异，以及办公室空间分配方面的性别不平等，男性终身科学家拥有比女性终身科学家多约50%的办公室空间。</p>
+<h3 id="研究经费"><a href="#研究经费" class="headerlink" title="研究经费"></a>研究经费</h3><p>美国许多基础研究都由国家科学基金会资助，该基金会每年都会发布绩效评估并进行定期外部评估。 2009 年，向女性首席研究员 (PI) 资助的成功率从 2006 年的 23% 增加到 2008 年的27% ，但没有给出由男性PI可比数字。2019年绩效审查显示，自2009 年以来，所有 NSF 女性 PI 的资助率一直是比男性 PI 的资助率高约 1 或 2 个百分点，女性提交的提案比例从 2009 年的约 23% 略微上升到 2019 年的 29%。特别是在地球科学部，2019 年 26% 的提案有女性 PI，56%有男性 PI（17% 的 PI 的性别未知），女性PI提交的提案中有40%获得了资助，而男性 PI 提交的提案中有 37% 获得了资助。另一个促成资助率性别平等的因素可能是<strong>NSF项目管理人员的性别平衡</strong>：在整个 NSF 项目管理人员中，女性项目管理人员的比例从 2006 年的 36%到 2019 年的 47% 。 NSF旨在确保公平公正的政策是另一个可能的因素。我们不知道其他美国海洋学资助机构（例如 ONR）的类似构成，它们的提案评估结构非常不同。</p>
+<h3 id="首席科学家"><a href="#首席科学家" class="headerlink" title="首席科学家"></a>首席科学家</h3><p>海洋学中的一个重要领导职位是研究船上的首席科学家或首席科学官。在UNOLS船上，女性首席科学家的比例从 2000 年代初的 10% 增加到 2010 年代初的 20%，在德国 Polarstern研究船上从 15% 增加到 30% 。在过去的 20 年中，英国的首席科学官的比例也有所增加 。深海钻探项目 (Deep Sea Drilling Project, 1968-1983) 和大洋钻探计划 (Ocean Drilling Program,1985-2003) 表明，女性的参与率从 1970 年代的不到 10% 上升到 2000 年代初期的 25% 以上 。 DSDP 中只有 4 名女性担任联合首席科学家，而女性是 16 次 ODP 考察的联合首席科学家。对于多平台综合海洋钻探计划(Integrated Ocean Drilling Program,)，在 2004-2013 年期间女性平均占科学团队的 30%，但仅占联合首席科学家的 12%。IODP 对提供资金国家的联合首席科学比例家提出了要求，<strong>尽管日本是一个重要的捐助者，但没有日本女性联合首席科学家</strong>。最近，在国际海洋发现计划（International Ocean Discovery Program，2014 年至今）期间，性别平衡有所改善：在 2014 年至 2018 年期间，女性占联合首席科学家的 32%  。来自德国科考船的数据显示，在 2018 年和 2019 年的 255 次科学调查中，24% 的首席科学家是女性。</p>
+<h3 id="3-6-研究出版物"><a href="#3-6-研究出版物" class="headerlink" title="3.6.研究出版物"></a>3.6.研究出版物</h3><p>以AGU期刊Journal of Geophysical Research: Oceans (JGR:Oceans) 2016-2021年数据为例。对于可以确定性别的通讯作者，女性通讯作者的比例从2016年的21%增加到 2021 年达到 25%。编辑邀请的审稿人中女性比例从 2016 年的 19% 稳步上升到2021年的26%。在2017-2020年期间，女性第一作者最终被接受的提交论文的百分比从69%-65% 到男性第一作者的 64%-54% 不等。<strong>女性作者在所有年份的接受率都比男性作者高几个百分点</strong>。其他 AGU 期刊也是如此。</p>
+<h3 id="科学会议"><a href="#科学会议" class="headerlink" title="科学会议"></a>科学会议</h3><p>除了教育程度、就业和出版之外，跟踪女性对海洋学贡献的另一种方法是通过她们参与科学会议。 IOC-UNESCO调查了2015-2018年举行的 37次国际海洋会议的参与者名单 ，发现 43% 的参与者是女性，但这一比例因主题而异（例如，海洋健康领域的参与者超过 50%会议是女性，在海洋生态系统会议中约占 50%，在海洋地壳和海洋地质灾害会议中仅约 30%）以及籍国（女性占俄罗斯、意大利、巴西和葡萄牙参与者的 50% 以上，而日本低于20%）。女性平均仅占特邀演讲者的29%，远低于她们的平均参与水平。</p>
+<h3 id="奖项和荣誉"><a href="#奖项和荣誉" class="headerlink" title="奖项和荣誉"></a>奖项和荣誉</h3><p>奖项通常由专业和学术团体颁发，是对科学家成就的重要认可。直到 21 世纪，女性海洋学家基本上都没有出现在这些荣誉榜上。下表显示了21世纪以前美国地球物理联盟 (AGU)、美国气象学会 (AMS)、欧洲地球物理联盟 (EGU)、国际海洋物理科学协会 (IAPSO)、湖泊学和海洋学科学协会 (ASLO) 和海洋学学会 (TOS)授予女性的专业海洋学奖项。</p>
+<p>在过去十年中，性别平等在早期职业类型（AGU 海洋科学早期职业奖、AMS Fofonoff 奖、EGU 海洋部早期职业奖、IAPSO Eugene LaFond 和早期职业科学家奖章、ASLO Lindemann 和 Yentsch-Schindler 奖）奖励中尤为明显，女性占到了38-55%。 AGU 海洋科学航海者（职业生涯中期）奖获得者中有 50% 是女性，而 AGU 的Emiliani 和 Svedrup 奖项越来越多地授予女性。</p>
+<p>对于高级奖项，性别比例是多变的。虽然 AGU Maurice Ewing 和 Roger Revelle奖自2014年以来提高了她们的性别比例，但AGU海洋科学奖（奖励高级海洋学家）仅授予一名女性。ASLO Redfield自 2015 年以来，8 个奖项中有 3 个授予女性成就奖。AMS（Stommel 和 Svedrup）和 IAPSO（Prince Albert medal）的高级海洋学奖很少授予女性，而历史悠久的两个 TOS 高级奖项（ Munk Medal 和 Nils Gunnar Jerlov 奖）均只授予女性一次。</p>
+<table>
+<thead>
+<tr>
+<th align="center">机构</th>
+<th align="center">奖项名称</th>
+<th align="center">时间段</th>
+<th align="center">女性/总数</th>
+<th align="center">女性比例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">AGU</td>
+<td align="center">Ewing Medal</td>
+<td align="center">2007-2021</td>
+<td align="center">4/14</td>
+<td align="center">29%</td>
+</tr>
+<tr>
+<td align="center">AGU</td>
+<td align="center">Revelle Medal</td>
+<td align="center">2004-2021</td>
+<td align="center">6/17</td>
+<td align="center">35%</td>
+</tr>
+<tr>
+<td align="center">AGU</td>
+<td align="center">Ocean Sciences Award</td>
+<td align="center">2002-2021</td>
+<td align="center">1/11</td>
+<td align="center">9%</td>
+</tr>
+<tr>
+<td align="center">AGU</td>
+<td align="center"><strong>Ocean sciences early career award</strong></td>
+<td align="center">2002-2021</td>
+<td align="center">5/12</td>
+<td align="center">42%</td>
+</tr>
+<tr>
+<td align="center">AGU</td>
+<td align="center">Ocean sciences voyager award</td>
+<td align="center">2014-2020</td>
+<td align="center">2/4</td>
+<td align="center">50%</td>
+</tr>
+<tr>
+<td align="center">AGU</td>
+<td align="center">Emiliani Lecture</td>
+<td align="center">2005-2021</td>
+<td align="center">9/21</td>
+<td align="center">33%</td>
+</tr>
+<tr>
+<td align="center">AGU</td>
+<td align="center">Svedrup Lecture</td>
+<td align="center">2000-2021</td>
+<td align="center">12/22</td>
+<td align="center">54%</td>
+</tr>
+<tr>
+<td align="center">AMS</td>
+<td align="center">Stommel Research Medal</td>
+<td align="center">2011-2022</td>
+<td align="center">2/12</td>
+<td align="center">16%</td>
+</tr>
+<tr>
+<td align="center">AMS</td>
+<td align="center">Svedrup Medal</td>
+<td align="center">2011-2022</td>
+<td align="center">2/12</td>
+<td align="center">16%</td>
+</tr>
+<tr>
+<td align="center">AMS</td>
+<td align="center"><strong>Fofonoff award</strong></td>
+<td align="center">2011-2022</td>
+<td align="center">5/12</td>
+<td align="center">42%</td>
+</tr>
+<tr>
+<td align="center">EGU</td>
+<td align="center">Nansen medal</td>
+<td align="center">2011-2022</td>
+<td align="center">3/12</td>
+<td align="center">25%</td>
+</tr>
+<tr>
+<td align="center">EGU</td>
+<td align="center"><strong>Ocean div. early career award</strong></td>
+<td align="center">2011-2022</td>
+<td align="center">3/8</td>
+<td align="center">38%</td>
+</tr>
+<tr>
+<td align="center">IAPSO</td>
+<td align="center">Prince Albert medal</td>
+<td align="center">2000-2021</td>
+<td align="center">2/11</td>
+<td align="center">18%</td>
+</tr>
+<tr>
+<td align="center">IAPSO</td>
+<td align="center"><strong>Eugene LaFond medal</strong></td>
+<td align="center">2003-2019</td>
+<td align="center">5/9</td>
+<td align="center">55%</td>
+</tr>
+<tr>
+<td align="center">IAPSO</td>
+<td align="center"><strong>early career scientist medal</strong></td>
+<td align="center">2019-2021</td>
+<td align="center">2/4</td>
+<td align="center">50%</td>
+</tr>
+<tr>
+<td align="center">ASLO</td>
+<td align="center"><strong>Lindemann Award</strong></td>
+<td align="center">2000-2021</td>
+<td align="center">10/22</td>
+<td align="center">45%</td>
+</tr>
+<tr>
+<td align="center">ASLO</td>
+<td align="center">Hutchinson Award</td>
+<td align="center">2010-2021</td>
+<td align="center">3/12</td>
+<td align="center">25%</td>
+</tr>
+<tr>
+<td align="center">ASLO</td>
+<td align="center">Redfield lifetime achievement award</td>
+<td align="center">2015-2021</td>
+<td align="center">3/8</td>
+<td align="center">38%</td>
+</tr>
+<tr>
+<td align="center">ASLO</td>
+<td align="center"><strong>Yentsch-Schindler early career award</strong></td>
+<td align="center">2013-2022</td>
+<td align="center">4/10</td>
+<td align="center">40%</td>
+</tr>
+<tr>
+<td align="center">TOS</td>
+<td align="center">Munk Medal</td>
+<td align="center">1993-2017</td>
+<td align="center">1/13</td>
+<td align="center">8%</td>
+</tr>
+<tr>
+<td align="center">TOS</td>
+<td align="center">Jerlov award</td>
+<td align="center">2000-2020</td>
+<td align="center">1/11</td>
+<td align="center">9%</td>
+</tr>
+</tbody></table>
+<h3 id="委员会、董事会、小组"><a href="#委员会、董事会、小组" class="headerlink" title="委员会、董事会、小组"></a>委员会、董事会、小组</h3><p>海洋学界对女性的包容和认可的另一个指标是她们在领导职位中的代表性，如董事会、委员会和小组。 调查发现女性占<strong>沿海地球科学和工程专业组织</strong>成员的 30% 左右，令人鼓舞的是，这些组织的指导委员会中也有大约相同的比例。然而，沿海地球科学和工程国际会议的组委会中只有22%是女性。相比之下，在关注海洋在气候中的作用的世界气候研究计划 <strong>CLIVAR</strong>项目中，女性目前占其小组成员的 44%。CLIVAR 积极鼓励早期职业科学家自我提名。</p>
+<p>海洋学专业协会的主席是最高级别领导职位。从 1989 年到 2010 年，海洋学会只有 2/10 的女性主席，而从 2010 年到 2022 年，2/6 的主席是女性。 AGU 的海洋科学部在 1988 年首次有一名女主席，从 1990 年到 2022 年有 6/15 名女主席，自 2010 年以来有 3/5 名女主席。 ASLO 于 1988 年首次有女一把手，从 1990 年到 2022 年有 6/16 位女一把手，其中自 2010 年以来有 3/6 位。最后，自 2010 年以来，IAPSO 自1919年的整个历史中只有2位女一把手，还是21世纪后提名的。</p>
+<h2 id="措施"><a href="#措施" class="headerlink" title="措施"></a>措施</h2><p>在过去的二十年中，已经实施了许多举措来解决海洋学中性别的不平等问题。</p>
+<h3 id="数据采集"><a href="#数据采集" class="headerlink" title="数据采集"></a>数据采集</h3><p>如果没有海洋学活动所有参与者的完整性别分类数据，就无法准确识别参与的性别障碍。“为联合国海洋科学可持续发展十年赋予妇女权力”计划已开始通过从选定的国际组织和国家机构收集按性别的数据，努力实现海洋科学中的性别平等。 ** Baltic Consortium on Promoting Gender Equality in Marine Research Organizations (Baltic Gender) ** 项目与来自波罗的海地区5个国家的8个机构合作，制定了一套13项性别敏感指标，用于评估全球性别平等状况随着时间的演变。量化指标包括性别薪酬差距、就业指数、研究航次中女性和男性首席科学家的比例、董事会和委员会中女性的比例、女性和男性工作申请、面试和录用的比例。他们还为以下方面提出了定性指标：<strong>灵活的工作安排和托儿服务</strong>；项目设计和实施中的性别分析和平等计划；以及对性别敏感的语言和教学方法。</p>
+<h3 id="体制变革举措"><a href="#体制变革举措" class="headerlink" title="体制变革举措"></a>体制变革举措</h3><p>目前已经制定了几项举措来促进机构变革，目标是在学术和科研机构的教职员工/首席研究员层面实现性别平等。例子包括美国的 NSF ADVANCE 计划和英国的 Athena SWAN 计划。哥伦比亚大学地球研究所在2004年获得了NSFADVANCE奖，并实施了一些计划，以招募和留住更多女性教师，也将问责制度化。</p>
+<h3 id="互联网支持"><a href="#互联网支持" class="headerlink" title="互联网支持"></a>互联网支持</h3><p>在学术和研究机构之外，基于社区为基于性别平等提供网络支持。包括海科女性协会、地科女网 (<a href="https://eswnonline.org/)、沿海地科女网" target="_blank" rel="noopener">https://eswnonline.org/)、沿海地科女网</a> ( <a href="http://womenincoastal.org/" target="_blank" rel="noopener">http://womenincoastal.org/</a> )、海女网（ <a href="https://womenforoneocean.com/" target="_blank" rel="noopener">https://womenforoneocean.com/</a> ）和海洋黑人网（ <a href="https://www.blackinmarinescience.org/" target="_blank" rel="noopener">https://www.blackinmarinescience.org/</a> ）。</p>
+<p><img src="./images/wm3.png" alt></p>
+<h3 id="骚扰问题"><a href="#骚扰问题" class="headerlink" title="骚扰问题"></a>骚扰问题</h3><p>如果不解决陆上和船上工作环境中的性骚扰问题，将无法实现性别公平的目标。解决这个问题需要制度变革，而不仅仅是事后惩罚个别肇事者。最近的促进野外科学安全研讨会提供了一长串建议，包括文化变革、问责制、政策制定等，强调了处理海上骚扰。自 2019 年以来，UNOLS 设立了一个关于维护尊重船上环境的常设委员会。</p>
+<h2 id="总结和建议"><a href="#总结和建议" class="headerlink" title="总结和建议"></a>总结和建议</h2><p>调查显示，在许多国家，女性在海洋学本科和研究生教育中的比例接近平等，并且在早期就业水平中的平等程度正在提高。因此，女性对海洋学并不缺乏兴趣。虽然女性第一作者和 PI 的比例尚未与女性海洋学博士的比例相匹配，但在某些资助计划中，女性 PI 的提案与男性 PI 的提案一样可能得到资助。不同组织在奖项性别比例方面的改善差异很大，女性在小组和委员会中的代表性也是如此。不同组织之间的差异可能反映了不同的选择过程，其中一些可能更容易受到结构和认知偏见的影响。海洋学分支学科之间的性别平等仍然存在差异，<strong>女性参与物理海洋学的人数少于生物海洋学</strong>。</p>
+<p>然而，这些在最广泛层面上的性别平等改善掩盖了某些女性群体持续存在的不平等现象。海洋学中真正的性别平等必须包括女性在所有生命阶段、社会经济背景、种族、性取向和身体能力方面的参与。性别平等还必须包括所有性别的跨性别者，他们面临性别歧视和骚扰以及制度障碍。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A5%B3%E6%80%A7/" rel="tag"># 女性</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/03/carl/" rel="prev" title="世界知名海洋学家">
+      <i class="fa fa-chevron-left"></i> 世界知名海洋学家
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#历史问题"><span class="nav-number">1.</span> <span class="nav-text">历史问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止女性参与远海调查"><span class="nav-number">1.1.</span> <span class="nav-text">禁止女性参与远海调查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制女性在海洋学方面的教育和就业"><span class="nav-number">1.2.</span> <span class="nav-text">限制女性在海洋学方面的教育和就业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#降低女性对海洋学的贡献"><span class="nav-number">1.3.</span> <span class="nav-text">降低女性对海洋学的贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#海上骚扰"><span class="nav-number">1.4.</span> <span class="nav-text">海上骚扰</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性别平等的进展和现状"><span class="nav-number">2.</span> <span class="nav-text">性别平等的进展和现状</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#就业"><span class="nav-number">2.1.</span> <span class="nav-text">就业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PhD"><span class="nav-number">2.2.</span> <span class="nav-text">PhD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#职业和职称"><span class="nav-number">2.3.</span> <span class="nav-text">职业和职称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#研究经费"><span class="nav-number">2.4.</span> <span class="nav-text">研究经费</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首席科学家"><span class="nav-number">2.5.</span> <span class="nav-text">首席科学家</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-研究出版物"><span class="nav-number">2.6.</span> <span class="nav-text">3.6.研究出版物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#科学会议"><span class="nav-number">2.7.</span> <span class="nav-text">科学会议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奖项和荣誉"><span class="nav-number">2.8.</span> <span class="nav-text">奖项和荣誉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#委员会、董事会、小组"><span class="nav-number">2.9.</span> <span class="nav-text">委员会、董事会、小组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#措施"><span class="nav-number">3.</span> <span class="nav-text">措施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据采集"><span class="nav-number">3.1.</span> <span class="nav-text">数据采集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#体制变革举措"><span class="nav-number">3.2.</span> <span class="nav-text">体制变革举措</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互联网支持"><span class="nav-number">3.3.</span> <span class="nav-text">互联网支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#骚扰问题"><span class="nav-number">3.4.</span> <span class="nav-text">骚扰问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结和建议"><span class="nav-number">4.</span> <span class="nav-text">总结和建议</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

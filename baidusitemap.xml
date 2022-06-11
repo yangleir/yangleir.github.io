@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://assz0a.coding-pages.com/2022/06/11/gender/</loc>
+    <lastmod>2022-06-11</lastmod>
+  </url>  <url>
+    <loc>http://assz0a.coding-pages.com/2022/03/18/data-share-1/</loc>
+    <lastmod>2022-06-08</lastmod>
+  </url>  <url>
     <loc>http://assz0a.coding-pages.com/2022/06/03/carl/</loc>
     <lastmod>2022-06-03</lastmod>
   </url>  <url>
@@ -18,9 +24,6 @@
   </url>  <url>
     <loc>http://assz0a.coding-pages.com/2021/10/22/tensorflowGPU/</loc>
     <lastmod>2022-05-22</lastmod>
-  </url>  <url>
-    <loc>http://assz0a.coding-pages.com/2022/03/18/data-share-1/</loc>
-    <lastmod>2022-05-19</lastmod>
   </url>  <url>
     <loc>http://assz0a.coding-pages.com/2022/05/04/wave-bouy/</loc>
     <lastmod>2022-05-12</lastmod>
