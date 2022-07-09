@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="本期再次回到GMT绘图，介绍一种使用GMT绘制3D柱状图的方法，本例子数据采用的是卫星测高领域的研究国家和机构的文章数量。本图件可以直观的展示某一领域研究机构的空间地理分布和强度。对于综述文章或者研究生的文献调研有一定用途。  WoS数据根据前几期文章介绍的方法，从Web of Science数据库检索相关主题，例如本次我们采用satellite altimet*，得到8000多篇研究结果。下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GMT绘制3D柱状地理分布图">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/07/09/3D-number/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="本期再次回到GMT绘图，介绍一种使用GMT绘制3D柱状图的方法，本例子数据采用的是卫星测高领域的研究国家和机构的文章数量。本图件可以直观的展示某一领域研究机构的空间地理分布和强度。对于综述文章或者研究生的文献调研有一定用途。  WoS数据根据前几期文章介绍的方法，从Web of Science数据库检索相关主题，例如本次我们采用satellite altimet*，得到8000多篇研究结果。下载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/09/images/3d_geo.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/09/images/2d_geo.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/09/images/qq.png">
+<meta property="article:published_time" content="2022-07-09T13:55:36.000Z">
+<meta property="article:modified_time" content="2022-07-09T14:43:52.945Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="GMT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/07/09/images/3d_geo.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/07/09/3D-number/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>GMT绘制3D柱状地理分布图 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">74</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">117</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/09/3D-number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GMT绘制3D柱状地理分布图
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-09 21:55:36 / 修改时间：22:43:52" itemprop="dateCreated datePublished" datetime="2022-07-09T21:55:36+08:00">2022-07-09</time>
+            </span>
+
+          
+            <span id="/2022/07/09/3D-number/" class="post-meta-item leancloud_visitors" data-flag-title="GMT绘制3D柱状地理分布图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/07/09/3D-number/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/09/3D-number/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本期再次回到GMT绘图，介绍一种使用GMT绘制3D柱状图的方法，本例子数据采用的是卫星测高领域的研究国家和机构的文章数量。本图件可以直观的展示某一领域研究机构的空间地理分布和强度。对于综述文章或者研究生的文献调研有一定用途。</p>
+</blockquote>
+<h2 id="WoS数据"><a href="#WoS数据" class="headerlink" title="WoS数据"></a>WoS数据</h2><p>根据前几期文章介绍的方法，从Web of Science数据库检索相关主题，例如本次我们采用<code>satellite altimet*</code>，得到8000多篇研究结果。下载研究国家/地区和研究机构的文章数量数据。</p>
+<p>机构数据：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Affiliations	Record Count	% of <span class="number">8</span>,<span class="number">505</span></span><br><span class="line">NATIONAL AERONAUTICS SPACE ADMINISTRATION	<span class="number">914</span>	<span class="number">10.747</span></span><br><span class="line">CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE 	<span class="number">828</span>	<span class="number">9.735</span></span><br><span class="line">INSTITUT DE RECHERCHE POUR LE DEVELOPPEMENT 	<span class="number">707</span>	<span class="number">8.313</span></span><br><span class="line">CHINESE ACADEMY OF SCIENCES	<span class="number">629</span>	<span class="number">7.396</span></span><br><span class="line">UNIVERSITE DE TOULOUSE	<span class="number">517</span>	<span class="number">6.079</span></span><br><span class="line">UNIVERSITE TOULOUSE III PAUL SABATIER	<span class="number">498</span>	<span class="number">5.855</span></span><br><span class="line">NASA GODDARD SPACE FLIGHT CENTER	<span class="number">483</span>	<span class="number">5.679</span></span><br><span class="line">LABORATOIRE D ETUDES EN GEOPHYSIQUE ET OCEANOGRAPHIE SPATIALES	<span class="number">439</span>	<span class="number">5.162</span></span><br><span class="line">NASA JET PROPULSION LABORATORY 	<span class="number">431</span>	<span class="number">5.068</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>国家数据：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">USA	<span class="number">3118</span></span><br><span class="line">CHINA	<span class="number">1493</span></span><br><span class="line">FRANCE	<span class="number">1385</span></span><br><span class="line">ENGLAND	<span class="number">804</span></span><br><span class="line">GERMANY	<span class="number">748</span></span><br><span class="line">AUSTRALIA	<span class="number">421</span></span><br><span class="line">ITALY	<span class="number">421</span></span><br><span class="line">SPAIN	<span class="number">371</span></span><br><span class="line">NETHERLANDS	<span class="number">340</span></span><br><span class="line">CANADA	<span class="number">323</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="从地名到坐标"><a href="#从地名到坐标" class="headerlink" title="从地名到坐标"></a>从地名到坐标</h2><p>使用google sheet结合Geocode插件对研究机构和国家名称进行坐标解析。</p>
+<blockquote>
+<p>参考：<a href="https://workspace.google.com/marketplace/app/geocode_by_awesome_table/904124517349" target="_blank" rel="noopener">https://workspace.google.com/marketplace/app/geocode_by_awesome_table/904124517349</a></p>
+</blockquote>
+<p>得到：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Affiliations	long	lati</span><br><span class="line">NATIONAL AERONAUTICS SPACE ADMINISTRATION	<span class="number">-77.016389</span>	<span class="number">38.883056</span></span><br><span class="line">CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE 	<span class="number">2.2639934</span>	<span class="number">48.8476037</span></span><br><span class="line">INSTITUT DE RECHERCHE POUR LE DEVELOPPEMENT 	<span class="number">2.3</span>	<span class="number">48.9</span></span><br><span class="line">CHINESE ACADEMY OF SCIENCES	<span class="number">116.3356321</span>	<span class="number">39.9106327</span></span><br><span class="line">UNIVERSITE DE TOULOUSE	<span class="number">1.4</span>	<span class="number">43.6</span></span><br><span class="line">UNIVERSITE TOULOUSE III PAUL SABATIER	<span class="number">1.4699399</span>	<span class="number">43.5619586</span></span><br><span class="line">NASA GODDARD SPACE FLIGHT CENTER	<span class="number">-76.852344</span>	<span class="number">38.99495</span></span><br><span class="line">LABORATOIRE D ETUDES EN GEOPHYSIQUE ET OCEANOGRAPHIE SPATIALES	<span class="number">1.45</span>	<span class="number">43.65</span></span><br><span class="line">NASA JET PROPULSION LABORATORY 	<span class="number">-118.1713944</span>	<span class="number">34.2013081</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><p>数据整理完毕后，使用GMT绘制3D柱状图。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">REM For windows</span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line">set ps=<span class="number">3</span>d.ps</span><br><span class="line">gmt pscoast -JQ0/<span class="number">37.5</span>/<span class="number">10</span>c -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Sazure2 -Gwheat -Bxa60 -Bya30 --FONT_TITLE=<span class="number">10</span>p -K  --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -p200/<span class="number">30</span> &gt; %ps%</span><br><span class="line">gawk <span class="string">"NF&gt;1 &#123;print $1, $2, $3&#125;"</span> loc | gmt psxyz  -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span>/<span class="number">0</span>/<span class="number">1000</span> -J -JZ1<span class="number">.5</span>i -So0<span class="number">.1</span>c -Gred -O -K -p -Bza200+l<span class="string">"Publication numbers by affiliation"</span> -BWSneZ -t20 &gt;&gt;%ps%</span><br><span class="line"></span><br><span class="line">gmt pscoast -JQ0/<span class="number">37.5</span>/<span class="number">10</span>c -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Sazure2 -Gwheat -Bxa60 -Bya30 --FONT_TITLE=<span class="number">10</span>p -K -O --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -p200/<span class="number">30</span> -Y6c &gt;&gt; %ps%</span><br><span class="line">gawk <span class="string">"&#123;print $2, $3, $4&#125;"</span> loc_c | gmt psxyz -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span>/<span class="number">0</span>/<span class="number">3200</span> -J -JZ1<span class="number">.5</span>i -So0<span class="number">.2</span>c -Gblue -Bza500+l<span class="string">"Publication numbers by country/region"</span> -BWSneZ -O  -p -hi1 &gt;&gt;%ps%</span><br><span class="line">gmt psconvert %ps%  -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="../images/3d_geo.png" alt></p>
+<p>图中上部分为国家和地区的发表卫星测高相关的文章数量，下部分为机构发表的文章数量。首先，国家和地区较为集中在美国、法国、中国、英国和德国，以中国为例，相关研究机构主要分布在东部地区，最高为位于北京的中科院大学。</p>
+<h2 id="附赠平面图绘制代码"><a href="#附赠平面图绘制代码" class="headerlink" title="附赠平面图绘制代码"></a>附赠平面图绘制代码</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM For windows</span></span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=fig1.ps</span><br><span class="line">gmt pscoast -JN4.<span class="number">5</span>i -<span class="built_in">Rd</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Ba --FONT_TITLE=<span class="number">10</span>p -K  -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span>  &gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, log($<span class="number">3</span>)/log(<span class="number">10</span>)/<span class="number">10</span>&#125;" loc | gmt psxy -R -J  -Sc -Gred -K -O -t55 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">2</span>, $<span class="number">3</span>, $<span class="number">4</span>/<span class="number">2000</span>&#125;" loc_c | gmt psxy -R -J  -Sc -Gblue -O -t75 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tg</span><br></pre></td></tr></table></figure>
+<p>注意国家发文数量使用了对数化处理。图件缺少比例尺，有兴趣的同学可以修改代码加上。</p>
+<p><img src="../images/2d_geo.png" alt></p>
+<p>至于哪一种表达方式效果更佳，小编也难以下结论，这或许和数据特点和个人喜好有关。</p>
+<h2 id="样本数据下载"><a href="#样本数据下载" class="headerlink" title="样本数据下载"></a>样本数据下载</h2><blockquote>
+<p><a href="https://www.jianguoyun.com/p/DSoojxEQ2PCQBxjioswEIAA" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DSoojxEQ2PCQBxjioswEIAA</a> </p>
+</blockquote>
+<h2 id="号外"><a href="#号外" class="headerlink" title="号外"></a>号外</h2><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
+<p><strong>主要功能定位：</strong></p>
+<ul>
+<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
+<li>对国内海洋实测数据的申请提供必要的指导</li>
+<li>物理海洋、大地测量、海洋遥感等学科交流</li>
+<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
+</ul>
+<p><img src="../images/qq.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GMT/" rel="tag"># GMT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/03/gantt/" rel="prev" title="绘制卫星的gantt图">
+      <i class="fa fa-chevron-left"></i> 绘制卫星的gantt图
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WoS数据"><span class="nav-number">1.</span> <span class="nav-text">WoS数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从地名到坐标"><span class="nav-number">2.</span> <span class="nav-text">从地名到坐标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘图"><span class="nav-number">3.</span> <span class="nav-text">绘图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附赠平面图绘制代码"><span class="nav-number">5.</span> <span class="nav-text">附赠平面图绘制代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样本数据下载"><span class="nav-number">6.</span> <span class="nav-text">样本数据下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#号外"><span class="nav-number">7.</span> <span class="nav-text">号外</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
