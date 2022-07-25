@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="在分析某一领域的核心贡献者时，往往使用年发文数量和年平均引用数量这两个指标，怎么将这两个指标在一个图形中展示呢？计量软件bibliometrix工具可以绘制这类图形，但是不容易被大众解读。今天推荐GMT的一个特别工具wiggle实现该目标。我们使用的例子还是卫星测高这个研究群体。 数据准备从WoS下载卫星测高主题的元数据，1970年到2021年大约有8500多篇，作者有1,5000多位。 将数据导">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GMT辅助文献计量学绘制作者产出和引用图">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/07/13/gmt-authors/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="在分析某一领域的核心贡献者时，往往使用年发文数量和年平均引用数量这两个指标，怎么将这两个指标在一个图形中展示呢？计量软件bibliometrix工具可以绘制这类图形，但是不容易被大众解读。今天推荐GMT的一个特别工具wiggle实现该目标。我们使用的例子还是卫星测高这个研究群体。 数据准备从WoS下载卫星测高主题的元数据，1970年到2021年大约有8500多篇，作者有1,5000多位。 将数据导">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/13/images/AU1.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/13/images/AU3.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/13/images/AU2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/13/gmt-authors/images/AU4.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/07/13/images/qq.png">
+<meta property="article:published_time" content="2022-07-13T14:12:10.000Z">
+<meta property="article:modified_time" content="2022-07-13T14:55:38.978Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="GMT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/07/13/images/AU1.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/07/13/gmt-authors/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>GMT辅助文献计量学绘制作者产出和引用图 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">74</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">118</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/13/gmt-authors/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GMT辅助文献计量学绘制作者产出和引用图
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-13 22:12:10 / 修改时间：22:55:38" itemprop="dateCreated datePublished" datetime="2022-07-13T22:12:10+08:00">2022-07-13</time>
+            </span>
+
+          
+            <span id="/2022/07/13/gmt-authors/" class="post-meta-item leancloud_visitors" data-flag-title="GMT辅助文献计量学绘制作者产出和引用图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/07/13/gmt-authors/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/13/gmt-authors/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在分析某一领域的核心贡献者时，往往使用年发文数量和年平均引用数量这两个指标，怎么将这两个指标在一个图形中展示呢？计量软件<code>bibliometrix</code>工具可以绘制这类图形，但是不容易被大众解读。今天推荐GMT的一个特别工具<code>wiggle</code>实现该目标。我们使用的例子还是卫星测高这个研究群体。</p>
+<h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>从WoS下载卫星测高主题的元数据，1970年到2021年大约有8500多篇，作者有1,5000多位。</p>
+<p>将数据导入<code>bibliometrix</code>软件。</p>
+<blockquote>
+<p>bibliometrix是一个R语言的文献计量软件包，统计分析的功能较为强大，绘图的灵活性较弱。这里我们仅使用其统计功能。更多参考：<a href="https://bibliometrix.org/" target="_blank" rel="noopener">https://bibliometrix.org/</a></p>
+</blockquote>
+<p>在作者一栏，我们选择：</p>
+<p><img src="../images/AU1.png" alt></p>
+<p>这里就可以看到图形了，但是不仔细看，分不清楚引用量是怎么表达的。</p>
+<p><img src="../images/AU3.png" alt></p>
+<p>仔细看的话，发现圆点的大小表示论文数量，圆点的颜色深浅表示引用数量，这种展示对于量化分析并不友好。</p>
+<p>我们选择保存为csv文件，然后让GMT来绘图：</p>
+<p><img src="../images/AU2.png" alt></p>
+<h2 id="GMT代码"><a href="#GMT代码" class="headerlink" title="GMT代码"></a>GMT代码</h2><p>由于在一个csv文件中包含了所有信息，绘图需要使用循环的脚本，这里采用<code>pygmt</code>和<code>Python</code>相结合绘图。</p>
+<p>主要代码如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(r<span class="string">".\author\Author_Production_Over_Time.csv"</span>)</span><br><span class="line"><span class="attribute">au</span>=df[<span class="string">'Author'</span>]</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.basemap(region=[1978, 2023, -20, 200], <span class="attribute">projection</span>=<span class="string">"X15c/15c"</span>, frame=[<span class="string">"Snlr"</span>, <span class="string">"xaf1"</span>])</span><br><span class="line"></span><br><span class="line">fruits = au.unique()</span><br><span class="line"><span class="attribute">fruits</span>=fruits[::-1] </span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line">    <span class="builtin-name">print</span> (<span class="string">'Present author : %s'</span> % fruits[index])</span><br><span class="line">    <span class="attribute">z</span>=df[<span class="string">'freq'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">x</span>=df[<span class="string">'year'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">y</span>=np.ones(x.values.size)+k</span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> k == 0:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"20"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"gray+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            # Plot a vertical scale bar at the right middle. The bar length is 100 <span class="keyword">in</span></span><br><span class="line">            <span class="attribute">position</span>=<span class="string">"jLT+w10+lpublications+o0.2/0.2"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"20"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"gray+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,         </span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line">    <span class="builtin-name">print</span> (<span class="string">'Present author : %s'</span> % fruits[index])</span><br><span class="line">    <span class="attribute">z</span>=df[<span class="string">'TCpY'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">x</span>=df[<span class="string">'year'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">y</span>=np.ones(x.values.size)+k</span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line">    <span class="keyword">if</span> k == 0:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=-z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"100"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"blue+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            # Plot a vertical scale bar at the right middle. The bar length is 100 <span class="keyword">in</span>            </span><br><span class="line">            <span class="attribute">position</span>=<span class="string">"jLT+w50+lcitations/year+o0.2/0.9"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )    </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=-z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"100"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"blue+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        ) </span><br><span class="line"></span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line"></span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line"></span><br><span class="line">    fig.text(</span><br><span class="line">        region=[1978, 2030, -20, 200],</span><br><span class="line">        <span class="attribute">projection</span>=<span class="string">"X20c/15c"</span>,</span><br><span class="line">        <span class="attribute">x</span>=2017,</span><br><span class="line">        <span class="attribute">y</span>=1+k-10,</span><br><span class="line">        <span class="attribute">text</span>=fruits[index],</span><br><span class="line">        <span class="attribute">font</span>=<span class="string">"Courier-Bold"</span>,</span><br><span class="line">        <span class="attribute">justify</span>=<span class="string">"BL"</span>,</span><br><span class="line">        <span class="attribute">offset</span>=<span class="string">"0.75c/0c"</span>,</span><br><span class="line">    )        </span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="./images/AU4.png" alt></p>
+<p>图上方红色区域表示作者的年度论文发表数量，下方的蓝色区域表示当年度发表论文的年均引用量。</p>
+<p>可以看出卫星测高领域产出最大和引用最多的作者中有多位多位中国人，排名首位的是美国<code>The Ohio State University</code>的华人C.K. Shum。</p>
+<blockquote>
+<p>测试数据和代码：<a href="https://www.jianguoyun.com/p/DR0zR7YQ2PCQBxiK_MwEIAA" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DR0zR7YQ2PCQBxiK_MwEIAA</a> </p>
+</blockquote>
+<p>文献计量分析的GMT案例到此结束。</p>
+<h4 id="交流群"><a href="#交流群" class="headerlink" title="交流群"></a>交流群</h4><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
+<p><strong>主要功能定位：</strong></p>
+<ul>
+<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
+<li>对国内海洋实测数据的申请提供必要的指导</li>
+<li>物理海洋、大地测量、海洋遥感等学科交流</li>
+<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
+</ul>
+<p><img src="../images/qq.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GMT/" rel="tag"># GMT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/09/3D-number/" rel="prev" title="GMT绘制3D柱状地理分布图">
+      <i class="fa fa-chevron-left"></i> GMT绘制3D柱状地理分布图
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据准备"><span class="nav-number">1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GMT代码"><span class="nav-number">2.</span> <span class="nav-text">GMT代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#交流群"><span class="nav-number">3.0.1.</span> <span class="nav-text">交流群</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
