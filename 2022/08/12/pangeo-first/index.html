@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="背景pangeo是由一群科学家自发组织起来的大数据平台，他最初主要由美国哥伦比亚大学Ryan Abernathey 领导的一个物理海洋小组在2016年发起，最初开发的原因是对处理海洋科学大数据的需求，例如MITgcm高分辨模式LLC4320的PB级别数据。 这些科学团队通过数年时间开发与大数据和复杂科学问题相称的软件和基础设施，搭建了Pangeo云计算、大数据和并行计算的地球科学数据分析生态系统。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pangeo物理海洋的云计算入门">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/08/12/pangeo-first/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="背景pangeo是由一群科学家自发组织起来的大数据平台，他最初主要由美国哥伦比亚大学Ryan Abernathey 领导的一个物理海洋小组在2016年发起，最初开发的原因是对处理海洋科学大数据的需求，例如MITgcm高分辨模式LLC4320的PB级别数据。 这些科学团队通过数年时间开发与大数据和复杂科学问题相称的软件和基础设施，搭建了Pangeo云计算、大数据和并行计算的地球科学数据分析生态系统。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo1.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo3.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo4.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo5.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo6.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo7.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo8.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo9.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo10.png">
+<meta property="article:published_time" content="2022-08-12T03:50:24.000Z">
+<meta property="article:modified_time" content="2022-08-12T06:33:20.557Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="pangeo">
+<meta property="article:tag" content="llc4320">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo1.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/08/12/pangeo-first/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>pangeo物理海洋的云计算入门 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">77</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">121</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/08/12/pangeo-first/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pangeo物理海洋的云计算入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-12 11:50:24 / 修改时间：14:33:20" itemprop="dateCreated datePublished" datetime="2022-08-12T11:50:24+08:00">2022-08-12</time>
+            </span>
+
+          
+            <span id="/2022/08/12/pangeo-first/" class="post-meta-item leancloud_visitors" data-flag-title="pangeo物理海洋的云计算入门" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/08/12/pangeo-first/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/12/pangeo-first/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><a href="https://pangeo.io/" target="_blank" rel="noopener">pangeo</a>是由一群科学家自发组织起来的大数据平台，他最初主要由美国哥伦比亚大学<a href="https://github.com/rabernat" target="_blank" rel="noopener">Ryan Abernathey</a> 领导的一个物理海洋小组在2016年发起，最初开发的原因是对处理海洋科学大数据的需求，例如MITgcm高分辨模式LLC4320的PB级别数据。 这些科学团队通过数年时间开发与大数据和复杂科学问题相称的软件和基础设施，搭建了Pangeo云计算、大数据和并行计算的地球科学数据分析生态系统。 随着更多的开发人员加入，Pangeo的全球用户现在已经初具规模，并且得到了美国NSF EarthCube计划、Anaconda、NASA、NCAR以及一些私人基金会的强力资助。目前之所以能够为全世界用户免费（最大16CPU，60G内存），和这些机构的慷慨资助是分不开的。</p>
+<p>Pangeo涉足云计算也是偶然的，由于NSF2017年项目削减预算，无法购买本地服务器，而是要求将其包含在NSF BIGDATA中，该计划用于资助大型云服务。 这几年的Pangeo云计算服务以积极的方式改变了科学研究。与其让成千上万的研究人员在孤立的数据/计算孤岛（本地基础设施）中工作，不如使用云数据和接近数据的云计算在共享基础设施内工作。云计算将提高生产力和可重复性，也为数据密集型研究问题打开大门。</p>
+<p>其优势可总结为：</p>
+<ul>
+<li>简化数据处理方面的精力投入，增强宏观科学问题的思考</li>
+<li>降低分析软件使用门槛，无需专门的并行计算和云计算知识</li>
+<li>避免数据下载，按需调取海量云数据集</li>
+<li>开源社区支持，生态系统完备可持续</li>
+</ul>
+<h2 id="注册使用"><a href="#注册使用" class="headerlink" title="注册使用"></a>注册使用</h2><p>因为是云计算，因此需要注册一个账号，可选谷歌云或者亚马逊云。常见资源多存储于谷歌云，建议注册谷歌云。</p>
+<blockquote>
+<p><a href="https://pangeo.io/cloud.html" target="_blank" rel="noopener">https://pangeo.io/cloud.html</a></p>
+</blockquote>
+<p>注册机制要求使用github账号申请，经Pangeo管理员审查同意之后，加入Pangeo的github小组，便可以使用Pangeo云。</p>
+<h2 id="云数据初探"><a href="#云数据初探" class="headerlink" title="云数据初探"></a>云数据初探</h2><p>使用云数据和云计算无需掌握很多特殊知识，但需要能够熟练使用一下基础工具：</p>
+<ul>
+<li>Jupyter Hub</li>
+<li>Python</li>
+<li>Xarray</li>
+</ul>
+<p>总体上云数据包含海洋、大气、气候和水文等不同类型。</p>
+<blockquote>
+<p><a href="https://github.com/pangeo-data/pangeo-datastore/tree/master/intake-catalogs" target="_blank" rel="noopener">https://github.com/pangeo-data/pangeo-datastore/tree/master/intake-catalogs</a></p>
+</blockquote>
+<p>-检查全部云数据类型：</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">from</span> <span class="variable">intake</span> <span class="variable">import</span> <span class="variable">open_catalog</span></span><br><span class="line"></span><br><span class="line"><span class="variable">cat</span> = <span class="function"><span class="title">open_catalog</span>(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/master.yaml"</span>)</span></span><br><span class="line"><span class="function"><span class="title">list</span>(<span class="variable">cat</span>)</span></span><br></pre></td></tr></table></figure>
+<p>[‘ocean’, ‘atmosphere’, ‘climate’, ‘hydro’]</p>
+<ul>
+<li>查看海洋数据集：</li>
+</ul>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">cat</span> = <span class="function"><span class="title">open_catalog</span>(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean.yaml"</span>)</span></span><br><span class="line"><span class="function"><span class="title">list</span>(<span class="variable">cat</span>)</span></span><br></pre></td></tr></table></figure>
+<p>[‘sea_surface_height’,<br> ‘cesm_mom6_example’,<br> ‘ECCOv4r3’,<br> ‘SOSE’,<br> ‘GODAS’,<br> ‘ECCO_layers’,<br> ‘altimetry’,<br> ‘LLC4320’,<br> ‘GFDL_CM2_6’,<br> ‘CESM_POP’,<br> ‘channel’,<br> ‘MEOM_NEMO’]</p>
+<ul>
+<li>SSH数据读取</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ds</span>  = <span class="keyword">cat</span>[<span class="string">"sea_surface_height"</span>].to_dask()</span><br><span class="line"><span class="keyword">ds</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo1.png" alt></p>
+<ul>
+<li>接着看一下sla的数据结构和大小：</li>
+</ul>
+<p><img src="../images/pangeo2.png" alt></p>
+<ul>
+<li>选择一个时间：</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sla.isel(<span class="attribute">time</span>=0)</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo3.png" alt></p>
+<ul>
+<li>绘图：</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sla.isel(time=<span class="number">0</span>).plot(figsize=(<span class="number">15</span>, <span class="number">7</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo4.png" alt></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sla.sel(time=<span class="string">"1993-01-07"</span>,latitude=slice(<span class="number">-60</span>,<span class="number">-20</span>),longitude=slice(<span class="number">0</span>,<span class="number">50</span>)).plot()</span><br></pre></td></tr></table></figure>
+<p><img src="../images/pangeo5.png" alt></p>
+<ul>
+<li>保存到本地</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sel(time=<span class="string">"1993-01-07"</span>,latitude=slice(<span class="number">-60</span>,<span class="number">-20</span>),longitude=slice(<span class="number">0</span>,<span class="number">50</span>)).to_netcdf(<span class="string">"ssh.nc"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="大数据并行计算"><a href="#大数据并行计算" class="headerlink" title="大数据并行计算"></a>大数据并行计算</h2><p>上面仅展示单独数据文件的读取、绘图和保存，数据体积小，无需大数据的相关并行运算。</p>
+<p>如果数据量较大，比如使用全部的sla数据计算全球海平面变化，则一共需要读取68G的数据。</p>
+<h3 id="海平面变化时间序列"><a href="#海平面变化时间序列" class="headerlink" title="海平面变化时间序列"></a>海平面变化时间序列</h3><p>沿着经纬度计算均值，并载入内存：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sla_timeseries</span> = ds.sla.mean(dim=(<span class="string">'latitude'</span>, <span class="string">'longitude'</span>)).load()</span><br></pre></td></tr></table></figure>
+<p>启动了5个worker，10个线程，大约1分半处理完数据，计算得到全球的平均海平面变化时间序列:</p>
+<p>绘图：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.plot</span>(label=<span class="string">'full data'</span>)</span><br><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.rolling</span>(time=<span class="number">365</span>, center=True)<span class="selector-class">.mean</span>()<span class="selector-class">.plot</span>(label=<span class="string">'rolling annual mean'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Sea Level Anomaly [m]'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Global Mean Sea Level'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>()</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.grid</span>()</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo6.png" alt></p>
+<blockquote>
+<p>本质上，SSH数据并不算大数据，只是比较大。这里仅展示其工作流程。一般大数据的通俗理解可以是大小超过本地硬盘存储。比如LLC4320。</p>
+</blockquote>
+<h3 id="纬向变化时间特征"><a href="#纬向变化时间特征" class="headerlink" title="纬向变化时间特征"></a>纬向变化时间特征</h3><p>还可以计算纬向SLA变化,即在经度方向计算均值，耗时大约2分钟：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sla_hov = ds.sla.mean(<span class="attribute">dim</span>=<span class="string">'longitude'</span>).load()</span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 4))</span><br><span class="line">sla_hov.name = <span class="string">'Sea Level Anomaly [m]'</span></span><br><span class="line">sla_hov.transpose().plot(<span class="attribute">vmax</span>=0.2, <span class="attribute">ax</span>=ax)</span><br></pre></td></tr></table></figure>
+<p><img src="../images/pangeo7.png" alt></p>
+<h3 id="空间变化特征"><a href="#空间变化特征" class="headerlink" title="空间变化特征"></a>空间变化特征</h3><p>可以通过STD来计算全球海平面变化的variability:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sla_std</span> = ds.sla.std(dim=<span class="string">'time'</span>).load()</span><br><span class="line"><span class="attr">sla_std.name</span> = <span class="string">'Sea Level Variability [m]'</span></span><br><span class="line"><span class="attr">ax</span> = sla_std.plot(figsize=(<span class="number">20</span>, <span class="number">12</span>))</span><br><span class="line"><span class="attr">_</span> = plt.title(<span class="string">'Sea Level Variability'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo8.png" alt></p>
+<h3 id="KE计算"><a href="#KE计算" class="headerlink" title="KE计算"></a>KE计算</h3><p>接下来，以南大洋绕极流为例，计算KE的长时间平均。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ds_SO = ds.sel(latitude=slice(-<span class="number">90</span>, -<span class="number">30</span>))</span><br><span class="line">meanSSH = ds_SO.adt.<span class="built_in">mean</span>('<span class="built_in">time</span>')</span><br><span class="line">meanSSH.<span class="built_in">load</span>()</span><br><span class="line">EKE = <span class="number">0.5</span>*(ds_SO.ugosa**<span class="number">2</span> + ds_SO.vgosa**<span class="number">2</span>).<span class="built_in">mean</span>('<span class="built_in">time</span>') # KE</span><br><span class="line">EKE.<span class="built_in">load</span>() </span><br><span class="line">MKE = <span class="number">0.5</span>*( (ds_SO.ugos - ds_SO.ugosa)**<span class="number">2</span> + (ds_SO.vgos - ds_SO.vgosa)**<span class="number">2</span>).<span class="built_in">mean</span>('<span class="built_in">time</span>') # MKE (<span class="built_in">mean</span>)</span><br><span class="line">MKE.<span class="built_in">load</span>()</span><br></pre></td></tr></table></figure>
+
+<p>绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(16,5))</span><br><span class="line">np.log10(EKE).plot.contourf(<span class="attribute">vmin</span>=-3.5, <span class="attribute">vmax</span>=-0.7, <span class="attribute">levels</span>=10)</span><br><span class="line">meanSSH.plot.contour(<span class="attribute">levels</span>=15, <span class="attribute">linewidths</span>=0.75)</span><br></pre></td></tr></table></figure>
+<p><img src="../images/pangeo9.png" alt></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(16,5))</span><br><span class="line">np.log10(MKE).plot.contourf(<span class="attribute">vmin</span>=-3.5, <span class="attribute">vmax</span>=-0.7, <span class="attribute">levels</span>=9)</span><br><span class="line">meanSSH.plot.contour(<span class="attribute">levels</span>=15, <span class="attribute">linewidths</span>=0.5)</span><br></pre></td></tr></table></figure>
+<p><img src="../images/pangeo10.png" alt></p>
+<h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><ul>
+<li>基于云计算的LLC4320海洋模式数据谱分析</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pangeo/" rel="tag"># pangeo</a>
+              <a href="/tags/llc4320/" rel="tag"># llc4320</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/02/llc/" rel="prev" title="LLCreader开源程序读取LLC4320模式数据">
+      <i class="fa fa-chevron-left"></i> LLCreader开源程序读取LLC4320模式数据
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册使用"><span class="nav-number">2.</span> <span class="nav-text">注册使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云数据初探"><span class="nav-number">3.</span> <span class="nav-text">云数据初探</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数据并行计算"><span class="nav-number">4.</span> <span class="nav-text">大数据并行计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#海平面变化时间序列"><span class="nav-number">4.1.</span> <span class="nav-text">海平面变化时间序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纬向变化时间特征"><span class="nav-number">4.2.</span> <span class="nav-text">纬向变化时间特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间变化特征"><span class="nav-number">4.3.</span> <span class="nav-text">空间变化特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KE计算"><span class="nav-number">4.4.</span> <span class="nav-text">KE计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下节预告"><span class="nav-number">5.</span> <span class="nav-text">下节预告</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
