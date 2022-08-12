@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">121</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">122</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,111 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/02/04/windows-GMT-building-vcpkg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/04/windows-GMT-building-vcpkg/" class="post-title-link" itemprop="url">在windows下编译GMT源码</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-04 21:33:34" itemprop="dateCreated datePublished" datetime="2020-02-04T21:33:34+08:00">2020-02-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-02 16:07:17" itemprop="dateModified" datetime="2020-03-02T16:07:17+08:00">2020-03-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GMT/" itemprop="url" rel="index">
+                    <span itemprop="name">GMT</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/04/windows-GMT-building-vcpkg/" class="post-meta-item leancloud_visitors" data-flag-title="在windows下编译GMT源码" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/04/windows-GMT-building-vcpkg/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/04/windows-GMT-building-vcpkg/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：上一篇<b><a href="https://yangleir.github.io/2020/01/23/cygwin-gmt/" target="_blank" rel="noopener">文章</a></b>尝试了使用cygwin来编译GMT，出现了一些问题。那么有没有别的办法编译GMT的github开发版（还没有正式发布的版本）？<br>答：根据<a href="https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md#windows" target="_blank" rel="noopener">官网指南</a>，使用Visual Studio是一个可行的办法。</p>
+<p>问：windows下编译源码复杂吗？需要依赖诸多库怎么办？<br>答：比Linux复杂。具体使用<a href="https://github.com/microsoft/vcpkg" target="_blank" rel="noopener">vcpkg</a>来安装库。关于怎么安装和使用vcpkg，详见<a href="https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md#windows" target="_blank" rel="noopener">官网指南</a>。vcpkg的安装较简单，使用的时候需要在线下载依赖库的压缩文件，程序自动下载的速度和网络有关，境内下载github源码较慢，这时可手动下载文件并复制到<code>C:\vcpkg-master\downloads</code>文件夹下，手动下载的地址即为命令窗口最下面的地址，然后根据<code>C:\vcpkg-master\downloads\temp</code>下面的文件名称对其重命名，再分次执行<code>vcpkg install netcdf-c gdal pcre fftw3[core,threads] clapack openblas --triplet x64-windows</code>，程序会根据自动分析是否安装和是否下载，安装好的库将跳过。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/04/windows-GMT-building-vcpkg/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1158,110 +1263,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2019/12/31/Great-circle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/31/Great-circle/" class="post-title-link" itemprop="url">北京到纽约的最短路线经过北冰洋</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-31 10:45:44" itemprop="dateCreated datePublished" datetime="2019-12-31T10:45:44+08:00">2019-12-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-02 16:06:22" itemprop="dateModified" datetime="2020-03-02T16:06:22+08:00">2020-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GMT/" itemprop="url" rel="index">
-                    <span itemprop="name">GMT</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/12/31/Great-circle/" class="post-meta-item leancloud_visitors" data-flag-title="北京到纽约的最短路线经过北冰洋" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/12/31/Great-circle/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/31/Great-circle/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>中科院测地所<a href="http://www.hxgmap.com/" target="_blank" rel="noopener">郝晓光</a>研究员编制了竖版世界地图，并且凸显出了北极的战略性意义，指出北京到纽约最近路线通过北冰洋而不是太平洋。这和人们在传统地图上看到的可能不太符合，通过<a href="https://docs.generic-mapping-tools.org/6.0/index.html" target="_blank" rel="noopener">GMT</a>可以计算大圆距离，并在不同的投影上进行绘图，展示北京到纽约的实际最短航线。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/31/Great-circle/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1334,7 +1335,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
