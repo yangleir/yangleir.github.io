@@ -46,12 +46,12 @@
   };
 </script>
 
-  <meta name="description" content="背景 前面已经提到了一个陌生的云计算平台pangeo，大家可能都听过GEE、航天宏图PIE、亚马逊云、谷歌云地球科学服务等。可能对这个pangeo云比较陌生，中文介绍资料几乎为零，国内用户也基本为零。pangeo在美国和欧洲已经得到进入实际应用阶段，相关分析工具和云计算已经较为成熟，在地球科学领域，特别是物理海洋领域已经取得很多研究成果。这是一个可以写论文的科研工具，可以提升大数据计算体验，今天我">
+  <meta name="description" content="背景 前面已经提到云计算平台pangeo，很多人了解GEE、航天宏图PIE、AWS(亚马逊)、谷歌云地球科学服务等，但pangeo云还是第一听说。小编查阅网络发现，中文资料为零，说明中国的用户确实较少。然而，pangeo云在美欧已发展多年，相关分析工具和云计算已经较为成熟，在地球科学领域，特别是物理海洋领域已经取得很多研究成果。因为这是不错的小众云计算平台，所以特此介绍。今天先聊pangeo入门。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="物理海洋大数据云计算入门-Pangeo">
 <meta property="og:url" content="http://assz0a.coding-pages.com/2022/08/12/pangeo-first/index.html">
 <meta property="og:site_name" content="学习笔记">
-<meta property="og:description" content="背景 前面已经提到了一个陌生的云计算平台pangeo，大家可能都听过GEE、航天宏图PIE、亚马逊云、谷歌云地球科学服务等。可能对这个pangeo云比较陌生，中文介绍资料几乎为零，国内用户也基本为零。pangeo在美国和欧洲已经得到进入实际应用阶段，相关分析工具和云计算已经较为成熟，在地球科学领域，特别是物理海洋领域已经取得很多研究成果。这是一个可以写论文的科研工具，可以提升大数据计算体验，今天我">
+<meta property="og:description" content="背景 前面已经提到云计算平台pangeo，很多人了解GEE、航天宏图PIE、AWS(亚马逊)、谷歌云地球科学服务等，但pangeo云还是第一听说。小编查阅网络发现，中文资料为零，说明中国的用户确实较少。然而，pangeo云在美欧已发展多年，相关分析工具和云计算已经较为成熟，在地球科学领域，特别是物理海洋领域已经取得很多研究成果。因为这是不错的小众云计算平台，所以特此介绍。今天先聊pangeo入门。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/yun.png">
 <meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo1.png">
@@ -65,7 +65,7 @@
 <meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo9.png">
 <meta property="og:image" content="http://assz0a.coding-pages.com/2022/08/12/images/pangeo10.png">
 <meta property="article:published_time" content="2022-08-12T03:50:24.000Z">
-<meta property="article:modified_time" content="2022-08-12T12:50:41.725Z">
+<meta property="article:modified_time" content="2022-08-16T15:39:03.528Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="pangeo">
 <meta property="article:tag" content="llc4320">
@@ -225,10 +225,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-08-12 11:50:24 / 修改时间：20:50:41" itemprop="dateCreated datePublished" datetime="2022-08-12T11:50:24+08:00">2022-08-12</time>
+              <time title="创建时间：2022-08-12 11:50:24" itemprop="dateCreated datePublished" datetime="2022-08-12T11:50:24+08:00">2022-08-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-16 23:39:03" itemprop="dateModified" datetime="2022-08-16T23:39:03+08:00">2022-08-16</time>
+              </span>
 
           
             <span id="/2022/08/12/pangeo-first/" class="post-meta-item leancloud_visitors" data-flag-title="物理海洋大数据云计算入门-Pangeo" title="阅读次数">
@@ -263,20 +269,19 @@
 
       
         <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote>
-<p>前面已经提到了一个陌生的云计算平台pangeo，大家可能都听过GEE、航天宏图PIE、亚马逊云、谷歌云地球科学服务等。可能对这个pangeo云比较陌生，中文介绍资料几乎为零，国内用户也基本为零。pangeo在美国和欧洲已经得到进入实际应用阶段，相关分析工具和云计算已经较为成熟，在地球科学领域，特别是物理海洋领域已经取得很多研究成果。这是一个可以写论文的科研工具，可以提升大数据计算体验，今天我先介绍pangeo的入门部分。</p>
+<p>前面已经提到云计算平台pangeo，很多人了解GEE、航天宏图PIE、AWS(亚马逊)、谷歌云地球科学服务等，但pangeo云还是第一听说。小编查阅网络发现，中文资料为零，说明中国的用户确实较少。然而，pangeo云在美欧已发展多年，相关分析工具和云计算已经较为成熟，在地球科学领域，特别是物理海洋领域已经取得很多研究成果。因为这是不错的小众云计算平台，所以特此介绍。今天先聊pangeo入门。</p>
 </blockquote>
-<p><a href="https://pangeo.io/" target="_blank" rel="noopener">pangeo</a>是由一群科学家自发组织起来的地学大数据分析平台，它在2016年由美国哥伦比亚大学<a href="https://github.com/rabernat" target="_blank" rel="noopener">Ryan Abernathey</a> 领导的一个物理海洋小组发起，最初开发它的原因是希望更好的在本地服务器端处理海洋科学大数据，例如MITgcm高分辨模式LLC4320的PB级别数据。 通过数年时间，这个小组和全世界参与者共同开发了一系列的大数据和云计算分析软件，搭建了Pangeo云计算基础设施，形成了良好的地球科学数据分析生态系统。 当前，pangeo得到了美国NSF EarthCube计划、Anaconda、NASA、NCAR以及一些私人基金会的强力资助，使之能够持续发展，并积累的一些用户。目前pangeo之所以能够为全世界用户免费提供云计算（最大16CPU，60G内存），和这些机构的慷慨资助是分不开的。</p>
-<p>据介绍，pangeo涉足云计算也是偶然的。由于NSF 2017年项目削减预算，无法购买本地服务器，而要求结合NSF BIGDATA计划使用大型云服务设施。之后，pangeo小组努力开发和吸收相关的云计算和并行计算开源工具（如JupyterHub、dask、xarray、intake、Zarr等），与其让成千上万的研究人员在数据孤岛（本地基础设施）中工作，不如使用云数据和接近数据的算力在共享基础设施内工作。这几年，pangeo云计算已在一定程度上改变了地球科学研究方式，它提高了科学生产力和结果可重复性，也为数据密集型研究问题打开新大门。</p>
-<blockquote>
-<p>我们先欣赏下传统的数据下载模式：</p>
-</blockquote>
+<p><a href="https://pangeo.io/" target="_blank" rel="noopener">pangeo</a>是由一群草根科学家自发组织的地学大数据云计算系统，它在2016年由美国哥伦比亚大学<a href="https://github.com/rabernat" target="_blank" rel="noopener">Ryan Abernathey</a> 领导的一个物理海洋小组发起，最初是希望更好处理海洋科学大数据，例如MITgcm高分辨模式LLC4320的PB级别数据。通过数年时间，大批参与者通过github平台发展了一系列的大数据和云计算分析软件，搭建了pangeo云计算基础设施，形成了良好的科学生态系统（如JupyterHub、dask、xarray、intake、Zarr等）。这几年，pangeo云计算已在一定程度上改变了地球科学的研究方式，它提高了科学生产力，使研究结果可重复，也为数据密集型问题的研究打开新大门。</p>
+<p>pangeo得到了美国NSF EarthCube计划、Anaconda、NASA、NCAR以及一些私人基金会的强力资助，使之能够持续发展。目前pangeo为全世界用户免费提供云计算服务（最大16CPU，60G内存）。</p>
+<h3 id="云计算和传统科研模式的区别"><a href="#云计算和传统科研模式的区别" class="headerlink" title="云计算和传统科研模式的区别"></a>云计算和传统科研模式的区别</h3><p>我们先欣赏下传统的数据下载模式，以著名的欧洲Climate Data Store (CDS) 分发ECMWF ERA5资料为例，视频是CDS数据中心的机器人插卡作业模式，如果你申请这里的数据，机器人的机械手臂会把磁带接口插入相关卡槽读取数据，完成后再提供下载服务：</p>
 <video id="video" controls preload="none">
     <source id="mp4" src="/images/era5.mp4" type="video/mp4">
 </video>
-<center>这是欧洲Climate Data Store (CDS) @ECMWF的机器人插卡作业模式，如果你申请CDS数据，机器人的机械手臂会把磁带接口插入相关卡槽读取数据，完成后提供下载服务</center>
+<center>Climate Data Store (CDS) @ECMWF的机器人插卡作业模式</center>
 
+<p>云计算离不开云数据。pangeo将大量数据存储于商业云平台，并购买数据中心附近的计算机算力资源，由这些算力来计算靠近它的云数据，因此数据读相当快。而云计算的计算能力则和费用相关。由于pangeo为免费服务，因此算力不能和超算媲美，但通过结合dask集群，计算能力足够强大。</p>
 <p>Pangeo云架构：<br><img src="../images/yun.png" alt></p>
-<h2 id="注册使用"><a href="#注册使用" class="headerlink" title="注册使用"></a>注册使用</h2><p>因为是云计算，因此需要注册一个账号，可选谷歌云或者亚马逊云。常见资源多存储于谷歌云，建议注册谷歌云。</p>
+<h2 id="注册使用"><a href="#注册使用" class="headerlink" title="注册使用"></a>注册使用</h2><p>因为是云计算，需要注册一个账号。</p>
 <blockquote>
 <p><a href="https://pangeo.io/cloud.html" target="_blank" rel="noopener">https://pangeo.io/cloud.html</a></p>
 </blockquote>
@@ -285,17 +290,17 @@
 <li>us-central1-b.gcp.pangeo.io 谷歌云平台。</li>
 <li>aws-uswest2.pangeo.io AWS集群。</li>
 </ul>
-<p>建议根据您要访问的数据选择集群。例如，如果您的数据主要存在于AWS中，请选择aws-uswest2。经Pangeo管理员审查同意之后，加入Pangeo的github小组，便可以使用Pangeo云。（需要有一个github账号，并对git有一定的了解）</p>
-<p>Pangeo Cloud集群为用户提供不同数量的RAM和CPU，可以在登录时进行设置。请为根据工作需要选择资源最少的设施，因为更大的内存和cpu会花费更多的钱。 是的，云计算本质上是收费服务，只是这部分钱被美国NSF等基金支付了。</p>
-<h2 id="云数据初探"><a href="#云数据初探" class="headerlink" title="云数据初探"></a>云数据初探</h2><p>几十年来，地球科学领域一直采用“下载模式”分析数据，即科学家从远程FTP服务器下载数据到个人电脑，当数据量不大的时候，这种模式没有问题。而Pangeo的理念是将计算带到云数据中，这也就是云计算。Pangeo提供靠近高性能存储的高性能计算集群，目前许多广泛使用的数据集已经存储在这些系统上。</p>
-<p>如果您对分析特定的大型数据集感兴趣，您应该首先确定此数据集是否已存储在现有的云端，然后，您可以请求访问该特定云数据以执行您的计算分析。或者，如果您的实验室或小组已经维护了一个数据存储库，您也可以考虑在本地计算资源上部署Pangeo环境数据服务器（可能比较费力）。 </p>
+<p>建议根据您要访问的数据选择集群。例如，如果您的数据主要存在于AWS中，请选择aws-uswest2。经Pangeo管理员审查同意之后，加入Pangeo的Github小组，便可以使用Pangeo云。（需要有一个Github账号，并对Git有一定的了解）</p>
+<p>Pangeo Cloud集群为用户提供不同数量的RAM和CPU，可以在登录时进行设置。请为根据工作需要选择资源最少的设施，因为更大的内存和cpu会花费更多的钱。 是的，云计算本质上是收费服务，这部分钱由美国NSF等基金支付了。</p>
+<h2 id="云数据初探"><a href="#云数据初探" class="headerlink" title="云数据初探"></a>云数据初探</h2><p>几十年来，地球科学领域一直采用“下载模式”分析数据，即科学家从远程FTP服务器下载数据到个人电脑。而Pangeo的理念是将计算带到云数据中，这也就是云计算。Pangeo提供靠近高性能存储的高性能计算集群，目前许多广泛使用的数据集已经存储在这些云上。</p>
+<p>如果对分析特定的大型数据集感兴趣，应该首先确定此数据集是否已存储在现有的云端，然后，可以请求访问该特定云数据以执行计算分析。或者，如果您的实验室或小组已经维护了一个数据存储库，也可以考虑在本地计算资源上部署Pangeo环境数据服务器（可能比较费力）。 </p>
 <p>使用云数据和云计算无需掌握很多特殊知识，但需要能够熟练使用一下基础工具：</p>
 <ul>
 <li>Jupyter Hub</li>
 <li>Python</li>
 <li>Xarray</li>
 </ul>
-<p>当前，许多预存数据集目录都位于catalog.pangeo.io。此目录已预先配置，可以轻松打开数据集。这些云数据包含海洋、大气、气候和水文等不同类型。在大多数情况下，调取云数据很简单：</p>
+<p>当前，许多预存数据集目录都位于catalog.pangeo.io。此目录已预先配置，包含海洋、大气、气候和水文等不同类型数据。在大多数情况下，调取云数据很简单：</p>
 <figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">from</span> <span class="variable">intake</span> <span class="variable">import</span> <span class="variable">open_catalog</span></span><br><span class="line"></span><br><span class="line"><span class="variable">cat</span> = <span class="function"><span class="title">open_catalog</span>(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/master.yaml"</span>)</span></span><br><span class="line"><span class="function"><span class="title">list</span>(<span class="variable">cat</span>)</span></span><br></pre></td></tr></table></figure>
 <p>[‘ocean’, ‘atmosphere’, ‘climate’, ‘hydro’]</p>
 <blockquote>
@@ -462,7 +467,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册使用"><span class="nav-number">2.</span> <span class="nav-text">注册使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云数据初探"><span class="nav-number">3.</span> <span class="nav-text">云数据初探</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#物理海洋数据集"><span class="nav-number">3.0.1.</span> <span class="nav-text">物理海洋数据集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数据并行计算"><span class="nav-number">4.</span> <span class="nav-text">大数据并行计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#海平面变化时间序列"><span class="nav-number">4.1.</span> <span class="nav-text">海平面变化时间序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纬向变化时间特征"><span class="nav-number">4.2.</span> <span class="nav-text">纬向变化时间特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间变化特征"><span class="nav-number">4.3.</span> <span class="nav-text">空间变化特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KE计算"><span class="nav-number">4.4.</span> <span class="nav-text">KE计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下节预告"><span class="nav-number">6.</span> <span class="nav-text">下节预告</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#云计算和传统科研模式的区别"><span class="nav-number">1.1.</span> <span class="nav-text">云计算和传统科研模式的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册使用"><span class="nav-number">2.</span> <span class="nav-text">注册使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云数据初探"><span class="nav-number">3.</span> <span class="nav-text">云数据初探</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#物理海洋数据集"><span class="nav-number">3.0.1.</span> <span class="nav-text">物理海洋数据集</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数据并行计算"><span class="nav-number">4.</span> <span class="nav-text">大数据并行计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#海平面变化时间序列"><span class="nav-number">4.1.</span> <span class="nav-text">海平面变化时间序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纬向变化时间特征"><span class="nav-number">4.2.</span> <span class="nav-text">纬向变化时间特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间变化特征"><span class="nav-number">4.3.</span> <span class="nav-text">空间变化特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KE计算"><span class="nav-number">4.4.</span> <span class="nav-text">KE计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下节预告"><span class="nav-number">6.</span> <span class="nav-text">下节预告</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
