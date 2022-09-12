@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://assz0a.coding-pages.com/2021/10/22/tensorflowGPU/</loc>
+    
+    <lastmod>2022-08-31T07:02:03.459Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://assz0a.coding-pages.com/2022/03/18/data-share-1/</loc>
     
-    <lastmod>2022-08-29T02:01:22.503Z</lastmod>
+    <lastmod>2022-08-29T02:04:33.259Z</lastmod>
     
   </url>
   
@@ -110,13 +117,6 @@
     <loc>http://assz0a.coding-pages.com/2022/05/25/spetial-issue/</loc>
     
     <lastmod>2022-05-25T14:08:55.067Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://assz0a.coding-pages.com/2021/10/22/tensorflowGPU/</loc>
-    
-    <lastmod>2022-05-22T00:49:56.212Z</lastmod>
     
   </url>
   
