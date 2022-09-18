@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="OPeNDAP简介OPeNDAP（Open-source Project for a Network Data Access Protocol）可以对远程结构化数据进行变量提取。它一般在这样的场景使用：  假设这里有一些好的数据: http:&#x2F;&#x2F;test.opendap.org&#x2F;dap&#x2F;data&#x2F;nc&#x2F;sst.mnmean.nc.gz此URL为全球海面温度的月均值，您可以做的最简单的事情是下载它。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用OPeNDAP提取Sentinel-6卫星高度计数据">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/09/18/opendap/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="OPeNDAP简介OPeNDAP（Open-source Project for a Network Data Access Protocol）可以对远程结构化数据进行变量提取。它一般在这样的场景使用：  假设这里有一些好的数据: http:&#x2F;&#x2F;test.opendap.org&#x2F;dap&#x2F;data&#x2F;nc&#x2F;sst.mnmean.nc.gz此URL为全球海面温度的月均值，您可以做的最简单的事情是下载它。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/18/opendap/images/op6.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/18/opendap/images/op1.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/18/opendap/images/op2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/18/opendap/images/op3.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/18/opendap/images/op4.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/18/opendap/images/op5.png">
+<meta property="article:published_time" content="2022-09-18T10:13:46.000Z">
+<meta property="article:modified_time" content="2022-09-18T11:13:47.368Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="OPeNDAP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/09/18/opendap/images/op6.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/09/18/opendap/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>使用OPeNDAP提取Sentinel-6卫星高度计数据 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">78</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">124</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/18/opendap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用OPeNDAP提取Sentinel-6卫星高度计数据
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-18 18:13:46 / 修改时间：19:13:47" itemprop="dateCreated datePublished" datetime="2022-09-18T18:13:46+08:00">2022-09-18</time>
+            </span>
+
+          
+            <span id="/2022/09/18/opendap/" class="post-meta-item leancloud_visitors" data-flag-title="使用OPeNDAP提取Sentinel-6卫星高度计数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/18/opendap/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/18/opendap/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="OPeNDAP简介"><a href="#OPeNDAP简介" class="headerlink" title="OPeNDAP简介"></a>OPeNDAP简介</h3><p>OPeNDAP（Open-source Project for a Network Data Access Protocol）可以对远程结构化数据进行变量提取。它一般在这样的场景使用：</p>
+<blockquote>
+<p>假设这里有一些好的数据: <a href="http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz" target="_blank" rel="noopener">http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz</a><br>此URL为全球海面温度的月均值，您可以做的最简单的事情是下载它。但是该URL中存在您不想要的大量数据。了解数据所包含的数据变量后，OPeNDAP允许仅提取您需要的参数。</p>
+</blockquote>
+<p>下面介绍一个简单的例子。打开测试数据网页：</p>
+<blockquote>
+<p><a href="http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz.html" target="_blank" rel="noopener">http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz.html</a></p>
+</blockquote>
+<p>勾选变量，并设置采样间隔：<br><img src="./images/op6.png" alt></p>
+<p>注意，此时在<code>Data URL</code>处产生了新的数据地址：</p>
+<blockquote>
+<p><a href="http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz?lat[0:1:88],lon[0:1:179],time[0:1:1856],time_bnds[0:1:1856][0:1:1],sst[0:1:1856][0:1:88][0:1:179]" target="_blank" rel="noopener">http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz?lat[0:1:88],lon[0:1:179],time[0:1:1856],time_bnds[0:1:1856][0:1:1],sst[0:1:1856][0:1:88][0:1:179]</a></p>
+</blockquote>
+<p>可直接下载该链接对应的数据，得到<code>sst.mnmean.nc.gz</code>文件，也可以通过Panoply、Python等程序打开这个远程文件，默认为nc格式。</p>
+<h2 id="OPeNDAP获得Sentinel-6海面高异常"><a href="#OPeNDAP获得Sentinel-6海面高异常" class="headerlink" title="OPeNDAP获得Sentinel-6海面高异常"></a>OPeNDAP获得Sentinel-6海面高异常</h2><p>下面以最新的卫星高度计<strong>Sentinel-6 Michael Freilich</strong>（又称Jason-CS）为例，介绍如何远程导入SLA参数，并进行加权网格处理。</p>
+<p>以下内容从2021年NASA的云计算Hackweek活动获得：</p>
+<blockquote>
+<p>2021-Cloud-Hackathon:<a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/06_S6_OPeNDAP_Access_Gridding.html" target="_blank" rel="noopener">https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/06_S6_OPeNDAP_Access_Gridding.html</a></p>
+</blockquote>
+<p>操作本例子，需要提前掌握NASA Earthdata的授权方法：</p>
+<blockquote>
+<p><a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html" target="_blank" rel="noopener">https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html</a></p>
+</blockquote>
+<h3 id="Sentinel-6"><a href="#Sentinel-6" class="headerlink" title="Sentinel-6"></a>Sentinel-6</h3><p>该卫星是欧洲哥白尼计划的一部分，其首要目标是在2020-2030年期间提供精确的全球海面高度。该卫星主要有效载荷为Poseidon-4合成孔径雷达 (SAR) 双频高度计，它采用 Ku (13.575 GHz) 和 C (5.3 GHz)波段测量距离、sigma0、有效波高和电离层校正等，Sentinel-6 同时进行低分辨率模式 (LRM) 和 SAR 高分辨率模式测量，卫星轨道参数和Jason系列相同。</p>
+<blockquote>
+<p><a href="https://podaac.jpl.nasa.gov/Sentinel-6" target="_blank" rel="noopener">https://podaac.jpl.nasa.gov/Sentinel-6</a></p>
+</blockquote>
+<h3 id="导入库"><a href="#导入库" class="headerlink" title="导入库"></a>导入库</h3><p>导入必要库：</p>
+<figure class="highlight plain"><figcaption><span>os</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import tqdm</span><br><span class="line">import numpy as np</span><br><span class="line">import xarray as xr</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">from concurrent.futures import ThreadPoolExecutor</span><br><span class="line">from pyresample.kd_tree import resample_gauss</span><br><span class="line">import pyresample as pr</span><br></pre></td></tr></table></figure>
+<h3 id="一个周期的L2级数据"><a href="#一个周期的L2级数据" class="headerlink" title="一个周期的L2级数据"></a>一个周期的L2级数据</h3><p>我们选择Sentinel-6的L2准实时数据，通过数据集的ShortName和concept-id可以唯一确定该数据。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ShortName</span> = <span class="string">'JASON_CS_S6A_L2_ALT_LR_RED_OST_NRT_F'</span></span><br><span class="line"><span class="attr">concept_id</span> = <span class="string">'C1968980576-POCLOUD'</span></span><br></pre></td></tr></table></figure>
+
+<p>轨道周期：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cycle = <span class="number">25</span></span><br><span class="line"></span><br><span class="line">url = <span class="string">f"https://cmr.earthdata.nasa.gov/search/granules.csv?ShortName=<span class="subst">&#123;ShortName&#125;</span>&amp;cycle=<span class="subst">&#123;cycle&#125;</span>&amp;page_size=200"</span></span><br><span class="line"></span><br><span class="line">print(url)</span><br></pre></td></tr></table></figure>
+
+<p>保存文件名到文件<code>results.csv</code>：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">!curl --silent --output <span class="string">"results.csv"</span> <span class="string">"<span class="variable">$url</span>"</span></span><br><span class="line"></span><br><span class="line">files = !cat results.csv | tail <span class="attribute">--lines</span>=+2 | cut <span class="attribute">--delimiter</span>=<span class="string">','</span> <span class="attribute">--fields</span>=5 | cut <span class="attribute">--delimiter</span>=<span class="string">'/'</span> <span class="attribute">--fields</span>=6</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">print</span>(files.s.replace(<span class="string">" "</span>, <span class="string">"\n"</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="OPeNDAP的使用"><a href="#OPeNDAP的使用" class="headerlink" title="OPeNDAP的使用"></a>OPeNDAP的使用</h3><p>选择第一个文件，查看路径：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tmp = files<span class="selector-class">.l</span>[<span class="number">0</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(f<span class="string">"https://opendap.earthdata.nasa.gov/collections/&#123;concept_id&#125;/granules/&#123;tmp&#125;.html"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>选择需要的参数，一般有时间和经纬度，以及一个观测参数，这里选择海面高度异常。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">variables = [<span class="string">'data_01_time'</span>,</span><br><span class="line">             <span class="string">'data_01_longitude'</span>,</span><br><span class="line">             <span class="string">'data_01_latitude'</span>,</span><br><span class="line">             <span class="string">'data_01_ku_ssha'</span>]</span><br><span class="line"></span><br><span class="line">v = <span class="string">","</span>.<span class="keyword">join</span>(variables)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">f</span> in <span class="keyword">file</span><span class="variable">s:</span></span><br><span class="line">    urls.<span class="keyword">append</span>(<span class="keyword">f</span><span class="string">"https://opendap.earthdata.nasa.gov/collections/&#123;concept_id&#125;/granules/&#123;f&#125;4?&#123;v&#125;"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span>(urls[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>此时，可以看到OPeNDAP路径表示为:</p>
+<blockquote>
+<p><a href="https://opendap.earthdata.nasa.gov/collections/C1968980576-POCLOUD/granules/S6A_P4_2__LR_RED__NR_067_001_20220903T032524_20220903T052104_F06.nc4?data_01_time,data_01_longitude,data_01_latitude,data_01_ku_ssha" target="_blank" rel="noopener">https://opendap.earthdata.nasa.gov/collections/C1968980576-POCLOUD/granules/S6A_P4_2__LR_RED__NR_067_001_20220903T032524_20220903T052104_F06.nc4?data_01_time,data_01_longitude,data_01_latitude,data_01_ku_ssha</a></p>
+</blockquote>
+<p>此时可以直接使用该地址下载数据。</p>
+<h3 id="批量下载"><a href="#批量下载" class="headerlink" title="批量下载"></a>批量下载</h3><p>定义下载函数，这里使用的<code>wget</code>：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def download(<span class="keyword">source</span>: str):</span><br><span class="line">    </span><br><span class="line">    target = os.path.<span class="keyword">basename</span>(<span class="keyword">source</span>.split(<span class="string">"?"</span>)[<span class="number">0</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> not os.path.isfile(target):</span><br><span class="line">        !wget --quiet --<span class="keyword">continue</span> --output-document $target $source</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> target</span><br></pre></td></tr></table></figure>
+
+<p>下载：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">n_workers</span> = <span class="number">12</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> ThreadPoolExecutor(<span class="attr">max_workers=n_workers)</span> as pool:</span><br><span class="line"></span><br><span class="line">    <span class="attr">workers</span> = pool.<span class="built_in">map</span>(download, urls)</span><br><span class="line">    </span><br><span class="line">    <span class="attr">files</span> = list(tqdm.tqdm(workers, <span class="attr">total=len(urls)))</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然原始文件大小约 2.5MB-3.0M，但OPeNDAP子集每个文件约为100KB，因此这将大大加快数据加载速度。</p>
+<h3 id="Xarray批量读取nc文件"><a href="#Xarray批量读取nc文件" class="headerlink" title="Xarray批量读取nc文件"></a>Xarray批量读取nc文件</h3><p>这里使用xarray的<code>open_mfdataset</code>，注意查看一下是否有空文件<code>!du -sh *.nc4</code>，有的话需要删除，否则报错:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ds</span> = xr.open_mfdataset(<span class="string">"./*.nc4"</span>)</span><br><span class="line"><span class="keyword">print</span>(<span class="keyword">ds</span>)</span><br></pre></td></tr></table></figure>
+
+<p>重命名变量,去掉前缀<code>data_01_</code>:</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span><span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames = list(map(lambda x: x.split(<span class="string">"_"</span>)[-<span class="number">1</span>], variables))</span><br><span class="line"></span><br><span class="line">map<span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames = dict(zip(variables, <span class="keyword">new</span><span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames))</span><br><span class="line"></span><br><span class="line">ds = ds.rename(map<span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames)</span><br></pre></td></tr></table></figure>
+
+<h3 id="轨迹图"><a href="#轨迹图" class="headerlink" title="轨迹图"></a>轨迹图</h3><p>使用xarray的scatter函数绘轨迹点图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ds.plot.scatter( <span class="attribute">y</span>=<span class="string">"latitude"</span>,</span><br><span class="line">                 <span class="attribute">x</span>=<span class="string">"longitude"</span>, </span><br><span class="line">                 <span class="attribute">hue</span>=<span class="string">"ssha"</span>,</span><br><span class="line">                 <span class="attribute">s</span>=5,</span><br><span class="line">                 <span class="attribute">vmin</span>=-0.4,</span><br><span class="line">                 <span class="attribute">vmax</span>=0.4,</span><br><span class="line">                 <span class="attribute">levels</span>=9, </span><br><span class="line">                 <span class="attribute">cmap</span>=<span class="string">"jet"</span>,</span><br><span class="line">                 <span class="attribute">aspect</span>=2.5,</span><br><span class="line">                 <span class="attribute">size</span>=9, )</span><br><span class="line"></span><br><span class="line">plt.title(f<span class="string">"ssha from s6 cycle &#123;cycle&#125;"</span>)</span><br><span class="line">plt.xlim(  0., 360.)</span><br><span class="line">plt.ylim(-67.,  67.)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/op1.png" alt></p>
+<h3 id="网格化"><a href="#网格化" class="headerlink" title="网格化"></a>网格化</h3><p>卫星测高领域有很多种网格化办法，比如常用的GMT的surface。这里我们使用的网格化程序为<code>pyresample</code>， 并且还借鉴了ECCO V4r4的网格。</p>
+<p>首先下载一个独立的ECCO V4r4网格文件：</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">ecco_url</span> = <span class="string">"https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/ECCO_L4_GEOMETRY_05DEG_V4R4/GRID_GEOMETRY_ECCO_V4r4_latlon_0p50deg.nc"</span></span><br><span class="line"></span><br><span class="line"><span class="variable">ecco_file</span> = <span class="function"><span class="title">download</span>(<span class="variable">ecco_url</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">ecco_grid</span> = <span class="variable">xr.open_dataset</span>(<span class="variable">ecco_file</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">print</span>(<span class="variable">ecco_grid</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>ECCO有许多深度层，这里我们只选择0层：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ecco_grid = ecco_grid.isel(Z=<span class="number">0</span>).<span class="keyword">copy</span><span class="bash">()</span></span><br><span class="line">ecco_grid</span><br></pre></td></tr></table></figure>
+
+<p>ECCO网格中有<code>mask</code>变量，变量的值为<code>True</code>或<code>False</code>，可用于分离陆地和海洋：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ecco_grid</span><span class="selector-class">.maskC</span><span class="selector-class">.plot</span>()</span><br></pre></td></tr></table></figure>
+<p><img src="./images/op2.png" alt></p>
+<p>使用<code>pyresample.geometry.SwathDefinition</code>进行网格操作：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ecco_lons = ecco_grid<span class="selector-class">.maskC</span><span class="selector-class">.longitude</span>.values</span><br><span class="line">ecco_lats = ecco_grid<span class="selector-class">.maskC</span><span class="selector-class">.latitude</span>.values</span><br><span class="line"></span><br><span class="line">ecco_lons_2d, ecco_lats_2d = np.meshgrid(ecco_lons, ecco_lats)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(ecco_lons_2d.shape, ecco_lats_2d.shape)</span></span></span><br><span class="line"></span><br><span class="line">tgt = pr.SwathDefinition(ecco_lons_2d, ecco_lats_2d)</span><br></pre></td></tr></table></figure>
+
+<p>剔除NAN：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> nans = ~np.isnan(ds<span class="selector-class">.ssha</span>.values)</span><br><span class="line"></span><br><span class="line">ssha = ds<span class="selector-class">.ssha</span><span class="selector-class">.values</span>[nans]</span><br><span class="line">lons = ds<span class="selector-class">.longitude</span><span class="selector-class">.values</span>[nans]</span><br><span class="line">lats = ds<span class="selector-class">.latitude</span><span class="selector-class">.values</span>[nans]</span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(lons.shape, lats.shape)</span></span></span><br><span class="line">ssha.shape</span><br></pre></td></tr></table></figure>
+<p>之后可见数据大小小了很多，说明NaN数值比较多。（820122到513357）</p>
+<p>经度处理，修改为-180:180：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lons</span> = (lons + <span class="number">180</span>) % <span class="number">360</span> - <span class="number">180</span></span><br><span class="line"></span><br><span class="line"><span class="attr">src</span> = pr.SwathDefinition(lons, lats)</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用kd-tree gaussian weighting neighbour方法空间插值</strong>，得到<code>result, stddev, counts</code>三个变量的网格信息。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">result, stddev, counts = resample_gauss(</span><br><span class="line">    src,</span><br><span class="line">    ssha,</span><br><span class="line">    tgt,</span><br><span class="line">    <span class="attribute">radius_of_influence</span>=175000,  </span><br><span class="line">    <span class="attribute">sigmas</span>=25000,</span><br><span class="line">    <span class="attribute">neighbours</span>=100,</span><br><span class="line">    <span class="attribute">fill_value</span>=np.nan,</span><br><span class="line">    <span class="attribute">with_uncert</span>=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">result.shape</span><br></pre></td></tr></table></figure>
+<p>定义函数，得到xarray格式：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_xrda</span><span class="params">(data)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">return</span> xr.DataArray(data,</span><br><span class="line">                        dims=[<span class="string">'latitude'</span>, <span class="string">'longitude'</span>], </span><br><span class="line">                        coords=&#123;<span class="string">'time'</span>: time, </span><br><span class="line">                                <span class="string">'latitude'</span>: ecco_lats, </span><br><span class="line">                                <span class="string">'longitude'</span>: ecco_lons&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>确定时间中点：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">time</span> = <span class="built_in">np</span>.datetime64(ds['<span class="built_in">time</span>'].<span class="built_in">mean</span>().data)</span><br></pre></td></tr></table></figure>
+
+<p>SLA绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grid = to_xrda(result)</span><br><span class="line"></span><br><span class="line">grid.sel(<span class="attribute">latitude</span>=slice(-67.0, 67.0)).plot(<span class="attribute">vmin</span>=-0.4, <span class="attribute">vmax</span>=0.4, <span class="attribute">cmap</span>=<span class="string">"jet"</span>, figsize=(18, 7))</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/op3.png" alt></p>
+<p>STD绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stddev = to_xrda(stddev)</span><br><span class="line"></span><br><span class="line">stddev.sel(<span class="attribute">latitude</span>=slice(-67.0, 67.0)).plot(<span class="attribute">robust</span>=<span class="literal">True</span>, <span class="attribute">cmap</span>=<span class="string">"jet"</span>, figsize=(18, 7))</span><br></pre></td></tr></table></figure>
+<p><img src="./images/op4.png" alt></p>
+<p>点个数绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">counts = to_xrda(counts)</span><br><span class="line"></span><br><span class="line">counts.sel(<span class="attribute">latitude</span>=slice(-67.0, 67.0)).plot(<span class="attribute">robust</span>=<span class="literal">True</span>, <span class="attribute">cmap</span>=<span class="string">"jet"</span>, figsize=(18, 7))</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/op5.png" alt></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>OPeNDAP有一定的数据提取优势，前提是知道您想要的数据在哪里。</p>
+<p>下面夏威夷大学维护的一个海洋数据OPeNDAP网站，包含了Argo、CMIP5、ECCO、ERA5、NCEP、GFDL、HadSST、NOAA_SST、PODAAC、SODA、WOA以及MODIS、卫星高度计、盐度计等卫星测量数据。</p>
+<blockquote>
+<p><a href="http://apdrc.soest.hawaii.edu/dods/" target="_blank" rel="noopener">http://apdrc.soest.hawaii.edu/dods/</a></p>
+</blockquote>
+<h2 id="预告"><a href="#预告" class="headerlink" title="预告"></a>预告</h2><ul>
+<li>云上处理卫星测高数据，海平面变化时空分析、KE分析</li>
+<li>云上操作LLC4320、HYCOM、FESOM、FIO-COM等海洋模式，亚中尺度分析</li>
+<li>Pangeo Forge，维护高质量数据集</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OPeNDAP/" rel="tag"># OPeNDAP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/12/jule/" rel="prev" title="世界知名气象、海洋学家JULE GREGORY CHARNEY">
+      <i class="fa fa-chevron-left"></i> 世界知名气象、海洋学家JULE GREGORY CHARNEY
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#OPeNDAP简介"><span class="nav-number">1.</span> <span class="nav-text">OPeNDAP简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OPeNDAP获得Sentinel-6海面高异常"><span class="nav-number"></span> <span class="nav-text">OPeNDAP获得Sentinel-6海面高异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sentinel-6"><span class="nav-number">1.</span> <span class="nav-text">Sentinel-6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入库"><span class="nav-number">2.</span> <span class="nav-text">导入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个周期的L2级数据"><span class="nav-number">3.</span> <span class="nav-text">一个周期的L2级数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OPeNDAP的使用"><span class="nav-number">4.</span> <span class="nav-text">OPeNDAP的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量下载"><span class="nav-number">5.</span> <span class="nav-text">批量下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xarray批量读取nc文件"><span class="nav-number">6.</span> <span class="nav-text">Xarray批量读取nc文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轨迹图"><span class="nav-number">7.</span> <span class="nav-text">轨迹图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网格化"><span class="nav-number">8.</span> <span class="nav-text">网格化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">9.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预告"><span class="nav-number"></span> <span class="nav-text">预告</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">78</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
