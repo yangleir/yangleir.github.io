@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">125</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">126</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,107 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/12/12/fluid2d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/12/fluid2d/" class="post-title-link" itemprop="url">Fluid2d 流体动力学软件</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-12 20:23:29 / 修改时间：21:52:46" itemprop="dateCreated datePublished" datetime="2021-12-12T20:23:29+08:00">2021-12-12</time>
+            </span>
+
+          
+            <span id="/2021/12/12/fluid2d/" class="post-meta-item leancloud_visitors" data-flag-title="Fluid2d 流体动力学软件" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/12/fluid2d/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/12/fluid2d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Fluid2d"><a href="#Fluid2d" class="headerlink" title="Fluid2d"></a>Fluid2d</h3><p>Fluid2d是通用的Python-Fortran CFD代码包，它包含了大量的二维流体方程。该软件对于学生学习流体力学或地球物理流体动力学很有帮助，也可以是授课老师的教学实践工具。 其思想是在计算流时可视化动态流，且参数变化的影响可以立即看到。 二维流体的关键量是涡度，如果你的涡度动力学很弱，这个代码是为你准备的。 你应该迅速成为专家一样的专家。由于动画的强大功能，用户可以了解基本流体性质，进一步超越教科书而触及学术研究的问题是很容易的。  </p>
+<p>有几个功能特别好： </p>
+<ul>
+<li>代码可处理许多不同的方程组:transport, Euler, quasi-geostrophic, Boussinesq, thermal wind equations。  </li>
+<li>代码处理一个允许具有复杂几何形状的掩模系统(具有任意形状的封闭域)  </li>
+<li>代码往往具有非常低的dissipation水平  </li>
+<li>允许研究边界层问题的no-slip条件  </li>
+<li>代码是并行的，如果需要高分辨率，可以在集群上运行。</li>
+</ul>
+<h3 id="下载和安装"><a href="#下载和安装" class="headerlink" title="下载和安装"></a>下载和安装</h3><p>软件主页：<a href="http://pagesperso.univ-brest.fr/~roullet/fluid2d/index.html" target="_blank" rel="noopener">http://pagesperso.univ-brest.fr/~roullet/fluid2d/index.html</a><br>最新版下载地址：<a href="https://github.com/pvthinker/Fluid2d" target="_blank" rel="noopener">https://github.com/pvthinker/Fluid2d</a></p>
+<p>安装步骤：</p>
+<p>作者提供了一个快速编译和安装脚本<code>install.sh</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">pydir=<span class="variable">$HOME</span>/.fluid2d</span><br><span class="line">default=core/defaults.json</span><br><span class="line">srcdir=`<span class="built_in">pwd</span>`</span><br><span class="line">myexpdir=<span class="variable">$srcdir</span>/myexp</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------------------------------------------------------------------------------"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">" Installing Fluid2d"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"It is recommended to create a virtual environnement. "</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"If you are using anaconda then you may create the 'pyrsw' environment with"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&gt; conda env create -f environment.yml"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"then whenever you want to use Fluid2d, switch to this environement with"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&gt; conda activate fluid2d"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Are you ok with you environment? (y/n)"</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$ok</span> = <span class="string">"n"</span> ]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">exit</span> 42</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="string">"<span class="variable">$pydir</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  Create <span class="variable">$pydir</span>"</span></span><br><span class="line">    mkdir <span class="variable">$pydir</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$pydir</span>/<span class="variable">$default</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  Copy <span class="variable">$default</span> in <span class="variable">$pydir</span>"</span></span><br><span class="line">    cp <span class="variable">$default</span> <span class="variable">$pydir</span>/</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="string">"<span class="variable">$myexpdir</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"  Create <span class="variable">$myexpdir</span>"</span></span><br><span class="line">    mkdir <span class="variable">$myexpdir</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  Copy reference experiments in <span class="variable">$myexpdir</span>"</span></span><br><span class="line">cp -pR <span class="variable">$srcdir</span>/experiments/* <span class="variable">$myexpdir</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for bash users</span></span><br><span class="line">cat &gt; <span class="variable">$pydir</span>/activate.sh &lt;&lt; EOF</span><br><span class="line"><span class="built_in">export</span> PYTHONPATH=`<span class="built_in">pwd</span>`/core</span><br><span class="line"><span class="built_in">echo</span> Python now knows that Fluid2d is <span class="keyword">in</span> `<span class="built_in">pwd</span>`</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># for csh, tcsh users</span></span><br><span class="line">cat &gt; <span class="variable">$pydir</span>/activate.csh &lt;&lt; EOF</span><br><span class="line">setenv PYTHONPATH `<span class="built_in">pwd</span>`/core</span><br><span class="line"><span class="built_in">echo</span> Python now knows that Fluid2d is <span class="keyword">in</span> `<span class="built_in">pwd</span>`</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># for fish users</span></span><br><span class="line">cat &gt; <span class="variable">$pydir</span>/activate.fish &lt;&lt; EOF</span><br><span class="line"><span class="built_in">set</span> -gx PYTHONPATH `(<span class="built_in">pwd</span>)`/core</span><br><span class="line"><span class="built_in">echo</span> Python now knows that Fluid2d is <span class="keyword">in</span> `(<span class="built_in">pwd</span>)`</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># compile the modules with module</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------------------------------------------------------------------------------"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">" Compile modules with f2py"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"># try</span></span><br><span class="line">    make</span><br><span class="line">    </span><br><span class="line">&#125; || &#123;</span><br><span class="line">    <span class="comment">#catch</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Unable to compile"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Are you sure f2py is installed?"</span></span><br><span class="line">    <span class="built_in">exit</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># copy the experiment into</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  Before starting, please read this note carefully"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  As it configured, Fluid2d will store the results in"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"      *** <span class="variable">$HOME</span>/data/fluid2d ***"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  If you don't run the code from your laptop then it is likely that"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  you are not allowed to store large binary files on <span class="variable">$HOME</span>/data"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  because this is your home."</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  In this case, edit <span class="variable">$HOME</span>/.fluid2d/defaults.json"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  and set 'datadir' default value (in the output section) to a"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  place where you are authorized to store large binary files."</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  In the jargon, this place is usually a 'work' directory."</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  If you are unsure where to store your results check that"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  with your system administrator."</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  Once you know where to store the results, then you're good to go"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  Each time you open a new terminal you need to"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"     source ~/.fluid2d/activate.sh  if you're under bash"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"     source ~/.fluid2d/activate.csh  if you're under csh/tcsh"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"     source ~/.fluid2d/activate.fish  if you're under fish"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  To run your first experiment"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"      cd <span class="variable">$myexpdir</span>/Vortex"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"      python3 vortex.py"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  Write your new experiments in <span class="variable">$myexpdir</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"  or wherever you want, but not in <span class="variable">$srcdir</span>/experiments !"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>运行之前需要在主目录下新建文件夹：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">mkdir</span> <span class="class"><span class="keyword">data</span></span></span><br><span class="line"><span class="title">cd</span> <span class="class"><span class="keyword">data</span> </span></span><br><span class="line"><span class="title">mkdir</span> fluid2d</span><br></pre></td></tr></table></figure>
+
+<p>执行例子：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> myexp/ShearInstab</span><br><span class="line"><span class="keyword">python3</span> shear_instability.<span class="keyword">py</span></span><br></pre></td></tr></table></figure>
+
+<p>结果输出：</p>
+<p><img src="/images/shear.gif" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1306,105 +1407,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/28/open-software3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/28/open-software3/" class="post-title-link" itemprop="url">开源共享软件3-海浪谱相关</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-28 20:55:36 / 修改时间：22:03:36" itemprop="dateCreated datePublished" datetime="2021-05-28T20:55:36+08:00">2021-05-28</time>
-            </span>
-
-          
-            <span id="/2021/05/28/open-software3/" class="post-meta-item leancloud_visitors" data-flag-title="开源共享软件3-海浪谱相关" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/28/open-software3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/28/open-software3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天分享三个有用的程序，主要是海浪谱相关程序，分别是WAFO、WEC-Sim和P-M海浪谱模拟程序。</p>
-<h2 id="WAFO"><a href="#WAFO" class="headerlink" title="WAFO"></a>WAFO</h2><p><img src="/images/wafo.png" alt></p>
-<p> WAFO是一个Matlab程序工具箱，主要用于海浪、负荷模拟以及统计分析。WAFO是开源软件，参照GNU通用公共许可证（GPL）。WAFO由隆德大学数学系开发，版本已经由2008版发展到2018版，程序托管在GitHub。WAFO也有对Octave以及Python版本。WAFO包含以下工具：</p>
-<ul>
-<li>疲劳分析<br>  随机载荷的疲劳寿命预测<br>  雨流循环的理论密度</li>
-<li>海洋建模<br>  线性和非线性的高斯和非高斯波的模拟<br>  海浪频谱的模拟：常见的PM、Jonswap、bi-modal Torsethaugen等。<br>  联合波高、波陡、波期分布</li>
-<li>统计学<br>  极值分析<br>  核心密度估计<br>  隐马尔科夫模型</li>
-</ul>
-<p><img src="/images/wafo2.png" alt><br><img src="/images/wafo3.png" alt></p>
-<p>代码：<a href="https://github.com/wafo-project" target="_blank" rel="noopener">https://github.com/wafo-project</a><br>主页：<a href="http://www.maths.lth.se/matstat/wafo" target="_blank" rel="noopener">http://www.maths.lth.se/matstat/wafo</a></p>
-<h2 id="Wave-Energy-Converter-SIMulator（WEC-Sim）"><a href="#Wave-Energy-Converter-SIMulator（WEC-Sim）" class="headerlink" title="Wave Energy Converter SIMulator（WEC-Sim）"></a>Wave Energy Converter SIMulator（WEC-Sim）</h2><p><img src="/images/MoorDyn_Graphic.png" alt></p>
-<p>WEC-Sim（波浪能转换模拟器）是一个用于模拟波浪能转换的开源程序。该代码是在MATLAB/SIMULINK中使用多体动力学求解器开发的。WEC-Sim有能力对由本体、连接、动力输出系统和系泊系统组成的设备进行建模。WEC-Sim可以对刚性体和具有广义体模式的柔性体进行建模。通过求解6个笛卡尔自由度的波浪能转换运动方程，加上任何数量的用户定义的模式，在时域内进行仿真计算。WEC-Sim应用库包含了WEC-Sim可用于建模的各种场景，包括海水淡化、系泊动力学、非线性水动力体、被动偏航、批量模拟和其他许多情况。该代码非常灵活，可以适应波浪能行业的许多场景。</p>
-<p>WEC-Sim是美国国家可再生能源实验室（NREL）和桑迪亚国家实验室（Sandia）的合作项目，由美国能源部水电技术办公室资助。由于代码的开源性质，WEC-Sim也有许多外部贡献。</p>
-<p>主页：<a href="https://wec-sim.github.io/WEC-Sim/" target="_blank" rel="noopener">https://wec-sim.github.io/WEC-Sim/</a><br>代码：<a href="https://github.com/WEC-Sim/WEC-Sim" target="_blank" rel="noopener">https://github.com/WEC-Sim/WEC-Sim</a></p>
-<h2 id="P-M谱海浪模拟"><a href="#P-M谱海浪模拟" class="headerlink" title="P-M谱海浪模拟"></a>P-M谱海浪模拟</h2><p><img src="/images/waveElevation2d-1024x598.png" alt></p>
-<p>这是一个简单的波浪模拟的小型MATLAB程序，可以获得P-M谱模拟的三维海面高度信息，也可以加入时间维度，得到四维信息，不过计算量巨大。</p>
-<p>代码：<a href="https://www.smart-coding.net/irregular-waves/" target="_blank" rel="noopener">https://www.smart-coding.net/irregular-waves/</a></p>
-<h2 id="海浪动态模拟"><a href="#海浪动态模拟" class="headerlink" title="海浪动态模拟"></a>海浪动态模拟</h2><p><img src="/images/vJYXyLS.gif" alt><br><img src="/images/yMLYeJ4.gif" alt></p>
-<p>外国网友制作的海浪动画模拟程序，使用MATLAB编写，比较耗内存。</p>
-<p>网页：<a href="https://stackoverflow.com/questions/28279337/matlab-cuda-ocean-wave-simulation" target="_blank" rel="noopener">https://stackoverflow.com/questions/28279337/matlab-cuda-ocean-wave-simulation</a><br>代码：<a href="https://www.dropbox.com/s/qow7cdf5z95t7hx/ocean_simulator.m?dl=0" target="_blank" rel="noopener">https://www.dropbox.com/s/qow7cdf5z95t7hx/ocean_simulator.m?dl=0</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1477,7 +1479,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

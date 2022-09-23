@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Pangeo Forge为气象海洋的云计算和大数据而生，是一种众包（crowd sourcing）科学数据制作方法，目前Pangeo社区负责该技术的开发。 云计算云计算为科学研究提供了极大便利，使我们可以将算力部署在数据服务器周围，这些服务器往往由Google或者AMS等大厂维护，先进的硬件设施和强大算力使得数据读取速度大大提高，这避免了将数据下载到计算机进行处理。 数据格式大气海洋领域、测绘、遥">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pangeo Forge入门">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="Pangeo Forge为气象海洋的云计算和大数据而生，是一种众包（crowd sourcing）科学数据制作方法，目前Pangeo社区负责该技术的开发。 云计算云计算为科学研究提供了极大便利，使我们可以将算力部署在数据服务器周围，这些服务器往往由Google或者AMS等大厂维护，先进的硬件设施和强大算力使得数据读取速度大大提高，这避免了将数据下载到计算机进行处理。 数据格式大气海洋领域、测绘、遥">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/images/pf1.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/images/pf2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/images/pf3.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/images/pf4.png">
+<meta property="article:published_time" content="2022-09-23T13:46:45.000Z">
+<meta property="article:modified_time" content="2022-09-23T14:02:47.111Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="pangeo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/images/pf1.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Pangeo Forge入门 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">79</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">126</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pangeo Forge入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-23 21:46:45 / 修改时间：22:02:47" itemprop="dateCreated datePublished" datetime="2022-09-23T21:46:45+08:00">2022-09-23</time>
+            </span>
+
+          
+            <span id="/2022/09/23/pangeoforge/" class="post-meta-item leancloud_visitors" data-flag-title="Pangeo Forge入门" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/23/pangeoforge/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/23/pangeoforge/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Pangeo Forge为气象海洋的云计算和大数据而生，是一种众包（crowd sourcing）科学数据制作方法，目前Pangeo社区负责该技术的开发。</p>
+<h3 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h3><p>云计算为科学研究提供了极大便利，使我们可以将算力部署在数据服务器周围，这些服务器往往由Google或者AMS等大厂维护，先进的硬件设施和强大算力使得数据读取速度大大提高，这避免了将数据下载到计算机进行处理。</p>
+<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>大气海洋领域、测绘、遥感等领域大量使用的Netcdf格式不适合大数据的云计算，为了适用于大数据和云计算，一种新的多维数据结构Zarr应运而生，成为Pangeo气象海洋云数据的规范格式。</p>
+<p>规范化的数据是高效云计算的前提。就像Python有无数的大众开发的软件包，可以通过<code>pip</code>等安装，但最稳定可靠的安装是使用<code>Conda Forge</code>，这是一个更规范化的Python源。Pangeo Forge的出现即受其启发，主要目的是维护一个规范化的云数据源。</p>
+<h3 id="技术流程"><a href="#技术流程" class="headerlink" title="技术流程"></a>技术流程</h3><p>Pangeo Forge的技术细节并不复杂，简单说它利用了GitHub的pull request功能，任何人可以Fork在GitHub上的<a href="https://github.com/pangeo-forge/staged-recipes" target="_blank" rel="noopener">Pangeo Forge</a>仓库，对<code>meta.yaml</code>和<code>recipe.py</code>两个文件修改，设置数据的源等信息，然后pull request，这样就会在这个仓库深成一个数据制作的申请，机器人会检核申请，若无误则进入数据制作步骤。一旦制作完成，数据即在云端公开可见。</p>
+<p>Pangeo Forge不需要用户自己下载上传数据，只要提供数据的源地址，系统将自动爬取数据，进行数据格式的转换，最终存储在Pangeo的云端（Google Cloud服务商）。</p>
+<p>全球任何人均可以使用Pangeo Forge制作规范化云数据，并存储在Pangeo的Google云端。这其中的数据下载上传、格式转化所耗费的流量和算力，以及数据所占的云存储将产生不小的费用，均已由Pangeo所获得的基金资助支付，目前对所有人免费开放使用。</p>
+<h3 id="初期阶段"><a href="#初期阶段" class="headerlink" title="初期阶段"></a>初期阶段</h3><p>Pangeo Forge仍旧在初期阶段，目前完成制作的标准数据并不多，例如现在发布的数据有：</p>
+<p><img src="./images/pf1.png" alt></p>
+<p>大量的申请得到许可后，进入处理列队，这一过程可能比较缓慢。目前列队中有1000多个任务正在等待处理。</p>
+<p><img src="./images/pf2.png" alt></p>
+<h3 id="Pangeo-Forge实例"><a href="#Pangeo-Forge实例" class="headerlink" title="Pangeo Forge实例"></a>Pangeo Forge实例</h3><p>这里放一个Pangeo Forge的视频，视频后半段有实例讲解，演讲者即Pangeo创始人Ryan Abernathey：</p>
+<h3 id="尝试云数据"><a href="#尝试云数据" class="headerlink" title="尝试云数据"></a>尝试云数据</h3><p>云计算的高效到底多震撼呢？</p>
+<p>我们可以瞬间打开九千个NOAA的降水文件，几秒钟完成九千个文件的气候态计算，并绘图展示。<br>以上面视频所提到的降水为例：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">import xarray <span class="keyword">as</span> xr</span><br><span class="line"></span><br><span class="line">store = 'https:<span class="comment">//ncsa.osn.xsede.org/Pangeo/pangeo-forge/gpcp-feedstock/gpcp.zarr'</span></span><br><span class="line">ds = xr.<span class="keyword">open</span><span class="constructor">_dataset(<span class="params">store</span>, <span class="params">engine</span>='<span class="params">zarr</span>', <span class="params">chunks</span>=&#123;&#125;)</span></span><br></pre></td></tr></table></figure>
+<p><img src="./images/pf3.png" alt></p>
+<p>计算降水气候态：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dask.<span class="keyword">diagnostics</span> <span class="keyword">import</span> ProgressBar</span><br><span class="line">mask = (ds.precip&gt;=<span class="number">0</span>) &amp; (ds.precip &lt;=<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">with</span> ProgressBar():</span><br><span class="line">    pre_clim = ds.precip.<span class="keyword">where</span>(mask).mean(<span class="string">'time'</span>).compute()</span><br><span class="line">pre_clim.plot(size=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pf4.png" alt></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>Pangeo Forge目的是为了制作规范化的Zarr格式数据</li>
+<li>所有步骤均在云上进行，包括数据抓取，格式转换和数据部署</li>
+<li>处在项目初期，列队内容多，排队等待时间长</li>
+<li>尚不能及时的自动更新数据</li>
+</ul>
+<p><strong>Pangeo 云计算</strong>的生态系统非常值得尝试，已经较成熟，<strong>Pangeo Forge</strong>还不是很成熟，想法超前，不建议新人制作维护自己的数据。</p>
+<h3 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h3><ul>
+<li>Pangeo Forge 制作FIO-COM32（海洋一所）海洋模式数据</li>
+<li>云上处理FIO模式，计算混合层厚度。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pangeo/" rel="tag"># pangeo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/19/ai-bisai/" rel="prev" title="2022“安海”卫星测高水深反演人工智能算法大赛">
+      <i class="fa fa-chevron-left"></i> 2022“安海”卫星测高水深反演人工智能算法大赛
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#云计算"><span class="nav-number">1.</span> <span class="nav-text">云计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">2.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术流程"><span class="nav-number">3.</span> <span class="nav-text">技术流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初期阶段"><span class="nav-number">4.</span> <span class="nav-text">初期阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pangeo-Forge实例"><span class="nav-number">5.</span> <span class="nav-text">Pangeo Forge实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试云数据"><span class="nav-number">6.</span> <span class="nav-text">尝试云数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下节预告"><span class="nav-number">8.</span> <span class="nav-text">下节预告</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
