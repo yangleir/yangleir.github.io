@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">127</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">128</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,112 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/06/23/wavenumber-grdfft-spectrum1d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/23/wavenumber-grdfft-spectrum1d/" class="post-title-link" itemprop="url">wavenumber的模拟计算(二)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-23 17:57:28" itemprop="dateCreated datePublished" datetime="2020-06-23T17:57:28+08:00">2020-06-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-26 09:11:29" itemprop="dateModified" datetime="2021-02-26T09:11:29+08:00">2021-02-26</time>
+              </span>
+
+          
+            <span id="/2020/06/23/wavenumber-grdfft-spectrum1d/" class="post-meta-item leancloud_visitors" data-flag-title="wavenumber的模拟计算(二)" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/23/wavenumber-grdfft-spectrum1d/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/wavenumber-grdfft-spectrum1d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上一篇使用了MATLAB模拟二维波动网格，使用GMT做谱分析和绘图。本文进一步简化模拟代码，仅使用GMT一种语言可完成波数谱的模拟，并展示一维和二维波数谱的差异。</p>
+<h2 id="GMT有几种计算波数谱的程序"><a href="#GMT有几种计算波数谱的程序" class="headerlink" title="GMT有几种计算波数谱的程序"></a>GMT有几种计算波数谱的程序</h2><p>GMT有spectrum1D和grdfft可以计算波数谱。</p>
+<ul>
+<li>spectrum1D:一维谱分析。</li>
+<li>grdfft:二维谱分析，含x,y和径向三个方向的计算。</li>
+</ul>
+<h2 id="模拟代码"><a href="#模拟代码" class="headerlink" title="模拟代码"></a>模拟代码</h2><p>下面利用完全GMT工具进行波数谱的模拟，首先利用grdmath模拟出一个规范的正弦波二维矩阵，形成网格文件。然后使用grdfft计算三个方向的谱，使用spectrum1D计算X方向的一维波数谱。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">ps=testgrd.ps</span><br><span class="line"></span><br><span class="line"># gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X Y ADD SIN = x.nc</span><br><span class="line">gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X SIN = x.nc</span><br><span class="line"></span><br><span class="line">gmt makecpt -Crainbow -T<span class="number">-1</span>/<span class="number">1</span>/<span class="number">0.1</span> &gt; t.cpt</span><br><span class="line">gmt grdimage x.nc -R<span class="number">-30</span>/<span class="number">30</span>/<span class="number">-30</span>/<span class="number">30</span> -JX3i -Ct.cpt -Bxa -Bya -BWSne -P -K -Y7i &gt; $ps</span><br><span class="line"></span><br><span class="line">gmt grd2xyz x.nc | awk '&#123;if ($<span class="number">2</span> == <span class="number">0</span>) print $<span class="number">0</span>&#125;' &gt; x.txt</span><br><span class="line">gmt psxy -R -J -O -K x.txt -Sc0<span class="number">.03</span>i -Gblack &gt;&gt; $ps</span><br><span class="line"># Do grdfft</span><br><span class="line">gmt grdfft x.nc -Er+w+n -Gfft.txt</span><br><span class="line">gmt grdfft x.nc -Ex+w+n -Gfftx.txt</span><br><span class="line">gmt grdfft x.nc -Ey+w+n -Gffty.txt</span><br><span class="line">gmt math fftx.txt -C1 SQR ffty.txt SQR ADD SQRT = fftrr.txt</span><br><span class="line"></span><br><span class="line"># Plot specrum result from grdfft</span><br><span class="line">gmt psbasemap -R1/<span class="number">20</span>/<span class="number">1e-14</span>/<span class="number">1e-2</span> -JX<span class="number">-2.8</span>il/<span class="number">3</span>il -Bxa1pf2g3+l<span class="string">"Wavelength"</span> -Bya1pg+l<span class="string">"power spectrum"</span> -BwNsE -K -X3<span class="number">.2</span>i -O &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fft.txt  -J -W0<span class="number">.5</span>p,red, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fftx.txt  -J -W0<span class="number">.5</span>p,blue, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R ffty.txt  -J -W0<span class="number">.5</span>p,green, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fftrr.txt  -J -W0<span class="number">.5</span>p,black, -O -K &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R0<span class="number">.05</span>/<span class="number">1e0</span>/<span class="number">1e-14</span>/<span class="number">1e-2</span> -JX2<span class="number">.8</span>il/<span class="number">3</span>il -BSE -Bxa1p+l<span class="string">"wavenumber/cycle"</span> -O -K&gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt pslegend -D+w1<span class="number">.2</span>i+jBL+o0<span class="number">.1</span>i/<span class="number">0.1</span>i -R -J -O -K -F+p1p+glightgray --FONT_ANNOT_PRIMARY=<span class="number">10</span>p,<span class="number">1</span>,black &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,red, <span class="number">0.5</span>i r</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,blue <span class="number">0.5</span>i x</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,green, <span class="number">0.5</span>i y</span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line"># Do spectrum1D</span><br><span class="line">gmt psxy -R<span class="number">-30</span>/<span class="number">30</span>/<span class="number">-1</span>/<span class="number">1</span> -JX3i/<span class="number">3</span>i x.txt -i0,<span class="number">2</span> -Bxaf -Byaf -BWSne -O -K -X<span class="number">-3.2</span>i -Y<span class="number">-4.5</span>i &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J x.txt -i0,<span class="number">2</span> -Sc0<span class="number">.03</span>i -Gred -O -K &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">awk '&#123;print $<span class="number">1</span>,$<span class="number">3</span>&#125;' x.txt | gmt spectrum1d  -S256 -W --GMT_FFT=brenner -N -i1 -D0<span class="number">.2</span>  &gt; fft_spec.txt</span><br><span class="line">gmt psbasemap -R1/<span class="number">20</span>/<span class="number">1e-12</span>/<span class="number">1e2</span> -JX<span class="number">-2.8</span>il/<span class="number">3</span>il -Bxa1pf2g3+l<span class="string">"Wavelength"</span> -Bya1pg+l<span class="string">"power spectrum"</span> -BwNsE -K -X3<span class="number">.2</span>i -O &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fft_spec.txt -J -W0<span class="number">.5</span>p,red, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psbasemap -R0<span class="number">.05</span>/<span class="number">1e0</span>/<span class="number">1e-12</span>/<span class="number">1e2</span> -JX2<span class="number">.8</span>il/<span class="number">3</span>il -BSE -Bxa1p+l<span class="string">"wavenumber/cycle"</span> -O &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">awk '&#123;print $<span class="number">3</span>&#125;' x.txt| gmt gmtmath STDIN -Sl STD  SQR =</span><br><span class="line"></span><br><span class="line">gmt psconvert  $ps -P -Tg -A</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><h3 id="z-sin-x"><a href="#z-sin-x" class="headerlink" title="z=sin(x)"></a>z=sin(x)</h3><p><img src="/images/testgrd.png" alt></p>
+<p>上为二维FFT在三个方向的谱分析结果，黑色曲线为sqrt(x^2+y^2),径向的能量谱不与一维的平方和（开根号）相等。下为一维（彩图中横线的采样）谱分析结果（形状与二维FFT的X方向一致，但能量大小不一样）。</p>
+<h3 id="z-sin-x-y"><a href="#z-sin-x-y" class="headerlink" title="z=sin(x+y)"></a>z=sin(x+y)</h3><p><img src="/images/testgrd2.png" alt></p>
+<p>上图把函数改变，数据x和y方向周期依然是2pi,但是r方向是2pi*cos(pi/2)，即4.44。这样可以帮助理解r方向是什么方向。运行时，把下面的代码取消注释。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X Y ADD SIN = x.nc</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意的问题"><a href="#注意的问题" class="headerlink" title="注意的问题"></a>注意的问题</h2><ul>
+<li>spectrum1D得到的波数谱符合能量守恒定律，即输入信号的方差等于功率谱密度的积分，也就是谱和X轴围起来的面积。例如正弦波的方差为0.5，而功率密度的积分也恰好为0.5。</li>
+<li>grdfft得到的波数谱不是密度谱，所以不遵循能量守恒。</li>
+<li>grdfft的三个方向的谱的关系是什么？r^2=x^2+y^2？</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://yangleir.github.io/2020/02/15/wavenumber/" target="_blank" rel="noopener">wavenumber的模拟计算</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1112,113 +1218,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/18/awk/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/18/awk/" class="post-title-link" itemprop="url">awk的几点用法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-18 10:00:59" itemprop="dateCreated datePublished" datetime="2020-01-18T10:00:59+08:00">2020-01-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-11 10:02:08" itemprop="dateModified" datetime="2020-06-11T10:02:08+08:00">2020-06-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/18/awk/" class="post-meta-item leancloud_visitors" data-flag-title="awk的几点用法" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/18/awk/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/18/awk/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>AWK</code>是常用的数据处理工具，内置的变量名称为：</p>
-<blockquote>
-<p>变量名    含义<br>ARGC   命令行变元个数<br>ARGV   命令行变元数组<br>FILENAME   当前输入文件名<br>FNR   当前文件中的记录号<br>FS   输入域分隔符，默认为一个空格<br>RS   输入记录分隔符<br>NF   当前记录里域个数<br>NR   到目前为止记录数<br>OFS   输出域分隔符<br>ORS   输出记录分隔<br>$NF    表示最后一列</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/18/awk/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1291,7 +1290,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

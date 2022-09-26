@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">127</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">128</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,144 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/26/pangeo-fio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/26/pangeo-fio/" class="post-title-link" itemprop="url">FIO海洋模式的云计算</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-26 20:15:13 / 修改时间：21:50:30" itemprop="dateCreated datePublished" datetime="2022-09-26T20:15:13+08:00">2022-09-26</time>
+            </span>
+
+          
+            <span id="/2022/09/26/pangeo-fio/" class="post-meta-item leancloud_visitors" data-flag-title="FIO海洋模式的云计算" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/26/pangeo-fio/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/26/pangeo-fio/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>将全球海洋模式数据存储于云端，并进行云计算是一项几乎不可能的任务。当前全球高分辨率模式数据的空间分辨率可到1/48°，时间分辨率为1小时，考虑深度分层，其数据量可以说是非常巨大，如一年LLC4320数据接近3P。</p>
+<p>当前气象海洋云计算的先驱Pangeo已转码了ECCOv4r3低分模式全水深数据和LLC4320高分模式的表层数据，这两种模式均为全球海洋模式。近期，为推动云计算和开放共享，Pangeo物理海洋小组转码了8组海洋模式数据，并存储于云端，和Pangeo云计算无缝衔接。这其中包括FIO-COM海洋模式（First Institute of Oceanography Coupled Ocean Model)。这一批模式数据，主要集中在4个SWOT高度计定标对比区，具有丰富的亚中尺度信号，是研究海洋动力学的优秀数据集合。</p>
+<p>关于这批数据的介绍可见：</p>
+<blockquote>
+<p>相关论文：T. Uchida et al., “Cloud-based framework for inter-comparing submesoscale-permitting realistic ocean models,” Geosci. Model Dev., vol. 15, no. 14, pp. 5829–5856, Jul. 2022, doi: 10.5194/gmd-15-5829-2022.</p>
+</blockquote>
+<h2 id="Pangeo-Forge"><a href="#Pangeo-Forge" class="headerlink" title="Pangeo Forge"></a>Pangeo Forge</h2><p>云计算依赖规范化的数据格式，为降低Pangeo社区的数据维护成本，特别提出了众包概念的Pangeo Forge。全世界任何人可以使用Pangeo Forge将开放模式产品转化为Zarr格式，形成统一规范的云数据，存储到云端，这其中的流量和计算费用已由Pangeo所获基金支付。</p>
+<p>关于FIO-COM等模式数据的转码和存储，已经由上述论文作者完成。</p>
+<h2 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h2><p>上述论文给了代码库地址，读者可以在GitHub找到该库，并fork到Pangeo。</p>
+<p>8套海洋模式数据的元数据已经被归档，注意文件夹中有一个<code>catalog.yaml</code>文件，里面保存模式信息，如</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">FIO-COM32</span>:</span><br><span class="line">  <span class="attribute">description</span>: FIO-COM32</span><br><span class="line">  <span class="attribute">parameters</span>: # User parameters</span><br><span class="line">    <span class="attribute">region</span>:</span><br><span class="line">      <span class="attribute">description</span>: region</span><br><span class="line">      <span class="attribute">type</span>: str</span><br><span class="line">      <span class="attribute">default</span>: <span class="string">"1"</span></span><br><span class="line">      <span class="attribute">allowed</span>: [<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>]</span><br><span class="line">    <span class="attribute">datatype</span>:</span><br><span class="line">      <span class="attribute">description</span>: <span class="string">'"surface_hourly", "surface_flux_hourly", or "interior_daily"'</span></span><br><span class="line">      <span class="attribute">type</span>: str</span><br><span class="line">      <span class="attribute">default</span>: <span class="string">"surface_hourly"</span></span><br><span class="line">      <span class="attribute">allowed</span>: [<span class="string">"surface_hourly"</span>, <span class="string">"surface_flux_hourly"</span>, <span class="string">"interior_daily"</span>]</span><br><span class="line">    <span class="attribute">season</span>:</span><br><span class="line">      <span class="attribute">description</span>: Feb, Mar, Apr (<span class="string">"fma"</span>) or Aug, Sep, Oct (<span class="string">"aso"</span>)</span><br><span class="line">      <span class="attribute">type</span>: str</span><br><span class="line">      <span class="attribute">default</span>: <span class="string">"fma"</span></span><br><span class="line">      <span class="attribute">allowed</span>: [<span class="string">"fma"</span>, <span class="string">"aso"</span>]</span><br><span class="line">  <span class="attribute">driver</span>: zarr</span><br><span class="line">  <span class="attribute">args</span>:</span><br><span class="line">    <span class="attribute">urlpath</span>: <span class="string">'s3://Pangeo/pangeo-forge/swot_adac/FIO-COM32/Region0&#123;&#123; region &#125;&#125;/&#123;&#123; datatype &#125;&#125;/&#123;&#123; season &#125;&#125;.zarr'</span></span><br><span class="line">    <span class="attribute">consolidated</span>: True</span><br><span class="line">    <span class="attribute">storage_options</span>:</span><br><span class="line">      <span class="attribute">anon</span>: True</span><br><span class="line">      <span class="attribute">client_kwargs</span>:</span><br><span class="line">        <span class="attribute">endpoint_url</span>: <span class="string">'https://ncsa.osn.xsede.org'</span></span><br></pre></td></tr></table></figure>
+
+<p>这些信息给出了云端的FIO模式数据描述，比如共有四个区域（参考论文图片1），数据集中在春秋季节，数据时间采样主要为一小时。<br><img src="./images/po1.png" alt></p>
+<p>因为数据稍微复杂，作者编写了validate_catalog模块，可以实现快速读取：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> validate_catalog <span class="keyword">import</span> all_params</span><br><span class="line">params_dict, cat = all_params()</span><br><span class="line">params_dict.keys()</span><br></pre></td></tr></table></figure>
+
+<p>有一种模式由于版权问题，未存储云端。</p>
+<blockquote>
+<p>dict_keys([‘GIGATL’, ‘HYCOM25’, ‘HYCOM50’, ‘eNATL60’, ‘FESOM’, ‘ORCA36’, ‘FIO-COM32’])</p>
+</blockquote>
+<h2 id="FIO"><a href="#FIO" class="headerlink" title="FIO"></a>FIO</h2><p>读取FIO模式：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">item = "FIO-COM32"</span><br><span class="line">params = params_dict[<span class="string">item</span>][<span class="symbol">0</span>]</span><br><span class="line">print(item, params)</span><br></pre></td></tr></table></figure>
+
+<p>这样我们选择了湾流区域的春季数据：</p>
+<blockquote>
+<p>FIO-COM32 {‘region’: ‘1’, ‘datatype’: ‘surface_hourly’, ‘season’: ‘fma’}</p>
+</blockquote>
+<p>将数据通过lazy模式读入，这批数据时间是2018-2-1至2018-5-1，参数包含海表温盐流和SSH：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">print(item, params)</span><br><span class="line">ds = cat[<span class="string">item</span>](<span class="link">**params</span>).to_dask()</span><br></pre></td></tr></table></figure>
+
+<p>载入一个时间点的温度，中尺度现象清晰可见：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.surface_temp.sel(time='<span class="number">2018-05-01</span>T10:00:00.<span class="number">00000000</span>0').plot(size=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/po2.png" alt></p>
+<p>流场：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.usurf.sel(time='<span class="number">2018-05-01</span>T10:00:00.<span class="number">00000000</span>0').plot(size=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/po3.png" alt></p>
+<h3 id="KE动能"><a href="#KE动能" class="headerlink" title="KE动能"></a>KE动能</h3><p>下面算一算春季这块海域的平均动能，云计算耗时仅2s：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">EKE = <span class="number">0.5</span>*(ds.usurf**<span class="number">2</span> + ds.usurf**<span class="number">2</span>).mean(<span class="string">'time'</span>)</span><br><span class="line">EKE.load()</span><br></pre></td></tr></table></figure>
+
+<p>计算平均海面高度，耗时1s：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%%<span class="built_in">time</span></span><br><span class="line">meanSSH = ds.eta_t.mean(<span class="string">'time'</span>)</span><br><span class="line">meanSSH.<span class="built_in">load</span>()</span><br></pre></td></tr></table></figure>
+<p>绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">plt.figure(figsize=(8,5))</span><br><span class="line">np.log10(EKE).plot.contourf(<span class="attribute">vmin</span>=-4.5, <span class="attribute">vmax</span>=1.5, <span class="attribute">levels</span>=30,cmap='RdBu_r')</span><br><span class="line">meanSSH.plot.contour(<span class="attribute">levels</span>=30, <span class="attribute">linewidths</span>=0.75)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/po4.png" alt></p>
+<h3 id="锋面"><a href="#锋面" class="headerlink" title="锋面"></a>锋面</h3><p>通过温度场，分析这里的锋面（fronts）。主要使用滤波技巧，首先滑动平均，然后减去这个空间平均场，得到亚中尺度的温度变化信息：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lwindow = 40</span><br><span class="line">sst_ls = (ds.surface_temp.rolling(<span class="attribute">yt_ocean</span>=lwindow, <span class="attribute">center</span>=<span class="literal">True</span>).mean()</span><br><span class="line">                   ).rolling(<span class="attribute">xt_ocean</span>=lwindow, <span class="attribute">center</span>=<span class="literal">True</span>).mean();</span><br><span class="line">sst_ss = ds.surface_temp - sst_ls</span><br></pre></td></tr></table></figure>
+
+<p>绘图对比，可见湾流特征清晰，锋面信息丰富，里面蕴含的科学还等待您的挖掘：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(14,4))</span><br><span class="line">plt.subplot(131)</span><br><span class="line">ds.surface_temp.isel(<span class="attribute">time</span>=0).plot(vmin=-1, <span class="attribute">vmax</span>=30, <span class="attribute">cmap</span>=<span class="string">'RdBu_r'</span>)</span><br><span class="line">plt.title(<span class="string">'Temp Field'</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(132)</span><br><span class="line">sst_ls.isel(<span class="attribute">time</span>=0).plot(vmin=-1, <span class="attribute">vmax</span>=30, <span class="attribute">cmap</span>=<span class="string">'RdBu_r'</span>)</span><br><span class="line">plt.title(<span class="string">'Large Scale'</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(133)</span><br><span class="line">sst_ss.isel(<span class="attribute">time</span>=0).plot(vmin=-2, <span class="attribute">vmax</span>=2, <span class="attribute">cmap</span>=<span class="string">'RdBu_r'</span>)</span><br><span class="line">plt.title(<span class="string">'Small Scale'</span>)</span><br><span class="line">plt.tight_layout()</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/po5.png" alt></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>介绍了FIO海洋模式的读取和云计算</li>
+<li>云端计算还是一如既往的方便快捷</li>
+<li>介绍了一点物理海洋的知识：KE和锋面</li>
+</ul>
+<h2 id="下节重磅推出"><a href="#下节重磅推出" class="headerlink" title="下节重磅推出"></a>下节重磅推出</h2><ul>
+<li>云端运行ROMS</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1482,118 +1620,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/13/gmt-authors/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/13/gmt-authors/" class="post-title-link" itemprop="url">GMT辅助文献计量学绘制作者产出和引用图</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-13 22:12:10 / 修改时间：22:55:38" itemprop="dateCreated datePublished" datetime="2022-07-13T22:12:10+08:00">2022-07-13</time>
-            </span>
-
-          
-            <span id="/2022/07/13/gmt-authors/" class="post-meta-item leancloud_visitors" data-flag-title="GMT辅助文献计量学绘制作者产出和引用图" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/07/13/gmt-authors/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/13/gmt-authors/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在分析某一领域的核心贡献者时，往往使用年发文数量和年平均引用数量这两个指标，怎么将这两个指标在一个图形中展示呢？计量软件<code>bibliometrix</code>工具可以绘制这类图形，但是不容易被大众解读。今天推荐GMT的一个特别工具<code>wiggle</code>实现该目标。我们使用的例子还是卫星测高这个研究群体。</p>
-<h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>从WoS下载卫星测高主题的元数据，1970年到2021年大约有8500多篇，作者有1,5000多位。</p>
-<p>将数据导入<code>bibliometrix</code>软件。</p>
-<blockquote>
-<p>bibliometrix是一个R语言的文献计量软件包，统计分析的功能较为强大，绘图的灵活性较弱。这里我们仅使用其统计功能。更多参考：<a href="https://bibliometrix.org/" target="_blank" rel="noopener">https://bibliometrix.org/</a></p>
-</blockquote>
-<p>在作者一栏，我们选择：</p>
-<p><img src="../images/AU1.png" alt></p>
-<p>这里就可以看到图形了，但是不仔细看，分不清楚引用量是怎么表达的。</p>
-<p><img src="../images/AU3.png" alt></p>
-<p>仔细看的话，发现圆点的大小表示论文数量，圆点的颜色深浅表示引用数量，这种展示对于量化分析并不友好。</p>
-<p>我们选择保存为csv文件，然后让GMT来绘图：</p>
-<p><img src="../images/AU2.png" alt></p>
-<h2 id="GMT代码"><a href="#GMT代码" class="headerlink" title="GMT代码"></a>GMT代码</h2><p>由于在一个csv文件中包含了所有信息，绘图需要使用循环的脚本，这里采用<code>pygmt</code>和<code>Python</code>相结合绘图。</p>
-<p>主要代码如下：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(r<span class="string">".\author\Author_Production_Over_Time.csv"</span>)</span><br><span class="line"><span class="attribute">au</span>=df[<span class="string">'Author'</span>]</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.basemap(region=[1978, 2023, -20, 200], <span class="attribute">projection</span>=<span class="string">"X15c/15c"</span>, frame=[<span class="string">"Snlr"</span>, <span class="string">"xaf1"</span>])</span><br><span class="line"></span><br><span class="line">fruits = au.unique()</span><br><span class="line"><span class="attribute">fruits</span>=fruits[::-1] </span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line">    <span class="builtin-name">print</span> (<span class="string">'Present author : %s'</span> % fruits[index])</span><br><span class="line">    <span class="attribute">z</span>=df[<span class="string">'freq'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">x</span>=df[<span class="string">'year'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">y</span>=np.ones(x.values.size)+k</span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> k == 0:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"20"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"gray+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            # Plot a vertical scale bar at the right middle. The bar length is 100 <span class="keyword">in</span></span><br><span class="line">            <span class="attribute">position</span>=<span class="string">"jLT+w10+lpublications+o0.2/0.2"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"20"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"gray+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,         </span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line">    <span class="builtin-name">print</span> (<span class="string">'Present author : %s'</span> % fruits[index])</span><br><span class="line">    <span class="attribute">z</span>=df[<span class="string">'TCpY'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">x</span>=df[<span class="string">'year'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">y</span>=np.ones(x.values.size)+k</span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line">    <span class="keyword">if</span> k == 0:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=-z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"100"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"blue+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            # Plot a vertical scale bar at the right middle. The bar length is 100 <span class="keyword">in</span>            </span><br><span class="line">            <span class="attribute">position</span>=<span class="string">"jLT+w50+lcitations/year+o0.2/0.9"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )    </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=-z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"100"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"blue+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        ) </span><br><span class="line"></span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line"></span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line"></span><br><span class="line">    fig.text(</span><br><span class="line">        region=[1978, 2030, -20, 200],</span><br><span class="line">        <span class="attribute">projection</span>=<span class="string">"X20c/15c"</span>,</span><br><span class="line">        <span class="attribute">x</span>=2017,</span><br><span class="line">        <span class="attribute">y</span>=1+k-10,</span><br><span class="line">        <span class="attribute">text</span>=fruits[index],</span><br><span class="line">        <span class="attribute">font</span>=<span class="string">"Courier-Bold"</span>,</span><br><span class="line">        <span class="attribute">justify</span>=<span class="string">"BL"</span>,</span><br><span class="line">        <span class="attribute">offset</span>=<span class="string">"0.75c/0c"</span>,</span><br><span class="line">    )        </span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="./images/AU4.png" alt></p>
-<p>图上方红色区域表示作者的年度论文发表数量，下方的蓝色区域表示当年度发表论文的年均引用量。</p>
-<p>可以看出卫星测高领域产出最大和引用最多的作者中有多位多位中国人，排名首位的是美国<code>The Ohio State University</code>的华人C.K. Shum。</p>
-<blockquote>
-<p>测试数据和代码：<a href="https://www.jianguoyun.com/p/DR0zR7YQ2PCQBxiK_MwEIAA" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DR0zR7YQ2PCQBxiK_MwEIAA</a> </p>
-</blockquote>
-<p>文献计量分析的GMT案例到此结束。</p>
-<h4 id="交流群"><a href="#交流群" class="headerlink" title="交流群"></a>交流群</h4><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
-<p><strong>主要功能定位：</strong></p>
-<ul>
-<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
-<li>对国内海洋实测数据的申请提供必要的指导</li>
-<li>物理海洋、大地测量、海洋遥感等学科交流</li>
-<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
-</ul>
-<p><img src="../images/qq.png" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1666,7 +1692,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">127</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
