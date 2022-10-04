@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">128</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">129</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,210 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/08/16/linux-tools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/16/linux-tools/" class="post-title-link" itemprop="url">命令工具常用操作</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-16 10:29:04" itemprop="dateCreated datePublished" datetime="2020-08-16T10:29:04+08:00">2020-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-22 08:45:27" itemprop="dateModified" datetime="2021-10-22T08:45:27+08:00">2021-10-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/08/16/linux-tools/" class="post-meta-item leancloud_visitors" data-flag-title="命令工具常用操作" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/16/linux-tools/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/16/linux-tools/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这里列举一些常用的，又不容易记忆的linux工具命令</p>
+<h3 id="zotero-添加SCIhub"><a href="#zotero-添加SCIhub" class="headerlink" title="zotero 添加SCIhub"></a>zotero 添加SCIhub</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Edit-Preference-Config</span> <span class="selector-tag">editor-extensions</span><span class="selector-class">.zotero</span><span class="selector-class">.findPDFs</span><span class="selector-class">.resolvers</span></span><br></pre></td></tr></table></figure>
+<p>添加</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>:<span class="string">"Sci-Hub"</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"GET"</span>,</span><br><span class="line">    <span class="attr">"url"</span>:<span class="string">"https://sci-hub.ren/&#123;doi&#125;"</span>,</span><br><span class="line">    <span class="attr">"mode"</span>:<span class="string">"html"</span>,</span><br><span class="line">    <span class="attr">"selector"</span>:<span class="string">"#pdf"</span>,</span><br><span class="line">    <span class="attr">"attribute"</span>:<span class="string">"src"</span>,</span><br><span class="line">    <span class="attr">"automatic"</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，使用<code>Zotero Connector</code>或者<code>Find Available PDF</code>均可下载已有的PDF文件。</p>
+<h3 id="nvidia"><a href="#nvidia" class="headerlink" title="nvidia"></a>nvidia</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi # 查看显卡信息</span><br><span class="line">watch -n <span class="number">0.1</span> nvidia-smi #每隔<span class="number">0.1</span>s更新</span><br><span class="line">lspci|grep NVIDIA # 查看显卡驱动</span><br><span class="line">lspci | grep -i vga</span><br><span class="line">sudo sh NVIDIA-Linux-x86_64<span class="number">-440.64</span>.run # 安装Nvidia驱动</span><br><span class="line"># 或者下面代码安装cuda</span><br><span class="line">sudo chmod +x cuda_11<span class="number">.0</span><span class="number">.3</span>_450<span class="number">.51</span><span class="number">.06</span>_linux.run</span><br><span class="line">sudo ./cuda_11<span class="number">.0</span><span class="number">.3</span>_450<span class="number">.51</span><span class="number">.06</span>_linux.run</span><br></pre></td></tr></table></figure>
+<p>添加路径</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit ~/.bashrc</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">"/usr/local/cuda-11.0/bin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LD_LIBRARY_PATH</span>=<span class="string">"/usr/local/cuda-11.0/lib64:<span class="variable">$LD_LIBRARY_PATH</span>"</span></span><br><span class="line">source ~/.bashrc</span><br><span class="line">nvcc -V # 查看cuda安装</span><br></pre></td></tr></table></figure>
+
+<p>删除cuda。（有时候需要删除后，重新安装别的版本）</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/cuda-11.0/bin/</span></span><br><span class="line">sudo <span class="string">./cuda-uninstaller</span></span><br><span class="line">sudo rm -rf <span class="string">/usr/local/cuda-11.0</span></span><br></pre></td></tr></table></figure>
+
+<p>安装cupti</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libcupti-dev</span><br><span class="line">export LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/usr/local/cuda/extras/CUPTI/lib64</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Sphinx"><a href="#Sphinx" class="headerlink" title="Sphinx"></a>Sphinx</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> Sphinx</span><br><span class="line">sphinx-<span class="keyword">build</span> <span class="comment">--version</span></span><br><span class="line">sphinx-quickstart docs</span><br><span class="line">sphinx-<span class="keyword">build</span> -b html docs docs/_build/html</span><br></pre></td></tr></table></figure>
+
+<h3 id="Colab"><a href="#Colab" class="headerlink" title="Colab"></a>Colab</h3><p>Colaboratory is built on top of Jupyter Notebook.</p>
+<p>GPU可以快速提高训练的速度。Colab提供K80显卡，价格一万多元。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 查看显存情况</span></span><br><span class="line">!/opt/bin/nvidia-smi</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="title">tf</span>.test.gpu_device_name()</span><br><span class="line"><span class="meta"># 在使用哪个GPU</span></span><br><span class="line"><span class="title">from</span> tensorflow.python.client <span class="keyword">import</span> device_lib</span><br><span class="line"><span class="title">device_lib</span>.list_local_devices()</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看CPU</span></span><br><span class="line">!cat  /<span class="keyword">proc</span>/cpuinfo</span><br><span class="line"></span><br><span class="line"><span class="meta"># RAM大小</span></span><br><span class="line">!cat /<span class="keyword">proc</span>/meminfo</span><br></pre></td></tr></table></figure>
+
+<p>使用google drive数据的方法：<a href="https://colab.research.google.com/notebooks/io.ipynb" target="_blank" rel="noopener">https://colab.research.google.com/notebooks/io.ipynb</a></p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">'/content/drive'</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="built_in">os</span></span><br><span class="line"><span class="built_in">os</span>.chdir(<span class="string">'/content/drive/My Drive/'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h3><p>Conda 比较慢，可以使用mamba加速：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> -c conda-forge mamba</span><br></pre></td></tr></table></figure>
+<p>之后，使用mamba替代conda使用。</p>
+<p>Conda是一种python包管理工具，可以对环境进行封闭管理，不同环境之间不相互干扰。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="comment">--version # 版本号</span></span><br><span class="line">conda env list <span class="comment"># 列出所有环境</span></span><br><span class="line">conda list -n python_3.9 <span class="comment"># 列出非当前环境的包</span></span><br><span class="line">conda list <span class="comment"># 列出当前环境的包</span></span><br><span class="line">conda <span class="keyword">create</span> -n env_name package_name <span class="comment"># 创建环境，如conda create -n python2 python=2.7 </span></span><br><span class="line">conda <span class="keyword">activate</span> python2<span class="number">.7</span> <span class="comment"># 激活某环境</span></span><br><span class="line">conda deactivate <span class="comment"># 退出当前环境</span></span><br><span class="line">conda <span class="keyword">install</span> package_name <span class="comment">#在当前环境中安装包</span></span><br><span class="line">conda remove <span class="keyword">package</span> <span class="comment">#删除当前环境中的包</span></span><br><span class="line">conda <span class="keyword">install</span> <span class="comment">--name env_name package_name #在指定环境中安装包</span></span><br><span class="line">conda remove <span class="comment">-- name env_name package </span></span><br><span class="line">conda <span class="keyword">create</span> -n tensorflow_env tensorflow <span class="comment">#安装tensorflow的CPU版本</span></span><br><span class="line">conda <span class="keyword">install</span> tensorflow <span class="comment"># 在当前环境下安装tensorflow</span></span><br><span class="line">conda <span class="keyword">search</span> tensorflow <span class="comment"># 查找版本</span></span><br></pre></td></tr></table></figure>
+
+<p>删除环境之前需要先<code>deactivate</code></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate tensorflow_env</span><br><span class="line">conda <span class="built_in">remove</span> -n tensorflow_env <span class="comment">--all</span></span><br></pre></td></tr></table></figure>
+
+<p>添加conda-forge channel并设置为最高优先级</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda<span class="built_in"> config </span>--<span class="builtin-name">add</span> channels conda-forge</span><br></pre></td></tr></table></figure>
+
+<p>查看现在的channel状态和优先级</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda<span class="built_in"> config </span>--<span class="builtin-name">get</span> channels</span><br></pre></td></tr></table></figure>
+
+<p>激活某个环境，在环境中设置channel的严格优先。注，如果该环境中已经安装了若干库，则需要先更新所有的库以保证大多数库从conda-forge下载，以保持库的一致性。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># activate my environment</span></span><br><span class="line">conda activate my_env</span><br><span class="line"><span class="comment"># update all packages if needed</span></span><br><span class="line">conda update --all</span><br><span class="line"><span class="comment"># set channel priority as strict</span></span><br><span class="line">conda<span class="built_in"> config </span>--<span class="builtin-name">set</span> channel_priority strict</span><br></pre></td></tr></table></figure>
+
+
+<p>使用添加频道 conda config –add 频道 —（你的频道） 您添加的最后一个频道获得最高优先级……所以请保持顺序。您可以添加频道，即使您已经拥有它们，以便更改优先级顺序.</p>
+<p>恢复原来的源,删除添加的源和设置。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda<span class="built_in"> config </span>--remove-key channels</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>理解image、container。image可以共用，比如Ubuntu环境，而且非常精简。container是每次启动后的封闭容器，一个Ubuntu可以启动无数个container，彼此不相干。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">images</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">info</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">run -it ubuntu bash</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">ps</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">ps -aq</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">start (id)</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">restart</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">kill</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">kill $(docker ps -aq)</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">start -d (id)</span></span><br></pre></td></tr></table></figure>
+<p>退出容器：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+<p>退出，但是还在后台运行，<code>Ctrl+P+Q</code>.<br>退出后再次进入<code>docker start -d (id)</code>或者<code>docker exec -it 3e17550b10c8 bash</code>。此外还有<code>attach</code>可以进入正在运行的窗口。</p>
+<p>查看日志</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f -t <span class="comment">--details 3e17550b10c8</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p>下面是简单的上传博客文章的hexo命令，其中<code>hexo d -m &quot;message&quot;</code> 可以产生<code>commit</code>。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type">post</span> <span class="string">"linux tools"</span></span><br><span class="line">hexo g</span><br><span class="line">hexo d -m <span class="string">"linux tools"</span></span><br></pre></td></tr></table></figure>
+
+<p>插入公式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">uninstall</span> hexo-math <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-renderer-mathjax <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p>配置参考：</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/9b9c241146bc" target="_blank" rel="noopener">https://www.jianshu.com/p/9b9c241146bc</a></p>
+</blockquote>
+<blockquote>
+<p>行内的公式用<code>$</code>公式内容<code>$</code>包裹起来，在公式中右键即可查看公式$\TeX$代码。<br>同样右键可查看公式代码。</p>
+</blockquote>
+<p>例如：<br>\begin{equation} \sum_{k=1}^{n} \frac{1}{1+8 \sin ^{2} \frac{k \pi}{n}}=\frac{n\left(2^{n}+1\right)}{3\left(2^{n}-1\right)} \end{equation}</p>
+<p>文章抬头需要加入类似：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">hexo中插入数学公式</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019</span><span class="number">-05</span><span class="number">-09</span> <span class="number">12</span><span class="string">:40:16</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>常用git命令</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">status</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"add dac"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure>
+
+<p>更新代码到本地。如果本地没有修改，可以直接使用：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git pull</span></span><br></pre></td></tr></table></figure>
+
+<p>撤销不小心add的文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset data<span class="regexp">/era5/</span><span class="number">4</span>d<span class="regexp">/south/</span>era5.pl.*.nc</span><br></pre></td></tr></table></figure>
+
+<p><code>.gitignore</code>修改无效的问题<br><code>.gitignore</code>只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的，所以我们需要使用rm命令清除一下相关的缓存内容.这样文件将以未追踪的形式出现，对某个文件取消跟踪。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r <span class="comment">--cached .</span></span><br><span class="line">git <span class="keyword">add</span> .</span><br><span class="line">git <span class="keyword">commit</span> -m <span class="string">'update .gitignore'</span></span><br></pre></td></tr></table></figure>
+
+<p>git撤回commit</p>
+<blockquote>
+<p>写完代码后，我们一般这样<br>git add . //添加所有文件<br>git commit -m “本功能全部完成”<br>执行完commit后，想撤回commit，怎么办？<br>这样凉拌：<br>git reset –soft HEAD^</p>
+</blockquote>
+<p>不再追踪某文件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">rm</span> --cached <span class="keyword">test</span>/ja3_check/mypoints.kml</span><br></pre></td></tr></table></figure>
+
+<h3 id="批量解压gz"><a href="#批量解压gz" class="headerlink" title="批量解压gz"></a>批量解压gz</h3><p>我下载了很多个文件夹，每个文件夹下都是<code>gz</code>压缩文件，现在想批量解压指定文件夹的文件。</p>
+<p>文件下载如下：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ ls | head</span><br><span class="line">cycle_0066/</span><br><span class="line">cycle_0067/</span><br><span class="line">cycle_0068/</span><br><span class="line">cycle_0069/</span><br><span class="line">cycle_0070/</span><br><span class="line">cycle_0071/</span><br><span class="line">cycle_0072/</span><br><span class="line">cycle_0073/</span><br><span class="line">cycle_0074/</span><br><span class="line">cycle_0075/</span><br><span class="line"></span><br><span class="line">$ ls cycle_0099 | head</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0001_20150704T020146_20150704T024914_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0002_20150704T025439_20150704T034613_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0003_20150704T034614_20150704T043339_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0004_20150704T043901_20150704T053040_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0005_20150704T053041_20150704T062248_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0006_20150704T062321_20150704T071508_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0007_20150704T071509_20150704T080720_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0008_20150704T080722_20150704T085935_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0009_20150704T085936_20150704T095149_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0010_20150704T095150_20150704T104402_20180712T075833.nc.gz</span><br></pre></td></tr></table></figure>
+<p>解压cycle_0068和cycle_0069两个文件夹下的全部gz文件，并删除gz原始文件。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip -d cycle_006[<span class="number">8</span><span class="number">-9</span>]<span class="comment">/*.gz</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="批量转换图片格式"><a href="#批量转换图片格式" class="headerlink" title="批量转换图片格式"></a>批量转换图片格式</h3><p>把pdf转为png，并设置density 300，表示图像每英寸面积内的像素点数，数值越高图片质量越高</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for <span class="meta">file</span> <span class="meta">in</span> <span class="comment">*.pdf;</span> <span class="meta">do</span> magick convert -density 300 $<span class="meta">file</span> $&#123;<span class="meta">file</span>%%.<span class="comment">*&#125;.png;</span> done</span><br></pre></td></tr></table></figure>
+<h3 id="视频编辑"><a href="#视频编辑" class="headerlink" title="视频编辑"></a>视频编辑</h3><p>截取视频</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg  -i ./linchang.mp4 -vcodec copy -acodec copy -ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> -to <span class="number">00</span>:<span class="number">00</span>:<span class="number">16</span> ./cutout1.mp4 -y</span><br><span class="line">$ ffmpeg  -i ./linchang.mp4 -vcodec copy -acodec copy -ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">29</span> -to <span class="number">00</span>:<span class="number">00</span>:<span class="number">48</span> ./cutout2.mp4 -y</span><br></pre></td></tr></table></figure>
+<p>合并视频(对于MP4格式，需要先转ts再合并)</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg -<span class="selector-tag">i</span> cutout1<span class="selector-class">.mp4</span> -c copy -bsf:v h264_mp4toannexb -f mpegts input1<span class="selector-class">.ts</span>   </span><br><span class="line">$ ffmpeg -<span class="selector-tag">i</span> cutout2<span class="selector-class">.mp4</span> -c copy -bsf:v h264_mp4toannexb -f mpegts input2<span class="selector-class">.ts</span>   </span><br><span class="line">$ ffmpeg -<span class="selector-tag">i</span> <span class="string">"concat:input1.ts|input2.ts"</span> -c copy -bsf:<span class="selector-tag">a</span> aac_adtstoasc -movflags +faststart output.mp4</span><br></pre></td></tr></table></figure>
+<p>慢速，三倍慢速</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg -i <span class="number">2021</span><span class="number">-02</span><span class="number">-19</span><span class="number">-22</span><span class="number">-38</span><span class="number">-32.</span>mp4 -vf  <span class="string">"setpts=3*PTS"</span> test2.mp4</span><br></pre></td></tr></table></figure>
+<h3 id="Latex转word"><a href="#Latex转word" class="headerlink" title="Latex转word"></a>Latex转word</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pandoc</span> <span class="selector-tag">template</span><span class="selector-class">.tex</span> <span class="selector-tag">-o</span> <span class="selector-tag">output</span><span class="selector-class">.docx</span> <span class="selector-tag">-w</span> <span class="selector-tag">docx</span>  <span class="selector-tag">--pdf-engine</span> <span class="selector-tag">pdflatex</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-解压乱码问题"><a href="#Linux-解压乱码问题" class="headerlink" title="Linux 解压乱码问题"></a>Linux 解压乱码问题</h3><p>使用下面的编码即可。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip -O CP936 <span class="keyword">test</span>.<span class="keyword">zip</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1110,114 +1314,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/19/line-width-km/" class="post-title-link" itemprop="url">GMT以公里为单位绘制线的宽度</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-19 22:21:20" itemprop="dateCreated datePublished" datetime="2020-01-19T22:21:20+08:00">2020-01-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-02 16:06:38" itemprop="dateModified" datetime="2020-03-02T16:06:38+08:00">2020-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GMT/" itemprop="url" rel="index">
-                    <span itemprop="name">GMT</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/19/line-width-km/" class="post-meta-item leancloud_visitors" data-flag-title="GMT以公里为单位绘制线的宽度" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/19/line-width-km/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/19/line-width-km/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：GMT中psxy绘制线的宽度单位能设置为km吗？<br>答：psxy的线宽单位只有<code>c,i,p</code>，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。</p>
-<blockquote>
-<p>Width is by default measured in points (1/72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points, respectively.</p>
-</blockquote>
-<p>问：就没有别的办法了吗？<br>答：可以通过设定地图比例尺<code>scale</code>，然后根据比例尺来计算出地图上1cm表示的实际地理长度。例如比例尺为<code>1:500000</code>时，线宽1m表示500,000米，1cm表示5km。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/19/line-width-km/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1290,7 +1386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1496,6 +1592,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 

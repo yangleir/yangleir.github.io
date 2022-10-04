@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="在地球旋转作用下，海洋表现出永恒的、自然的运动。海洋运动包含环流和波动，在时间和空间的不同尺度上具有一定的自然规律和特点，简单说中尺度海流为平衡的地转运动，可以输运物质能量，小尺度的波动是非地转非平衡运动，起到能量传播作用，不输运物质，波浪只做周期往复的椭圆运动。 当前的海洋观测手段主要是卫星观测、定点观测和漂流浮标观测，得到时间上高频（小时）和空间上高波数（亚中尺度）的全球海洋环流观测基本是不可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云计算-海洋模式时空谱分析">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/10/03/wf-llc/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="在地球旋转作用下，海洋表现出永恒的、自然的运动。海洋运动包含环流和波动，在时间和空间的不同尺度上具有一定的自然规律和特点，简单说中尺度海流为平衡的地转运动，可以输运物质能量，小尺度的波动是非地转非平衡运动，起到能量传播作用，不输运物质，波浪只做周期往复的椭圆运动。 当前的海洋观测手段主要是卫星观测、定点观测和漂流浮标观测，得到时间上高频（小时）和空间上高波数（亚中尺度）的全球海洋环流观测基本是不可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/10/03/wf-llc/images/wf1.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/10/03/wf-llc/images/wf3.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/10/03/wf-llc/images/wf4.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/10/03/wf-llc/images/wf5.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/10/03/wf-llc/images/wf6.png">
+<meta property="article:published_time" content="2022-10-03T02:12:17.000Z">
+<meta property="article:modified_time" content="2022-10-04T01:41:18.248Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="pangeo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/10/03/wf-llc/images/wf1.jpg">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/10/03/wf-llc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>云计算-海洋模式时空谱分析 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">79</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">129</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/10/03/wf-llc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          云计算-海洋模式时空谱分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-03 10:12:17" itemprop="dateCreated datePublished" datetime="2022-10-03T10:12:17+08:00">2022-10-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-04 09:41:18" itemprop="dateModified" datetime="2022-10-04T09:41:18+08:00">2022-10-04</time>
+              </span>
+
+          
+            <span id="/2022/10/03/wf-llc/" class="post-meta-item leancloud_visitors" data-flag-title="云计算-海洋模式时空谱分析" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/10/03/wf-llc/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/10/03/wf-llc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在地球旋转作用下，海洋表现出永恒的、自然的运动。海洋运动包含环流和波动，在时间和空间的不同尺度上具有一定的自然规律和特点，简单说中尺度海流为平衡的地转运动，可以输运物质能量，小尺度的波动是非地转非平衡运动，起到能量传播作用，不输运物质，波浪只做周期往复的椭圆运动。</p>
+<p>当前的海洋观测手段主要是卫星观测、定点观测和漂流浮标观测，得到时间上高频（小时）和空间上高波数（亚中尺度）的全球海洋环流观测基本是不可能的，例如传统高度计分辨率的有效分辨率在100km，时间分辨率为1天。</p>
+<p>当前波动（含内波）已经在它的领域得到了大量的独立研究，中尺度和大尺度的环流也在它的领域被大量的独立研究，而介于中尺度和小尺度之间的亚中尺度运动依旧是人类认识海洋的空白区之一。LLC4320的高分辨率允许我们使用它进行高频、高波数时空谱分析，得到亚中尺度谱形状特征，进而了解海洋动能的时空特征和注入、级串、耗散等过程。</p>
+<p><img src="./images/wf1.jpg" alt></p>
+<p>本节，我们使用LLC4320云计算快速计算wavenumber-frequency谱（w-f谱），的得到三维的FFT结构，并分离海洋中的平衡和非平衡运动。</p>
+<blockquote>
+<p>参考：<a href="https://github.com/pangeo-data/swot_adac_ogcms" target="_blank" rel="noopener">https://github.com/pangeo-data/swot_adac_ogcms</a></p>
+</blockquote>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>气象海洋数据往往是三维或者更多维度结构，对于含有空间和时间的三维网格数据，可以计算每个网格点的时间FFT，也可以计算每个时刻的空间FFT。分开计算的效果往往是下面两张图，这样的谱表达是时空分割的，无法同时知道时间和空间尺度的内在关系:<br><img src="./images/wf3.png" alt></p>
+<p>w-f谱本质上是在时间和空间上先后做了FFT。那么把时间和空间都同时进行FFT，则可以得到物理海洋常见的三维w-f谱，其中两个坐标轴分别表示时间频率和空间波数，颜色表示能量密度大小。</p>
+<p>效果往往是下面的图，初看可能很混乱，我大致描述下它的含义。在时间尺度上海洋运动的周期性非常明显，在潮汐周期M2频率上会发现一条高能带，如果平行着Y轴做一条剖面线，则在M2有一个峰，f是科氏力参数，也表示地转频率或者惯性频率，和纬度有关系，它是区分平衡运动和非平衡运动的一个重要参数，图上的两条曲线是内波的不同模态，内波的第十模态（图上无此模态）往往也是区分平衡和非平衡运动的一个频率分界线。当前最新的研究成果表明，从海面观测信息中区分地转和非地转能量的参考正是惯性频率和内波模态的结合。</p>
+<p><img src="./images/wf4.png" alt></p>
+<blockquote>
+<p>摘自：C. B. Rocha, S. T. Gille, T. K. Chereskin, and D. Menemenlis, “Seasonality of submesoscale dynamics in the Kuroshio Extension,” Geophysical Research Letters, vol. 43, no. 21, p. 11,304-11,311, 2016, doi: 10.1002/2016GL071349.</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>下面使用云计算和LLC4320模式数据，介绍主要的计算步骤，由于代码略多，这里仅贴出关键部分，最后附完整代码（notebook）下载地址。</p>
+<h3 id="首先导入库（略）"><a href="#首先导入库（略）" class="headerlink" title="首先导入库（略）"></a>首先导入库（略）</h3><h3 id="云数据读取"><a href="#云数据读取" class="headerlink" title="云数据读取"></a>云数据读取</h3><p>同时导入LLC4320的表面流速UV，以及模式的网格文件。计算全球数据需要消耗太大的计算，这里我们选择美国西海岸的湾流区域为例进行分析，时间选择春季。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from intake import open_catalog</span><br><span class="line">import xmitgcm.llcreader <span class="keyword">as</span> llcreader</span><br><span class="line">cat = <span class="keyword">open</span><span class="constructor">_catalog(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean/llc4320.yaml"</span>)</span></span><br><span class="line"></span><br><span class="line">u = cat.<span class="module-access"><span class="module"><span class="identifier">LLC4320_SSU</span>.</span></span><span class="keyword">to</span><span class="constructor">_dask()</span></span><br><span class="line">v = cat.<span class="module-access"><span class="module"><span class="identifier">LLC4320_SSV</span>.</span></span><span class="keyword">to</span><span class="constructor">_dask()</span></span><br><span class="line"></span><br><span class="line">ds = xr.merge(<span class="literal">[<span class="identifier">u</span>, <span class="identifier">v</span>]</span>)</span><br><span class="line">ds = llcreader.llcmodel.faces<span class="constructor">_dataset_to_latlon(<span class="params">ds</span>, <span class="params">metric_vector_pairs</span>=[])</span></span><br><span class="line"></span><br><span class="line">coords = cat.<span class="module-access"><span class="module"><span class="identifier">LLC4320_grid</span>.</span></span><span class="keyword">to</span><span class="constructor">_dask()</span>.reset<span class="constructor">_coords()</span></span><br><span class="line">coords = llcreader.llcmodel.faces<span class="constructor">_dataset_to_latlon(<span class="params">coords</span>)</span></span><br><span class="line"></span><br><span class="line">llcw0=ds.sel(time=slice('<span class="number">2012</span>-<span class="number">02</span>-<span class="number">01</span><span class="character">','</span><span class="number">2012</span>-<span class="number">04</span>-<span class="number">30</span>')).isel(j=slice(<span class="number">9555</span>,<span class="number">10198</span>-<span class="number">115</span>),j_g=slice(<span class="number">9555</span>,<span class="number">10198</span>-<span class="number">115</span>),</span><br><span class="line">                                            i=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>),i_g=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>))</span><br></pre></td></tr></table></figure>
+
+<p>载入网格信息，主要用于计算空间间隔：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dxC_sel = coords.dxC.isel(i_g=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>), j=slice(<span class="number">9555</span>,<span class="number">10198</span><span class="number">-115</span>))</span><br><span class="line">dyG_sel = coords.dyG.isel(i_g=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>), j=slice(<span class="number">9555</span>,<span class="number">10198</span><span class="number">-115</span>))</span><br><span class="line">dyC_sel = coords.dyC.isel(i=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>), j_g=slice(<span class="number">9555</span>,<span class="number">10198</span><span class="number">-115</span>))</span><br><span class="line">dxG_sel = coords.dxG.isel(i=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>), j_g=slice(<span class="number">9555</span>,<span class="number">10198</span><span class="number">-115</span>))</span><br><span class="line">XC_sel = coords.XC.isel(i=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>), j=slice(<span class="number">9555</span>,<span class="number">10198</span><span class="number">-115</span>))</span><br><span class="line">YC_sel = coords.YC.isel(i=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>), j=slice(<span class="number">9555</span>,<span class="number">10198</span><span class="number">-115</span>))</span><br><span class="line">dyG_sel= coords.dyG.isel(i_g=slice(<span class="number">15355</span>+<span class="number">170</span>,<span class="number">15845</span>), j=slice(<span class="number">9555</span>,<span class="number">10198</span><span class="number">-115</span>))</span><br></pre></td></tr></table></figure>
+
+<p>合并：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">llcw2 </span>= xr.merge([<span class="keyword">llcw0, </span> dxC_sel, dyC_sel, dxG_sel,</span><br><span class="line">                      dyG_sel,XC_sel, YC_sel,dyG_sel])</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><ul>
+<li>网格化</li>
+</ul>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">metrics = &#123;</span><br><span class="line">    (<span class="string">'X'</span>,): [<span class="string">'dxC'</span>, <span class="string">'dxG'</span>], # X distances</span><br><span class="line">    (<span class="string">'Y'</span>,): [<span class="string">'dyC'</span>, <span class="string">'dyG'</span>], # Y distances</span><br><span class="line">#     (<span class="string">'Z'</span>,): [<span class="string">'drC'</span>], # Z distances</span><br><span class="line">    # (<span class="string">'X'</span>, <span class="string">'Y'</span>): [<span class="string">'rA'</span>, <span class="string">'rAs'</span>, <span class="string">'rAw'</span>] # Areas</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">gridllc = Grid(llcw2, periodic=[],</span><br><span class="line">               coords=&#123;</span><br><span class="line">#                        <span class="string">'Z'</span>:&#123;<span class="string">'center'</span>:<span class="string">'k'</span>,<span class="string">'outer'</span>:<span class="string">'k_p1'</span>&#125;,</span><br><span class="line">                       <span class="string">'Y'</span>:&#123;<span class="string">'center'</span>:<span class="string">'j'</span>,<span class="string">'left'</span>:<span class="string">'j_g'</span>&#125;,</span><br><span class="line">                       <span class="string">'X'</span>:&#123;<span class="string">'center'</span>:<span class="string">'i'</span>,<span class="string">'left'</span>:<span class="string">'i_g'</span>&#125;&#125;,</span><br><span class="line">               metrics=metrics</span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+
+<p>在海洋模式中不同变量彼此偏移，并位于不同的位置，例如LLC4320关于位置有许多的坐标轴，<code>i,i_g,j,j_g</code>等均表示这类意思。这些网格为<code>xarray</code>数据模型操作带来了两难境地，这意味着它们不能使用一致的坐标来表示，xgcm 的一个目标是通过插值进行坐标统一。 </p>
+<ul>
+<li>坐标轴规则插值</li>
+</ul>
+<p>U的坐标轴原本是(j,i_g)，下面将转换为(j,i)：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gridllc.interp(llcw2.U,<span class="string">'X'</span>,<span class="attribute">boundary</span>=<span class="string">'extend'</span>) # 坐标轴的变换</span><br></pre></td></tr></table></figure>
+<ul>
+<li>几何化</li>
+</ul>
+<p>FFT操作的对象是距离单位，而不是网格单位，因此需要把网格近似转换为距离，并得到重组的结构化xarray，便于后续的FFT输入。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> ProgressBar()<span class="symbol">:</span></span><br><span class="line">    U_llc = xr.DataArray(llcw2.U, dims=[<span class="string">'time'</span>,<span class="string">'YC'</span>,<span class="string">'XC'</span>],</span><br><span class="line">                            coords=&#123;<span class="string">'time'</span><span class="symbol">:np</span>.arange(len(llcw2.U.time))*<span class="number">3600</span>, <span class="comment"># second unit</span></span><br><span class="line">                                    <span class="string">'YC'</span><span class="symbol">:np</span>.arange(0,Ny1*dy1,dy1),</span><br><span class="line">                                    <span class="string">'XC'</span><span class="symbol">:np</span>.arange(0,Nx1*dx1,dx1)&#125; <span class="comment"># Disctance in m</span></span><br><span class="line">                           ).chunk(&#123;<span class="string">'time'</span><span class="symbol">:</span><span class="number">100</span>,<span class="string">'YC'</span><span class="symbol">:-</span><span class="number">1</span>,<span class="string">'XC'</span><span class="symbol">:-</span><span class="number">1</span>&#125;)</span><br><span class="line"></span><br><span class="line">    V_llc = xr.DataArray(llcw2.U, dims=[<span class="string">'time'</span>,<span class="string">'YC'</span>,<span class="string">'XC'</span>],</span><br><span class="line">                            coords=&#123;<span class="string">'time'</span><span class="symbol">:np</span>.arange(len(llcw2.U.time))*<span class="number">3600</span>,</span><br><span class="line">                                    <span class="string">'YC'</span><span class="symbol">:np</span>.arange(0,Ny1*dy1,dy1),</span><br><span class="line">                                    <span class="string">'XC'</span><span class="symbol">:np</span>.arange(0,Nx1*dx1,dx1)&#125;</span><br><span class="line">                           ).chunk(&#123;<span class="string">'time'</span><span class="symbol">:</span><span class="number">100</span>,<span class="string">'YC'</span><span class="symbol">:-</span><span class="number">1</span>,<span class="string">'XC'</span><span class="symbol">:-</span><span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="时空"><a href="#时空" class="headerlink" title="时空"></a>时空</h3><p>下面我们先展示湾流地区精美的KE时空结构变化，（文末可下载全部代码）。那么怎么挖掘里面的科学信息呢？谱分析或许是很好的方法之一。</p>
+<p><img src="./images/wf5.png" alt></p>
+<h3 id="谱分析"><a href="#谱分析" class="headerlink" title="谱分析"></a>谱分析</h3><p>下面是最核心的FFT计算，可以看到它的本质是连续在空间和时间上进行FFT，注意<code>dim</code>表示FFT处理的时空维度。得到谱信息后，还需要要做各项同性的规则化处理（代码略）。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">%%<span class="type">time</span></span><br><span class="line"># FFT. 先进行空间的，在进行时间的，最后得到的两个都有</span><br><span class="line">Fu_llc = xrft.fft(xrft.fft(U_llc.fillna(<span class="number">0.</span>), </span><br><span class="line">                              dim=[<span class="string">'YC'</span>,<span class="string">'XC'</span>], <span class="keyword">window</span>=<span class="string">'hann'</span>, detrend=<span class="string">'constant'</span>, </span><br><span class="line">                              true_phase=<span class="keyword">True</span>, true_amplitude=<span class="keyword">True</span></span><br><span class="line">                             ).chunk(&#123;<span class="string">'time'</span>:<span class="number">-1</span>,<span class="string">'freq_YC'</span>:<span class="number">200</span>,<span class="string">'freq_XC'</span>:<span class="number">200</span>&#125;),</span><br><span class="line">                     dim=[<span class="string">'time'</span>], <span class="keyword">window</span>=<span class="string">'hann'</span>, detrend=<span class="string">'constant'</span>, </span><br><span class="line">                     true_phase=<span class="keyword">True</span>, true_amplitude=<span class="keyword">True</span></span><br><span class="line">                    )</span><br><span class="line"></span><br><span class="line">Fu_lls = Fu_llc.isel(freq_time=<span class="keyword">slice</span>(len(Fu_llc.freq_time)//<span class="number">2</span>,<span class="keyword">None</span>)) * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Fv_llc = xrft.fft(xrft.fft(V_llc.fillna(<span class="number">0.</span>), </span><br><span class="line">                              dim=[<span class="string">'YC'</span>,<span class="string">'XC'</span>], <span class="keyword">window</span>=<span class="string">'hann'</span>, detrend=<span class="string">'constant'</span>, </span><br><span class="line">                              true_phase=<span class="keyword">True</span>, true_amplitude=<span class="keyword">True</span></span><br><span class="line">                             ).chunk(&#123;<span class="string">'time'</span>:<span class="number">-1</span>,<span class="string">'freq_YC'</span>:<span class="number">200</span>,<span class="string">'freq_XC'</span>:<span class="number">200</span>&#125;),</span><br><span class="line">                     dim=[<span class="string">'time'</span>], <span class="keyword">window</span>=<span class="string">'hann'</span>, detrend=<span class="string">'constant'</span>, </span><br><span class="line">                     true_phase=<span class="keyword">True</span>, true_amplitude=<span class="keyword">True</span></span><br><span class="line">                    )</span><br><span class="line"></span><br><span class="line">Fv_llc = Fv_llc.isel(freq_time=<span class="keyword">slice</span>(len(Fv_llc.freq_time)//<span class="number">2</span>,<span class="keyword">None</span>)) * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><p>首先设计一个<code>plot</code>函数（代码略），然后调用绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enatlf = xr.DataArray(xr.apply_ufunc(gsw.f, llcw2.YC, <span class="attribute">dask</span>=<span class="string">'parallelized'</span>).data,</span><br><span class="line">                      dims=[<span class="string">'YC'</span>,<span class="string">'XC'</span>], coords=&#123;<span class="string">'YC'</span>:U_llc.YC,<span class="string">'XC'</span>:U_llc.XC&#125;)</span><br><span class="line">omega = np.sqrt(((enatlf.isel(<span class="attribute">YC</span>=0))**2).mean() </span><br><span class="line">                + cs*<span class="number">*2</span>*(isoFu_llc.freq_r.isel(<span class="attribute">freq_r</span>=slice(1,None))*2*np.pi)**2</span><br><span class="line">               )/2/np.pi</span><br><span class="line">omega = xr.DataArray(np.minimum(omega, m2/3600), <span class="attribute">dims</span>=<span class="string">'freq_r'</span>,</span><br><span class="line">                     coords=&#123;<span class="string">'freq_r'</span>:isoFu_llc.freq_r.isel(<span class="attribute">freq_r</span>=slice(1,None))&#125;</span><br><span class="line">                    )</span><br><span class="line">plot(.5*(isoFu_llc + isoFv_llc),</span><br><span class="line">     omega, enatlf,<span class="attribute">title</span>=r"LLC4320")</span><br></pre></td></tr></table></figure>
+
+<p>这样我们就得到了物理海洋最常用的w-f谱分析图，同时还利用能量积分方法分离了平衡和非平衡运动。关于里面的科学性问题，已有大量论文进行了解读，本文仅技术性描述计算过程。</p>
+<p><img src="./images/wf6.png" alt></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>w-f谱计算是常见的高分辨海洋模式分析时空特征方法</li>
+<li>平衡和非平衡运动的区分使用了能量密度积分，积分的边界是内部第十模态和惯性频率</li>
+<li>云计算不需要下载数据，代码的可重复性高</li>
+<li>完整代码：<a href="https://github.com/pangeo-data/llc4320_pangeo/blob/main/wavenumber-fequency.ipynb" target="_blank" rel="noopener">https://github.com/pangeo-data/llc4320_pangeo/blob/main/wavenumber-fequency.ipynb</a></li>
+</ul>
+<h2 id="下结预告"><a href="#下结预告" class="headerlink" title="下结预告"></a>下结预告</h2><ul>
+<li>物理海洋是不是有点难？休息休息</li>
+<li>海洋测绘的AI应用，以海底地形为例</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pangeo/" rel="tag"># pangeo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/26/pangeo-fio/" rel="prev" title="FIO海洋模式的云计算">
+      <i class="fa fa-chevron-left"></i> FIO海洋模式的云计算
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先导入库（略）"><span class="nav-number">2.1.</span> <span class="nav-text">首先导入库（略）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#云数据读取"><span class="nav-number">2.2.</span> <span class="nav-text">云数据读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预处理"><span class="nav-number">2.3.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时空"><span class="nav-number">2.4.</span> <span class="nav-text">时空</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谱分析"><span class="nav-number">2.5.</span> <span class="nav-text">谱分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘图"><span class="nav-number">2.6.</span> <span class="nav-text">绘图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下结预告"><span class="nav-number">4.</span> <span class="nav-text">下结预告</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
