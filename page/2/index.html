@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">79</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">80</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">129</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">130</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,163 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/08/02/llc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/02/llc/" class="post-title-link" itemprop="url">LLCreader开源程序读取LLC4320模式数据</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-02 12:22:21 / 修改时间：12:56:56" itemprop="dateCreated datePublished" datetime="2022-08-02T12:22:21+08:00">2022-08-02</time>
+            </span>
+
+          
+            <span id="/2022/08/02/llc/" class="post-meta-item leancloud_visitors" data-flag-title="LLCreader开源程序读取LLC4320模式数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/08/02/llc/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/02/llc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="LLC4320模式简介"><a href="#LLC4320模式简介" class="headerlink" title="LLC4320模式简介"></a>LLC4320模式简介</h3><p>LLC4320是MITgcm 1/48°模式资料，其直接的诞生原因是帮助海洋学家为即将到来的SWOT任务将以前所未有的分辨率观察海洋表面。</p>
+<p>该模拟在几个方面具有开创性，特别是其高空间分辨率（全球覆盖范围在 1 到 2 公里之间）、综合潮汐驱动和高频（每小时）输出，其海面高度信号中包含了内潮、内波、地转平衡等信号。除了在SWOT相关模拟工作取得应用之外，该模式也在海洋亚中尺度方向得到了很多应用，</p>
+<p>该模式主要特征是：</p>
+<ul>
+<li>全球覆盖（包含极地）</li>
+<li>垂向90层</li>
+<li>分辨率1/48°</li>
+<li>全球海洋分成13个face。每个face的网格数为4320*4320.</li>
+<li>时间采样是小时，总计时间维度9030</li>
+<li>共14 个月（2011 年 9 月至 2012 年 11 月）</li>
+<li>数据量巨大，PB级别</li>
+<li>以MDS自定义二进制数据格式存储，为MITgcm独有</li>
+<li>模型网格复杂，为lat-lon-cap (LLC) 曲线网格 ，很难在常规地图投影中可视化。</li>
+</ul>
+<p>在数据发布之初，该数据集位于高度安全的NASA超级计算机上，只有获得NASA资助的研究人员才能访问。</p>
+<p>后来，NASA Ames研究中心创建数据共享网站（<a href="https://data.nas.nasa.gov/ecco/），开放了LLC4320数据。" target="_blank" rel="noopener">https://data.nas.nasa.gov/ecco/），开放了LLC4320数据。</a><br>任何人都可以通过该门户通过互联网访问数据。在此网站上，您可以单击以下载单个大小40GB的二进制文件。但是，除非您知道如何解码其中的内容，否则这些文件毫无用处。</p>
+<h3 id="xmitgcm-llcreader"><a href="#xmitgcm-llcreader" class="headerlink" title="xmitgcm.llcreader"></a>xmitgcm.llcreader</h3><blockquote>
+<p>xmitgcm 是一个 python 包，用于将 MITgcm 二进制 MDS 文件读入 xarray 数据结构。 通过将数据存储在 dask 数组中，xmitgcm 可以实现并行计算。</p>
+</blockquote>
+<blockquote>
+<p>代码库: <a href="https://github.com/MITgcm/xmitgcm" target="_blank" rel="noopener">https://github.com/MITgcm/xmitgcm</a><br>文档: <a href="https://xmitgcm.readthedocs.io/en/latest/" target="_blank" rel="noopener">https://xmitgcm.readthedocs.io/en/latest/</a><br>博客: <a href="https://medium.com/pangeo/petabytes-of-ocean-data-part-1-nasa-ecco-data-portal-81e3c5e077be" target="_blank" rel="noopener">https://medium.com/pangeo/petabytes-of-ocean-data-part-1-nasa-ecco-data-portal-81e3c5e077be</a></p>
+</blockquote>
+<p>为了使二进制数据方便利用，Ryan Abernathey等开发了xmitgcm的python包，其中llcreader用于读取这些二进制文件。该模块使用xarray和dask从ECCO数据门户网站在线访问数据，使模式大数据的操作变得轻而易举。</p>
+<h3 id="海面温度读取示例"><a href="#海面温度读取示例" class="headerlink" title="海面温度读取示例"></a>海面温度读取示例</h3><p>以海面高度读取为例，展示其基本操作。用到了如下库：</p>
+<ul>
+<li>xmitgcm: 提供llcreader</li>
+<li>xarray: 基本数据结构和操作</li>
+<li>dask: 大数据并行和lazy计算</li>
+<li>sholoviews: 交互式的图像展示</li>
+</ul>
+<h4 id="1导入库"><a href="#1导入库" class="headerlink" title="1导入库"></a>1导入库</h4><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xmitgcm.llcreader <span class="keyword">as</span> llcreader</span><br><span class="line">%matplotlib <span class="keyword">inline</span></span><br><span class="line"><span class="keyword">import</span> holoviews <span class="keyword">as</span> hv</span><br><span class="line"><span class="keyword">from</span> holoviews.operation.datashader <span class="keyword">import</span> regrid</span><br><span class="line">hv.<span class="keyword">extension</span>(<span class="string">'bokeh'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>这里我们使用LLC4320模式数据：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">model</span> = llcreader.ECCOPortalLLC4320Model()</span><br><span class="line"><span class="keyword">model</span></span><br></pre></td></tr></table></figure>
+
+<p>更具数据分辨率和来源，llcreader 可用模块有：</p>
+<ul>
+<li><code>llcreader.ECCOPortalLLC2160Model</code>: LLC2160 accessed via ECCO data portal</li>
+<li><code>llcreader.ECCOPortal LLC4320Model</code>: LLC4320 accessed via ECCO data portal</li>
+<li><code>llcreader.PleiadesLLC2160Model</code>: LLC2160 accessed on Pleaides filesystem</li>
+<li><code>llcreader.PleiadesLLC4320Model</code>: LLC4320 accessed on Pleaides filesystem</li>
+<li><code>llcreader.CRIOSPortalASTE270Model</code>: ASTE Release 1 accessed via AWS</li>
+<li><code>llcreader.SverdrupASTE270Model</code>: ASTE Release 1 accessed on Sverdrup filesystem at UT Austin</li>
+</ul>
+<h4 id="海表温度"><a href="#海表温度" class="headerlink" title="海表温度"></a>海表温度</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ds_sst = model.get<span class="constructor">_dataset(<span class="params">varnames</span>=['Theta'], <span class="params">k_levels</span>=[0], <span class="params">type</span>='<span class="params">latlon</span>')</span></span><br><span class="line">ds_sst</span><br></pre></td></tr></table></figure>
+<p>这里的<code>Theta</code>是模式中固有的海表温度名称。这一行程序执行的lazy模式，数据并没有存储在本地内存，也不会进行计算。该变量的大小接近10T。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds_sst.nbytes / <span class="number">1e12</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>9.257148163328</p>
+</blockquote>
+<p>如果想查看其他变量的名称：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">print</span><span class="params">(model.varnames)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>[‘Eta’, ‘KPPhbl’, ‘oceFWflx’, ‘oceQnet’, ‘oceQsw’, ‘oceSflux’, ‘oceTAUX’, ‘oceTAUY’, ‘PhiBot’, ‘Salt’, ‘SIarea’, ‘SIheff’, ‘SIhsalt’, ‘SIhsnow’, ‘SIuice’, ‘SIvice’, ‘Theta’, ‘U’, ‘V’, ‘W’]</p>
+<p>比如<code>Eta</code>表示海面高度，<code>U,V,W</code>为速度，在数据操作的进行变量替换。<br><code>get_dataset</code>模块的全部参数设置为</p>
+<blockquote>
+<p>get_dataset(varnames=None, iter_start=None, iter_stop=None, iter_step=None, iters=None, k_levels=None, k_chunksize=1, type=’faces’, read_grid=True, grid_vars_to_coords=True)</p>
+</blockquote>
+<p>常见操作有：</p>
+<ul>
+<li>ds = model.get_dataset(varnames=[‘Eta’])</li>
+<li>ds = model.get_dataset(varnames=[‘Salt’, ‘Theta’], k_levels=[1, 10, 40])</li>
+<li>ds = model.get_dataset(varnames=[‘Theta’], k_levels=[0], type=’latlon’)</li>
+</ul>
+<blockquote>
+<p>参考：<a href="https://xmitgcm.readthedocs.io/en/latest/llcreader.html#xmitgcm.llcreader.BaseLLCModel.get_dataset" target="_blank" rel="noopener">https://xmitgcm.readthedocs.io/en/latest/llcreader.html#xmitgcm.llcreader.BaseLLCModel.get_dataset</a></p>
+</blockquote>
+<h4 id="动态交互可视化"><a href="#动态交互可视化" class="headerlink" title="动态交互可视化"></a>动态交互可视化</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataset = hv.Dataset(ds_sst.Theta.isel(<span class="attribute">k</span>=0).astype('f4'))</span><br><span class="line">hv_im = (dataset.<span class="keyword">to</span>(hv.Image, [<span class="string">'i'</span>, <span class="string">'j'</span>], <span class="attribute">dynamic</span>=<span class="literal">True</span>)</span><br><span class="line">                .options(<span class="attribute">cmap</span>=<span class="string">'Magma'</span>, <span class="attribute">width</span>=950, <span class="attribute">height</span>=600, <span class="attribute">colorbar</span>=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line">%output <span class="attribute">holomap</span>=<span class="string">'scrubber'</span> <span class="attribute">fps</span>=3</span><br><span class="line">regrid(hv_im, <span class="attribute">precompute</span>=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/llc4320.png" alt></p>
+<p>上图是南非南部海域的LLC4320 SST，可以看到强大的洋流和丰富的中小尺度涡旋。</p>
+<p><img src="../images/llc2160.png" alt></p>
+<p>上图作为对比是LLC2160的结果，和4320比较有一定差距。</p>
+<h3 id="涡度计算示例"><a href="#涡度计算示例" class="headerlink" title="涡度计算示例"></a>涡度计算示例</h3><p>下面展示LLC4320涡度计算步骤。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">model = llcreader.ECCOPortalLLC4320Model()</span><br><span class="line"><span class="builtin-name">print</span>(model)</span><br><span class="line"></span><br><span class="line"><span class="comment"># volecity</span></span><br><span class="line">ds = model.get_dataset(varnames=[<span class="string">'U'</span>, <span class="string">'V'</span>], k_levels=[0], <span class="attribute">type</span>=<span class="string">'latlon'</span>,</span><br><span class="line">                        <span class="attribute">iter_start</span>=model.iter_start,</span><br><span class="line">                        iter_stop=(model.iter_start + model.iter_step),</span><br><span class="line">                        <span class="attribute">read_grid</span>=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Normal gridding</span></span><br><span class="line">import xgcm</span><br><span class="line">grid = xgcm.Grid(ds, periodic=[<span class="string">'X'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate vorticity</span></span><br><span class="line">zeta = (-grid.diff(ds.U * ds.dxC, <span class="string">'Y'</span>, <span class="attribute">boundary</span>=<span class="string">'fill'</span>) + grid.diff(ds.V * ds.dyC, <span class="string">'X'</span>))/ds.rAz</span><br><span class="line">zeta = zeta.squeeze().rename(<span class="string">'vorticity'</span>).reset_coords(<span class="attribute">drop</span>=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># load data</span></span><br><span class="line">zeta.load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show</span></span><br><span class="line">dataset = hv.Dataset(zeta)</span><br><span class="line">hv_im = (dataset.<span class="keyword">to</span>(hv.Image, [<span class="string">'i_g'</span>, <span class="string">'j_g'</span>])</span><br><span class="line">                .options(<span class="attribute">cmap</span>=<span class="string">'RdBu_r'</span>, <span class="attribute">width</span>=950, <span class="attribute">height</span>=600, <span class="attribute">colorbar</span>=<span class="literal">True</span>, <span class="attribute">symmetric</span>=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line">regrid(hv_im, <span class="attribute">precompute</span>=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="../images/llc_v.png" alt></p>
+<h3 id="扩展：云"><a href="#扩展：云" class="headerlink" title="扩展：云"></a>扩展：云</h3><p>虽然 ECCO 数据门户实现了数据自由访问，但它的带宽有限，国内用户往往正常加载。虽然它适合像交互式探索，但是如果想实际处理PB的数据，它可能无法提供必要的网络流量。</p>
+<p>商业云存储（例如 Amazon S3 或 Google Cloud Storage）可以提供两全其美的优势。它既可公开访问，又具有极大的数据处理能力。</p>
+<p>后面我将介绍云计算平台<code>Pangeo</code>，目前大量的地学大数据已经存储于云端，并可以通过<code>Pangeo</code>进行操作，这其中就包含LLC4320模式。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1523,166 +1680,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/26/tools-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/26/tools-2/" class="post-title-link" itemprop="url">科研神器</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-05-26 22:13:16 / 修改时间：22:42:41" itemprop="dateCreated datePublished" datetime="2022-05-26T22:13:16+08:00">2022-05-26</time>
-            </span>
-
-          
-            <span id="/2022/05/26/tools-2/" class="post-meta-item leancloud_visitors" data-flag-title="科研神器" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/26/tools-2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/26/tools-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>工欲善其事，必先利其器。<br>科研软件非常重要，正确的使用科研工具，能提高科研生产力。</p>
-</blockquote>
-<h3 id="文献管理"><a href="#文献管理" class="headerlink" title="文献管理"></a>文献管理</h3><ul>
-<li><strong>Zotero</strong>：<a href="https://www.zotero.org/；文献、知识管理工具" target="_blank" rel="noopener">https://www.zotero.org/；文献、知识管理工具</a><br><img src="https://www.zotero.org/static/images/home/screenshot-1.4@2x.png" alt></li>
-</ul>
-<p>可能大部分人的第一个文献管理软件是<code>Endnote</code>，但<code>Endnote</code>作为商业软件，存在版权问题。<code>Zotero</code>作为开源的文献管理软件，自由度高，生态环境好，社区已经有很多实用插件，可以在Linux、Windows下工作，跨平台云同步，关键还免费。</p>
-<blockquote>
-<p><code>Zotero</code>可以作为科研小白的首款文献管理软件。</p>
-</blockquote>
-<h3 id="文献计量、综述"><a href="#文献计量、综述" class="headerlink" title="文献计量、综述"></a>文献计量、综述</h3><ul>
-<li><strong>Citespace</strong>:<a href="https://citespace.podia.com/download" target="_blank" rel="noopener">https://citespace.podia.com/download</a>, 文献计量分析，了解学科动态<br><img src="./images/cites.png" alt></li>
-<li><strong>Bibliometrix</strong>：<a href="https://www.bibliometrix.org/" target="_blank" rel="noopener">https://www.bibliometrix.org/</a>, R语言包<br><img src="./images/bibl.png" alt></li>
-<li><strong>VOSviewer</strong>:<a href="https://www.vosviewer.com/" target="_blank" rel="noopener">https://www.vosviewer.com/</a>, 上手快<br><img src="https://www.vosviewer.com/media/images/content/ea30284dd349a3651f465ac581592983_large.png" alt></li>
-</ul>
-<p><strong>文献计量分析工具</strong>可以将国内外文献进行可视化分析，来帮助了解一门学科的前世今生和未来趋势，也是文献综述的得力工具。<strong>Citespace</strong>功能复杂，属于学院派；<strong>VOSviewer</strong>上手简单，具备主要分析功能；<strong>Bibliometrix</strong>基于R语言开发，有不少特色，统计功能强大。</p>
-<blockquote>
-<p>三款软件，可综合使用，取长补短。</p>
-</blockquote>
-<h3 id="文献查询和下载"><a href="#文献查询和下载" class="headerlink" title="文献查询和下载"></a>文献查询和下载</h3><ul>
-<li><strong>Scihub</strong>：<a href="https://sci-hub.se/，下载SCI文献" target="_blank" rel="noopener">https://sci-hub.se/，下载SCI文献</a></li>
-<li><strong>Web of Science</strong>:<br><a href="https://clarivate.com/webofsciencegroup/solutions/web-of-science/" target="_blank" rel="noopener">https://clarivate.com/webofsciencegroup/solutions/web-of-science/</a>, <code>SCI论文检索，淘宝有10元包年账号</code></li>
-<li><strong>oatd</strong>: <a href="https://oatd.org/" target="_blank" rel="noopener">https://oatd.org/</a>, Open Access Theses and Dissertations. 国外硕士、博士论文<br><img src="./images/phd.png" alt></li>
-</ul>
-<p><code>Scihub</code>可下载大部分历史文献，但最近的文献无法下载；若希望获得最新文献，可在<strong>淘宝</strong>购买数据库账号，通常含大部分中外数据库；<code>Web of Science</code>即SCI检索，它的数据库质量高且内容丰富，还提供初步的文献计量分析；国外博士论文可使用<code>Open Access Theses and Dissertations</code>数据库。</p>
-<blockquote>
-<p>知网好像因为垄断出事了。</p>
-</blockquote>
-<h2 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h2><ul>
-<li><strong>DEEPL翻译</strong>：<a href="https://www.deepl.com/translator" target="_blank" rel="noopener">https://www.deepl.com/translator</a></li>
-<li><strong>谷歌翻译</strong>：<a href="https://translate.google.cn/" target="_blank" rel="noopener">https://translate.google.cn/</a></li>
-<li><strong>知云</strong>：<a href="http://www.zhiyunwenxian.cn/" target="_blank" rel="noopener">http://www.zhiyunwenxian.cn/</a><br><img src="./images/zy.png" alt></li>
-</ul>
-<p>很多同学并不能做到无障碍阅读英文文献，这时候就需要借助一些翻译软件。英语水平高的同学通过翻译器也可以偷偷懒，实现快速阅读，之后再决定是否精读。</p>
-<p>在众多免费翻译软件中，<code>DeepL</code> 的翻译更加到位，并且支持文档翻译，<code>谷歌翻译</code>速度更快。<code>知云PDF阅读器</code>可以做到 PDF 文献的划词翻译，非常便利。</p>
-<blockquote>
-<p>当然还有汉译英功能。</p>
-</blockquote>
-<h2 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h2><ul>
-<li><strong>overleaf</strong>：<a href="https://www.overleaf.com/project；在线Latex" target="_blank" rel="noopener">https://www.overleaf.com/project；在线Latex</a></li>
-<li><strong>pandoc</strong>：<a href="https://pandoc.org/；开源的、多平台的文件格式转换工具" target="_blank" rel="noopener">https://pandoc.org/；开源的、多平台的文件格式转换工具</a></li>
-<li><strong>alltoal</strong>l：<a href="https://www.alltoall.net/；文件格式转换" target="_blank" rel="noopener">https://www.alltoall.net/；文件格式转换</a><br><img src="./images/overl.png" alt></li>
-</ul>
-<p>在攥写论文（毕业论文和小论文）环节，大部分同学都是直接选择使用 word 。但是用 word 写大量的公式和论文排版简直太痛苦啦！！</p>
-<p>所以建议大家花一点时间去学习使用Latex。大部分SCI学术期刊和毕业论文都有自己的 Latex 论文模板，只需要按照语法把你自己的论文填入到模板当中即可。也无需下载安装庞大的<code>Texlive</code>，直接使用 <code>overleaf</code> 在线编写，非常方便实用！</p>
-<blockquote>
-<ul>
-<li>20美元可以开通<code>overleaf</code>的多人共享编辑和修订模式，可邀请导师或者合作者协同修改。</li>
-<li><code>overleaf</code>可以开发票。</li>
-</ul>
-</blockquote>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
-<li><strong>quillbot</strong>：<a href="https://quillbot.com/；可以提供拼写错误、语法检查和润色，专业版20美元。" target="_blank" rel="noopener">https://quillbot.com/；可以提供拼写错误、语法检查和润色，专业版20美元。</a></li>
-<li><strong>Phrasebank</strong>：<a href="https://www.phrasebank.manchester.ac.uk/；学术写作常见的词句库。有时候一个句型或者单词被用烂了，可以来这里查一查同义词。" target="_blank" rel="noopener">https://www.phrasebank.manchester.ac.uk/；学术写作常见的词句库。有时候一个句型或者单词被用烂了，可以来这里查一查同义词。</a></li>
-</ul>
-<p><img src="./images/qu.png" alt></p>
-<p>同学们直接写出的英文基本上是不太完美的，在提交之前，可以先通过<code>quillbot</code>这款软件进行语言修改，能很方便找出语法错误。<code>quillbot</code>专业版还能帮助你扩展句子，很神奇的工具。</p>
-<blockquote>
-<ul>
-<li><strong>quillbot</strong>可以开发票。</li>
-</ul>
-</blockquote>
-<h3 id="制图"><a href="#制图" class="headerlink" title="制图"></a>制图</h3><ul>
-<li><strong>GMT</strong>：<a href="https://github.com/GenericMappingTools/gmt；通用地学绘图工具，地球物理、大地测量方向常用。" target="_blank" rel="noopener">https://github.com/GenericMappingTools/gmt；通用地学绘图工具，地球物理、大地测量方向常用。</a></li>
-</ul>
-<p><img src="https://www.generic-mapping-tools.org/_static/figures/lithospheric-age.png" alt></p>
-<ul>
-<li><strong>NCL</strong>：<a href="https://www.ncl.ucar.edu/；地学科学绘图工具，海洋、大气、气候科学常用" target="_blank" rel="noopener">https://www.ncl.ucar.edu/；地学科学绘图工具，海洋、大气、气候科学常用</a></li>
-</ul>
-<p><img src="https://www.ncl.ucar.edu/Applications/Images/hycom_1_lg.png" alt></p>
-<ul>
-<li><strong>plotly</strong>:<a href="https://plotly.com/graphing-libraries/" target="_blank" rel="noopener">https://plotly.com/graphing-libraries/</a>, 支持Python、R等，功能强，可绘制gantt、PIE、Bar、Map等图。</li>
-</ul>
-<p>漂亮的插图可以给论文加分不少，同学们都要熟练掌握一种制图软件。这儿仅仅列出众多软件的几种常用工具，而且是偏向地学类。</p>
-<blockquote>
-<p>掌握一种制图工具可能需要很长的时间，但往往能有意想不到的收获。</p>
-</blockquote>
-<center><font face="黑体" size="4" color="red">最后祝大家都按时完成自己的论文</font></center>
-<center><font face="黑体" size="4" color="gold">给自己的学业交上一份满意答卷</font></center>
-<center><font face="黑体" size="4" color="green">今天的分享就到这里啦</font></center>  
-<center><font face="黑体" size="4" color="blue">拜拜！</font></center>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1755,7 +1752,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1768,7 +1765,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-count">80</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
