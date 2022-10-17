@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">130</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">131</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,204 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/08/12/pangeo-first/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/12/pangeo-first/" class="post-title-link" itemprop="url">物理海洋大数据云计算入门-Pangeo</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-12 11:50:24" itemprop="dateCreated datePublished" datetime="2022-08-12T11:50:24+08:00">2022-08-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-16 23:39:03" itemprop="dateModified" datetime="2022-08-16T23:39:03+08:00">2022-08-16</time>
+              </span>
+
+          
+            <span id="/2022/08/12/pangeo-first/" class="post-meta-item leancloud_visitors" data-flag-title="物理海洋大数据云计算入门-Pangeo" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/08/12/pangeo-first/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/12/pangeo-first/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote>
+<p>前面已经提到云计算平台pangeo，很多人了解GEE、航天宏图PIE、AWS(亚马逊)、谷歌云地球科学服务等，但pangeo云还是第一听说。小编查阅网络发现，中文资料为零，说明中国的用户确实较少。然而，pangeo云在美欧已发展多年，相关分析工具和云计算已经较为成熟，在地球科学领域，特别是物理海洋领域已经取得很多研究成果。因为这是不错的小众云计算平台，所以特此介绍。今天先聊pangeo入门。</p>
+</blockquote>
+<p><a href="https://pangeo.io/" target="_blank" rel="noopener">pangeo</a>是由一群草根科学家自发组织的地学大数据云计算系统，它在2016年由美国哥伦比亚大学<a href="https://github.com/rabernat" target="_blank" rel="noopener">Ryan Abernathey</a> 领导的一个物理海洋小组发起，最初是希望更好处理海洋科学大数据，例如MITgcm高分辨模式LLC4320的PB级别数据。通过数年时间，大批参与者通过github平台发展了一系列的大数据和云计算分析软件，搭建了pangeo云计算基础设施，形成了良好的科学生态系统（如JupyterHub、dask、xarray、intake、Zarr等）。这几年，pangeo云计算已在一定程度上改变了地球科学的研究方式，它提高了科学生产力，使研究结果可重复，也为数据密集型问题的研究打开新大门。</p>
+<p>pangeo得到了美国NSF EarthCube计划、Anaconda、NASA、NCAR以及一些私人基金会的强力资助，使之能够持续发展。目前pangeo为全世界用户免费提供云计算服务（最大16CPU，60G内存）。</p>
+<h3 id="云计算和传统科研模式的区别"><a href="#云计算和传统科研模式的区别" class="headerlink" title="云计算和传统科研模式的区别"></a>云计算和传统科研模式的区别</h3><p>我们先欣赏下传统的数据下载模式，以著名的欧洲Climate Data Store (CDS) 分发ECMWF ERA5资料为例，视频是CDS数据中心的机器人插卡作业模式，如果你申请这里的数据，机器人的机械手臂会把磁带接口插入相关卡槽读取数据，完成后再提供下载服务：</p>
+<video id="video" controls preload="none">
+    <source id="mp4" src="/images/era5.mp4" type="video/mp4">
+</video>
+<center>Climate Data Store (CDS) @ECMWF的机器人插卡作业模式</center>
+
+<p>云计算离不开云数据。pangeo将大量数据存储于商业云平台，并购买数据中心附近的计算机算力资源，由这些算力来计算靠近它的云数据，因此数据读相当快。而云计算的计算能力则和费用相关。由于pangeo为免费服务，因此算力不能和超算媲美，但通过结合dask集群，计算能力足够强大。</p>
+<p>Pangeo云架构：<br><img src="../images/yun.png" alt></p>
+<h2 id="注册使用"><a href="#注册使用" class="headerlink" title="注册使用"></a>注册使用</h2><p>因为是云计算，需要注册一个账号。</p>
+<blockquote>
+<p><a href="https://pangeo.io/cloud.html" target="_blank" rel="noopener">https://pangeo.io/cloud.html</a></p>
+</blockquote>
+<p>Pangeo Cloud目前包含两个不同的计算集群：</p>
+<ul>
+<li>us-central1-b.gcp.pangeo.io 谷歌云平台。</li>
+<li>aws-uswest2.pangeo.io AWS集群。</li>
+</ul>
+<p>建议根据您要访问的数据选择集群。例如，如果您的数据主要存在于AWS中，请选择aws-uswest2。经Pangeo管理员审查同意之后，加入Pangeo的Github小组，便可以使用Pangeo云。（需要有一个Github账号，并对Git有一定的了解）</p>
+<p>Pangeo Cloud集群为用户提供不同数量的RAM和CPU，可以在登录时进行设置。请为根据工作需要选择资源最少的设施，因为更大的内存和cpu会花费更多的钱。 是的，云计算本质上是收费服务，这部分钱由美国NSF等基金支付了。</p>
+<h2 id="云数据初探"><a href="#云数据初探" class="headerlink" title="云数据初探"></a>云数据初探</h2><p>几十年来，地球科学领域一直采用“下载模式”分析数据，即科学家从远程FTP服务器下载数据到个人电脑。而Pangeo的理念是将计算带到云数据中，这也就是云计算。Pangeo提供靠近高性能存储的高性能计算集群，目前许多广泛使用的数据集已经存储在这些云上。</p>
+<p>如果对分析特定的大型数据集感兴趣，应该首先确定此数据集是否已存储在现有的云端，然后，可以请求访问该特定云数据以执行计算分析。或者，如果您的实验室或小组已经维护了一个数据存储库，也可以考虑在本地计算资源上部署Pangeo环境数据服务器（可能比较费力）。 </p>
+<p>使用云数据和云计算无需掌握很多特殊知识，但需要能够熟练使用一下基础工具：</p>
+<ul>
+<li>Jupyter Hub</li>
+<li>Python</li>
+<li>Xarray</li>
+</ul>
+<p>当前，许多预存数据集目录都位于catalog.pangeo.io。此目录已预先配置，包含海洋、大气、气候和水文等不同类型数据。在大多数情况下，调取云数据很简单：</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">from</span> <span class="variable">intake</span> <span class="variable">import</span> <span class="variable">open_catalog</span></span><br><span class="line"></span><br><span class="line"><span class="variable">cat</span> = <span class="function"><span class="title">open_catalog</span>(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/master.yaml"</span>)</span></span><br><span class="line"><span class="function"><span class="title">list</span>(<span class="variable">cat</span>)</span></span><br></pre></td></tr></table></figure>
+<p>[‘ocean’, ‘atmosphere’, ‘climate’, ‘hydro’]</p>
+<blockquote>
+<p>这些数据集合中包含了CESM全球气候模式、NCAR数据集、CCMP、极地数据、Landsat8数据、CMIP6、卫星测高沿轨和网格数据、MOM6/CESM、MITgcm ECCOv4、LLC4320、ESIP等资料。</p>
+</blockquote>
+<p>此外，还可以利用<code>fsspec</code>打开目录之外的数据,例如，要从Google Cloud Storage打开公共文件cmpi6，您可以执行以下操作： </p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> fsspec</span><br><span class="line"><span class="built_in">path</span> = <span class="string">'gs://cmip6/cmip6-zarr-consolidated-stores.csv'</span></span><br><span class="line"><span class="keyword">with</span> fsspec.open(<span class="built_in">path</span>) <span class="keyword">as</span> f:</span><br><span class="line">    df = pd.read_csv(f)</span><br></pre></td></tr></table></figure>
+
+<h4 id="物理海洋数据集"><a href="#物理海洋数据集" class="headerlink" title="物理海洋数据集"></a>物理海洋数据集</h4><p>物理海洋数据集是pangeo的重点，通过命令<code>open_catalog</code>可以很方便的打开它，该数据集合包含了多种常见的数据，比如卫星高度计的沿轨和网格数据、多种高分模式数据等，还有前面提到的MITgcm LLC4320模式数据。LLC4320数据由于存储巨大，它几乎只能在超级计算机或者Pangeo云端使用。</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">cat</span> = <span class="function"><span class="title">open_catalog</span>(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean.yaml"</span>)</span></span><br><span class="line"><span class="function"><span class="title">list</span>(<span class="variable">cat</span>)</span></span><br></pre></td></tr></table></figure>
+<p>[‘sea_surface_height’,<br> ‘cesm_mom6_example’,<br> ‘ECCOv4r3’,<br> ‘SOSE’,<br> ‘GODAS’,<br> ‘ECCO_layers’,<br> ‘altimetry’,<br> ‘LLC4320’,<br> ‘GFDL_CM2_6’,<br> ‘CESM_POP’,<br> ‘channel’,<br> ‘MEOM_NEMO’]</p>
+<p>我们先用简单的SSH数据为例，介绍怎么读取、制图、计算和保存。<br>读取命令为<code>to_dask()</code>，这一步为lazy计算，并未真的计算:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ds</span>  = <span class="keyword">cat</span>[<span class="string">"sea_surface_height"</span>].to_dask()</span><br><span class="line"><span class="keyword">ds</span></span><br></pre></td></tr></table></figure>
+<p>SSH数据中包含了sla、adt、流速等信息。</p>
+<p><img src="../images/pangeo1.png" alt></p>
+<p>看一下sla的数据结构和大小，超过68G：</p>
+<p><img src="../images/pangeo2.png" alt></p>
+<p>这时候数据已经是常见的xarray格式，通过<code>isel</code>选择一个时间：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sla.isel(<span class="attribute">time</span>=0)</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo3.png" alt></p>
+<p>使用xarray的<code>.plot()</code>函数进行绘图，这时候数据才真正的调入内存：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sla.isel(time=<span class="number">0</span>).plot(figsize=(<span class="number">15</span>, <span class="number">7</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo4.png" alt></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sla.sel(time=<span class="string">"1993-01-07"</span>,latitude=slice(<span class="number">-60</span>,<span class="number">-20</span>),longitude=slice(<span class="number">0</span>,<span class="number">50</span>)).plot()</span><br></pre></td></tr></table></figure>
+<p><img src="../images/pangeo5.png" alt></p>
+<p>使用xarray的<code>to_netcdf()</code>保存nc数据格式到本地。通常我们只保存数据计算结果，原始数据和中间数据的保存没有太大意义。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds.sel(time=<span class="string">"1993-01-07"</span>,latitude=slice(<span class="number">-60</span>,<span class="number">-20</span>),longitude=slice(<span class="number">0</span>,<span class="number">50</span>)).to_netcdf(<span class="string">"ssh.nc"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="大数据并行计算"><a href="#大数据并行计算" class="headerlink" title="大数据并行计算"></a>大数据并行计算</h2><p>上面仅展示单独数据文件的读取、绘图和保存，数据体积小，无需大数据的相关并行运算。如果数据量较大，比如使用全部的sla数据计算全球海平面变化，则一共需要读取68G的数据，这时候可能需要集群的并行计算配置。pangeo通过融合dask可以实现集群计算。</p>
+<blockquote>
+<p>Dask 是 Pangeo Cloud 的重要组件，可用于并行化的大型计算。pangeo用户无需太多并行计算知识即可使用它，但由于Dask能够使用许多云计算节点，大型、长时间运行、空闲的集群将会浪费Pangeo有限的云计算资金。因此请谨慎使用此力量！ </p>
+</blockquote>
+<p>要使用Dask进行可扩展计算，您需要使用Dask Gateway创建一个集群并连接到它 </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dask_gateway import GatewayCluster</span><br><span class="line"><span class="keyword">from</span> dask.distributed import Client</span><br><span class="line">cluster = GatewayCluster()</span><br><span class="line">cluster.scale(5)</span><br><span class="line">client = Client(cluster)</span><br><span class="line">cluster</span><br></pre></td></tr></table></figure>
+
+<p>完成计算后，您可以显式关闭集群</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cluster</span>.<span class="keyword">close</span>()</span><br></pre></td></tr></table></figure>
+<video id="video" controls preload="none">
+    <source id="mp4" src="/images/pangeodask.mp4" type="video/mp4">
+</video>
+<center>dask监控界面</center>
+
+<h3 id="海平面变化时间序列"><a href="#海平面变化时间序列" class="headerlink" title="海平面变化时间序列"></a>海平面变化时间序列</h3><p>计算全球海平面变化并不复杂，主要是均值的计算。首先沿着经纬度计算均值，并载入内存：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sla_timeseries</span> = ds.sla.mean(dim=(<span class="string">'latitude'</span>, <span class="string">'longitude'</span>)).load()</span><br></pre></td></tr></table></figure>
+<p>该集群计算启动了5个worker，10个线程，大约1分半处理完数据，计算得到全球的平均海平面变化时间序列:</p>
+<p>绘图：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.plot</span>(label=<span class="string">'full data'</span>)</span><br><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.rolling</span>(time=<span class="number">365</span>, center=True)<span class="selector-class">.mean</span>()<span class="selector-class">.plot</span>(label=<span class="string">'rolling annual mean'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Sea Level Anomaly [m]'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Global Mean Sea Level'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>()</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.grid</span>()</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/pangeo6.png" alt></p>
+<blockquote>
+<p>本质上，SSH数据并不算大数据，只是比较大。这里仅展示其工作流程。</p>
+</blockquote>
+<h3 id="纬向变化时间特征"><a href="#纬向变化时间特征" class="headerlink" title="纬向变化时间特征"></a>纬向变化时间特征</h3><p>还可以计算纬向SLA变化,即在经度方向计算均值，耗时大约2分钟：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sla_hov = ds.sla.mean(<span class="attribute">dim</span>=<span class="string">'longitude'</span>).load()</span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 4))</span><br><span class="line">sla_hov.name = <span class="string">'Sea Level Anomaly [m]'</span></span><br><span class="line">sla_hov.transpose().plot(<span class="attribute">vmax</span>=0.2, <span class="attribute">ax</span>=ax)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到海平面变化的纬向特征：<br><img src="../images/pangeo7.png" alt></p>
+<h3 id="空间变化特征"><a href="#空间变化特征" class="headerlink" title="空间变化特征"></a>空间变化特征</h3><p>可以通过STD来计算全球海平面变化的空间特征:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sla_std</span> = ds.sla.std(dim=<span class="string">'time'</span>).load()</span><br><span class="line"><span class="attr">sla_std.name</span> = <span class="string">'Sea Level Variability [m]'</span></span><br><span class="line"><span class="attr">ax</span> = sla_std.plot(figsize=(<span class="number">20</span>, <span class="number">12</span>))</span><br><span class="line"><span class="attr">_</span> = plt.title(<span class="string">'Sea Level Variability'</span>)</span><br></pre></td></tr></table></figure>
+<p>在流场较强的海域，variability是比较大的，比如西边界流、南极绕极流等：<br><img src="../images/pangeo8.png" alt></p>
+<h3 id="KE计算"><a href="#KE计算" class="headerlink" title="KE计算"></a>KE计算</h3><p>接下来，以南大洋绕极流为例，计算KE的长时间平均，这里的计算稍微加强一点，但也不复杂：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ds_SO = ds.sel(latitude=slice(-<span class="number">90</span>, -<span class="number">30</span>))</span><br><span class="line">meanSSH = ds_SO.adt.<span class="built_in">mean</span>('<span class="built_in">time</span>')</span><br><span class="line">meanSSH.<span class="built_in">load</span>()</span><br><span class="line">EKE = <span class="number">0.5</span>*(ds_SO.ugosa**<span class="number">2</span> + ds_SO.vgosa**<span class="number">2</span>).<span class="built_in">mean</span>('<span class="built_in">time</span>') # KE</span><br><span class="line">EKE.<span class="built_in">load</span>() </span><br><span class="line">MKE = <span class="number">0.5</span>*( (ds_SO.ugos - ds_SO.ugosa)**<span class="number">2</span> + (ds_SO.vgos - ds_SO.vgosa)**<span class="number">2</span>).<span class="built_in">mean</span>('<span class="built_in">time</span>') # MKE (<span class="built_in">mean</span>)</span><br><span class="line">MKE.<span class="built_in">load</span>()</span><br></pre></td></tr></table></figure>
+
+<p>绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(16,5))</span><br><span class="line">np.log10(EKE).plot.contourf(<span class="attribute">vmin</span>=-3.5, <span class="attribute">vmax</span>=-0.7, <span class="attribute">levels</span>=10)</span><br><span class="line">meanSSH.plot.contour(<span class="attribute">levels</span>=15, <span class="attribute">linewidths</span>=0.75)</span><br></pre></td></tr></table></figure>
+<p><img src="../images/pangeo9.png" alt></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(16,5))</span><br><span class="line">np.log10(MKE).plot.contourf(<span class="attribute">vmin</span>=-3.5, <span class="attribute">vmax</span>=-0.7, <span class="attribute">levels</span>=9)</span><br><span class="line">meanSSH.plot.contour(<span class="attribute">levels</span>=15, <span class="attribute">linewidths</span>=0.5)</span><br></pre></td></tr></table></figure>
+<p><img src="../images/pangeo10.png" alt></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过注册，得到一个有效的云计算账户，然后初次尝试pangeo计算全球海平面变化，以及局部海域的动量特征，我们可以总结它的特色为：</p>
+<ul>
+<li>降低大数据编程的精力投入，增强宏观科学问题的思考</li>
+<li>降低集群分析门槛，无需专门的并行计算和云计算知识</li>
+<li>无需数据下载，按需调取海量云数据集</li>
+<li>开源支持，生态系统完备可持续</li>
+</ul>
+<p>目前，GEE等云计算和大数据平台已经较为普及，但GEE等平台专注于图像遥感，无法接入物理海洋、大气科学等数据（模式和观测等）。pangeo云计算则在一定程度填补了这些空白，它发源于草根群体，在美国一步步发展壮大，获得NSF等机构数百万美元的资助，得到了美国政府和科学界的认可，小编认为这必然是未来海洋、大气科学的重点发展方向之一。国内在该领域暂时是空白的（大部分人无法访问pangeo和谷歌云服务），未来几年国内将可预见的在海洋、大气云计算领域快速增长。</p>
+<h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><ul>
+<li>基于云计算的LLC4320海洋模式数据谱分析</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1548,143 +1746,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/28/munk/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/28/munk/" class="post-title-link" itemprop="url">Walter Munk</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-05-28 21:54:11 / 修改时间：22:29:15" itemprop="dateCreated datePublished" datetime="2022-05-28T21:54:11+08:00">2022-05-28</time>
-            </span>
-
-          
-            <span id="/2022/05/28/munk/" class="post-meta-item leancloud_visitors" data-flag-title="Walter Munk" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/28/munk/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/28/munk/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Walter-Munk"><a href="#Walter-Munk" class="headerlink" title="Walter Munk"></a>Walter Munk</h1><p><img src="./images/munk1.png" alt></p>
-<center><font face="黑体" size="4" color="gold">一位年长的欧洲同事告诉我，美国只有两位真正的海洋学家：亨利·斯托梅尔和<b>沃尔特·蒙克</b>。</font></center> <center><font face="黑体" size="4" color="gray">(BRISCOE M,原海洋学会TOS理事会秘书)</font></center>
-
-
-<center><font face="黑体" size="4" color="gold">这些年来，沃尔特一直是头号人物，不管我们想不想，我们每个人都会时不时地与他进行比较。当我被招到哈佛大学海洋学系主任的时候，是在沃尔特拒绝之后。</font></center>
- <center><font face="黑体" size="4" color="gray">(Henry Stammel)</font></center>
-
-
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>沃尔特-海因里希-蒙克（1917年10月19日-2019年2月8日）是美国物理海洋学家，获得国家科学奖、京都奖和法国荣誉军团等奖项。</p>
-<p>蒙克研究广泛，包括海浪、地球自转的地球物理意义、潮汐、内波、深海钻探、海洋声学测量、海平面上升和气候变化。</p>
-<p>蒙克的职业生涯始于第二次世界大战爆发前，战争打断了他在斯克里普斯海洋学研究所（Scripps）的博士学习，使他参与美国军事研究工作。蒙克和他的博士生导师<strong>哈拉尔德-斯维尔德鲁普（Harald Sverdrup）</strong>开发了预测波浪的方法，被用于诺曼底海滩登陆。蒙克的职业生涯包括一些著名的职位，包括成为JASON智囊团的成员，并担任海军部长/海军作战司令部海洋学主席。<br><img src="./images/munk6.png" alt></p>
-<h2 id="主要成就"><a href="#主要成就" class="headerlink" title="主要成就"></a>主要成就</h2><blockquote>
-<ul>
-<li>提出风生环流概念，不仅解释西边界强化现象，也可解得东边界回流；</li>
-<li>通过动力学机制解释地球自转的极移；</li>
-<li>提出“Project Mohole”项目建议，钻穿地壳以获得边界处的地幔样本；</li>
-<li>研究涌浪传播和衰减规律，组织长期的海上海浪调查试验，定义了“有效波高”概念；</li>
-<li>提出了著名的潮汐“响应”分析法；</li>
-<li>合作发明内波Garrett–Munk谱；</li>
-<li>与Wunsch共同开创海洋声学层析法（Ocean Acoustic Tomography），利用声传播来反演大尺度海洋运动及其变化规律；</li>
-<li>提出潮汐能量对海洋深层混合的重要性。</li>
-</ul>
-</blockquote>
-<h2 id="轶事"><a href="#轶事" class="headerlink" title="轶事"></a>轶事</h2><blockquote>
-<ul>
-<li>蒙克在1939年开始读博，受二战影响，他1947年获得博士学位。其博士论文仅用3周写完，创造了Scripps最短论文记录。后来，他认识到论文的主要结论还是错误的。</li>
-<li>1978年，蒙克为团长的美国海洋科学代表团应邀来我国访问。<br><img src="./images/munk3.png" alt></li>
-<li>第二任妻子是建筑师，和Munk一起建造了自己住的房子（Seiche），并参与建造了Scripps中心园区建筑。</li>
-<li>2006年，Munk第二任妻子去世，2011年和社会活动家Mary Coakley结婚。</li>
-</ul>
-</blockquote>
-<h2 id="CARL-WUNSCH-的讣告文章"><a href="#CARL-WUNSCH-的讣告文章" class="headerlink" title="CARL WUNSCH 的讣告文章"></a>CARL WUNSCH 的讣告文章</h2><p>Munk去世后，他的亲密伙伴CARL WUNSCH在<strong>Nature</strong>杂志发表了讣告文章。下面通过这篇精简的文章回顾伟大海洋学家蒙克的传奇一生。</p>
-<blockquote>
-<p>C. Wunsch, “Walter Munk (1917-2019),” Nature, vol. 567, no. 7747, pp. 176–177, Mar. 2019.</p>
-</blockquote>
-<p><img src="./images/munk7.png" alt></p>
-<center><font face="黑体" size="5" color="red"> Walter Munk (1917-2019)： A founder of modern oceanography.</font></center>
-
-<hr>
-<p><img src="./images/munk4.jpg" alt></p>
-<p>沃尔特-蒙克彻底改变了我们对海洋和地球旋转的理解。他综合了调查、理论和经验，解决了海浪、潮汐、混合、环流等基本和实际问题。他的早期工作帮助盟军在第二次世界大战中抢滩登陆。从1968年起，他成为JASON的一员，这个精英科学家小组为美国政府提供军事方面的建议。</p>
-<p>他性格开朗，直觉敏锐，几乎在他漫长的一生中都预见到了关键的、刚刚成熟的问题。几十年后，其中许多问题仍然是几乎所有物理海洋学和大部分地球物理学的焦点。很怀疑是否会有人再次拥有这样一个通才的能力。<strong>他喜欢出海</strong>，精通数学，对统计学意义有深刻的理解，对海洋有一种直觉，尽管有时有错误，但他不止一次地找到了正确的答案。</p>
-<p><img src="./images/munk2.png" alt></p>
-<p>蒙克1917年出生于奥地利，来自维也纳的一个银行家庭。在纽约一家银行工作后，他作为科学家的故事开始了，1939年他跟随一位女友来到加利福尼亚的拉霍亚。在那里，他发现并爱上了物理海洋学，<strong>他的导师和朋友是哈拉尔德-斯维尔德鲁普，他是斯克里普斯海洋学研究所的主任</strong>，蒙克在那里度过了他的职业生涯。</p>
-<p>早年，他因与斯维尔德鲁普合作预测海浪而闻名。在1941年12月珍珠港被轰炸前不久，斯维尔德鲁普让蒙克从美国陆军退役，并最终以老百姓身份被派往五角大楼工作。在1942年11月盟军从沿海进入北非的几个月前，两人担心巨浪会给盟军登陆带来灾难。结合理论和经验主义，斯维尔德鲁普-蒙克的海浪预测方法首次在北非海岸登录中被成功使用。经过进一步发展，它为诺曼底和太平洋登陆提供了帮助。</p>
-<p>1950年，蒙克发表了关于海洋大尺度环流的极其丰富论文中的第一篇。<strong>他将Sverdrup和物理海洋学家Henry Stommel的不同观点协调起来，形成了风驱动海洋环流的基础理论</strong>。他与应用数学家乔治-开利一起，将湾流等洋流与更广泛的数学流体动力学领域联系起来。1951年，他发表了一篇论文，指出他自己的理论在南大洋会因为<strong>海底地形</strong>而失败。这些观点仍是当前研究的一个主要焦点。</p>
-<p><img src="./images/munk5.jpg" alt></p>
-<p>与此同时，蒙克将注意力转向了地球物理学中被认为是无人问津的领域–地球极移和自转率的变化，他认为这是跨越地球科学范围的重要信息源泉。他与合作者戈登-麦克唐纳一起编写了经典教科书《地球的旋转》（1960）。在20世纪50年代，他还是 “Project Mohole”的关键人物，这一个大胆的尝试，即钻穿地壳以获得边界处的地幔样本。蒙克从未隐瞒该项目是失败的事实。他写道，他没有给予它足够的重视；历史学家会说，它被石油工业的政治所束缚。他毫不畏惧，继续前进。</p>
-<p>他在1966年发表的 “abyssal recipes”论文中回到了大尺度海洋，<strong>将深海的温度和盐度的总体结构解释为上升流和混合的平衡</strong>，这一观点也被化学家和生物学家所接受。到2000年左右，这种情况被涉及海底地形的混合机制所取代–这种结果使Munk干脆耸耸肩。他的口头禅是，<strong>正确的问题比正确的答案重要得多</strong>。</p>
-<p>在20世纪60年代和70年代，他和英国的合作者<strong>David Cartwright</strong>恢复了对潮汐的研究，这是一个在20世纪已经奄奄一息的课题，现在是理解海洋混合的关键。到1970年，海洋学家们开始积累”内波”的温度测量值。蒙克和博士后Chris Garrett认为，与海面上的风动波不同，这些波没有风暴和平静期，也没有主要的传播方向。<strong>加勒特-蒙克（GM）的内波谱将大量原本神秘的运动整合到一个相对简单的框架中</strong>。随之而来的是理论和全球观测的开花结果。</p>
-<p><strong>蒙克参与军事工作长达70年之久。</strong>他把对海洋的深刻认识与对在海洋中工作的人的关心结合起来，有一种解决实际问题的亲和力。他是战后新成立的美国海军研究办公室（ONR）最早资助的学者之一。他的最后一份ONR合同是在4年前达成的，当时他已经97岁，也是关于表面波的工作。他是JASON的早期成员，对核武器和雷达时代的知名人士的国防建议进行了补充，对海洋的波动机制进行了深入研究，从而帮助解决美国海军的实际问题。</p>
-<p>从20世纪70年代中期开始，他对声音在水下传播的研究汇集了他的许多兴趣：波浪、潜艇探测、海洋分层、时间序列分析以及在海上使用新仪器。现在被称为<strong>海洋声学层析成像</strong>的技术也许是一个超前的想法，这种测量大面积温度和海流的技术可能会像蒙克的许多其他想法一样被证明是革命性的。</p>
-<p>作为一个长期的国际旅行者和长期访问者，沃尔特是科学和个人魅力相互作用的一个典范。他培养了一长串有能力的合作者，不分年龄。他喜欢与人打交道：在他家吃午饭或晚饭时，很少有客人不在的。在家里，他的办公桌在入口处，与来来往往的人在一起。他喜欢说，这很好，”只要没有人窃窃私语”。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1752,7 +1818,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
