@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-17 16:14:32" itemprop="dateModified" datetime="2022-10-17T16:14:32+08:00">2022-10-17</time>
+                <time title="修改时间：2022-10-17 21:44:14" itemprop="dateModified" datetime="2022-10-17T21:44:14+08:00">2022-10-17</time>
               </span>
 
           
@@ -251,35 +251,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>上节说到人工智能水深反演的单波束质控，这一步骤十分重要，最后的结论表明质控后的反演结果精度可提高三倍。单波束在AI反演水深的角色是<code>label</code>，训练数据集则是重力数据，本节详细谈一下从卫星测高到重力异常数据的反演和处理。</p>
-<h2 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h2><ul>
-<li>GMT，主要做网格化处理、点采样、绘图等</li>
-<li>Python编程</li>
-<li>TensorFlow，Keras</li>
-<li>重力反演的基本概念</li>
+          <p>上节说到人工智能水深反演的单波束质控，这一步骤十分重要，最后的结论表明质控后的反演结果精度可提高三倍。单波束在AI反演水深的角色是<code>label</code>，训练数据集则是重力数据，本节介绍从卫星测高到重力异常的反演方法和数据处理。</p>
+<h2 id="需具备的编程知识点"><a href="#需具备的编程知识点" class="headerlink" title="需具备的编程知识点"></a>需具备的编程知识点</h2><ul>
+<li>GMT</li>
+<li>Python</li>
+<li>Jupyter Lab</li>
+<li>Fortran（测高重力反演源码）</li>
 </ul>
-<h2 id="卫星测高数据反演重力异常"><a href="#卫星测高数据反演重力异常" class="headerlink" title="卫星测高数据反演重力异常"></a>卫星测高数据反演重力异常</h2><p>在我们的AI水深反演中，重力异常以及相关的衍生产品如垂直重力梯度、垂线偏差等是主要的训练数据集合。通常这些产品可以从Sandwell网站或DTU网站下载，而且Sandwell和DTU产品被广泛使用和认可，可以拿来直接使用，因此我们无需增加自己的计算工作。</p>
+<h2 id="卫星测高数据反演重力异常"><a href="#卫星测高数据反演重力异常" class="headerlink" title="卫星测高数据反演重力异常"></a>卫星测高数据反演重力异常</h2><p>在我们的AI水深反演中，重力异常以及相关的衍生产品如垂直重力梯度、垂线偏差等是主要的训练数据集合。通常这些产品可以从Sandwell或Anderson（DTU）学术网站下载。Sandwell和DTU产品被广泛使用，其认可度高，可以拿来直接使用，因此我们无需增加自己的重力反演计算工作。</p>
 <p>这里我们选择Sandwell的产品，因为它提供了上述所有产品。</p>
 <blockquote>
 <p>下载地址：<a href="https://topex.ucsd.edu/pub/global_grav_1min/" target="_blank" rel="noopener">https://topex.ucsd.edu/pub/global_grav_1min/</a></p>
 </blockquote>
-<p>如果读者希望自己重复一遍重力反演过程，也是可以的，这可以提高自己对测高重力的认识。下面简要概述测高重力反演。</p>
-<p>海水和海底玄武岩的密度差异导致了微弱的重力异常信号，这种重力异常信号将海水拽向海山处，进而使海面高度产生起伏（也称大地水准面）。测高反演重力的基本原理即利用这种相关性，它的反演方法基本在上世纪90年代左右确定，目前已成熟稳定。方法大致分两类，一类是基于大地水准面起伏(SSH方法)，一种是基于垂线偏差（Sea surface slope，SSH方法）。SSH方法通过逆斯托克斯公式和最小二乘配置构建了重力异常和水准面起伏的关系，SSS方法通过逆Vening–Meinesz公式和Laplace方程构建了垂涎偏差和重力异常的关系，这两种方法均基于海面高度信息和重力信号的物理关系。尽管这些公式较长，难以完全理解，不过台湾交通大学Huang教授共享了一套简便的程序代码，并且在国科大授课期间分发给学员学习使用，从事本领域的读者应该容易得到这些源代码。读者也可回复本文索取重力反演代码。</p>
-<p>因此，重力反演不是AI水深的重点和难点。这里我们不做这部分工作，而是使用Sandwell公布的重力产品。</p>
+<p>如果读者希望自己重复一遍重力反演过程，也是可以的，这可以提高自己对测高重力反演的认识，我们简单概述测高重力反演：</p>
 <blockquote>
-<p>稍等一段时间，小编将邀请国内重力大咖讲解AI反演重力，据说效果可好了。</p>
+<p>海水和海底玄武岩的密度差异导致了微弱的重力异常信号，这种重力异常信号将海水拽向海山处，进而使海面高度产生起伏（也称大地水准面）。测高反演重力的基本原理即利用这种相关性，它的反演方法在上世纪90年代左右就有了，目前已成熟稳定。方法大致分两类，一类是基于大地水准面起伏(SSH方法)，一种是基于垂线偏差（Sea surface slope，SSS方法）。SSH方法通过逆斯托克斯公式和最小二乘配置构建了重力异常和水准面起伏的关系，SSS方法通过逆Vening–Meinesz公式和Laplace方程构建了垂涎偏差和重力异常的关系，这两种方法均基于海面高度信息和重力信号的物理关系。尽管这些公式较长，难以完全理解，不过台湾交通大学Huang教授共享了一套简便的程序代码，并且在国科大授课期间分发给学员学习使用，从事本领域的读者应该容易得到这些源代码。如果您没有这些源码，也可回复本文索取，或者扫描文末二维码加入AI反演大赛微信群索取。</p>
 </blockquote>
-<h2 id="重力数据预处理"><a href="#重力数据预处理" class="headerlink" title="重力数据预处理"></a>重力数据预处理</h2><p>使用pygmt提取研究区域重力网格数据，分别是重力异常、垂直重力梯度、东西垂线偏差、南北垂线偏差。为保持后面的边界插值准备，这里的<code>region</code>略大一点。为避免网格不对应，这里还特意重新网格化。</p>
+<p>总而言之，重力反演并不是AI水深的重点和难点。这里我们暂时省略这部分工作，而是使用Sandwell公布的重力产品。</p>
+<blockquote>
+<p>等一段时间，小编将邀请国内重力大咖讲解AI反演重力，据说效果可好了。</p>
+</blockquote>
+<h2 id="重力数据预处理"><a href="#重力数据预处理" class="headerlink" title="重力数据预处理"></a>重力数据预处理</h2><p>因为下载的模型是全球模型，首先使用pygmt提取研究区域重力网格数据，分别是重力异常、垂直重力梯度、东西垂线偏差、南北垂线偏差。为保持后面的边界插值准备，这里的<code>region</code>略大一点。为避免网格不对应，这里还特意重新网格化。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">free = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../GeoModel/Free_Air_Gravity_Anomalies/Free_Air_Gravity_Anomalies.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line">free.to_netcdf(<span class="string">"free2.grd"</span>)</span><br><span class="line"></span><br><span class="line">vgg = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../GeoModel/Vertical_Gravity_Gradient/Vertical_Gravity_Gradient.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line"><span class="attribute">vgg_1m</span>=pygmt.grd2xyz(grid=vgg)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="vgg.grd",data=vgg_1m)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nvd = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../data/north_32.1.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line">nvd_1m = pygmt.grdsample(<span class="attribute">grid</span>=nvd, <span class="attribute">spacing</span>=<span class="string">"1m"</span>)</span><br><span class="line"><span class="attribute">nvd_1m</span>=pygmt.grd2xyz(grid=nvd)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="nvd.grd",data=nvd_1m)</span><br><span class="line"></span><br><span class="line">evd = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../data/east_32.1.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line"><span class="attribute">evd_1m</span>=pygmt.grd2xyz(grid=evd)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="evd.grd",data=evd_1m)</span><br></pre></td></tr></table></figure>
 
 <p>重力异常、VGG和东西、南北垂线偏差如下图，绘图代码略，这里使用的调色板是<code>polar</code>：<br><img src="./images/ab11.png" alt></p>
-<h2 id="短波重力计算"><a href="#短波重力计算" class="headerlink" title="短波重力计算"></a>短波重力计算</h2><p>传统的GGM方法使用了短波重力来反演水深，实际上重力信号中的短波重力成分和地形相关性最强，短波重力可以通过布格板公式计算，这里有一个最优密度差的计算，需要迭代确定。通过计算，我们发现几内亚湾的最优密度差是1。</p>
-<p>其思路是：提取实测单波束点位的重力异常，使用布格板公式计算离散点的短波重力，使用总重力异常减去短波重力得到离散点的长波重力，对长波重力做网格化，使用网格化的总重力异常减去长波重力，得到网格化的短波重力。</p>
+<h2 id="短波重力计算"><a href="#短波重力计算" class="headerlink" title="短波重力计算"></a>短波重力计算</h2><p>重力信号中实际和地形相关的是短波分量，传统的GGM方法就使用了短波重力来反演水深，短波重力可以通过布格板公式计算，这里有一个最优密度差的计算，需要通过迭代确定。通过计算，我们发现几内亚湾的最优密度差是1。</p>
+<blockquote>
+<p>其思路是：提取实测单波束点位的重力异常，使用布格板公式计算离散点的短波重力，使用重力异常减去短波重力得到离散点的长波重力，对长波重力做网格化，使用网格化的重力异常减去长波重力，得到网格化的短波重力。</p>
+</blockquote>
 <p>python代码：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">control_depth_free</span>=pygmt.grdtrack(points=control.values,grid="free2.grd",no_skip=True)</span><br><span class="line">y_train1 = control_depth_free.values[:,0:3] # lon lat depth</span><br><span class="line">x_train1 = control_depth_free.values[:,3] # gravity</span><br><span class="line">x_train1 = np.reshape(x_train1, (len(x_train1), 1))</span><br><span class="line"></span><br><span class="line">x_lat = np.reshape(y_train1[:, 1], (len(y_train1[:, 1]), 1))</span><br><span class="line">x_lon = np.reshape(y_train1[:, 0], (len(y_train1[:, 0]), 1))</span><br><span class="line"></span><br><span class="line"><span class="attribute">rou</span>=1.0</span><br><span class="line"><span class="attribute">d</span>=-8000</span><br><span class="line">control_short=(y_train1[:,2]-d)<span class="number">*2</span><span class="number">*3</span>.1415<span class="number">*6</span>.67259*(10**-8)*rou<span class="number">*100000</span> # short wavelength gravity ano</span><br><span class="line">control_short = np.reshape(control_short, (len(control_short), 1))</span><br><span class="line"><span class="attribute">control_long</span>=x_train1-control_short</span><br><span class="line"><span class="attribute">short</span>=np.concatenate((y_train1[:,0:2],control_short),<span class="attribute">axis</span>=1)</span><br><span class="line"><span class="attribute">long</span>=np.concatenate((y_train1[:,0:2],control_long),<span class="attribute">axis</span>=1)</span><br><span class="line"><span class="attribute">reg</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span></span><br><span class="line"></span><br><span class="line">long_bmean = pygmt.blockmean(<span class="attribute">data</span>=long, <span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="long.grd",data=long_bmean)</span><br><span class="line"><span class="attribute">temp</span>=pygmt.grd2xyz(grid="free2.grd")</span><br><span class="line">temp_bmean = pygmt.blockmean(<span class="attribute">data</span>=temp, <span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="free3.grd",data=temp_bmean)</span><br><span class="line"></span><br><span class="line">long0 = xr.open_dataset(<span class="string">"long.grd"</span>)</span><br><span class="line">free0 = xr.open_dataset(<span class="string">"free3.grd"</span>)</span><br><span class="line">short0 = free0-long0</span><br><span class="line">short0.to_netcdf(<span class="string">"short.grd"</span>)</span><br></pre></td></tr></table></figure>
 
-<p>下图是短波重力和海底地形，如果不标注名称，似乎看不出来差异，这也说明短波重力和海底地形的相关性太强了。在AI中加入短波重力，预计将大幅度提供反演精度。问题是AI能否由于GGM？希望在我们即将举办的AI算法大赛中有人使用AI打败GGM。</p>
+<p>下图是短波重力和海底地形的对比效果，如果不标注名称，似乎看不出来差异，这也说明短波重力和海底地形的相关性太强了。在AI中加入短波重力，预计将大幅度提供反演精度。问题是AI能否由于GGM？希望在我们即将举办的AI算法大赛中有人使用AI打败GGM。</p>
 <p><img src="./images/ab12.png" alt></p>
+<blockquote>
+<p>问题：地址模型磁异常、洋壳年龄、沉积层厚度等能否应用于AI水深？</p>
+</blockquote>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
 <li>AI水深反演使用的重力数据产品可以使用公开资料</li>
 <li>短波重力和水深相关性极大，应该能大幅度提升反演精度</li>
@@ -288,7 +295,7 @@
 <h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><ul>
 <li>AI训练前的数据预处理</li>
 </ul>
-<h1 id="AI水深反演大赛交流预热群"><a href="#AI水深反演大赛交流预热群" class="headerlink" title="AI水深反演大赛交流预热群"></a>AI水深反演大赛交流预热群</h1><p>有兴趣参加大赛的伙伴可以扫码入群交流。<br><img src="./images/ab13.png" alt></p>
+<h1 id="AI水深反演大赛交流预热群"><a href="#AI水深反演大赛交流预热群" class="headerlink" title="AI水深反演大赛交流预热群"></a>AI水深反演大赛交流预热群</h1><p>对AI水深反演和卫星测高重力有兴趣的伙伴可以扫码入群交流。<br><img src="./images/ab13.jpg" alt></p>
 
       
     </div>
