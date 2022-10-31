@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">131</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">132</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,147 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/10/31/ai3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/31/ai3/" class="post-title-link" itemprop="url">人工智能海底地形反演(3)-张量构建和归一化</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-10-31 19:34:43 / 修改时间：22:02:57" itemprop="dateCreated datePublished" datetime="2022-10-31T19:34:43+08:00">2022-10-31</time>
+            </span>
+
+          
+            <span id="/2022/10/31/ai3/" class="post-meta-item leancloud_visitors" data-flag-title="人工智能海底地形反演(3)-张量构建和归一化" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/10/31/ai3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/10/31/ai3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上两节分别介绍了单波束数据质控和卫星测高的重力数据处理，我们发现经过质控的单波束作为训练数据，可以明显提高水深反演的精度，重力异常信号中的短波分量和地形非常相关，加入短波重力有可能大幅提高水深反演精度。</p>
+<p>今天介绍AI反演水深最后的前奏：张量构建和归一化处理。</p>
+<h2 id="张量的构建"><a href="#张量的构建" class="headerlink" title="张量的构建"></a>张量的构建</h2><p>人工智能的数据表示方式是存储在Numpy里的多维数组，数据类型是<code>ndarray</code>，在AI领域它还有一个更具B格的名字：<code>张量（tensor）</code>。一般来说，当前所有机器学习系统都使用<code>张量</code>作为基本数据结构，张量在AI领域是非常重要的概念，以至于Google的TensorFlow都直接以它来命名。</p>
+<blockquote>
+<p>包含一个数字的张量叫作标量（scalar，也叫标量张量、零维张量、0D张量），有0个轴；向量是一维张量，有一个轴；矩阵是二维张量，有两个轴；三维矩阵组合的数组是三维张量，有三个方向轴，比如平面空间加时间维度；彩色图片集是四维张量，比如10000张3个通道的100×100大小图片的数组是（10000,100,100,3）。类似的现实世界还有五维张量视频，更高维度的规则张量似乎在现实世界难以想象。</p>
+</blockquote>
+<p>在水深反演中，我们首先也构建这样的多维张量。因为DNN和CNN的张量略有不同，这里分开介绍它们的构建方式。</p>
+<h3 id="DNN"><a href="#DNN" class="headerlink" title="DNN"></a>DNN</h3><p>假设人工智能训练数据的输入包括<code>lat,lon,ga,vgg,evd,nvd,sg</code>，输出只有一个<code>od</code>:</p>
+<ul>
+<li>lat：latitude</li>
+<li>lon：longitude</li>
+<li>ga：gravity anomaly</li>
+<li>vgg：vertical gravity gradient</li>
+<li>evd：east-west vertical deflection</li>
+<li>nvd：north-south vertical deflection</li>
+<li>sg：short wavelength gravity anomaly</li>
+<li>od：ocean depth</li>
+</ul>
+<p>因为在DNN中，没有要求输入必须是图像，所以它接受的输入张量可以是二维矩阵。假设有10000个水深训练点，那么输入张量大小为（10000,7），输出张量为（10000，1）。注意位置信息并不单独占据两个维度，而是作为输入保存在了张量内部。</p>
+<p>在python中使用<code>numpy</code>的基本函数可完成张量构建：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input =  np.concatenate((lon,lat,ga,vgg,evd,nvd,sg), axis=<span class="number">1</span>)</span><br><span class="line">output = np.reshape(free_short[:,<span class="number">2</span>],(len(free_short[:, <span class="number">2</span>]),<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h3><p>CNN的操作对象必须是图像，因此张量必须是4维度的。CNN的张量构建稍微复杂一些，消耗的时间也长一点。整体思路是：根据经纬度确定index，然后通过index确定矩形范围，再提取重力异常等数据，增加数组维度的深度。</p>
+<h4 id="Index确定"><a href="#Index确定" class="headerlink" title="Index确定"></a>Index确定</h4><p>使用<code>get_indexer</code>函数得到船测水深点的经纬度在重力网格数组中的存储位置：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">con_lat_index</span>=free_15s.indexes[<span class="string">"lat"</span>].get_indexer(control.values[:,1],<span class="attribute">method</span>=<span class="string">"nearest"</span>)</span><br><span class="line"><span class="attribute">con_lon_index</span>=free_15s.indexes[<span class="string">"lon"</span>].get_indexer(control.values[:,0],<span class="attribute">method</span>=<span class="string">"nearest"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>比如我们想得到index=126处的5×5图像：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free_15s.isel(lat=slice(<span class="number">126</span><span class="number">-2</span>,<span class="number">126</span>+<span class="number">3</span>,<span class="number">1</span>),lon=slice(<span class="number">1056</span><span class="number">-2</span>,<span class="number">1056</span>+<span class="number">3</span>,<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<p>根据这个逻辑写循环增加数据参数，假设CNN输入是5×5大小的图像：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">temp2 = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(control[<span class="string">"lat"</span>])):</span><br><span class="line">    temp = free_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_vgg = vgg_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_e = east_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_n = north_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_shortg = shortg_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    lat1 = free_15s.lat[con_lat_index[i]<span class="number">-2</span>:con_lat_index[i]+<span class="number">3</span>]</span><br><span class="line">    lon1 = free_15s.lon[con_lon_index[i]<span class="number">-2</span>:con_lon_index[i]+<span class="number">3</span>]</span><br><span class="line">    LON,LAT = np.meshgrid(lon1,lat1)    </span><br><span class="line">    temp1 = np.concatenate([np.reshape(LON,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(LAT,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_vgg.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_e.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_n.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_shortg.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>))],axis=<span class="number">2</span>)   </span><br><span class="line">    temp2.append(temp1)</span><br><span class="line">temp2 = np.<span class="built_in">array</span>(temp2)</span><br><span class="line">temp2.shape</span><br></pre></td></tr></table></figure>
+
+<p>最终得到的张量空间是（10000, 5, 5, 7）</p>
+<blockquote>
+<p>使用index来确定位置，可以加速张量构建。</p>
+</blockquote>
+<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>归一化是将一个变量的取值缩放到[0~1]之间，也称数据标准化（Normalization）。数据标准化处理是AI的一项基础工作，不同评价指标往往具有不同的量纲和量纲单位，这样的情况会影响到数据分析的结果，为了消除指标之间的量纲影响，需要对数据进行归一化处理，解决数据指标之间的可比性问题。</p>
+<blockquote>
+<p>优点：提高梯度下降求解最优解的速度;归一化有可能提高精度</p>
+</blockquote>
+<p>在DNN中，我们使用了<code>MinMaxScaler</code>和<code>transform</code>函数完成归一化：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># normalization</span></span><br><span class="line"><span class="attr">y_train2</span> = np.reshape(y_train1[:, <span class="number">2</span>], (len(y_train1[:, <span class="number">2</span>]), <span class="number">1</span>)) <span class="comment"># depth</span></span><br><span class="line"></span><br><span class="line"><span class="attr">scalerlon</span> = MinMaxScaler().fit(x_lon)</span><br><span class="line"><span class="attr">scalerlat</span> = MinMaxScaler().fit(x_lat)</span><br><span class="line"><span class="attr">scalershort</span> = MinMaxScaler().fit(control_short)</span><br><span class="line"><span class="attr">scalerga</span> = MinMaxScaler().fit(control_ga)</span><br><span class="line"><span class="attr">scalervgg</span> = MinMaxScaler().fit(control_vgg)</span><br><span class="line"><span class="attr">scalerevd</span> = MinMaxScaler().fit(control_evd)</span><br><span class="line"><span class="attr">scalernvd</span> = MinMaxScaler().fit(control_nvd)</span><br><span class="line"><span class="attr">scalersed</span> = MinMaxScaler().fit(control_sed)</span><br><span class="line"><span class="attr">scalerage</span> = MinMaxScaler().fit(control_age)</span><br><span class="line"><span class="attr">scalermoho</span> = MinMaxScaler().fit(control_moho)</span><br><span class="line"><span class="attr">scalermag</span> = MinMaxScaler().fit(control_mag)</span><br><span class="line"><span class="attr">scalerytrain</span> = MinMaxScaler().fit(y_train2)</span><br><span class="line"></span><br><span class="line"><span class="attr">lat_train</span> = scalerlat.transform(x_lat)</span><br><span class="line"><span class="attr">lon_train</span> = scalerlon.transform(x_lon)</span><br><span class="line"><span class="attr">short_train</span> = scalershort.transform(control_short)</span><br><span class="line"><span class="attr">ga_train</span> = scalerga.transform(control_ga)</span><br><span class="line"><span class="attr">vgg_train</span> = scalervgg.transform(control_vgg)</span><br><span class="line"><span class="attr">evd_train</span> = scalerevd.transform(control_evd)</span><br><span class="line"><span class="attr">nvd_train</span> = scalernvd.transform(control_nvd)</span><br><span class="line"><span class="attr">sed_train</span> = scalersed.transform(control_sed)</span><br><span class="line"><span class="attr">age_train</span> = scalerage.transform(control_age)</span><br><span class="line"><span class="attr">moho_train</span> = scalermoho.transform(control_moho)</span><br><span class="line"><span class="attr">mag_train</span> = scalermag.transform(control_mag)</span><br><span class="line"><span class="attr">y_trian</span> = scalerytrain.transform(y_train2)</span><br></pre></td></tr></table></figure>
+
+<p>在CNN中，我们使用一样的方法完成归一化：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">m,n,k,p = np.shape(temp2)</span><br><span class="line">scalerlon = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">4</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerlat = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">5</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerfree = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">0</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalervgg = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">1</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalernvd = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">2</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerevd = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">3</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line"># scalermae = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">6</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerdepth = MinMaxScaler().fit(np.reshape(control.values[:,<span class="number">2</span>],(<span class="number">-1</span>,<span class="number">1</span>)))</span><br><span class="line">lon_train = scalerlon.transform(np.reshape(temp2[:,:,:,<span class="number">4</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">lat_train = scalerlat.transform(np.reshape(temp2[:,:,:,<span class="number">5</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">free_train = scalerfree.transform(np.reshape(temp2[:,:,:,<span class="number">0</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">vgg_train = scalervgg.transform(np.reshape(temp2[:,:,:,<span class="number">1</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">nvd_train = scalernvd.transform(np.reshape(temp2[:,:,:,<span class="number">2</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">evd_train = scalerevd.transform(np.reshape(temp2[:,:,:,<span class="number">3</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line"># mae_train = scalerevd.transform(np.reshape(temp2[:,:,:,<span class="number">6</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">x_train = np.reshape(np.concatenate([free_train,vgg_train,nvd_train,evd_train,lon_train,lat_train],axis=<span class="number">1</span>),(m,n,k,p))</span><br><span class="line">y_train = scalerdepth.transform(np.reshape(control.values[:,<span class="number">2</span>],(<span class="number">-1</span>,<span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意对实测水深<code>label</code>也必须做归一化处理。</p>
+</blockquote>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>张量即多维数组，CNN的张量维度大，比较消耗算力，DNN张量是二维矩阵，计算简单。</li>
+<li>归一化是为了解决不同量纲的数据差异问题，提高AI训练质量。</li>
+</ul>
+<h3 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h3><p>完成全部的人工智能的重力水深反演，并展现出高精度的AI水深反演结果。</p>
+<ul>
+<li>DNN和CNN网络设计</li>
+<li>水深预测和评估</li>
+</ul>
+<blockquote>
+<p>俺最近更新很慢，希望早点上手的伙伴可查看完整代码：<a href="https://github.com/GenericAltimetryTools/AIBathy" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy</a></p>
+</blockquote>
+<h1 id="人工智能水深反演比赛的企业总冠名权征集"><a href="#人工智能水深反演比赛的企业总冠名权征集" class="headerlink" title="人工智能水深反演比赛的企业总冠名权征集"></a>人工智能水深反演比赛的企业总冠名权征集</h1><p>为提高奖金数额，促进参赛积极性，在保留原奖金的情况下，组委现向全社会征集比赛总冠名权，请有意向的海洋遥感、海洋测绘、人工智能等领域的企业私信联系。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1436,101 +1577,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/08/12/altimetry/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/12/altimetry/" class="post-title-link" itemprop="url">卫星测高50年：成就和趋势</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-08-12 21:05:46 / 修改时间：21:49:34" itemprop="dateCreated datePublished" datetime="2022-08-12T21:05:46+08:00">2022-08-12</time>
-            </span>
-
-          
-            <span id="/2022/08/12/altimetry/" class="post-meta-item leancloud_visitors" data-flag-title="卫星测高50年：成就和趋势" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/08/12/altimetry/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/12/altimetry/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>自1973年<a href="http://www.altimetry.info/missions/past-missions/skylab/" target="_blank" rel="noopener">Skylab-3</a>携带首颗试验性高度计卫星发射升空，已过50年。</p>
-<p>50周年之际，国际知名遥感杂志《Remote Sensing》在线发表了中国、希腊等海洋遥感学者撰写的综述论文“Satellite Altimetry: Achievements and Future Trends by a Scientometrics Analysis”。</p>
-<p><img src="../images/sa1.png" alt></p>
-<p>作者根据SCI数据库<code>Web of Science</code>中收录的近五十年卫星高度计领域的8000余篇科学论文，全面回顾了自上世纪70年代以来，卫星测高走过的发展历程。作者统计了卫星测高的文章年度数量、应用领域分布、研究单位的地理分布特征、卫星测高知识体系网络、作者合作关系、引文共现等，并就前沿领域和今后的发展进行了展望。</p>
-<p><img src="../images/sa2.png" alt><br>图1：测高卫星在轨历史</p>
-<p>在过去的50年里，卫星测高研究以惊人的速度发展，从最初每年发表不到10篇文献，发展到现在每年发表超过600篇文献，特别是中国学者发表的文献已超过了美国，跃居世界第一位。</p>
-<p><img src="../images/sa7.png" alt><br>图2：测高卫星相关研究论文时间演变</p>
-<p>研究表明卫星测高的研究领域在不断得到拓展，卫星测高早已不限于传统的海洋学和大地测量学，它已经普遍应用于陆地水文、冰冻圈、陆地地形，甚至森林和土壤监测。经过50年发展，测高精度已得到显著提高，空间/时间分辨率也不断缩小，测高研究的尺度不断向精细化发展。</p>
-<p><img src="../images/sa4.png" alt><br>图3：测高卫星研究领域</p>
-<p>在全球卫星测高作者集群中，有很多来自我国或华人学者，他们和国内外科学家存在密切的合作，为我国卫星测高的各方面发展做出了突出贡献。</p>
-<p><img src="../images/sa5.png" alt><br>图4：测高卫星作者群体</p>
-<p>50年间，卫星测高研究热点在逐渐的演变，从早期的雷达高度计理论研究，逐步进化到SAR高度计、GNSS-R，以及新一代宽幅高度计。趋势分析揭示了当前卫星测高的热点研究领域和新的测高技术密切相关。特别是预计将于2022年发射的SWOT任务，将使得卫星测高从“网格”过渡到“像素”分辨率阶段。研究还表明，和人工智能、深度学习等跨领域合作也是未来发展的重点方向之一。</p>
-<p><img src="../images/sa6.png" alt><br>图5：测高卫星研究的知识节点</p>
-<blockquote>
-<p>文章链接：<a href="https://www.mdpi.com/2072-4292/14/14/3332" target="_blank" rel="noopener">https://www.mdpi.com/2072-4292/14/14/3332</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1603,7 +1649,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
