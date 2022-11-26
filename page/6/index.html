@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">80</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">81</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">133</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">134</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,106 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/12/share-code2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/12/share-code2/" class="post-title-link" itemprop="url">开源程序共享3</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-12 21:44:26 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2021-05-12T21:44:26+08:00">2021-05-12</time>
+            </span>
+
+          
+            <span id="/2021/05/12/share-code2/" class="post-meta-item leancloud_visitors" data-flag-title="开源程序共享3" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/12/share-code2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/12/share-code2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天向大家分享三个和GMT有关的开源程序，分别是多波束处理程序MB-system、SAR遥感图像处理程序GMT SAR和重力资料处理程序。</p>
+<h2 id="MB-system"><a href="#MB-system" class="headerlink" title="MB-system"></a>MB-system</h2><p><img src="/images/mbsystem_logo.gif" alt></p>
+<p>MB-system是多波束测深数据处理程序，MB最初是由哥伦比亚大学拉蒙特-多尔蒂地球观测站（L-DEO）开发的，现在是由蒙特雷湾水族馆研究所（MBARI）、新罕布什尔大学和MARUM合作开发。自1993年以来，美国国家科学基金会一直支持MB的研发。自1998年以来，Packard基金会通过MBARI为MB提供了主要支持。</p>
+<p>MB由操作、处理、列出或显示声纳测深、振幅和侧扫数据的程序组成。该软件是以Unix平台的源代码形式免费分发的，程序的核心是一个名为MBIO的输入/输出库。这种方法允许创建 “通用 “工具，可以以统一的方式应用于各种来源的声纳数据。大多数程序是命令行工具，但该软件包也包括用于编辑测深线、编辑导航、建模测深计算和调整调查导航的图形工具。MB依赖GMT进行网格插值以及绘图。</p>
+<p>NOAA维护的NGDC数据中心所共享的历史多波束数据使用了MB处理，这使得其共享的数据有统一的数据格式。</p>
+<p>目前国内高校、研究机构以及企业界多使用Caris等商业化软件处理多波束资料，少数科研人员使用MB-System，原因可能可能与MB的运行环境是Linux有关，这导致了程序使用的友好性降低。</p>
+<p>经过安装测试，发现这个程序其实也不是很复杂，因为它和GMT有很好的联通性，如果熟悉GMT，则MB较容易上手。不足的是它的帮助文件有些古老。</p>
+<p>源代码地址：<a href="https://github.com/dwcaress/MB-System" target="_blank" rel="noopener">https://github.com/dwcaress/MB-System</a><br>下载和安装：<a href="https://www.mbari.org/products/research-software/mb-system/how-to-download-and-install-mb-system/" target="_blank" rel="noopener">https://www.mbari.org/products/research-software/mb-system/how-to-download-and-install-mb-system/</a><br>应用论文：GREVEMEYER I, RÜPKE L H, MORGAN J P, 等. Extensional Tectonics and Two-Stage Crustal Accretion at Oceanic Transform Faults: 7850[J]. Nature, 2021, 591(7850): 402–407. DOI:10.1038/s41586-021-03278-9.</p>
+<p>程序开发者还提供了一些教学视频，但是在YouTube。</p>
+<p>视频教学：</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SoWjpkmx034" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h2 id="GMTSAR"><a href="#GMTSAR" class="headerlink" title="GMTSAR"></a>GMTSAR</h2><p><img src="/images/gmtsar.png" alt><br>来源：GMTSAR帮助文件</p>
+<p>GMTSAR是一个开源的（GNU通用公共许可证）InSAR处理系统，为熟悉通用绘图工具（GMT）的用户而设计。该代码是用C语言编写的用C语言编写，并将在任何安装了GMT和NETCDF的计算机上进行编译。</p>
+<p>该系统有三个主要组成部分:<br>1）每个卫星数据类型的预处理程序，用于将本地格式和轨道信息转换成通用格式；<br>2）一个InSAR处理器，用于聚焦和对准图像，将地形绘制成相位，并形成复杂的干涉图；<br>3）一个后处理程序，主要是基于GMT，以过滤干涉图，并构建相位、相干、相位梯度的干涉测量产品，以及雷达和地理坐标中的位移。</p>
+<p>源代码：<a href="https://github.com/gmtsar/gmtsar" target="_blank" rel="noopener">https://github.com/gmtsar/gmtsar</a><br>例子和帮助：<a href="https://topex.ucsd.edu/gmtsar/downloads/" target="_blank" rel="noopener">https://topex.ucsd.edu/gmtsar/downloads/</a><br>应用论文：XU X, SANDWELL D T, WARD L A, 等. Surface Deformation Associated with Fractures near the 2019 Ridgecrest Earthquake Sequence[J]. Science, 2020, 370(6516): 605–608. DOI:10.1126/science.abd1690.</p>
+<h2 id="重力资料处理"><a href="#重力资料处理" class="headerlink" title="重力资料处理"></a>重力资料处理</h2><p><img src="/images/A10_absolute_gravity_meter.jpg" alt><br>来源：USGS</p>
+<p>这是一套PYTHON重力资料处理程序和教学文档，提供了南非的国家重力测量数据（来自BGS，<a href="https://www.bgs.ac.uk/datasets/gb-land-gravity-survey/）" target="_blank" rel="noopener">https://www.bgs.ac.uk/datasets/gb-land-gravity-survey/）</a> 。</p>
+<p>这应该是重力资料处理的入门级学习程序。</p>
+<p>它的作者leouieda是由GMT开发者之一。</p>
+<p>源代码：<a href="https://github.com/leouieda/gravity-processing" target="_blank" rel="noopener">https://github.com/leouieda/gravity-processing</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1196,155 +1296,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/04/18/opensourceSoft/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/18/opensourceSoft/" class="post-title-link" itemprop="url">开源程序分享1-OI最优化插值计算SSH模型</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-18 10:17:19 / 修改时间：18:55:37" itemprop="dateCreated datePublished" datetime="2021-04-18T10:17:19+08:00">2021-04-18</time>
-            </span>
-
-          
-            <span id="/2021/04/18/opensourceSoft/" class="post-meta-item leancloud_visitors" data-flag-title="开源程序分享1-OI最优化插值计算SSH模型" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/18/opensourceSoft/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/18/opensourceSoft/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>接下来一段时间（可能是2年左右时间），小编将逐步整理、分享一些<code>大地测量、海洋测绘、遥感、机器学习、科学绘图、文献管理、论文撰写</code>方面的开源程序集，这些程序来源于<code>github</code>或者学术机构、开发者网站等。</p>
-<p>暂定的程序：</p>
-<ul>
-<li>GMT</li>
-<li>Wafo</li>
-<li>Pandocs</li>
-<li>MB</li>
-<li>Latex </li>
-<li>Zotero</li>
-<li>git</li>
-<li>Jlab</li>
-<li>Citespace</li>
-<li>Proj</li>
-<li>GDAL</li>
-<li>GAT</li>
-<li>SWOTsimulater</li>
-</ul>
-<p>今天分享的一个开源程序是卫星测高的海面高网格重构程序。</p>
-<blockquote>
-<p>[1] MAXIME BALLAROTTA, EMMANUEL COSME, AURÉLIE ALBERT. ocean-data-challenges/2020a_SSH_mapping_NATL60: Material for SSH mapping data challenge[M/OL]. Zenodo, 2020[2021–04–18]. <a href="https://zenodo.org/record/4045400#.YHuagz8RVEY" target="_blank" rel="noopener">https://zenodo.org/record/4045400#.YHuagz8RVEY</a>. DOI:<a href="https://doi.org/10.5281/zenodo.4045400" target="_blank" rel="noopener">10.5281/zenodo.4045400</a>.</p>
-</blockquote>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
-<p>This repository contains codes and sample notebooks for downloading and processing the SSH mapping data challenge. The goal is to investigate how to best reconstruct sequences of Sea Surface Height (SSH) maps from partial satellite altimetry observations. This data challenge follows an Observation System Simulation Experiment framework: “Real” full SSH are from a numerical simulation with a realistic, high-resolution ocean circulation model: the reference simulation. Satellite observations are simulated by sampling the reference simulation based on realistic orbits of past, existing or future altimetry satellites. A baseline reconstruction method is provided (see below) and the practical goal of the challenge is to beat this baseline according to scores also described below and in Jupyter notebooks.</p>
-</blockquote>
-<p>程序主要采用简单的最优插值（Optimal Interpolation）进行SSH的重构，输入数据为高分辨率海洋环流模型NATL60和真实轨道模拟的卫星高度计数据，其中模拟的卫星高度计包含Topex-Poseidon, Jason 1, Geosat Follow-On, Envisat, 和 SWOT ，重构后的高精度SSH可以促进海洋动力学等研究。</p>
-<h2 id="程序目录"><a href="#程序目录" class="headerlink" title="程序目录"></a>程序目录</h2><ul>
-<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item0" target="_blank" rel="noopener">ocean-data-challenges-2020a_SSH_mapping_NATL60-a9b81c2</a><ul>
-<li>.gitignore 39 Bytes</li>
-<li>LICENSE 1.1 kB</li>
-<li>README.md 5.9 kB</li>
-<li>environment.yml 610 Bytes</li>
-<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item5" target="_blank" rel="noopener">figures</a><ul>
-<li>DC-data_availability.png 543.9 kB</li>
-<li>odc-logo.png 71.2 kB</li>
-</ul>
-</li>
-<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item8" target="_blank" rel="noopener">notebooks</a><ul>
-<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item9" target="_blank" rel="noopener">.ipynb_checkpoints</a><ul>
-<li>baseline_oi-checkpoint.ipynb 7.0 kB</li>
-<li>example_data_access_meom-checkpoint.ipynb 7.3 kB</li>
-<li>example_data_eval-checkpoint.ipynb 7.5 kB</li>
-</ul>
-</li>
-<li>baseline_oi.ipynb 6.7 kB</li>
-<li>example_data_access.ipynb 12.7 kB</li>
-<li>example_data_access_from_cloud.ipynb 2.7 MB</li>
-<li>example_data_access_meom.ipynb 7.3 kB</li>
-<li>example_data_eval.ipynb 8.1 kB</li>
-<li>example_plot_results.ipynb 6.5 kB</li>
-</ul>
-</li>
-<li>quickstart.ipynb 6.2 MB</li>
-<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item20" target="_blank" rel="noopener">results</a><ul>
-<li>PSD_based_score.png 51.2 kB</li>
-</ul>
-</li>
-<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item22" target="_blank" rel="noopener">src</a><ul>
-<li>mod_eval.py 4.4 kB</li>
-<li>mod_inout.py 1.5 kB</li>
-<li>mod_oi.py 3.2 kB</li>
-<li>mod_plot.py 7.3 kB</li>
-<li>mod_regrid.py 1.6 kB </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="在线测试"><a href="#在线测试" class="headerlink" title="在线测试"></a>在线测试</h2><p>作者提供了快捷的在线运行，点击：<a href="https://hub.binder.pangeo.io/user/ocean-data-chal-_mapping_natl60-02h900yz/notebooks/quickstart.ipynb" target="_blank" rel="noopener">https://hub.binder.pangeo.io/user/ocean-data-chal-_mapping_natl60-02h900yz/notebooks/quickstart.ipynb</a></p>
-<p>该示例提供了一颗星下点高度计、四颗星下点高度计和SWOT宽刈幅高度计的SSH重构测试，并使用RMSE和功率谱给出了精度评分。</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/ssh2.png" alt><br><img src="/images/SSH.png" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1417,7 +1368,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">134</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1430,7 +1381,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">80</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
