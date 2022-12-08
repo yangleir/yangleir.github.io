@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="以2015-2020年国家自然科学基金资助的大地测量学470个项目为样本，系统分析了大地测量学域近年来研究方向，以关键词统计方式阐述了近年来相对集中的热点问题。 自1986年国家自然科学基金委员会成立以来，它在我国基础研究建设的过程中就发挥着越来越显著的作用，自然科学基金逐渐成为国家投入基础科学研究的主要资助方式。经过近30年的发展，NSFC项目已成为科技支撑经济社会可持续发展的重要引擎，成为引领">
+<meta property="og:type" content="article">
+<meta property="og:title" content="国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计)">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="以2015-2020年国家自然科学基金资助的大地测量学470个项目为样本，系统分析了大地测量学域近年来研究方向，以关键词统计方式阐述了近年来相对集中的热点问题。 自1986年国家自然科学基金委员会成立以来，它在我国基础研究建设的过程中就发挥着越来越显著的作用，自然科学基金逐渐成为国家投入基础科学研究的主要资助方式。经过近30年的发展，NSFC项目已成为科技支撑经济社会可持续发展的重要引擎，成为引领">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/images/jj20.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/images/jj21.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/images/jj22.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/images/jj23.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/images/jj24.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/images/jj25.jpg">
+<meta property="article:published_time" content="2022-12-08T11:12:04.000Z">
+<meta property="article:modified_time" content="2022-12-08T12:15:03.999Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="自然科学基金">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/12/08/dadicel/images/jj20.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/12/08/dadicel/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计) | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">81</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">136</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/08/dadicel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-08 19:12:04 / 修改时间：20:15:03" itemprop="dateCreated datePublished" datetime="2022-12-08T19:12:04+08:00">2022-12-08</time>
+            </span>
+
+          
+            <span id="/2022/12/08/dadicel/" class="post-meta-item leancloud_visitors" data-flag-title="国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计)" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/12/08/dadicel/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/08/dadicel/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>以2015-2020年国家自然科学基金资助的大地测量学470个项目为样本，系统分析了大地测量学域近年来研究方向，以关键词统计方式阐述了近年来相对集中的热点问题。</p>
+<p>自1986年国家自然科学基金委员会成立以来，它在我国基础研究建设的过程中就发挥着越来越显著的作用，自然科学基金逐渐成为国家投入基础科学研究的主要资助方式。经过近30年的发展，NSFC项目已成为科技支撑经济社会可持续发展的重要引擎，成为引领我国基础研究重要前沿方向和解决经济社会发展中科学问题的重要支撑。随着目前多方重视程度提升，NSFC基金申报、获批数量及比例也逐渐成为衡量各高校、科研院所整体实力重要指标，受到各高校及科研院所研究人员的广泛关注。</p>
+<h2 id="大地测量学"><a href="#大地测量学" class="headerlink" title="大地测量学"></a>大地测量学</h2><p>大地测量学是准确测量和理解地球形状（几何形状和大小）、空间方位和重力，为人类活动提供地球空间信息的一门学科，属于地球科学的一个分支。</p>
+<p>其范畴主要包括：</p>
+<ul>
+<li>确定地球形状及其外部重力场及其随时间的变化，建立统一的大地测量坐标系，研究地壳形变（包括地壳垂直升降及水平位移），测定极移以及海洋水面地形及其变化等。</li>
+<li>研究月球及太阳系行星的形状及其重力场。</li>
+<li>建立和维持具有高科技水平的国家和全球的天文大地水平控制网和精密水准网以及海洋大地控制网，以满足国民经济和国防建设的需要。</li>
+<li>研究为获得高精度测量成果的仪器和方法等。</li>
+<li>研究地球表面向椭球面或平面的投影数学变换及有关的大地测量计算。</li>
+<li>研究大规模、高精度和多类别的地面网、空间网及其联合网的数学处理的理论和方法，测量数据库建立及应用等。</li>
+<li>大地测量学的一个特殊领域是海洋测量和河流的水文断面的研究。</li>
+</ul>
+<p>本文通过Letpub所收录的基金数据库检索得到2015-2020年资助的大地测量学科（含物理大地测量、动力大地测量和卫星大地测量）相关的项目，通过统计的方式简要分析项目研究关键词，未能从Letpub系统检索到的项目不在分析之列。</p>
+<h2 id="总体情况"><a href="#总体情况" class="headerlink" title="总体情况"></a>总体情况</h2><p>2015年至2020年六年以来在大地测量领域已获审批的各项国家自然科学基金项目共有469项，其中面上227项，青年195项。六年以来，每年申请获批的面上和青年项目数量如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>2015</th>
+<th>2016</th>
+<th>2017</th>
+<th>2018</th>
+<th>2019</th>
+<th>2020</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>面上</td>
+<td>33</td>
+<td>43</td>
+<td>43</td>
+<td>44</td>
+<td>41</td>
+<td>23</td>
+</tr>
+<tr>
+<td>青年</td>
+<td>34</td>
+<td>33</td>
+<td>38</td>
+<td>38</td>
+<td>42</td>
+<td>10</td>
+</tr>
+</tbody></table>
+<p>从表中可以看出，基金委每年资助大地测量领域面上和青年项目均保持在30至45项之间，2020年减少可能是由于数据统计缺失造成的。</p>
+<blockquote>
+<p>比较遗憾，没有找到更为齐全的2020年和之后的数据。如果您有更加准确的数据库资源，可回复本文。</p>
+</blockquote>
+<h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p><img src="./images/jj20.png" alt></p>
+<p>近六年以来，武汉大学是大地测量领域国家自然科学基金面上和青年项目获批人数最多的高校，共有95项，远远超过其他单位。中南大学、同济大学、长安大学、矿大等也获得较多资助。</p>
+<h2 id="负责人"><a href="#负责人" class="headerlink" title="负责人"></a>负责人</h2><p><img src="./images/jj21.png" alt></p>
+<p>上图为负责人姓名生成的词云图，统计表明共有7人在6年间获得了3次资助，分别是<strong>朱建军、涂锐、王琪、申文斌、徐新禹、李斐、李博峰</strong>，还有60人获得了2次资助。</p>
+<h2 id="题目关键词"><a href="#题目关键词" class="headerlink" title="题目关键词"></a>题目关键词</h2><p><img src="./images/jj22.png" alt></p>
+<p>我们从资助题目中提取单词进行统计，使用最多的词汇是一些共性词，<code>研究</code>共出现329次，这说明大部分人的基金还是偏好于使用<code>研究</code>这个词汇，<code>基于</code>出现116次，<code>方法</code>出现121次，<code>模型</code>出现75次，<code>理论</code>出现69次。</p>
+<p>针对研究内容而言，最大的热点是<code>GNSS</code>，出现了122次，另外同类词<code>GPS</code>21次，<code>北斗</code>31次，也就是说4个课题中就有一个是直接带有<code>GNSS</code>的。</p>
+<p>针对研究区域地名，出现频次最高的是<code>青藏高原</code>，<code>中国</code>，<code>南极</code>和<code>尼泊尔</code>。时间相关的词汇<code>现今</code>出现19次，大部分课题与构造活动有关，<code>实时</code>出现25次，均和GNSS相关课题有关，GNSS相关的<code>快速</code>关键词也出现较多。</p>
+<h2 id="清单"><a href="#清单" class="headerlink" title="清单"></a>清单</h2><h4 id="除面上和青年之外的项目资助清单："><a href="#除面上和青年之外的项目资助清单：" class="headerlink" title="除面上和青年之外的项目资助清单："></a>除面上和青年之外的项目资助清单：</h4><p><img src="./images/jj23.jpg" alt></p>
+<h4 id="面上项目清单"><a href="#面上项目清单" class="headerlink" title="面上项目清单"></a>面上项目清单</h4><p><img src="./images/jj24.jpg" alt></p>
+<h4 id="青年项目清单"><a href="#青年项目清单" class="headerlink" title="青年项目清单"></a>青年项目清单</h4><p><img src="./images/jj25.jpg" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%87%AA%E7%84%B6%E7%A7%91%E5%AD%A6%E5%9F%BA%E9%87%91/" rel="tag"># 自然科学基金</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/27/jj2/" rel="prev" title="国家自然科学基金-卫星测高立项统计">
+      <i class="fa fa-chevron-left"></i> 国家自然科学基金-卫星测高立项统计
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大地测量学"><span class="nav-number">1.</span> <span class="nav-text">大地测量学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总体情况"><span class="nav-number">2.</span> <span class="nav-text">总体情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单位"><span class="nav-number">3.</span> <span class="nav-text">单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负责人"><span class="nav-number">4.</span> <span class="nav-text">负责人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目关键词"><span class="nav-number">5.</span> <span class="nav-text">题目关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清单"><span class="nav-number">6.</span> <span class="nav-text">清单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#除面上和青年之外的项目资助清单："><span class="nav-number">6.0.1.</span> <span class="nav-text">除面上和青年之外的项目资助清单：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面上项目清单"><span class="nav-number">6.0.2.</span> <span class="nav-text">面上项目清单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#青年项目清单"><span class="nav-number">6.0.3.</span> <span class="nav-text">青年项目清单</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

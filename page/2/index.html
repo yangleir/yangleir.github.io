@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">135</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">136</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,115 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/23/pangeoforge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/23/pangeoforge/" class="post-title-link" itemprop="url">Pangeo Forge入门</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-23 21:46:45 / 修改时间：22:02:47" itemprop="dateCreated datePublished" datetime="2022-09-23T21:46:45+08:00">2022-09-23</time>
+            </span>
+
+          
+            <span id="/2022/09/23/pangeoforge/" class="post-meta-item leancloud_visitors" data-flag-title="Pangeo Forge入门" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/23/pangeoforge/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/23/pangeoforge/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Pangeo Forge为气象海洋的云计算和大数据而生，是一种众包（crowd sourcing）科学数据制作方法，目前Pangeo社区负责该技术的开发。</p>
+<h3 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h3><p>云计算为科学研究提供了极大便利，使我们可以将算力部署在数据服务器周围，这些服务器往往由Google或者AMS等大厂维护，先进的硬件设施和强大算力使得数据读取速度大大提高，这避免了将数据下载到计算机进行处理。</p>
+<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>大气海洋领域、测绘、遥感等领域大量使用的Netcdf格式不适合大数据的云计算，为了适用于大数据和云计算，一种新的多维数据结构Zarr应运而生，成为Pangeo气象海洋云数据的规范格式。</p>
+<p>规范化的数据是高效云计算的前提。就像Python有无数的大众开发的软件包，可以通过<code>pip</code>等安装，但最稳定可靠的安装是使用<code>Conda Forge</code>，这是一个更规范化的Python源。Pangeo Forge的出现即受其启发，主要目的是维护一个规范化的云数据源。</p>
+<h3 id="技术流程"><a href="#技术流程" class="headerlink" title="技术流程"></a>技术流程</h3><p>Pangeo Forge的技术细节并不复杂，简单说它利用了GitHub的pull request功能，任何人可以Fork在GitHub上的<a href="https://github.com/pangeo-forge/staged-recipes" target="_blank" rel="noopener">Pangeo Forge</a>仓库，对<code>meta.yaml</code>和<code>recipe.py</code>两个文件修改，设置数据的源等信息，然后pull request，这样就会在这个仓库深成一个数据制作的申请，机器人会检核申请，若无误则进入数据制作步骤。一旦制作完成，数据即在云端公开可见。</p>
+<p>Pangeo Forge不需要用户自己下载上传数据，只要提供数据的源地址，系统将自动爬取数据，进行数据格式的转换，最终存储在Pangeo的云端（Google Cloud服务商）。</p>
+<p>全球任何人均可以使用Pangeo Forge制作规范化云数据，并存储在Pangeo的Google云端。这其中的数据下载上传、格式转化所耗费的流量和算力，以及数据所占的云存储将产生不小的费用，均已由Pangeo所获得的基金资助支付，目前对所有人免费开放使用。</p>
+<h3 id="初期阶段"><a href="#初期阶段" class="headerlink" title="初期阶段"></a>初期阶段</h3><p>Pangeo Forge仍旧在初期阶段，目前完成制作的标准数据并不多，例如现在发布的数据有：</p>
+<p><img src="./images/pf1.png" alt></p>
+<p>大量的申请得到许可后，进入处理列队，这一过程可能比较缓慢。目前列队中有1000多个任务正在等待处理。</p>
+<p><img src="./images/pf2.png" alt></p>
+<h3 id="Pangeo-Forge实例"><a href="#Pangeo-Forge实例" class="headerlink" title="Pangeo Forge实例"></a>Pangeo Forge实例</h3><p>这里放一个Pangeo Forge的视频，视频后半段有实例讲解，演讲者即Pangeo创始人Ryan Abernathey：</p>
+<h3 id="尝试云数据"><a href="#尝试云数据" class="headerlink" title="尝试云数据"></a>尝试云数据</h3><p>云计算的高效到底多震撼呢？</p>
+<p>我们可以瞬间打开九千个NOAA的降水文件，几秒钟完成九千个文件的气候态计算，并绘图展示。<br>以上面视频所提到的降水为例：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">import xarray <span class="keyword">as</span> xr</span><br><span class="line"></span><br><span class="line">store = 'https:<span class="comment">//ncsa.osn.xsede.org/Pangeo/pangeo-forge/gpcp-feedstock/gpcp.zarr'</span></span><br><span class="line">ds = xr.<span class="keyword">open</span><span class="constructor">_dataset(<span class="params">store</span>, <span class="params">engine</span>='<span class="params">zarr</span>', <span class="params">chunks</span>=&#123;&#125;)</span></span><br></pre></td></tr></table></figure>
+<p><img src="./images/pf3.png" alt></p>
+<p>计算降水气候态：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dask.<span class="keyword">diagnostics</span> <span class="keyword">import</span> ProgressBar</span><br><span class="line">mask = (ds.precip&gt;=<span class="number">0</span>) &amp; (ds.precip &lt;=<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">with</span> ProgressBar():</span><br><span class="line">    pre_clim = ds.precip.<span class="keyword">where</span>(mask).mean(<span class="string">'time'</span>).compute()</span><br><span class="line">pre_clim.plot(size=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pf4.png" alt></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>Pangeo Forge目的是为了制作规范化的Zarr格式数据</li>
+<li>所有步骤均在云上进行，包括数据抓取，格式转换和数据部署</li>
+<li>处在项目初期，列队内容多，排队等待时间长</li>
+<li>尚不能及时的自动更新数据</li>
+</ul>
+<p><strong>Pangeo 云计算</strong>的生态系统非常值得尝试，已经较成熟，<strong>Pangeo Forge</strong>还不是很成熟，想法超前，不建议新人制作维护自己的数据。</p>
+<h3 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h3><ul>
+<li>Pangeo Forge 制作FIO-COM32（海洋一所）海洋模式数据</li>
+<li>云上处理FIO模式，计算混合层厚度。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1462,110 +1571,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/03/gantt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/03/gantt/" class="post-title-link" itemprop="url">绘制卫星的gantt图</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-03 11:22:03 / 修改时间：12:06:18" itemprop="dateCreated datePublished" datetime="2022-07-03T11:22:03+08:00">2022-07-03</time>
-            </span>
-
-          
-            <span id="/2022/07/03/gantt/" class="post-meta-item leancloud_visitors" data-flag-title="绘制卫星的gantt图" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/07/03/gantt/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/03/gantt/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以卫星高度计任务为例，绘制Gantt图，以展示过去、现在和未来的卫星任务时间轴。此类图形对于综述文章或者研究生开题报告有一定帮助。</p>
-<blockquote>
-<p>甘特图（Gantt Chart）简介：它是条状图的一种流行类型，显示项目进度以及其他与时间相关的系统进展的内在关系随着时间进展的情况，是由亨利·甘特 (Henry Laurence Gantt) 于1910年开发出。在项目管理中，甘特图显示项目的终端元素的开始和结束，概要元素或终端元素的依赖关系。</p>
-</blockquote>
-<p><img src="./images/ga1.png" alt></p>
-<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>我们采用Python库<code>plotly</code>的<code>plotly.express</code>模块来绘制Gantt图。其优点是高度集成，节省代码，方便学习使用。</p>
-<blockquote>
-<p><code>plotly.express</code>可以绘制许多类型的图形，包含那些常见的不常见的、常用的不常用，如散点图、线条图、PIE图、Bar图、泡泡图、桑吉图、Sunburst图、Icicle图等等。详见：<a href="https://plotly.com/python/plotly-express/" target="_blank" rel="noopener">https://plotly.com/python/plotly-express/</a></p>
-</blockquote>
-<h2 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h2><p>输入的数据格式采用pandas的<code>DataFrame</code>，内容包含任务名称、开始时间和结束时间。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame([</span><br><span class="line">    dict(<span class="attribute">Task</span>=<span class="string">"Job A"</span>, <span class="attribute">Start</span>=<span class="string">'2009-01-01'</span>, <span class="attribute">Finish</span>=<span class="string">'2009-02-28'</span>),</span><br><span class="line">    dict(<span class="attribute">Task</span>=<span class="string">"Job B"</span>, <span class="attribute">Start</span>=<span class="string">'2009-03-05'</span>, <span class="attribute">Finish</span>=<span class="string">'2009-04-15'</span>),</span><br><span class="line">    dict(<span class="attribute">Task</span>=<span class="string">"Job C"</span>, <span class="attribute">Start</span>=<span class="string">'2009-02-20'</span>, <span class="attribute">Finish</span>=<span class="string">'2009-05-30'</span>)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
-
-<p>对于卫星任务，我们可以设置如下：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame([dict(<span class="attribute">Satellite</span>=<span class="string">"TP"</span>, <span class="attribute">Start</span>=<span class="string">'1992-8-11'</span>, <span class="attribute">Finish</span>=<span class="string">'2005-12-31'</span>,Country="USA-FR")])</span><br></pre></td></tr></table></figure>
-
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>Python全部绘图代码如下：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Install Plotly</span></span><br><span class="line"><span class="comment"># pip install plotly</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Import required libraries</span></span><br><span class="line">import plotly.express as px</span><br><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line"><span class="comment">#Create input data aggregated for each Satellite for each Country type</span></span><br><span class="line">df = pd.DataFrame([</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"GEOSAT"</span>, <span class="attribute">Start</span>=<span class="string">'1985-3-1'</span>, <span class="attribute">Finish</span>=<span class="string">'1989-12-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"ERS-1"</span>, <span class="attribute">Start</span>=<span class="string">'1991-7-1'</span>, <span class="attribute">Finish</span>=<span class="string">'1995-6-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"TP"</span>, <span class="attribute">Start</span>=<span class="string">'1992-8-11'</span>, <span class="attribute">Finish</span>=<span class="string">'2005-12-31'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"ERS-2"</span>, <span class="attribute">Start</span>=<span class="string">'1995-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2002-6-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"GFO"</span>, <span class="attribute">Start</span>=<span class="string">'1998-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2008-9-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Jason-2"</span>, <span class="attribute">Start</span>=<span class="string">'2001-11-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2013-7-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"ENVISAT"</span>, <span class="attribute">Start</span>=<span class="string">'2002-3-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2012-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Icesat-1"</span>, <span class="attribute">Start</span>=<span class="string">'2003-1-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2010-2-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Jason-2"</span>, <span class="attribute">Start</span>=<span class="string">'2008-6-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2019-10-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Cryosat-2"</span>, <span class="attribute">Start</span>=<span class="string">'2010-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2024-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2A"</span>, <span class="attribute">Start</span>=<span class="string">'2011-8-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2020-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Saral"</span>, <span class="attribute">Start</span>=<span class="string">'2013-2-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2022-12-31'</span>,Country="IN-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3A"</span>, <span class="attribute">Start</span>=<span class="string">'2016-2-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2023-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Jason-3"</span>, <span class="attribute">Start</span>=<span class="string">'2016-1-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2022-4-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3B"</span>, <span class="attribute">Start</span>=<span class="string">'2018-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2025-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3C"</span>, <span class="attribute">Start</span>=<span class="string">'2024-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2031-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3D"</span>, <span class="attribute">Start</span>=<span class="string">'2028-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2035-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Icesat-2"</span>, <span class="attribute">Start</span>=<span class="string">'2018-9-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2023-1-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2B"</span>, <span class="attribute">Start</span>=<span class="string">'2018-10-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2023-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2C"</span>, <span class="attribute">Start</span>=<span class="string">'2020-9-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2025-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-6 Michael Freilich"</span>, <span class="attribute">Start</span>=<span class="string">'2020-11-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2027-1-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2D"</span>, <span class="attribute">Start</span>=<span class="string">'2021-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2026-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2E"</span>, <span class="attribute">Start</span>=<span class="string">'2022-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2027-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2F"</span>, <span class="attribute">Start</span>=<span class="string">'2023-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2028-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2G"</span>, <span class="attribute">Start</span>=<span class="string">'2024-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2029-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2H"</span>, <span class="attribute">Start</span>=<span class="string">'2025-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2030-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"SWOT"</span>, <span class="attribute">Start</span>=<span class="string">'2022-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2026-4-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-6B"</span>, <span class="attribute">Start</span>=<span class="string">'2025-1-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2032-1-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"COMPIRA"</span>, <span class="attribute">Start</span>=<span class="string">'2022-10-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2026-1-1'</span>,Country="JP"),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment">#generate visualization</span></span><br><span class="line">fig = px.timeline(df, <span class="attribute">x_start</span>=<span class="string">"Start"</span>, <span class="attribute">x_end</span>=<span class="string">"Finish"</span>, <span class="attribute">y</span>=<span class="string">"Satellite"</span>, color = <span class="string">"Country"</span>,text =<span class="string">"Satellite"</span>,<span class="attribute">width</span>=1000,height=800)</span><br><span class="line">fig.update_yaxes(<span class="attribute">autorange</span>=<span class="string">"reversed"</span>)</span><br><span class="line">fig.update_layout(<span class="attribute">showlegend</span>=<span class="literal">True</span>,legend_x=0.89,legend_y=0.99)</span><br><span class="line">fig.update_yaxes(<span class="attribute">title_text</span>=<span class="string">"Satellite"</span>)</span><br><span class="line">fig.update_xaxes(<span class="attribute">title_text</span>=<span class="string">"Time"</span>)</span><br><span class="line"></span><br><span class="line">fig.add_vline(<span class="attribute">x</span>=<span class="string">'2022-7-1'</span>,line_color="black",line_dash="dot",opacity=0.5)</span><br><span class="line"></span><br><span class="line">fig.add_vrect(<span class="attribute">x0</span>=<span class="string">'2022-7-1'</span>, <span class="attribute">x1</span>=<span class="string">'2038-1-1'</span>,line_color="green",fillcolor="red", <span class="attribute">opacity</span>=0.2,</span><br><span class="line">                           <span class="attribute">annotation_text</span>=<span class="string">""</span>, <span class="attribute">annotation_position</span>=<span class="string">"bottom left"</span>,</span><br><span class="line">              <span class="attribute">annotation</span>=dict(font_size=20, <span class="attribute">font_family</span>=<span class="string">"Times New Roman"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fig.update_xaxes(<span class="attribute">showgrid</span>=<span class="literal">True</span>, <span class="attribute">gridwidth</span>=1, <span class="attribute">gridcolor</span>=<span class="string">'LightPink'</span>)</span><br><span class="line">fig.update_yaxes(<span class="attribute">nticks</span>=30)</span><br><span class="line">fig.update_yaxes(<span class="attribute">showgrid</span>=<span class="literal">False</span>,showticklabels=False)</span><br><span class="line">fig.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save fig</span></span><br><span class="line">fig.write_image(<span class="string">"fig_sat.pdf"</span>)</span><br><span class="line">fig.write_image(<span class="string">"fig_sat.png"</span>)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Jupyter Notebook版本的代码见：<a href="https://github.com/yangleir/RemoteSensing_paper/blob/main/fig1_gantt/gantt.ipynb" target="_blank" rel="noopener">https://github.com/yangleir/RemoteSensing_paper/blob/main/fig1_gantt/gantt.ipynb</a></p>
-</blockquote>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>通过上面的代码，我们绘制了Gantt图，通过卫星任务的国家和地区进行分组。此外，还添加了当前时间线，以及对未来时间区间做透明填充。</p>
-<p><img src="./images/ga2.png" alt></p>
-<h2 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h2><p>这里暂不探讨一些绘图的细节，有兴趣的同学可以尝试修改下方的部分代码，<code>False</code>改为<code>True</code>。</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig.update<span class="constructor">_yaxes(<span class="params">nticks</span>=30)</span></span><br><span class="line">fig.update<span class="constructor">_yaxes(<span class="params">showgrid</span>=False,<span class="params">showticklabels</span>=False)</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1638,7 +1643,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
