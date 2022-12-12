@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">81</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">82</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">136</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">137</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,146 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/24/pangeo-alt/" class="post-title-link" itemprop="url">卫星测高数据云计算</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-24 19:09:57 / 修改时间：22:08:41" itemprop="dateCreated datePublished" datetime="2022-09-24T19:09:57+08:00">2022-09-24</time>
+            </span>
+
+          
+            <span id="/2022/09/24/pangeo-alt/" class="post-meta-item leancloud_visitors" data-flag-title="卫星测高数据云计算" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/24/pangeo-alt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/24/pangeo-alt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>基于Pangeo的云生态系统，介绍卫星测高沿轨和网格两种产品的云计算，主要包含数据读取、绘图、时空特征分析等，并略谈并行计算。</p>
+<h2 id="沿轨数据"><a href="#沿轨数据" class="headerlink" title="沿轨数据"></a>沿轨数据</h2><p>沿轨测高数据的源为Copernicus的L3级别产品，目前云端数据包含了全世界主要的测高任务，其中也有我国HY-2A：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">'al', 'alg', 'c2', 'e1', 'e1g', 'e2', 'en', 'enn', 'g2', 'h2', 'j1', 'j1g', 'j1n', 'j2', 'j2g', 'j2n', 'j3', 's3a', 's3b', 'tp', 'tpn'</span><br></pre></td></tr></table></figure>
+
+<h3 id="导入库"><a href="#导入库" class="headerlink" title="导入库"></a>导入库</h3><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fsspec</span><br><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> hvplot</span><br><span class="line"><span class="keyword">import</span> hvplot.dask</span><br><span class="line"><span class="keyword">import</span> hvplot.pandas</span><br><span class="line"><span class="keyword">import</span> hvplot.xarray</span><br></pre></td></tr></table></figure>
+
+<h3 id="HY-2A数据"><a href="#HY-2A数据" class="headerlink" title="HY-2A数据"></a>HY-2A数据</h3><p>Pangeo云端的测高数据已经转化为Zarr格式，并通过<code>yaml</code>文件进行元数据的规范描述，例如HY-2的元信息为：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">h2</span>:</span><br><span class="line">    <span class="attribute">args</span>:</span><br><span class="line">      <span class="attribute">consolidated</span>: true</span><br><span class="line">      <span class="attribute">storage_options</span>:</span><br><span class="line">        <span class="attribute">requester_pays</span>: True</span><br><span class="line">      <span class="attribute">urlpath</span>: <span class="attribute">gs</span>:<span class="comment">//pangeo-cnes/alti/h2</span></span><br><span class="line">    <span class="attribute">description</span>: Haiyang-<span class="number">2</span>A Global Ocean Along track CMEMS Sea Surface Height L3 product</span><br><span class="line">    <span class="attribute">driver</span>: zarr</span><br><span class="line">    <span class="attribute">metadata</span>:</span><br><span class="line">      <span class="attribute">tags</span>:</span><br><span class="line">      - altimetry</span><br><span class="line">      - ocean</span><br><span class="line">      - observations</span><br><span class="line">      <span class="attribute">url</span>: <span class="attribute">http</span>:<span class="comment">//marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&amp;view=details&amp;product_id=SEALEVEL_GLO_PHY_L3_REP_OBSERVATIONS_008_062</span></span><br></pre></td></tr></table></figure>
+
+<p>可使用<code>intake</code>读取卫星测高数据，使用<code>to_dask</code>把数据转为xarray格式，方便运算操作：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from intake import open_catalog</span><br><span class="line">cat = <span class="keyword">open</span><span class="constructor">_catalog(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean/altimetry.yaml"</span>)</span></span><br><span class="line">ds = cat<span class="literal">['<span class="identifier">h2</span>']</span>.<span class="keyword">to</span><span class="constructor">_dask()</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/pa1.png" alt></p>
+<h3 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h3><p>选择经纬度和SLA参数，舍弃其他参数，绘图查看。下图显示了HY-2A的100个测量点SLA，如果显示全部的轨迹点时间序列，修改<code>slice</code>内容包含全部时间段即可。：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ds_ll = ds<span class="string">[['latitude', 'longitude', 'sla_filtered']]</span></span><br><span class="line">ds_ll.isel(<span class="built_in">time</span>=slice(<span class="number">0</span>,<span class="number">100</span>,<span class="number">1</span>)).sla_filtered.plot()</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/pa2.png" alt></p>
+<p>接下来计算日均值时间序列，这里使用了一个滑动平均函数<code>rolling</code>，计算量不算太小，但云计算表现不错，用时仅27s：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmp=ds_ll.sla_filtered.isel<span class="params">(<span class="attr">time</span>=slice(0,28571752,100)</span>)<span class="string">.dropna</span><span class="params">("time")</span><span class="string">.rolling</span><span class="params">(<span class="attr">time</span>=86400, <span class="attr">center</span>=True)</span><span class="string">.mean</span><span class="params">()</span></span><br><span class="line">tmp.plot<span class="params">()</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/pa4.png" alt></p>
+<h3 id="空间分布"><a href="#空间分布" class="headerlink" title="空间分布"></a>空间分布</h3><p>把所有数据载入，并简化coordinate：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds_ll = ds<span class="string">[['latitude', 'longitude', 'sla_filtered']]</span>.reset_coords().astype(<span class="string">'f4'</span>).<span class="built_in">load</span>()</span><br></pre></td></tr></table></figure>
+<p>这样原本在xarray数据结构中是<code>coordinate</code>的经纬度就变成了<code>variable</code>。我们选择14天的HY-2A轨迹数据，展示空间分布图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">tmp</span>=ds_ll.isel(time=slice(86400*14))</span><br><span class="line"></span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">tmp.plot.scatter( <span class="attribute">y</span>=<span class="string">"latitude"</span>,</span><br><span class="line">                 <span class="attribute">x</span>=<span class="string">"longitude"</span>, </span><br><span class="line">                 <span class="attribute">hue</span>=<span class="string">"sla_filtered"</span>,</span><br><span class="line">                 <span class="attribute">s</span>=2,</span><br><span class="line">                 <span class="attribute">vmin</span>=-0.4,</span><br><span class="line">                 <span class="attribute">vmax</span>=0.4,</span><br><span class="line">                 <span class="attribute">levels</span>=9, </span><br><span class="line">                 <span class="attribute">cmap</span>=<span class="string">"jet"</span>,</span><br><span class="line">                 <span class="attribute">aspect</span>=2.5,</span><br><span class="line">                 <span class="attribute">size</span>=9, )</span><br><span class="line"></span><br><span class="line">plt.title(f<span class="string">"sla from HY-2A"</span>)</span><br><span class="line">plt.xlim(  0., 360.)</span><br><span class="line">plt.ylim(-67.,  67.)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pa5.png" alt></p>
+<h3 id="空间变化"><a href="#空间变化" class="headerlink" title="空间变化"></a>空间变化</h3><p>因为这里使用的不是网格文件，是轨迹文件，所以不能使用xarray的<code>std</code>进行网格点的变化计算，这里使用一个统计库<code>xhistogram</code>计算器sla的变化，也就是标准差：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from xhistogram.xarray <span class="built_in">import</span> histogram</span><br><span class="line"></span><br><span class="line"><span class="attr">lon_bins</span> = np.arange(<span class="number">0</span>, <span class="number">361</span>, <span class="number">2</span>)</span><br><span class="line"><span class="attr">lat_bins</span> = np.arange(-<span class="number">70</span>, <span class="number">71</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># helps with memory management</span></span><br><span class="line"><span class="attr">ds_ll_chunked</span> = ds_ll.chunk(&#123;'time': '<span class="number">5</span>MB'&#125;)</span><br><span class="line"></span><br><span class="line"><span class="attr">sla_variance</span> = histogram(ds_ll_chunked.longitude, ds_ll_chunked.latitude,</span><br><span class="line">                         <span class="attr">bins=[lon_bins,</span> lat_bins],</span><br><span class="line">                         <span class="attr">weights=ds_ll_chunked.sla_filtered.fillna(0.)**2)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">norm</span> = histogram(ds_ll_chunked.longitude, ds_ll_chunked.latitude,</span><br><span class="line">                         <span class="attr">bins=[lon_bins,</span> lat_bins])</span><br><span class="line"></span><br><span class="line"><span class="comment"># let's get at least 200 points in a box for it to be unmasked</span></span><br><span class="line"><span class="attr">thresh</span> = <span class="number">200</span></span><br><span class="line"><span class="attr">sla_variance</span> = sla_variance / norm.where(norm &gt; thresh)</span><br></pre></td></tr></table></figure>
+
+<p>在几秒钟后（云计算太快了），完成全部HY-2A数据的计算，然后绘图，我们清晰的看到南极绕极流、南非大回旋、黑潮、湾流等强流特征，这表明我们国家的HY-2A数据质量很好：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sla_variance.plot(<span class="attribute">y</span>=<span class="string">'latitude_bin'</span>, figsize=(12, 6), <span class="attribute">vmax</span>=0.07)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pa6.png" alt></p>
+<h2 id="网格数据"><a href="#网格数据" class="headerlink" title="网格数据"></a>网格数据</h2><p>下面是对网格测高的云计算。网格测高数据的源同样是欧洲Copernicus海洋项目，通过数据格式转化，这一批数据已经以Zarr格式存储在云端，我们使用Pangeo瞬间打开这一批巨大的数据（74G）：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from intake <span class="built_in">import</span> open_catalog</span><br><span class="line"><span class="attr">cat</span> = open_catalog(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean.yaml"</span>)</span><br><span class="line"><span class="attr">ds</span>  = cat[<span class="string">"sea_surface_height"</span>].to_dask()</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pa7.png" alt></p>
+<p>数据内容包含sla和流场。数据时间从1993年到2017年，数据不能更新是Pangeo云计算的一个弊端，不仅对测高如此，对别的云数据也一样。因此Pangeo社区后来发起了Pangeo Forge项目，召集全球学者参加众包数据计划，小编非常希望未来有人专门维护一套高质量的测高云数据。</p>
+<p>绘图使用<code>ds.sla.isel(time=0).plot()</code>即可，速度也是秒级，这里不展示。</p>
+<h3 id="时间序列-1"><a href="#时间序列-1" class="headerlink" title="时间序列"></a>时间序列</h3><p>计算每一个网格文件（约9000个）的均值，得到全球海面高度日均时间序列，这一步计算相对消耗时间，大约用时1-2min：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sla_timeseries</span> = ds.sla.mean(dim=(<span class="string">'latitude'</span>, <span class="string">'longitude'</span>)).load()</span><br></pre></td></tr></table></figure>
+
+<p>对数据进一步做年滑动平均，然后绘图：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.plot</span>(label=<span class="string">'full data'</span>)</span><br><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.rolling</span>(time=<span class="number">365</span>, center=True)<span class="selector-class">.mean</span>()<span class="selector-class">.plot</span>(label=<span class="string">'rolling annual mean'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Sea Level Anomaly [m]'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Global Mean Sea Level'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>()</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.grid</span>()</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pa8.png" alt></p>
+<h3 id="空间变化-1"><a href="#空间变化-1" class="headerlink" title="空间变化"></a>空间变化</h3><p>进一步，我们想研究海平面变化的经纬方向空间变化，这需要仅对一个维度进行求均值，这样绘制的图形时间沿横坐标，而SLA沿纵坐标（仿<a href="https://en.wikipedia.org/wiki/Hovm%C3%B6ller_diagram" target="_blank" rel="noopener">Hovmöller diagram</a>）。 </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sla_hov = ds.sla.mean(<span class="attribute">dim</span>=<span class="string">'longitude'</span>).load()</span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 4))</span><br><span class="line">sla_hov.name = <span class="string">'Sea Level Anomaly [m]'</span></span><br><span class="line">sla_hov.transpose().plot(<span class="attribute">vmax</span>=0.2, <span class="attribute">ax</span>=ax)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pa9.png" alt></p>
+<p>可以看到北纬40°有特别显著的强变化区，那里是西边界流导致的黑潮和湾流区，赤道也有一个随时间变化的流场，呈现了正弦分布。这张图中的科学太多了，小编一时无法完整解读，有兴趣的读者可以研究下。</p>
+<p>同样我们也能研究SLA在南北向的变化时间序列。此处略。</p>
+<h3 id="STD空间分布"><a href="#STD空间分布" class="headerlink" title="STD空间分布"></a>STD空间分布</h3><p>因为是网格文件的时间序列，这里可以使用xarray对每一个固定网格点的时间轴做计算，同样计算量大，也略消耗时间，耗时2min。有兴趣的话，此处可以使用dask来并行计算，时间快一倍（1min）。因为dask的启动时间和任务分配时间较长，因此综合来看，小的计算量节约时间有限，甚至还慢。大数据计算耗时在1小时之上可尝试dask并行计算。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sla_std</span> = ds.sla.std(dim=<span class="string">'time'</span>).load()</span><br><span class="line"><span class="attr">sla_std.name</span> = <span class="string">'Sea Level Variability [m]'</span></span><br><span class="line"><span class="attr">ax</span> = sla_std.plot()</span><br><span class="line"><span class="attr">_</span> = plt.title(<span class="string">'Sea Level Variability'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/pa10.png" alt></p>
+<h4 id="Dask并行计算"><a href="#Dask并行计算" class="headerlink" title="Dask并行计算"></a>Dask并行计算</h4><p>本次并行计算视频：</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>测高云计算比较方便，计算速度快，数据无需下载</li>
+<li>Pangeo生态系统成熟，并行计算可急速大型计算</li>
+</ul>
+<h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><p>下节将准备一些复杂的云计算：</p>
+<ul>
+<li>FIO模式大数据处理、混合层计算</li>
+<li>KE计算和谱分析</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1454,123 +1594,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/09/3D-number/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/09/3D-number/" class="post-title-link" itemprop="url">GMT绘制3D柱状地理分布图</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-09 21:55:36 / 修改时间：22:43:52" itemprop="dateCreated datePublished" datetime="2022-07-09T21:55:36+08:00">2022-07-09</time>
-            </span>
-
-          
-            <span id="/2022/07/09/3D-number/" class="post-meta-item leancloud_visitors" data-flag-title="GMT绘制3D柱状地理分布图" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/07/09/3D-number/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/09/3D-number/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本期再次回到GMT绘图，介绍一种使用GMT绘制3D柱状图的方法，本例子数据采用的是卫星测高领域的研究国家和机构的文章数量。本图件可以直观的展示某一领域研究机构的空间地理分布和强度。对于综述文章或者研究生的文献调研有一定用途。</p>
-</blockquote>
-<h2 id="WoS数据"><a href="#WoS数据" class="headerlink" title="WoS数据"></a>WoS数据</h2><p>根据前几期文章介绍的方法，从Web of Science数据库检索相关主题，例如本次我们采用<code>satellite altimet*</code>，得到8000多篇研究结果。下载研究国家/地区和研究机构的文章数量数据。</p>
-<p>机构数据：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Affiliations	Record Count	% of <span class="number">8</span>,<span class="number">505</span></span><br><span class="line">NATIONAL AERONAUTICS SPACE ADMINISTRATION	<span class="number">914</span>	<span class="number">10.747</span></span><br><span class="line">CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE 	<span class="number">828</span>	<span class="number">9.735</span></span><br><span class="line">INSTITUT DE RECHERCHE POUR LE DEVELOPPEMENT 	<span class="number">707</span>	<span class="number">8.313</span></span><br><span class="line">CHINESE ACADEMY OF SCIENCES	<span class="number">629</span>	<span class="number">7.396</span></span><br><span class="line">UNIVERSITE DE TOULOUSE	<span class="number">517</span>	<span class="number">6.079</span></span><br><span class="line">UNIVERSITE TOULOUSE III PAUL SABATIER	<span class="number">498</span>	<span class="number">5.855</span></span><br><span class="line">NASA GODDARD SPACE FLIGHT CENTER	<span class="number">483</span>	<span class="number">5.679</span></span><br><span class="line">LABORATOIRE D ETUDES EN GEOPHYSIQUE ET OCEANOGRAPHIE SPATIALES	<span class="number">439</span>	<span class="number">5.162</span></span><br><span class="line">NASA JET PROPULSION LABORATORY 	<span class="number">431</span>	<span class="number">5.068</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>国家数据：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">USA	<span class="number">3118</span></span><br><span class="line">CHINA	<span class="number">1493</span></span><br><span class="line">FRANCE	<span class="number">1385</span></span><br><span class="line">ENGLAND	<span class="number">804</span></span><br><span class="line">GERMANY	<span class="number">748</span></span><br><span class="line">AUSTRALIA	<span class="number">421</span></span><br><span class="line">ITALY	<span class="number">421</span></span><br><span class="line">SPAIN	<span class="number">371</span></span><br><span class="line">NETHERLANDS	<span class="number">340</span></span><br><span class="line">CANADA	<span class="number">323</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="从地名到坐标"><a href="#从地名到坐标" class="headerlink" title="从地名到坐标"></a>从地名到坐标</h2><p>使用google sheet结合Geocode插件对研究机构和国家名称进行坐标解析。</p>
-<blockquote>
-<p>参考：<a href="https://workspace.google.com/marketplace/app/geocode_by_awesome_table/904124517349" target="_blank" rel="noopener">https://workspace.google.com/marketplace/app/geocode_by_awesome_table/904124517349</a></p>
-</blockquote>
-<p>得到：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Affiliations	long	lati</span><br><span class="line">NATIONAL AERONAUTICS SPACE ADMINISTRATION	<span class="number">-77.016389</span>	<span class="number">38.883056</span></span><br><span class="line">CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE 	<span class="number">2.2639934</span>	<span class="number">48.8476037</span></span><br><span class="line">INSTITUT DE RECHERCHE POUR LE DEVELOPPEMENT 	<span class="number">2.3</span>	<span class="number">48.9</span></span><br><span class="line">CHINESE ACADEMY OF SCIENCES	<span class="number">116.3356321</span>	<span class="number">39.9106327</span></span><br><span class="line">UNIVERSITE DE TOULOUSE	<span class="number">1.4</span>	<span class="number">43.6</span></span><br><span class="line">UNIVERSITE TOULOUSE III PAUL SABATIER	<span class="number">1.4699399</span>	<span class="number">43.5619586</span></span><br><span class="line">NASA GODDARD SPACE FLIGHT CENTER	<span class="number">-76.852344</span>	<span class="number">38.99495</span></span><br><span class="line">LABORATOIRE D ETUDES EN GEOPHYSIQUE ET OCEANOGRAPHIE SPATIALES	<span class="number">1.45</span>	<span class="number">43.65</span></span><br><span class="line">NASA JET PROPULSION LABORATORY 	<span class="number">-118.1713944</span>	<span class="number">34.2013081</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><p>数据整理完毕后，使用GMT绘制3D柱状图。</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">REM For windows</span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line">set ps=<span class="number">3</span>d.ps</span><br><span class="line">gmt pscoast -JQ0/<span class="number">37.5</span>/<span class="number">10</span>c -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Sazure2 -Gwheat -Bxa60 -Bya30 --FONT_TITLE=<span class="number">10</span>p -K  --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -p200/<span class="number">30</span> &gt; %ps%</span><br><span class="line">gawk <span class="string">"NF&gt;1 &#123;print $1, $2, $3&#125;"</span> loc | gmt psxyz  -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span>/<span class="number">0</span>/<span class="number">1000</span> -J -JZ1<span class="number">.5</span>i -So0<span class="number">.1</span>c -Gred -O -K -p -Bza200+l<span class="string">"Publication numbers by affiliation"</span> -BWSneZ -t20 &gt;&gt;%ps%</span><br><span class="line"></span><br><span class="line">gmt pscoast -JQ0/<span class="number">37.5</span>/<span class="number">10</span>c -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Sazure2 -Gwheat -Bxa60 -Bya30 --FONT_TITLE=<span class="number">10</span>p -K -O --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -p200/<span class="number">30</span> -Y6c &gt;&gt; %ps%</span><br><span class="line">gawk <span class="string">"&#123;print $2, $3, $4&#125;"</span> loc_c | gmt psxyz -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span>/<span class="number">0</span>/<span class="number">3200</span> -J -JZ1<span class="number">.5</span>i -So0<span class="number">.2</span>c -Gblue -Bza500+l<span class="string">"Publication numbers by country/region"</span> -BWSneZ -O  -p -hi1 &gt;&gt;%ps%</span><br><span class="line">gmt psconvert %ps%  -A -P -Tf</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="../images/3d_geo.png" alt></p>
-<p>图中上部分为国家和地区的发表卫星测高相关的文章数量，下部分为机构发表的文章数量。首先，国家和地区较为集中在美国、法国、中国、英国和德国，以中国为例，相关研究机构主要分布在东部地区，最高为位于北京的中科院大学。</p>
-<h2 id="附赠平面图绘制代码"><a href="#附赠平面图绘制代码" class="headerlink" title="附赠平面图绘制代码"></a>附赠平面图绘制代码</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM For windows</span></span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=fig1.ps</span><br><span class="line">gmt pscoast -JN4.<span class="number">5</span>i -<span class="built_in">Rd</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Ba --FONT_TITLE=<span class="number">10</span>p -K  -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span>  &gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, log($<span class="number">3</span>)/log(<span class="number">10</span>)/<span class="number">10</span>&#125;" loc | gmt psxy -R -J  -Sc -Gred -K -O -t55 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">2</span>, $<span class="number">3</span>, $<span class="number">4</span>/<span class="number">2000</span>&#125;" loc_c | gmt psxy -R -J  -Sc -Gblue -O -t75 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tg</span><br></pre></td></tr></table></figure>
-<p>注意国家发文数量使用了对数化处理。图件缺少比例尺，有兴趣的同学可以修改代码加上。</p>
-<p><img src="../images/2d_geo.png" alt></p>
-<p>至于哪一种表达方式效果更佳，小编也难以下结论，这或许和数据特点和个人喜好有关。</p>
-<h2 id="样本数据下载"><a href="#样本数据下载" class="headerlink" title="样本数据下载"></a>样本数据下载</h2><blockquote>
-<p><a href="https://www.jianguoyun.com/p/DSoojxEQ2PCQBxjioswEIAA" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DSoojxEQ2PCQBxjioswEIAA</a> </p>
-</blockquote>
-<h2 id="号外"><a href="#号外" class="headerlink" title="号外"></a>号外</h2><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
-<p><strong>主要功能定位：</strong></p>
-<ul>
-<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
-<li>对国内海洋实测数据的申请提供必要的指导</li>
-<li>物理海洋、大地测量、海洋遥感等学科交流</li>
-<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
-</ul>
-<p><img src="../images/qq.png" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1643,7 +1666,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1656,7 +1679,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

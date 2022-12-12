@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">81</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">82</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">136</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">137</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,165 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/04/wave-bouy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/04/wave-bouy/" class="post-title-link" itemprop="url">波浪骑士数据处理概述</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-04 20:49:46" itemprop="dateCreated datePublished" datetime="2022-05-04T20:49:46+08:00">2022-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-12 21:41:59" itemprop="dateModified" datetime="2022-05-12T21:41:59+08:00">2022-05-12</time>
+              </span>
+
+          
+            <span id="/2022/05/04/wave-bouy/" class="post-meta-item leancloud_visitors" data-flag-title="波浪骑士数据处理概述" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/04/wave-bouy/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/04/wave-bouy/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>波浪骑士是测量海浪的经典设备，目前市场最常见的有荷兰Datawell公司的Waverider产品，其成熟产品主要有两种：加速度计类型和GNSS类型。<br><img src="https://www.datawell.nl/portals/0/Images/Products/Buoys/DWR4_kleintje_thumb.png" alt="avatar"></p>
+<p>波浪骑士采集的数据有专门的软件进行读取和处理，本文以Datawell 数据为例简单总结处理方法。</p>
+<h1 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h1><p>下载<code>Waves5</code>软件并安装，安装无需注册。</p>
+<blockquote>
+<p>下载地址：<a href="https://www.datawell.nl/Support/Download.aspx" target="_blank" rel="noopener">https://www.datawell.nl/Support/Download.aspx</a></p>
+</blockquote>
+<h1 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h1><p>新建项目，并将存放数据的文件夹导入。之后，数据文件将在左侧栏的<code>Logged</code>中显示。<br><img src="/images/wave/wave1.png" alt><br>其数据格式主要有<code>raw</code>,<code>hxv</code>,<code>wvs</code>,<code>spt</code>。</p>
+<h1 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h1><h4 id="1、hxv-Raw-buoy-messages"><a href="#1、hxv-Raw-buoy-messages" class="headerlink" title="1、hxv:Raw buoy messages"></a>1、<code>hxv</code>:Raw buoy messages</h4><blockquote>
+<p>Meaning: HeXadecimal Vectors<br>Description: Stream of raw buoy messages<br>Buoys: DWR MkI, MkII, MkIII<br>From: HF receiver<br>Format: Ascii/Text, hexadecimal</p>
+</blockquote>
+<p><img src="/images/wave/wave4.png" alt><br>该数据包含了浮标的原始记录，半小时一个文件，通过右侧工具栏可以查看统计信息、波浪功率密度谱、二维和三维方向谱。</p>
+<p>数据样例</p>
+<blockquote>
+<p>00A4,8B53,80C0,0501,92B7<br>00A5,A1AB,8040,0101,A978<br>00A6,C3D7,00D0,0502,5EDF<br>00A7,65C6,0160,1C01,8E58</p>
+</blockquote>
+<p>数据格式</p>
+<blockquote>
+<p>Format<br>SSNN,YYYY,HHHN,NNWW,WPPP<br><br>SS: status<br>00: correct<br>01: transmission error, repaired<br>02: transmission error, not repaired<br>03: all-0 or all-1 vector<br>04: synchronizing<br>05: = 04 + 01<br>06: = 04 + 02<br>07: = 04 + 03<br>NN: index, 0-255, modulo 256<br>YYYY: spectral/system word<br>HHH: heave (vertical displacement), 12 bit, sign-magnitude<br>NNN: north displacement, 12 bit, sign-magnitude<br>WWW: west displacement, 12 bit, sign-magnitude<br>PPP: Parity, BCH(63,51)-code</p>
+</blockquote>
+<h4 id="2、raw-raw-buoy-displacements"><a href="#2、raw-raw-buoy-displacements" class="headerlink" title="2、raw: raw buoy displacements"></a>2、<code>raw</code>: raw buoy displacements</h4><blockquote>
+<p>Meaning: RAW displacements<br>Description: the heave, north, west displacements @ 1.28 Hz<br>Buoys: DWR MkI, MkII, MkIII<br>From: post-processing<br>Format: Ascii/Text, decimal</p>
+</blockquote>
+<p><img src="/images/wave/wave2.png" alt><br><img src="/images/wave/wave3.png" alt><br>该数据包含了浮标的位移信息，通过右侧工具栏可以查看时间序列、波浪功率密度谱、二维和三维方向谱。</p>
+<p>数据样例：</p>
+<blockquote>
+<p>0, 13, 3, -13<br>0, 3, 13, -13<br>0, 15, 17, -11<br>0, -10, 2, -1</p>
+</blockquote>
+<p>数据格式</p>
+<blockquote>
+<p>Format<br>sta, hv, no, we<br><br>sta: status<br>0 to 7: see *.HXV<br>16: one of the three displacements outside +/- 4s.<br>32: two of the three displacements outside +/- 4s.<br>48: all three displacements outside +/- 4s.<br>64: dummy vector to replace unreceived vector<br>128: gap in GPS link (DWR-G buoys only)<br>hv: heave [cm]<br>no: north displacement [cm]<br>we: west displacement [cm]</p>
+</blockquote>
+<h4 id="3、WVS-the-chronological-list-of-upcross-waves"><a href="#3、WVS-the-chronological-list-of-upcross-waves" class="headerlink" title="3、WVS:the chronological list of upcross waves"></a>3、<code>WVS</code>:the chronological list of upcross waves</h4><blockquote>
+<p>Meaning: upcross WaVeS data<br>Description: the chronological list of upcross waves<br>Buoys: DWR MkI, MkII, MkIII<br>From: post-processing<br>Format: Ascii/Text, decimal</p>
+</blockquote>
+<p><img src="/images/wave/wave5.png" alt><br>该数据包含了按时间排列的波浪主要信息，通过右侧工具栏可以查看波峰、波谷和周期信息。</p>
+<p>数据样例</p>
+<blockquote>
+<p>2012-01-25T05:00:00.000,100, 116, 4.1, 78, 4.0, 62, 3.9, 40, 3.2, 0.534,553<br>171, 28, -21, 4.071<br>451, 14, -7, 2.835<br>385, 8, -20, 2.637<br>15, 32, -49, 3.230</p>
+</blockquote>
+<p>数据格式</p>
+<blockquote>
+<p>Format<br>Summary (12 parameters) .<br>Timestamp: date and time (ISO8601)<br>Coverage: percentage of raw data used in constructing the upcross waves [%]<br>Hmax: maximum wave height [cm]<br>T(Hmax): period of the highest wave [s]<br>H[1/10]: mean height of the highest 1/10 of the waves [cm]<br>T(H[1/10]): mean period of the highest 1/10 of the waves [s]<br>H[1/3]: mean height of the highest third of the waves [cm]<br>T(H[1/3]): mean period of the highest third of the waves [s]<br>Hav: mean height of all waves [cm]<br>Tav: mean period of all waves [s]<br>eps: bandwidth parameter [-]<br>NumWaves: number of upcross waves [-]<br><br>List of upcross waves (NumWaves x 4 matrix) .<br>rank, crest, trough, period<br><br>rank: index of wave when sorted ascendingly (1 = highest)<br>crest: maximum heave within present upcross wave<br>trough: minimum heave within present upcross wave<br>period: duration of present upcross wave<br>NB: the wave height of an upcross wave is the difference between crest and trough.</p>
+</blockquote>
+<h4 id="4、spt-the-heave-and-directional-spectrum"><a href="#4、spt-the-heave-and-directional-spectrum" class="headerlink" title="4、spt:the heave and directional spectrum"></a>4、<code>spt</code>:the heave and directional spectrum</h4><blockquote>
+<p>Meaning: SPecTral data<br>Description: the heave and directional spectrum<br>Buoys: DWR MkI, MkII, MkIII<br>From: post-processing<br>Format: Ascii/Text, decimal</p>
+</blockquote>
+<p><img src="/images/wave/wave6.png" alt><br>该数据包含了按时间排列的波浪谱信息。</p>
+<p>数据样例：</p>
+<blockquote>
+<p>10<br>22.0<br>3.774<br>1.7287E-2<br>25.00<br>14.30<br>7<br>0.04125<br>-0.04500<br>0.07750<br>260.2<br>53.833<br>0.025,9.9040E-5,60.5,78.6,-2.95,1.71<br>0.030,6.6547E-4,99.8,69.2,3.77,2.47<br>0.035,7.6734E-3,279.8,46.3,-0.37,4.47<br>0.040,8.4804E-3,292.5,67.5,4.55,2.50</p>
+</blockquote>
+<p>数据格式</p>
+<blockquote>
+<p>Format<br>System file (12 parameters)<br>tn: transmission index (1 to 8)<br>Hs: significant wave height [cm]<br>Tz: zero-upcross period [s]<br>Smax: maximum of the psd S(f) [m^2/Hz]<br>Tref: reference temperature [°C, centigrade]<br>Tsea: Sea surface temperature [°C, centigrade]<br>Bat: Battery status (0 = empty to 7 = full)<br>Av: offset of the vertical accelerometer<br>Ax: offset of the x-accelerometer<br>Ay: offset of the y-accelerometer<br>Ori: buoy orientation [°]<br>Incli: magnetic inclination [°]<br><br>Spectrum file (64 x 6 array)<br>f, S(f) / Smax, Dir(f), Spr(f), Skew(f), Kurt(f)<br><br>f: wave frequency [Hz]<br>S(f) / Smax: relative psd (power spectral density) [-]<br>Dir(f): wave direction [°]<br>Spr(f): directional spread [°]<br>Skew(f): skewness of the directional distribution [-]<br>Kurt(f): kurtosis of the directional distribution [-]</p>
+</blockquote>
+<h1 id="波浪能量密度谱计算方法"><a href="#波浪能量密度谱计算方法" class="headerlink" title="波浪能量密度谱计算方法"></a>波浪能量密度谱计算方法</h1><p>能量密度谱主要包含一下信息：</p>
+<blockquote>
+<p>能量：海面高度波动的方差。<br>能量密度谱：积分之后即能量。<br>周期：峰值即周期（频率）。</p>
+</blockquote>
+<p>使用Matlab可做如下计算和测试：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">% Load spectral density data <span class="keyword">From</span> SPT file</span><br><span class="line"><span class="attribute">TrPath</span>=<span class="string">'test.spt'</span>;</span><br><span class="line">TrFid = fopen(TrPath,<span class="string">'r'</span>); % 路径</span><br><span class="line"><span class="attribute">FormatString</span>=<span class="string">'%f,%f %*[^\n]'</span>; % 读取数据的类型</span><br><span class="line">Ctr = textscan(TrFid, FormatString, <span class="string">'HeaderLines'</span>, 12,<span class="string">'EndOfLine'</span>,<span class="string">'\r\n'</span>);</span><br><span class="line">Ctr = cell2mat(Ctr); % 转矩阵</span><br><span class="line">fclose(TrFid);</span><br><span class="line"></span><br><span class="line">% Load max value of spectral density form SPT file</span><br><span class="line"><span class="attribute">TrPath</span>=<span class="string">'test.spt'</span>;</span><br><span class="line">TrFid = fopen(TrPath,<span class="string">'r'</span>); </span><br><span class="line"><span class="attribute">FormatString</span>=<span class="string">'%f'</span>; % 读取数据格式</span><br><span class="line">smax = textscan(TrFid, FormatString, <span class="string">'HeaderLines'</span>, 3);</span><br><span class="line">smax = cell2mat(smax); % 转矩阵</span><br><span class="line">fclose(TrFid);</span><br><span class="line"></span><br><span class="line">% Calculate PSD using<span class="built_in"> RAW </span>data</span><br><span class="line"><span class="attribute">wb</span>=load('test.raw');</span><br><span class="line"><span class="attribute">fs_g</span>=1.28;% hz</span><br><span class="line"><span class="attribute">len</span>=length(wb(:,2));</span><br><span class="line">[Pxx_wb,fxx_wb]=pwelch(wb(:,2)/100,fix(len/20),[],[],fs_g,<span class="string">'onesided'</span>);</span><br><span class="line"></span><br><span class="line">% Plot</span><br><span class="line">figure(<span class="string">'name'</span>,<span class="string">'wavebuoy'</span>)</span><br><span class="line">plot(Ctr(:,1),Ctr(:,2)*smax(1));hold on</span><br><span class="line">plot(fxx_wb, Pxx_wb);</span><br><span class="line">legend(<span class="string">'From SPT file'</span>,<span class="string">'By matlab pwelch'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/wave/psd.png" alt></p>
+<p>可见使用波浪骑士的原始波动数据计算PSD和<code>SPT</code>文件中的PSD是符合的。所以采集数据之后，既可以使用<code>wave5</code>进行数据处理，也可以自己编程实现，二者一致。</p>
+<h1 id="方向谱"><a href="#方向谱" class="headerlink" title="方向谱"></a>方向谱</h1><p>波浪骑士可观测海浪的三个方向的加速度，进而可以通过交叉谱确定方向谱。</p>
+<p><code>Maltab</code>开源程序包<code>diwasp</code>也可以独立计算方向谱，下面比较<code>Wave5</code>软件和<code>diwasp</code>计算方向谱的差异。</p>
+<blockquote>
+<p>Matlab程序</p>
+</blockquote>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">% WB的方向谱</span><br><span class="line">folder ='C:\Users\lei\Documents\MATLAB\diwasp'; </span><br><span class="line">addpath( genpath(folder) );   </span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>fs=<span class="number">1.28</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>depth=<span class="number">25</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>datatypes=&#123;'elev<span class="character">','</span>dspx<span class="character">','</span>dspy'&#125;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>layout=repmat(<span class="literal">[<span class="number">0</span> <span class="number">0</span> <span class="number">25</span>]</span>',<span class="literal">[<span class="number">1</span> <span class="identifier">length</span>(ID.<span class="identifier">datatypes</span>)]</span>);</span><br><span class="line"></span><br><span class="line">wb=load('C:\Users\lei\Documents\wavebuoy\<span class="number">2021</span>\November\<span class="number">2021</span>-<span class="number">10</span>-<span class="number">24</span>T06h30Z.raw');</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>data=wb(:,<span class="number">2</span>:<span class="number">4</span>)/<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SM</span>.</span></span>freqs = <span class="literal">[<span class="number">0.01</span>:<span class="number">0.002</span>:<span class="number">0.7</span>]</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SM</span>.</span></span>dirs = <span class="literal">[-<span class="number">180</span>:<span class="number">1</span>:<span class="number">180</span>]</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SM</span>.</span></span>xaxisdir = <span class="number">0</span> ;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>dres = <span class="number">180</span> ;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>nfft = <span class="number">64</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>iter = <span class="number">100</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>smooth = 'ON';</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span><span class="keyword">method</span> = 'DFTM';</span><br><span class="line"></span><br><span class="line"><span class="literal">[SM<span class="identifier">out</span>,EP<span class="identifier">out</span>]</span>=dirspec(ID,SM,EP,&#123;'PLOTTYPE',<span class="number">2</span>,'FILEOUT<span class="character">','</span>sampleout.spec'&#125;);</span><br></pre></td></tr></table></figure>
+<p>结果为：<br><img src="/images/wave/wave7.png" alt></p>
+<blockquote>
+<p>MATLAB计算的方向谱和波浪骑士自带工具显示的方向谱形态大致符合，但是角度相差了90度。原因不确定，但可能是参考轴的差异引起。后面需要进一步分析差异原因。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -2115,102 +2274,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/01/03/gmt-srtm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/03/gmt-srtm/" class="post-title-link" itemprop="url">Pygmt利用在线数据绘制地形图</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-01-03 20:19:42 / 修改时间：21:24:38" itemprop="dateCreated datePublished" datetime="2022-01-03T20:19:42+08:00">2022-01-03</time>
-            </span>
-
-          
-            <span id="/2022/01/03/gmt-srtm/" class="post-meta-item leancloud_visitors" data-flag-title="Pygmt利用在线数据绘制地形图" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/01/03/gmt-srtm/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/03/gmt-srtm/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>ＧＭＴ和Pygmt提供了一个远程数据功能，可以使用函数datasets远程下载多种在线数据，并进行处理和绘图。这里以pygmt为例绘制海底地壳年龄、陆地地形。</p>
-<h3 id="Global-Earth-Seafloor-Crustal-Age-Grids"><a href="#Global-Earth-Seafloor-Crustal-Age-Grids" class="headerlink" title="Global Earth Seafloor Crustal Age Grids"></a>Global Earth Seafloor Crustal Age Grids</h3><p><a href="https://www.generic-mapping-tools.org/remote-datasets/earth-age.html" target="_blank" rel="noopener">地壳数据</a>包含了不同的分辨率，对应不同文件大小，最粗为1d，全球数据仅125K，最大分辨率1m，全球数据188M。</p>
-<h4 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import pygmt</span><br><span class="line">grid_globe = pygmt.datasets.load_earth_age(<span class="attribute">resolution</span>=<span class="string">'06m'</span>, <span class="attribute">region</span>=<span class="string">"-180/180/-90/90"</span>, <span class="attribute">registration</span>=None)</span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.grdimage(<span class="attribute">grid</span>=grid_globe, <span class="attribute">projection</span>=<span class="string">"R15c"</span>, <span class="attribute">region</span>=<span class="string">"0/360/-89/89"</span>, <span class="attribute">frame</span>=<span class="literal">True</span>,cmap="crustal_age.cpt")</span><br><span class="line">fig.colorbar(frame=[<span class="string">"af"</span>, <span class="string">"x+lage"</span>, <span class="string">"y+lMyr"</span>],<span class="attribute">cmap</span>=<span class="string">"crustal_age.cpt"</span>)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<p>上面的调色板<code>crustal_age</code>可以在<code>.gmt/cache/</code>下找到，而远程数据也下载到了<code>./gmt/server/</code>下面。</p>
-<p><img src="/images/age.png" alt></p>
-<h3 id="地形数据"><a href="#地形数据" class="headerlink" title="地形数据"></a>地形数据</h3><p><a href="https://www.generic-mapping-tools.org/remote-datasets/earth-relief.html" target="_blank" rel="noopener">地形数据</a>包含多种不同分辨率，对饮不同的文件大小，最粗为1d，文件大小128k，最高分辨率为1s，文件大小达41G：</p>
-<h4 id="SRTM绘图"><a href="#SRTM绘图" class="headerlink" title="SRTM绘图"></a>SRTM绘图</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 雅鲁藏布江大峡谷</span></span><br><span class="line">grid = pygmt.datasets.load_earth_relief(</span><br><span class="line">    <span class="string">"03s"</span>,</span><br><span class="line">    region=[94, 95.5, 29, 30],</span><br><span class="line">    <span class="attribute">registration</span>=<span class="string">"gridline"</span>,</span><br><span class="line">    <span class="attribute">use_srtm</span>=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># calculate the reflection of a light source projecting from west to east</span></span><br><span class="line"><span class="comment"># (azimuth of 270 degrees) and at a latitude of 30 degrees from the horizon</span></span><br><span class="line">dgrid = pygmt.grdgradient(<span class="attribute">grid</span>=grid, radiance=[270, 30])</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.grdimage(<span class="attribute">grid</span>=grid, <span class="attribute">projection</span>=<span class="string">"M15c"</span>, region=[94, 95.5, 29, 30], frame=[<span class="string">'WSrt+t"Original Data Elevation Model"'</span>,<span class="string">"xa"</span>, <span class="string">"ya"</span>],<span class="attribute">cmap</span>=<span class="string">"dem1"</span>)</span><br><span class="line">fig.colorbar(<span class="attribute">position</span>=<span class="string">"JML+o1.8c/0c+w10c/0.9c"</span>,frame=[<span class="string">"af"</span>, <span class="string">"y+lmeter"</span>])</span><br><span class="line">fig.coast(<span class="attribute">rivers</span>=<span class="string">"a/1p"</span>,borders="2/5,red")</span><br><span class="line"></span><br><span class="line"><span class="comment"># Shift plot origin of the second map by 12.5 cm in x direction</span></span><br><span class="line">fig.shift_origin(<span class="attribute">xshift</span>=<span class="string">"20c"</span>)</span><br><span class="line">pygmt.makecpt(<span class="attribute">cmap</span>=<span class="string">"gray"</span>, series=[-1.5, 0.3, 0.01])</span><br><span class="line">fig.grdimage(</span><br><span class="line">    <span class="attribute">grid</span>=dgrid,</span><br><span class="line">    <span class="attribute">projection</span>=<span class="string">"M15c"</span>,</span><br><span class="line">    frame=[<span class="string">'lSEt+t"Hillshade Map"'</span>, <span class="string">"xa0.1"</span>, <span class="string">"ya0.1"</span>],</span><br><span class="line">    <span class="attribute">cmap</span>=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line">fig.coast(<span class="attribute">rivers</span>=<span class="string">"a/1p"</span>,borders="2/5,red")</span><br><span class="line"></span><br><span class="line"><span class="comment"># Shift plot origin of the second map by 12.5 cm in x direction</span></span><br><span class="line">fig.shift_origin(<span class="attribute">xshift</span>=<span class="string">"20c"</span>)</span><br><span class="line">fig.grdimage(</span><br><span class="line">    <span class="attribute">grid</span>=grid,</span><br><span class="line">    <span class="attribute">shading</span>=dgrid,</span><br><span class="line">    <span class="attribute">projection</span>=<span class="string">"M15c"</span>,</span><br><span class="line">    frame=[<span class="string">'lSEt+t"Hillshade Map"'</span>, <span class="string">"xa0.1"</span>, <span class="string">"ya0.1"</span>],</span><br><span class="line">    <span class="attribute">cmap</span>=<span class="string">"dem1"</span>,</span><br><span class="line">)</span><br><span class="line">fig.coast(<span class="attribute">rivers</span>=<span class="string">"a/1p"</span>,borders="2/5,red")</span><br><span class="line"></span><br><span class="line">fig.show(<span class="attribute">width</span>=<span class="string">"20c"</span>)</span><br><span class="line">fig.savefig(<span class="string">"srtm.png"</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/srtm.png" alt></p>
-<h4 id="3D地形图"><a href="#3D地形图" class="headerlink" title="3D地形图"></a>3D地形图</h4><p>同样，我们还可以使用<code>pygmt.grdview</code>绘制三维地形图。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.grdview(</span><br><span class="line">    <span class="attribute">grid</span>=grid,</span><br><span class="line">    region=[94.7, 95.2, 29.5, 30],</span><br><span class="line">    perspective=[250, 60],</span><br><span class="line">    frame=[<span class="string">"xa"</span>, <span class="string">"ya"</span>, <span class="string">"WSNE"</span>],</span><br><span class="line">    <span class="attribute">projection</span>=<span class="string">"M15c"</span>,</span><br><span class="line">    <span class="attribute">zsize</span>=<span class="string">"15c"</span>,</span><br><span class="line">    <span class="attribute">surftype</span>=<span class="string">"s"</span>,</span><br><span class="line">    <span class="attribute">cmap</span>=<span class="string">"dem1"</span>,</span><br><span class="line">    # <span class="builtin-name">Set</span> the plane elevation <span class="keyword">to</span> 1,000 meters <span class="keyword">and</span> make the fill <span class="string">"gray"</span></span><br><span class="line">    <span class="attribute">plane</span>=<span class="string">"000+ggray"</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/images/3d.png" alt></p>
-<h4 id="附：遥感影像和地形的结合"><a href="#附：遥感影像和地形的结合" class="headerlink" title="附：遥感影像和地形的结合"></a>附：遥感影像和地形的结合</h4><p>在github存在一个<code>30Day*****</code>的系列代码库，其中包含绘图领域的<code>30DayMapChallenge2021</code>，恰好已经使用GMT完成了这项工作，作者是Pygmt的核心开发者Weiji。</p>
-<p>这里有两个遥感影像和地形结合的例子（17和18），可以作为很好的学习材料.</p>
-<p><img src="/images/day18_water.png" alt><br><img src="/images/day17_land.png" alt></p>
-<p>代码请前往：<a href="https://github.com/weiji14/30DayMapChallenge2021" target="_blank" rel="noopener">https://github.com/weiji14/30DayMapChallenge2021</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2283,7 +2346,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2296,7 +2359,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
