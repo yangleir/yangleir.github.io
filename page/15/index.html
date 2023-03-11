@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">83</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">142</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">143</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,114 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/03/GMT-pswiggle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/03/GMT-pswiggle/" class="post-title-link" itemprop="url">GMT pswiggle的使用例子</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-03 22:55:30" itemprop="dateCreated datePublished" datetime="2020-01-03T22:55:30+08:00">2020-01-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-16 15:44:11" itemprop="dateModified" datetime="2021-04-16T15:44:11+08:00">2021-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GMT/" itemprop="url" rel="index">
+                    <span itemprop="name">GMT</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/01/03/GMT-pswiggle/" class="post-meta-item leancloud_visitors" data-flag-title="GMT pswiggle的使用例子" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/03/GMT-pswiggle/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/03/GMT-pswiggle/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文介绍<code>pswiggle</code>的用途，可对不同类型的值填充不同颜色，在地震研究领域可能用到这类图形。</p>
+<p>GMT的官方文档给出一个简单的例子，首先使用math作出一个时间序列，然后通过管道<code>|</code>传递给widdge，不过这个例子的数学公式有点长，很难一下看明白。但可以清楚的看出这个程序主要是用来绘制异常值的颜色填充。这里的异常值可简单理解为均值之外的值，大于均值为正，小于均值为负。然后可以对正或者负进行不同颜色的填充。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt math -T<span class="number">-8</span>/<span class="number">6</span>/<span class="number">0.01</span> -N3/<span class="number">0</span> -C2 T <span class="number">3</span> DIV <span class="number">2</span> POW NEG EXP T <span class="literal">PI</span> <span class="number">2</span> MUL MUL COS MUL <span class="number">50</span> MUL = | gmt wiggle -R<span class="number">-10</span>/<span class="number">10</span>/<span class="number">-3</span>/<span class="number">3</span> -JM6i -B -Z100i -DjRM+w100+lnT -Tfaint -Gred+p -W1p -BWSne -png map</span><br></pre></td></tr></table></figure>
+<p><img src="/images/mapwiddge.png" alt></p>
+<p>为了方便理解其用法，下面小编给出笛卡尔坐标系下的一个简单例子。首先用awk作出正弦函数以及叠加的正余弦周期函数，并用widdge绘制图像，这里需要注意<code>-z</code>比例因子的用法。</p>
+<blockquote>
+<p>-Zscale[units]<br>Gives anomaly scale in data-units/distance-unit, where distance-unit is the currently chosen unit specified by PROJ_LENGTH_UNIT. Alternatively, append a distance-unit among the other choices (c|i|p).</p>
+</blockquote>
+<p>此外如果需要改变坐标轴的方向，设置<code>-JX-20c/-10c</code>中的宽度为负。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Test psw. leiyang@fio.org.cn</span></span><br><span class="line"></span><br><span class="line">ps=example_XX.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R0/100/-10/10 -JX-20c/-10c -Bx20f20 -By1g2 -BEN+t<span class="string">"Test pswiggle"</span> -K --MAP_FRAME_TYPE=graph --MAP_VECTOR_SHAPE=0.5 &gt; <span class="variable">$ps</span></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,2,sin(i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -K -J -G+red -G-blue -Z1 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">awk <span class="string">'BEGIN&#123;for(i=0;i&lt;=90;i=i+0.1) print i,-4,cos(i)+3*sin(2*i)&#125;'</span> &gt; fortrack.dat</span><br><span class="line"><span class="comment"># gmt psxy fortrack.dat -R -J -O -K -W3p,0_6:0 --PS_LINE_CAP=round &gt;&gt; $ps</span></span><br><span class="line">gmt pswiggle fortrack.dat -R -J -G+red -G-blue -Z2 -Wthinnest -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">psconvert <span class="variable">$ps</span> -A -Tg -P</span><br><span class="line">rm *.dat</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/example_30.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -461,7 +569,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-count">143</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -474,7 +582,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -516,7 +624,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
