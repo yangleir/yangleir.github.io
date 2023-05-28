@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">85</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">143</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">144</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,155 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/04/18/opensourceSoft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/18/opensourceSoft/" class="post-title-link" itemprop="url">开源程序分享1-OI最优化插值计算SSH模型</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-18 10:17:19 / 修改时间：18:55:37" itemprop="dateCreated datePublished" datetime="2021-04-18T10:17:19+08:00">2021-04-18</time>
+            </span>
+
+          
+            <span id="/2021/04/18/opensourceSoft/" class="post-meta-item leancloud_visitors" data-flag-title="开源程序分享1-OI最优化插值计算SSH模型" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/18/opensourceSoft/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/18/opensourceSoft/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>接下来一段时间（可能是2年左右时间），小编将逐步整理、分享一些<code>大地测量、海洋测绘、遥感、机器学习、科学绘图、文献管理、论文撰写</code>方面的开源程序集，这些程序来源于<code>github</code>或者学术机构、开发者网站等。</p>
+<p>暂定的程序：</p>
+<ul>
+<li>GMT</li>
+<li>Wafo</li>
+<li>Pandocs</li>
+<li>MB</li>
+<li>Latex </li>
+<li>Zotero</li>
+<li>git</li>
+<li>Jlab</li>
+<li>Citespace</li>
+<li>Proj</li>
+<li>GDAL</li>
+<li>GAT</li>
+<li>SWOTsimulater</li>
+</ul>
+<p>今天分享的一个开源程序是卫星测高的海面高网格重构程序。</p>
+<blockquote>
+<p>[1] MAXIME BALLAROTTA, EMMANUEL COSME, AURÉLIE ALBERT. ocean-data-challenges/2020a_SSH_mapping_NATL60: Material for SSH mapping data challenge[M/OL]. Zenodo, 2020[2021–04–18]. <a href="https://zenodo.org/record/4045400#.YHuagz8RVEY" target="_blank" rel="noopener">https://zenodo.org/record/4045400#.YHuagz8RVEY</a>. DOI:<a href="https://doi.org/10.5281/zenodo.4045400" target="_blank" rel="noopener">10.5281/zenodo.4045400</a>.</p>
+</blockquote>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
+<p>This repository contains codes and sample notebooks for downloading and processing the SSH mapping data challenge. The goal is to investigate how to best reconstruct sequences of Sea Surface Height (SSH) maps from partial satellite altimetry observations. This data challenge follows an Observation System Simulation Experiment framework: “Real” full SSH are from a numerical simulation with a realistic, high-resolution ocean circulation model: the reference simulation. Satellite observations are simulated by sampling the reference simulation based on realistic orbits of past, existing or future altimetry satellites. A baseline reconstruction method is provided (see below) and the practical goal of the challenge is to beat this baseline according to scores also described below and in Jupyter notebooks.</p>
+</blockquote>
+<p>程序主要采用简单的最优插值（Optimal Interpolation）进行SSH的重构，输入数据为高分辨率海洋环流模型NATL60和真实轨道模拟的卫星高度计数据，其中模拟的卫星高度计包含Topex-Poseidon, Jason 1, Geosat Follow-On, Envisat, 和 SWOT ，重构后的高精度SSH可以促进海洋动力学等研究。</p>
+<h2 id="程序目录"><a href="#程序目录" class="headerlink" title="程序目录"></a>程序目录</h2><ul>
+<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item0" target="_blank" rel="noopener">ocean-data-challenges-2020a_SSH_mapping_NATL60-a9b81c2</a><ul>
+<li>.gitignore 39 Bytes</li>
+<li>LICENSE 1.1 kB</li>
+<li>README.md 5.9 kB</li>
+<li>environment.yml 610 Bytes</li>
+<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item5" target="_blank" rel="noopener">figures</a><ul>
+<li>DC-data_availability.png 543.9 kB</li>
+<li>odc-logo.png 71.2 kB</li>
+</ul>
+</li>
+<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item8" target="_blank" rel="noopener">notebooks</a><ul>
+<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item9" target="_blank" rel="noopener">.ipynb_checkpoints</a><ul>
+<li>baseline_oi-checkpoint.ipynb 7.0 kB</li>
+<li>example_data_access_meom-checkpoint.ipynb 7.3 kB</li>
+<li>example_data_eval-checkpoint.ipynb 7.5 kB</li>
+</ul>
+</li>
+<li>baseline_oi.ipynb 6.7 kB</li>
+<li>example_data_access.ipynb 12.7 kB</li>
+<li>example_data_access_from_cloud.ipynb 2.7 MB</li>
+<li>example_data_access_meom.ipynb 7.3 kB</li>
+<li>example_data_eval.ipynb 8.1 kB</li>
+<li>example_plot_results.ipynb 6.5 kB</li>
+</ul>
+</li>
+<li>quickstart.ipynb 6.2 MB</li>
+<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item20" target="_blank" rel="noopener">results</a><ul>
+<li>PSD_based_score.png 51.2 kB</li>
+</ul>
+</li>
+<li><a href="https://zenodo.org/record/4045400/preview/ocean-data-challenges/2020a_SSH_mapping_NATL60-v1.zip#tree_item22" target="_blank" rel="noopener">src</a><ul>
+<li>mod_eval.py 4.4 kB</li>
+<li>mod_inout.py 1.5 kB</li>
+<li>mod_oi.py 3.2 kB</li>
+<li>mod_plot.py 7.3 kB</li>
+<li>mod_regrid.py 1.6 kB </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="在线测试"><a href="#在线测试" class="headerlink" title="在线测试"></a>在线测试</h2><p>作者提供了快捷的在线运行，点击：<a href="https://hub.binder.pangeo.io/user/ocean-data-chal-_mapping_natl60-02h900yz/notebooks/quickstart.ipynb" target="_blank" rel="noopener">https://hub.binder.pangeo.io/user/ocean-data-chal-_mapping_natl60-02h900yz/notebooks/quickstart.ipynb</a></p>
+<p>该示例提供了一颗星下点高度计、四颗星下点高度计和SWOT宽刈幅高度计的SSH重构测试，并使用RMSE和功率谱给出了精度评分。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/ssh2.png" alt><br><img src="/images/SSH.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1188,108 +1337,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/29/hangmu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/29/hangmu/" class="post-title-link" itemprop="url">航空母舰上天</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-29 22:27:49 / 修改时间：22:48:34" itemprop="dateCreated datePublished" datetime="2021-03-29T22:27:49+08:00">2021-03-29</time>
-            </span>
-
-          
-            <span id="/2021/03/29/hangmu/" class="post-meta-item leancloud_visitors" data-flag-title="航空母舰上天" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/29/hangmu/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/29/hangmu/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>近日，英国杂志《Economist》报道未来航母为了躲避卫星侦察和导弹打击，可能在天上航行，因为它们在那里可能比在海上更安全、更有效。为此，美国国防部的高级研究项目机构DARPA正在实施一项名为 “Gremlins “的计划。<br><a href="https://www.economist.com/science-and-technology/2021/03/25/aircraft-carriers-take-to-the-air" target="_blank" rel="noopener">https://www.economist.com/science-and-technology/2021/03/25/aircraft-carriers-take-to-the-air</a></p>
-</blockquote>
-<p><img src="/images/aircraft.png" alt></p>
-<p>空中运载工具是诱人的目标，它们也是越来越脆弱的目标。就像大炮时代的中世纪城堡一样，技术进步有可能使它们变得多余。<code>卫星和超视距雷达</code>意味着更容易确定它们的位置。而一枚瞄准得当、装备精良的导弹可能就足以让一艘航母失去作用，即使一发子弹没有将其彻底击沉。</p>
-<p>美国的海军规划人员特别担心中国的<code>DF-26</code>。这种武器于2018年服役，是一种<code>机动弹道导弹</code>（意味着它可以改变最终的接近路径，而不是完全受制于重力法则），被称为”航母杀手”。DF-26可以从卡车上发射，可以携带常规或核弹头。</p>
-<p>智库哈德逊研究所的海军战略家布莱恩-克拉克认为，这种威胁足以让美国航母距离中国海岸至少1600公里。这比航母战机的航程要远得多，除非航母战机可以在空中加油。因此，美国国防部正在寻找一个变通的办法。正在测试的一个回到未来的想法（它的历史最早可追溯到1917年）是将一架合适的飞机变成能够<code>发射和回收飞行中的无人机的航空母舰</code>,这样就可以让海上航母远离伤害。</p>
-<h2 id="天空中的城堡"><a href="#天空中的城堡" class="headerlink" title="天空中的城堡"></a>天空中的城堡</h2><p>为此，国防部的高级研究项目机构DARPA正在实施一项名为 “Gremlins”的计划，这个名字也适用于单个无人机本身。<code>一架&quot;小精灵&quot;无人机重680公斤，翼展近3.5米</code>。一旦它被投放，展开翅膀并启动涡轮风扇发动机，它就可以飞到500公里以外的区域，用”小精灵”计划负责人斯科特-维兹巴诺夫斯基的话说，就是”进去制造破坏”,完成后，它就会返回空中母舰。</p>
-<p>格雷姆林会在人类的最终控制下，以舰队的形式行动。在这一点上，它们类似于”忠诚的僚机”的想法，即无人机中队伴随着有人驾驶的战机投入战斗。然而，忠诚的僚机将从陆地起飞并降落在陆地上，或者可能是常规的、海军的、航空母舰上。<code>作战中的 &quot;小精灵 &quot;永远不需要接触地面</code>。</p>
-<p>Gremlins的主要工作将是拦截通信、干扰信号和猎取要摧毁的东西，从而软化有争议空域的防御，使其对有机组人员的飞机更加安全。这种无人机还可以装备小型导弹或炸药，进行神风特攻。而且它们之间既可以共享数据和合作，又可以将侦察和目标信息传回给能够发射比它们携带的更大导弹的军舰和飞机。</p>
-<p>小精灵群无疑会遭受损失。但吸引敌人的火力其实会是一个目标，一家名为Solarium的防务咨询公司的老板安德鲁-克雷皮涅维奇说，该公司就海空战的各个方面向防务部门提供建议。这样一来，”绿巨人”就会冲出任何开启瞄准雷达的敌方导弹炮台的位置，将其标记出来，以便随后销毁。</p>
-<p><code>在战斗的计算中，牺牲一两架无人机来打掉敌方的防空炮台，是一个不错的交换</code>。因此，Gremlins应该被认为是 “可交易”的，以换取价值更大的系统，Wierzbanowski先生说。为了更好地愚弄敌人，军事规划者还设想了空射无人机，模仿大型战斗机和轰炸机的雷达和热信号。这将通过使用能反射而不是吸收雷达信号的形状和材料来实现，并使发动机的热信号不被掩盖。无人机的飞行速度和模式可以增强这种错觉，显示出大型飞机的特征。</p>
-<p><code>除此之外，防御者需要将宝贵的注意力和昂贵的导弹挥霍在来袭的廉价无人机上</code>，这将使对手的能力更强的飞机得到更自由的控制。因此，空射无人机的爱好者们看到了数量上的价值。在雷达屏幕上放上大量的昙花一现，是一个让敌人感到不安的好办法，”复杂和多重困境”，DARPA项目的主要承包商Dynetics公司管理Gremlins项目的Tim Keeter说。</p>
-<p>为此，必须保持低成本。国防部计划为Gremlins支付不到80万美元的费用，尽管那是为了订购<code>1000架</code>。因此，如果一对飞机在行动中被击落，”没关系，这真的不重要，”Wierzbanowski先生说。在军事术语中，他将这些东西描述为”可损耗”。Dynetics公司的工作假设是，每架Gremlin最多可飞行20次。这意味着它们可以用不太耐用的材料和部件来制造，因此也更便宜。</p>
-<p>格雷姆林项目选择的空中载具是一架经过改装的C-130货机，它的机翼下悬挂的炸弹架最多可以搭载4架无人机。这将是一个小型的中队，但可以通过从随行的战斗机或轰炸机上投放更多的无人机来增加数量。因此，部署无人机是相当容易的。棘手的部分是当它们完成任务返回时从空中捞起它们。为此，Dynetics公司设计了一种特殊的回收系统，可以安装在C-130的货舱坡道上方。</p>
-<p>当 “小精灵 “飞回母舰时，货舱坡道打开，回收系统就会从里面放下一个吊杆。这个吊杆在十米长的系绳上释放出一个吊舱，这个吊舱夹在一个短的啮合臂上，这个短的啮合臂从Gremlin本身的顶部弹出。捕获成功后，就会关闭Gremlin的引擎。然后用绞盘将无人机吊上船。这种安排应该能够每小时从空中拉出八只 “灰熊”。</p>
-<p>至少是这样的想法。到目前为止，虽然Gremlins已经成功捕捉到了几厘米以内，但这种捕捉还没有实现。但Dynetics公司希望一些软件调整能在夏天之前解决这个问题，<code>届时空军应该会开始对Gremlins系统进行作战测试</code>。</p>
-<p>这个测试将包括各种有效载荷的飞行。但最重要的是测试 “绿巨人”的合作能力–例如，随着情况的变化交换任务。为此，空军正在开发从另一个DARPA计划中产生的软件，名为 “拒绝环境下的协同作战”。至少在目前，它还不能协调一个完全自主的 “机群”。相反，它的目标是让单个无人机拥有足够的自主权，让一个人类操作员能够监督它们的集群。</p>
-<p>Gremlin-mothership的安排以其规模为特色。但基本想法的几个较小版本也在开发中。其中一个由 “捕食者 “无人机的制造者通用原子公司（General Atomics）正在筹划。捕食者正在显示出他们的年龄，但通用原子公司希望通过生产一个版本为它们注入新的生命，该版本是一个名为”麻雀鹰”的小型无人机的母体，将携带情报、监视和侦察设备、电子干扰设备，可能还有爆炸物。飞行测试于2020年9月开始，不过 “麻雀鹰 “还没有空射，该公司也没有解释如何在飞行中回收它们。</p>
-<h2 id="雀鹰的夫人"><a href="#雀鹰的夫人" class="headerlink" title="雀鹰的夫人"></a>雀鹰的夫人</h2><p>美军则计划使用装有无人机发射气动管的直升机作为母舰。这些无人机像”小精灵”一样，发射后展开翅膀，翼展为2.5米。在去年夏天进行的一次试验中，6架发射出去的这种无人机在空中被回收，不过不是被它们发射出去的 “黑鹰”回收的。而是被一架四旋翼无人机吊着一根绳索卡住了目标无人机机翼上的钩子。5月，军队计划使用轨道弹射器从直升机上发射更大的无人机。</p>
-<p>与 “绿巨人 “和 “麻雀鹰 “一样，军方推动所谓的 “空中发射效果”是由美国从反叛乱转向与外国势力的潜在战争驱动的。位于阿拉巴马州的陆军未来司令部负责监督该技术发展的安东尼-弗洛伊德中校说，<code>中国和俄罗斯雷达精确定位部队</code>和支持他们的飞机的能力的进步是一个特别的问题。他说，这将把陆军直升机从前线赶回来，所以它们将排出众多无人机，而不是在前面溜达。它们要猎取目标，分散敌人的注意力，并作为一个额外的通信网络。这种能力应该在不到三年的时间内投入使用。</p>
-<p>这类空中航母确实有缺点。从半空中抢夺无人机会耗费宝贵的时间。再加上所需的机动性，可能会让敌人更容易击落母舰。但是可以重复使用20次的无人机提供了优势，尤其是成本，比起消耗性的单发替代品。</p>
-<p>城堡的建造者通过重新设计堡垒，使之成为低矮、厚实的墙体，并由堡垒保护，从而解决了大炮带来的问题。这很有效。向天空发射航空母舰是否会同样成功地应对技术进步，还有待观察。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1362,7 +1409,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1375,7 +1422,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">84</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
