@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">144</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">145</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,147 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/19/ai-bisai/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/19/ai-bisai/" class="post-title-link" itemprop="url">2022“安海”卫星测高水深反演人工智能算法大赛[草稿版]</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-19 17:25:02" itemprop="dateCreated datePublished" datetime="2022-09-19T17:25:02+08:00">2022-09-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-23 22:03:35" itemprop="dateModified" datetime="2022-09-23T22:03:35+08:00">2022-09-23</time>
+              </span>
+
+          
+            <span id="/2022/09/19/ai-bisai/" class="post-meta-item leancloud_visitors" data-flag-title="2022“安海”卫星测高水深反演人工智能算法大赛[草稿版]" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/19/ai-bisai/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/19/ai-bisai/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="大赛简介"><a href="#大赛简介" class="headerlink" title="大赛简介"></a>大赛简介</h2><p>为加速AI和卫星测高的跨界研究，推动AI海洋大地测量领域的整体良性发展，<strong>海洋遥感与数据共享</strong>公众号携手多家海洋研究机构和高校科研单位，联合发起“安海”卫星测高水深反演算法大赛，邀请多为卫星测高和海洋大地测量专家拟定赛题，聚集国内海洋遥感和AI人才，发挥AI辅助大洋水深反演效能，解决船测水深资料不足困境。</p>
+<h2 id="赛道信息"><a href="#赛道信息" class="headerlink" title="赛道信息"></a>赛道信息</h2><p>本次比赛设置唯一赛道：卫星测高水深反演</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>海底地形是最基础的海洋环境要素之一，船测单波束和多波束是主要的水深数据来源，然而2019年全球海洋实测水深只占15%，在日本财团支持的联合国海洋科学可持续发展十年项目Seabed 2030支持下，2022年这一数字已达到23.4%，卫星测高反演仍旧是海洋空白区的重要水深来源。目前的反演算法中，多采用物理模型或者经验函数，建立重力信号和地形的相关联系。地形和重力之间的关系不是简单的数学公式可以描述的，存在有复杂的非线性，而当前迅速发展的人工智能技术为该领域提供了新的途径。然而目前人工智能在海洋测绘，特别是海洋大地测量领域，仍旧少有应用。通过人工智能辅助大洋水深反演显得十分必要。</p>
+<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>人工智能的大洋水深反演不仅可挖掘重力和水深的复杂非线性关系，也可以在提升分辨率、数据融合等方面提供有价值的参考。</p>
+<h3 id="赛题介绍"><a href="#赛题介绍" class="headerlink" title="赛题介绍"></a>赛题介绍</h3><p>选手使用船测单波束数据和重力异常模型、重力梯度模型、垂线偏差模型以及相关地质地球物理模型进行训练建模，使用上述模型构建网格的水深模型，并使用船测单波束检核点进行精度评估。</p>
+<h3 id="研究数据和验证指标"><a href="#研究数据和验证指标" class="headerlink" title="研究数据和验证指标"></a>研究数据和验证指标</h3><p><img src="./images/ai_depth.png" alt></p>
+<p>研究区域为太平洋马里亚纳海沟海域，此处地形复杂，有海沟、海山和平原，水深反演具有挑战性和代表性，前期研究成果较多，是测试算法能力的理想海域。</p>
+<p>单波束数据来自美国NGDI数据中心，重力相关模型由Sandwell等提供，地质地球物理模型由earthbyte提供。采用随机抽样的方式，将单波束数据分为训练和测试两部分。以上数据均由大赛主办方提供。</p>
+<p>数据验证指标包括标准差STD、偏差BIAS、相关系数和其他误差统计分布特征。</p>
+<h3 id="数据描述和操作"><a href="#数据描述和操作" class="headerlink" title="数据描述和操作"></a>数据描述和操作</h3><p>单波束数据格式为文本格式，重力等模型均为Netcdf格式，使用Python或者MATLAB均可方便的读取数据。</p>
+<p>组委会提供了一套开源的GGM重力地质法水深反演代码，其反演精度可作为选手的参考。该程序基于MATLAB和GMT，要求选手对GMT有一定的了解：</p>
+<blockquote>
+<p>GGM:<a href="https://github.com/GenericAltimetryTools/gravity-derived-depth" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/gravity-derived-depth</a></p>
+</blockquote>
+<p>组委会还将提供Python的数据操作程序，该程序可得到训练集和测试集多维数组，选手可参考使用，快速上手。</p>
+<p>相关数据和程序将在比赛开始后再GAT组织获得。</p>
+<h2 id="比赛流程"><a href="#比赛流程" class="headerlink" title="比赛流程"></a>比赛流程</h2><h3 id="报名"><a href="#报名" class="headerlink" title="报名"></a>报名</h3><p>大赛面向全社会开放，个人、高等院校、科研单位、企业等人员均可报名参赛。</p>
+<ul>
+<li>报名方式：注册Github，公众号后台发送账号或者用户名，选手将被邀请加入比赛组织GAT，<a href="https://github.com/GenericAltimetryTools" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools</a></li>
+<li>选手可以单人参赛，也可以组队，每位选手只能参加一支队伍。</li>
+<li>比赛结束之前均可报名，截止时间为10月20日中午12点。</li>
+</ul>
+<h3 id="比赛规则"><a href="#比赛规则" class="headerlink" title="比赛规则"></a>比赛规则</h3><ul>
+<li>本次比赛不提供算力和存储资源，请选手自备。</li>
+<li>比赛提供研究区域的单波束水深和基本的卫星测高重力模型，并提供基础Python代读取数据。选手只需要专注于AI算法。</li>
+<li>无特殊情况，选手不可以更改Train和Check数据。</li>
+<li>本次比赛，所有程序通过GAT组织开源。</li>
+<li>只允许单一算法模型/网络框架，不得使用多个模型投票的方式构建最终模型。</li>
+<li>比赛不设现场，均为远程参加。</li>
+</ul>
+<h3 id="评分"><a href="#评分" class="headerlink" title="评分"></a>评分</h3><ul>
+<li>本次比赛需要选手发送一份程序解释材料，包含核心代码解释和运行结果的误差参数。</li>
+<li>评委根据选手技术思路和结果表现进行评分。</li>
+<li>评委由算法专家和海洋测绘专家组成，评分包括算法创新性、反演误差和实际可行性组成。</li>
+</ul>
+<h3 id="论文发表"><a href="#论文发表" class="headerlink" title="论文发表"></a>论文发表</h3><ul>
+<li>本次比赛将整合优秀的AI算法，在相关SCI专刊联合发表学术论文，对得奖选手给与优先署名。</li>
+<li>选手也可自行撰写学术论文，组委会将优先推荐发表。</li>
+</ul>
+<h2 id="奖项设置"><a href="#奖项设置" class="headerlink" title="奖项设置"></a>奖项设置</h2><ul>
+<li>冠军1名，奖金10000元人民币，颁发获奖证书，获得论文署名权。</li>
+<li>亚军1名，奖金5000元人民币，颁发获奖证书，获得论文署名权。</li>
+<li>季军1名，奖金3000元人民币，颁发获奖证书，获得论文署名权。</li>
+</ul>
+<h2 id="评委介绍"><a href="#评委介绍" class="headerlink" title="评委介绍"></a>评委介绍</h2><ul>
+<li>海洋测绘专家、AI专家</li>
+<li>军</li>
+</ul>
+<h2 id="合作伙伴"><a href="#合作伙伴" class="headerlink" title="合作伙伴"></a>合作伙伴</h2><ul>
+<li>指导单位：自然资源部第一海洋研究所？</li>
+<li>主办单位：<strong>海洋遥感数据共享</strong>公众号平台</li>
+<li>联合发起方：高校、研究所、</li>
+<li>顾问单位：海洋测绘学会？</li>
+<li>企业支持：青岛安海（一家海洋测量装备制造小微企业，主要研发北斗波浪浮标、潮汐浮标和漂流浮标，关注：公众号）</li>
+</ul>
+<h2 id="咨询"><a href="#咨询" class="headerlink" title="咨询"></a>咨询</h2><p>如在报名、比赛中有任何问题，欢迎微信扫码咨询</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1425,107 +1566,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/03/zotero-tags/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/03/zotero-tags/" class="post-title-link" itemprop="url">Zotero 为文献打标</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-03 10:50:20 / 修改时间：10:53:14" itemprop="dateCreated datePublished" datetime="2022-07-03T10:50:20+08:00">2022-07-03</time>
-            </span>
-
-          
-            <span id="/2022/07/03/zotero-tags/" class="post-meta-item leancloud_visitors" data-flag-title="Zotero 为文献打标" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/07/03/zotero-tags/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/03/zotero-tags/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Zotero-为文献打标"><a href="#Zotero-为文献打标" class="headerlink" title="Zotero 为文献打标"></a>Zotero 为文献打标</h1><p>今天为大家分享一个Zotero使用小窍门，为文献打上可爱的表情。</p>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>希望对一些文献进行标星分类，表示其具有高价值。这样在日后的文献阅读中，可以在自己庞大的文献库中快速找到这些文献。</p>
-<p>除了标星之外，我们还可以使用有意思的图标对文献进行贴标签，形成相关的文献集，方便日后查阅回顾。</p>
-<h2 id="Emoji表情符号"><a href="#Emoji表情符号" class="headerlink" title="Emoji表情符号"></a>Emoji表情符号</h2><p>我们使用Emoji为文献打标签。</p>
-<p>前往Emoji站点搜索自己想要的表情符号，比如最常用的<code>喜欢
-❤️</code>标签，可以通过下面的网站搜索<code>Red heart</code>，就能够找到许多类似表情，然后复制它。</p>
-<blockquote>
-<p>推荐Emoji网站： <a href="https://emojipedia.org/" target="_blank" rel="noopener">https://emojipedia.org/</a></p>
-</blockquote>
-<h2 id="Zotero"><a href="#Zotero" class="headerlink" title="Zotero"></a>Zotero</h2><p>回到Zotero，选择喜欢的论文，点击右上侧的<code>Tags</code>选项，<code>add</code>一下，把复制的❤️标签粘贴。❤️的数量可以随意设置，五星就粘贴五次。</p>
-<p>这样完成了第一步打标签，在Zotero的左下角出现❤️标签，单击它，可以进行文献筛选。但是我们在文献的前方还是看不到标签，不利于我们快速定位文献。</p>
-<p>接下来，右击❤️标签，选择<code>Assign color</code>，然后弹出对话框，选择数字和颜色，确定即可。</p>
-<p><img src="./images/zo1.png" alt></p>
-<p>之后，在文献的前面就出现一个❤️的表情。</p>
-<p><img src="./images/zo2.png" alt></p>
-<p>取消标记，只需要按键盘数字1。</p>
-<p>之后，我们可以根据文献设置不同的标签。同一文献可以设置多个标签。</p>
-<p><img src="./images/zo3.png" alt></p>
-<p>如果想在一个文献集合中仅显示❤️文献，点击右下角的❤️即可完成筛选。</p>
-<p>这种打标的做法还是很方便的，特别是对于阅读大量文献的硕博士来说，常常忘记自己最欣赏的文章在哪里藏着是一个头疼事。</p>
-<p>尽管我们可以通过新建不同的<code>subcollection</code>来实现初步分类，但当每一个<code>subcollection</code>中的文献数据增加后，通过标签还是可以快速找到最爱。</p>
-<center><font face="黑体" size="3" color="gold">好了，今天的分享就到这了，希望有用。谢谢大家。</font></center>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1598,7 +1638,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
