@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">85</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">84</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">145</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">141</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -380,600 +380,6 @@
 <li>SWOT即将发射，宽刈幅高度计数据将开放获取，因此预计2023年将有2-3项相关课题立项，题目都想好了：1、成像高度计亚中尺度过程，2、成像高度计地表水文过程，2、成像高度计海底地形探测。</li>
 </ul>
 <h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p>基金项目情报已经整理上传到GitHub仓库：<a href="https://github.com/GenericAltimetryTools/Fund" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/Fund</a> ，后面每年会更新一次。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/11/12/ab4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/12/ab4/" class="post-title-link" itemprop="url">人工智能海底地形反演(3)-网络设计和评估</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-12 19:05:32" itemprop="dateCreated datePublished" datetime="2022-11-12T19:05:32+08:00">2022-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-13 10:00:41" itemprop="dateModified" datetime="2022-11-13T10:00:41+08:00">2022-11-13</time>
-              </span>
-
-          
-            <span id="/2022/11/12/ab4/" class="post-meta-item leancloud_visitors" data-flag-title="人工智能海底地形反演(3)-网络设计和评估" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/11/12/ab4/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/11/12/ab4/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>上节已备好训练数据，本节介绍CNN和DNN网络设置，跳过物理公式，直接使用备好的重力数据来预测水深，然后使用检核点水深来验证模型的精度。本节是这个AI重力水深反演系列的大结局，我们将知道以下问题的答案：</p>
-<ul>
-<li>加入物理机制计算的短波重力能提高AI精度吗？</li>
-<li>高维度的CNN是不是比低维的DNN好呢？</li>
-<li>人工智能是否比传统方法效果好呢？</li>
-</ul>
-<p>人工智能的海底地形反演系列在这儿暂时大结局了，但这不意味着真的结束。尽管人工智能在海洋遥感、物理海洋和其他许多地学领域取得了巨大的进展，但在大地测量、海洋测绘领域的应用可能才刚开始。其背后的原因是深刻而复杂的，这是不是测绘界的传统不无关系呢？测绘的主要工作之一就是测，也就是采集真实数据，并且非常重视数据精度和真实性这个概念，《测绘法》里面对数据真实性有明确的法律要求，篡改数据可能是犯罪行为，故对AI这种<code>虚幻</code>的、算出来的数据是有潜意识的否定态度；若AI精度达到多波束精度，那海洋测绘从业者可能失业，整个领域将遭遇百年未有之大变局；原因可能还有更多，欢迎私信讨论。</p>
-<h2 id="FC-DNN"><a href="#FC-DNN" class="headerlink" title="FC-DNN"></a>FC-DNN</h2><h3 id="模型构建"><a href="#模型构建" class="headerlink" title="模型构建"></a>模型构建</h3><p>本例使用的深度学习框架是谷歌<code>tensorflow</code>，如果读者仅应用深度学习，而不研究深度学习本身，使用内置的<code>keras</code>包即可，因为它比较友好，上手轻松。另外，使用GPU可以提高训练速度，比如2080TI的英伟达显卡训练中，DNN每个Epoch仅3s，CNN为6s，对于本案例来说，由于数据量不大，CPU应该也不会太耗费时间。</p>
-<p><code>FC-DNN</code>即<code>Fully-Connected (FC) Deep Neural Network (DNN)</code>，在输入和输出层的中间有一系列全连接层，本例使用的DNN网络结构如下：<br><img src="./images/ab30.png" alt></p>
-<p>这个FC-DNN结构的中间层设计了三个全连接层，全连接顾名思义就是每个节点都互相连接，三个层的神经元数量分别是20、10、5。通过这些个连接层和神经元，经过后面的最优拟合训练，就可以构建起了重力场（input）和海底地形（output）之间的非线性关系。最终在预测水深的时候，只需要输入重力场和位置信息就可以输出对应位置的水深。</p>
-<blockquote>
-<p>DNN结构绘图代码使用了<code>latex</code>：<a href="https://github.com/GenericAltimetryTools/AIBathy/blob/main/figs/fig4/main.tex" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy/blob/main/figs/fig4/main.tex</a></p>
-</blockquote>
-<p>这个FC-DNN结构对应的Python代码：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model = models.Sequential()</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(20, input_shape=(None,6), <span class="attribute">activation</span>=<span class="string">'relu'</span>)) # change shape <span class="keyword">for</span> case</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(10, <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(5, <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(1))</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码中<code>input_shape=(None,6)</code>表示输入的元素个数，需要根据具体输入参数的类型来确定，比如如果仅仅输入经纬度和重力异常，那这儿就是<code>3</code>；<code>activation=&#39;relu&#39;</code>表示激活函数为<code>relu</code>。</p>
-<blockquote>
-<p><code>Keras</code>内置的深度学习模型确实很方便，对于非计算机方向的纯用户非常好用，仅几行代码就完成了一个模型的搭建。</p>
-</blockquote>
-<p>设置完毕后，开始训练：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">opt = optimizers.Adam(<span class="attribute">learning_rate</span>=0.001)</span><br><span class="line">Patience = 3</span><br><span class="line">reduce_lr = ReduceLROnPlateau(<span class="attribute">monitor</span>=<span class="string">'root_mean_squared_error'</span>, <span class="attribute">factor</span>=0.5, <span class="attribute">patience</span>=Patience, <span class="attribute">mode</span>=<span class="string">'min'</span>,</span><br><span class="line">                         <span class="attribute">min_delta</span>=0.001, <span class="attribute">min_lr</span>=1e-6, <span class="attribute">verbose</span>=1)</span><br><span class="line">model.compile(</span><br><span class="line">        <span class="attribute">optimizer</span>=opt,</span><br><span class="line">        <span class="attribute">loss</span>=<span class="string">'mse'</span>,metrics='RootMeanSquaredError')</span><br><span class="line">model.fit(train_case3, y_trian, <span class="attribute">epochs</span>=30</span><br><span class="line">                    , <span class="attribute">batch_size</span>=128</span><br><span class="line">                    ,<span class="attribute">callbacks</span>=reduce_lr)</span><br></pre></td></tr></table></figure>
-
-<p>训练过程是确定最优拟合的过程。这里面有一些常见的设置，比如<code>optimizer</code>优化器、<code>loss</code>损失函数、<code>epochs</code>训练的次数等等。 这些知识点可以轻易在网上获得，因为本篇幅过长，这儿就不细说了。</p>
-<h3 id="网格重力到网格水深的预测"><a href="#网格重力到网格水深的预测" class="headerlink" title="网格重力到网格水深的预测"></a>网格重力到网格水深的预测</h3><p>Python代码：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">grid_ai</span>=model.predict(pre_case3, <span class="attribute">batch_size</span>=120)</span><br><span class="line">grid_depth = scalerytrain.inverse_transform(grid_ai)</span><br><span class="line"><span class="attribute">depth_ai</span>=np.concatenate((free_short.values[:,0:2], grid_depth), <span class="attribute">axis</span>=1)</span><br></pre></td></tr></table></figure>
-<p>通过输入网格重力<code>pre_case3</code>就可以直接得到归一化的网格水深，进一步还需要还原为实际水深值。</p>
-<p><img src="./images/ab31.png" alt></p>
-<h3 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h3><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pre = model.predict(test_case3, batch_size=<span class="number">120</span>)</span><br><span class="line">pre_raw = scalerytrain.inverse_transform(pre)</span><br><span class="line">m = <span class="built_in">np</span>.<span class="built_in">abs</span>(<span class="built_in">np</span>.<span class="built_in">mean</span>((y_test1-pre_raw)))</span><br><span class="line"><span class="built_in">std</span> = <span class="built_in">np</span>.<span class="built_in">std</span>(y_test1-pre_raw)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">std</span>,m)</span><br></pre></td></tr></table></figure>
-
-<p>训练完成后，使用<code>predict</code>函数预测检核点<code>test_case3</code>的水深，并将归一化的预测结果还原成真实的水深，最后就可以使用实测水深对其进行统计评估了。</p>
-<p>或者也可以使用GMT和测试数据对导出的网格进行评估，理论上效果是一样的：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> grdtrack check_feizhou.txt -Gdepth_case1.nc | awk <span class="string">'&#123;print <span class="variable">$3</span>,<span class="variable">$4</span>&#125;'</span> &gt; draper.txt</span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>-<span class="variable">$2</span>&#125;'</span> draper.txt| gmt gmtmath STDIN -Sl MEAN  =</span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>-<span class="variable">$2</span>&#125;'</span> draper.txt| gmt gmtmath STDIN -Sl STD  =</span><br></pre></td></tr></table></figure>
-
-<h3 id="几点结果"><a href="#几点结果" class="headerlink" title="几点结果"></a>几点结果</h3><ul>
-<li>短波重力作为输入可以明显提高模型精度，和检核点水深差异的标准偏差为73.5m；不加入短波重力，若使用重力异常、重力梯度和垂线偏差为训练数据，则STD为227m。</li>
-<li>加入短波重力之后，再加入其他数据作为输入，得到结果几乎一样，即仅使用短波重力一个量就可以得到高精度的水深预测值。</li>
-<li>使用同样的训练数据和检核数据，GGM和真值差异的STD为85m，即FC-DNN精度超过了GGM。</li>
-</ul>
-<blockquote>
-<p>！注意，为了和已发表论文（<code>Annan和Wan，2022</code>）的结果比较，上述结果并未进行第一节所展示的数据质控，如果进行数据质控FC-DNN的精度大约在30m，几乎接近当今先进多波束的测量精度！！</p>
-</blockquote>
-<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><p>CNN用卷积对<code>图像</code>做操作，将所使用的卷积核看做未知参数，在训练网络的过程中求出最优参数。可能会有人疑问，重力和水深不是图像，怎么用CNN呢？的确，和经典数字识别、猫狗识别完全不同，重力数据是一个网格文件，实测水深是一些船测航迹，本质上没有一连串的同样大小的图像。</p>
-<p>使用CNN的思路大概是：每一个水深点有一个经纬度坐标，这个坐标的四周组可成一个4×4大小的二维矩阵坐标，矩阵坐标上可以安置任意的<code>input</code>，比如重力异常、重力梯度、垂线偏差和经纬度，这样形成6个通道（类似图像的RGB通道）的三维张量，然后每一个水深点坐标上都可以组成一个同样大小的二维矩阵，这就形成了一些列的<code>伪图像</code>（四维张量），从而可以满足CNN的训练。</p>
-<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h3><p>这里我们复现<code>Annan和Wan</code>的网络结构：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">model = models.Sequential()</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(64,(3,3), input_shape=(4,4,6),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv1"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.MaxPooling2D(pool_size=(2,2)))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(128, (3,3),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv2"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.MaxPooling2D(pool_size=(2,2)))</span><br><span class="line"><span class="comment"># model.add(layers.BatchNormalization(axis=-1))</span></span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(256, (3,3),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv3"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(512, (3,3),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv5"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dropout(0.2))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Flatten())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(512, <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(1))</span><br></pre></td></tr></table></figure>
-
-<p>上面有一些CNN架构的知识点，比如<code>池化层</code>,<code>卷积层</code>等等，读者可以轻松从网上查到，这里也不介绍这些内容啦。</p>
-<h3 id="训练、预测和评估"><a href="#训练、预测和评估" class="headerlink" title="训练、预测和评估"></a>训练、预测和评估</h3><p>读者最好前往开源仓库查看完整代码，并自己运行一下，提高对这些代码的理解。</p>
-<blockquote>
-<p><a href="https://github.com/GenericAltimetryTools/AIBathy/blob/main/Africa_cnn.ipynb" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy/blob/main/Africa_cnn.ipynb</a></p>
-</blockquote>
-<h4 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h4><p>Python代码：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">opt = optimizers.Adam(<span class="attribute">learning_rate</span>=0.001)</span><br><span class="line">Patience = 3</span><br><span class="line">early_stop = EarlyStopping(<span class="attribute">monitor</span>=<span class="string">'loss'</span>, <span class="attribute">mode</span>=<span class="string">'min'</span>, <span class="attribute">patience</span>=Patience)</span><br><span class="line">reduce_lr = ReduceLROnPlateau(<span class="attribute">monitor</span>=<span class="string">'root_mean_squared_error'</span>, <span class="attribute">factor</span>=0.5, <span class="attribute">patience</span>=Patience, <span class="attribute">mode</span>=<span class="string">'min'</span>,</span><br><span class="line">                         <span class="attribute">min_delta</span>=0.001, <span class="attribute">min_lr</span>=1e-7, <span class="attribute">verbose</span>=1)</span><br><span class="line">model.compile(</span><br><span class="line">        <span class="attribute">optimizer</span>=opt,</span><br><span class="line">        <span class="attribute">loss</span>=<span class="string">'mse'</span>,metrics='RootMeanSquaredError')</span><br><span class="line"><span class="comment"># tf.config.experimental_run_functions_eagerly(True)</span></span><br><span class="line">model.fit(x_train, y_train, <span class="attribute">epochs</span>=40</span><br><span class="line">                    , <span class="attribute">batch_size</span>=128</span><br><span class="line">                    ,<span class="attribute">callbacks</span>=reduce_lr)</span><br></pre></td></tr></table></figure>
-
-<h4 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h4><p>Python代码：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pre_depth</span> = model.predict(x_pre,batch_size=<span class="number">120</span>)</span><br><span class="line"><span class="attr">grid_depth</span> = scalerdepth.inverse_transform(pre_depth)</span><br></pre></td></tr></table></figure>
-<p><img src="./images/ab32.png" alt></p>
-<h4 id="评估-1"><a href="#评估-1" class="headerlink" title="评估"></a>评估</h4><p>方法和FC-DNN一致。可以使用GMT对输出的水深网格进行评估，或者使用<code>keras</code>内置函数在训练结束后进行评估。 此外我们还可以通过差异直方图、回归分析和功率密度谱等方式对结果进行评估分析，具体代码已上传到Github的<code>fig</code>文件夹。</p>
-<h4 id="几点结果-1"><a href="#几点结果-1" class="headerlink" title="几点结果"></a>几点结果</h4><ul>
-<li>CNN使用卷积，有固定窗口大小，自带滤波效果，因此预测水深略平滑。使用功率谱分析也表明在短波尺度它不如FC-DNN，但在中间尺度，它的能量高于FC-DNN。</li>
-<li>CNN的精度大概是120 m，这和<code>Annan和Wan</code>的结论基本一致。</li>
-<li>CNN效果不如GGM，并且差距较大。</li>
-<li>CNN效果不如FC-DNN，这说明高维度的、更复杂的网络并不一定能得到更好的预测结果。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>问题答案：</p>
-<ul>
-<li>物理机制计算的短波重力能提高精度吗？<code>是</code></li>
-<li>高维度的CNN是不是比更低维的DNN好呢？<code>否</code></li>
-<li>人工智能是否比传统方法效果好呢？<code>是</code></li>
-</ul>
-<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>深度学习的核心代码由<strong>张雨元</strong>同学编写，对此小编表示万分感谢。</p>
-<h2 id="预告"><a href="#预告" class="headerlink" title="预告"></a>预告</h2><p>年底了，人们都更加忙碌起来。距离明年的基金时间也不远了，因此下一系列会关注自然科学基金：</p>
-<ul>
-<li>国家自然科学基金的海洋遥感、海洋测绘课题资助分析，总体趋势如何？热点领域在哪？</li>
-<li>卫星测高在哪些领域获得资助，趋势如何？</li>
-<li>据传，测绘口凡带着深度学习的基金会轻易被毙？是真的吗？原因是什么？</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/10/31/ai3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/31/ai3/" class="post-title-link" itemprop="url">人工智能海底地形反演(3)-张量构建和归一化</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-31 19:34:43" itemprop="dateCreated datePublished" datetime="2022-10-31T19:34:43+08:00">2022-10-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-06 18:20:49" itemprop="dateModified" datetime="2022-11-06T18:20:49+08:00">2022-11-06</time>
-              </span>
-
-          
-            <span id="/2022/10/31/ai3/" class="post-meta-item leancloud_visitors" data-flag-title="人工智能海底地形反演(3)-张量构建和归一化" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/10/31/ai3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/10/31/ai3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>上两节分别介绍了单波束数据质控和卫星测高的重力数据处理，我们发现经过质控的单波束作为训练数据，可以明显提高水深反演的精度，重力异常信号中的短波分量和地形非常相关，加入短波重力有可能大幅提高水深反演精度。</p>
-<p>今天介绍AI反演水深最后的前奏：张量构建和归一化处理。</p>
-<h2 id="张量的构建"><a href="#张量的构建" class="headerlink" title="张量的构建"></a>张量的构建</h2><p>人工智能的数据表示方式是存储在Numpy里的多维数组，数据类型是<code>ndarray</code>，在AI领域它还有一个更具B格的名字：<code>张量（tensor）</code>。一般来说，当前所有机器学习系统都使用<code>张量</code>作为基本数据结构，张量在AI领域是非常重要的概念，以至于Google的TensorFlow都直接以它来命名。</p>
-<p>下表是不同维度（TensorFlow中也成为秩、阶数、度数或者是n维）的张量含义：</p>
-<table>
-<thead>
-<tr>
-<th align="left">维度（秩）</th>
-<th align="right">数学实体</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">0</td>
-<td align="right">标量（只有大小）</td>
-</tr>
-<tr>
-<td align="left">1</td>
-<td align="right">向量 (有大小和方向)</td>
-</tr>
-<tr>
-<td align="left">2</td>
-<td align="right">矩阵 (由数构成的表)</td>
-</tr>
-<tr>
-<td align="left">3</td>
-<td align="right">3 维张量 (由数构成的方体)</td>
-</tr>
-<tr>
-<td align="left">n</td>
-<td align="right">n 维张量 (你可以自行想象一下)</td>
-</tr>
-</tbody></table>
-<p>在水深反演中，我们首先也构建这样的多维张量。因为DNN和CNN的张量略有不同，这里分开介绍它们的构建方式。</p>
-<h3 id="DNN"><a href="#DNN" class="headerlink" title="DNN"></a>DNN</h3><p>假设人工智能训练数据的输入包括<code>lat,lon,ga,vgg,evd,nvd,sg</code>，输出只有一个<code>od</code>:</p>
-<ul>
-<li>lat：latitude</li>
-<li>lon：longitude</li>
-<li>ga：gravity anomaly</li>
-<li>vgg：vertical gravity gradient</li>
-<li>evd：east-west vertical deflection</li>
-<li>nvd：north-south vertical deflection</li>
-<li>sg：short wavelength gravity anomaly</li>
-<li>od：ocean depth</li>
-</ul>
-<p>因为在DNN中，没有要求输入必须是图像，所以它接受的输入张量可以是二维矩阵。假设有10000个水深训练点，那么输入张量大小为（10000,7），输出张量为（10000，1）。注意位置信息并不单独占据两个维度，而是作为输入保存在了张量内部。</p>
-<p>在python中使用<code>numpy</code>的基本函数可完成张量构建：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input =  np.concatenate((lon,lat,ga,vgg,evd,nvd,sg), axis=<span class="number">1</span>)</span><br><span class="line">output = np.reshape(free_short[:,<span class="number">2</span>],(len(free_short[:, <span class="number">2</span>]),<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h3><p>CNN的操作对象必须是图像，因此张量必须是4维度的。CNN的张量构建稍微复杂一些，消耗的时间也长一点。整体思路是：根据经纬度确定index，然后通过index确定矩形范围，再提取重力异常等数据，增加数组维度的深度。</p>
-<h4 id="Index确定"><a href="#Index确定" class="headerlink" title="Index确定"></a>Index确定</h4><p>使用<code>get_indexer</code>函数得到船测水深点的经纬度在重力网格数组中的存储位置：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">con_lat_index</span>=free_15s.indexes[<span class="string">"lat"</span>].get_indexer(control.values[:,1],<span class="attribute">method</span>=<span class="string">"nearest"</span>)</span><br><span class="line"><span class="attribute">con_lon_index</span>=free_15s.indexes[<span class="string">"lon"</span>].get_indexer(control.values[:,0],<span class="attribute">method</span>=<span class="string">"nearest"</span>)</span><br></pre></td></tr></table></figure>
-
-<p>比如我们想得到index=126处的5×5图像：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free_15s.isel(lat=slice(<span class="number">126</span><span class="number">-2</span>,<span class="number">126</span>+<span class="number">3</span>,<span class="number">1</span>),lon=slice(<span class="number">1056</span><span class="number">-2</span>,<span class="number">1056</span>+<span class="number">3</span>,<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-
-<p>根据这个逻辑写循环增加数据参数，假设CNN输入是5×5大小的图像：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">temp2 = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(control[<span class="string">"lat"</span>])):</span><br><span class="line">    temp = free_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_vgg = vgg_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_e = east_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_n = north_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    temp_shortg = shortg_15s.isel(lat=slice(con_lat_index[i]<span class="number">-2</span>,con_lat_index[i]+<span class="number">3</span>,<span class="number">1</span>),lon=slice(con_lon_index[i]<span class="number">-2</span>,con_lon_index[i]+<span class="number">3</span>,<span class="number">1</span>))</span><br><span class="line">    lat1 = free_15s.lat[con_lat_index[i]<span class="number">-2</span>:con_lat_index[i]+<span class="number">3</span>]</span><br><span class="line">    lon1 = free_15s.lon[con_lon_index[i]<span class="number">-2</span>:con_lon_index[i]+<span class="number">3</span>]</span><br><span class="line">    LON,LAT = np.meshgrid(lon1,lat1)    </span><br><span class="line">    temp1 = np.concatenate([np.reshape(LON,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(LAT,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_vgg.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_e.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_n.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)),np.reshape(temp_shortg.values,(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>))],axis=<span class="number">2</span>)   </span><br><span class="line">    temp2.append(temp1)</span><br><span class="line">temp2 = np.<span class="built_in">array</span>(temp2)</span><br><span class="line">temp2.shape</span><br></pre></td></tr></table></figure>
-
-<p>最终得到的张量空间是（10000, 5, 5, 7）</p>
-<blockquote>
-<p>使用index来确定位置，可以加速张量构建。</p>
-</blockquote>
-<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>归一化是将一个变量的取值缩放到[0~1]之间，也称数据标准化（Normalization）。数据标准化处理是AI的一项基础工作，不同评价指标往往具有不同的量纲和量纲单位，这样的情况会影响到数据分析的结果，为了消除指标之间的量纲影响，需要对数据进行归一化处理，解决数据指标之间的可比性问题。</p>
-<blockquote>
-<p>优点：提高梯度下降求解最优解的速度;归一化有可能提高精度</p>
-</blockquote>
-<p>在DNN中，我们使用了<code>MinMaxScaler</code>和<code>transform</code>函数完成归一化：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># normalization</span></span><br><span class="line"><span class="attr">y_train2</span> = np.reshape(y_train1[:, <span class="number">2</span>], (len(y_train1[:, <span class="number">2</span>]), <span class="number">1</span>)) <span class="comment"># depth</span></span><br><span class="line"></span><br><span class="line"><span class="attr">scalerlon</span> = MinMaxScaler().fit(x_lon)</span><br><span class="line"><span class="attr">scalerlat</span> = MinMaxScaler().fit(x_lat)</span><br><span class="line"><span class="attr">scalershort</span> = MinMaxScaler().fit(control_short)</span><br><span class="line"><span class="attr">scalerga</span> = MinMaxScaler().fit(control_ga)</span><br><span class="line"><span class="attr">scalervgg</span> = MinMaxScaler().fit(control_vgg)</span><br><span class="line"><span class="attr">scalerevd</span> = MinMaxScaler().fit(control_evd)</span><br><span class="line"><span class="attr">scalernvd</span> = MinMaxScaler().fit(control_nvd)</span><br><span class="line"><span class="attr">scalersed</span> = MinMaxScaler().fit(control_sed)</span><br><span class="line"><span class="attr">scalerage</span> = MinMaxScaler().fit(control_age)</span><br><span class="line"><span class="attr">scalermoho</span> = MinMaxScaler().fit(control_moho)</span><br><span class="line"><span class="attr">scalermag</span> = MinMaxScaler().fit(control_mag)</span><br><span class="line"><span class="attr">scalerytrain</span> = MinMaxScaler().fit(y_train2)</span><br><span class="line"></span><br><span class="line"><span class="attr">lat_train</span> = scalerlat.transform(x_lat)</span><br><span class="line"><span class="attr">lon_train</span> = scalerlon.transform(x_lon)</span><br><span class="line"><span class="attr">short_train</span> = scalershort.transform(control_short)</span><br><span class="line"><span class="attr">ga_train</span> = scalerga.transform(control_ga)</span><br><span class="line"><span class="attr">vgg_train</span> = scalervgg.transform(control_vgg)</span><br><span class="line"><span class="attr">evd_train</span> = scalerevd.transform(control_evd)</span><br><span class="line"><span class="attr">nvd_train</span> = scalernvd.transform(control_nvd)</span><br><span class="line"><span class="attr">sed_train</span> = scalersed.transform(control_sed)</span><br><span class="line"><span class="attr">age_train</span> = scalerage.transform(control_age)</span><br><span class="line"><span class="attr">moho_train</span> = scalermoho.transform(control_moho)</span><br><span class="line"><span class="attr">mag_train</span> = scalermag.transform(control_mag)</span><br><span class="line"><span class="attr">y_trian</span> = scalerytrain.transform(y_train2)</span><br></pre></td></tr></table></figure>
-
-<p>在CNN中，我们使用一样的方法完成归一化：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">m,n,k,p = np.shape(temp2)</span><br><span class="line">scalerlon = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">4</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerlat = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">5</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerfree = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">0</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalervgg = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">1</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalernvd = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">2</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerevd = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">3</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line"># scalermae = MinMaxScaler().fit(np.reshape(temp2[:,:,:,<span class="number">6</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">scalerdepth = MinMaxScaler().fit(np.reshape(control.values[:,<span class="number">2</span>],(<span class="number">-1</span>,<span class="number">1</span>)))</span><br><span class="line">lon_train = scalerlon.transform(np.reshape(temp2[:,:,:,<span class="number">4</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">lat_train = scalerlat.transform(np.reshape(temp2[:,:,:,<span class="number">5</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">free_train = scalerfree.transform(np.reshape(temp2[:,:,:,<span class="number">0</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">vgg_train = scalervgg.transform(np.reshape(temp2[:,:,:,<span class="number">1</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">nvd_train = scalernvd.transform(np.reshape(temp2[:,:,:,<span class="number">2</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">evd_train = scalerevd.transform(np.reshape(temp2[:,:,:,<span class="number">3</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line"># mae_train = scalerevd.transform(np.reshape(temp2[:,:,:,<span class="number">6</span>],(m*n*k,<span class="number">1</span>)))</span><br><span class="line">x_train = np.reshape(np.concatenate([free_train,vgg_train,nvd_train,evd_train,lon_train,lat_train],axis=<span class="number">1</span>),(m,n,k,p))</span><br><span class="line">y_train = scalerdepth.transform(np.reshape(control.values[:,<span class="number">2</span>],(<span class="number">-1</span>,<span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意对实测水深<code>label</code>也必须做归一化处理。</p>
-</blockquote>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
-<li>张量是各种维度的向量和矩阵的统称。CNN的张量维度大，比较消耗算力，DNN张量是二维矩阵，计算简单。</li>
-<li>归一化是为了解决不同量纲的数据差异问题，提高AI训练质量。</li>
-</ul>
-<h3 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h3><p>完成全部的人工智能的重力水深反演，并展现出高精度的AI水深反演结果。</p>
-<ul>
-<li>DNN和CNN网络设计</li>
-<li>水深预测和评估</li>
-</ul>
-<blockquote>
-<p>俺最近更新很慢，希望早点上手的伙伴可查看完整代码：<a href="https://github.com/GenericAltimetryTools/AIBathy" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy</a></p>
-</blockquote>
-<h1 id="人工智能水深反演比赛的企业总冠名权征集"><a href="#人工智能水深反演比赛的企业总冠名权征集" class="headerlink" title="人工智能水深反演比赛的企业总冠名权征集"></a>人工智能水深反演比赛的企业总冠名权征集</h1><p>为提高奖金数额，促进参赛积极性，在保留原奖金的情况下，组委现向全社会征集比赛总冠名权，请有意向的海洋遥感、海洋测绘、人工智能等领域的企业私信联系。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/10/16/ab2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/16/ab2/" class="post-title-link" itemprop="url">人工智能海底地形反演(2)-重力数据处理</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-10-16 22:09:50" itemprop="dateCreated datePublished" datetime="2022-10-16T22:09:50+08:00">2022-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-17 21:44:14" itemprop="dateModified" datetime="2022-10-17T21:44:14+08:00">2022-10-17</time>
-              </span>
-
-          
-            <span id="/2022/10/16/ab2/" class="post-meta-item leancloud_visitors" data-flag-title="人工智能海底地形反演(2)-重力数据处理" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/10/16/ab2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/10/16/ab2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>上节说到人工智能水深反演的单波束质控，这一步骤十分重要，最后的结论表明质控后的反演结果精度可提高三倍。单波束在AI反演水深的角色是<code>label</code>，训练数据集则是重力数据，本节介绍从卫星测高到重力异常的反演方法和数据处理。</p>
-<h2 id="需具备的编程知识点"><a href="#需具备的编程知识点" class="headerlink" title="需具备的编程知识点"></a>需具备的编程知识点</h2><ul>
-<li>GMT</li>
-<li>Python</li>
-<li>Jupyter Lab</li>
-<li>Fortran（测高重力反演源码）</li>
-</ul>
-<h2 id="卫星测高数据反演重力异常"><a href="#卫星测高数据反演重力异常" class="headerlink" title="卫星测高数据反演重力异常"></a>卫星测高数据反演重力异常</h2><p>在我们的AI水深反演中，重力异常以及相关的衍生产品如垂直重力梯度、垂线偏差等是主要的训练数据集合。通常这些产品可以从Sandwell或Anderson（DTU）学术网站下载。Sandwell和DTU产品被广泛使用，其认可度高，可以拿来直接使用，因此我们无需增加自己的重力反演计算工作。</p>
-<p>这里我们选择Sandwell的产品，因为它提供了上述所有产品。</p>
-<blockquote>
-<p>下载地址：<a href="https://topex.ucsd.edu/pub/global_grav_1min/" target="_blank" rel="noopener">https://topex.ucsd.edu/pub/global_grav_1min/</a></p>
-</blockquote>
-<p>如果读者希望自己重复一遍重力反演过程，也是可以的，这可以提高自己对测高重力反演的认识，我们简单概述测高重力反演：</p>
-<blockquote>
-<p>海水和海底玄武岩的密度差异导致了微弱的重力异常信号，这种重力异常信号将海水拽向海山处，进而使海面高度产生起伏（也称大地水准面）。测高反演重力的基本原理即利用这种相关性，它的反演方法在上世纪90年代左右就有了，目前已成熟稳定。方法大致分两类，一类是基于大地水准面起伏(SSH方法)，一种是基于垂线偏差（Sea surface slope，SSS方法）。SSH方法通过逆斯托克斯公式和最小二乘配置构建了重力异常和水准面起伏的关系，SSS方法通过逆Vening–Meinesz公式和Laplace方程构建了垂涎偏差和重力异常的关系，这两种方法均基于海面高度信息和重力信号的物理关系。尽管这些公式较长，难以完全理解，不过台湾交通大学Huang教授共享了一套简便的程序代码，并且在国科大授课期间分发给学员学习使用，从事本领域的读者应该容易得到这些源代码。如果您没有这些源码，也可回复本文索取，或者扫描文末二维码加入AI反演大赛微信群索取。</p>
-</blockquote>
-<p>总而言之，重力反演并不是AI水深的重点和难点。这里我们暂时省略这部分工作，而是使用Sandwell公布的重力产品。</p>
-<blockquote>
-<p>等一段时间，小编将邀请国内重力大咖讲解AI反演重力，据说效果可好了。</p>
-</blockquote>
-<h2 id="重力数据预处理"><a href="#重力数据预处理" class="headerlink" title="重力数据预处理"></a>重力数据预处理</h2><p>因为下载的模型是全球模型，首先使用pygmt提取研究区域重力网格数据，分别是重力异常、垂直重力梯度、东西垂线偏差、南北垂线偏差。为保持后面的边界插值准备，这里的<code>region</code>略大一点。为避免网格不对应，这里还特意重新网格化。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">free = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../GeoModel/Free_Air_Gravity_Anomalies/Free_Air_Gravity_Anomalies.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line">free.to_netcdf(<span class="string">"free2.grd"</span>)</span><br><span class="line"></span><br><span class="line">vgg = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../GeoModel/Vertical_Gravity_Gradient/Vertical_Gravity_Gradient.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line"><span class="attribute">vgg_1m</span>=pygmt.grd2xyz(grid=vgg)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="vgg.grd",data=vgg_1m)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nvd = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../data/north_32.1.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line">nvd_1m = pygmt.grdsample(<span class="attribute">grid</span>=nvd, <span class="attribute">spacing</span>=<span class="string">"1m"</span>)</span><br><span class="line"><span class="attribute">nvd_1m</span>=pygmt.grd2xyz(grid=nvd)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="nvd.grd",data=nvd_1m)</span><br><span class="line"></span><br><span class="line">evd = pygmt.grdcut(<span class="attribute">grid</span>=<span class="string">"../data/east_32.1.nc"</span>, <span class="attribute">region</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span>)</span><br><span class="line"><span class="attribute">evd_1m</span>=pygmt.grd2xyz(grid=evd)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="evd.grd",data=evd_1m)</span><br></pre></td></tr></table></figure>
-
-<p>重力异常、VGG和东西、南北垂线偏差如下图，绘图代码略，这里使用的调色板是<code>polar</code>：<br><img src="./images/ab11.png" alt></p>
-<h2 id="短波重力计算"><a href="#短波重力计算" class="headerlink" title="短波重力计算"></a>短波重力计算</h2><p>重力信号中实际和地形相关的是短波分量，传统的GGM方法就使用了短波重力来反演水深，短波重力可以通过布格板公式计算，这里有一个最优密度差的计算，需要通过迭代确定。通过计算，我们发现几内亚湾的最优密度差是1。</p>
-<blockquote>
-<p>其思路是：提取实测单波束点位的重力异常，使用布格板公式计算离散点的短波重力，使用重力异常减去短波重力得到离散点的长波重力，对长波重力做网格化，使用网格化的重力异常减去长波重力，得到网格化的短波重力。</p>
-</blockquote>
-<p>python代码：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">control_depth_free</span>=pygmt.grdtrack(points=control.values,grid="free2.grd",no_skip=True)</span><br><span class="line">y_train1 = control_depth_free.values[:,0:3] # lon lat depth</span><br><span class="line">x_train1 = control_depth_free.values[:,3] # gravity</span><br><span class="line">x_train1 = np.reshape(x_train1, (len(x_train1), 1))</span><br><span class="line"></span><br><span class="line">x_lat = np.reshape(y_train1[:, 1], (len(y_train1[:, 1]), 1))</span><br><span class="line">x_lon = np.reshape(y_train1[:, 0], (len(y_train1[:, 0]), 1))</span><br><span class="line"></span><br><span class="line"><span class="attribute">rou</span>=1.0</span><br><span class="line"><span class="attribute">d</span>=-8000</span><br><span class="line">control_short=(y_train1[:,2]-d)<span class="number">*2</span><span class="number">*3</span>.1415<span class="number">*6</span>.67259*(10**-8)*rou<span class="number">*100000</span> # short wavelength gravity ano</span><br><span class="line">control_short = np.reshape(control_short, (len(control_short), 1))</span><br><span class="line"><span class="attribute">control_long</span>=x_train1-control_short</span><br><span class="line"><span class="attribute">short</span>=np.concatenate((y_train1[:,0:2],control_short),<span class="attribute">axis</span>=1)</span><br><span class="line"><span class="attribute">long</span>=np.concatenate((y_train1[:,0:2],control_long),<span class="attribute">axis</span>=1)</span><br><span class="line"><span class="attribute">reg</span>=<span class="string">"-15.5/5.5/-4.5/4.5"</span></span><br><span class="line"></span><br><span class="line">long_bmean = pygmt.blockmean(<span class="attribute">data</span>=long, <span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="long.grd",data=long_bmean)</span><br><span class="line"><span class="attribute">temp</span>=pygmt.grd2xyz(grid="free2.grd")</span><br><span class="line">temp_bmean = pygmt.blockmean(<span class="attribute">data</span>=temp, <span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>)</span><br><span class="line">pygmt.surface(<span class="attribute">region</span>=reg, <span class="attribute">spacing</span>=<span class="string">"1m"</span>,outgrid="free3.grd",data=temp_bmean)</span><br><span class="line"></span><br><span class="line">long0 = xr.open_dataset(<span class="string">"long.grd"</span>)</span><br><span class="line">free0 = xr.open_dataset(<span class="string">"free3.grd"</span>)</span><br><span class="line">short0 = free0-long0</span><br><span class="line">short0.to_netcdf(<span class="string">"short.grd"</span>)</span><br></pre></td></tr></table></figure>
-
-<p>下图是短波重力和海底地形的对比效果，如果不标注名称，似乎看不出来差异，这也说明短波重力和海底地形的相关性太强了。在AI中加入短波重力，预计将大幅度提供反演精度。问题是AI能否由于GGM？希望在我们即将举办的AI算法大赛中有人使用AI打败GGM。</p>
-<p><img src="./images/ab12.png" alt></p>
-<blockquote>
-<p>问题：地址模型磁异常、洋壳年龄、沉积层厚度等能否应用于AI水深？</p>
-</blockquote>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
-<li>AI水深反演使用的重力数据产品可以使用公开资料</li>
-<li>短波重力和水深相关性极大，应该能大幅度提升反演精度</li>
-<li>全部代码位于：<a href="https://github.com/GenericAltimetryTools/AIBathy/blob/main/Africa_cnn.ipynb" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy/blob/main/Africa_cnn.ipynb</a></li>
-</ul>
-<h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><ul>
-<li>AI训练前的数据预处理</li>
-</ul>
-<h1 id="AI水深反演大赛交流预热群"><a href="#AI水深反演大赛交流预热群" class="headerlink" title="AI水深反演大赛交流预热群"></a>AI水深反演大赛交流预热群</h1><p>对AI水深反演和卫星测高重力有兴趣的伙伴可以扫码入群交流。<br><img src="./images/ab13.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/10/06/ai-bathy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/06/ai-bathy/" class="post-title-link" itemprop="url">人工智能海底地形反演(1)-单波束水深质控</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-10-06 10:38:10 / 修改时间：12:41:17" itemprop="dateCreated datePublished" datetime="2022-10-06T10:38:10+08:00">2022-10-06</time>
-            </span>
-
-          
-            <span id="/2022/10/06/ai-bathy/" class="post-meta-item leancloud_visitors" data-flag-title="人工智能海底地形反演(1)-单波束水深质控" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/10/06/ai-bathy/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/10/06/ai-bathy/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前面的一篇卫星测高综述研究表明，与之交叉的海洋大地测量有轻微衰退迹象，在其他地学领域火热朝天的人工智能未能在大地测量、海洋测绘方面得到良好发展，是一个奇怪的现象。这其中必然有一定的历史和现实原因，在这里我们暂不做这方面的讨论。从本节开始，小编推出人工智能的海洋测量应用计划。</p>
-<p>凡是通过经验关系得到的，AI必然也可以得到，而且由于AI的非线性特征，它还可能表现更好。我们第一个AI任务是卫星测高重力的地形反演。大家知道，通过卫星测高可以得到重力，通过重力可以得到海底地形，在地形反演环节应用了地形和重力之间的经验关系，因此AI必然也是可以在地形反演发挥作用的，但是效果能否超越最好的传统方法存疑。</p>
-<p>接下来，我分如下几个步骤展示AI地形反演：</p>
-<ul>
-<li>单波束数据质控</li>
-<li>重力数据处理</li>
-<li>训练数据的多维数组构建</li>
-<li>CNN、DNN网络设计</li>
-<li>预测和评估</li>
-</ul>
-<blockquote>
-<p>本文先介绍数据质控，一个系列下来进展可能比较慢。热心读者朋友可以前往GAT组织下载完整的AI代码：<a href="https://github.com/GenericAltimetryTools/AIBathy" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy</a> </p>
-</blockquote>
-<h2 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h2><p>读者在重复本系列工作之前，需要掌握一下编程技能：</p>
-<ul>
-<li>Python编程</li>
-<li>PyGMT、GMT</li>
-<li>Xarray</li>
-</ul>
-<h2 id="海域选择"><a href="#海域选择" class="headerlink" title="海域选择"></a>海域选择</h2><p>目前WoS可检索的AI重力地形反演仅1篇，作者是中国地质大学的Annan和wan，他们的研究区域位于非洲西海岸的几内亚湾。作者用到的深度学习网络为CNN，输入了重力异常、垂直重力梯度、垂线偏差和经纬度，标签为船测的单波束水深。作者得到了比传统方法较好的结果，那么这篇文献也鼓励我们继续开展AI领域的海洋大地测量应用。</p>
-<blockquote>
-<p>R. F. Annan and X. Wan, “Recovering Bathymetry of the Gulf of Guinea Using Altimetry-Derived Gravity Field Products Combined via Convolutional Neural Network,” Surv Geophys, Jul. 2022, doi: 10.1007/s10712-022-09720-5.</p>
-</blockquote>
-<h2 id="区域绘图"><a href="#区域绘图" class="headerlink" title="区域绘图"></a>区域绘图</h2><p>我们为了进行方法和结果的比较，也选择几内亚湾进行试验。研究区域的位置示意和单波束轨迹图如下：</p>
-<p><img src="./images/ab1.png" alt></p>
-<p>上图是通过GMT绘制，另外还用到了一些基本的awk的数据筛选操作：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">1</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line">ps=fig1.ps</span><br><span class="line"></span><br><span class="line">gmt pscoast -JM4<span class="number">.5</span>i -R<span class="number">-16</span>/<span class="number">10</span>/<span class="number">-6</span>/<span class="number">10</span> -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Slightblue -Glightyellow -BWSen -Bx5g5 -By2g2 --FONT_TITLE=<span class="number">10</span>p -K  -W0<span class="number">.1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span>  &gt; $ps</span><br><span class="line"></span><br><span class="line">awk 'NR%<span class="number">10</span>==<span class="number">0</span> &#123;print $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;' ../data/bathy.xyz | gmt psxy -R -J -Sc0<span class="number">.01</span> -Ggray -O -K &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt select ../data/bathy.xyz -R<span class="number">-15</span>/<span class="number">5</span>/<span class="number">-4</span>/<span class="number">4</span> -fg &gt; subset.d</span><br><span class="line">awk 'NR%<span class="number">5</span>==<span class="number">0</span> &#123;print $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;' subset.d | gmt psxy -R<span class="number">-16</span>/<span class="number">10</span>/<span class="number">-6</span>/<span class="number">10</span>  -J -Sc0<span class="number">.03</span> -Gred -O -K &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt pscoast -Rg -JG<span class="number">-0</span>/<span class="number">0</span>/<span class="number">4</span>c  -Dc -A5000 -Gpink -Swhite  -O -X3<span class="number">.3</span>i -Y1<span class="number">.6</span>i -K &gt;&gt; $ps</span><br><span class="line">echo <span class="number">-15</span> <span class="number">-4</span> &gt;tmp.d</span><br><span class="line">echo <span class="number">-15</span> <span class="number">4</span> &gt;&gt;tmp.d</span><br><span class="line">echo <span class="number">5</span> <span class="number">4</span> &gt;&gt;tmp.d</span><br><span class="line">echo <span class="number">5</span> <span class="number">-4</span> &gt;&gt;tmp.d</span><br><span class="line">echo <span class="number">-15</span> <span class="number">-4</span> &gt;&gt;tmp.d</span><br><span class="line">gmt psxy tmp.d -W1p,red -R -J -O  &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt psconvert $ps  -A -P -Tf</span><br></pre></td></tr></table></figure>
-
-<h2 id="数据质控"><a href="#数据质控" class="headerlink" title="数据质控"></a>数据质控</h2><p>单波束数据的下载渠道为美国NGDC，为了加速下载，可以通过框选的方式选择研究区域内数据（或者回复本文索取也可）。这个区域大概又60多个航次，时间较久远，因此质量可能不佳，我们先使用最新的GEBCO模型检查这批单波束数据。</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ps=fig1.ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R<span class="number">-15</span>/<span class="number">5</span>/<span class="number">-4</span>/<span class="number">4</span> -JM5c -BWSen+glightblue -Bx5g5 -By2g2 -K --MAP_ANNOT_OBLIQUE=<span class="number">45</span> &gt; $ps</span><br><span class="line"></span><br><span class="line">gmt grdtrack ../guinea.txt -G../gebco.nc | awk '&#123;print  $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>-$<span class="number">4</span>&#125;' &gt; draper.txt</span><br><span class="line">gmt makecpt -Crainbow -T<span class="number">-500</span>/<span class="number">500</span> &gt; colors.cpt</span><br><span class="line">gmt psxy draper.txt -R -J -O -K -Sc0<span class="number">.05</span> -Ccolors.cpt  &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt grdtrack ../guinea.txt -G../gebco.nc | awk '&#123;print  $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>-$<span class="number">4</span>&#125;' | awk 'sqrt($<span class="number">3</span>*$<span class="number">3</span>)&gt;<span class="number">500</span> &#123;print  $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;' &gt;draper.txt</span><br><span class="line">gmt psxy draper.txt -R -J -O -K -Sc0<span class="number">.1</span> -Gred  &gt;&gt; $ps</span><br></pre></td></tr></table></figure>
-<p><img src="./images/ab2.png" alt></p>
-<p>通过上面的GMT代码，我们把和GEBCO差异大于500m的点全部显示出来，发现大约有466个误差较大的点。</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gmt grdtrack ../guinea.txt -G../gebco.nc | awk '&#123;print  <span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$3</span>,<span class="variable">$3</span>-<span class="variable">$4</span>&#125;' | awk 'sqrt(<span class="variable">$4</span>*<span class="variable">$4</span>)&gt;<span class="number">500</span> &#123;print  <span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$3</span>&#125;'| gmt info</span><br><span class="line"><span class="variable">&lt;Standard Input&gt;</span>: N = <span class="number">466</span>       <span class="variable">&lt;-14.9608/4.9988&gt;</span>       <span class="variable">&lt;-3.8134/3.96975&gt;</span>      <span class="variable">&lt;-5944/-80.2&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>进一步可以直方图和回归分析展示单波束水深误差：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">ps=compare.ps</span><br><span class="line"></span><br><span class="line">gmt grdtrack ../guinea.txt -G../gebco.nc | awk '&#123;print $<span class="number">3</span>,$<span class="number">4</span>&#125;' &gt;draper.txt</span><br><span class="line">gmt regress -Ey -N2 -Fxm  draper.txt | head</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R<span class="number">-6000</span>/<span class="number">-100</span>/<span class="number">-6000</span>/<span class="number">-100</span> -JX5c/<span class="number">5</span>c -P -K -Bxa1000f100+l<span class="string">"ship borne depth/m"</span> -Bya1000f100+l<span class="string">"Predicted depth/m"</span> -BWSne  &gt; $ps</span><br><span class="line">gmt regress -Ey -N2 -Fxmc -C95 draper.txt | gmt psxy -R -J -O -K -L+d -Glightorange &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt regress -Ey -N2 -Fxym draper.txt | awk '&#123;printf <span class="string">"&gt; error<span class="subst">\n</span>%s %s<span class="subst">\n</span>%s %s<span class="subst">\n</span>"</span>, $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">1</span>, $<span class="number">3</span>&#125;' | gmt psxy -R -J -O -K -W0<span class="number">.1</span>p,red,- &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J -O -K draper.txt -Sc0<span class="number">.05</span>c -Gblue &gt;&gt; $ps</span><br><span class="line">gmt regress -Ey -N2 -Fxm  draper.txt | gmt psxy -R -J -O -K -W0<span class="number">.5</span>p &gt;&gt; $ps</span><br><span class="line">awk '&#123;print $<span class="number">1</span>-$<span class="number">2</span>&#125;' draper.txt| gmt gmtmath STDIN -Sl MEAN  =</span><br><span class="line">awk '&#123;print $<span class="number">1</span>-$<span class="number">2</span>&#125;' draper.txt| gmt gmtmath STDIN -Sl STD  =</span><br><span class="line">echo <span class="number">-6000</span> <span class="number">-6000</span> <span class="string">"(a)"</span>| gmt pstext -F+f8p,Helvetica,red+jBL -R -J -To -P -K -O -D0<span class="number">.05</span> -Wwhite -Gwhite &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt grdtrack ../guinea.txt -G../gebco.nc | awk '&#123;print $<span class="number">3</span>-$<span class="number">4</span>&#125;'| gmt pshistogram -Bxaf+l<span class="string">"bathymetry (meter)"</span> -Byaf+l<span class="string">"Counts"</span> -BWSne -R<span class="number">-400</span>/<span class="number">400</span>/<span class="number">0</span>/<span class="number">4000</span> -JX1<span class="number">.8</span>i/<span class="number">1.5</span>i -Ggray -Z0 -T10 -O -Y6c  &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt psconvert  $ps -P -Tg -A</span><br></pre></td></tr></table></figure>
-<p><img src="./images/ab3.png" alt></p>
-<p>质控仅一行代码：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> grdtrack ../guinea.txt -G../gebco.nc | awk <span class="string">'&#123;print  <span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$3</span>,<span class="variable">$3</span>-<span class="variable">$4</span>&#125;'</span> | awk <span class="string">'sqrt(<span class="variable">$4</span>*<span class="variable">$4</span>)&lt;500 &#123;print  <span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$3</span>&#125;'</span>&gt; guinea.txtok</span><br></pre></td></tr></table></figure>
-
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
-<li>AI重力地形反演文献严重偏少，一些问题仍开放待解决</li>
-<li>单波束质量有不足，需要质控</li>
-<li>GMT的track功能强大，结合awk可以实现质控</li>
-</ul>
-<h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><ul>
-<li>重力数据处理</li>
-<li>为活跃AI在海洋测绘和海洋大地测量领域的发展，可能组织一次算法比赛，暂定：2022“安海”卫星测高水深反演人工智能算法大赛，已落实好奖金2万元，相关工作正在准备中。有兴趣的读者可以回复本文索取比赛通知（初稿）。</li>
-</ul>
 
       
     </div>
@@ -1523,6 +929,564 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/19/ai-bisai/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/19/ai-bisai/" class="post-title-link" itemprop="url">2022“安海”卫星测高水深反演人工智能算法大赛[草稿版]</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-19 17:25:02" itemprop="dateCreated datePublished" datetime="2022-09-19T17:25:02+08:00">2022-09-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-23 22:03:35" itemprop="dateModified" datetime="2022-09-23T22:03:35+08:00">2022-09-23</time>
+              </span>
+
+          
+            <span id="/2022/09/19/ai-bisai/" class="post-meta-item leancloud_visitors" data-flag-title="2022“安海”卫星测高水深反演人工智能算法大赛[草稿版]" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/19/ai-bisai/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/19/ai-bisai/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="大赛简介"><a href="#大赛简介" class="headerlink" title="大赛简介"></a>大赛简介</h2><p>为加速AI和卫星测高的跨界研究，推动AI海洋大地测量领域的整体良性发展，<strong>海洋遥感与数据共享</strong>公众号携手多家海洋研究机构和高校科研单位，联合发起“安海”卫星测高水深反演算法大赛，邀请多为卫星测高和海洋大地测量专家拟定赛题，聚集国内海洋遥感和AI人才，发挥AI辅助大洋水深反演效能，解决船测水深资料不足困境。</p>
+<h2 id="赛道信息"><a href="#赛道信息" class="headerlink" title="赛道信息"></a>赛道信息</h2><p>本次比赛设置唯一赛道：卫星测高水深反演</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>海底地形是最基础的海洋环境要素之一，船测单波束和多波束是主要的水深数据来源，然而2019年全球海洋实测水深只占15%，在日本财团支持的联合国海洋科学可持续发展十年项目Seabed 2030支持下，2022年这一数字已达到23.4%，卫星测高反演仍旧是海洋空白区的重要水深来源。目前的反演算法中，多采用物理模型或者经验函数，建立重力信号和地形的相关联系。地形和重力之间的关系不是简单的数学公式可以描述的，存在有复杂的非线性，而当前迅速发展的人工智能技术为该领域提供了新的途径。然而目前人工智能在海洋测绘，特别是海洋大地测量领域，仍旧少有应用。通过人工智能辅助大洋水深反演显得十分必要。</p>
+<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>人工智能的大洋水深反演不仅可挖掘重力和水深的复杂非线性关系，也可以在提升分辨率、数据融合等方面提供有价值的参考。</p>
+<h3 id="赛题介绍"><a href="#赛题介绍" class="headerlink" title="赛题介绍"></a>赛题介绍</h3><p>选手使用船测单波束数据和重力异常模型、重力梯度模型、垂线偏差模型以及相关地质地球物理模型进行训练建模，使用上述模型构建网格的水深模型，并使用船测单波束检核点进行精度评估。</p>
+<h3 id="研究数据和验证指标"><a href="#研究数据和验证指标" class="headerlink" title="研究数据和验证指标"></a>研究数据和验证指标</h3><p><img src="./images/ai_depth.png" alt></p>
+<p>研究区域为太平洋马里亚纳海沟海域，此处地形复杂，有海沟、海山和平原，水深反演具有挑战性和代表性，前期研究成果较多，是测试算法能力的理想海域。</p>
+<p>单波束数据来自美国NGDI数据中心，重力相关模型由Sandwell等提供，地质地球物理模型由earthbyte提供。采用随机抽样的方式，将单波束数据分为训练和测试两部分。以上数据均由大赛主办方提供。</p>
+<p>数据验证指标包括标准差STD、偏差BIAS、相关系数和其他误差统计分布特征。</p>
+<h3 id="数据描述和操作"><a href="#数据描述和操作" class="headerlink" title="数据描述和操作"></a>数据描述和操作</h3><p>单波束数据格式为文本格式，重力等模型均为Netcdf格式，使用Python或者MATLAB均可方便的读取数据。</p>
+<p>组委会提供了一套开源的GGM重力地质法水深反演代码，其反演精度可作为选手的参考。该程序基于MATLAB和GMT，要求选手对GMT有一定的了解：</p>
+<blockquote>
+<p>GGM:<a href="https://github.com/GenericAltimetryTools/gravity-derived-depth" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/gravity-derived-depth</a></p>
+</blockquote>
+<p>组委会还将提供Python的数据操作程序，该程序可得到训练集和测试集多维数组，选手可参考使用，快速上手。</p>
+<p>相关数据和程序将在比赛开始后再GAT组织获得。</p>
+<h2 id="比赛流程"><a href="#比赛流程" class="headerlink" title="比赛流程"></a>比赛流程</h2><h3 id="报名"><a href="#报名" class="headerlink" title="报名"></a>报名</h3><p>大赛面向全社会开放，个人、高等院校、科研单位、企业等人员均可报名参赛。</p>
+<ul>
+<li>报名方式：注册Github，公众号后台发送账号或者用户名，选手将被邀请加入比赛组织GAT，<a href="https://github.com/GenericAltimetryTools" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools</a></li>
+<li>选手可以单人参赛，也可以组队，每位选手只能参加一支队伍。</li>
+<li>比赛结束之前均可报名，截止时间为10月20日中午12点。</li>
+</ul>
+<h3 id="比赛规则"><a href="#比赛规则" class="headerlink" title="比赛规则"></a>比赛规则</h3><ul>
+<li>本次比赛不提供算力和存储资源，请选手自备。</li>
+<li>比赛提供研究区域的单波束水深和基本的卫星测高重力模型，并提供基础Python代读取数据。选手只需要专注于AI算法。</li>
+<li>无特殊情况，选手不可以更改Train和Check数据。</li>
+<li>本次比赛，所有程序通过GAT组织开源。</li>
+<li>只允许单一算法模型/网络框架，不得使用多个模型投票的方式构建最终模型。</li>
+<li>比赛不设现场，均为远程参加。</li>
+</ul>
+<h3 id="评分"><a href="#评分" class="headerlink" title="评分"></a>评分</h3><ul>
+<li>本次比赛需要选手发送一份程序解释材料，包含核心代码解释和运行结果的误差参数。</li>
+<li>评委根据选手技术思路和结果表现进行评分。</li>
+<li>评委由算法专家和海洋测绘专家组成，评分包括算法创新性、反演误差和实际可行性组成。</li>
+</ul>
+<h3 id="论文发表"><a href="#论文发表" class="headerlink" title="论文发表"></a>论文发表</h3><ul>
+<li>本次比赛将整合优秀的AI算法，在相关SCI专刊联合发表学术论文，对得奖选手给与优先署名。</li>
+<li>选手也可自行撰写学术论文，组委会将优先推荐发表。</li>
+</ul>
+<h2 id="奖项设置"><a href="#奖项设置" class="headerlink" title="奖项设置"></a>奖项设置</h2><ul>
+<li>冠军1名，奖金10000元人民币，颁发获奖证书，获得论文署名权。</li>
+<li>亚军1名，奖金5000元人民币，颁发获奖证书，获得论文署名权。</li>
+<li>季军1名，奖金3000元人民币，颁发获奖证书，获得论文署名权。</li>
+</ul>
+<h2 id="评委介绍"><a href="#评委介绍" class="headerlink" title="评委介绍"></a>评委介绍</h2><ul>
+<li>海洋测绘专家、AI专家</li>
+<li>军</li>
+</ul>
+<h2 id="合作伙伴"><a href="#合作伙伴" class="headerlink" title="合作伙伴"></a>合作伙伴</h2><ul>
+<li>指导单位：自然资源部第一海洋研究所？</li>
+<li>主办单位：<strong>海洋遥感数据共享</strong>公众号平台</li>
+<li>联合发起方：高校、研究所、</li>
+<li>顾问单位：海洋测绘学会？</li>
+<li>企业支持：青岛安海（一家海洋测量装备制造小微企业，主要研发北斗波浪浮标、潮汐浮标和漂流浮标，关注：公众号）</li>
+</ul>
+<h2 id="咨询"><a href="#咨询" class="headerlink" title="咨询"></a>咨询</h2><p>如在报名、比赛中有任何问题，欢迎微信扫码咨询</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/18/opendap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/18/opendap/" class="post-title-link" itemprop="url">使用OPeNDAP提取Sentinel-6卫星高度计数据</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-18 18:13:46 / 修改时间：19:13:47" itemprop="dateCreated datePublished" datetime="2022-09-18T18:13:46+08:00">2022-09-18</time>
+            </span>
+
+          
+            <span id="/2022/09/18/opendap/" class="post-meta-item leancloud_visitors" data-flag-title="使用OPeNDAP提取Sentinel-6卫星高度计数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/18/opendap/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/18/opendap/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="OPeNDAP简介"><a href="#OPeNDAP简介" class="headerlink" title="OPeNDAP简介"></a>OPeNDAP简介</h3><p>OPeNDAP（Open-source Project for a Network Data Access Protocol）可以对远程结构化数据进行变量提取。它一般在这样的场景使用：</p>
+<blockquote>
+<p>假设这里有一些好的数据: <a href="http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz" target="_blank" rel="noopener">http://test.opendap.org/dap/data/nc/sst.mnmean.nc.gz</a><br>此URL为全球海面温度的月均值，您可以做的最简单的事情是下载它。但是该URL中存在您不想要的大量数据。了解数据所包含的数据变量后，OPeNDAP允许仅提取您需要的参数。</p>
+</blockquote>
+<p>下面介绍一个简单的例子。打开测试数据网页：</p>
+<blockquote>
+<p><a href="http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz.html" target="_blank" rel="noopener">http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz.html</a></p>
+</blockquote>
+<p>勾选变量，并设置采样间隔：<br><img src="./images/op6.png" alt></p>
+<p>注意，此时在<code>Data URL</code>处产生了新的数据地址：</p>
+<blockquote>
+<p><a href="http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz?lat[0:1:88],lon[0:1:179],time[0:1:1856],time_bnds[0:1:1856][0:1:1],sst[0:1:1856][0:1:88][0:1:179]" target="_blank" rel="noopener">http://test.opendap.org/opendap/data/nc/sst.mnmean.nc.gz?lat[0:1:88],lon[0:1:179],time[0:1:1856],time_bnds[0:1:1856][0:1:1],sst[0:1:1856][0:1:88][0:1:179]</a></p>
+</blockquote>
+<p>可直接下载该链接对应的数据，得到<code>sst.mnmean.nc.gz</code>文件，也可以通过Panoply、Python等程序打开这个远程文件，默认为nc格式。</p>
+<h2 id="OPeNDAP获得Sentinel-6海面高异常"><a href="#OPeNDAP获得Sentinel-6海面高异常" class="headerlink" title="OPeNDAP获得Sentinel-6海面高异常"></a>OPeNDAP获得Sentinel-6海面高异常</h2><p>下面以最新的卫星高度计<strong>Sentinel-6 Michael Freilich</strong>（又称Jason-CS）为例，介绍如何远程导入SLA参数，并进行加权网格处理。</p>
+<p>以下内容从2021年NASA的云计算Hackweek活动获得：</p>
+<blockquote>
+<p>2021-Cloud-Hackathon:<a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/06_S6_OPeNDAP_Access_Gridding.html" target="_blank" rel="noopener">https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/06_S6_OPeNDAP_Access_Gridding.html</a></p>
+</blockquote>
+<p>操作本例子，需要提前掌握NASA Earthdata的授权方法：</p>
+<blockquote>
+<p><a href="https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html" target="_blank" rel="noopener">https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html</a></p>
+</blockquote>
+<h3 id="Sentinel-6"><a href="#Sentinel-6" class="headerlink" title="Sentinel-6"></a>Sentinel-6</h3><p>该卫星是欧洲哥白尼计划的一部分，其首要目标是在2020-2030年期间提供精确的全球海面高度。该卫星主要有效载荷为Poseidon-4合成孔径雷达 (SAR) 双频高度计，它采用 Ku (13.575 GHz) 和 C (5.3 GHz)波段测量距离、sigma0、有效波高和电离层校正等，Sentinel-6 同时进行低分辨率模式 (LRM) 和 SAR 高分辨率模式测量，卫星轨道参数和Jason系列相同。</p>
+<blockquote>
+<p><a href="https://podaac.jpl.nasa.gov/Sentinel-6" target="_blank" rel="noopener">https://podaac.jpl.nasa.gov/Sentinel-6</a></p>
+</blockquote>
+<h3 id="导入库"><a href="#导入库" class="headerlink" title="导入库"></a>导入库</h3><p>导入必要库：</p>
+<figure class="highlight plain"><figcaption><span>os</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import tqdm</span><br><span class="line">import numpy as np</span><br><span class="line">import xarray as xr</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">from concurrent.futures import ThreadPoolExecutor</span><br><span class="line">from pyresample.kd_tree import resample_gauss</span><br><span class="line">import pyresample as pr</span><br></pre></td></tr></table></figure>
+<h3 id="一个周期的L2级数据"><a href="#一个周期的L2级数据" class="headerlink" title="一个周期的L2级数据"></a>一个周期的L2级数据</h3><p>我们选择Sentinel-6的L2准实时数据，通过数据集的ShortName和concept-id可以唯一确定该数据。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ShortName</span> = <span class="string">'JASON_CS_S6A_L2_ALT_LR_RED_OST_NRT_F'</span></span><br><span class="line"><span class="attr">concept_id</span> = <span class="string">'C1968980576-POCLOUD'</span></span><br></pre></td></tr></table></figure>
+
+<p>轨道周期：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cycle = <span class="number">25</span></span><br><span class="line"></span><br><span class="line">url = <span class="string">f"https://cmr.earthdata.nasa.gov/search/granules.csv?ShortName=<span class="subst">&#123;ShortName&#125;</span>&amp;cycle=<span class="subst">&#123;cycle&#125;</span>&amp;page_size=200"</span></span><br><span class="line"></span><br><span class="line">print(url)</span><br></pre></td></tr></table></figure>
+
+<p>保存文件名到文件<code>results.csv</code>：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">!curl --silent --output <span class="string">"results.csv"</span> <span class="string">"<span class="variable">$url</span>"</span></span><br><span class="line"></span><br><span class="line">files = !cat results.csv | tail <span class="attribute">--lines</span>=+2 | cut <span class="attribute">--delimiter</span>=<span class="string">','</span> <span class="attribute">--fields</span>=5 | cut <span class="attribute">--delimiter</span>=<span class="string">'/'</span> <span class="attribute">--fields</span>=6</span><br><span class="line"></span><br><span class="line"><span class="builtin-name">print</span>(files.s.replace(<span class="string">" "</span>, <span class="string">"\n"</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="OPeNDAP的使用"><a href="#OPeNDAP的使用" class="headerlink" title="OPeNDAP的使用"></a>OPeNDAP的使用</h3><p>选择第一个文件，查看路径：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tmp = files<span class="selector-class">.l</span>[<span class="number">0</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(f<span class="string">"https://opendap.earthdata.nasa.gov/collections/&#123;concept_id&#125;/granules/&#123;tmp&#125;.html"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>选择需要的参数，一般有时间和经纬度，以及一个观测参数，这里选择海面高度异常。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">variables = [<span class="string">'data_01_time'</span>,</span><br><span class="line">             <span class="string">'data_01_longitude'</span>,</span><br><span class="line">             <span class="string">'data_01_latitude'</span>,</span><br><span class="line">             <span class="string">'data_01_ku_ssha'</span>]</span><br><span class="line"></span><br><span class="line">v = <span class="string">","</span>.<span class="keyword">join</span>(variables)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">f</span> in <span class="keyword">file</span><span class="variable">s:</span></span><br><span class="line">    urls.<span class="keyword">append</span>(<span class="keyword">f</span><span class="string">"https://opendap.earthdata.nasa.gov/collections/&#123;concept_id&#125;/granules/&#123;f&#125;4?&#123;v&#125;"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span>(urls[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>此时，可以看到OPeNDAP路径表示为:</p>
+<blockquote>
+<p><a href="https://opendap.earthdata.nasa.gov/collections/C1968980576-POCLOUD/granules/S6A_P4_2__LR_RED__NR_067_001_20220903T032524_20220903T052104_F06.nc4?data_01_time,data_01_longitude,data_01_latitude,data_01_ku_ssha" target="_blank" rel="noopener">https://opendap.earthdata.nasa.gov/collections/C1968980576-POCLOUD/granules/S6A_P4_2__LR_RED__NR_067_001_20220903T032524_20220903T052104_F06.nc4?data_01_time,data_01_longitude,data_01_latitude,data_01_ku_ssha</a></p>
+</blockquote>
+<p>此时可以直接使用该地址下载数据。</p>
+<h3 id="批量下载"><a href="#批量下载" class="headerlink" title="批量下载"></a>批量下载</h3><p>定义下载函数，这里使用的<code>wget</code>：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def download(<span class="keyword">source</span>: str):</span><br><span class="line">    </span><br><span class="line">    target = os.path.<span class="keyword">basename</span>(<span class="keyword">source</span>.split(<span class="string">"?"</span>)[<span class="number">0</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> not os.path.isfile(target):</span><br><span class="line">        !wget --quiet --<span class="keyword">continue</span> --output-document $target $source</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> target</span><br></pre></td></tr></table></figure>
+
+<p>下载：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">n_workers</span> = <span class="number">12</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> ThreadPoolExecutor(<span class="attr">max_workers=n_workers)</span> as pool:</span><br><span class="line"></span><br><span class="line">    <span class="attr">workers</span> = pool.<span class="built_in">map</span>(download, urls)</span><br><span class="line">    </span><br><span class="line">    <span class="attr">files</span> = list(tqdm.tqdm(workers, <span class="attr">total=len(urls)))</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然原始文件大小约 2.5MB-3.0M，但OPeNDAP子集每个文件约为100KB，因此这将大大加快数据加载速度。</p>
+<h3 id="Xarray批量读取nc文件"><a href="#Xarray批量读取nc文件" class="headerlink" title="Xarray批量读取nc文件"></a>Xarray批量读取nc文件</h3><p>这里使用xarray的<code>open_mfdataset</code>，注意查看一下是否有空文件<code>!du -sh *.nc4</code>，有的话需要删除，否则报错:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ds</span> = xr.open_mfdataset(<span class="string">"./*.nc4"</span>)</span><br><span class="line"><span class="keyword">print</span>(<span class="keyword">ds</span>)</span><br></pre></td></tr></table></figure>
+
+<p>重命名变量,去掉前缀<code>data_01_</code>:</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span><span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames = list(map(lambda x: x.split(<span class="string">"_"</span>)[-<span class="number">1</span>], variables))</span><br><span class="line"></span><br><span class="line">map<span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames = dict(zip(variables, <span class="keyword">new</span><span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames))</span><br><span class="line"></span><br><span class="line">ds = ds.rename(map<span class="number">_</span><span class="keyword">variable</span><span class="number">_n</span>ames)</span><br></pre></td></tr></table></figure>
+
+<h3 id="轨迹图"><a href="#轨迹图" class="headerlink" title="轨迹图"></a>轨迹图</h3><p>使用xarray的scatter函数绘轨迹点图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ds.plot.scatter( <span class="attribute">y</span>=<span class="string">"latitude"</span>,</span><br><span class="line">                 <span class="attribute">x</span>=<span class="string">"longitude"</span>, </span><br><span class="line">                 <span class="attribute">hue</span>=<span class="string">"ssha"</span>,</span><br><span class="line">                 <span class="attribute">s</span>=5,</span><br><span class="line">                 <span class="attribute">vmin</span>=-0.4,</span><br><span class="line">                 <span class="attribute">vmax</span>=0.4,</span><br><span class="line">                 <span class="attribute">levels</span>=9, </span><br><span class="line">                 <span class="attribute">cmap</span>=<span class="string">"jet"</span>,</span><br><span class="line">                 <span class="attribute">aspect</span>=2.5,</span><br><span class="line">                 <span class="attribute">size</span>=9, )</span><br><span class="line"></span><br><span class="line">plt.title(f<span class="string">"ssha from s6 cycle &#123;cycle&#125;"</span>)</span><br><span class="line">plt.xlim(  0., 360.)</span><br><span class="line">plt.ylim(-67.,  67.)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/op1.png" alt></p>
+<h3 id="网格化"><a href="#网格化" class="headerlink" title="网格化"></a>网格化</h3><p>卫星测高领域有很多种网格化办法，比如常用的GMT的surface。这里我们使用的网格化程序为<code>pyresample</code>， 并且还借鉴了ECCO V4r4的网格。</p>
+<p>首先下载一个独立的ECCO V4r4网格文件：</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">ecco_url</span> = <span class="string">"https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-protected/ECCO_L4_GEOMETRY_05DEG_V4R4/GRID_GEOMETRY_ECCO_V4r4_latlon_0p50deg.nc"</span></span><br><span class="line"></span><br><span class="line"><span class="variable">ecco_file</span> = <span class="function"><span class="title">download</span>(<span class="variable">ecco_url</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">ecco_grid</span> = <span class="variable">xr.open_dataset</span>(<span class="variable">ecco_file</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">print</span>(<span class="variable">ecco_grid</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>ECCO有许多深度层，这里我们只选择0层：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ecco_grid = ecco_grid.isel(Z=<span class="number">0</span>).<span class="keyword">copy</span><span class="bash">()</span></span><br><span class="line">ecco_grid</span><br></pre></td></tr></table></figure>
+
+<p>ECCO网格中有<code>mask</code>变量，变量的值为<code>True</code>或<code>False</code>，可用于分离陆地和海洋：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ecco_grid</span><span class="selector-class">.maskC</span><span class="selector-class">.plot</span>()</span><br></pre></td></tr></table></figure>
+<p><img src="./images/op2.png" alt></p>
+<p>使用<code>pyresample.geometry.SwathDefinition</code>进行网格操作：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ecco_lons = ecco_grid<span class="selector-class">.maskC</span><span class="selector-class">.longitude</span>.values</span><br><span class="line">ecco_lats = ecco_grid<span class="selector-class">.maskC</span><span class="selector-class">.latitude</span>.values</span><br><span class="line"></span><br><span class="line">ecco_lons_2d, ecco_lats_2d = np.meshgrid(ecco_lons, ecco_lats)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(ecco_lons_2d.shape, ecco_lats_2d.shape)</span></span></span><br><span class="line"></span><br><span class="line">tgt = pr.SwathDefinition(ecco_lons_2d, ecco_lats_2d)</span><br></pre></td></tr></table></figure>
+
+<p>剔除NAN：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> nans = ~np.isnan(ds<span class="selector-class">.ssha</span>.values)</span><br><span class="line"></span><br><span class="line">ssha = ds<span class="selector-class">.ssha</span><span class="selector-class">.values</span>[nans]</span><br><span class="line">lons = ds<span class="selector-class">.longitude</span><span class="selector-class">.values</span>[nans]</span><br><span class="line">lats = ds<span class="selector-class">.latitude</span><span class="selector-class">.values</span>[nans]</span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(lons.shape, lats.shape)</span></span></span><br><span class="line">ssha.shape</span><br></pre></td></tr></table></figure>
+<p>之后可见数据大小小了很多，说明NaN数值比较多。（820122到513357）</p>
+<p>经度处理，修改为-180:180：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lons</span> = (lons + <span class="number">180</span>) % <span class="number">360</span> - <span class="number">180</span></span><br><span class="line"></span><br><span class="line"><span class="attr">src</span> = pr.SwathDefinition(lons, lats)</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用kd-tree gaussian weighting neighbour方法空间插值</strong>，得到<code>result, stddev, counts</code>三个变量的网格信息。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">result, stddev, counts = resample_gauss(</span><br><span class="line">    src,</span><br><span class="line">    ssha,</span><br><span class="line">    tgt,</span><br><span class="line">    <span class="attribute">radius_of_influence</span>=175000,  </span><br><span class="line">    <span class="attribute">sigmas</span>=25000,</span><br><span class="line">    <span class="attribute">neighbours</span>=100,</span><br><span class="line">    <span class="attribute">fill_value</span>=np.nan,</span><br><span class="line">    <span class="attribute">with_uncert</span>=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">result.shape</span><br></pre></td></tr></table></figure>
+<p>定义函数，得到xarray格式：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_xrda</span><span class="params">(data)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">return</span> xr.DataArray(data,</span><br><span class="line">                        dims=[<span class="string">'latitude'</span>, <span class="string">'longitude'</span>], </span><br><span class="line">                        coords=&#123;<span class="string">'time'</span>: time, </span><br><span class="line">                                <span class="string">'latitude'</span>: ecco_lats, </span><br><span class="line">                                <span class="string">'longitude'</span>: ecco_lons&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>确定时间中点：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">time</span> = <span class="built_in">np</span>.datetime64(ds['<span class="built_in">time</span>'].<span class="built_in">mean</span>().data)</span><br></pre></td></tr></table></figure>
+
+<p>SLA绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grid = to_xrda(result)</span><br><span class="line"></span><br><span class="line">grid.sel(<span class="attribute">latitude</span>=slice(-67.0, 67.0)).plot(<span class="attribute">vmin</span>=-0.4, <span class="attribute">vmax</span>=0.4, <span class="attribute">cmap</span>=<span class="string">"jet"</span>, figsize=(18, 7))</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/op3.png" alt></p>
+<p>STD绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stddev = to_xrda(stddev)</span><br><span class="line"></span><br><span class="line">stddev.sel(<span class="attribute">latitude</span>=slice(-67.0, 67.0)).plot(<span class="attribute">robust</span>=<span class="literal">True</span>, <span class="attribute">cmap</span>=<span class="string">"jet"</span>, figsize=(18, 7))</span><br></pre></td></tr></table></figure>
+<p><img src="./images/op4.png" alt></p>
+<p>点个数绘图：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">counts = to_xrda(counts)</span><br><span class="line"></span><br><span class="line">counts.sel(<span class="attribute">latitude</span>=slice(-67.0, 67.0)).plot(<span class="attribute">robust</span>=<span class="literal">True</span>, <span class="attribute">cmap</span>=<span class="string">"jet"</span>, figsize=(18, 7))</span><br></pre></td></tr></table></figure>
+
+<p><img src="./images/op5.png" alt></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>OPeNDAP有一定的数据提取优势，前提是知道您想要的数据在哪里。</p>
+<p>下面夏威夷大学维护的一个海洋数据OPeNDAP网站，包含了Argo、CMIP5、ECCO、ERA5、NCEP、GFDL、HadSST、NOAA_SST、PODAAC、SODA、WOA以及MODIS、卫星高度计、盐度计等卫星测量数据。</p>
+<blockquote>
+<p><a href="http://apdrc.soest.hawaii.edu/dods/" target="_blank" rel="noopener">http://apdrc.soest.hawaii.edu/dods/</a></p>
+</blockquote>
+<h2 id="预告"><a href="#预告" class="headerlink" title="预告"></a>预告</h2><ul>
+<li>云上处理卫星测高数据，海平面变化时空分析、KE分析</li>
+<li>云上操作LLC4320、HYCOM、FESOM、FIO-COM等海洋模式，亚中尺度分析</li>
+<li>Pangeo Forge，维护高质量数据集</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/09/12/jule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/12/jule/" class="post-title-link" itemprop="url">世界知名气象、海洋学家JULE GREGORY CHARNEY</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-12 13:02:26 / 修改时间：22:30:40" itemprop="dateCreated datePublished" datetime="2022-09-12T13:02:26+08:00">2022-09-12</time>
+            </span>
+
+          
+            <span id="/2022/09/12/jule/" class="post-meta-item leancloud_visitors" data-flag-title="世界知名气象、海洋学家JULE GREGORY CHARNEY" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/09/12/jule/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/09/12/jule/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="./images/jule1.png" alt></p>
+<p>JULE GREGORY CHARNEY，1917年1日1日出生于加利福尼亚，1981年6月16日逝世于波士顿。</p>
+<p>Charney的准地转涡度方程允许对大尺度大气和海洋环流进行简明的数学描述，从而实现数值天气预报。 在这和他对该领域的许多基本贡献中，Charney确定了“斜压不稳定性”，这种机制解释了中纬度天气系统的大小、结构和增长率，并且在像我们的海洋这样的旋转分层流体中是一种普遍存在的现象和气氛。他的创新研究为天气系统、水动力不稳定性、大气波传播、飓风、干旱、荒漠化、大气阻塞和洋流等理论提供了见解。</p>
+<p>其主要成就有：</p>
+<ul>
+<li>1946年博士论文“Dynamics of long waves in a baroclinic westerly current”发表在Journal of Meteorology，当期目录只有这一篇文章，他强调了高层大气中的“长波”对整个大气行为的影响。</li>
+<li>Jule在跟随罗斯贝做助教时，提出了QG（ quasi-geostrophic）理论，可用于描述大尺度的大气和海洋运动；</li>
+<li>通过和诺依曼（John von Neumann）合作，他首次将计算机应用于天气预报，开创数值天气预报先驱（1950），Jule被认为是现代动力气象之父；</li>
+<li>1979年Charney提交气候变暖分析报告，预测了二氧化碳增加和气候变暖速度的趋势关系，其结果至今有效。</li>
+</ul>
+<p>他是美国国家科学院院士，也是挪威和瑞典皇家科学院的外籍院士。他获得的众多奖项包括美国气象学会的迈辛格奖（1949年）和Rossby奖章（1964年）、航空科学研究所的洛西奖（1957年）、皇家气象学会的西蒙斯奖章（1961年）、史密森学会霍奇金斯奖章（1968年）和国际气象组织奖（1971年）。</p>
+<blockquote>
+<p>虽然Jule是著名的气象学家，但在物理海洋领域也有他的重要地位。在MIT时，Stommel和Jule是同事，Stommel曾经想Jule寻求数学上的帮助，Jule在物理海洋领域深受Stommel的影响，并把气象领域的知识应用于海洋研究，如西边界湾流的理论研究。</p>
+</blockquote>
+<p>下文选自美国国家科学院发表的Jule传记。</p>
+<blockquote>
+<p><a href="http://www.nasonline.org/publications/biographical-memoirs/memoir-pdfs/charney-jule-g.pdf" target="_blank" rel="noopener">http://www.nasonline.org/publications/biographical-memoirs/memoir-pdfs/charney-jule-g.pdf</a></p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Jule是二战后三十年大气科学领域的主要人物之一。气象学从一门艺术到一门科学的变化很大程度上是由于他的科学眼光和他对该领域的人和项目的彻底承诺。1946年，他与加州大学洛杉矶分校语言学学生Elinor结婚，他们有两个孩子，Elinor前一段婚姻所生的儿子也随了Charney的姓氏，他们的婚姻持续了将近21年。1967年，Jule与Lois Swirnoff结婚，Lois Swirnoff是一位画家和色彩理论家，曾是加州大学洛杉矶分校和哈佛大学的教授，他们的婚姻持续了近十年。Jule在生命最后的几年与摄影艺术家Patricia Peck一起渡过。他于1981年6月16日在波士顿去世，死于肺癌。</p>
+<h2 id="从数学到气象"><a href="#从数学到气象" class="headerlink" title="从数学到气象"></a>从数学到气象</h2><p>Jule 1917年出生在旧金山，他的父母在本世纪初从白俄移民到美国。</p>
+<p>他青年时代的大部分时间都在洛杉矶度过，14岁时他的父母闹矛盾，妈妈带着Jule搬回了纽约。Jule后来回忆说，他不喜欢纽约，但他也记得他是在一个亲戚家里偶然发现微积分书。美国的普通高中都不教微积分，接触这本书后激发了他对科学的兴趣。</p>
+<p>他本科就读于加州大学洛杉矶校区,学习数学和物理。1939年，他跟着托马斯开始读研，1940年获得硕士学位后，很快完成了一篇论文《度量曲线空间》。 </p>
+<p>硕导托马斯有一天邀请了气象学小组J.Holmboe发表演讲，Jule在台下听讲，1941年春Holmboe邀请Jule担任他的助手，并参加了在陆军和海军赞助的ULCA气象培训计划。此时，欧洲战争和太平洋的紧张局势让大学生开始考虑<strong>从事更加实用的研究工作。</strong>为了寻求建议，Jule拜访了冯·卡门（钱学森导师），冯·卡门建议他在航空工业中从事气象学工作。1941年，Jule成为UCLA气象项目的助教和学生。</p>
+<h2 id="气象新星"><a href="#气象新星" class="headerlink" title="气象新星"></a>气象新星</h2><p>1941年，美国只有少数大学将气象学作为一门学科。加州大学洛杉矶分校气象学小组的负责人是最近从挪威来的J.Bjerknes，他以描述冷暖锋而闻名。J. Holmboe是一位年轻的挪威人，对这些概念很熟悉，对流体动力学也比较熟悉。</p>
+<p>另一方面，M. Neiburger 在MIT师从C-G Rossby。Rossby倾向于将流体动力学应用于大气和海洋的简化模型。在1939年，他顺着Bjerknes最近的观点，即科氏参数随纬度的变化在大尺度环流系统向东迁移中发挥了重要作用，使用了一个纯水平移动的均匀大气简单模型，得出理想化大气中从西向东移动的速度定量公式（Rossby波）。</p>
+<p>在接下来的十年中，Jule为气象研究中带来了深刻的变化。他与J.von Neumann合作，展示了新开发的电子计算机如何通过流体动力学方程进行数值积分来预测天气。这种基于物理的程序的基本前提并不新鲜，Bjerknes在20世纪初曾提出过，L.Richardson在第一次世界大战期间也曾部分尝试过。但它已25年无进展。</p>
+<p>Jule的大学社交生活很快乐。Jule和其他几个学生合租了一所房子，享受着热闹的社交生活。Jule后来学会了滑雪和打网球，这是他在生命的最后几年都喜欢的运动。Jule是一位能够每晚与船员一起玩扑克的科学家，能够持续赢得他们的钱，而且从不产生丝毫恶意。由于他的数学背景，Jule并不被Bjerknes和Holmboe使用的描述性推理所吸引。在Jule担任助理期间，Neiburger让他接触了Rossby的论文。在1957年Rossby去世前的十年中，Rossby和Charney交换了许多信件，在其中一篇文章中，Rossby描述了他自己的教学方法<code>Perhaps I occasionally sought to give, or inadvertently gave, to the student a sense of battle on the intellectual battlefield. If all you do is to give them a faultless and complete and uninhabited architectural masterpiece, then you do not help them to become builders of their own.</code>这种哲学也成为Rossby论文的特点，似乎对Charney的思想产生了永久性的影响。</p>
+<p>大约在1944年或1945年，Charney开始认为自己有资格考虑气象学论文。他逐渐制定了自己的目标，即在中纬度大气中平均西向东气流的不稳定性理论。这是他的选择，没有老师的指导。当考虑到包含非均匀流时，大气扰动方程非常复杂，为了得到一个易于处理的数学问题，Jule发现在推导最终的微分方程时，有必要进行近似。这种推理在当时的任何科学领域中都不常见。在没有任何流体动力学家的帮助下，他完成了这项工作。</p>
+<p>经过大量手工计算，Jule能够找到一条零增长率曲线，将短波的不稳定波与较长稳定波分开。尽管当时很少有气象学家达到这样的数学水平，但这篇论文很快被发表。后来的研究表明，完整的解更复杂，但他的解包含了最重要的方面。最重要的是，他的论文使他相信他有能力在气象学方面进行高水平的原创研究。他随后将气象学作为一项永久职业，这对大气科学的发展具有重大意义。</p>
+<h2 id="数值天气预报"><a href="#数值天气预报" class="headerlink" title="数值天气预报"></a>数值天气预报</h2><p>在1946年博士论文答辩之前的几个月里，他获得了欧洲的国家研究委员会奖学金，并计划访问奥斯陆的H. Solberg（挪威的数学家）和英国剑桥的G. I. Taylor。幸运的是，Jule在途中拜访了芝加哥大学的Rossby，Rossby带领该部门进入了全盛时期。Rossby凭借其非凡的说服力，毫不费劲地说服Jule推迟他的奖学金，并在大学呆了近一年。Jule后来将今年视为他职业生涯中最具形成性的经历。</p>
+<p>1946年8月，Rossby安排Jule参加冯·诺依曼在普林斯顿高等研究院举行的一次会议，主题是电子计算机在天气预报中的应用。包括Rossby在内的十几位美国领先的动力气象学家出席了会议。这次会议的唯一重要结果是让Jule Charney认识到，John von Neumann是一个对物理问题有着相当深刻理解的人。</p>
+<p>1947年春天，Jule夫妇前往挪威。他们的第一站是卑尔根，这里是自第一次世界大战以来挪威前沿研究的家园。Jule很快就发现如何修改流体动力学方程，将与气象相关的大尺度运动与更快的声波和重力波分离开来，这是Richardson研究中的难题。Jule通过对动量、质量和熵的流体动力学方程中的每一项进行仔细的尺度分析，证明了该公式的合理性，由上述公式得出的预测方程组现在被称为准地转理论（QG理论），准地转理论可能是自第一次世界大战以来气象学和海洋学中最有价值的发现之一。</p>
+<p>1948年初，冯·诺依曼邀请Jule领导他的电子计算机项目中的气象学小组，其财政支持来自海军研究办公室。Jule在研究所大院住了三年，这里的研究人员大都是该研究所的一年临时成员，主要是年轻的数学家和物理学家。对于Jule来说，这是一个令人振奋的地方。冯·诺依曼虽然经常离开研究所，但他是Jule的热心听众和积极参与者。Charney夫妇很快会见了奥本海默（一把手）夫妇和研究所的其他常任理事以及普林斯顿大学的教员。</p>
+<p>最初，Jule采取了几个主要步骤，准备用计算机预测气流的类型。由于运算复杂导致计算机不可用，Charney将正压方程线性化，并将Rossby频率公式扩展为格林函数。试验表明计算机可以应用于全非线性涡度方程，预测结果很快发表在Rossby的《Tellus》杂志上。</p>
+<p>Jule的创作兴趣继续迅速发展。他从20世纪30年代阅读Rossby的论文以及最近与H.Stommel和 Munk（H.Sverdrup也是Jule的论文委员会成员）的熟识中，对现有的海洋大尺度运动理论有所了解。Jule首先应用了Eliassen对Ekman理论的发展，以说明如何将海洋顶部的风应力效应用于海洋准地转内部运动的边界条件。更引人注目的一步是墨西哥湾流理论。在与Stommel进行了大量讨论后，Charney展示了在海洋内部缓慢向西移动的水团中的位涡守恒应如何导致海洋西海岸的狭窄边界流，并在流向速度上具有地转平衡。</p>
+<p>Jule已在普林斯顿高等研究院工作了七年，他已三十八岁。1951年底，他被任命为研究院成员，任期五年，但没编制，无法长待。此时，Jule的导师和领导冯·诺依曼已在华盛顿负有重任，很明显计算机项目及其应用特色并不是该研究院的核心主题。一把手奥本海默无法向Jule承诺永久编制。当冯·诺依曼患上癌症时，情况变得更加紧急。这时，Jule意识到需要换工作了，并开始询问大学。1956年夏天，在奥本海默的敦促下，研究院向Jule提供了5000美元的特别个人补助金，Jule便去了MIT。</p>
+<h2 id="MIT"><a href="#MIT" class="headerlink" title="MIT"></a>MIT</h2><p>在他搬到MIT后，Jule可以卸下他在数值天气预报方面的大部分责任。他与数学系的W.Malkus一起，组织了地球物理流体动力学非正式研讨会。该研讨会每两周在周五下午举行，逐渐有来自哈佛大学和伍兹霍尔的气象学、海洋学、地球物理学和应用数学的人员参加，耶鲁大学、布朗大学和罗德岛大学也经常参加。他们每次都被选择在不同的地点开会，长途汽车旅行自然需要一个小时的社交时间来减压，研讨会持续了22年。</p>
+<p>1957年11月，Jule提交了一份报告，强调了全球范围内观测大气的气象卫星、布局细节观测的飞机和雷达和分析数据的电子计算机的新作用。大约在这个时候，L.Berkner考虑建立一个国家大气科学研究中心。Jule在随后的组织会议中给与非常积极地协助。加上领导推动，导致1959年3月成立了大学大气研究联盟，并很快成立国家大气研究中心（NCAR）。</p>
+<p>Jule外向的性格和开放的思想很快使他许多科学家和管理人员建立了友好的关系。1960年初，他被任命为总统科学咨询委员会大气科学小组成员。一年后，他与麻省理工学院物理系的B.Rossi进行了讨论，后者为J.Wiesner（肯尼迪总统的科学顾问）提供关于可能和平利用外层空间的建议。Jule安排了一次与其他几位气象学家的会议，会上建议卫星可以改善天气预报。随后，联合国第1721号和第1802号决议要求世界气象组织和国际科学联盟理事会为此制定行动实践和研究计划。1966年，他成为美国国家科学院全球大气研究计划（GARP）委员会的负责人，并一直担任这一要求很高的职位，直到1971年。</p>
+<p>Jule夫妇在1972-73学年休假，第一部分在英国剑桥度过。在此期间，Jule对如何通过Rossby波之间的非线性相互作用产生更高频率的重力波运动进行了大量思考，但最终放弃了。 </p>
+<p>Charney一家随后留在特拉维夫的魏茨曼研究所，Jule在那里研究荒漠化理论。（植被的损失将增加地面反照率，并将更多的太阳辐射反射回太空。地面吸收的太阳辐射的减少将减少对流对空气的局部加热。这反过来将减少空气的向上运动，导致降雨量减少，并有进一步减少植被的趋势。)这是他第一次访问以色列，他将这次旅行描述为一次“令人感动的经历”。</p>
+<h2 id="QG理论和波数谱斜率问题"><a href="#QG理论和波数谱斜率问题" class="headerlink" title="QG理论和波数谱斜率问题"></a>QG理论和波数谱斜率问题</h2><blockquote>
+<p>CHARNEY J G. Geostrophic Turbulence[J/OL]. Journal of the Atmospheric Sciences, 1971, 28(6): 1087-1095. DOI:10.1175/1520-0469(1971)028&lt;1087:GT&gt;2.0.CO;2.</p>
+</blockquote>
+<p>1971年，Jule发表了一篇高度抽象的短文，但具有深刻的实际意义。这篇论文讨论了大气大尺度准地转运动的频谱。</p>
+<p>苏联Kolmogorov和Obukhov多年前研究表明，三维均匀各向同性湍流的波数谱随-5/3幂次而变化。同时，一些理论家认为二维湍流是一种纯粹的数学抽象，并得出了一个更陡峭的波数为-3次方的定律。这样的气流在观察者看来比传统的风洞模式要平滑得多。Jule提出了一个令人信服的论点，即<strong>受准地转方程动力学控制的系统将具有与假设的二维情况类似的频谱，即使其运动是三维的</strong>。这一点的实际意义是，根据零散观测构建的天气图在<strong>-3定律下比在-5/3定律下更有意义</strong>。</p>
+<blockquote>
+<p>当前物理海洋领域的波数谱斜率分析，即主要来源于此，它本质上代表了能量的尺度特征。</p>
+</blockquote>
+<h2 id="全球变暖的首次评估"><a href="#全球变暖的首次评估" class="headerlink" title="全球变暖的首次评估"></a>全球变暖的首次评估</h2><p>1979年，Charney主持了国家研究委员会的“二氧化碳和气候特设研究小组”。 由此产生的22页报告“二氧化碳与气候：科学评估”是最早对全球变暖的现代科学评估之一。 其主要结论可在第2页找到：“我们估计CO2翻倍导致的最可能的全球变暖接近3°C，误差为±1.5°C。”这种对气候敏感性的估计在过去40年里基本没有变化。</p>
+<h2 id="去世"><a href="#去世" class="headerlink" title="去世"></a>去世</h2><p>1981年，Jule去世，享年64岁。<br>为了纪念他，美国气象学会设立了以他名字命名的奖励。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/08/12/altimetry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/12/altimetry/" class="post-title-link" itemprop="url">卫星测高50年：成就和趋势</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-12 21:05:46 / 修改时间：21:49:34" itemprop="dateCreated datePublished" datetime="2022-08-12T21:05:46+08:00">2022-08-12</time>
+            </span>
+
+          
+            <span id="/2022/08/12/altimetry/" class="post-meta-item leancloud_visitors" data-flag-title="卫星测高50年：成就和趋势" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/08/12/altimetry/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/12/altimetry/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>自1973年<a href="http://www.altimetry.info/missions/past-missions/skylab/" target="_blank" rel="noopener">Skylab-3</a>携带首颗试验性高度计卫星发射升空，已过50年。</p>
+<p>50周年之际，国际知名遥感杂志《Remote Sensing》在线发表了中国、希腊等海洋遥感学者撰写的综述论文“Satellite Altimetry: Achievements and Future Trends by a Scientometrics Analysis”。</p>
+<p><img src="../images/sa1.png" alt></p>
+<p>作者根据SCI数据库<code>Web of Science</code>中收录的近五十年卫星高度计领域的8000余篇科学论文，全面回顾了自上世纪70年代以来，卫星测高走过的发展历程。作者统计了卫星测高的文章年度数量、应用领域分布、研究单位的地理分布特征、卫星测高知识体系网络、作者合作关系、引文共现等，并就前沿领域和今后的发展进行了展望。</p>
+<p><img src="../images/sa2.png" alt><br>图1：测高卫星在轨历史</p>
+<p>在过去的50年里，卫星测高研究以惊人的速度发展，从最初每年发表不到10篇文献，发展到现在每年发表超过600篇文献，特别是中国学者发表的文献已超过了美国，跃居世界第一位。</p>
+<p><img src="../images/sa7.png" alt><br>图2：测高卫星相关研究论文时间演变</p>
+<p>研究表明卫星测高的研究领域在不断得到拓展，卫星测高早已不限于传统的海洋学和大地测量学，它已经普遍应用于陆地水文、冰冻圈、陆地地形，甚至森林和土壤监测。经过50年发展，测高精度已得到显著提高，空间/时间分辨率也不断缩小，测高研究的尺度不断向精细化发展。</p>
+<p><img src="../images/sa4.png" alt><br>图3：测高卫星研究领域</p>
+<p>在全球卫星测高作者集群中，有很多来自我国或华人学者，他们和国内外科学家存在密切的合作，为我国卫星测高的各方面发展做出了突出贡献。</p>
+<p><img src="../images/sa5.png" alt><br>图4：测高卫星作者群体</p>
+<p>50年间，卫星测高研究热点在逐渐的演变，从早期的雷达高度计理论研究，逐步进化到SAR高度计、GNSS-R，以及新一代宽幅高度计。趋势分析揭示了当前卫星测高的热点研究领域和新的测高技术密切相关。特别是预计将于2022年发射的SWOT任务，将使得卫星测高从“网格”过渡到“像素”分辨率阶段。研究还表明，和人工智能、深度学习等跨领域合作也是未来发展的重点方向之一。</p>
+<p><img src="../images/sa6.png" alt><br>图5：测高卫星研究的知识节点</p>
+<blockquote>
+<p>文章链接：<a href="https://www.mdpi.com/2072-4292/14/14/3332" target="_blank" rel="noopener">https://www.mdpi.com/2072-4292/14/14/3332</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1595,7 +1559,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">141</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1608,7 +1572,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
