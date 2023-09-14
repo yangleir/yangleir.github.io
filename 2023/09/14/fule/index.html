@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="地图，作为一个实用工具，自古以来就在指引人们的方向和理解世界中起着重要作用。但是，传统的地图制图技术，例如墨卡托投影，虽然实用，却因为空间的变形扭曲了人们对地球的感知。这种扭曲不仅在几何层面，甚至渗透到文化和政治层面，影响了人们对世界的认知。 在20世纪，一位名叫理查·巴克敏斯特·富勒的先驱，以一种全新的方式颠覆了地图制作的艺术。这就是富勒投影，一种地图制作技术，将地球的三维真实性以极小的失真呈现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fule">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2023/09/14/fule/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="地图，作为一个实用工具，自古以来就在指引人们的方向和理解世界中起着重要作用。但是，传统的地图制图技术，例如墨卡托投影，虽然实用，却因为空间的变形扭曲了人们对地球的感知。这种扭曲不仅在几何层面，甚至渗透到文化和政治层面，影响了人们对世界的认知。 在20世纪，一位名叫理查·巴克敏斯特·富勒的先驱，以一种全新的方式颠覆了地图制作的艺术。这就是富勒投影，一种地图制作技术，将地球的三维真实性以极小的失真呈现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/640.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/641.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/642.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/644.jpg">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/645.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/646.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/648.png">
+<meta property="article:published_time" content="2023-09-14T14:26:13.000Z">
+<meta property="article:modified_time" content="2023-09-14T14:47:46.410Z">
+<meta property="article:author" content="Yang Lei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2023/09/14/fule/images/640.jpg">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2023/09/14/fule/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>fule | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">85</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">144</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/14/fule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          fule
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-14 22:26:13 / 修改时间：22:47:46" itemprop="dateCreated datePublished" datetime="2023-09-14T22:26:13+08:00">2023-09-14</time>
+            </span>
+
+          
+            <span id="/2023/09/14/fule/" class="post-meta-item leancloud_visitors" data-flag-title="fule" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/14/fule/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/14/fule/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>地图，作为一个实用工具，自古以来就在指引人们的方向和理解世界中起着重要作用。但是，传统的地图制图技术，例如墨卡托投影，虽然实用，却因为空间的变形扭曲了人们对地球的感知。这种扭曲不仅在几何层面，甚至渗透到文化和政治层面，影响了人们对世界的认知。</p>
+<p>在20世纪，一位名叫理查·巴克敏斯特·富勒的先驱，以一种全新的方式颠覆了地图制作的艺术。这就是富勒投影，一种地图制作技术，将地球的三维真实性以极小的失真呈现在二维平面上。</p>
+<p><img src="./images/640.jpg" alt></p>
+<p align="center">1964年《时代》杂志的富勒</p>
+
+<h2 id="变形的挑战"><a href="#变形的挑战" class="headerlink" title="变形的挑战"></a>变形的挑战</h2><p>地图投影一直是地理和地图科学中的一个复杂问题。毕竟，将地球这样一个三维球体精确地展现在二维平面上是一个非常棘手的任务。橘子皮的比喻非常形象地描述了这一挑战，试图将橘子皮平铺在桌子上，不管是通过挤压还是剥开的方式，都会造成皮肤的某种形式的变形。同样，地图投影也会使得地球的某些部分产生扭曲或压缩。不同的投影方法在尺度、形状、方向和区域等方面的精确性方面有所不同。</p>
+<p>例如墨卡托投影在赤道附近的区域精度较高，但对地球的南北极产生了巨大变形。这在视觉上产生了一种不平衡，这种投影方法在描绘距离和方向时可能非常精确，但在展示陆地的相对大小时却显得扭曲。</p>
+<p><img src="./images/641.png" alt></p>
+<p align="center">墨卡托投影示意图</p>
+
+
+<p>墨卡托等投影的这一缺陷引发了对更准确、更公正地描绘地球表面的需求。理查·巴克敏斯特·富勒所创建的富勒投影（或称戴美克森投影）就是对这一挑战的回应。通过将地球投影到正二十面体上，富勒地图不仅减小了南北极地区的变形，还为我们提供了一种全新的观察和理解世界的方式。</p>
+<p><img src="./images/642.png" alt></p>
+<p align="center">富勒投影示变形</p>
+
+
+<h2 id="富勒投影的革新"><a href="#富勒投影的革新" class="headerlink" title="富勒投影的革新"></a>富勒投影的革新</h2><p>富勒投影应运而生，采用正二十面体的形状，通过手工绘制将地球表面的每个细节精确地投影到每个等边三角形上。富勒进一步将每个三角形细分，最小化变形，使地图的每个细节都呈现得精确而真实。</p>
+<p><img src="./images/644.jpg" alt></p>
+<p align="center">富勒基于正二十面体的戴美克森地图</p>
+
+
+
+<p>这一革新之处不仅在于其几何结构，更在于其提供的全新视角。富勒投影消除了墨卡托投影的极端变形，还允许不同的布局和方向，从而为观察世界提供了新的可能性。这一方法甚至可以揭示地球表面之间的拓扑关系，揭示了不同地区之间可能的迁移路径。</p>
+<p>富勒投影的另一项革命性贡献在于其去中心化的视角。与传统地图的中心主义思维方式不同，富勒投影没有固定的中心，允许以任何方向和角度展示地球的表面。这一突破性设计避免了某些地区或国家受到强调或忽略的问题，真实地反映了地球的普遍性和客观性。富勒投影的这一特性不仅摆脱了地理、政治和文化的局限，还开启了一种全新的空间认知方式。通过重新构建地图的视觉逻辑，富勒投影鼓励观众从多角度、多维度的视野来重新思考和理解我们所居住的世界。这一全球视角不仅有助于促进跨文化的沟通和理解，还可能推动科学、艺术和人文领域的创新探索。</p>
+<p>在军事行动的决策方面，富勒通过戴美克森地图发现了陆地几何中心位于当时苏联的伏尔加格勒。这一几何中心具有特殊的地缘战略意义：从该处到各大洲的最远端的距离几乎相等。后来的情报分析证实，该地区正是苏联的关键导弹发射中心，这一发现为战略规划提供了极为重要的信息。此外，在第二次世界大战期间，富勒还向美国军方提出了一项大胆的军事计划。他建议联合苏联从东部反攻纳粹德国，而不是从西部沿岸登陆。虽然当时这一建议未被采纳，但后来的分析与德国方面的情报揭示了这一战略的潜在价值：如果当时按照富勒的方案执行，纳粹德国的溃败可能会更迅速。这些例子展示了富勒投影在军事策略分析中的创新应用，其精确性和独特视角为战争决策提供了新的洞察。</p>
+<h2 id="编程语言绘图"><a href="#编程语言绘图" class="headerlink" title="编程语言绘图"></a>编程语言绘图</h2><p>富勒投影的实现和可视化并不局限于理论探讨和手工绘制。随着现代编程和可视化工具的发展，富勒投影已经可以通过多种编程语言和库实现。这一点不仅促进了富勒投影的普及，还增加了它的实用性和灵活性。</p>
+<p>以下是一些在线绘制富勒投影（Airocean projection）的资源链接：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JavaScript库实现：使用d3-geo-polygon库，可以轻松实现Airocean投影以及其他多面体投影。具体代码和示例可在Observable平台上查看：<span class="string">https:</span><span class="comment">//observablehq.com</span></span><br><span class="line"><span class="regexp">/@fil/</span>airocean-projection</span><br><span class="line">Python代码实现：如果您使用Python进行地图绘制，可以参考此GitHub链接中的代码来实现富勒投影。<span class="string">https:</span><span class="comment">//github.com/locoluis/isea-airocean</span></span><br></pre></td></tr></table></figure>
+
+<p>通过这些现代工具和库的支持，富勒投影不仅在地图学和地理科学领域中具有广泛的应用，还可以方便地融入到多领域的项目和研究中，从而继续推动富勒投影的创新和发展。</p>
+<p><img src="./images/645.png" alt><br><img src="./images/646.png" alt><br><img src="./images/648.png" alt></p>
+<p align="center">使用d3-geo-polygon绘制富勒投影使用Python绘制富勒投影</p>
+
+
+
+<h2 id="影响和启示"><a href="#影响和启示" class="headerlink" title="影响和启示"></a>影响和启示</h2><p>富勒地图的影响远不止于此。它改变了人们对地球的空间认知，消除了统治者的幻影，还揭示了地球的海陆拓扑关系与可能的迁徙路径。在历史解释上，富勒用他的地图论证了南极洲作为古代快速航路的可能性。在军事战略上，他的地图更是揭示了苏联的导弹发射中心的几何位置。富勒投影不仅是一项技术创新，更是一门艺术。它展示了地图可以如何超越纯粹的实用价值，成为连接人们与世界的桥梁。理查·巴克敏斯特·富勒用他的智慧和才华，展示了地图的可能性和潜力。他的地图投影，成为了一种象征，一种展示地球真实美丽的方式，是地图制作的一次革命。</p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><ul>
+<li>关于富勒的维基百科页面: <a href="https://en.wikipedia.org/wiki/Buckminster_Fuller" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Buckminster_Fuller</a></li>
+<li>富勒地图的详细介绍: <a href="http://www.bfi.org/about-fuller/big-ideas/dymaxion-world/dymaxion-map" target="_blank" rel="noopener">http://www.bfi.org/about-fuller/big-ideas/dymaxion-world/dymaxion-map</a></li>
+<li>关于墨卡托投影的信息: <a href="https://en.wikipedia.org/wiki/Mercator_projection" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mercator_projection</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/14/liangang/" rel="prev" title="用量纲分析洞察湍流：Kolmogorov的-5/3定律">
+      <i class="fa fa-chevron-left"></i> 用量纲分析洞察湍流：Kolmogorov的-5/3定律
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#变形的挑战"><span class="nav-number">1.</span> <span class="nav-text">变形的挑战</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#富勒投影的革新"><span class="nav-number">2.</span> <span class="nav-text">富勒投影的革新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言绘图"><span class="nav-number">3.</span> <span class="nav-text">编程语言绘图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#影响和启示"><span class="nav-number">4.</span> <span class="nav-text">影响和启示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接"><span class="nav-number">5.</span> <span class="nav-text">链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
