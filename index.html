@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">142</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">143</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,119 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/14/liangang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/14/liangang/" class="post-title-link" itemprop="url">用量纲分析洞察湍流：Kolmogorov的-5/3定律</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-14 22:05:56 / 修改时间：22:09:21" itemprop="dateCreated datePublished" datetime="2023-09-14T22:05:56+08:00">2023-09-14</time>
+            </span>
+
+          
+            <span id="/2023/09/14/liangang/" class="post-meta-item leancloud_visitors" data-flag-title="用量纲分析洞察湍流：Kolmogorov的-5/3定律" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/14/liangang/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/14/liangang/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在生活中，我们时常被大自然的神秘现象所震撼，如旋风般的湍流、风暴中的雷电、星空下的北极光。这些看似复杂的天然奇观，其背后真的只是无法解释的魔法吗？读者们，有没有想过为什么，有时，这些复杂得超乎想象的现象，却能够通过简单的理论或方法得以解释？</p>
+<p>例如，湍流，这一连续介质力学中最为棘手的问题，尽管在研究中屡遭困境，但也有时候能够通过数学和物理的神奇魅力被探究其深层原理。这里，我们即将使用一种源于上个世纪初、既经典又简单的方法—量纲分析，来为各位揭示湍流背后的神奇秘密。正是这种将复杂事物回归简单的探索精神，使得我们对自然界的理解越来越深入，科技与自然的关系也因此变得更加和谐。</p>
+<p>让我们一起走进Kolmogorov的 $-5/3$定律的神奇世界。</p>
+<h2 id="量纲分析：开始的第一步"><a href="#量纲分析：开始的第一步" class="headerlink" title="量纲分析：开始的第一步"></a>量纲分析：开始的第一步</h2><p>首先，我们需要明确涉及的物理量及其量纲：</p>
+<ul>
+<li><strong>能量传递速率</strong> $( \varepsilon)$: <ul>
+<li>$ [\varepsilon] = L^2T^{-3} $</li>
+</ul>
+</li>
+<li><strong>波数</strong> $( k )$: <ul>
+<li>$ [k] = L^{-1} $</li>
+</ul>
+</li>
+<li><strong>能量光谱</strong> $( E(k) )$: <ul>
+<li>$ [E(k)] = L^3T^{-2} $</li>
+</ul>
+</li>
+</ul>
+<p>记住，量纲分析的魅力在于其简洁和普遍性。使用Buckingham’s $( \pi )$ 定理，我们可以将这些物理量联系起来。</p>
+<h2 id="Buckingham’s-pi-定理"><a href="#Buckingham’s-pi-定理" class="headerlink" title="Buckingham’s $( \pi )$ 定理"></a>Buckingham’s $( \pi )$ 定理</h2><p>我们有三个物理量: $( \varepsilon, k, E(k) )$ 和两个基本量纲：$( L, T )$。</p>
+<p>我们的目标是找到一个无量纲组合：<br>$$ \Pi = \varepsilon^a k^b E(k)^c $$</p>
+<p>通过量纲关系，我们得到：<br>$$ L^{2a-b+3c}T^{-3a-2c} = 1 $$</p>
+<p>满足这些关系，我们需要：</p>
+<p>$$ 2a - b + 3c = 0 $$<br>$$  -3a - 2c = 0 $$</p>
+<p>经过计算，我们得到 $( a = \frac{2}{5} )$, $( b = -1 )$, 和 $( c = -\frac{3}{5} )$，这为我们提供了最终的无量纲组合：<br>$[ \Pi = \varepsilon^{\frac{2}{5}}k E(k)^{-\frac{3}{5}} ]$</p>
+<p>这个组合是无量纲的，因此它是一个常数。进一步得出：<br>$[ E(k) \propto \varepsilon^{\frac{2}{3}}k^{-\frac{5}{3}} ]$<br>这就是我们的Kolmogorov $-5/3$定律！</p>
+<p>量纲分析为我们提供了一个简单且有力的工具，使我们能够洞察湍流中的能量如何分布。Kolmogorov的$-5/3$定律不仅是湍流理论的一个核心部分，也是使用简单的数学方法揭示物理现象背后复杂性的一个绝佳示范。</p>
+<h4 id="关于-Charney-的-“Geostrophic-Turbulence”"><a href="#关于-Charney-的-“Geostrophic-Turbulence”" class="headerlink" title="关于 Charney 的 “Geostrophic Turbulence”"></a>关于 Charney 的 “Geostrophic Turbulence”</h4><p>在1971年的论文中，Charney深入探讨了地转涡旋流动的统计特性。他提出，在地转平衡中，涡旋动能的能量谱是 $k^{−3}$，与Kolmogorov的经典湍流理论中的 $k^{−5/3}$ 法则存在明显的不同。这一差异反映了大气流中地转效应的显著影响。</p>
+<p>Charney指出，地转涡旋流动中的这种 $k^{−3}$ 能量分布是由于强大的地转效应，它抑制了三维的湍流涡旋，导致了二维的能量传播模式。相比之下，Kolmogorov的 $k^{−5/3}$ 法则更多地描述了没有强地转效应影响的三维湍流。</p>
+<p>总之，Charney通过考虑地转效应来解释了大气流中涡旋能量的分布，而这一解释与Kolmogorov的经典湍流理论存在显著的不同。</p>
+<h4 id="海洋运动的波数谱"><a href="#海洋运动的波数谱" class="headerlink" title="海洋运动的波数谱"></a>海洋运动的波数谱</h4><p>近年来，海洋动力学领域的研究者们对海洋中的波数谱斜率如何分布存在着持续的争议。尽管卫星高度计的观测技术为我们提供了大量关于波数斜率的数据，但这些数据在空间上存在着显著的差异性。有研究指出，动能谱中的波数应该遵循 $k^{−3}$ 的分布律，其中 $k$表示波数。进一步地，在地转平衡下，海表面高度（SSH）的波数谱则应遵循 $k^{−5}$ 的分布律。</p>
+<p>然而，真正的转机即将到来。SWOT（Surface Water and Ocean Topography）成像雷达高度计预计在今年10月发布其首批数据。与现有的观测手段相比，SWOT将提供前所未有的二维高分辨率SSH数据，为我们提供了一个全新的、更加精细的视角来重新评估波数谱的真实特性。</p>
+<p>这将是一个巨大的突破，因为重新分析这些高分辨率数据将有望揭示海洋能量分布的更多细节。有了SWOT的数据，我们不仅可以更好地了解海洋的动力学机制，还可以解开许多现有争议，为未来的海洋科学研究打下坚实的基础。</p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1172,96 +1285,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/12/swot2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/12/swot2/" class="post-title-link" itemprop="url">Science：SWOT卫星将以前所未有的分辨率测量全球水循环和涡流</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-12-12 09:29:46 / 修改时间：10:31:54" itemprop="dateCreated datePublished" datetime="2022-12-12T09:29:46+08:00">2022-12-12</time>
-            </span>
-
-          
-            <span id="/2022/12/12/swot2/" class="post-meta-item leancloud_visitors" data-flag-title="Science：SWOT卫星将以前所未有的分辨率测量全球水循环和涡流" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/12/swot2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/12/swot2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="./images/swot2.jpg" alt><br><font size="2"><center> 2019年，波罗的海遥感影像捕捉到了卷入漩涡中的大量绿藻。 </center></font></p>
-<p>涡流(eddy)被忽视的时间太长了。这些湍流漩涡的大小从几公里到几百公里不等，它们从大洋环流中剥离，将热量和碳混合到更深的海洋，就像将奶油搅拌到咖啡中一样。它们是海洋中最有活力的旋转运动，对气候模型的正确性至关重要。但小尺度涡流也是卫星看不到的，除非它们碰巧卷入了大量的绿色浮游植物。</p>
-<p>现在即将不一样了。在美国国家航空航天局（NASA）和法国国家空间研究中心（CNES）联合发射地表水和海洋地形（SWOT）卫星后，小尺度涡流以及陆地河湖将迅速成为焦点。这颗价值<strong>12亿美元</strong>的卫星预计<strong>12月15日</strong>从加州范登堡空军基地由SpaceX公司的猎鹰9号火箭发射。SWOT携带一个干涉测量高度计，可以测量几厘米之内的水面高度变化，使研究人员能够推断出水面的运动状态。<code>伍兹霍尔海洋研究所（WHOI）</code>的物理海洋学家J.Thomas Farrar说：”我们预计SWOT带来的变化将是巨大的。”</p>
-<p><img src="./images/swot3.jpeg" alt><br><font size="2"><center> 2022年11月18日，SWOT被移入加利福尼亚州范登堡太空部队基地的运输容器中。</center></font></p>
-<p>法国图卢兹<code>空间、地球物理和海洋学研究实验室</code>的物理海洋学家Rosemary Morrow说，对于海洋学家来说，这就像戴上一副眼镜。这颗卫星将捕捉到小至7公里宽的涡流，每21天覆盖几乎整个地球。在陆地上，SWOT将能够绘制600多万个湖泊的高度变化图，同时还能捕捉到超过100米宽的河流的流量。它将取代来自地面的零星测量，并使水文领域比以往更具有经验性和全球性。<code>北卡罗来纳大学教堂山分校</code>的水文学家、SWOT淡水科学小组的联合领导Tamlin Pavelsky说：”它将帮助我们观察水循环在北极和非洲的运作方式–在那些我们没有实地数据的地方。”</p>
-<p>近40年来，NASA和CNES发射了一系列雷达测高卫星，这些卫星使用雷达的反射脉冲来测量水面高度。卫星高度计监测到了全球海平面的加速上升，这是气候变化的一个基本指标。通过测量海洋表面的高度起伏，它们还跟踪到了地球上的大规模洋流。但是卫星粗糙的空间分辨率意味着河流和中小尺度漩涡是无法测量的。</p>
-<p>在两个5米长度的基线杆帮助下，SWOT可利用干涉测高技术获得更高分辨率的水面高度形态，SWOT干涉基线两端都有一个天线来捕捉雷达脉冲的反射信号。这两个相距甚远的天线使SWOT有足够的分辨率来测量仅几公里宽的水面，从而使小尺度涡流进入视野。</p>
-<p>有了精确的观测数据，水文学家将得到湖泊和河流的季节性水位变化，以及短期气候驱动因素（如厄尔尼诺现象）。对于海洋生态学家来说，SWOT将能够绘制世界主要河流的水位在大坝或堰塞湖的干扰下如何变化，以及这对水生动植物栖息地的影响程度。它还将看到河流浅滩和深潭的涟漪，这对研究河流如何演变是一个福音。SWOT将捕捉到洪水顺流而下的过程，这应该有助于洪水建模。</p>
-<p>尽管SWOT计划运行3年，但其科学团队打算寻找其探测到的水流动力高度与陆地观测卫星任务（Landsat）的可见光影像之间的关联，例如变化的湖泊和河流宽度。Pavelsky说，这些可见的变化可以作为水位的替代指标，使研究人员能够继续关注地球的水循环情况。”即使SWOT消失了，你仍然可以继续这种分析。”</p>
-<p>SWOT对中小尺度涡流的观测可能是其最大的成就。WHOI的物理海洋学家Sylvia Cole说，SWOT将检验在任何时候都存在的成千上万的中小尺度涡流对海洋的混合作用。 Morrow说，小尺度涡流对于热量和碳汇入两极海水发挥关键作用。她说，它们还将推动小型海域的热能和碳混合研究。”比如我们可能低估了地中海地区90%的能量，因为我们不知道这些较小规模涡流的结构。”</p>
-<p><code>杜兰大学</code>的物理海洋学家Sönke Dangendorf说，SWOT将推动研究海平面上升如何影响海岸线的变迁。Morrow说，SWOT还将促进飓风监测，因为中小涡流使水变暖，进一步助长更强的飓风。她补充说”我们不仅在表面，而且在更深处捕获了热量”。这些都是需要快速回答的重要问题，因为人类大部分生活在沿海地区。”在沿海地区，一切都会被更敏锐地感受到。”</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1334,7 +1357,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-count">143</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1540,6 +1563,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
