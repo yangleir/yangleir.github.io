@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">145</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">146</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,124 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/10/19/gee-hycom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/19/gee-hycom/" class="post-title-link" itemprop="url">GEE中使用HYCOM模式数据</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-19 21:38:49 / 修改时间：21:39:31" itemprop="dateCreated datePublished" datetime="2023-10-19T21:38:49+08:00">2023-10-19</time>
+            </span>
+
+          
+            <span id="/2023/10/19/gee-hycom/" class="post-meta-item leancloud_visitors" data-flag-title="GEE中使用HYCOM模式数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/10/19/gee-hycom/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/10/19/gee-hycom/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="GEE中的HYCOM"><a href="#GEE中的HYCOM" class="headerlink" title="GEE中的HYCOM"></a>GEE中的HYCOM</h3><p>GEE，或者说Google Earth Engine，你可能听过或者没听过，但它确实是当前地球科学领域的一颗璀璨明星。为什么？想象一下，地学数据的规模巨大到我们很难在个人电脑上进行存储和分析。但有了GEE，这一切都变得简单了。它让我们可以直接在云端处理这些庞大的数据，不必费心把数据拷贝回本地，更不用说还能借助谷歌强大的计算能力了。关于这点，不少从事光学遥感、合成孔径雷达（SAR）研究的学者都给出了自己的实证研究和论文成果。</p>
+<p>说起HYCOM，这可不是一两句话能说清楚的。它是Hybrid Coordinate Ocean Model的缩写，由美国多家机构联手组建的开源海洋环流建模系统，得到了美国国家海洋合作项目（NOPP）的赞助，并作为美国全球海洋数据同化实验（GODAE）的一部分。该模型主要用于研究海洋和大气之间的相互作用，包括短期和长期过程，它对于海洋预测、数据同化乃至气候研究都是至关重要的。而GEE上的HYCOM数据集，无疑是为我们这些研究者铺设了一条快捷之路，轻松获取、分析，再也不用为数据的下载、分析和可视化而烦恼了。</p>
+<h3 id="南大洋流场"><a href="#南大洋流场" class="headerlink" title="南大洋流场"></a>南大洋流场</h3><p>南大洋，也被称为南极洋或南极圈内的海洋，是地球上最冷、最偏远的海洋。它环绕整个南极大陆，并与三大洋——大西洋、太平洋和印度洋接壤。南大洋的流场特征对全球气候和海洋环流有着重要影响。最显著的流场特征是西风漂流，这是一种东向的表面流，由于缺乏大陆的阻碍，它在南大洋的纬度范围内持续不断地环绕地球。此外，南大洋还是形成深海下沉流的关键区域，这些冷的盐水从表面下沉到深海，成为全球深海环流的驱动力。</p>
+<p>通过下面的例子，我们不仅会看到如何利用GEE计算二十年的流速均值和其变化特征，而且还会深入到如何计算涡度、Enstrophy和KE等关键的物理海洋参数。这些参数为我们提供了关于流动形态、能量分布和流动稳定性的关键信息。值得注意的是，使用GEE，这样的复杂分析可以在几秒钟内完成，这在传统的数据处理方法中是难以想象的。这种处理速度不仅加速了研究的进程，而且为实时监测和预测提供了新的可能性。</p>
+<p><img src="https://files.mdnice.com/user/48184/3ccd9d6f-dee8-42f6-a4a0-fd1f6a11e221.png" alt="HYCOM在南大洋某时的流场"></p>
+<h3 id="20年的流速平均"><a href="#20年的流速平均" class="headerlink" title="20年的流速平均"></a>20年的流速平均</h3><p>下面这段代码是在分析和展示南大洋在过去20年（从2002年至2022年）中每年1月的前15天的海洋流速均值。</p>
+<p>首先，代码定义了南大洋的矩形区域。接着，通过一个函数获取每年1月的前15天的流速数据并计算其均值。这个函数主要过滤特定日期的HYCOM海洋流速数据，并对数据进行了单位转换（除以1000）。然后，我们为2002至2022的每一年都调用了这个函数，得到这20年中的每年均值，并进一步计算出20年的总均值。最终，将结果限制在我们定义的南大洋区域内，裁剪后的速度被添加到了地图上，并将地图的中心设置为南大洋区域。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义南大洋的区域</span></span><br><span class="line">var southernOceanRegion = ee.Geometry.<span class="constructor">Rectangle([0, -80, 180, -35])</span>;  <span class="comment">// 注意调整了范围以覆盖整个南大洋</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义一个函数来获取每年4月的数据，并返回这个月的均值</span></span><br><span class="line"><span class="keyword">function</span> get<span class="constructor">AprilAverage(<span class="params">year</span>)</span> &#123;</span><br><span class="line">  var startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span>;</span><br><span class="line">  var endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 15)</span>;</span><br><span class="line">  </span><br><span class="line">  var collection = ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                     .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                     .map(<span class="keyword">function</span>(image) &#123;</span><br><span class="line">                        return image.divide(<span class="number">1000</span>);</span><br><span class="line">                     &#125;);</span><br><span class="line">                     </span><br><span class="line">  return collection.mean<span class="literal">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用循环来获取2002至2022这20年的4月的均值</span></span><br><span class="line">var years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">2002</span>, <span class="number">2022</span>);</span><br><span class="line">var averages = years.map(<span class="keyword">function</span>(year) &#123;</span><br><span class="line">  return get<span class="constructor">AprilAverage(<span class="params">year</span>)</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var twoDecadesAverage = ee.<span class="module-access"><span class="module"><span class="identifier">ImageCollection</span>.</span></span>from<span class="constructor">Images(<span class="params">averages</span>)</span>.mean<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 从这个二十年的均值图像中计算速度</span></span><br><span class="line">var speed = twoDecadesAverage.select('velocity_u_0').hypot(twoDecadesAverage.select('velocity_v_0'));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 使用南大洋区域裁剪速度图像</span></span><br><span class="line">var maskedSpeed = speed.clip(southernOceanRegion);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 将裁剪后的速度图像添加到地图上</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>add<span class="constructor">Layer(<span class="params">maskedSpeed</span>, &#123;<span class="params">min</span>: 0, <span class="params">max</span>: 1, <span class="params">palette</span>: ['<span class="params">blue</span>', '<span class="params">yellow</span>', '<span class="params">red</span>']&#125;, 'Southern Ocean Speed 20-Year Average')</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 7. 将地图的中心设置为南大洋区域</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>center<span class="constructor">Object(<span class="params">southernOceanRegion</span>, 4)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/48184/b242a3d0-33ab-4c83-bec2-181799133a3b.png" alt="HYCOM在南大洋二十年的平均流"></p>
+<h3 id="20年流速变化特征"><a href="#20年流速变化特征" class="headerlink" title="20年流速变化特征"></a>20年流速变化特征</h3><p>使用标准偏差进行流场变化的统计。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义南大洋的区域</span></span><br><span class="line">var southernOceanRegion = ee.Geometry.<span class="constructor">Rectangle([0, -80, 180, -35])</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义一个函数来获取每年4月的数据，并返回这个月的速度</span></span><br><span class="line"><span class="keyword">function</span> get<span class="constructor">AprilSpeed(<span class="params">year</span>)</span> &#123;</span><br><span class="line">  var startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span>;</span><br><span class="line">  var endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 15)</span>;</span><br><span class="line">  </span><br><span class="line">  var velocity = ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                     .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                     .mean<span class="literal">()</span></span><br><span class="line">                     .divide(<span class="number">1000</span>);</span><br><span class="line">                     </span><br><span class="line">  return velocity.select('velocity_u_0').hypot(velocity.select('velocity_v_0'));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用循环来获取1993至2022这30年的4月的速度</span></span><br><span class="line">var years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">2002</span>, <span class="number">2022</span>);</span><br><span class="line">var speeds = years.map(<span class="keyword">function</span>(year) &#123;</span><br><span class="line">  return get<span class="constructor">AprilSpeed(<span class="params">year</span>)</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var speedCollection = ee.<span class="module-access"><span class="module"><span class="identifier">ImageCollection</span>.</span></span>from<span class="constructor">Images(<span class="params">speeds</span>)</span>;</span><br><span class="line">var speedStdDev = speedCollection.reduce(ee.<span class="module-access"><span class="module"><span class="identifier">Reducer</span>.</span></span>std<span class="constructor">Dev()</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 使用南大洋区域裁剪速度标准差图像</span></span><br><span class="line">var maskedStdDev = speedStdDev.clip(southernOceanRegion);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 将裁剪后的速度标准差图像添加到地图上</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>add<span class="constructor">Layer(<span class="params">maskedStdDev</span>, &#123;<span class="params">min</span>: 0, <span class="params">max</span>: 1, <span class="params">palette</span>: ['<span class="params">blue</span>', '<span class="params">yellow</span>', '<span class="params">red</span>']&#125;, 'Southern Ocean Speed STD')</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 将地图的中心设置为南大洋区域</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>center<span class="constructor">Object(<span class="params">southernOceanRegion</span>, 4)</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://files.mdnice.com/user/48184/2ae6cc70-3112-4947-b46f-3e6e0b0f0715.png" alt="HYCOM在南大洋二十年的流速变化特征"></p>
+<h3 id="涡度"><a href="#涡度" class="headerlink" title="涡度"></a>涡度</h3><p>涡度 (Vorticity) 是流体力学中的一个重要概念，特别在描述流体中旋转现象时。它是一种局 部旋转度量，描述了流体旋转的强度和方向。涡度的方向垂直于流体的旋转平面。<br>涡度的计算公式:<br>涡度的定义基于流体速度场。在二维流中，涡度（通常用符号 $\zeta$ 表示）的定义如下：<br>$$<br>\zeta=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}<br>$$<br>其中:</p>
+<ul>
+<li>$u$ 是流速的 $\mathrm{x}$ 分量</li>
+<li>$v$ 是流速的 $\mathrm{y}$ 分量</li>
+<li>$\frac{\partial v}{\partial x}$ 是流速 $\mathbf{v}$ 关于 $\mathbf{x}$ 的偏导数</li>
+<li>$\frac{\partial u}{\partial y}$ 是流速 $\mathrm{u}$ 关于 $\mathrm{y}$ 的偏导数</li>
+</ul>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> dateStr = <span class="string">'2023010100'</span>;</span><br><span class="line"><span class="built_in">var</span> velocity = ee.Image(<span class="string">'HYCOM/sea_water_velocity/'</span> + dateStr);</span><br><span class="line"></span><br><span class="line"><span class="comment">// var projection = velocity.select('velocity_u_0').projection();</span></span><br><span class="line"><span class="comment">// var nominalScale = projection.nominalScale();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// print('Nominal scale (in meters):', nominalScale);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 加载指定日期的速度数据</span></span><br><span class="line"><span class="comment">// var date = '2023-01-01';</span></span><br><span class="line"><span class="comment">// var velocity = ee.Image('HYCOM/sea_water_velocity/' + date).divide(1000);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 提取 u 和 v 的分量</span></span><br><span class="line"><span class="built_in">var</span> u = velocity.<span class="keyword">select</span>(<span class="string">'velocity_u_0'</span>);</span><br><span class="line"><span class="built_in">var</span> v = velocity.<span class="keyword">select</span>(<span class="string">'velocity_v_0'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 计算偏导数</span></span><br><span class="line"><span class="built_in">var</span> dudx = u.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line"><span class="built_in">var</span> dvdx = v.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line"><span class="built_in">var</span> dudy = u.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line"><span class="built_in">var</span> dvdy = v.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 使用上述的旋度公式</span></span><br><span class="line"><span class="built_in">var</span> vorticity = dvdx.subtract(dudy);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 在地图上显示结果</span></span><br><span class="line"><span class="built_in">Map</span>.addLayer(vorticity, &#123;<span class="keyword">min</span>: <span class="number">-0.1</span>, <span class="keyword">max</span>: <span class="number">0.1</span>, palette: <span class="meta">[</span><span class="string">'blue'</span>, <span class="string">'white'</span>, <span class="string">'red'</span><span class="meta">]</span>&#125;, 'Vorticity');</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/48184/12b8ee3d-ed7f-4e60-91d0-8cd8db0813fd.png" alt="HYCOM在南大洋某时的涡度特征"></p>
+<h3 id="Enstrophy"><a href="#Enstrophy" class="headerlink" title="Enstrophy"></a>Enstrophy</h3><p>Enstrophy 在流体动力学中表示流体内部的涡旋强度，常用于研究湍流流动。Enstrophy 是涡 度 (vorticity) 的平方的一半，表示为:<br>Enstrophy $=\frac{1}{2} \omega^2$<br>其中 $\omega$ 是涡度。在之前的涡度计算中，我们得到了涡度 $\omega=d v / d x-d u / d y$ 。<br>接下来，我们可以根据上述的涡度计算来进一步计算Enstrophy。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义2023年1月的日期范围</span></span><br><span class="line"><span class="built_in">var</span> startDate = ee.<span class="built_in">Date</span>(<span class="string">'2023-01-01'</span>);</span><br><span class="line"><span class="built_in">var</span> endDate = ee.<span class="built_in">Date</span>(<span class="string">'2023-01-7'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从HYCOM数据集中加载2023年1月份的所有数据</span></span><br><span class="line"><span class="built_in">var</span> januaryCollection = ee.ImageCollection(<span class="string">'HYCOM/sea_water_velocity'</span>)</span><br><span class="line">    .filterDate(startDate, endDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用map函数计算每天的涡度（Enstrophy）</span></span><br><span class="line"><span class="built_in">var</span> enstrophyCollection = januaryCollection.<span class="built_in">map</span>(function(image) &#123;</span><br><span class="line">    <span class="built_in">var</span> u = image.<span class="keyword">select</span>(<span class="string">'velocity_u_0'</span>);</span><br><span class="line">    <span class="built_in">var</span> v = image.<span class="keyword">select</span>(<span class="string">'velocity_v_0'</span>);</span><br><span class="line">    <span class="built_in">var</span> dudx = u.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line">    <span class="built_in">var</span> dvdx = v.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line">    <span class="built_in">var</span> dudy = u.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line">    <span class="built_in">var</span> dvdy = v.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line">    <span class="built_in">var</span> vorticity = dvdx.subtract(dudy);</span><br><span class="line">    <span class="keyword">return</span> vorticity.pow(<span class="number">2</span>).multiply(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算2023年1月份的涡度（Enstrophy）均值</span></span><br><span class="line"><span class="built_in">var</span> meanEnstrophy = enstrophyCollection.mean();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对均值进行对数变换，避免对数0的情况，通常会加上一个小的值</span></span><br><span class="line"><span class="built_in">var</span> logMeanEnstrophy = meanEnstrophy.add(<span class="number">1e-10</span>).<span class="keyword">log</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在地图上显示对数转换后的结果</span></span><br><span class="line"><span class="built_in">Map</span>.addLayer(logMeanEnstrophy, &#123;<span class="keyword">min</span>: <span class="number">-20</span>, <span class="keyword">max</span>: <span class="number">-4</span>, palette: <span class="meta">[</span><span class="string">'blue'</span>, <span class="string">'white'</span>, <span class="string">'red'</span><span class="meta">]</span>&#125;, 'Log Enstrophy');</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://files.mdnice.com/user/48184/8d31c0b6-d3e0-475a-a93f-f1adb2e17236.png" alt="HYCOM在南大洋一月份的Enstrophy"></p>
+<h3 id="KE"><a href="#KE" class="headerlink" title="KE"></a>KE</h3><p>要计算流体中的动能 (Kinetic Energy, KE)，公式为 $K E=0.5 *\left(u^2+v^2\right)$ ，其中 $u$ 和 $v$ 分 别是速度的水平和垂直分量。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义2023年1月的日期范围</span></span><br><span class="line"><span class="keyword">var</span> startDate = <span class="string">'2023-01-01'</span>;</span><br><span class="line"><span class="keyword">var</span> endDate = <span class="string">'2023-01-31'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取该日期范围内的速度数据集</span></span><br><span class="line"><span class="keyword">var</span> velocityCollection = ee.ImageCollection(<span class="string">'HYCOM/sea_water_velocity'</span>)</span><br><span class="line">                            .filterDate(startDate, endDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用map函数来为每一天计算动能 (KE)</span></span><br><span class="line"><span class="keyword">var</span> keCollection = velocityCollection.map(<span class="function"><span class="keyword">function</span>(<span class="params">image</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> u = image.select(<span class="string">'velocity_u_0'</span>);</span><br><span class="line">  <span class="keyword">var</span> v = image.select(<span class="string">'velocity_v_0'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计算 KE</span></span><br><span class="line">  <span class="keyword">return</span> u.pow(<span class="number">2</span>).add(v.pow(<span class="number">2</span>)).multiply(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算整月的KE均值</span></span><br><span class="line"><span class="keyword">var</span> monthlyMeanKE = keCollection.mean();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义要计算均值的区域，例如全球范围</span></span><br><span class="line"><span class="keyword">var</span> globalRegion = ee.<span class="built_in">Geometry</span>.Rectangle([<span class="number">-180</span>, <span class="number">-90</span>, <span class="number">180</span>, <span class="number">90</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 reduceRegion 来计算全球的KE均值</span></span><br><span class="line"><span class="keyword">var</span> globalAverageKE = monthlyMeanKE.reduceRegion(&#123;</span><br><span class="line">  reducer: ee.Reducer.mean(),</span><br><span class="line">  geometry: globalRegion,</span><br><span class="line">  scale: <span class="number">10000</span>,  <span class="comment">// 此处的scale取决于HYCOM数据集的分辨率</span></span><br><span class="line">  maxPixels: <span class="number">1e13</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印统计信息</span></span><br><span class="line">print(<span class="string">'Global Average KE for January 2023:'</span>, globalAverageKE);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在地图上显示月均值的KE</span></span><br><span class="line"><span class="keyword">var</span> logmonthlyMeanKE = monthlyMeanKE.add(<span class="number">1e-10</span>).log();</span><br><span class="line"><span class="keyword">var</span> keViz = &#123;<span class="attr">min</span>: <span class="number">10</span>, <span class="attr">max</span>: <span class="number">15</span>, <span class="attr">palette</span>: [<span class="string">'blue'</span>, <span class="string">'green'</span>, <span class="string">'red'</span>]&#125;;</span><br><span class="line">Map.addLayer(logmonthlyMeanKE, keViz, <span class="string">'Monthly Mean KE January 2023'</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://files.mdnice.com/user/48184/60b7d234-26b4-41d6-8139-252cae36a6fa.png" alt="KE"></p>
+<blockquote>
+<p>本代码仅供参考和学习之用，用于展示基本的功能和计算方法。在使用这些代码进行实际的数据处理和分析之前，请确保您已对输入数据进行了适当的单位统一和其他必要的预处理。特别是涉及速度单位的部分，直接使用这些代码可能会导致不准确或误导的结果。建议在实际应用中进行仔细的数据验证和校准，以确保结果的准确性和可靠性。</p>
+</blockquote>
+<ul>
+<li>思考题：如何使用GEE绘制某范围内的流速的长时间序列？</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1204,113 +1322,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/21/fenqu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/21/fenqu/" class="post-title-link" itemprop="url">中科院分区2022-地学和工程技术类</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-12-21 17:23:45 / 修改时间：19:20:37" itemprop="dateCreated datePublished" datetime="2022-12-21T17:23:45+08:00">2022-12-21</time>
-            </span>
-
-          
-            <span id="/2022/12/21/fenqu/" class="post-meta-item leancloud_visitors" data-flag-title="中科院分区2022-地学和工程技术类" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/21/fenqu/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/21/fenqu/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>就在今天，2022年中科院SCI期刊分区发布了。小编顾不上嗓子疼，抓紧上网找到比较全面的分区数据，分享给大家。</p>
-<h2 id="完整分区获取"><a href="#完整分区获取" class="headerlink" title="完整分区获取"></a>完整分区获取</h2><p>可以直接查看: <a href="http://advanced.fenqubiao.com/" target="_blank" rel="noopener">http://advanced.fenqubiao.com/</a></p>
-<blockquote>
-<p>不用谢。</p>
-</blockquote>
-<h2 id="遥感期刊看点"><a href="#遥感期刊看点" class="headerlink" title="遥感期刊看点"></a>遥感期刊看点</h2><p>中科院分区共设置了包括自然科学和社会科学在内的18个大类。地学遥感相关期刊主要分布在<code>地球科学</code>和<code>工程技术</code>，实际上更多是在<code>工程技术</code>类。由于取消了基础版，只保留<code>升级版</code>，因此以后再不用纠结使用版本的问题了。</p>
-<p>今年的分区变化喜人，总体上一些很好的老牌期刊合理的升区了，比如IEEE TGRS升级一区，还有大地测量的Journal of Geodesy也成为了一区。Remote Sensing、IEEE GRSL等期刊保持在二区，也基本合理。暂未发现降区的期刊。</p>
-<p>下面列出一些重要的分区看点：</p>
-<h3 id="升区"><a href="#升区" class="headerlink" title="升区"></a>升区</h3><ul>
-<li>IEEE TGRS，曾经多年的二区遥感顶刊，今年终于上了中科院一区。</li>
-<li>Journal of Geodesy，大地测量领域的顶级期刊，升级到中科院一区。由于领域偏小，每年出版100篇左右（2021年122篇），可能在文献计量统计上略不占优，这个期刊大多年份在一区和二区徘徊，也在TOP和非TOP徘徊。</li>
-<li>GRL，从二区升级到一区。</li>
-<li>SURVEYS IN GEOPHYSICS， 从二区升级到一区。</li>
-<li>IEEE Geoscience and Remote Sensing Magazine，IEEE地学遥感神刊，由于只发少量综述，IF奇高（13.9），中科院分区2021基础版一区，升级版三区，在2022年分到二区。</li>
-</ul>
-<h3 id="不变"><a href="#不变" class="headerlink" title="不变"></a>不变</h3><ul>
-<li>REMOTE SENSING OF ENVIRONMENT，一区。</li>
-<li>ISPRS Journal of Photogrammetry and Remote Sensing (P&amp;RS)，一区。</li>
-<li>International Journal of Applied Earth Observation and Geoinformation，一区。</li>
-<li>Remote Sensing，2022年分区仍然是二区，不过按照现在审稿水平（应收尽收）和发文数量（2022年至今已发5905篇），很可能在3年后发文破万，存在掉区和预警可能。</li>
-<li>IEEE GRSL，二区。</li>
-<li>IEEE JSTAR，三区。期刊开源之后，即从二区掉到三区，同时出版数量差不多翻了一倍，从开源之前年均不到500篇快速增长到2021年的950篇。</li>
-<li>GPS solutions，2021年基础版三区，升级版一区，2022年升级版一区。</li>
-</ul>
-<h1 id="地学和工程技术分区清单"><a href="#地学和工程技术分区清单" class="headerlink" title="地学和工程技术分区清单"></a>地学和工程技术分区清单</h1><h2 id="地学一区和二区"><a href="#地学一区和二区" class="headerlink" title="地学一区和二区"></a>地学一区和二区</h2><p><img src="./images/%E5%9C%B0%E5%AD%A61.jpg" alt><br><img src="./images/%E5%9C%B0%E5%AD%A62.jpg" alt><br><img src="./images/%E5%9C%B0%E5%AD%A63.jpg" alt><br><img src="./images/%E5%9C%B0%E5%AD%A64.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A65.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A66.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A67.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A68.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A69.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A610.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A611.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A612.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A613.png" alt></p>
-<h2 id="工程技术一区和二区"><a href="#工程技术一区和二区" class="headerlink" title="工程技术一区和二区"></a>工程技术一区和二区</h2><p><img src="./images/%E5%B7%A5%E7%A8%8B1.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B2.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B3.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B4.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B5.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B6.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B7.jpg" alt></p>
-<p><img src="./images/%E5%B7%A5%E7%A8%8B8.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B9.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B10.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B11.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B12.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B13.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B14.jpg" alt></p>
-<p><img src="./images/%E5%B7%A5%E7%A8%8B15.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B16.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B17.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1383,7 +1394,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
