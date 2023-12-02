@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">146</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">147</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,116 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/01/31/qgis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/31/qgis/" class="post-title-link" itemprop="url">qgis</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-31 22:29:34" itemprop="dateCreated datePublished" datetime="2021-01-31T22:29:34+08:00">2021-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-27 08:38:25" itemprop="dateModified" datetime="2021-02-27T08:38:25+08:00">2021-02-27</time>
+              </span>
+
+          
+            <span id="/2021/01/31/qgis/" class="post-meta-item leancloud_visitors" data-flag-title="qgis" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/31/qgis/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/31/qgis/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="重投影"><a href="#重投影" class="headerlink" title="重投影"></a>重投影</h2><p>如果下载的数据是UTM投影，想导出来经纬度坐标的文件，则：</p>
+<blockquote>
+<p>qgis图层导出时可以选择坐标系，导出地理坐标系选4326就可以了。<br><a href="https://www.zhihu.com/question/439563168/answer/1682326935" target="_blank" rel="noopener">转</a></p>
+</blockquote>
+<p>或者</p>
+<blockquote>
+<p>qgis-toolbox;<br>搜索reproject<br>打开GDAL-Raster projections-warp(reproject)<br>(右键可以批处理)</p>
+</blockquote>
+<p>或者使用</p>
+<blockquote>
+<p>gdalwarp  -t_srs EPSG:4326 yunchengxian_2020.tif yunchengxian_2020_wgs.tif<br>参考：<a href="https://gdal.org/programs/gdalwarp.html" target="_blank" rel="noopener">https://gdal.org/programs/gdalwarp.html</a></p>
+</blockquote>
+<h2 id="配准"><a href="#配准" class="headerlink" title="配准"></a>配准</h2><p>我下载了USGS的间谍卫星影像，为胶片拍摄，无投影坐标，因此如果用于比对看图，需要配准。<br>使用QGIS：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">菜单栏点击“栅格”<span class="comment">--“配准工具”，会重新打开一个配准窗口</span></span><br><span class="line">配准<span class="comment">--打开栅格</span></span><br><span class="line">设置坐标系统</span><br><span class="line">采集栅格和矢量同名的点，采集的点越多（要控制采集精度），位置越准确</span><br><span class="line">可手工输入，也可从画布中获取</span><br><span class="line">集完点之后，对校正后的地图的矫正方法、名称、坐标系等进行设置，最后点击运行按钮</span><br></pre></td></tr></table></figure>
+
+<h2 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h2><blockquote>
+<p>raster-extraction-clip raster by extent</p>
+</blockquote>
+<p>或者使用gdal。<br>按照经纬度：</p>
+<blockquote>
+<p>gdalwarp -s_srs EPSG:4326 -t_srs EPSG:4326 -te114.01 39.97 114.03 39.99 -of GTiff -of GTiff D:/qgis-ppt/mosaic/J1.tifD:/qgis-ppt/mosaic/J2.tif D:/qgis-ppt/mosaic/J3.tif D:/qgis-ppt/mosaic/J4.tifD:/qgis-ppt/mosaic/mcp.tif<br>按照矢量：<br>gdalwarp -dstnodata 0 -q –cutline D:/qgis-ppt/vector-cut/cutpolygon.shp-crop_to_cutline -dstalpha -of GTiff D:/qgis-ppt/timeextent/Korea/test.tifD:/qgis-ppt/vector-cut/clipper-poly-alpha.tif</p>
+</blockquote>
+<h2 id="调用google-地图、影像"><a href="#调用google-地图、影像" class="headerlink" title="调用google 地图、影像"></a>调用google 地图、影像</h2><blockquote>
+<p>安装QuickMapServices</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1367,88 +1477,6 @@ Japan Agency for Marine-Earth Science and Technology (http://www.godac.jamstec.g
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/06/13/math-fun/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/13/math-fun/" class="post-title-link" itemprop="url">math fun</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-13 17:54:25 / 修改时间：18:01:49" itemprop="dateCreated datePublished" datetime="2020-06-13T17:54:25+08:00">2020-06-13</time>
-            </span>
-
-          
-            <span id="/2020/06/13/math-fun/" class="post-meta-item leancloud_visitors" data-flag-title="math fun" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/06/13/math-fun/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/13/math-fun/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="阿基米德螺旋线"><a href="#阿基米德螺旋线" class="headerlink" title="阿基米德螺旋线"></a>阿基米德螺旋线</h3><p><img src="/images/luoxuanxian.jpg" alt></p>
-<h3 id="心形线"><a href="#心形线" class="headerlink" title="心形线"></a>心形线</h3><p><img src="/images/heart.jpg" alt></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://jingyan.baidu.com/article/0bc808fc23808a1bd585b944.html" target="_blank" rel="noopener">参考</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1521,7 +1549,7 @@ Japan Agency for Marine-Earth Science and Technology (http://www.godac.jamstec.g
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">147</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
