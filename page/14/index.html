@@ -216,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-30 11:55:36" itemprop="dateModified" datetime="2023-05-30T11:55:36+08:00">2023-05-30</time>
+                <time title="修改时间：2023-12-11 22:04:52" itemprop="dateModified" datetime="2023-12-11T22:04:52+08:00">2023-12-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -353,6 +353,15 @@
 </blockquote>
 <p>不再追踪某文件</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">rm</span> --cached <span class="keyword">test</span>/ja3_check/mypoints.kml</span><br></pre></td></tr></table></figure>
+
+<p>在VPN，比如clash，环境下使用，遇到错误：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: unable <span class="keyword">to</span> access <span class="string">'https://github.com/yangleir/gnsswave.git/'</span>: failed <span class="keyword">to</span> connect <span class="keyword">to</span> github.com<span class="built_in"> port </span>443: timed out</span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> https<span class="variable">.proxy</span> http:<span class="comment">//127.0.0.1:7890</span></span><br><span class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> https<span class="variable">.proxy</span> https:<span class="comment">//127.0.0.1:7890</span></span><br></pre></td></tr></table></figure>
+<p>或者在用户根目录下，直接打开<code>.gitconfig</code>，手动修改：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[http]</span><br><span class="line">	postBuffer = 524288000</span><br><span class="line"><span class="built_in">	proxy </span>= 127.0.0.1:7890</span><br><span class="line">[https]</span><br><span class="line"><span class="built_in">	proxy </span>= 127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+
+
 
 <h3 id="批量解压gz"><a href="#批量解压gz" class="headerlink" title="批量解压gz"></a>批量解压gz</h3><p>我下载了很多个文件夹，每个文件夹下都是<code>gz</code>压缩文件，现在想批量解压指定文件夹的文件。</p>
 <p>文件下载如下：</p>
