@@ -662,10 +662,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-09-25 21:57:22 / 修改时间：22:24:00" itemprop="dateCreated datePublished" datetime="2023-09-25T21:57:22+08:00">2023-09-25</time>
+              <time title="创建时间：2023-09-25 21:57:22" itemprop="dateCreated datePublished" datetime="2023-09-25T21:57:22+08:00">2023-09-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-11 23:03:04" itemprop="dateModified" datetime="2023-12-11T23:03:04+08:00">2023-12-11</time>
+              </span>
 
           
             <span id="/2023/09/25/ksl/" class="post-meta-item leancloud_visitors" data-flag-title="物理海洋课后习题-科氏力为什么带2" title="阅读次数">
@@ -699,9 +705,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>这个旋转的地球上，科里奥利力无疑是一个神奇的存在，大气和海洋的流动如诗如画，其中科里奥利力的作用不可忽视。很多人可能只知道它的水平分量，因为这对我们理解风和洋流的方向起到了决定性的作用。但实际上，科里奥利力还有一个常被遗忘的垂直分量。这里面涉及到了大量复杂的物理和数学。说到这，你可能会想起那些教科书里给出的公式，其中包含了一个$\sin (\phi)$函数。那这个$\sin (\phi)$是怎么来的呢？实际上，这背后的原理比我们想象的要复杂得多，但也更加引人入胜。</p>
-<p>对于科里奥利力，我们不应只停留在教科书上的理论知识，而应该去探索、去了解它在现实生活中的魅力。今天通过一些贴近生活的例子，如高铁的运行，我们可以更直观地感受这种力的大小。当然，我们还会看到，它在大气科学、海洋科学，甚至航天器的发射中都起到了关键的作用。</p>
-<p>Waiting</p>
+          <h4 id="科里奥利力"><a href="#科里奥利力" class="headerlink" title="科里奥利力"></a>科里奥利力</h4><p>科里奥利力是一个惯性力，它只在旋转参考系中存在。它的出现是由于在旋转参考系中观察物体运动时，物体的运动路径与非旋转参考系中的路径不同。</p>
+<p>考虑一个质点在旋转参考系中的运动。科里奥利力的定义是:<br>$$<br>\vec{F}_c=-2 m\left(\vec{\omega} \times \vec{v}\right)<br>$$<br>其中， $\vec{F}_c$ 是科里奥利力， $\vec{\omega}$ 是旋转参考系的角速度， $\vec{v}$ 是质点相对于旋转参考系的速度，</p>
+<p>科里奥利力水平分量的大小是由物体在旋转参考系中的速度、参考系的角速度和物体的质量决定的。 科里奥利力的大小为:<br>$$<br>F_c=2 m v \omega \sin (\phi)<br>$$</p>
+<p>科里奥利力的方向始终垂直于物体的速度向量和地球的旋转轴。</p>
+<h4 id="科氏参数"><a href="#科氏参数" class="headerlink" title="科氏参数"></a>科氏参数</h4><p>科氏参数，通常表示为 $f$ ，是描述地球旋转对流体流动 (如大气和海洋流动) 影响的一个重 要参数。它是地球的角速度和纬度的函数，定义为:<br>$$<br>f=2 \omega \sin (\phi)<br>$$<br>其中:</p>
+<ul>
+<li>$\omega$ 是地球的平均角速度，约为 $7.27 \times 10^{-5} \mathrm{rad} / \mathrm{s}$ 。</li>
+<li>$\phi$ 是纬度，北纬为正，南纬为负。<br>以下是科氏参数的几个关键特点:</li>
+</ul>
+<ol>
+<li>赤道附近: 在赤道附近 (即 $\phi \approx 0^{\circ}$ )，科氏参数接近零，这意味着科里奥利力对流体的影 响在这里最小。</li>
+<li>极地: 当接近北极 $\left(\phi \approx 90^{\circ}\right)$ 或南极 $\left(\phi \approx-90^{\circ}\right)$ 时，科氏参数的绝对值最大，这意味 着科里奥利力对流体的影响在这里最大。</li>
+<li>南半球与北半球: 在北半球，科氏参数为正，而在南半球为负。这决定了北半球和南半球中 流体的偏转方向。</li>
+</ol>
+<blockquote>
+<p>为什么科里奥利力和科氏参数公式中有因子2？这可以从物体在旋转参考系中的运动动力学推导出来。</p>
+</blockquote>
+<h2 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h2><h3 id="惯性力的定义："><a href="#惯性力的定义：" class="headerlink" title="惯性力的定义："></a>惯性力的定义：</h3><p>若一个质点 $m$ 某时刻在惯性系 $S$ 中的加速度为 $\mathbf{a_S}$ ，在另一个非惯性系 $S^{\prime}$ 中的加速度为 $\mathbf{a_{S^\prime}}$ ，则可假设质点受到 一个惯性力 (inertial force 或 fictitious force)<br>$$<br>\mathbf{f}=m\left(\mathbf{a}_{S^{\prime}}-\mathbf{a}_S\right),<br>$$<br>使得牛顿运动定律在非惯性系 $S^{\prime}$ 中仍然成立。</p>
+<h3 id="加速度的坐标变换"><a href="#加速度的坐标变换" class="headerlink" title="加速度的坐标变换"></a>加速度的坐标变换</h3><h4 id="无相对转动"><a href="#无相对转动" class="headerlink" title="无相对转动"></a>无相对转动</h4><p>若两个参考系之间只有平移没有转动，某时刻两个参考系中任意两个固定点之间的加速度都是相等的。令某时刻点 $P$ 相对于 $S$ 系和 $S^{\prime}$ 系的加速度分别为 $\mathbf{a_S}$ 和 $\mathbf{a_{S^\prime}}$ ，再令两坐标系之间的加速度为 $\mathbf{a_r}$ ，那么有<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r}.<br>$$</p>
+<h4 id="有相对转动"><a href="#有相对转动" class="headerlink" title="有相对转动"></a>有相对转动</h4><p>若两参考系之间有可能存在转动，牵连加速度 $\mathbf{a_r}$ 的定义会变得比牵连速度 $\mathbf{v_r}$ 更微妙，因为牵连速度 与参考系的选取无关，而牵连加速度却有关! </p>
+<p>我们在 $S$ 系中讨论问题。定义 $t$ 时刻点 $P$ 在 $S^\prime$ 系中的固定点相对于 $S$ 系的加速度为 $\mathbf{a_r}$ 。那么<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r} +2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$<br>其中 $\boldsymbol{\omega}$ 是 $S^{\prime}$ 系相对于 $S$ 系的瞬时角速度。最后一项被称为科里奥利加速度 (Coriolis Acceleration)<br>$$<br>\mathbf{a_c}=2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$</p>
+<h2 id="总惯性力"><a href="#总惯性力" class="headerlink" title="总惯性力"></a>总惯性力</h2><p>任意非惯性系 $S^{\prime}$ 中质点的总惯性 力 $(S$ 为任意惯性系) 为</p>
+<p>$$<br>\mathbf{F_c} = m\left(\mathbf{a_{S^\prime}}-\mathbf{a_S}\right) = -m \mathbf{a_r} - 2m \boldsymbol{\omega} \times \mathbf{v_{S^\prime}}.<br>$$</p>
+<p>其中第一项包含平移惯性力和转动惯性力，转动惯性力又可划分为离心力以及角加速度产生的惯性力，但与质 点相对 $S^{\prime}$ 的速度无关，所以只将科里奥利力定义为第二项。</p>
+<h2 id="应用于地球"><a href="#应用于地球" class="headerlink" title="应用于地球"></a>应用于地球</h2><p>影响在地球表面“滑动”的空气运动的加速度是科里奥利项的水平分量<br>$$<br>-2 \boldsymbol{\omega} \times \boldsymbol{v}<br>$$</p>
+<p><img src="https://wuli.wiki/online/4d404c496fa983f9.svg" alt></p>
+<p>该分量与地球表面的速度正交，由以下表达式给出<br>$$\omega v 2 \sin \phi$$</p>
+<ul>
+<li>$\omega$ 是地球的自转速率</li>
+<li>$\phi$ 是纬度, 北半球为正，为负 南半球</li>
+</ul>
+<p>在北半球，纬度为正，从上方观察，该加速度位于运动方向的右侧。相反，在南半球它位于左侧。</p>
+<h5 id="证明为什么出现2"><a href="#证明为什么出现2" class="headerlink" title="证明为什么出现2"></a>证明为什么出现2</h5><p><a href="https://wuli.wiki/online/Corio.html" target="_blank" rel="noopener">https://wuli.wiki/online/Corio.html</a></p>
 
       
     </div>
