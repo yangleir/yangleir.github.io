@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">86</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">87</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">150</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">154</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,1253 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/03/24/gmt-newuser/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/24/gmt-newuser/" class="post-title-link" itemprop="url">5分钟学会GMT</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-24 19:50:08 / 修改时间：21:12:30" itemprop="dateCreated datePublished" datetime="2022-03-24T19:50:08+08:00">2022-03-24</time>
+            </span>
+
+          
+            <span id="/2022/03/24/gmt-newuser/" class="post-meta-item leancloud_visitors" data-flag-title="5分钟学会GMT" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/24/gmt-newuser/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/24/gmt-newuser/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文面向GMT的初学者或者即将打算学习GMT的新人。</p>
+</blockquote>
+<h2 id="GMT简介"><a href="#GMT简介" class="headerlink" title="GMT简介"></a>GMT简介</h2><p>GMT是一套地学绘图的工具，可以输出高质量的论文插图，并具备优秀的数据处理工具，比如进行网格插值、数据筛选、空间滤波甚至重力场反演等。GMT在测绘、地球物理、海洋、遥感等领域有广泛的使用，GMT通常被指定为研究生必备技能之一。然而由于其采用命令行模式，有一定的学习门槛。不过掌握之后，会大大提高科研生产力。</p>
+<p>GMT由美国夏威夷大学Paul教授等人开发，至今已有30多年历史，且仍旧在更新维护。中国也有一批热衷于更新GMT的粉丝。</p>
+<p><img src="/images/gmt/gmt.png" alt></p>
+<center>基本每天更新代码的Paul爷爷</center>
+
+<p>下面分Windows和Linux来介绍安装GMT使用。</p>
+<h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>需要准备的程序：</p>
+<ul>
+<li>GMT可执行程序，地址：<a href="https://github.com/GenericMappingTools/gmt/releases/tag/6.3.0" target="_blank" rel="noopener">https://github.com/GenericMappingTools/gmt/releases/tag/6.3.0</a></li>
+<li>GhostScript，地址：<a href="https://www.ghostscript.com/releases/gsdnld.html" target="_blank" rel="noopener">https://www.ghostscript.com/releases/gsdnld.html</a></li>
+<li>gsview（可选）, 地址：<a href="https://pages.cs.wisc.edu/~ghost/" target="_blank" rel="noopener">https://pages.cs.wisc.edu/~ghost/</a></li>
+</ul>
+<p>Ghostscript是为了解释ps矢量语言，支持转化成pdf格式。gsview是为了打开ps文件。</p>
+<p>安装后，记得查看下系统路径<code>PATH</code>时候设置？如果没自动设置路径，请手动加上。</p>
+<p>不需要重启电脑。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>GMT采用了脚本程序，在window中可以写bat文件进行批量运行。简单说就是把一行一行的代码放进bat中依次执行，后面的绘图代码将叠加到上一行的结果之上。</p>
+<p>一般，请前往GMT安装目录找到<code>example</code>目录，随便进入一个例子（动画除外），找到<code>bat</code>文件，双击执行，结束后当前目录会有图片产生。</p>
+<p>例子的目录一般在：<code>C:\programs\gmt6\share\doc\examples</code></p>
+<blockquote>
+<p>注意，有些例子使用了在线数据，因此需要联网运行。有些例子可能使用了<code>gawk</code>等文本处理工具，需要下载后放到GMT的<code>bin</code>目录（其他可以被path搜索的目录也行）。</p>
+</blockquote>
+<p>下面是<code>ex01</code>代码：</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM		GMT EXAMPLE 01</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line"><span class="comment">REM Purpose:	Make two contour maps based on the data in the file osu91a1f_16.nc</span></span><br><span class="line"><span class="comment">REM GMT modules:	set, subplot, grdcontour, coast</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt begin ex01</span><br><span class="line">	gmt <span class="built_in">set</span> MAP_GRID_CROSS_SIZE_PRIMARY <span class="number">0</span> FONT_ANNOT_PRIMARY <span class="number">10</span>p</span><br><span class="line">	gmt subplot begin <span class="number">2</span>x1 -A -M0.<span class="number">5</span>c -Blrtb -Bafg -T"Low Order Geoid" -Fs16c/<span class="number">0</span> -Rg -JH16c</span><br><span class="line">		gmt coast -JH? -Glightbrown -Slightblue -c0,<span class="number">0</span></span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -Ln -Wcthinnest,- -Wathin,- -T+d8p/<span class="number">2</span>p+l</span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -LP -T+d8p/<span class="number">2</span>p+l</span><br><span class="line"></span><br><span class="line">		gmt coast -JH0/? -Glightbrown -Slightblue -c1,<span class="number">0</span></span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -Ln -Wcthinnest,- -Wathin,- -T+d8p/<span class="number">2</span>p</span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -LP -T+d8p/<span class="number">2</span>p</span><br><span class="line">	gmt subplot end</span><br><span class="line">gmt end show</span><br></pre></td></tr></table></figure>
+
+<p>上述代码是GMT6风格。大概意思如下：<br>‘REM’表示注释，<code>gmt begin</code> 表示开始，<code>gmt set</code>在本例中修改一些绘图默认值，<code>gmt coast</code>表示正式的绘图开始，这一行是加海岸线，后面各有不同含义，按顺序执行。</p>
+<p>如果上面的例子复杂了，也可以打开<code>cmd</code>，运行一行的代码:</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">gmt</span> pscoast -JM6i -<span class="keyword">Baf </span>-EGB,<span class="keyword">IT,FR+gblue+p0.25p,red </span>-EES,PT,GR+gyellow -P &gt; <span class="meta">map</span>.ps</span><br></pre></td></tr></table></figure>
+
+<p>使用gsview打开ps图片<br><img src="/images/gmt/gmt1.png" alt></p>
+<center>一副GMT绘制的地图</center>
+
+<p>装换格式使用：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt psconvert <span class="keyword">map</span>.<span class="keyword">ps</span> -A -Tg</span><br></pre></td></tr></table></figure>
+
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>这里以<code>Ubuntu</code>为例。</p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>联网情况下，GMT安装只需要几行命令，不要自己编译。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install gmt gmt-dcw gmt-gshhg</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install ghostscript</span><br></pre></td></tr></table></figure>
+
+<p>检查安装是否成功使用，直接在命令窗口输入<code>gmt</code>，出现版本信息即表示安装成功。</p>
+<h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><p>Linux下同样采用脚本，把每一行命令写到一个可执行的文本即可。</p>
+<p>和Windows有所不同的是，Linux下面有大量的文本处理工具可以使用，比如<code>cat</code>,<code>sed</code>,<code>ls</code>,<code>awk</code>等。</p>
+<p>在命令窗口输入:</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">gmt</span> pscoast -JM6i -<span class="keyword">Baf </span>-EGB,<span class="keyword">IT,FR+gblue+p0.25p,red </span>-EES,PT,GR+gyellow -P &gt; <span class="meta">map</span>.ps</span><br></pre></td></tr></table></figure>
+<p>可以得到和Windows一样的结果。</p>
+<p>如果使用批处理运行，比如代码已经写进<code>test.sh</code>，则执行<code>./test.sh</code>。</p>
+<h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>命令窗口输入<code>gmt docs gmt</code>，可以打开本地帮助。</p>
+<h2 id="论坛"><a href="#论坛" class="headerlink" title="论坛"></a>论坛</h2><p>有问题可以去论坛提问，这里有许多活跃用户。GMT论坛已经更换了很多次，这次看起来比较稳定。</p>
+<p>GMT论坛地址：<a href="https://forum.generic-mapping-tools.org/" target="_blank" rel="noopener">https://forum.generic-mapping-tools.org/</a></p>
+<h2 id="QQ群"><a href="#QQ群" class="headerlink" title="QQ群"></a>QQ群</h2><p>国内有两个千人的群，都比较不错。</p>
+<p>GMT QQ群1: 218905582<br>GMT QQ群2: 791856541</p>
+<h2 id="中文社区"><a href="#中文社区" class="headerlink" title="中文社区"></a>中文社区</h2><p>有一些翻译的中文手册和案例，可作为初学者参考。</p>
+<p>地址：<a href="https://gmt-china.org/" target="_blank" rel="noopener">https://gmt-china.org/</a></p>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>可以在GitHub搜索到一些共享的例子。</p>
+<h2 id="本公众号"><a href="#本公众号" class="headerlink" title="本公众号"></a>本公众号</h2><p>初心是提供海洋数据服务，有空会更新一些GMT案例，往往比较实用，且别处找不太到。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>另外，还有许多的个人网站和博客，不一一列举。</p>
+<h1 id="MATLAB，Python，Julia的GMT版本"><a href="#MATLAB，Python，Julia的GMT版本" class="headerlink" title="MATLAB，Python，Julia的GMT版本"></a>MATLAB，Python，Julia的GMT版本</h1><p>GMT MATLAB和Julia相对成熟，特别是MATLAB版本完美结合GMT，实现互相调用数据。Julia用的不多，但好像有一些黑科技在里面，可以实现一般GMT做不到事情。Python还在开发中，工具不完全，可以尝尝鲜，但不能替代GMT。</p>
+<p>三者程序：<a href="https://github.com/GenericMappingTools" target="_blank" rel="noopener">https://github.com/GenericMappingTools</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/03/18/data-share-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/18/data-share-1/" class="post-title-link" itemprop="url">海洋数据综合网址</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-18 15:44:46" itemprop="dateCreated datePublished" datetime="2022-03-18T15:44:46+08:00">2022-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-21 11:01:59" itemprop="dateModified" datetime="2022-12-21T11:01:59+08:00">2022-12-21</time>
+              </span>
+
+          
+            <span id="/2022/03/18/data-share-1/" class="post-meta-item leancloud_visitors" data-flag-title="海洋数据综合网址" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/18/data-share-1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/18/data-share-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="海洋模式数据和再分析数据"><a href="#海洋模式数据和再分析数据" class="headerlink" title="海洋模式数据和再分析数据"></a>海洋模式数据和再分析数据</h2><table>
+<thead>
+<tr>
+<th align="left">数据名</th>
+<th align="right">机构</th>
+<th align="center">分辨率</th>
+<th align="center">时间</th>
+<th align="center">网址</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">LLC4320海洋环流模式</td>
+<td align="right">NASA</td>
+<td align="center">1/48°，1h</td>
+<td align="center">9-13 2011 至 11-14 2012</td>
+<td align="center"><a href="https://data.nas.nasa.gov/ecco/data.php" target="_blank" rel="noopener">https://data.nas.nasa.gov/ecco/data.php</a></td>
+<td align="center">数据量巨大，可以使用Pangeo云计算</td>
+</tr>
+<tr>
+<td align="left">LLC4320 Pre-SWOT CALVAL</td>
+<td align="right">NASA</td>
+<td align="center">1/48°，1h</td>
+<td align="center">9-13 2011 至 11-14 2012</td>
+<td align="center"><a href="https://cmr.earthdata.nasa.gov/virtual-directory/collections/C2006849995-POCLOUD" target="_blank" rel="noopener">https://cmr.earthdata.nasa.gov/virtual-directory/collections/C2006849995-POCLOUD</a> <a href="https://search.earthdata.nasa.gov/search?q=%20Pre-SWOT" target="_blank" rel="noopener">https://search.earthdata.nasa.gov/search?q=%20Pre-SWOT</a></td>
+<td align="center">LLC4320的局部海域，用于SWOT模拟定标，下载方便</td>
+</tr>
+<tr>
+<td align="left">HYCOM海洋环流模式</td>
+<td align="right">-</td>
+<td align="center">1/12°，1h</td>
+<td align="center">2014-July to Present</td>
+<td align="center"><a href="https://www.hycom.org/dataserver/gofs-3pt1/analysis" target="_blank" rel="noopener">https://www.hycom.org/dataserver/gofs-3pt1/analysis</a>;</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><table>
+<thead>
+<tr>
+<th align="left">数据名</th>
+<th align="right">机构</th>
+<th align="center">分辨率</th>
+<th align="center">时间</th>
+<th align="center">网址</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">MSS/MDT</td>
+<td align="right">DTU</td>
+<td align="center">-</td>
+<td align="center">2018</td>
+<td align="center"><a href="ftp://ftp.space.dtu.dk/pub/DTU18" target="_blank" rel="noopener">ftp://ftp.space.dtu.dk/pub/DTU18</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">CRUST 1.0</td>
+<td align="right">ucsd</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://igppweb.ucsd.edu/~gabi/crust1.html#download；https://blog.seisman.info/crust1/" target="_blank" rel="noopener">https://igppweb.ucsd.edu/~gabi/crust1.html#download；https://blog.seisman.info/crust1/</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">地球物理模型</td>
+<td align="right">EarthByte</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="http://portal.gplates.org/;https://www.earthbyte.org/gplates-portal/;https://earthbyte.org/webdav/ftp/earthbyte/agegrid/2020/Grids/;https://www.earthbyte.org/webdav/ftp/Data_Collections/Muller_etal_2019_Tectonics/" target="_blank" rel="noopener">http://portal.gplates.org/;https://www.earthbyte.org/gplates-portal/;https://earthbyte.org/webdav/ftp/earthbyte/agegrid/2020/Grids/;https://www.earthbyte.org/webdav/ftp/Data_Collections/Muller_etal_2019_Tectonics/</a></td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
+<h2 id="海洋卫星观测数据"><a href="#海洋卫星观测数据" class="headerlink" title="海洋卫星观测数据"></a>海洋卫星观测数据</h2><h3 id="高度计"><a href="#高度计" class="headerlink" title="高度计"></a>高度计</h3><table>
+<thead>
+<tr>
+<th align="left">数据名</th>
+<th align="right">机构</th>
+<th align="center">分辨率</th>
+<th align="center">时间</th>
+<th align="center">网址</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">TOPEX</td>
+<td align="right">NASA</td>
+<td align="center">沿轨6km</td>
+<td align="center">1992-2006</td>
+<td align="center"><a href="https://podaac-tools.jpl.nasa.gov/drive/files/allData/topex" target="_blank" rel="noopener">https://podaac-tools.jpl.nasa.gov/drive/files/allData/topex</a></td>
+<td align="center">含GDR、IGDR，二进制</td>
+</tr>
+<tr>
+<td align="left">seasat，GEOS3、Geosat</td>
+<td align="right">NASA</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://podaac-tools.jpl.nasa.gov/drive/files/allData/seasat" target="_blank" rel="noopener">https://podaac-tools.jpl.nasa.gov/drive/files/allData/seasat</a></td>
+<td align="center">属于老一代高度计，更多资料参考<a href="https://podaac.jpl.nasa.gov/Altimetric_Data_Information/Missions" target="_blank" rel="noopener">https://podaac.jpl.nasa.gov/Altimetric_Data_Information/Missions</a></td>
+</tr>
+<tr>
+<td align="left">Jason-1/2/3，Saral</td>
+<td align="right">NASA,CNES</td>
+<td align="center">沿轨6km</td>
+<td align="center">2002-至今</td>
+<td align="center">AVISO: <a href="ftp://ftp-access.aviso.altimetry.fr" target="_blank" rel="noopener">ftp://ftp-access.aviso.altimetry.fr</a></td>
+<td align="center">需注册</td>
+</tr>
+<tr>
+<td align="left">Jason-CS</td>
+<td align="right">NASA,CNES</td>
+<td align="center">沿轨6km</td>
+<td align="center">2021-至今</td>
+<td align="center"><a href="https://cmr.earthdata.nasa.gov/virtual-directory/collections/C1968979551-POCLOUD" target="_blank" rel="noopener">https://cmr.earthdata.nasa.gov/virtual-directory/collections/C1968979551-POCLOUD</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">L2P SLA</td>
+<td align="right">NASA,CNES</td>
+<td align="center">沿轨6km</td>
+<td align="center">2002-至今</td>
+<td align="center">AVISO: <a href="ftp://ftp-access.aviso.altimetry.fr/uncross-calibrated/open-ocean/non-time-critical/l2p/sla/" target="_blank" rel="noopener">ftp://ftp-access.aviso.altimetry.fr/uncross-calibrated/open-ocean/non-time-critical/l2p/sla/</a></td>
+<td align="center">含主要的高度卫星</td>
+</tr>
+<tr>
+<td align="left">Sentinel-6A高度计</td>
+<td align="right">eumetsat,EU</td>
+<td align="center">分为标准产品和简化产品</td>
+<td align="center">2021.11.7-至今</td>
+<td align="center"><a href="https://navigator.eumetsat.int/product/EO:EUM:DAT:0128" target="_blank" rel="noopener">https://navigator.eumetsat.int/product/EO:EUM:DAT:0128</a></td>
+<td align="center">还有Sentinel-3AB、Jason系列、Saral等卫星数据</td>
+</tr>
+<tr>
+<td align="left">Sentinel-6A高度计</td>
+<td align="right">earthdata,USA</td>
+<td align="center">分为标准产品和简化产品</td>
+<td align="center">2021.11.28-至今</td>
+<td align="center"><a href="https://search.earthdata.nasa.gov/search?q=sentinel-6" target="_blank" rel="noopener">https://search.earthdata.nasa.gov/search?q=sentinel-6</a></td>
+<td align="center">还有Sentinel-3AB、Jason系列、Saral等卫星数据</td>
+</tr>
+</tbody></table>
+<h3 id="微波辐射计-Microwave-Radiometer"><a href="#微波辐射计-Microwave-Radiometer" class="headerlink" title="微波辐射计 Microwave  Radiometer"></a>微波辐射计 Microwave  Radiometer</h3><table>
+<thead>
+<tr>
+<th align="left">数据名</th>
+<th align="right">机构</th>
+<th align="center">分辨率</th>
+<th align="center">时间</th>
+<th align="center">网址</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">AMSR/AMSR2/AMSRE</td>
+<td align="right">JAXA,NASA</td>
+<td align="center">-</td>
+<td align="center">2002 - 至今</td>
+<td align="center"><a href="https://gportal.jaxa.jp/;https://lance.nsstc.nasa.gov/" target="_blank" rel="noopener">https://gportal.jaxa.jp/;https://lance.nsstc.nasa.gov/</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">SSMI / SSMIS</td>
+<td align="right">US</td>
+<td align="center">-</td>
+<td align="center">1987 - present</td>
+<td align="center"><a href="https://www.remss.com/missions/ssmi/" target="_blank" rel="noopener">https://www.remss.com/missions/ssmi/</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">QuikScat / SeaWindsS</td>
+<td align="right">US</td>
+<td align="center">-</td>
+<td align="center">1999 - 2009 (QuikScat),  2003 (SeaWinds)</td>
+<td align="center"><a href="https://remss.com/missions/qscat/" target="_blank" rel="noopener">https://remss.com/missions/qscat/</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">ASCAT</td>
+<td align="right">US</td>
+<td align="center">-</td>
+<td align="center">2006 - present</td>
+<td align="center"><a href="https://remss.com/missions/ascat/" target="_blank" rel="noopener">https://remss.com/missions/ascat/</a></td>
+<td align="center">surface wind speed and direction</td>
+</tr>
+<tr>
+<td align="left">SMAP</td>
+<td align="right">US</td>
+<td align="center">-</td>
+<td align="center">2015 - present</td>
+<td align="center"><a href="https://remss.com/missions/smap" target="_blank" rel="noopener">https://remss.com/missions/smap</a></td>
+<td align="center">sea surface salinity, sea surface wind speeds</td>
+</tr>
+</tbody></table>
+<h3 id="SAR"><a href="#SAR" class="headerlink" title="SAR"></a>SAR</h3><h3 id="盐度卫星"><a href="#盐度卫星" class="headerlink" title="盐度卫星"></a>盐度卫星</h3><h3 id="光学卫星"><a href="#光学卫星" class="headerlink" title="光学卫星"></a>光学卫星</h3><h2 id="现场观测数据"><a href="#现场观测数据" class="headerlink" title="现场观测数据"></a>现场观测数据</h2><h3 id="海洋"><a href="#海洋" class="headerlink" title="海洋"></a>海洋</h3><table>
+<thead>
+<tr>
+<th align="left">数据名</th>
+<th align="right">机构</th>
+<th align="center">分辨率</th>
+<th align="center">时间</th>
+<th align="center">网址</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Argo</td>
+<td align="right">-</td>
+<td align="center">1/2°</td>
+<td align="center">-</td>
+<td align="center"><a href="https://argo.ucsd.edu/data/argo-data-products/" target="_blank" rel="noopener">https://argo.ucsd.edu/data/argo-data-products/</a></td>
+<td align="center">网站集合</td>
+</tr>
+<tr>
+<td align="left">CMEMS</td>
+<td align="right">EU copernicus</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="http://www.marineinsitu.eu/dashboard/" target="_blank" rel="noopener">http://www.marineinsitu.eu/dashboard/</a></td>
+<td align="center">全面的海洋现场数据</td>
+</tr>
+<tr>
+<td align="left">WOD</td>
+<td align="right">ncei</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.ncei.noaa.gov/products/world-ocean-database；https://www.ncei.noaa.gov/data/oceans/woa/WOA18/" target="_blank" rel="noopener">https://www.ncei.noaa.gov/products/world-ocean-database；https://www.ncei.noaa.gov/data/oceans/woa/WOA18/</a></td>
+<td align="center">气候态平均</td>
+</tr>
+<tr>
+<td align="left">Difter</td>
+<td align="right">NOAA</td>
+<td align="center">-</td>
+<td align="center">April 1, 2018</td>
+<td align="center"><a href="http://www.jmlilly.net/data.html" target="_blank" rel="noopener">http://www.jmlilly.net/data.html</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">Difter</td>
+<td align="right">NOAA</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="ftp://ftp.aoml.noaa.gov/phod/pub/buoydata" target="_blank" rel="noopener">ftp://ftp.aoml.noaa.gov/phod/pub/buoydata</a>; <a href="https://www.aoml.noaa.gov/phod/gdp/" target="_blank" rel="noopener">https://www.aoml.noaa.gov/phod/gdp/</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">buoy center</td>
+<td align="right">NOAA</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.ndbc.noaa.gov/；https://www.pmel.noaa.gov/tao/drupal/disdel/" target="_blank" rel="noopener">https://www.ndbc.noaa.gov/；https://www.pmel.noaa.gov/tao/drupal/disdel/</a></td>
+<td align="center">水位、水文等</td>
+</tr>
+<tr>
+<td align="left">buoy data</td>
+<td align="right">ncei</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.ncei.noaa.gov/access/marine-environmental-buoy-database/" target="_blank" rel="noopener">https://www.ncei.noaa.gov/access/marine-environmental-buoy-database/</a></td>
+<td align="center">水文浮标，include air temperature and pressure, wind speed and direction, wind gust, and sea surface temperature.The buoys (and a few C-MAN stations located on offshore towers) also report wave data, usually including wave height, wave period, and wave spectra.</td>
+</tr>
+<tr>
+<td align="left">Moored Buoy</td>
+<td align="right">UMOOS</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="http://gyre.umeoce.maine.edu/" target="_blank" rel="noopener">http://gyre.umeoce.maine.edu/</a></td>
+<td align="center">水文浮标</td>
+</tr>
+<tr>
+<td align="left">cdip</td>
+<td align="right">SIO</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="http://cdip.ucsd.edu/m/deployment/station_view/" target="_blank" rel="noopener">http://cdip.ucsd.edu/m/deployment/station_view/</a></td>
+<td align="center">Coastal Data Information Program (CDIP) is operated by the Ocean Engineering Research Group (OERG), part of the Integrative Oceanography Division (IOD) at Scripps Institution of Oceanography (SIO).</td>
+</tr>
+<tr>
+<td align="left">Glider</td>
+<td align="right">ioos US</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://gliders.ioos.us/map/" target="_blank" rel="noopener">https://gliders.ioos.us/map/</a>; <a href="https://gliders.ioos.us/thredds/catalog/deployments/catalog.html;https://www.oceangliders.org/achievements/" target="_blank" rel="noopener">https://gliders.ioos.us/thredds/catalog/deployments/catalog.html;https://www.oceangliders.org/achievements/</a>;</td>
+<td align="center">DRAT水位、锚系潜标TAO等</td>
+</tr>
+<tr>
+<td align="left">TAO/TRITON</td>
+<td align="right">NOAA</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.pmel.noaa.gov/tao/drupal/disdel/；https://tao.ndbc.noaa.gov/" target="_blank" rel="noopener">https://www.pmel.noaa.gov/tao/drupal/disdel/；https://tao.ndbc.noaa.gov/</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">台湾海洋站</td>
+<td align="right">台湾</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://odbgo.oc.ntu.edu.tw/odbargo/" target="_blank" rel="noopener">https://odbgo.oc.ntu.edu.tw/odbargo/</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">台湾中央气象局</td>
+<td align="right">台湾</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://e-service.cwb.gov.tw/wdps/" target="_blank" rel="noopener">https://e-service.cwb.gov.tw/wdps/</a></td>
+<td align="center">资料购买服务，价格便宜</td>
+</tr>
+<tr>
+<td align="left">台湾海象灾防环境研究所</td>
+<td align="right">台湾</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://ocean.cwb.gov.tw/V2/edu/cwb/；https://ocean.cwb.gov.tw/V2/edu/cwb/；https://ocean.cwb.gov.tw/V2/data_interface/datasets" target="_blank" rel="noopener">https://ocean.cwb.gov.tw/V2/edu/cwb/；https://ocean.cwb.gov.tw/V2/edu/cwb/；https://ocean.cwb.gov.tw/V2/data_interface/datasets</a>; <a href="https://e-service.cwb.gov.tw/wdps/" target="_blank" rel="noopener">https://e-service.cwb.gov.tw/wdps/</a></td>
+<td align="center">可提供实时数据查看，历史数据下载，数据类型包含潮汐、海流、海面温度、波浪、风场等</td>
+</tr>
+<tr>
+<td align="left">科技部自然司海洋學門資料庫</td>
+<td align="right">台湾</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.odb.ntu.edu.tw/" target="_blank" rel="noopener">https://www.odb.ntu.edu.tw/</a></td>
+<td align="center">提供經過校驗的水文、海流、水深、震測、聲納、重力、化學、生物等資料</td>
+</tr>
+<tr>
+<td align="left">科技部海洋學門資料庫</td>
+<td align="right">台湾</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.odb.ntu.edu.tw/" target="_blank" rel="noopener">https://www.odb.ntu.edu.tw/</a></td>
+<td align="center">账号：aleia,asdf1234</td>
+</tr>
+<tr>
+<td align="left">台湾岛潮汐实测</td>
+<td align="right">台湾</td>
+<td align="center">逐时</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.cwb.gov.tw/V8/C/M/OBS_Marine.html" target="_blank" rel="noopener">https://www.cwb.gov.tw/V8/C/M/OBS_Marine.html</a></td>
+<td align="center">含主要港口，收费明细<a href="https://e-service.cwb.gov.tw/wdps/cwb_fee.htm" target="_blank" rel="noopener">https://e-service.cwb.gov.tw/wdps/cwb_fee.htm</a></td>
+</tr>
+<tr>
+<td align="left">地球物理</td>
+<td align="right">NGDC</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.ncei.noaa.gov/maps/geophysics/" target="_blank" rel="noopener">https://www.ncei.noaa.gov/maps/geophysics/</a></td>
+<td align="center">全球</td>
+</tr>
+<tr>
+<td align="left">日本气象厅水文观测</td>
+<td align="right">jma</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.data.jma.go.jp/gmd/kaiyou/db/vessel_obs/data-report/html/ship/ship_e.php" target="_blank" rel="noopener">https://www.data.jma.go.jp/gmd/kaiyou/db/vessel_obs/data-report/html/ship/ship_e.php</a></td>
+<td align="center">西太平洋水文数据，长期历史资料</td>
+</tr>
+<tr>
+<td align="left">rapid</td>
+<td align="right">UK</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://rapid.ac.uk/" target="_blank" rel="noopener">https://rapid.ac.uk/</a></td>
+<td align="center">RAPID-AMOC Programme for Atlantic Meridional Overturning Circulation (AMOC)</td>
+</tr>
+<tr>
+<td align="left">雨水情数据</td>
+<td align="right">中国湖北</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="http://113.57.190.228:8001/#!/web/Report/RiverReport" target="_blank" rel="noopener">http://113.57.190.228:8001/#!/web/Report/RiverReport</a></td>
+<td align="center">河流、水库水位数据</td>
+</tr>
+<tr>
+<td align="left">Global Runoff Data Centre</td>
+<td align="right">德国bafg</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.bafg.de/GRDC/EN/Home/homepage_node.html" target="_blank" rel="noopener">https://www.bafg.de/GRDC/EN/Home/homepage_node.html</a></td>
+<td align="center">全球河流、水库水位数据，论文：<a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022GL097726" target="_blank" rel="noopener">https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022GL097726</a></td>
+</tr>
+<tr>
+<td align="left">Geological Survey National Water Information</td>
+<td align="right"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">System</td>
+<td align="right">USA USGS</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://dashboard.waterdata.usgs.gov/app/nwd/?region=lower48&amp;aoi=default" target="_blank" rel="noopener">https://dashboard.waterdata.usgs.gov/app/nwd/?region=lower48&amp;aoi=default</a></td>
+<td align="center">河流、水库水位数据</td>
+</tr>
+<tr>
+<td align="left">Australian Bureau of Meteorology</td>
+<td align="right">Australian Bureau of Meteorology</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://portal.wsapi.cloud.bom.gov.au/arcgis/apps/sites/#/australian-water-data-service" target="_blank" rel="noopener">https://portal.wsapi.cloud.bom.gov.au/arcgis/apps/sites/#/australian-water-data-service</a></td>
+<td align="center">河流、水库水位数据</td>
+</tr>
+<tr>
+<td align="left">Rolling Deck to Repository (R2R)</td>
+<td align="right">Lamont-Doherty Earth Observatory of Columbia University</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.rvdata.us/" target="_blank" rel="noopener">https://www.rvdata.us/</a></td>
+<td align="center">走航数据</td>
+</tr>
+<tr>
+<td align="left">Coriolis</td>
+<td align="right">EU</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.coriolis.eu.org/Observing-the-Ocean/MARINE-MAMMALS" target="_blank" rel="noopener">https://www.coriolis.eu.org/Observing-the-Ocean/MARINE-MAMMALS</a></td>
+<td align="center">哺乳动物观测CTD剖面</td>
+</tr>
+<tr>
+<td align="left">MEOP</td>
+<td align="right">-</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.meop.net/" target="_blank" rel="noopener">https://www.meop.net/</a></td>
+<td align="center">哺乳动物观测CTD剖面</td>
+</tr>
+<tr>
+<td align="left">S-net</td>
+<td align="right">-</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://www.seafloor.bosai.go.jp/strace/" target="_blank" rel="noopener">https://www.seafloor.bosai.go.jp/strace/</a></td>
+<td align="center">日本海底地震波观测网，海底压力计</td>
+</tr>
+</tbody></table>
+<h3 id="测绘地理信息"><a href="#测绘地理信息" class="headerlink" title="测绘地理信息"></a>测绘地理信息</h3><table>
+<thead>
+<tr>
+<th align="left">数据名</th>
+<th align="right">机构</th>
+<th align="center">分辨率</th>
+<th align="center">时间</th>
+<th align="center">网址</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Wellington City LiDAR</td>
+<td align="right">OpenTopography</td>
+<td align="center">1/48°，1h</td>
+<td align="center">2019</td>
+<td align="center"><a href="https://opentopography.s3.sdsc.edu/minio/pc-bulk/NZ19_Wellington/" target="_blank" rel="noopener">https://opentopography.s3.sdsc.edu/minio/pc-bulk/NZ19_Wellington/</a></td>
+<td align="center"><a href="https://github.com/GenericMappingTools/foss4g2019oceania/blob/master/3_lidar_to_surface.ipynb" target="_blank" rel="noopener">https://github.com/GenericMappingTools/foss4g2019oceania/blob/master/3_lidar_to_surface.ipynb</a></td>
+</tr>
+<tr>
+<td align="left">北极海底地形</td>
+<td align="right">ngdc</td>
+<td align="center">2km</td>
+<td align="center">时间</td>
+<td align="center"><a href="https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/arctic.html" target="_blank" rel="noopener">https://www.ngdc.noaa.gov/mgg/bathymetry/arctic/arctic.html</a></td>
+<td align="center">备注</td>
+</tr>
+<tr>
+<td align="left">开源地图</td>
+<td align="right">社区</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://planet.openstreetmap.org/" target="_blank" rel="noopener">https://planet.openstreetmap.org/</a></td>
+<td align="center">道路、河流、海岸线、建筑物、政治界线等</td>
+</tr>
+<tr>
+<td align="left">台湾地理信息</td>
+<td align="right">台湾</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center"><a href="https://ocean.moi.gov.tw/Map/" target="_blank" rel="noopener">https://ocean.moi.gov.tw/Map/</a></td>
+<td align="center">海图、海洋观测数据展示等</td>
+</tr>
+</tbody></table>
+<h2 id="数据平台中心"><a href="#数据平台中心" class="headerlink" title="数据平台中心"></a>数据平台中心</h2><table>
+<thead>
+<tr>
+<th align="left">中心</th>
+<th align="right">国别</th>
+<th align="center">网址</th>
+<th align="center">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">podaac</td>
+<td align="right">US NASA</td>
+<td align="center"><a href="https://podaac.jpl.nasa.gov/datasetlist" target="_blank" rel="noopener">https://podaac.jpl.nasa.gov/datasetlist</a></td>
+<td align="center">海洋、冰冻圈、陆地水文</td>
+</tr>
+<tr>
+<td align="left">Land Information New Zealand</td>
+<td align="right">新西兰</td>
+<td align="center"><a href="https://data.linz.govt.nz/" target="_blank" rel="noopener">https://data.linz.govt.nz/</a></td>
+<td align="center">新西兰土地信息局（Land Information New Zealand，LINZ）是一个负责新西兰地理和测绘，以及处理土地所有权，管理政府土地和财产的政府公共服务部门。新西兰地理局秘书处是新西兰土地信息局下属机构，它提供行政和研究援助和咨询。新西兰土地信息局在1996年成立，地址位于新西兰惠灵顿6011新西兰广播电台大厦，年度预算为4.58252亿美元，部长为Hon Louise Upston。</td>
+</tr>
+<tr>
+<td align="left">osi-saf</td>
+<td align="right">EU eumetsat</td>
+<td align="center"><a href="https://osi-saf.eumetsat.int/" target="_blank" rel="noopener">https://osi-saf.eumetsat.int/</a></td>
+<td align="center">The OSI SAF develops, processes and distributes, in near real-time, products related to key parameters of the ocean-atmosphere interface. The OSI SAF also offers climatological data records.The OSI SAF team focuses on sea surface winds, sea and sea ice surface temperature, radiative fluxes : downward longwave irradiance and surface solar irradiance, sea ice concentration, edge, type, emissivity, drift.</td>
+</tr>
+<tr>
+<td align="left">NSIDC</td>
+<td align="right">US</td>
+<td align="center"><a href="https://nsidc.org/data/" target="_blank" rel="noopener">https://nsidc.org/data/</a></td>
+<td align="center">The National Snow and Ice Data Center (NSIDC) supports research into our world’s frozen realms: the snow, ice, glaciers, frozen ground, and climate interactions that make up Earth’s cryosphere. NSIDC manages and distributes scientific data, creates tools for data access, supports data users, performs scientific research, and educates the public about the cryosphere.</td>
+</tr>
+<tr>
+<td align="left">remss</td>
+<td align="right">US</td>
+<td align="center"><a href="https://remss.com/" target="_blank" rel="noopener">https://remss.com/</a></td>
+<td align="center">Research-Quality Geophysical Products from Satellite Microwave Sensors</td>
+</tr>
+<tr>
+<td align="left">earthdata数据平台（非数据中心）</td>
+<td align="right">US NASA</td>
+<td align="center"><a href="https://search.earthdata.nasa.gov/search" target="_blank" rel="noopener">https://search.earthdata.nasa.gov/search</a></td>
+<td align="center">NASA’s Earth Science Data Systems (ESDS) program oversees the life cycle of NASA’s Earth science data—from acquisition through processing and distribution.</td>
+</tr>
+<tr>
+<td align="left">lance</td>
+<td align="right">US NASA</td>
+<td align="center"><a href="https://lance.nsstc.nasa.gov/" target="_blank" rel="noopener">https://lance.nsstc.nasa.gov/</a></td>
+<td align="center">NASA’s Land, Atmosphere Near real-time Capability for Earth Observing Systems (LANCE) leverages existing satellite data processing systems in order to provide data and imagery available from select EOS instruments (currently AIRS, AMSR2, ISS LIS, MISR, MLS, MODIS, MOPITT, OMI, OMPS, and VIIRS) within 3 hours of satellite overpass. These data meet the timely needs of applications such as numerical weather and climate prediction, forecasting and monitoring natural hazards, agriculture, air quality and disaster relief.</td>
+</tr>
+<tr>
+<td align="left">gportal</td>
+<td align="right">Japan jaxa</td>
+<td align="center"><a href="https://gportal.jaxa.jp/gpr/search?tab=1" target="_blank" rel="noopener">https://gportal.jaxa.jp/gpr/search?tab=1</a></td>
+<td align="center">G-Portal offers earth observation data free of charge for use in various fields.</td>
+</tr>
+<tr>
+<td align="left">asf</td>
+<td align="right">US</td>
+<td align="center"><a href="https://search.asf.alaska.edu/#/" target="_blank" rel="noopener">https://search.asf.alaska.edu/#/</a></td>
+<td align="center">SAR including Sentinel-1, ALOS PALSAR, RADARSAT-1, SEASAT</td>
+</tr>
+<tr>
+<td align="left">cddis</td>
+<td align="right">US NASA</td>
+<td align="center"><a href="https://cddis.nasa.gov/" target="_blank" rel="noopener">https://cddis.nasa.gov/</a></td>
+<td align="center">The Crustal Dynamics Data Information System (CDDIS) was initially developed to provide a central data bank for NASA’s Crustal Dynamics Project (CDP). The system continues to support the space geodesy and geodynamics community through NASA’s Space Geodesy Project as well as NASA’s Earth Science Enterprise.Mainly including  GNSS, SLR VLBI, DORIS,</td>
+</tr>
+<tr>
+<td align="left">LAADS DAAC</td>
+<td align="right">US NASA</td>
+<td align="center"><a href="https://ladsweb.modaps.eosdis.nasa.gov/about/" target="_blank" rel="noopener">https://ladsweb.modaps.eosdis.nasa.gov/about/</a></td>
+<td align="center">Level-1 data and atmospheric science. Terra &amp; Aqua MODIS, VIIRS, MERIS, OLCI, SLSTR.</td>
+</tr>
+<tr>
+<td align="left">LP DAAC</td>
+<td align="right">US NASA USGS</td>
+<td align="center"><a href="https://lpdaac.usgs.gov/about/" target="_blank" rel="noopener">https://lpdaac.usgs.gov/about/</a></td>
+<td align="center">Raw land remote sensing data products collected by sensors onboard satellites, aircraft, and the International Space Station (ISS).</td>
+</tr>
+<tr>
+<td align="left">oceancolor</td>
+<td align="right">US NASA</td>
+<td align="center"><a href="https://oceancolor.gsfc.nasa.gov/" target="_blank" rel="noopener">https://oceancolor.gsfc.nasa.gov/</a></td>
+<td align="center">Collection, processing, calibration, validation of ocean-related products from a large number of operational, satellite-based remote-sensing missions providing ocean color, sea surface temperature and sea surface salinity data to the international research community since 1996.</td>
+</tr>
+<tr>
+<td align="left">SEDAC</td>
+<td align="right">US NASA</td>
+<td align="center"><a href="https://sedac.ciesin.columbia.edu" target="_blank" rel="noopener">https://sedac.ciesin.columbia.edu</a></td>
+<td align="center">Focusing on human interactions in the environment, SEDAC has as its mission to develop and operate applications that support the integration of socioeconomic and earth science data and to serve as an “Information Gateway” between earth sciences and social sciences.</td>
+</tr>
+<tr>
+<td align="left">ECMWF</td>
+<td align="right">EU</td>
+<td align="center"><a href="https://www.ecmwf.int/en/forecasts/datasets" target="_blank" rel="noopener">https://www.ecmwf.int/en/forecasts/datasets</a></td>
+<td align="center">ECMWF produce and disseminate weather forecast data for the National Meteorological and Hydrological Services (NHMSs) of ECMWF Member and Co-operating States and their authorised users. ECMWF also archives data and makes this available to authorised users. Some data is also made available under licence and some is publicly available.</td>
+</tr>
+<tr>
+<td align="left">Copernicus</td>
+<td align="right">EU</td>
+<td align="center"><a href="https://www.copernicus.eu/en" target="_blank" rel="noopener">https://www.copernicus.eu/en</a>; <a href="https://marine.copernicus.eu/access-data；https://www.copernicus.eu/en/accessing-data-where-and-how/conventional-data-access-hubs" target="_blank" rel="noopener">https://marine.copernicus.eu/access-data；https://www.copernicus.eu/en/accessing-data-where-and-how/conventional-data-access-hubs</a></td>
+<td align="center">Copernicus is the European Union’s Earth observation programme, looking at our planet and its environment to benefit all European citizens. It offers information services that draw from satellite Earth Observation and in-situ (non-space) data.</td>
+</tr>
+<tr>
+<td align="left">apdrc</td>
+<td align="right">US</td>
+<td align="center"><a href="http://apdrc.soest.hawaii.edu/index.php" target="_blank" rel="noopener">http://apdrc.soest.hawaii.edu/index.php</a></td>
+<td align="center">The APDRC is building towards a vision of one-stop shopping of climate data and products for our users. Including Ocean temperature, Salinity, Nutrients, Sea level.</td>
+</tr>
+<tr>
+<td align="left">hadobs, hadisst</td>
+<td align="right">Met Office Hadley Centre observations datasets UK</td>
+<td align="center"><a href="https://www.metoffice.gov.uk/hadobs/；" target="_blank" rel="noopener">https://www.metoffice.gov.uk/hadobs/；</a> <a href="https://www.metoffice.gov.uk/hadobs/hadisst/data/download.html" target="_blank" rel="noopener">https://www.metoffice.gov.uk/hadobs/hadisst/data/download.html</a></td>
+<td align="center">长时间序列的SST, ICE</td>
+</tr>
+<tr>
+<td align="left">apdrc</td>
+<td align="right">hawaii</td>
+<td align="center"><a href="http://apdrc.soest.hawaii.edu/" target="_blank" rel="noopener">http://apdrc.soest.hawaii.edu/</a></td>
+<td align="center">综合海洋数据下载</td>
+</tr>
+<tr>
+<td align="left">Joint Archive for Shipboard ADCP</td>
+<td align="right">hawaii</td>
+<td align="center"><a href="https://uhslc.soest.hawaii.edu/sadcp/" target="_blank" rel="noopener">https://uhslc.soest.hawaii.edu/sadcp/</a></td>
+<td align="center">船测adcp</td>
+</tr>
+<tr>
+<td align="left">IFREMER</td>
+<td align="right">French</td>
+<td align="center"><a href="ftp://ftp.ifremer.fr/ifremer/cersat/products/swath/altimeters/waves/" target="_blank" rel="noopener">ftp://ftp.ifremer.fr/ifremer/cersat/products/swath/altimeters/waves/</a></td>
+<td align="center">该目录为波浪（cersat: Centre d’Exploitation et de Recherche SATellitaire），上级文件夹其他产品</td>
+</tr>
+<tr>
+<td align="left">acri</td>
+<td align="right">hermes</td>
+<td align="center"><a href="https://hermes.acri.fr/index.php?class=archive" target="_blank" rel="noopener">https://hermes.acri.fr/index.php?class=archive</a></td>
+<td align="center">水色、叶绿素下载</td>
+</tr>
+<tr>
+<td align="left">aodn</td>
+<td align="right">澳大利亚</td>
+<td align="center"><a href="https://portal.aodn.org.au/；https://portal.aodn.org.au/search" target="_blank" rel="noopener">https://portal.aodn.org.au/；https://portal.aodn.org.au/search</a></td>
+<td align="center">The gateway to Australian marine and climate science data</td>
+</tr>
+</tbody></table>
+<h2 id="数据处理和绘图软件"><a href="#数据处理和绘图软件" class="headerlink" title="数据处理和绘图软件"></a>数据处理和绘图软件</h2><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="right">机构</th>
+<th align="center">网址</th>
+<th align="center">语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">seawater</td>
+<td align="right">CSIRO</td>
+<td align="center"><a href="https://datasetguide.com/dataset/4e93e2e1ca1206ac7eb788c755e7b214/" target="_blank" rel="noopener">https://datasetguide.com/dataset/4e93e2e1ca1206ac7eb788c755e7b214/</a></td>
+<td align="center">MATLAB</td>
+</tr>
+<tr>
+<td align="left">jLab</td>
+<td align="right">jonathanlilly</td>
+<td align="center"><a href="https://github.com/jonathanlilly/jLab/" target="_blank" rel="noopener">https://github.com/jonathanlilly/jLab/</a></td>
+<td align="center">MATLAB；<a href="http://www.jmlilly.net/index.html" target="_blank" rel="noopener">http://www.jmlilly.net/index.html</a></td>
+</tr>
+<tr>
+<td align="left">GMT</td>
+<td align="right">-</td>
+<td align="center"><a href="https://github.com/GenericMappingTools/gmt" target="_blank" rel="noopener">https://github.com/GenericMappingTools/gmt</a></td>
+<td align="center">shell, python, MATLAB</td>
+</tr>
+<tr>
+<td align="left">glider处理</td>
+<td align="right">社区</td>
+<td align="center"><a href="https://github.com/GliderToolsCommunity/GliderTools" target="_blank" rel="noopener">https://github.com/GliderToolsCommunity/GliderTools</a></td>
+<td align="center">python</td>
+</tr>
+<tr>
+<td align="left">Climate Data Tools for Matlab</td>
+<td align="right">-</td>
+<td align="center"><a href="https://www.chadagreene.com/CDT/CDT_Contents.html" target="_blank" rel="noopener">https://www.chadagreene.com/CDT/CDT_Contents.html</a></td>
+<td align="center">matlab</td>
+</tr>
+</tbody></table>
+<h2 id="云"><a href="#云" class="headerlink" title="云"></a>云</h2><table>
+<thead>
+<tr>
+<th align="left">云平台</th>
+<th align="right">机构</th>
+<th align="center">网址</th>
+<th align="center">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">planetary computer</td>
+<td align="right">微软</td>
+<td align="center"><a href="https://planetarycomputer.microsoft.com/" target="_blank" rel="noopener">https://planetarycomputer.microsoft.com/</a></td>
+<td align="center">自然地理数据，人文地理</td>
+</tr>
+<tr>
+<td align="left">GEE</td>
+<td align="right">谷歌</td>
+<td align="center"><a href="https://earthengine.google.com/" target="_blank" rel="noopener">https://earthengine.google.com/</a></td>
+<td align="center">自然地理数据，遥感，大气，海洋</td>
+</tr>
+<tr>
+<td align="left">PIE</td>
+<td align="right">航天宏图</td>
+<td align="center"><a href="https://engine.piesat.cn/" target="_blank" rel="noopener">https://engine.piesat.cn/</a></td>
+<td align="center">中国的GEE</td>
+</tr>
+<tr>
+<td align="left">Pangeo</td>
+<td align="right">社区</td>
+<td align="center"><a href="https://pangeo.io/" target="_blank" rel="noopener">https://pangeo.io/</a></td>
+<td align="center">海洋，大气，气候变化等</td>
+</tr>
+<tr>
+<td align="left">openeo</td>
+<td align="right">社区</td>
+<td align="center"><a href="https://openeo.org/" target="_blank" rel="noopener">https://openeo.org/</a></td>
+<td align="center">Earth observation cloud</td>
+</tr>
+<tr>
+<td align="left">AWS Earth</td>
+<td align="right">亚马逊</td>
+<td align="center"><a href="https://aws.amazon.com/earth/" target="_blank" rel="noopener">https://aws.amazon.com/earth/</a></td>
+<td align="center">Build planetary-scale applications in the cloud with open geospatial data</td>
+</tr>
+<tr>
+<td align="left">地质云</td>
+<td align="right">中国地质调查局</td>
+<td align="center"><a href="https://geocloud.cgs.gov.cn/" target="_blank" rel="noopener">https://geocloud.cgs.gov.cn/</a></td>
+<td align="center">地址资料</td>
+</tr>
+<tr>
+<td align="left">NEX</td>
+<td align="right">NASA</td>
+<td align="center"><a href="https://www.nasa.gov/nex" target="_blank" rel="noopener">https://www.nasa.gov/nex</a></td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="left">opendatacube</td>
+<td align="right">澳大利亚</td>
+<td align="center"><a href="https://www.opendatacube.org/" target="_blank" rel="noopener">https://www.opendatacube.org/</a></td>
+<td align="center">卫星</td>
+</tr>
+<tr>
+<td align="left">CODE-DE</td>
+<td align="right">德国</td>
+<td align="center"><a href="https://code-de.org/en/" target="_blank" rel="noopener">https://code-de.org/en/</a></td>
+<td align="center">地理信息</td>
+</tr>
+<tr>
+<td align="left">sentinel-hub</td>
+<td align="right">EU</td>
+<td align="center"><a href="https://apps.sentinel-hub.com/eo-browser" target="_blank" rel="noopener">https://apps.sentinel-hub.com/eo-browser</a></td>
+<td align="center">遥感图像在线查询下载</td>
+</tr>
+</tbody></table>
+<h2 id="文献工具"><a href="#文献工具" class="headerlink" title="文献工具"></a>文献工具</h2><table>
+<thead>
+<tr>
+<th align="left">平台</th>
+<th align="right">机构</th>
+<th align="center">网址</th>
+<th align="center">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">oatd</td>
+<td align="right">-</td>
+<td align="center"><a href="https://oatd.org/" target="_blank" rel="noopener">https://oatd.org/</a></td>
+<td align="center">Open Access Theses and Dissertations. 国外硕士、博士论文</td>
+</tr>
+<tr>
+<td align="left">SCI-hub</td>
+<td align="right">-</td>
+<td align="center"><a href="https://sci-hub.se/" target="_blank" rel="noopener">https://sci-hub.se/</a></td>
+<td align="center">SCI论文下载</td>
+</tr>
+<tr>
+<td align="left">Web of Science</td>
+<td align="right">clarivate</td>
+<td align="center"><a href="https://clarivate.com/webofsciencegroup/solutions/web-of-science/" target="_blank" rel="noopener">https://clarivate.com/webofsciencegroup/solutions/web-of-science/</a></td>
+<td align="center">SCI论文检索，淘宝有10元包年账号</td>
+</tr>
+<tr>
+<td align="left">知网</td>
+<td align="right">清华大学</td>
+<td align="center"><a href="https://www.cnki.net/old/" target="_blank" rel="noopener">https://www.cnki.net/old/</a></td>
+<td align="center">中文论文下载，淘宝有10元包年账号</td>
+</tr>
+<tr>
+<td align="left">外文数据库集合</td>
+<td align="right">-</td>
+<td align="center">ScienceDirect/Elsevier, Wiley Online Library, Springer Link数据库, Science, IEEE（电子电器协会）, Nature期刊, Taylor Francis Online, ACS美国化学会, ACM美国计算机学会, JSTOR数据库, IOP英国物理学会, APS美国物理, AIAA航天航空数据库 等等</td>
+<td align="center">淘宝有10元包年账号</td>
+</tr>
+<tr>
+<td align="left">Zotero</td>
+<td align="right">-</td>
+<td align="center"><a href="https://www.zotero.org/" target="_blank" rel="noopener">https://www.zotero.org/</a></td>
+<td align="center">文献管理，安装插件后可下载知网、SCI等文献，SCI文献可以和SCI-hub绑定</td>
+</tr>
+</tbody></table>
+<h2 id="科研工具"><a href="#科研工具" class="headerlink" title="科研工具"></a>科研工具</h2><table>
+<thead>
+<tr>
+<th align="left">平台</th>
+<th align="right">机构</th>
+<th align="center">网址</th>
+<th align="center">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Phrasebank</td>
+<td align="right">-</td>
+<td align="center"><a href="https://www.phrasebank.manchester.ac.uk/" target="_blank" rel="noopener">https://www.phrasebank.manchester.ac.uk/</a></td>
+<td align="center">学术写作词句库</td>
+</tr>
+<tr>
+<td align="left">QuillBot</td>
+<td align="right">-</td>
+<td align="center"><a href="https://quillbot.com" target="_blank" rel="noopener">https://quillbot.com</a></td>
+<td align="center">学术写作改写神器</td>
+</tr>
+<tr>
+<td align="left">知云</td>
+<td align="right">-</td>
+<td align="center"><a href="http://www.zhiyunwenxian.cn/" target="_blank" rel="noopener">http://www.zhiyunwenxian.cn/</a></td>
+<td align="center">PDF英文翻译</td>
+</tr>
+<tr>
+<td align="left">ALL TO ALL</td>
+<td align="right">-</td>
+<td align="center"><a href="https://www.alltoall.net/" target="_blank" rel="noopener">https://www.alltoall.net/</a></td>
+<td align="center">全能在线格式转换器</td>
+</tr>
+</tbody></table>
+<h2 id="个人综合站点"><a href="#个人综合站点" class="headerlink" title="个人综合站点"></a>个人综合站点</h2><table>
+<thead>
+<tr>
+<th align="left">平台</th>
+<th align="right">机构</th>
+<th align="center">网址</th>
+<th align="center">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">数据网址</td>
+<td align="right">mit</td>
+<td align="center"><a href="http://mseas.mit.edu/archive/HOPS/Doc/HOPS_data.html" target="_blank" rel="noopener">http://mseas.mit.edu/archive/HOPS/Doc/HOPS_data.html</a></td>
+<td align="center">数据网址汇总，实测，卫星，大气，模式，网站可能较早</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/03/13/baojiancao/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/13/baojiancao/" class="post-title-link" itemprop="url">重磅：海平面变化和保健操运动的统一</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-13 12:27:44 / 修改时间：13:42:16" itemprop="dateCreated datePublished" datetime="2022-03-13T12:27:44+08:00">2022-03-13</time>
+            </span>
+
+          
+            <span id="/2022/03/13/baojiancao/" class="post-meta-item leancloud_visitors" data-flag-title="重磅：海平面变化和保健操运动的统一" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/13/baojiancao/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/13/baojiancao/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>看似无关的运动形式，却隐藏着深刻的内在联系。地球科学和体育运动的内在相互作用看似荒诞，实际上触及了宇宙的本质定律热力学定律。热力学定律是宇宙的最根本定律，一些定律都能被重写，但是热力学定律不能。海水的运动和人类最简单的保健操运动之间存在的一个看不见的能量跃变，我国学者可以从优雅的保健操这一孤立的人类微观运动，一下子跳跃到伟大的能量守恒定律上，背后正是有着深刻的哲学思想和审美判断。当作者看到中小学学生的普通保健操能量形式和海洋能量形式相关转化时，一定和看到了从未见过的美丽景色一样，让他感动的泪流满面。原来最深刻的守恒定律存在于最简单和最复杂的事情中，这就好像牛顿发现苹果和月亮的支配力属于一个体系一样。</p>
+<h2 id="能量守恒和热力学定律"><a href="#能量守恒和热力学定律" class="headerlink" title="能量守恒和热力学定律"></a>能量守恒和热力学定律</h2><p>能量守恒定律揭示了热、电、光和生命运动形式之间的统一性。这篇文章将自然界的热量与人类保健操运动统一起来，完成了牛顿、爱因斯坦、杨振宁等人梦寐以求但无法实现的物理大统一。自然界的一切运动从此不再是孤立运动，而是相互联系和转化的。运动不过是运动物体的一种状态，但它具有一定的量，这个量在宇宙总守恒的（热力学第一定律），尽管在任何一部分之中是变化的。就像生命是存在生死的，但生死不过是生命体的一种状态，生死的变化只是宇宙微小的局部的一个熵变化，尽管有时候生命是熵减的，就像保健操的有序运动一样，但是保健操却输出了活动产生的高熵物质排到环境中，最终海洋接受了这些物质，并按照熵增（热力学第二定律）发展着。最终人类和地球在宇宙中都会烟消云散，化作看不见的暗物质。</p>
+<p>宇宙中能量守恒和熵增定理可以用于一切事物，包括海洋、生命运动、黑洞等。这篇文章将微观人体保健操通宏观海水运动精致的统一时，任何一个理解科学奥妙和美的人都会泪流满面。因为这是大自然最激动人心的美景，是震撼灵魂的音符。</p>
+<h2 id="撤稿"><a href="#撤稿" class="headerlink" title="撤稿"></a>撤稿</h2><p>但是这种开天辟地的思想注定是不被人们轻易接受的。哥白尼、伽利略的事迹就不说了，牛顿著名的万有引力最初也不被人们普遍接受，受到了笛卡尔学派的强烈反对，像开普勒的行星三大定律也被固执认为行星是圆周运动的人们嘲笑，但最终成为定理。近代也有大量的事实证明突破性的科学发现总是被反对的，物理学家泡利打破原子结构的认识，大胆提出中子假设，从最初被科学家和哲学家普遍反对，到后来再被试验证实；杨振宁和李政道提出宇称不守恒，证明自然界是左撇子，被上面的泡利狠狠的嘲笑，而后被吴健雄试验证实，拿到诺贝尔奖。可见科学总是在阻力和嘲笑中前进的。</p>
+<p>这篇论文正面临伟大理论被群嘲和不解的阶段。发表这篇论文的期刊《阿拉伯地学学报》收到了大量的质疑，编辑没能顶住压力选择了撤稿。甚至严肃的科学期刊《Nature》也跟风嘲笑，暗示这是中国学者为了完成学校考核和评职称而实施的灌水行为，论文甚至都是花钱购买的。对此，我想文章作者一定也正在承受像牛顿、爱因斯坦和杨振宁等曾今受到的压力一样。加油！</p>
+<h3 id="文章地址"><a href="#文章地址" class="headerlink" title="文章地址"></a>文章地址</h3><p><a href="https://link.springer.com/article/10.1007/s12517-021-07748-2" target="_blank" rel="noopener">https://link.springer.com/article/10.1007/s12517-021-07748-2</a></p>
+<h3 id="批评文章"><a href="#批评文章" class="headerlink" title="批评文章"></a>批评文章</h3><p><a href="https://www.nature.com/articles/d41586-021-03035-y" target="_blank" rel="noopener">https://www.nature.com/articles/d41586-021-03035-y</a><br><a href="https://retractionwatch.com/2021/09/28/springer-nature-slaps-more-than-400-papers-with-expressions-of-concern-all-at-once/" target="_blank" rel="noopener">https://retractionwatch.com/2021/09/28/springer-nature-slaps-more-than-400-papers-with-expressions-of-concern-all-at-once/</a><br><a href="https://xswyh.cug.edu.cn/info/1051/3514.htm" target="_blank" rel="noopener">https://xswyh.cug.edu.cn/info/1051/3514.htm</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/03/09/tgrs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/09/tgrs/" class="post-title-link" itemprop="url">数据共享，开花结果</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-09 22:22:07 / 修改时间：22:46:58" itemprop="dateCreated datePublished" datetime="2022-03-09T22:22:07+08:00">2022-03-09</time>
+            </span>
+
+          
+            <span id="/2022/03/09/tgrs/" class="post-meta-item leancloud_visitors" data-flag-title="数据共享，开花结果" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/09/tgrs/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/09/tgrs/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：物理海洋室,自然资源部第一海洋研究所</p>
+</blockquote>
+<h2 id="我所在海洋动力卫星定标和真实性检验方面取得新进展"><a href="#我所在海洋动力卫星定标和真实性检验方面取得新进展" class="headerlink" title="我所在海洋动力卫星定标和真实性检验方面取得新进展"></a>我所在海洋动力卫星定标和真实性检验方面取得新进展</h2><p>近期，我所<code>极地海洋动力过程团队</code>在海洋动力卫星定标和真实性检验方面取得新进展，相关研究成果以“Independent Validation of Jason-2/3 and HY-2B Microwave Radiometers Using Chinese Coastal GNSS”和“Monitoring the Performance of HY-2B and Jason-2/3 Sea Surface Height via the China Altimetry Calibration Cooperation Plan”为题，发表在遥感领域顶级期刊<code>《IEEE地学与遥感汇刊》</code>（TGRS）上。</p>
+<p>卫星遥感是全球尺度快速探测海洋脉动最有效的手段。通常在卫星发射前，已对遥感载荷进行了实验室定标，但由于太空环境改变及器件老化等原因，载荷性能和精度可能改变，需再次进行地面定标和真实性检验。目前，相关研究利用的定标站点单一、算法不公开透明，且我国沿海区域的研究相对较少。针对当前研究不足，该研究团队通过数据共享机制获取中国沿海已有的多源观测资料，对HY-2B校正微波辐射计和高度计开展了相关研究，定量评估了国产卫星载荷的测量精度。为保证研究方法和结果可重复，该研究团队对程序开源共享，且相关数据也可通过正常渠道申请获取。</p>
+<p>该研究团队利用中国大陆构造环境监测网络、海洋台站和国际GNSS服务（IGS）等三套GNSS数据，基于全新的二阶导数陆地污染判定方法和三维再分析资料重构湿延迟修正系数的方法，获得了HY-2B校正微波辐射计测量误差，证实了国产校正微波辐射计精度优于国外同类卫星Jason-2/3。进一步，基于国家卫星海洋应用中心发起的雷达高度计定标场“伙伴计划”共享数据，以及我国海洋台站千里岩和芷锚湾长期历史资料，对我国HY-2B高度计产品进行了定标和真实性检验，获得黄渤海和珠江口等不同海洋环境下HY-2B海面高度观测误差，不同站点的结果互相印证，大大提高了结果可信度，结果表明HY-2B海面高度测量精度和国外卫星Jason-2/3相当。最后，该研究团队还通过绝对定标、交叉定标、波数谱积分等独立方法进行高度计载荷噪声分析，结果表明HY-2B以及国外Jason-2/3卫星高度计载荷噪声均为2.6cm左右。 </p>
+<p>本研究对我国自主海洋动力卫星的定标和真实性检验提供重要支撑，研究成果不仅为卫星产品应用提供了保障，也为新一代海洋动力卫星关键载荷参数的制定提供了科学依据。</p>
+<p>以上工作获得国家自然科学基金等项目资助，合作单位有中科院海洋所、国家卫星海洋应用中心、国家海洋局北海预报中心、武汉大学、山东科技大学、希腊克里特理工大学等。我所物理海洋室杨磊工程师分别为两篇文章的通讯作者和第一作者。</p>
+<p><img src="/images/tgrs1.png" alt><br><img src="/images/tgrs2.png" alt></p>
+<center>图1 基于三维再分析资料重构的大气湿延迟高度修正系数空间分布，二阶导数的辐射计陆地污染判定（以渤海为例）</center>
+
+<p><img src="/images/tgrs3.png" alt><br><img src="/images/tgrs4.png" alt></p>
+<center>图2 HY-2B卫星高度计定标站点分布和误差时间序列</center>
+
+<p>文章连接：<br><a href="https://ieeexplore.ieee.org/document/9527812" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/9527812</a><br><a href="https://ieeexplore.ieee.org/document/9720989" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/9720989</a></p>
+<blockquote>
+<p>上述TGRS文章使用了我司先前分享的数据集和程序。期待粉丝们更好的利用海洋共享数据，发表更多的高水平论文。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1059,518 +2306,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/10/27/pygmt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/27/pygmt/" class="post-title-link" itemprop="url">pygmt</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-27 21:10:45 / 修改时间：22:37:36" itemprop="dateCreated datePublished" datetime="2021-10-27T21:10:45+08:00">2021-10-27</time>
-            </span>
-
-          
-            <span id="/2021/10/27/pygmt/" class="post-meta-item leancloud_visitors" data-flag-title="pygmt" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/10/27/pygmt/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/27/pygmt/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近学习了<code>GMT</code>的python库<code>pygmt</code>，感觉相当值得推荐。下面简单介绍安装和使用。</p>
-<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>基本的准备工作和安装步骤如下：</p>
-<ul>
-<li>安装<code>miniconda</code>；</li>
-<li>安装<code>conda</code>加速器<code>mamba</code>，提高python库的安装速度（可选）；</li>
-<li>安装<code>jupyter lab</code>（可选）;</li>
-<li>安装<code>pygmt</code>;</li>
-</ul>
-<h2 id="miniconda"><a href="#miniconda" class="headerlink" title="miniconda"></a>miniconda</h2><p>Miniconda是一款小巧的python环境管理工具，其安装程序中包含conda软件包管理器和Python。一旦安装了Miniconda，就可以使用conda命令安装任何其他软件工具包并创建环境等。去官网<a href="https://conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">https://conda.io/en/latest/miniconda.html</a> 下载安装包即可完成安装。</p>
-<p>安装后，创建一个新的独立python环境(随便取名，此处为<code>gmt</code>)，以备pygmt的安装和调用：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">conda</span> <span class="string">create -n gmt python=3.9</span></span><br><span class="line"><span class="attr">conda</span> <span class="string">activate gmt</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="mamba"><a href="#mamba" class="headerlink" title="mamba"></a>mamba</h2><p>虽然conda是个安装软件的神器，但镜像不稳定，下载安装软件的速度有时很慢。对于几十Mb甚至上百Mb的软件往往下不动，下了半天可能失败。特别是安装的软件多了后，对软件依赖关系的解析时间特别长。mamba加速神器，可以用来并行下载和安装，大大加快速度，减少失败几率。</p>
-<p>首先，mamba本身需要先通过conda来安装：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> -c conda-forge mamba</span><br></pre></td></tr></table></figure>
-<p>mamba安装成功后，后续所有软件安装都可将conda替换为mamba了。</p>
-<h2 id="jupyter-lab"><a href="#jupyter-lab" class="headerlink" title="jupyter lab"></a>jupyter lab</h2><p>JupyterLab是Jupyter主打的最新数据科学生产工具，作为一种基于web的集成开发环境，你可以使用它编写notebook、操作终端、编辑markdown文本、打开交互模式、查看csv文件及图片等功能。pygmt对jupyter lab有很好的衔接，可以方便的查看和记录中间过程，显示绘图结果。安装命令为：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge jupyterlab</span><br></pre></td></tr></table></figure>
-
-<h2 id="pygmt"><a href="#pygmt" class="headerlink" title="pygmt"></a>pygmt</h2><p>pygmt可以在python中直接使用GMT进行数据处理和绘图，实现了和python的交互操作。下面命令将自动安装pygmt以及依赖，包括<code>proj,gdal,netcdf</code>等：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge pygmt</span><br></pre></td></tr></table></figure>
-
-<p>在命令栏输入<code>jupyter lab</code>，启动<code>jupyter lab</code>，新建一个lab，查看版本并绘制一个简单的例子：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import pygmt</span><br><span class="line">pygmt.show_versions()</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.coast(<span class="attribute">region</span>=<span class="string">"g"</span>, <span class="attribute">frame</span>=<span class="literal">True</span>, <span class="attribute">shorelines</span>=1)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pygmt/g.png" alt></p>
-<h2 id="遥感影像绘制"><a href="#遥感影像绘制" class="headerlink" title="遥感影像绘制"></a>遥感影像绘制</h2><p>遥感影像绘制不是GMT常用的功能，因此疑问也较多，这里从遥感数据的下载、格式转换、拉伸、裁剪，到最终绘制，给出完整的步骤。</p>
-<h3 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h3><p>免费下载worldview开放数据：<a href="https://www.maxar.com/open-data/" target="_blank" rel="noopener">https://www.maxar.com/open-data/</a> 。<br>本例子采用数据土耳其地震影像（<a href="https://www.maxar.com/open-data/turkey-earthquake）" target="_blank" rel="noopener">https://www.maxar.com/open-data/turkey-earthquake）</a> 。</p>
-<p>使用GMT查看影像信息：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gmt grdinfo <span class="number">10300500</span>A4F8E700.tif</span><br><span class="line"># 分辨率约为<span class="number">4.32089651661e-06</span>*<span class="number">120000</span>=<span class="number">0.5</span>m</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>10300500A4F8E700.tif: Title: Grid imported via GDAL<br>10300500A4F8E700.tif: Command:<br>10300500A4F8E700.tif: Remark:<br>10300500A4F8E700.tif: Pixel node registration used [Geographic grid]<br>10300500A4F8E700.tif: Grid file format: gd = Import/export through GDAL<br>10300500A4F8E700.tif: x_min: 26.8895518746 x_max: 27.0835860536 x_inc: 4.32089651661e-06 name: x n_columns: 44906<br>10300500A4F8E700.tif: y_min: 37.6434216334 y_max: 37.8210061593 y_inc: 4.32089651661e-06 name: y n_rows: 41099<br>10300500A4F8E700.tif: v_min: 0 v_max: 229 name: z<br>10300500A4F8E700.tif: scale_factor: 1 add_offset: 0<br>+proj=longlat +datum=WGS84 +no_defs</p>
-</blockquote>
-<p>或者也可以使用gdal查看：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">print</span>(<span class="string">"GDAL info"</span>)</span><br><span class="line"><span class="comment"># 使用gdal查看</span></span><br><span class="line">!gdalinfo 10300500A4F8E700.tif</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>信息略</p>
-</blockquote>
-<p>或者也可以使用pygmt.grdinfo查看,不过格式不太美观，没有换行：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pygmt</span><span class="selector-class">.grdinfo</span>("10300500<span class="selector-tag">A4F8E700</span><span class="selector-class">.tif</span>")</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>信息略</p>
-</blockquote>
-<h3 id="降低影像分辨率"><a href="#降低影像分辨率" class="headerlink" title="降低影像分辨率"></a>降低影像分辨率</h3><p>降低分辨率为9m（0.000075*120000=9m），并改为Byte格式（GMT不识别TIF的float32格式）:</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte.tif</span><br></pre></td></tr></table></figure>
-<p>这里的<code>gdal</code>程序应该可以在安装pygmt之后可以自动调佣，因为同时已经安装了gdal依赖，并创建了这些可执行文件。</p>
-<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig = pygmt.Figure()</span><br><span class="line"></span><br><span class="line"><span class="attribute">data</span>=<span class="string">"10300500A4F8E700_lowbyte.tif+b0,1,2"</span></span><br><span class="line"></span><br><span class="line">fig.grdimage(</span><br><span class="line">    <span class="attribute">grid</span>=data,</span><br><span class="line">    frame=[<span class="string">"af"</span>],</span><br><span class="line">    <span class="attribute">projection</span>=<span class="string">"M6.5i"</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pygmt/test0.png" alt></p>
-<h3 id="色调"><a href="#色调" class="headerlink" title="色调"></a>色调</h3><p>如果喜欢亮色，可以适当拉伸灰度值：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte2.tif</span><br></pre></td></tr></table></figure>
-<p>重复<code>绘图</code>的代码，效果：<br><img src="/images/pygmt/test4.png" alt></p>
-<h3 id="局部"><a href="#局部" class="headerlink" title="局部"></a>局部</h3><p>为了保持清晰，局部绘图使用原始分辨率。为了防止图像过大，处理时间长，将裁剪成小区域绘图，并转格式和拉伸：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gdalwarp  -te <span class="number">26.966</span> <span class="number">37.7</span> <span class="number">27.0</span> <span class="number">37.7166</span> <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_small.tif</span><br><span class="line">!gdal_translate -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700_small.tif <span class="number">10300500</span>A4F8E700_lowbyte4.tif</span><br></pre></td></tr></table></figure>
-<p>重复<code>绘图</code>的代码：<br><img src="/images/pygmt/test.png" alt></p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>遥感影像一般为底图，在此基础上可以使用pygmt任意添加<code>点、线、面、文字</code>等要素，除了可以识别文本格式，它已经可以读取<code>shp</code>格式。</li>
-<li>导出的最终图的格式可以通过后缀修改。比如可以导出高清pdf图片，方便的插入latex使用。</li>
-<li>本例使用的遥感影像已经转为经纬度坐标，无需再次转换坐标。如果是UTM，则可以通过gdal快速转换。</li>
-<li>本例子未展示地震前后对比，大家可以下载数据后自行对比。</li>
-</ul>
-<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>可以下载本例子的jupyter 版本：<a href="https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE</a> </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/10/22/tensorflowGPU/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/22/tensorflowGPU/" class="post-title-link" itemprop="url">TensorFlow GPU 在Ubuntu 18.04的安装</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-22 08:46:27" itemprop="dateCreated datePublished" datetime="2021-10-22T08:46:27+08:00">2021-10-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-08-31 15:02:03" itemprop="dateModified" datetime="2022-08-31T15:02:03+08:00">2022-08-31</time>
-              </span>
-
-          
-            <span id="/2021/10/22/tensorflowGPU/" class="post-meta-item leancloud_visitors" data-flag-title="TensorFlow GPU 在Ubuntu 18.04的安装" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/10/22/tensorflowGPU/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/22/tensorflowGPU/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Ubuntu上安装TensorFlow GPU版本，首先需要：</p>
-<ul>
-<li>一张NVIDIA GPU显卡和Ubuntu系统；</li>
-<li>NVIDIA 显卡驱动，最新为<code>495.29.05</code>（2021年10月22日）；</li>
-<li>CUDA toolkit；</li>
-<li>cudNN SDK；</li>
-<li>CUPTI；</li>
-<li>TensorFlow作为深度学习的框架。</li>
-</ul>
-<p>以NVIDIA 2080ti为例，安装步骤如下：</p>
-<h3 id="安装-NVIDIA-显卡驱动"><a href="#安装-NVIDIA-显卡驱动" class="headerlink" title="安装 NVIDIA 显卡驱动"></a>安装 NVIDIA 显卡驱动</h3><p>在官网：<a href="https://www.nvidia.com/download/index.aspx?lang=en-us" target="_blank" rel="noopener">https://www.nvidia.com/download/index.aspx?lang=en-us</a> 下载最新的显卡驱动。<br><img src="/images/gpu/driver.png" alt></p>
-<p>完成后运行<code>nvidia-smi</code>，查看显卡信息：<br><img src="/images/gpu/smi.png" alt></p>
-<p>正常显示则表示驱动安装成功。</p>
-<blockquote>
-<p>Ubuntu初次插入GPU显卡后会自动安装驱动，也能正常使用显卡，但是版本可能较低，和TensorFlow的GPU需求不匹配。<strong>也可以通过Ubuntu自带的驱动更新来安装显卡最新的驱动</strong>。</p>
-</blockquote>
-<h3 id="CUDA-toolkit"><a href="#CUDA-toolkit" class="headerlink" title="CUDA toolkit"></a>CUDA toolkit</h3><p>去谷歌网站查看版本匹配，确定TensorFlow、cuda toolkit、和cuDNN的版本对应正确。<br><img src="/images/gpu/toolkit.png" alt></p>
-<p>以TensorFlow2.5为例，需要的cuDNN8.1和CUDA 11.2。</p>
-<blockquote>
-<p>注意这个CUDA 11.2不是驱动的版本，可以和上面的显卡驱动显示的<code>11.5</code>不一致。<br><img src="/images/gpu/toolkit2.png" alt></p>
-</blockquote>
-<p>下载：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux.run</span></span><br><span class="line">sudo chmod +x cuda_11<span class="number">.2</span><span class="number">.2</span>_460<span class="number">.32</span><span class="number">.03</span>_linux.run</span><br><span class="line">sudo ./cuda_11<span class="number">.2</span><span class="number">.2</span>_460<span class="number">.32</span><span class="number">.03</span>_linux.run</span><br></pre></td></tr></table></figure>
-<h4 id="坑-1"><a href="#坑-1" class="headerlink" title="坑-1"></a>坑-1</h4><blockquote>
-<p>cuda toolkit包中含有了显卡驱动，因为之前已安装，这里不要再安装，否则显卡驱动冲突。</p>
-</blockquote>
-<p>此处可参考：<a href="https://zhuanlan.zhihu.com/p/122286055" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/122286055</a><br><img src="/images/gpu/ken1.jpg" alt></p>
-<p>去掉driver前面的X，执行install，等一会安装成功。</p>
-<h4 id="添加到路径"><a href="#添加到路径" class="headerlink" title="添加到路径"></a>添加到路径</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit ~/.bashrc</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">"/usr/local/cuda-11.2/bin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LD_LIBRARY_PATH</span>=<span class="string">"/usr/local/cuda-11.2/lib64:<span class="variable">$LD_LIBRARY_PATH</span>"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">CUDA_HOME</span>=/usr/local/cuda-11.2</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
-
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nvcc -V</span></span><br></pre></td></tr></table></figure>
-<p><img src="/images/gpu/nvcc.jpg" alt></p>
-<h3 id="cuDNN"><a href="#cuDNN" class="headerlink" title="cuDNN"></a>cuDNN</h3><p>从官网（<a href="https://developer.nvidia.com/rdp/cudnn-download）" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-download）</a> 下载cuDNN。先注册，然后找到对应的8.1版本，并下载deb版本。</p>
-<p>可参考：<a href="https://zhuanlan.zhihu.com/p/126997172" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/126997172</a></p>
-<p><img src="/images/gpu/cudnn.png" alt></p>
-<p>下载内容为：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libcudnn8_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">libcudnn8-dev_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">libcudnn8-samples_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br></pre></td></tr></table></figure>
-
-<p>依次安装：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i llibcudnn8_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn8-dev_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn8-samples_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>对于新版的cuda，如11.6，cudnn只提供了一个文件。可以使用如下方法安装：</p>
-</blockquote>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Procedure</span></span><br><span class="line"><span class="comment"># Navigate to your &lt;cudnnpath&gt; directory containing the cuDNN tar file.</span></span><br><span class="line"><span class="comment"># Unzip the cuDNN package.</span></span><br><span class="line">$ tar -xvf cudnn-linux-x86_64-<span class="number">8</span>.x.x.x_cudaX.Y-archive.tar.xz</span><br><span class="line"><span class="comment"># Copy the following files into the CUDA toolkit directory.</span></span><br><span class="line">$ sudo cp cudnn-*-archive/<span class="keyword">include</span>/cudnn*.h /usr/local/cuda/<span class="keyword">include</span> </span><br><span class="line">$ sudo cp -P cudnn-*-archive/<span class="class"><span class="keyword">lib</span>/<span class="title">libcudnn</span>* /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">cuda</span>/<span class="title">lib64</span> </span></span><br><span class="line">$ sudo chmod a+r /usr/local/cuda/<span class="keyword">include</span>/cudnn*.h /usr/local/cuda/lib64/libcudnn*</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>参考：<a href="https://blog.csdn.net/P081513083/article/details/126324723" target="_blank" rel="noopener">https://blog.csdn.net/P081513083/article/details/126324723</a></p>
-</blockquote>
-<h4 id="测试cuDNN"><a href="#测试cuDNN" class="headerlink" title="测试cuDNN"></a>测试cuDNN</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cp -r <span class="regexp">/usr/</span>src<span class="regexp">/cudnn_samples_v8/</span> <span class="variable">$HOME</span></span><br><span class="line">cd  ~<span class="regexp">/cudnn_samples_v8/m</span>nistCUDNN</span><br><span class="line">sudo make clean </span><br><span class="line">sudo make</span><br></pre></td></tr></table></figure>
-
-<p>遇到错误：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">test</span>.c:1:10: fatal <span class="keyword">error</span>: FreeImage.<span class="keyword">h</span>: <span class="keyword">No</span> such <span class="keyword">file</span> or directory</span><br><span class="line">     1 | #<span class="keyword">include</span> <span class="string">"FreeImage.h"</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方法：</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install libfreeimage3 libfreeimage-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
-
-<p>进行测试：</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="string">./mnistCUDNN</span></span><br></pre></td></tr></table></figure>
-<p>显示<code>Test passed!</code>。</p>
-<h3 id="CUPTI"><a href="#CUPTI" class="headerlink" title="CUPTI"></a>CUPTI</h3><p>该程序没有约定版本，直接通过<code>apt</code>安装。</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install libcupti-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
-<p>并编辑<code>~/.bashrc</code>添加到路径。</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/usr/local/cuda/extras/CUPTI/lib64</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h3><h4 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h4><blockquote>
-<p>不要使用conda安装，使用pip安装。</p>
-</blockquote>
-<p>使用conda反复安装TensorFlow，总是无法调用GPU，后来使用pip安装（也是官方教程的方法）发现安装包要比conda的包大一倍。</p>
-<p>使用下面的命令测试：</p>
-<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br></pre></td></tr></table></figure>
-<p>会出现<code>Successfully opened dynamic library libcudart.so.11.0</code>，表示成功。</p>
-<p>接着使用</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tf</span><span class="selector-class">.config</span><span class="selector-class">.list_physical_devices</span>(<span class="string">'GPU'</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="/images/gpu/finish.png" alt></p>
-<p>至此，安装成功。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://medium.com/analytics-vidhya/configure-tensorflow-gpu-with-ubuntu-18-04-2021-update-aee264e887ae" target="_blank" rel="noopener">https://medium.com/analytics-vidhya/configure-tensorflow-gpu-with-ubuntu-18-04-2021-update-aee264e887ae</a><br><a href="https://www.bilibili.com/read/cv9164113" target="_blank" rel="noopener">https://www.bilibili.com/read/cv9164113</a><br><a href="https://towardsdatascience.com/installing-tensorflow-gpu-in-ubuntu-20-04-4ee3ca4cb75d" target="_blank" rel="noopener">https://towardsdatascience.com/installing-tensorflow-gpu-in-ubuntu-20-04-4ee3ca4cb75d</a><br><a href="https://zhuanlan.zhihu.com/p/122286055" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/122286055</a><br><a href="https://zhuanlan.zhihu.com/p/126997172" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/126997172</a><br><a href="https://www.tensorflow.org/install/source#gpu" target="_blank" rel="noopener">https://www.tensorflow.org/install/source#gpu</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/09/04/gmt-trend/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/04/gmt-trend/" class="post-title-link" itemprop="url">使用GMT计算二维网格数据的均值、标准差和趋势</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-09-04 17:39:55 / 修改时间：18:37:52" itemprop="dateCreated datePublished" datetime="2021-09-04T17:39:55+08:00">2021-09-04</time>
-            </span>
-
-          
-            <span id="/2021/09/04/gmt-trend/" class="post-meta-item leancloud_visitors" data-flag-title="使用GMT计算二维网格数据的均值、标准差和趋势" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/09/04/gmt-trend/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/04/gmt-trend/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>下面介绍GMT中<code>blockmean</code>和<code>grdmath</code>的统计计算功能，包含均值、标准差和趋势。</p>
-<h2 id="案例：高度计大气湿延迟的中国周边海域分布"><a href="#案例：高度计大气湿延迟的中国周边海域分布" class="headerlink" title="案例：高度计大气湿延迟的中国周边海域分布"></a>案例：高度计大气湿延迟的中国周边海域分布</h2><p>以中国周边海域的高度计湿延迟为例，计算湿延迟的空间均值、标准差和趋势。</p>
-<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2021-03-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using blockmean, grdmath to calculate the STD abd trend </span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=jason_wet_global_new.ps</span><br><span class="line"><span class="built_in">set</span> R=<span class="number">105</span>/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span></span><br><span class="line"><span class="built_in">set</span> J=M5c</span><br><span class="line"></span><br><span class="line"><span class="comment">REM Calculate mean value and plot mean wet path delay</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">350</span>/<span class="number">5</span>&gt; t.cpt</span><br><span class="line"><span class="comment">REM use Jason-2 data of cycle 1-294 (6years), downloaded from RADS.</span></span><br><span class="line"><span class="comment">rem gawk "!/NaN/ &amp;&amp; NR&gt;13 &amp;&amp; $3&gt;100 &#123;print $3,$2,(-$4)*1000&#125;" D:\rads\wet\radsdata_ok\j2*c*.asc &gt; model.dd</span></span><br><span class="line">gmt blockmean model.dd -R<span class="variable">%R%</span> -I20m &gt;tmp_.dd</span><br><span class="line">gmt surface tmp_.dd -R<span class="variable">%R%</span> -I20m -Ggridded2_j2_s.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_s.nc is the averaged file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_s.nc -R<span class="variable">%R%</span> -J<span class="variable">%J%</span> -K -Ct.cpt -Y13c&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> a)mean of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N  -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate STD and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">150</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt blockmean model.dd -As -E -R -I20m -Ggridded2_j2_std.nc</span><br><span class="line">gmt grd2xyz gridded2_j2_std.nc | gawk "!/NaN/ &#123;<span class="built_in">print</span> $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;" | gmt surface -R -I20m -Ggridded2_j2_std2.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_std2.nc is the STD file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_std2.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> b)STD of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -K -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate trend and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T-<span class="number">30</span>/<span class="number">30</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt grdsample gridded2_j2_s.nc -I60m -Ggridded2_j2_s_re.nc</span><br><span class="line"></span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDX = slope3.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  D2DY2 = slope1.nc</span><br><span class="line"></span><br><span class="line">gmt grdimage slope2.nc -R -J -K -Ct.cpt -O  -X-<span class="number">7</span>c -Y-<span class="number">10</span>c&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> c)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt grdimage slope3.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> d)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/jason_wet_global_new.png" alt></p>
-<p>大气湿延迟和大气水汽和液态云有关，均值呈现出南高北低的自然特征。在北纬25-35度之间，时间变化（STD）最为剧烈，说明这段区间可能四季分明，不过度干燥，不过分潮湿，适合人类居住（xia che）。变化趋势图表示南北和东西方向一度距离上湿延迟的变化，因为网格的空间单位是度，所以这里一阶导数结果表示一度空间距离上的湿延迟变化量。</p>
-<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><p><code>blockmean model.dd -As -E</code>中的<code>-As</code>设置输出为<code>STD</code>。如果不做设置，默认输出的是均值。</p>
-<p><code>gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</code>中的<code>DDY</code>或者<code>DDX</code>设置一个固定方向的一阶导数计算，因为网格被提前预设为1度，因此计算结果是1度距离上的变化率。<code>grdmath</code>也可以计算二阶导数，使用<code>D2DY2</code>或者<code>D2DX2</code>。</p>
-<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>可以直接小编从RADS数据库中提取的文件model.dd，它是 Jason-2 cycle 1-294的全部模型湿延迟原始数据汇总：<br>model.dd： <a href="https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE</a> </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/08/18/distance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/18/distance/" class="post-title-link" itemprop="url">GMT的海岸线空间数据分析功能</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-18 21:27:35" itemprop="dateCreated datePublished" datetime="2021-08-18T21:27:35+08:00">2021-08-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-20 21:44:11" itemprop="dateModified" datetime="2021-08-20T21:44:11+08:00">2021-08-20</time>
-              </span>
-
-          
-            <span id="/2021/08/18/distance/" class="post-meta-item leancloud_visitors" data-flag-title="GMT的海岸线空间数据分析功能" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/08/18/distance/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/18/distance/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>下面介绍：使用GMT和海岸线数据绘任意距离的海岸延伸线（如12海里线等）；使用海岸线距离进行站点数据的筛选（如提取沿海50km以内的GNSS点位）。</p>
-<h2 id="根据离岸的距离对GNSS站点进行提取"><a href="#根据离岸的距离对GNSS站点进行提取" class="headerlink" title="根据离岸的距离对GNSS站点进行提取"></a>根据离岸的距离对GNSS站点进行提取</h2><p>在利用GNSS水汽对卫星高度计进行湿延迟评估时，需要提取距离海岸线小于50km的站点做比对。这里我们使用GMT快速分析提取数据并绘图展示。</p>
-<p>绘图采用的数据主要是中国地震局陆态网、IGS和自然资源部沿海业务化GNSS系统，卫星数据主要是我国的海洋二号以及国外的Jason，绘图数据见文末链接。</p>
-<blockquote>
-<p>中国陆态网数据和国际IGS数据为共享开放资料。由于政策原因，沿海业务化GNSS资料暂未公开。海洋二号高度计资料和国外高度计资料已全面开放共享。</p>
-</blockquote>
-<p>绘图任务主要步骤总结为：</p>
-<ul>
-<li><code>grdmath</code>的<code>LDISTG</code>计算网格点到<code>GSHHG</code>岸线的距离，生成网格文件；</li>
-<li><code>grdlandmask</code>分离陆海；</li>
-<li><code>grdcontour</code>提取某值的等值线；</li>
-<li><code>select</code>依据点位到某等值线的距离筛选站点。</li>
-</ul>
-<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>下面是windows下的代码：</p>
-<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2019-04-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using grdmath to show the distance from GSHHG  coastline data</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=wet.ps</span><br><span class="line"></span><br><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br><span class="line">gmt grdlandmask -R -Dl -I10m -N1/-<span class="number">1</span> -Gland_mask.nc -V</span><br><span class="line">gmt grdmath dist_to_gshhg.nc land_mask.nc MUL = file.nc</span><br><span class="line">gmt grdsample dist_to_gshhg.nc -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -I1m -Gfile2.nc</span><br><span class="line"><span class="comment">REM Outut 50km coordinates.</span></span><br><span class="line">gmt grdcontour file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C50, -D &gt; out.d50</span><br><span class="line">gmt makecpt -Ccopper -T-<span class="number">0</span>/<span class="number">50</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt -t80&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J out.d50 -W0.<span class="number">4</span>p,green -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -JM4.<span class="number">5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -K -Swhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Begin the sites selection.</span></span><br><span class="line">gmt pscoast -R -M -W -Dc -A10000&gt; coastal.txt</span><br><span class="line">gmt select trc.dat -Lcoastal.txt+d50k -fg &gt; subset.d2</span><br><span class="line"></span><br><span class="line"><span class="comment">REM satellite tracks</span></span><br><span class="line">gmt psxy -R -J ja.dat -W1p,black -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J hy2.dat -W1p,red -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM All CMONOC sites</span></span><br><span class="line">gmt psxy -R -J trc.dat -Sc0.<span class="number">1</span> -Gblack -O -K -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM tide sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">3</span>, $<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">1</span>&#125;" yh_tide.txt2  &gt;temp.d</span><br><span class="line"><span class="comment">REM Coastal GNSS sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss.txt &gt;temp.d01</span><br><span class="line">gmt psxy temp.d01  -R  -J  -K -O  -Gblack -St0.<span class="number">05</span>i -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Plot the selected sites </span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt psxy -R -J -O -Gred -Sc0.<span class="number">08</span>i -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J subset.d2 -Ss0.<span class="number">15</span> -GDEEPSKYBLUE1 -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">2</span> -Gred -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">12</span> -Gblue -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span> | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">118</span>.<span class="number">38</span>,<span class="number">24</span>.<span class="number">46</span>  | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gawk "!/SDYT/ &amp;&amp; !/SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "/SDYT/ || /SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D-<span class="number">0</span>.<span class="number">5</span>/<span class="number">0</span>.<span class="number">4</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span>,TWTF | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM add legend</span></span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">05</span>c black <span class="number">1</span>p,black <span class="number">0</span>.<span class="number">3</span>i Total CMONOC &gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">15</span>c DEEPSKYBLUE1 .<span class="number">7</span>p,DEEPSKYBLUE1 <span class="number">0</span>.<span class="number">3</span>i Coastal CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">2</span>c blue <span class="number">0</span>.<span class="number">7</span>p,red <span class="number">0</span>.<span class="number">3</span>i Selected CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i t <span class="number">0</span>.<span class="number">05</span>i gray - <span class="number">0</span>.<span class="number">3</span>i Costal CGN&gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">08</span>i  red - <span class="number">0</span>.<span class="number">3</span>i Selected CGN &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i a <span class="number">0</span>.<span class="number">15</span>c blue <span class="number">0</span>.<span class="number">7</span>p,blue <span class="number">0</span>.<span class="number">3</span>i IGS &gt;&gt;le.d</span><br><span class="line">gmt pslegend -D+w1.<span class="number">6</span>i+jBL+o2.<span class="number">8</span>i/<span class="number">0</span>.<span class="number">2</span>i -R -J -O -F+p1p+gwhite --FONT_ANNOT_PRIMARY=<span class="number">7</span>p le.d &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Creat kml file to be loaded in Google earth.</span></span><br><span class="line">gmt <span class="number">2</span>kml subset.d2 -Gred+f -<span class="built_in">Fs</span> &gt; mypoints.kml</span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="200公里线绘制"><a href="#200公里线绘制" class="headerlink" title="200公里线绘制"></a>200公里线绘制</h2><p>使用GMT岸线绘制领海线、专属经济区等政治界线比较危险，因为上面的数据分析使用了低分辨率的岸线，并忽略了很多海岛。这里选择绘制距离大陆200km的等值线。</p>
-<p>具体做法是对<code>grdcontour</code>的<code>-C</code>做修改，设置为<code>-C200,</code>。其他距离可以通过设定<code>-C</code>后面的数值实现。</p>
-<h4 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gmt grdcontour file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C200, -D &gt; <span class="keyword">out</span>.d50</span><br><span class="line">gmt makecpt -Ccopper -T<span class="number">-0</span>/<span class="number">200</span>/<span class="number">10</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt &gt; %ps%</span><br><span class="line">gmt psxy -R -J <span class="keyword">out</span>.d50 -W0<span class="number">.4</span>p,green -O -K &gt;&gt;%ps%</span><br><span class="line">gmt pscoast -R -JM4<span class="number">.5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0<span class="number">.1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; %ps%</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/gnss_sites.png" alt></p>
-<center>距离岸线50km的GNSS站点分布</center>
-
-
-<p><img src="/images/200.png" alt></p>
-<center>距离岸线200km的等值线</center>
-
-<h2 id="坐标文件"><a href="#坐标文件" class="headerlink" title="坐标文件"></a>坐标文件</h2><p>陆态网GNSS站点坐标<code>trc.dat</code>：<a href="https://www.jianguoyun.com/p/DZNDa0kQ2PCQBxih5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DZNDa0kQ2PCQBxih5ogE</a><br>HY-2高度计卫星轨迹<code>hy2.dat</code>：<a href="https://www.jianguoyun.com/p/DZvezRQQ2PCQBxim5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DZvezRQQ2PCQBxim5ogE</a><br>Jason-2高度计轨迹<code>ja.dat</code>：<a href="https://www.jianguoyun.com/p/Dfulo24Q2PCQBxiq5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/Dfulo24Q2PCQBxiq5ogE</a><br>沿海验潮站概略坐标<code>yh_tide.txt2</code>：<a href="https://www.jianguoyun.com/p/DaYSJ8kQ2PCQBxis5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DaYSJ8kQ2PCQBxis5ogE</a><br>沿海GNSS业务化系统概略坐标<code>gnss.txt</code>：<a href="https://www.jianguoyun.com/p/DWhRCEUQ2PCQBxiv5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DWhRCEUQ2PCQBxiv5ogE</a><br>绘图用的个别GNSS站点：<a href="https://www.jianguoyun.com/p/DdUqCG4Q2PCQBxi05ogE；" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DdUqCG4Q2PCQBxi05ogE；</a> <a href="https://www.jianguoyun.com/p/DcBuNBsQ2PCQBxi15ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DcBuNBsQ2PCQBxi15ogE</a> </p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br></pre></td></tr></table></figure>
-
-<p>这一行代码中的<code>-Dc</code>表示低分辨率海岸线，如果计算的区域比较大，使用低分辨率岸线可以加快时间。不然，计算速度可能非常慢。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1638,7 +2378,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1651,7 +2391,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">87</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

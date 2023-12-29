@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">86</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">87</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">150</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">154</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,513 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/10/27/pygmt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/27/pygmt/" class="post-title-link" itemprop="url">pygmt</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-10-27 21:10:45 / 修改时间：22:37:36" itemprop="dateCreated datePublished" datetime="2021-10-27T21:10:45+08:00">2021-10-27</time>
+            </span>
+
+          
+            <span id="/2021/10/27/pygmt/" class="post-meta-item leancloud_visitors" data-flag-title="pygmt" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/27/pygmt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/27/pygmt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近学习了<code>GMT</code>的python库<code>pygmt</code>，感觉相当值得推荐。下面简单介绍安装和使用。</p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>基本的准备工作和安装步骤如下：</p>
+<ul>
+<li>安装<code>miniconda</code>；</li>
+<li>安装<code>conda</code>加速器<code>mamba</code>，提高python库的安装速度（可选）；</li>
+<li>安装<code>jupyter lab</code>（可选）;</li>
+<li>安装<code>pygmt</code>;</li>
+</ul>
+<h2 id="miniconda"><a href="#miniconda" class="headerlink" title="miniconda"></a>miniconda</h2><p>Miniconda是一款小巧的python环境管理工具，其安装程序中包含conda软件包管理器和Python。一旦安装了Miniconda，就可以使用conda命令安装任何其他软件工具包并创建环境等。去官网<a href="https://conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">https://conda.io/en/latest/miniconda.html</a> 下载安装包即可完成安装。</p>
+<p>安装后，创建一个新的独立python环境(随便取名，此处为<code>gmt</code>)，以备pygmt的安装和调用：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">conda</span> <span class="string">create -n gmt python=3.9</span></span><br><span class="line"><span class="attr">conda</span> <span class="string">activate gmt</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="mamba"><a href="#mamba" class="headerlink" title="mamba"></a>mamba</h2><p>虽然conda是个安装软件的神器，但镜像不稳定，下载安装软件的速度有时很慢。对于几十Mb甚至上百Mb的软件往往下不动，下了半天可能失败。特别是安装的软件多了后，对软件依赖关系的解析时间特别长。mamba加速神器，可以用来并行下载和安装，大大加快速度，减少失败几率。</p>
+<p>首先，mamba本身需要先通过conda来安装：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> -c conda-forge mamba</span><br></pre></td></tr></table></figure>
+<p>mamba安装成功后，后续所有软件安装都可将conda替换为mamba了。</p>
+<h2 id="jupyter-lab"><a href="#jupyter-lab" class="headerlink" title="jupyter lab"></a>jupyter lab</h2><p>JupyterLab是Jupyter主打的最新数据科学生产工具，作为一种基于web的集成开发环境，你可以使用它编写notebook、操作终端、编辑markdown文本、打开交互模式、查看csv文件及图片等功能。pygmt对jupyter lab有很好的衔接，可以方便的查看和记录中间过程，显示绘图结果。安装命令为：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge jupyterlab</span><br></pre></td></tr></table></figure>
+
+<h2 id="pygmt"><a href="#pygmt" class="headerlink" title="pygmt"></a>pygmt</h2><p>pygmt可以在python中直接使用GMT进行数据处理和绘图，实现了和python的交互操作。下面命令将自动安装pygmt以及依赖，包括<code>proj,gdal,netcdf</code>等：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mamba <span class="keyword">install</span> -c conda-forge pygmt</span><br></pre></td></tr></table></figure>
+
+<p>在命令栏输入<code>jupyter lab</code>，启动<code>jupyter lab</code>，新建一个lab，查看版本并绘制一个简单的例子：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import pygmt</span><br><span class="line">pygmt.show_versions()</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.coast(<span class="attribute">region</span>=<span class="string">"g"</span>, <span class="attribute">frame</span>=<span class="literal">True</span>, <span class="attribute">shorelines</span>=1)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pygmt/g.png" alt></p>
+<h2 id="遥感影像绘制"><a href="#遥感影像绘制" class="headerlink" title="遥感影像绘制"></a>遥感影像绘制</h2><p>遥感影像绘制不是GMT常用的功能，因此疑问也较多，这里从遥感数据的下载、格式转换、拉伸、裁剪，到最终绘制，给出完整的步骤。</p>
+<h3 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h3><p>免费下载worldview开放数据：<a href="https://www.maxar.com/open-data/" target="_blank" rel="noopener">https://www.maxar.com/open-data/</a> 。<br>本例子采用数据土耳其地震影像（<a href="https://www.maxar.com/open-data/turkey-earthquake）" target="_blank" rel="noopener">https://www.maxar.com/open-data/turkey-earthquake）</a> 。</p>
+<p>使用GMT查看影像信息：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gmt grdinfo <span class="number">10300500</span>A4F8E700.tif</span><br><span class="line"># 分辨率约为<span class="number">4.32089651661e-06</span>*<span class="number">120000</span>=<span class="number">0.5</span>m</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>10300500A4F8E700.tif: Title: Grid imported via GDAL<br>10300500A4F8E700.tif: Command:<br>10300500A4F8E700.tif: Remark:<br>10300500A4F8E700.tif: Pixel node registration used [Geographic grid]<br>10300500A4F8E700.tif: Grid file format: gd = Import/export through GDAL<br>10300500A4F8E700.tif: x_min: 26.8895518746 x_max: 27.0835860536 x_inc: 4.32089651661e-06 name: x n_columns: 44906<br>10300500A4F8E700.tif: y_min: 37.6434216334 y_max: 37.8210061593 y_inc: 4.32089651661e-06 name: y n_rows: 41099<br>10300500A4F8E700.tif: v_min: 0 v_max: 229 name: z<br>10300500A4F8E700.tif: scale_factor: 1 add_offset: 0<br>+proj=longlat +datum=WGS84 +no_defs</p>
+</blockquote>
+<p>或者也可以使用gdal查看：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">print</span>(<span class="string">"GDAL info"</span>)</span><br><span class="line"><span class="comment"># 使用gdal查看</span></span><br><span class="line">!gdalinfo 10300500A4F8E700.tif</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>信息略</p>
+</blockquote>
+<p>或者也可以使用pygmt.grdinfo查看,不过格式不太美观，没有换行：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pygmt</span><span class="selector-class">.grdinfo</span>("10300500<span class="selector-tag">A4F8E700</span><span class="selector-class">.tif</span>")</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>信息略</p>
+</blockquote>
+<h3 id="降低影像分辨率"><a href="#降低影像分辨率" class="headerlink" title="降低影像分辨率"></a>降低影像分辨率</h3><p>降低分辨率为9m（0.000075*120000=9m），并改为Byte格式（GMT不识别TIF的float32格式）:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte.tif</span><br></pre></td></tr></table></figure>
+<p>这里的<code>gdal</code>程序应该可以在安装pygmt之后可以自动调佣，因为同时已经安装了gdal依赖，并创建了这些可执行文件。</p>
+<h3 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig = pygmt.Figure()</span><br><span class="line"></span><br><span class="line"><span class="attribute">data</span>=<span class="string">"10300500A4F8E700_lowbyte.tif+b0,1,2"</span></span><br><span class="line"></span><br><span class="line">fig.grdimage(</span><br><span class="line">    <span class="attribute">grid</span>=data,</span><br><span class="line">    frame=[<span class="string">"af"</span>],</span><br><span class="line">    <span class="attribute">projection</span>=<span class="string">"M6.5i"</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pygmt/test0.png" alt></p>
+<h3 id="色调"><a href="#色调" class="headerlink" title="色调"></a>色调</h3><p>如果喜欢亮色，可以适当拉伸灰度值：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!gdal_translate -tr <span class="number">0.000075</span> <span class="number">0.000075</span> -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_lowbyte2.tif</span><br></pre></td></tr></table></figure>
+<p>重复<code>绘图</code>的代码，效果：<br><img src="/images/pygmt/test4.png" alt></p>
+<h3 id="局部"><a href="#局部" class="headerlink" title="局部"></a>局部</h3><p>为了保持清晰，局部绘图使用原始分辨率。为了防止图像过大，处理时间长，将裁剪成小区域绘图，并转格式和拉伸：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">!gdalwarp  -te <span class="number">26.966</span> <span class="number">37.7</span> <span class="number">27.0</span> <span class="number">37.7166</span> <span class="number">10300500</span>A4F8E700.tif <span class="number">10300500</span>A4F8E700_small.tif</span><br><span class="line">!gdal_translate -scale <span class="number">0</span> <span class="number">200</span> <span class="number">0</span> <span class="number">255</span> -r average -ot Byte  <span class="number">10300500</span>A4F8E700_small.tif <span class="number">10300500</span>A4F8E700_lowbyte4.tif</span><br></pre></td></tr></table></figure>
+<p>重复<code>绘图</code>的代码：<br><img src="/images/pygmt/test.png" alt></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>遥感影像一般为底图，在此基础上可以使用pygmt任意添加<code>点、线、面、文字</code>等要素，除了可以识别文本格式，它已经可以读取<code>shp</code>格式。</li>
+<li>导出的最终图的格式可以通过后缀修改。比如可以导出高清pdf图片，方便的插入latex使用。</li>
+<li>本例使用的遥感影像已经转为经纬度坐标，无需再次转换坐标。如果是UTM，则可以通过gdal快速转换。</li>
+<li>本例子未展示地震前后对比，大家可以下载数据后自行对比。</li>
+</ul>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>可以下载本例子的jupyter 版本：<a href="https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DY8Q0ugQ2PCQBxjvv5cE</a> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/10/22/tensorflowGPU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/22/tensorflowGPU/" class="post-title-link" itemprop="url">TensorFlow GPU 在Ubuntu 18.04的安装</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-22 08:46:27" itemprop="dateCreated datePublished" datetime="2021-10-22T08:46:27+08:00">2021-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-31 15:02:03" itemprop="dateModified" datetime="2022-08-31T15:02:03+08:00">2022-08-31</time>
+              </span>
+
+          
+            <span id="/2021/10/22/tensorflowGPU/" class="post-meta-item leancloud_visitors" data-flag-title="TensorFlow GPU 在Ubuntu 18.04的安装" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/10/22/tensorflowGPU/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/10/22/tensorflowGPU/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Ubuntu上安装TensorFlow GPU版本，首先需要：</p>
+<ul>
+<li>一张NVIDIA GPU显卡和Ubuntu系统；</li>
+<li>NVIDIA 显卡驱动，最新为<code>495.29.05</code>（2021年10月22日）；</li>
+<li>CUDA toolkit；</li>
+<li>cudNN SDK；</li>
+<li>CUPTI；</li>
+<li>TensorFlow作为深度学习的框架。</li>
+</ul>
+<p>以NVIDIA 2080ti为例，安装步骤如下：</p>
+<h3 id="安装-NVIDIA-显卡驱动"><a href="#安装-NVIDIA-显卡驱动" class="headerlink" title="安装 NVIDIA 显卡驱动"></a>安装 NVIDIA 显卡驱动</h3><p>在官网：<a href="https://www.nvidia.com/download/index.aspx?lang=en-us" target="_blank" rel="noopener">https://www.nvidia.com/download/index.aspx?lang=en-us</a> 下载最新的显卡驱动。<br><img src="/images/gpu/driver.png" alt></p>
+<p>完成后运行<code>nvidia-smi</code>，查看显卡信息：<br><img src="/images/gpu/smi.png" alt></p>
+<p>正常显示则表示驱动安装成功。</p>
+<blockquote>
+<p>Ubuntu初次插入GPU显卡后会自动安装驱动，也能正常使用显卡，但是版本可能较低，和TensorFlow的GPU需求不匹配。<strong>也可以通过Ubuntu自带的驱动更新来安装显卡最新的驱动</strong>。</p>
+</blockquote>
+<h3 id="CUDA-toolkit"><a href="#CUDA-toolkit" class="headerlink" title="CUDA toolkit"></a>CUDA toolkit</h3><p>去谷歌网站查看版本匹配，确定TensorFlow、cuda toolkit、和cuDNN的版本对应正确。<br><img src="/images/gpu/toolkit.png" alt></p>
+<p>以TensorFlow2.5为例，需要的cuDNN8.1和CUDA 11.2。</p>
+<blockquote>
+<p>注意这个CUDA 11.2不是驱动的版本，可以和上面的显卡驱动显示的<code>11.5</code>不一致。<br><img src="/images/gpu/toolkit2.png" alt></p>
+</blockquote>
+<p>下载：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux.run</span></span><br><span class="line">sudo chmod +x cuda_11<span class="number">.2</span><span class="number">.2</span>_460<span class="number">.32</span><span class="number">.03</span>_linux.run</span><br><span class="line">sudo ./cuda_11<span class="number">.2</span><span class="number">.2</span>_460<span class="number">.32</span><span class="number">.03</span>_linux.run</span><br></pre></td></tr></table></figure>
+<h4 id="坑-1"><a href="#坑-1" class="headerlink" title="坑-1"></a>坑-1</h4><blockquote>
+<p>cuda toolkit包中含有了显卡驱动，因为之前已安装，这里不要再安装，否则显卡驱动冲突。</p>
+</blockquote>
+<p>此处可参考：<a href="https://zhuanlan.zhihu.com/p/122286055" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/122286055</a><br><img src="/images/gpu/ken1.jpg" alt></p>
+<p>去掉driver前面的X，执行install，等一会安装成功。</p>
+<h4 id="添加到路径"><a href="#添加到路径" class="headerlink" title="添加到路径"></a>添加到路径</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit ~/.bashrc</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">"/usr/local/cuda-11.2/bin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LD_LIBRARY_PATH</span>=<span class="string">"/usr/local/cuda-11.2/lib64:<span class="variable">$LD_LIBRARY_PATH</span>"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">CUDA_HOME</span>=/usr/local/cuda-11.2</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nvcc -V</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/gpu/nvcc.jpg" alt></p>
+<h3 id="cuDNN"><a href="#cuDNN" class="headerlink" title="cuDNN"></a>cuDNN</h3><p>从官网（<a href="https://developer.nvidia.com/rdp/cudnn-download）" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-download）</a> 下载cuDNN。先注册，然后找到对应的8.1版本，并下载deb版本。</p>
+<p>可参考：<a href="https://zhuanlan.zhihu.com/p/126997172" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/126997172</a></p>
+<p><img src="/images/gpu/cudnn.png" alt></p>
+<p>下载内容为：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libcudnn8_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">libcudnn8-dev_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">libcudnn8-samples_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br></pre></td></tr></table></figure>
+
+<p>依次安装：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i llibcudnn8_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn8-dev_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn8-samples_8<span class="number">.1</span><span class="number">.1</span><span class="number">.33</span><span class="number">-1</span>+cuda11<span class="number">.2</span>_amd64.deb</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于新版的cuda，如11.6，cudnn只提供了一个文件。可以使用如下方法安装：</p>
+</blockquote>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Procedure</span></span><br><span class="line"><span class="comment"># Navigate to your &lt;cudnnpath&gt; directory containing the cuDNN tar file.</span></span><br><span class="line"><span class="comment"># Unzip the cuDNN package.</span></span><br><span class="line">$ tar -xvf cudnn-linux-x86_64-<span class="number">8</span>.x.x.x_cudaX.Y-archive.tar.xz</span><br><span class="line"><span class="comment"># Copy the following files into the CUDA toolkit directory.</span></span><br><span class="line">$ sudo cp cudnn-*-archive/<span class="keyword">include</span>/cudnn*.h /usr/local/cuda/<span class="keyword">include</span> </span><br><span class="line">$ sudo cp -P cudnn-*-archive/<span class="class"><span class="keyword">lib</span>/<span class="title">libcudnn</span>* /<span class="title">usr</span>/<span class="title">local</span>/<span class="title">cuda</span>/<span class="title">lib64</span> </span></span><br><span class="line">$ sudo chmod a+r /usr/local/cuda/<span class="keyword">include</span>/cudnn*.h /usr/local/cuda/lib64/libcudnn*</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/P081513083/article/details/126324723" target="_blank" rel="noopener">https://blog.csdn.net/P081513083/article/details/126324723</a></p>
+</blockquote>
+<h4 id="测试cuDNN"><a href="#测试cuDNN" class="headerlink" title="测试cuDNN"></a>测试cuDNN</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cp -r <span class="regexp">/usr/</span>src<span class="regexp">/cudnn_samples_v8/</span> <span class="variable">$HOME</span></span><br><span class="line">cd  ~<span class="regexp">/cudnn_samples_v8/m</span>nistCUDNN</span><br><span class="line">sudo make clean </span><br><span class="line">sudo make</span><br></pre></td></tr></table></figure>
+
+<p>遇到错误：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">test</span>.c:1:10: fatal <span class="keyword">error</span>: FreeImage.<span class="keyword">h</span>: <span class="keyword">No</span> such <span class="keyword">file</span> or directory</span><br><span class="line">     1 | #<span class="keyword">include</span> <span class="string">"FreeImage.h"</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方法：</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install libfreeimage3 libfreeimage-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+
+<p>进行测试：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="string">./mnistCUDNN</span></span><br></pre></td></tr></table></figure>
+<p>显示<code>Test passed!</code>。</p>
+<h3 id="CUPTI"><a href="#CUPTI" class="headerlink" title="CUPTI"></a>CUPTI</h3><p>该程序没有约定版本，直接通过<code>apt</code>安装。</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install libcupti-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+<p>并编辑<code>~/.bashrc</code>添加到路径。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/usr/local/cuda/extras/CUPTI/lib64</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h3><h4 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h4><blockquote>
+<p>不要使用conda安装，使用pip安装。</p>
+</blockquote>
+<p>使用conda反复安装TensorFlow，总是无法调用GPU，后来使用pip安装（也是官方教程的方法）发现安装包要比conda的包大一倍。</p>
+<p>使用下面的命令测试：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br></pre></td></tr></table></figure>
+<p>会出现<code>Successfully opened dynamic library libcudart.so.11.0</code>，表示成功。</p>
+<p>接着使用</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tf</span><span class="selector-class">.config</span><span class="selector-class">.list_physical_devices</span>(<span class="string">'GPU'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/images/gpu/finish.png" alt></p>
+<p>至此，安装成功。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://medium.com/analytics-vidhya/configure-tensorflow-gpu-with-ubuntu-18-04-2021-update-aee264e887ae" target="_blank" rel="noopener">https://medium.com/analytics-vidhya/configure-tensorflow-gpu-with-ubuntu-18-04-2021-update-aee264e887ae</a><br><a href="https://www.bilibili.com/read/cv9164113" target="_blank" rel="noopener">https://www.bilibili.com/read/cv9164113</a><br><a href="https://towardsdatascience.com/installing-tensorflow-gpu-in-ubuntu-20-04-4ee3ca4cb75d" target="_blank" rel="noopener">https://towardsdatascience.com/installing-tensorflow-gpu-in-ubuntu-20-04-4ee3ca4cb75d</a><br><a href="https://zhuanlan.zhihu.com/p/122286055" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/122286055</a><br><a href="https://zhuanlan.zhihu.com/p/126997172" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/126997172</a><br><a href="https://www.tensorflow.org/install/source#gpu" target="_blank" rel="noopener">https://www.tensorflow.org/install/source#gpu</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/09/04/gmt-trend/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/04/gmt-trend/" class="post-title-link" itemprop="url">使用GMT计算二维网格数据的均值、标准差和趋势</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-04 17:39:55 / 修改时间：18:37:52" itemprop="dateCreated datePublished" datetime="2021-09-04T17:39:55+08:00">2021-09-04</time>
+            </span>
+
+          
+            <span id="/2021/09/04/gmt-trend/" class="post-meta-item leancloud_visitors" data-flag-title="使用GMT计算二维网格数据的均值、标准差和趋势" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/09/04/gmt-trend/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/04/gmt-trend/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>下面介绍GMT中<code>blockmean</code>和<code>grdmath</code>的统计计算功能，包含均值、标准差和趋势。</p>
+<h2 id="案例：高度计大气湿延迟的中国周边海域分布"><a href="#案例：高度计大气湿延迟的中国周边海域分布" class="headerlink" title="案例：高度计大气湿延迟的中国周边海域分布"></a>案例：高度计大气湿延迟的中国周边海域分布</h2><p>以中国周边海域的高度计湿延迟为例，计算湿延迟的空间均值、标准差和趋势。</p>
+<h2 id="code"><a href="#code" class="headerlink" title="code"></a>code</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2021-03-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using blockmean, grdmath to calculate the STD abd trend </span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=jason_wet_global_new.ps</span><br><span class="line"><span class="built_in">set</span> R=<span class="number">105</span>/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span></span><br><span class="line"><span class="built_in">set</span> J=M5c</span><br><span class="line"></span><br><span class="line"><span class="comment">REM Calculate mean value and plot mean wet path delay</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">350</span>/<span class="number">5</span>&gt; t.cpt</span><br><span class="line"><span class="comment">REM use Jason-2 data of cycle 1-294 (6years), downloaded from RADS.</span></span><br><span class="line"><span class="comment">rem gawk "!/NaN/ &amp;&amp; NR&gt;13 &amp;&amp; $3&gt;100 &#123;print $3,$2,(-$4)*1000&#125;" D:\rads\wet\radsdata_ok\j2*c*.asc &gt; model.dd</span></span><br><span class="line">gmt blockmean model.dd -R<span class="variable">%R%</span> -I20m &gt;tmp_.dd</span><br><span class="line">gmt surface tmp_.dd -R<span class="variable">%R%</span> -I20m -Ggridded2_j2_s.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_s.nc is the averaged file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_s.nc -R<span class="variable">%R%</span> -J<span class="variable">%J%</span> -K -Ct.cpt -Y13c&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> a)mean of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N  -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate STD and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T50/<span class="number">150</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt blockmean model.dd -As -E -R -I20m -Ggridded2_j2_std.nc</span><br><span class="line">gmt grd2xyz gridded2_j2_std.nc | gawk "!/NaN/ &#123;<span class="built_in">print</span> $<span class="number">1</span>,$<span class="number">2</span>,$<span class="number">3</span>&#125;" | gmt surface -R -I20m -Ggridded2_j2_std2.nc -T0.<span class="number">25</span></span><br><span class="line"><span class="comment">REM gridded2_j2_std2.nc is the STD file and will be used in next step.</span></span><br><span class="line">gmt grdimage gridded2_j2_std2.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> b)STD of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -K -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">rem Calculate trend and PLOT</span></span><br><span class="line">gmt makecpt -Cvik -T-<span class="number">30</span>/<span class="number">30</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line">gmt grdsample gridded2_j2_s.nc -I60m -Ggridded2_j2_s_re.nc</span><br><span class="line"></span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  DDX = slope3.nc</span><br><span class="line">gmt grdmath gridded2_j2_s_re.nc  D2DY2 = slope1.nc</span><br><span class="line"></span><br><span class="line">gmt grdimage slope2.nc -R -J -K -Ct.cpt -O  -X-<span class="number">7</span>c -Y-<span class="number">10</span>c&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> c)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite -K &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt grdimage slope3.nc -R -J -K -Ct.cpt -O  -X7c &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -J -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -Bag --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -K &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psscale -DjBC+o0c/-<span class="number">1</span>.<span class="number">4</span>c+w1.<span class="number">5</span>i/<span class="number">0</span>.<span class="number">08</span>i -R -J -Ct.cpt -Bxaf -By+lmm/@. -I -O  --FONT_ANNOT_PRIMARY=<span class="number">7</span>p -K&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="number">107</span> <span class="number">42</span> d)trend of WPD|  gmt pstext -F+f8p,<span class="number">1</span>,black+jLB -R -J -O -N -Gwhite &gt;&gt;  <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/jason_wet_global_new.png" alt></p>
+<p>大气湿延迟和大气水汽和液态云有关，均值呈现出南高北低的自然特征。在北纬25-35度之间，时间变化（STD）最为剧烈，说明这段区间可能四季分明，不过度干燥，不过分潮湿，适合人类居住（xia che）。变化趋势图表示南北和东西方向一度距离上湿延迟的变化，因为网格的空间单位是度，所以这里一阶导数结果表示一度空间距离上的湿延迟变化量。</p>
+<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><p><code>blockmean model.dd -As -E</code>中的<code>-As</code>设置输出为<code>STD</code>。如果不做设置，默认输出的是均值。</p>
+<p><code>gmt grdmath gridded2_j2_s_re.nc  DDY = slope2.nc</code>中的<code>DDY</code>或者<code>DDX</code>设置一个固定方向的一阶导数计算，因为网格被提前预设为1度，因此计算结果是1度距离上的变化率。<code>grdmath</code>也可以计算二阶导数，使用<code>D2DY2</code>或者<code>D2DX2</code>。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>可以直接小编从RADS数据库中提取的文件model.dd，它是 Jason-2 cycle 1-294的全部模型湿延迟原始数据汇总：<br>model.dd： <a href="https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DWQl1jsQ2PCQBxjWsYwE</a> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/08/18/distance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/18/distance/" class="post-title-link" itemprop="url">GMT的海岸线空间数据分析功能</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-18 21:27:35" itemprop="dateCreated datePublished" datetime="2021-08-18T21:27:35+08:00">2021-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-20 21:44:11" itemprop="dateModified" datetime="2021-08-20T21:44:11+08:00">2021-08-20</time>
+              </span>
+
+          
+            <span id="/2021/08/18/distance/" class="post-meta-item leancloud_visitors" data-flag-title="GMT的海岸线空间数据分析功能" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/18/distance/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/18/distance/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>下面介绍：使用GMT和海岸线数据绘任意距离的海岸延伸线（如12海里线等）；使用海岸线距离进行站点数据的筛选（如提取沿海50km以内的GNSS点位）。</p>
+<h2 id="根据离岸的距离对GNSS站点进行提取"><a href="#根据离岸的距离对GNSS站点进行提取" class="headerlink" title="根据离岸的距离对GNSS站点进行提取"></a>根据离岸的距离对GNSS站点进行提取</h2><p>在利用GNSS水汽对卫星高度计进行湿延迟评估时，需要提取距离海岸线小于50km的站点做比对。这里我们使用GMT快速分析提取数据并绘图展示。</p>
+<p>绘图采用的数据主要是中国地震局陆态网、IGS和自然资源部沿海业务化GNSS系统，卫星数据主要是我国的海洋二号以及国外的Jason，绘图数据见文末链接。</p>
+<blockquote>
+<p>中国陆态网数据和国际IGS数据为共享开放资料。由于政策原因，沿海业务化GNSS资料暂未公开。海洋二号高度计资料和国外高度计资料已全面开放共享。</p>
+</blockquote>
+<p>绘图任务主要步骤总结为：</p>
+<ul>
+<li><code>grdmath</code>的<code>LDISTG</code>计算网格点到<code>GSHHG</code>岸线的距离，生成网格文件；</li>
+<li><code>grdlandmask</code>分离陆海；</li>
+<li><code>grdcontour</code>提取某值的等值线；</li>
+<li><code>select</code>依据点位到某等值线的距离筛选站点。</li>
+</ul>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>下面是windows下的代码：</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2019-04-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using grdmath to show the distance from GSHHG  coastline data</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=wet.ps</span><br><span class="line"></span><br><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br><span class="line">gmt grdlandmask -R -Dl -I10m -N1/-<span class="number">1</span> -Gland_mask.nc -V</span><br><span class="line">gmt grdmath dist_to_gshhg.nc land_mask.nc MUL = file.nc</span><br><span class="line">gmt grdsample dist_to_gshhg.nc -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -I1m -Gfile2.nc</span><br><span class="line"><span class="comment">REM Outut 50km coordinates.</span></span><br><span class="line">gmt grdcontour file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C50, -D &gt; out.d50</span><br><span class="line">gmt makecpt -Ccopper -T-<span class="number">0</span>/<span class="number">50</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt -t80&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J out.d50 -W0.<span class="number">4</span>p,green -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -JM4.<span class="number">5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -K -Swhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Begin the sites selection.</span></span><br><span class="line">gmt pscoast -R -M -W -Dc -A10000&gt; coastal.txt</span><br><span class="line">gmt select trc.dat -Lcoastal.txt+d50k -fg &gt; subset.d2</span><br><span class="line"></span><br><span class="line"><span class="comment">REM satellite tracks</span></span><br><span class="line">gmt psxy -R -J ja.dat -W1p,black -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J hy2.dat -W1p,red -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM All CMONOC sites</span></span><br><span class="line">gmt psxy -R -J trc.dat -Sc0.<span class="number">1</span> -Gblack -O -K -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM tide sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">3</span>, $<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">1</span>&#125;" yh_tide.txt2  &gt;temp.d</span><br><span class="line"><span class="comment">REM Coastal GNSS sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss.txt &gt;temp.d01</span><br><span class="line">gmt psxy temp.d01  -R  -J  -K -O  -Gblack -St0.<span class="number">05</span>i -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Plot the selected sites </span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt psxy -R -J -O -Gred -Sc0.<span class="number">08</span>i -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J subset.d2 -Ss0.<span class="number">15</span> -GDEEPSKYBLUE1 -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">2</span> -Gred -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">12</span> -Gblue -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span> | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">118</span>.<span class="number">38</span>,<span class="number">24</span>.<span class="number">46</span>  | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gawk "!/SDYT/ &amp;&amp; !/SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "/SDYT/ || /SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D-<span class="number">0</span>.<span class="number">5</span>/<span class="number">0</span>.<span class="number">4</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span>,TWTF | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM add legend</span></span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">05</span>c black <span class="number">1</span>p,black <span class="number">0</span>.<span class="number">3</span>i Total CMONOC &gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">15</span>c DEEPSKYBLUE1 .<span class="number">7</span>p,DEEPSKYBLUE1 <span class="number">0</span>.<span class="number">3</span>i Coastal CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">2</span>c blue <span class="number">0</span>.<span class="number">7</span>p,red <span class="number">0</span>.<span class="number">3</span>i Selected CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i t <span class="number">0</span>.<span class="number">05</span>i gray - <span class="number">0</span>.<span class="number">3</span>i Costal CGN&gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">08</span>i  red - <span class="number">0</span>.<span class="number">3</span>i Selected CGN &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i a <span class="number">0</span>.<span class="number">15</span>c blue <span class="number">0</span>.<span class="number">7</span>p,blue <span class="number">0</span>.<span class="number">3</span>i IGS &gt;&gt;le.d</span><br><span class="line">gmt pslegend -D+w1.<span class="number">6</span>i+jBL+o2.<span class="number">8</span>i/<span class="number">0</span>.<span class="number">2</span>i -R -J -O -F+p1p+gwhite --FONT_ANNOT_PRIMARY=<span class="number">7</span>p le.d &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Creat kml file to be loaded in Google earth.</span></span><br><span class="line">gmt <span class="number">2</span>kml subset.d2 -Gred+f -<span class="built_in">Fs</span> &gt; mypoints.kml</span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="200公里线绘制"><a href="#200公里线绘制" class="headerlink" title="200公里线绘制"></a>200公里线绘制</h2><p>使用GMT岸线绘制领海线、专属经济区等政治界线比较危险，因为上面的数据分析使用了低分辨率的岸线，并忽略了很多海岛。这里选择绘制距离大陆200km的等值线。</p>
+<p>具体做法是对<code>grdcontour</code>的<code>-C</code>做修改，设置为<code>-C200,</code>。其他距离可以通过设定<code>-C</code>后面的数值实现。</p>
+<h4 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gmt grdcontour file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C200, -D &gt; <span class="keyword">out</span>.d50</span><br><span class="line">gmt makecpt -Ccopper -T<span class="number">-0</span>/<span class="number">200</span>/<span class="number">10</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt &gt; %ps%</span><br><span class="line">gmt psxy -R -J <span class="keyword">out</span>.d50 -W0<span class="number">.4</span>p,green -O -K &gt;&gt;%ps%</span><br><span class="line">gmt pscoast -R -JM4<span class="number">.5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0<span class="number">.1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; %ps%</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/gnss_sites.png" alt></p>
+<center>距离岸线50km的GNSS站点分布</center>
+
+
+<p><img src="/images/200.png" alt></p>
+<center>距离岸线200km的等值线</center>
+
+<h2 id="坐标文件"><a href="#坐标文件" class="headerlink" title="坐标文件"></a>坐标文件</h2><p>陆态网GNSS站点坐标<code>trc.dat</code>：<a href="https://www.jianguoyun.com/p/DZNDa0kQ2PCQBxih5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DZNDa0kQ2PCQBxih5ogE</a><br>HY-2高度计卫星轨迹<code>hy2.dat</code>：<a href="https://www.jianguoyun.com/p/DZvezRQQ2PCQBxim5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DZvezRQQ2PCQBxim5ogE</a><br>Jason-2高度计轨迹<code>ja.dat</code>：<a href="https://www.jianguoyun.com/p/Dfulo24Q2PCQBxiq5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/Dfulo24Q2PCQBxiq5ogE</a><br>沿海验潮站概略坐标<code>yh_tide.txt2</code>：<a href="https://www.jianguoyun.com/p/DaYSJ8kQ2PCQBxis5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DaYSJ8kQ2PCQBxis5ogE</a><br>沿海GNSS业务化系统概略坐标<code>gnss.txt</code>：<a href="https://www.jianguoyun.com/p/DWhRCEUQ2PCQBxiv5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DWhRCEUQ2PCQBxiv5ogE</a><br>绘图用的个别GNSS站点：<a href="https://www.jianguoyun.com/p/DdUqCG4Q2PCQBxi05ogE；" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DdUqCG4Q2PCQBxi05ogE；</a> <a href="https://www.jianguoyun.com/p/DcBuNBsQ2PCQBxi15ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DcBuNBsQ2PCQBxi15ogE</a> </p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br></pre></td></tr></table></figure>
+
+<p>这一行代码中的<code>-Dc</code>表示低分辨率海岸线，如果计算的区域比较大，使用低分辨率岸线可以加快时间。不然，计算速度可能非常慢。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -824,463 +1331,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/12/share-code2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/12/share-code2/" class="post-title-link" itemprop="url">开源程序共享3</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-12 21:44:26 / 修改时间：22:47:51" itemprop="dateCreated datePublished" datetime="2021-05-12T21:44:26+08:00">2021-05-12</time>
-            </span>
-
-          
-            <span id="/2021/05/12/share-code2/" class="post-meta-item leancloud_visitors" data-flag-title="开源程序共享3" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/12/share-code2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/12/share-code2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天向大家分享三个和GMT有关的开源程序，分别是多波束处理程序MB-system、SAR遥感图像处理程序GMT SAR和重力资料处理程序。</p>
-<h2 id="MB-system"><a href="#MB-system" class="headerlink" title="MB-system"></a>MB-system</h2><p><img src="/images/mbsystem_logo.gif" alt></p>
-<p>MB-system是多波束测深数据处理程序，MB最初是由哥伦比亚大学拉蒙特-多尔蒂地球观测站（L-DEO）开发的，现在是由蒙特雷湾水族馆研究所（MBARI）、新罕布什尔大学和MARUM合作开发。自1993年以来，美国国家科学基金会一直支持MB的研发。自1998年以来，Packard基金会通过MBARI为MB提供了主要支持。</p>
-<p>MB由操作、处理、列出或显示声纳测深、振幅和侧扫数据的程序组成。该软件是以Unix平台的源代码形式免费分发的，程序的核心是一个名为MBIO的输入/输出库。这种方法允许创建 “通用 “工具，可以以统一的方式应用于各种来源的声纳数据。大多数程序是命令行工具，但该软件包也包括用于编辑测深线、编辑导航、建模测深计算和调整调查导航的图形工具。MB依赖GMT进行网格插值以及绘图。</p>
-<p>NOAA维护的NGDC数据中心所共享的历史多波束数据使用了MB处理，这使得其共享的数据有统一的数据格式。</p>
-<p>目前国内高校、研究机构以及企业界多使用Caris等商业化软件处理多波束资料，少数科研人员使用MB-System，原因可能可能与MB的运行环境是Linux有关，这导致了程序使用的友好性降低。</p>
-<p>经过安装测试，发现这个程序其实也不是很复杂，因为它和GMT有很好的联通性，如果熟悉GMT，则MB较容易上手。不足的是它的帮助文件有些古老。</p>
-<p>源代码地址：<a href="https://github.com/dwcaress/MB-System" target="_blank" rel="noopener">https://github.com/dwcaress/MB-System</a><br>下载和安装：<a href="https://www.mbari.org/products/research-software/mb-system/how-to-download-and-install-mb-system/" target="_blank" rel="noopener">https://www.mbari.org/products/research-software/mb-system/how-to-download-and-install-mb-system/</a><br>应用论文：GREVEMEYER I, RÜPKE L H, MORGAN J P, 等. Extensional Tectonics and Two-Stage Crustal Accretion at Oceanic Transform Faults: 7850[J]. Nature, 2021, 591(7850): 402–407. DOI:10.1038/s41586-021-03278-9.</p>
-<p>程序开发者还提供了一些教学视频，但是在YouTube。</p>
-<p>视频教学：</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SoWjpkmx034" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<h2 id="GMTSAR"><a href="#GMTSAR" class="headerlink" title="GMTSAR"></a>GMTSAR</h2><p><img src="/images/gmtsar.png" alt><br>来源：GMTSAR帮助文件</p>
-<p>GMTSAR是一个开源的（GNU通用公共许可证）InSAR处理系统，为熟悉通用绘图工具（GMT）的用户而设计。该代码是用C语言编写的用C语言编写，并将在任何安装了GMT和NETCDF的计算机上进行编译。</p>
-<p>该系统有三个主要组成部分:<br>1）每个卫星数据类型的预处理程序，用于将本地格式和轨道信息转换成通用格式；<br>2）一个InSAR处理器，用于聚焦和对准图像，将地形绘制成相位，并形成复杂的干涉图；<br>3）一个后处理程序，主要是基于GMT，以过滤干涉图，并构建相位、相干、相位梯度的干涉测量产品，以及雷达和地理坐标中的位移。</p>
-<p>源代码：<a href="https://github.com/gmtsar/gmtsar" target="_blank" rel="noopener">https://github.com/gmtsar/gmtsar</a><br>例子和帮助：<a href="https://topex.ucsd.edu/gmtsar/downloads/" target="_blank" rel="noopener">https://topex.ucsd.edu/gmtsar/downloads/</a><br>应用论文：XU X, SANDWELL D T, WARD L A, 等. Surface Deformation Associated with Fractures near the 2019 Ridgecrest Earthquake Sequence[J]. Science, 2020, 370(6516): 605–608. DOI:10.1126/science.abd1690.</p>
-<h2 id="重力资料处理"><a href="#重力资料处理" class="headerlink" title="重力资料处理"></a>重力资料处理</h2><p><img src="/images/A10_absolute_gravity_meter.jpg" alt><br>来源：USGS</p>
-<p>这是一套PYTHON重力资料处理程序和教学文档，提供了南非的国家重力测量数据（来自BGS，<a href="https://www.bgs.ac.uk/datasets/gb-land-gravity-survey/）" target="_blank" rel="noopener">https://www.bgs.ac.uk/datasets/gb-land-gravity-survey/）</a> 。</p>
-<p>这应该是重力资料处理的入门级学习程序。</p>
-<p>它的作者leouieda是由GMT开发者之一。</p>
-<p>源代码：<a href="https://github.com/leouieda/gravity-processing" target="_blank" rel="noopener">https://github.com/leouieda/gravity-processing</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/12/phd-panic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/12/phd-panic/" class="post-title-link" itemprop="url">疫情下给博士新生的六点建议</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-12 15:51:28 / 修改时间：16:05:26" itemprop="dateCreated datePublished" datetime="2021-05-12T15:51:28+08:00">2021-05-12</time>
-            </span>
-
-          
-            <span id="/2021/05/12/phd-panic/" class="post-meta-item leancloud_visitors" data-flag-title="疫情下给博士新生的六点建议" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/12/phd-panic/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/12/phd-panic/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>O’BRIEN C. Six Lessons from a Pandemic PhD Student[J/OL]. Nature, 2021[2021–05–10]. <a href="https://www.nature.com/articles/d41586-021-01233-2" target="_blank" rel="noopener">https://www.nature.com/articles/d41586-021-01233-2</a>. DOI:10.1038/d41586-021-01233-2.</p>
-</blockquote>
-<p><img src="/images/phd.jpg" alt><br>Ciara O’Brien在克兰菲尔德大学的实验室里工作，她在那里开始了她的博士课程，在COVID-19封锁的情况下。</p>
-<p>2020年9月，我开始了在英国克兰菲尔德大学（Cranfield University）的植物科学博士课程，这是一个只有研究生的研究机构。一开始，我在从本科到博士学习的过渡过程中遇到了很多困难–尤其是禁锢带来的额外挑战。由于不同程度的限制仍然影响着许多研究人员，以下是我学到的一些东西。</p>
-<h2 id="设定目标时要管理好自己的期望"><a href="#设定目标时要管理好自己的期望" class="headerlink" title="设定目标时要管理好自己的期望"></a>设定目标时要管理好自己的期望</h2><p>我对我的课程的前几个月会取得什么成就有很大的期望。我确实设法从爱尔兰搬到了英国，并在实验室里安顿下来–但我也曾期望几乎完成文献综述的初稿，设计实验并开始自己的实验室工作。</p>
-<p>这些想法很快就被打乱了。在第一个月里，我几乎没有做任何科学工作。我搬到了一个新的国家，这意味着在没有看房的情况下找到了住所，在没有信用记录的情况下开了一个银行账户。这通常已经很困难了，但我不能亲自去银行，只能依靠自动系统。值得庆幸的是，我在英国脱欧之前就搬了家，不需要隔离–但由于封锁，简单的步骤还是要花更多时间。我花了几个小时与大学的信息技术部门通电话，试图获得和设置一台工作用的笔记本电脑。一旦我得到了它，我做了一个在线安全培训课程（只是发现我不得不重做，因为我的浏览器崩溃了，没有保存我的进度），并填写了一个又一个的表格，以获得我的学生号、学生资助津贴和实验室访问证书。</p>
-<p>由于没有取得任何类似于博士研究的成果，我很害怕一开始就让我的导师失望。但是，当我向他们谈及我在阅读论文和设计实验方面的（最小的）进展时，他们已经预料到这些任务会花费很多时间，并提醒我，<code>尽管填写所有的表格可能不觉得是科学，但这是工作</code>。</p>
-<h2 id="志愿帮助他人-从长远来看对你有帮助"><a href="#志愿帮助他人-从长远来看对你有帮助" class="headerlink" title="志愿帮助他人,从长远来看对你有帮助"></a>志愿帮助他人,从长远来看对你有帮助</h2><p>大多数博士生将在一所对他们来说很陌生的大学开始学习，这意味着要认识一系列新的导师、技术人员、教授、行政人员等等。一旦你真的认识了这些人，你就会更容易知道该向谁要什么。</p>
-<p>但要在网上经历 “认识你 “的过程就比较困难了。志愿干那些 “又累又脏”的工作可以帮助我认识人们，并使我进入实验室与其他人面对面地交流。我也获得了团队中其他人的青睐。我花了一周时间给冰柜除霜，又花了一周时间把一袋袋的土豆从一个房间搬到另一个房间。我无法计算我花了多少时间来清洁我们的实验室设备，这些设备一直都在仓库里。但现在，我几乎认识了我所在部门的所有技术人员–所以寻求帮助或指导就不那么令人生畏了。</p>
-<p>这也给了我一种 “家庭 “的感觉。封锁意味着实验室的人数保持在最低水平，所以我没有像其他人在正常情况下那样认识很多人。我也不能回家，否则会给我的家人带来危险。如果不是我在头几个月遇到的人，圣诞节将是难以忍受的，现在我们都有一个支持网络。</p>
-<h2 id="掌握你的项目所有权"><a href="#掌握你的项目所有权" class="headerlink" title="掌握你的项目所有权"></a>掌握你的项目所有权</h2><p>就在我开始我的项目之前，我的导师给我寄来了她用来为我的项目获得资金的拨款申请。起初，我把它当作经文，主要关注申请书中使用的参考资料，而不是对这个领域有一个总体的感觉。即使项目的某些部分与其他部分不一致，或者我发现了我可以并且想要解决的文献中的空白，我也没有信心宣称对我的项目拥有所有权。</p>
-<p>但当我开始设计实验和提出假设时，我想深入研究项目的某些方面，而取消其他方面。有些提议的实验在分配的时间和资源下是无法实现的，一旦我向我的主管解释了原因，他们就会非常支持我的改变。我项目的最初目标之一是比较水果的收获时间，尽管早收和晚收的水果用途完全不同。我的公司赞助商Orchard House食品公司并不与其中一个农场合作，所以我不得不从不同的农场采购选择，只是为了做一个已经做过几次的研究。三个月后，我终于问是否真的值得调查这个问题，给出了我的理由，我们就把它取消了。</p>
-<p>尽管我没有从头开始设计我的博士项目，<code>但掌握主动权使我能够向学术界和产业界的合作伙伴 &quot;推销&quot;各种变化，这是我迄今为止培养的最宝贵的技能之一</code>。</p>
-<h2 id="你的风格不一定要和你的导师的风格一致"><a href="#你的风格不一定要和你的导师的风格一致" class="headerlink" title="你的风格不一定要和你的导师的风格一致"></a>你的风格不一定要和你的导师的风格一致</h2><p>我的两位主要主管是食品科学家Mari Carmen Alamar和Natalia Falagán。玛丽-卡门以在实验室里跑来跑去、大喊大叫而闻名，所以你总是能听到她的到来。纳塔利娅很冷静，保持着一切的安排。如果你把她的实验室大衣点着了，她可能会直接把它脱下来，拿上相应的灭火器。</p>
-<p>起初，我试着尽可能地模仿他们的风格，切换到配合当时和我一起工作的人。我试着按照纳塔利娅的风格制定清单和时间表，但经常调整时间，以至于比随心所欲更复杂。如果玛丽-卡门跑了，我就跟着她跑–但由于我的腿短，不能坚持太久。我需要比我的心脏能承受的更多的咖啡来配合她的强度。这被证明是在浪费精力，试图成为别人，而我需要做的是接受自己的工作方式。我仍然在跑步，但只是在很少的场合，我的待办事项清单写在手背上，而不是安排在日记本上。如果你看到某人的工作风格是你喜欢的，那就调整你的工作风格，把它包括进去。但是，仅仅因为某人是你的上司，这并不意味着你应该以他们的工作方式为基础来做你的一切。</p>
-<h2 id="管理你对自己的期望"><a href="#管理你对自己的期望" class="headerlink" title="管理你对自己的期望"></a>管理你对自己的期望</h2><p>当我刚开始学习时，我试图每天都工作，包括周末，认为这是对我的期望。通过听其他博士生的报告，以及看到在期刊上发表稿件的工作，我认为要跟上比我 “聪明 “的人的步伐，唯一的办法就是要比他们更努力。当然不是这样，<code>但我在和一个不存在的理想进行比较</code>。由于我大部分时间都在家里工作，与那些在博士生道路上走得更远的人接触不多，这使情况变得更糟。给自己施加这种压力，使我身心俱疲，因此，当我得到建设性的反馈时，我把它当作批评而不是帮助。我期望自己第一次就把事情做得完美。我没有在需要的时候休息，结果后来不得不延长休息时间。早期向自己和你的上司承认事情不堪重负，最终会节省你的时间和睡眠。</p>
-<h2 id="始终享受小成就"><a href="#始终享受小成就" class="headerlink" title="始终享受小成就"></a>始终享受小成就</h2><p>在博士课程中会有很多挫折，但也有同样多的成就。演讲顺利，有人称赞你的图表，你提前一小时完成：这些都是值得庆祝的事情，就像丢失你正在写的便签纸值得强调的那样。</p>
-<p>我是一个为小事操心的人–尽管我尽量不操心–所以确保我对小成就有足够的发言权和庆祝权，对我的平衡很重要。论文和资助并不是唯一值得祝贺的事情。在完成我的文献综述初稿后（第七个月），我放了一整天假，吃披萨，看日间电视。而且我将永远在手边放一桶冰淇淋，以庆祝完成那份分析报告或通过进度审查。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/12/phd-num/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/12/phd-num/" class="post-title-link" itemprop="url">我国博士人口是多少？</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-12 11:41:17" itemprop="dateCreated datePublished" datetime="2021-05-12T11:41:17+08:00">2021-05-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-13 22:06:17" itemprop="dateModified" datetime="2021-05-13T22:06:17+08:00">2021-05-13</time>
-              </span>
-
-          
-            <span id="/2021/05/12/phd-num/" class="post-meta-item leancloud_visitors" data-flag-title="我国博士人口是多少？" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/12/phd-num/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/12/phd-num/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近第七次人口普查结果公开了人口总量和结构组成。那么，我国人口的学历组成如何呢？经常听人说博士已经烂大街了，具体是不是如此呢？</p>
-<h2 id="博士总人口"><a href="#博士总人口" class="headerlink" title="博士总人口"></a>博士总人口</h2><p><img src="/images/phd_num.png" alt><br>图片来源：教育部</p>
-<p>根据教育部2020年6月公开的我国各级各类学历教育学生情况，我国博士毕业人数为<code>62578</code>人，招生数为<code>105169</code>人，在校生为<code>424182</code>人，相对2019年博士扩招约1万人（增幅10%）。</p>
-<blockquote>
-<p>我国博士培养始于1978年，这一年因此被称为我国博士培养的“元年”。但是，这一年全国上下仅仅招录了18名博士生。直到1981年1月1日，我国才正式实行学位制度。1982年，第一届18名博士生终于迎来博士毕业季，但却只有马中骐等6人获得博士学位顺利毕业，毕业率不足34%。<a href="https://zhuanlan.zhihu.com/p/287919269" target="_blank" rel="noopener">来源</a></p>
-</blockquote>
-<p><img src="/images/phd1.jpg" alt><br>图片来源：中国国家博物馆官网</p>
-<p>自1978年以来，我国博士规模持续扩招，博士学位授予人数从1982年的6人增加到2019年的62578人。根据历年《全国教育事业发展统计公报》官方数据统计，截止2020年6月，授予博士学位的人数约为94.33万人，第七次人口普查全国总人口141178万人，博士比重为1：1496，也就是万分之6.68，而远低于西方发达国家的博士人口比例，如美国一百人有约2人拥有博士学位。</p>
-<p><img src="/images/phd_num2.png" alt><br>图片来源：至道教育</p>
-<p>从人口统计数据看，我国的博士数量比例还是远远落后发达国家，在中国拥有博士学位是非常罕见的，一万人中不到7人。尽管现在的博士数量和GDP的比例已经超越了部分发达国家，但是我国GDP的增速也远大于一些发达国家。因此在国家未来的发展道路上，扩大博士培养规模仍然是有必要的。</p>
-<h3 id="博士在高等教育中的比例不高"><a href="#博士在高等教育中的比例不高" class="headerlink" title="博士在高等教育中的比例不高"></a>博士在高等教育中的比例不高</h3><p>据统计，我国现有博士学位授予单位426个，年授予博士学位约7万人，仅占学士、硕士和博士三级学位授予总数的1%，硕博比约为11:1；而同期美国年博士学位授予数约18万人（含专业博士/职业博士），占三级学位授予总数的6.3%，硕博比为4.25:1；英国博士学位授予数约2.5万人，占三级学位授予总数的3.94%，硕博比为7.25:1；德国博士学位授予数约3万人，占三级学位授予总数的6.86%，硕博比为4.66:1。</p>
-<p>这意味着在国际比较的视角中，我国学历授予层次结构中，研究生占比，<code>尤其是博士研究生占比明显不足</code>。过低的研究生占比不仅意味着难以为本科毕业生提供充足的深造机会，更意味着博士培养规模无法满足本科培养规模所需的教师数量，最终导致博士供求之间失衡。</p>
-<blockquote>
-<p>王顶明. 为什么需要适度扩大博士生培养规模[J]. 中国研究生, 2019(06): 60–61.<br>徐志平, 沈红. 过剩还是不足?  我国博士生培养规模适切性分析[J]. 研究生教育研究, 2018(06): 1–6.</p>
-</blockquote>
-<h2 id="探讨"><a href="#探讨" class="headerlink" title="探讨"></a>探讨</h2><p>最新的人口统计显示具有大学文化程度的人口为21836万人。与2010年相比，每10万人中具有大学文化程度（含专科）的由8930人上升为15467人，大学文化人口比例约15%。根据教育部数据，全国本科学历6002万人（截止2020年，含在校生），占4.3%，也就是100人中有4人是大学生。我国硕士人口累计约959万人万（截止2020年，含在校生），比例约0.67%，也就是1000人中不到7人是研究生。即便这些年扩招，本科生和硕士生的数量也还没有达到烂大街的地步，更不用说博士了。</p>
-<p>大家常说博士烂大街了，其实一种认知错觉。根据GDP增长、科研经费投入增长速度，我国的博士规模反而是要适度扩大的。一般来讲，一个教育强国的人才占总人口的比例应该是：博士毕业生占1%、硕士毕业生10%、本科毕业生30%。按141178万人口计算，中国要成为真正的教育强国，应该有约1400万博士毕业生，1.4亿硕士毕业生，4.2亿本科毕业生。显然，现在博士数量还差得远。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/11/ns/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/11/ns/" class="post-title-link" itemprop="url">海洋酸化论文数据造假令人震惊</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-11 21:09:54" itemprop="dateCreated datePublished" datetime="2021-05-11T21:09:54+08:00">2021-05-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-15 22:46:58" itemprop="dateModified" datetime="2021-05-15T22:46:58+08:00">2021-05-15</time>
-              </span>
-
-          
-            <span id="/2021/05/11/ns/" class="post-meta-item leancloud_visitors" data-flag-title="海洋酸化论文数据造假令人震惊" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/11/ns/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/11/ns/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>这可能近几年海洋科学领域最大的瓜了。</p>
-<p>事情比较曲折，慢慢捋一捋。</p>
-<p>2019年，澳大利亚科学家青年Timothy Clark 等人发表《Nature》论文，质疑另一名澳大利亚泰斗级科学家Philip Munday 10年来关于海洋酸化对鱼类的影响研究，Munday认为“Ocean acidification can mess with a fish’s mind”，就是说海洋酸化可以干扰鱼类的行为，Clark花费了三年的时间开展酸化对鱼类行为影响试验，却无法复制Munday的结果。2020年，Munday在《Nature》发文进行自我辩护和驳斥，Clark紧随其后在同一期《Nature》逐条反驳Munday的辩驳。之后，Munday觉得《Nature》版面不够，又在网上发表29页的详细辩驳材料，然后就退休了。你来我往，互相发表了好几篇《Nature》，好像是比饶毅和院士互相举报有业绩啊。</p>
-<p>在《Nature》闹后，Clark等七人联盟向澳大利亚和美国资助机构反映Munday和他的博士生Danielle L. Dixson（美国人）数据造假问题，七人联盟中有挪威科学家Jutfelt和瑞典科学家Sundin，他们在澳大利亚蜥蜴岛（Munday研究海洋酸化的地方）相识。2016年，Sundin和Jutfelt曾举报瑞典Uppsala University 博士后Lönnstedt（Munday的博士生，Sundin的女闺蜜）的《Science》论文，这篇论文研究了微塑料对鱼类的行为影响，Sundin认为论文胡扯，并告到了瑞典中央伦理审查委员会，结果是《Science》撤稿，Lönnstedt丢掉科研工作，她的Research Gate 2016年后再也没有更新，Lönnstedt的博士后导师（第二作者）一开始非常信任Lönnstedt，并为其辩护，但审查结果出来后改口称“I have never done research on microplastics and I probably will never do research on microplastics.”，意思是“你才做微塑料，你们全家都做微塑料”，最后二人都叛有罪。后来，Sundin又扒出了Lönnstedt以往的造假历史，但此时，Lönnstedt已经在没有消息了。</p>
-<p>这七人联盟的举报行为已经在已经小有名气。有人称他们的《Nature》文章是最好的，也有人称他们很奇葩，<code>The seven were an “odd little bro-pocket” whose “whole point is to harm other scientists,”</code>，Munday本人则称之为诽谤和可恶的团伙，IPCC共同主席批评他们七人“以评论他人的工作来建立自己的事业是不对的”。</p>
-<p>最近，《Science》忍不住了，发表专题文章《Sea of doubts》对此事进行评论，对其中的数据造假问题进行了细致分析，欣赏下这篇文章吧。</p>
-<blockquote>
-<p>ENSERINK M. Sea of Doubts[J]. Science, 2021, 372(6542): 560–565. DOI:10.1126/science.372.6542.560.</p>
-</blockquote>
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>当Philip Munday在2020年12月的Zoom会议上与70多位同事和学生讨论他对海洋酸化的研究时，他不仅仅是对十年来的科学成果做了一个自信的概述。位于汤斯维尔的詹姆斯-库克大学（JCU）的海洋生态学家Munday是为了捍卫他的科学遗产而发言。</p>
-<p>Munday与人合著了250多篇论文，并吸引了数十名有抱负的科学家来到汤斯维尔，这里是澳大利亚东北海岸的海洋生物学圣地。他最出名的是关于海洋化学变化对鱼类影响的开创性工作，其中部分工作是与美国生物学家Dixson一起进行的，她在Munday的指导下于2012年获得博士学位，此后成为特拉华大学（UD）卢斯分校的一名成功的实验室负责人。</p>
-<p>2009年，Munday和Dixson开始发表证据，证明海洋酸化–地球大气中二氧化碳（CO2）水平上升的连锁反应–对鱼类的行为产生了一系列惊人的影响，例如使它们变得更加大胆，并引导它们走向由捕食者产生的化学物质。正如一位报道这项研究的记者所说，”海洋酸化会扰乱鱼类的思维”。Munday和Dixson警告说，这些发现被列入政府间气候变化专门委员会（IPCC）2014年的一份报告，最终可能对 “海洋多样性 “和渔业产生深远影响。</p>
-<p>但是他们的工作受到了攻击。2020年1月，由澳大利亚吉隆迪肯大学的鱼类生理学家Timothy Clark领导的7位年轻科学家发表了一篇《自然》论文，报告说在一项为期3年的大规模研究中，他们根本没有看到酸化对鱼类行为的这些戏剧性影响。</p>
-<p>这篇论文在该领域被证明是如此的两极化，”这就像共和党和民主党，”共同作者加拿大渥太华卡尔顿大学的Dominique Roche说。一些科学家称赞它是研究复制的一个杰出的例子，它使人们对那些从一开始就应该接受更严格审查的非同寻常的主张产生了怀疑。”伦敦布鲁内尔大学的生态毒理学家约翰-桑普特说：”这是迄今为止我读到的最好的环境科学论文。</p>
-<p>其他人则批评这篇论文不必要地咄咄逼人。尽管Clark和他的同事们没有使用科学的 “F”字，即捏造(fabrication)，但他们确实说 “方法或分析上的弱点 “可能导致了不可复制的结果。研究界的许多人都知道这七位作者对马虎的科学和欺诈行为非常感兴趣–他们曾对Munday的另一位前博士生在2016年发表的《科学》论文进行过揭发，该论文后来被认为是欺诈性的，并被撤回。2020年10月，北卡罗来纳大学教堂山分校的海洋生态学家约翰-布鲁诺–他没有与Dixson和Munday合作过–在推特上说，这七个人是一个 “奇怪的小兄弟”，他们的 “全部意义在于伤害其他科学家”。”残酷的行为是工作的动力。”</p>
-<p>很少有研究人员知道的是，2020年8月，Clark和该小组的其他三人又迈出了另一个更大的步伐。他们要求在Dixson和Munday的工作上总共花费了数百万美元的三个资助者–澳大利亚研究理事会（ARC）、美国国家科学基金会（NSF）和美国国家卫生研究院（NIH）–调查22篇论文中可能存在的欺诈行为。</p>
-<p>他们与《科学》杂志的记者分享了这一请求，理由是他们说有证据表明有两篇论文的公开原始数据文件被篡改，其中一篇发表在《科学》杂志上，另一篇发表在《自然-气候变化》杂志上，再加上许多其他论文中报告的二氧化碳产生的显著的、”统计学上不可能 “的影响。他们还提供了Dixson和Munday实验室前成员的证词，其中一些人监测了Dixson的活动，并得出了她编造数据的结论。</p>
-<p>ARC和NSF拒绝与《科学》杂志讨论此案，但表示他们通常会将此类案件移交给研究机构–本案中的JCU；Dixson在2011年至2015年间工作的佐治亚理工学院；以及UD。美国国立卫生研究院表示，它将案件移交给美国研究诚信办公室，该办公室不对案件进行评论。</p>
-<p>Munday称这些欺诈指控是 “可恶的 “和 “诽谤的”，JCU的一位发言人说，经过初步调查，该校已经驳回了这些指控。(Munday于4月从JCU退休，并搬到了塔斯马尼亚，但他强调这个时间点与这些指控之间没有任何联系。) UD说它不能对人事问题发表评论；佐治亚理工学院的发言人拒绝发表评论，只是说该学院 “认真对待所有关于研究不当行为的指控”。Dixson也否认编造数据。”我完全支持我收集的所有数据，我支持我们已经发表的论文，”她在2月的一次采访中告诉《科学》。”这些数据是以诚信的方式收集的。我的意思是，我向我的学生宣扬这一点。”</p>
-<p>但是，与Clark集团无关的多位科学家和数据专家应《科学》杂志的要求审查了这一案例，他们指出了这两组数据中的一系列问题，其中一位发现了他所说的由Munday共同撰写的其他论文数据中的严重违规行为。</p>
-<p>两个因对鱼类的热情而团结在一起的团体之间的斗争，不仅仅是关于数据和海洋的未来。它强调了科学的社会学、心理学和政治学问题，包括研究人员在顶级期刊上发表论文的压力，期刊对引人注目和令人震惊的发现的渴求，以及告密所涉及的风险。</p>
-<p>Clark小组的成员说，他们很快就会在PubPeer（一个讨论已发表作品的网站）上公布所谓的数据问题。他们说，对于是否在调查可能正在进行时与记者讨论他们的担忧，他们想了很久。瑞典农业科学大学的Josefin Sundin说：”根据我的经验，举报人，包括我自己和其他人，如果在调查得出不当行为的结论之前与媒体交谈，就会感到羞耻，”他是《自然》复制论文的最后一位作者。”但这是为什么呢？如果进行调查，它可能会拖很长时间。如果你知道数据被捏造，为什么对它保持沉默几个月甚至几年被认为是正确的事情？</p>
-<p>如果你想成为一名海洋生物学家，TOWNSVILLE可能是世界上最好的地方之一。JCU的网站拥有 “独特的热带学习环境，有研究站、最先进的实验室，大堡礁就在我们家门口”。该大学是ARC珊瑚礁研究卓越中心的所在地，Munday在那里有他的实验室。为了进行实地研究，科学家们飞往蜥蜴岛。蜥蜴岛是大堡礁上的一块花岗岩，在海洋生物学家中颇具传奇色彩，这要归功于澳大利亚博物馆运营良好的研究站、超凡的潜水和海滩烧烤。(“伙计，我想念那个岛，”Dixson去年在推特上说。)</p>
-<p>Munday的实验室一直是JCU成功的引擎之一。Munday最初专注于研究珊瑚鱼的竞争和它们转换性别的能力，在2000年代末，他将注意力转移到了海洋酸化。2007年来到JCU的Dixson也接受了这个课题。</p>
-<p>由于二氧化碳水平的上升导致更多的气体溶解在海洋中，酸化对海洋生物构成了严重的威胁，削弱了珊瑚和其他具有碳酸盐外壳或骨架的生物体。但是，2009年发表在《美国国家科学院院刊》（PNAS）上的一篇论文（Munday和Dixson分别是第一和第二作者）报告了另一个令人不安的影响。当鱼缸里的水的pH值从8.15（目前海水的水平）降低到7.8（预计到21世纪末的水平）时，橙色小丑鱼的幼虫对来自健康的珊瑚礁的化学线索的吸引较少，但对来自草和刺鼻的沼泽树的线索的吸引更大，而这些树的气味通常会排斥它们。作者总结说，这可能导致小丑鱼失去在珊瑚礁上找到合适的家的能力。</p>
-<p>根据更多的实验室实验，Munday、Dixson和其他研究人员后来报告说，高二氧化碳水平还以其他方式扰乱了鱼类的思维。例如，它们会变得迷失方向、过度活跃，并冒险远离庇护所，同时它们的视力和听力也会下降。在许多这样的研究中，科学家们通过把鱼放在水槽中来测量它们的喜好，这是一种迫使它们做出选择的装置（见第564页的图片）。来自两个不同来源的水并排流入水槽，研究人员测量鱼在任何一个来源的水中花费的时间。</p>
-<p>Munday和Dixson经常发现海洋酸化的影响异常大。例如，在PNAS的论文中，橙色小丑鱼在水槽的恶臭一侧的时间从0%上升到80%。在2010年《生态学通讯》的一项研究中，在正常海水中饲养的小丑鱼幼虫完全避开了两种捕食者的化学线索，即小石首鱼和点头鱼，但是在更酸的水中，它们花了100%的时间在这些捕食者的气味周围–这是一种 “致命的吸引力”，作者说。2013年发表在《海洋生物学》上的一篇论文报告说，珊瑚鳟鱼，一个经济上重要的物种，在高二氧化碳水平下变得更加活跃90倍。</p>
-<p>Dixson还将水槽用于与海洋酸化无关的研究。举报人质疑的《科学》论文发表于2014年，当时她在佐治亚理工学院海洋生态学家Mark Hay的实验室工作，论文显示，在斐济海岸收集的鱼类和珊瑚幼虫被健康、受保护的珊瑚礁的化学线索所吸引，但被以海藻为主的过度捕捞的珊瑚礁的水排斥。这又是一个坏消息，表明退化的珊瑚礁将难以自行恢复，因为它们无法吸引珊瑚和鱼类幼虫）。</p>
-<p>在这篇论文发表后不久，《科学》杂志收到了JCU珊瑚礁生态学家Andrew Baird的”技术评论”，他指出了几个问题，包括Dixson的水槽所引用的水流比任何珊瑚幼虫的游泳速度要快得多，这意味着幼虫会被冲出水槽的后面。《科学》杂志的审查程序认为该评论 “不适合发表”，负责研究的副编辑Sacha Vignieri说《科学》杂志的新闻和编辑部相互独立运作。Baird将其作为预印本发表，但它没有引起什么注意。</p>
-<p>斐济的论文是Dixson在《科学》杂志上发表的第二篇论文–2012年，她和海伊报告了一些珊瑚分泌化学信号，”招募 “鱼类来修剪有毒的海藻，这巩固了她作为一颗新星的地位。2015年，她离开佐治亚理工学院，在特拉华州建立了自己的实验室。</p>
-<p>Clark是一名鱼类生理学家，他于2011年来到汤斯维尔，在澳大利亚海洋科学研究所担任研究工作，该研究所是位于该市东部50公里处的一个政府实验室。为了寻找新的研究对象，他说他开始阅读Dixson和Munday的海洋酸化论文，并被其巨大的效应规模所震撼。”他说：”我认为它们是整个生物学学科中最惊人的发现。他来到蜥蜴岛，用捕食者的提示重复这项工作，认为他可以解开这一现象背后的生理学。</p>
-<p>但他根本没有得到同样的结果。放在水槽中的鱼会开始探索它们的周围环境，但它们很少像Dixson和Munday报告的那样，对某一边有强烈的偏好，而且增加二氧化碳也没有什么不同。挪威科技大学的Fredrik Jutfelt说，有些鱼被 “吓坏了”，根本不动，他在2014年与Clark一起在蜥蜴岛呆了一个季度，还有Sundin和其他一些科学家。”Jutfelt说：”它们被带离了它们的环境，并被置于一个非常不自然的环境中。</p>
-<p>Clark急于发表研究结果，但他说：”我们可以想到相当多的方法论理由，可以用来淡化我们的研究结果。” 他和Sundin在蜥蜴岛组织了第二个季节，重新进行其他研究。研究人员对每个实验都进行了录像，并使用自动跟踪软件监测鱼的行为，以此来排除偏见，而Munday和Dixson并没有这样做。</p>
-<p>2016年6月，《科学》杂志发表了另一位成功的JCU校友、海洋生态学家Oona Lönnstedt的一篇论文，当时这项工作仍在进行中。在汤斯维尔获得博士学位后–Munday是她的三位导师之一–Lönnstedt于2014年回到她的祖国瑞典，成为乌普萨拉大学（UU）的一名博士后，探索一种新的环境威胁：被称为微塑料的塑料垃圾的微小碎片，污染了许多水生环境。在2016年的《科学》论文中，她和UU的湖沼学家Peter Eklöv报告说，波罗的海的鲈鱼幼虫喜欢吞食微塑料而不是真正的食物，这减少了它们的生长，而且–就像升高的二氧化碳–干扰了它们对化学线索的反应，使它们自己更可能最终成为鱼类的食物。</p>
-<p>当时也在UU的Sundin说，她立即认为这篇论文是 “完全的幻想”。她和Jutfelt曾与Lönnstedt在波罗的海岛屿研究站呆过一段时间，但从未见过论文中描述的那种规模的研究；许多其他细节也与他们的想法不符（Science, 2017年3月24日，第1254页）。他们决定报告他们的怀疑，并得到Clark、罗氏和其他他们在蜥蜴岛认识的研究人员的支持。</p>
-<p>这群人学到了一些痛苦的教训。经过初步调查，一个UU小组在一份简洁的报告中驳回了调查请求，并责备该小组没有在 “正常的学术讨论 “中与Lönnstedt和Eklöv讨论其关切。Lönnstedt说该小组只是嫉妒。指控者花了许多个月的时间收集额外的文件，牺牲了他们自己的研究。2017年4月，瑞典中央伦理审查委员会认为该研究确实存在 “科学上的不诚实”，《科学》杂志撤回了这篇论文；8个月后，一项全面的UU快三官网调查得出结论，数据是捏造的。（Eklöv指责Lönnstedt；Lönnstedt坚持认为她是无辜的）。</p>
-<p>这种明显的欺骗行为让Jutfelt感到震惊。”他说：”这真的极大地触发了我对科学的怀疑态度。他说：”在那篇论文之前，我无法理解怎么会有人捏造数据。这对我来说是不可想象的。” 现在，他开始怀疑还有多少论文可能是完全的幻想。Clark说，这次经历也让他们知道，如果他们再次吹响哨子，他们必须从一开始就提出一个更有力的案例。</p>
-<p>在地球的另一端，该小组的指控引起了Munday的注意。”看来，Clark和Jutfelt是想通过批评别人的工作来谋求事业。我只能假设他们自己没有足够的好主意来填补他们的时间，”他在2016年6月写给Lönnstedt的电子邮件中说，她在向道德委员会的辩护中使用了这封电子邮件。”最近，我发现他们一直在’秘密’地做高二氧化碳对珊瑚礁鱼类的行为影响的工作，大概是因为他们想对我们工作的某些方面进行批评。”</p>
-<p>2020年1月，《自然》杂志发表了Clark团队的研究结果。水中升高的二氧化碳水平对鱼类对来自捕食者的化学线索的吸引、它们的活动水平和 “横向化”–它们在某些行为中倾向于左侧或右侧–的影响 “可以忽略不计”。根据一种称为自举模拟的统计程序，该小组报告说，Munday和Dixson关于化学信号偏好的数据有 “万分之零 “的真实性。他们让读者自己决定如何看待这个问题。</p>
-<p>正如Clark所预测的那样，随后的辩论集中在方法的差异上。复制运动的先驱、弗吉尼亚大学的心理学家布莱恩-诺塞克（Brian Nosek）说：”当复制失败时往往如此。在2020年10月发表在《自然》杂志上的一篇反驳文章中，Munday、Dixson和其他11位共同作者认为，复制工作至少在16个 “关键 “点上与原始研究不同，包括使用的物种、二氧化碳测量方法，以及一些工作是在2016年蜥蜴岛的热浪中完成的，这可能会抑制二氧化碳的影响。”他们以关键的方式改变了方法，降低了检测效果的可能性，”Munday在他2020年12月的Zoom研讨会上说。</p>
-<p>Clark承认他的团队的方法确实存在差异，有时是必要的，因为原始论文是模糊的，或者所描述的方法不可行，他说。他说，其他的观点也很容易反驳。例如，该团队确实使用了几个与Munday和Dixson相同的物种，而且热浪并没有影响他们鱼缸中的温度。而且，他指出，”许多物种的巨大影响不应该因为方法上的小变化或改进而突然消失。”</p>
-<p>桑普特同意。Munday和Dixson的辩护策略是：”我将用基督–知道多少不同的理由来压倒他们。他说：”在我看来，这并不是解决问题的方法。但反驳让布鲁诺相信了 “兄弟袋 “的推文。”我很震惊，《自然》杂志发表了一个所谓的’可重复性’研究，甚至没有接近模仿原始科学。蹩脚，”他在推特上说。”如果Clark等人没有被撤稿，我会感到惊讶。”</p>
-<p>另一些人则以外交方式为Munday和Dixson辩护。布鲁诺所说的四位 “该领域的祖师爷 “在《生物地理科学》的一篇论文中批评了这种复制。一位作者，德国不来梅港阿尔弗雷德-魏格纳研究所的Hans-Otto Pörtner说，他自己的工作在过去也曾受到过 “年轻群体 “的批评。Pörtner说：”把事业建立在评判别人的工作上是不对的，”他是IPCC的三个工作组之一的联合主席。”如果这样的争论到了社区之外，那是有害的，因为整个社区失去了可信度。”</p>
-<p>JUTFELT说，该团队很快就有理由走得更远。在《自然》杂志发表后，Munday和Dixson实验室的几位前成员与他们联系，渴望讨论他们的经历。他和Clark还联系了以前的学生本人，并收集了书面声明，其中8份声明包括在他们于2020年8月发送给三个资助机构的调查请求中。除一人外，所有前学生和同事都愿意向资助者透露他们的身份，尽管有几个人告诉《科学》，他们担心会遭到报复。</p>
-<p>关于Munday实验室的声明并不包含具体的欺诈指控，但关于Dixson的声明包含。一位前同事变得 “慢慢地更加怀疑”，特别是对水槽研究的怀疑，并开始暗中监视他们。证词中包含短信和实验室笔记本的照片，这些信息似乎表明Dixson在实验室中没有花足够的时间进行一项特定的研究，不可能产生她报告的数据。</p>
-<p>这位研究人员在接受《科学》杂志采访时说，他们在要求那里的官员调查Dixson的工作后离开了UD。（UD的一位发言人说，该大学不对人事问题发表评论）。另外两名前实验室成员说，他们也怀疑Dixson在编造数据。</p>
-<p>其中一名前实验室成员还开始检查Munday和Dixson撰写的论文的原始数据文件，寻找不正常情况。对于大多数论文来说，这些文件是不可用的–许多期刊要求科学家公布他们的原始数据，但并不执行这一政策，但在两个可用的文件中，他们发现了几个问题。Dixson在2014年发表的《科学》论文（Munday不是作者）中，似乎有几十组重复的数字。例如，一列20个数字在Excel文件中至少出现了6次–这表明在6个物种的20个个体中进行的相同实验每次都产生了完全相同的结果。在过去，众所周知，犯有欺诈行为的科学家会复制数据，作为一种简单的方法来编造数据。</p>
-<p>荷兰统计学家克里斯-哈特格林克（Chris Hartgerink）拥有检测数据集欺诈的博士学位，现在是一家名为Liberate Science的公司的负责人，他在应《科学》杂志要求所做的审查中确认了这些重复的数据，并说它们 “至少值得表示关注”。然而，他不会立即给它们贴上欺诈的标志。”哈特格林克说：”看起来这个研究项目出了很大的问题，这可能是由于渎职、系统性的疏忽，或者其他广泛的扭曲因素造成的。为这个故事咨询的另一位 “数据侦探 “尼古拉斯-布朗说，该文件提供了 “基本上无可争辩的证据”，证明数据是伪造的。（布朗于2019年在荷兰格罗宁根大学获得博士学位，现已退休，住在西班牙）。</p>
-<p>Dixson在2月份的采访中说，她不知道这些指控。虽然她否认编造数据，但 “假设里面可能有错误，”她说，也许是因为转录数据时的错误；”我不知道。我是人。” 论文的最后一位作者Hay说，他将 “在调查结束后能够讨论我所知道的和我的印象”，但没有说明谁在调查。科学》杂志的编辑Vignieri说她没有听说过这些问题，但是大学而不是杂志通常会进行调查。她同意样本量和报告的效果都很大，但她说 “这两者往往是一起的，都不能被当作令人担忧的指标，默认为是。”</p>
-<p>Clark及其同事还发现了《自然-气候变化》杂志2014年论文的数据问题，该论文显示，在巴布亚新几内亚海岸的天然二氧化碳渗漏附近，鱼类行为发生了改变。(Munday是这项研究的五位作者中的第一位，Dixson是第三位。)该数据集也包含几个相同的测量数据块，尽管比《科学》杂志的论文少得多。亚利桑那大学的生态学家Nicholas DiRienzo在接受本报记者采访时确认了这些重复的数据，并发现了更多的重复数据，他称之为 “另一个强有力的编造指标”。</p>
-<p>Munday说，Dixson最近向他提供了该研究的一份原始数据表，这表明她在将测量结果转录到Excel文件时犯了一个错误，从而解释了最大的一组重复情况。”他说：”这是一个简单的人为错误，不是欺诈。他说，许多其他的数据点是类似的，因为该方法只能产生有限的数字组合。Munday说他已经给《自然-气候变化》杂志发了一份作者更正，但他说这个错误并不影响论文的结论。</p>
-<p>布朗决定自己更深入地研究这个案子，他在Munday的另外两篇论文中发现了不同性质的问题，这些论文没有被Clark团队标记为可疑，而且Dixson也不是作者。在《自然-气候变化》杂志2014年的另一篇论文的一个非常大的数据文件中，大约有20个地方的原始数据与右边几列出现的总分不一致。而在2016年《保护生理学》上的一篇论文中，那些加起来应该正好是1的分数往往没有；相反，总和从0.15到1.8不等。</p>
-<p>Munday承认这两个数据集也有问题，他说这是由于它们的第一作者将数据手工复制到Excel文件中。他说这些文件将被纠正，并通知这两家期刊。但布朗说，这些反常现象强烈地表明是伪造的。他说，没有一个明智的科学家会手工计算结果，然后将原始数据和总数–在一个案例中是成千上万的数字–输入电子表格。</p>
-<p>在他看来，数据集中发现的问题也让人对举报人标记的22篇论文中的许多 “可笑的效果大小 “产生怀疑。”假设你去一个你认为可能在处理被盗电视的人的家里，你在他的地下室发现了22台全新的电视，其中三台的序列号与商店里被盗的电视相一致，”布朗说。”你是否会说，’是的，我们会认为你有其他19台的购买收据’？” 哈特格林克更加谨慎。”他在为《科学》撰写的报告中写道：”我确实发现了22篇论文中反复出现的问题模式，这可能证明是有问题的，值得进一步调查，”但不可能确定这些问题的意图、动机或起源。</p>
-<p>JCU表示，在一名外部调查员的建议下，它已经驳回了Clark小组提起的诉讼。发言人说，生活在二氧化碳渗漏附近的鱼类数据中的问题只构成了对JCU研究准则的 “轻微违反”，Munday已经对此做出了解释。</p>
-<p>Clark和他的同事说他们并不感到惊讶。他们说，多年前，UU和JCU都没有对Lönnstedt的工作的担忧做出充分的回应。Sundin说：”大学有很大的利益冲突，”他回应了许多其他举报人的经历。”幸运的是，瑞典有一个中央伦理审查委员会，”Clark说。”澳大利亚没有这样的委员会。”</p>
-<p>该小组现在担心，如果Dixson被发现捏造数据，Munday将逃避责任，尽管在她的部分工作中是她的主管。这将让人联想到微塑料案，根据第二审查小组的意见，埃克洛夫承担了部分责任，但没有被认定犯有捏造罪，并保留了他的工作，而伦斯特德则失去了她的工作。自然》杂志复制品的共同作者、蒙特利尔大学的桑德拉-宾宁说，这一结果会让人倍感悲哀，因为伦斯特德和Dixson在一个女性代表人数不足的领域充当着榜样。”这一点我并不陌生。”</p>
-<p>自从Munday和Dixson在2009年开始发表关于海洋酸化的文章以来，他们的工作已经产生了一个迷你领域，吸引了数十名其他研究人员。许多人–甚至是Clark小组的成员，在早期的工作中–都报告说看到了鱼类行为的变化，尽管很少像Munday和Dixson所说的那样戏剧性。研究人员还试图解开行为变化的生理和神经基础。在《自然》杂志的反驳中，Munday指出，到目前为止，有85篇论文报告了二氧化碳浓度升高的影响，这些论文的共同作者超过180人，来自90多个机构。正如Dixson在一条批评复制工作的推特上所问的，”一项研究就能声称推翻11年的研究吗？”</p>
-<p>Jutfelt说，现实更加复杂。他指出，在这85篇论文中，有43篇是由Munday共同撰写的。他说，更重要的是，无意识和有意识的偏见可能发挥了作用。包括他自己的研究在内的许多研究确实报告了一种影响，但并不是盲目的。研究人员知道哪些鱼被暴露在高二氧化碳水平下，他们也知道在这种情况下鱼应该做什么。Jutfelt承认，他自己过去的一些研究，包括在瑞典发现二氧化碳对棒鱼有强烈影响的研究，”设计得很差。”我已经更清楚地认识到了这一切。我认为我已经成为一个更好的科学家，”他指着复制工作中的自动分析说。</p>
-<p>桑普特也不奇怪这么多已发表的研究都朝着同一个方向发展。他说他自己的领域–生态毒理学–充斥着具有大效应的小型研究；它们很容易发表。”但是如果你声称化学品X在相关浓度下似乎没有什么作用，很有可能期刊编辑会直接把它打回给你，说，不用这些词：不是真的令人兴奋。</p>
-<p>尽管如此，随着时间的推移，二氧化碳对鱼类行为和生态学的影响的报道似乎已经淡化。加拿大渔业和海洋部的Jeff Clements最近对95篇论文进行了元分析，与Jutfelt、Sundin和Clark一起作为预印本发表，显示该领域正经历着强烈的 “衰退效应”，这种现象是，在最初的戏剧性发现之后，报告的效果变得越来越小了。</p>
-<p>Munday在12月的研讨会上承认，后来的研究发现了一些 “缓解因素”，这些因素抑制了他的实验室在早期实验中看到的令人震惊的影响。”他说：”我们现在预测的影响是，我们从十年的研究中获得了这些额外的知识，”他说，”将比我们在第一批研究发表时预测的要少得多。时间可能会告诉我们这些影响是否首先存在。</p>
-<p>这个故事得到了科学调查报告基金的支持。</p>
-<blockquote>
-<p>原文地址 <a href="https://science-sciencemag-org-s--ncu1.naihes.cn/content/372/6542/560" target="_blank" rel="noopener">https://science-sciencemag-org-s--ncu1.naihes.cn/content/372/6542/560</a></p>
-</blockquote>
-<p>附相关文献：<br>[1]NOSEK B A, ERRINGTON T M. The Best Time to Argue about What a Replication Means? Before You Do It: 7817[J]. Nature, 2020, 583(7817): 518–520. DOI:10.1038/d41586-020-02142-6.<br>[2]MUNDAY P L, DIXSON D L, WELCH M J, 等. Additional material associated with the Matters Arising article published in Nature by Munday and colleagues[EB/OL]. Townsville, QLD, Australia: James Cook University, 2020(2020)[2021–05–10]. <a href="https://doi.org/10.25903/7rz7-4640" target="_blank" rel="noopener">https://doi.org/10.25903/7rz7-4640</a>. DOI:10.25903/7rz7-4640.<br>[3]PARKER T H, FORSTMEIER W, KORICHEVA J, 等. Transparency in Ecology and Evolution: Real Problems, Real Solutions[J]. Trends in Ecology &amp; Evolution, 2016, 31(9): 711–719. DOI:10.1016/j.tree.2016.07.002.<br>[4]CLARK T D, BINNING S A, RABY G D, 等. Scientific Misconduct: The Elephant in the Lab. A Response to Parker et Al.[J]. Trends in Ecology &amp; Evolution, 2016, 31(12): 899–900. DOI:10.1016/j.tree.2016.09.006.<br>[5]CLARK T D. Science, Lies and Video-Taped Experiments[J]. Nature News, 2017, 542(7640): 139. DOI:10.1038/542139a.<br>[6]ENSERINK M. Sea of Doubts[J]. Science, 2021, 372(6542): 560–565. DOI:10.1126/science.372.6542.560.<br>[7]MUNDAY P L, DIXSON D L, WELCH M J, 等. Methods Matter in Repeating Ocean Acidification Studies: 7830[J]. Nature, 2020, 586(7830): E20–E24. DOI:10.1038/s41586-020-2803-x.<br>[8]ENSERINKDEC. 8 M, 2017, PM 3:55. Researcher in Swedish Fraud Case Speaks out: ‘I’m Very Disappointed by My Colleague’<a href="2017–12–08">EB/OL</a>[2021–05–11]. <a href="https://www.sciencemag.org/news/2017/12/researcher-swedish-fraud-case-speaks-out-i-m-very-disappointed-my-colleague" target="_blank" rel="noopener">https://www.sciencemag.org/news/2017/12/researcher-swedish-fraud-case-speaks-out-i-m-very-disappointed-my-colleague</a>.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1348,7 +1403,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">150</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1361,7 +1416,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">87</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
