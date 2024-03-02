@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="上节已备好训练数据，本节介绍CNN和DNN网络设置，跳过物理公式，直接使用备好的重力数据来预测水深，然后使用检核点水深来验证模型的精度。本节是这个AI重力水深反演系列的大结局，我们将知道以下问题的答案：  加入物理机制计算的短波重力能提高AI精度吗？ 高维度的CNN是不是比低维的DNN好呢？ 人工智能是否比传统方法效果好呢？  人工智能的海底地形反演系列在这儿暂时大结局了，但这不意味着真的结束。尽">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人工智能海底地形反演(3)-网络设计和评估">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2022/11/12/ab4/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="上节已备好训练数据，本节介绍CNN和DNN网络设置，跳过物理公式，直接使用备好的重力数据来预测水深，然后使用检核点水深来验证模型的精度。本节是这个AI重力水深反演系列的大结局，我们将知道以下问题的答案：  加入物理机制计算的短波重力能提高AI精度吗？ 高维度的CNN是不是比低维的DNN好呢？ 人工智能是否比传统方法效果好呢？  人工智能的海底地形反演系列在这儿暂时大结局了，但这不意味着真的结束。尽">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/11/12/ab4/images/ab30.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/11/12/ab4/images/ab31.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2022/11/12/ab4/images/ab32.png">
+<meta property="article:published_time" content="2022-11-12T11:05:32.000Z">
+<meta property="article:modified_time" content="2022-11-13T02:00:41.344Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="GMT">
+<meta property="article:tag" content="人工智能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/11/12/ab4/images/ab30.png">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2022/11/12/ab4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>人工智能海底地形反演(3)-网络设计和评估 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">88</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">157</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/11/12/ab4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          人工智能海底地形反演(3)-网络设计和评估
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-12 19:05:32" itemprop="dateCreated datePublished" datetime="2022-11-12T19:05:32+08:00">2022-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-13 10:00:41" itemprop="dateModified" datetime="2022-11-13T10:00:41+08:00">2022-11-13</time>
+              </span>
+
+          
+            <span id="/2022/11/12/ab4/" class="post-meta-item leancloud_visitors" data-flag-title="人工智能海底地形反演(3)-网络设计和评估" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/11/12/ab4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/11/12/ab4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>上节已备好训练数据，本节介绍CNN和DNN网络设置，跳过物理公式，直接使用备好的重力数据来预测水深，然后使用检核点水深来验证模型的精度。本节是这个AI重力水深反演系列的大结局，我们将知道以下问题的答案：</p>
+<ul>
+<li>加入物理机制计算的短波重力能提高AI精度吗？</li>
+<li>高维度的CNN是不是比低维的DNN好呢？</li>
+<li>人工智能是否比传统方法效果好呢？</li>
+</ul>
+<p>人工智能的海底地形反演系列在这儿暂时大结局了，但这不意味着真的结束。尽管人工智能在海洋遥感、物理海洋和其他许多地学领域取得了巨大的进展，但在大地测量、海洋测绘领域的应用可能才刚开始。其背后的原因是深刻而复杂的，这是不是测绘界的传统不无关系呢？测绘的主要工作之一就是测，也就是采集真实数据，并且非常重视数据精度和真实性这个概念，《测绘法》里面对数据真实性有明确的法律要求，篡改数据可能是犯罪行为，故对AI这种<code>虚幻</code>的、算出来的数据是有潜意识的否定态度；若AI精度达到多波束精度，那海洋测绘从业者可能失业，整个领域将遭遇百年未有之大变局；原因可能还有更多，欢迎私信讨论。</p>
+<h2 id="FC-DNN"><a href="#FC-DNN" class="headerlink" title="FC-DNN"></a>FC-DNN</h2><h3 id="模型构建"><a href="#模型构建" class="headerlink" title="模型构建"></a>模型构建</h3><p>本例使用的深度学习框架是谷歌<code>tensorflow</code>，如果读者仅应用深度学习，而不研究深度学习本身，使用内置的<code>keras</code>包即可，因为它比较友好，上手轻松。另外，使用GPU可以提高训练速度，比如2080TI的英伟达显卡训练中，DNN每个Epoch仅3s，CNN为6s，对于本案例来说，由于数据量不大，CPU应该也不会太耗费时间。</p>
+<p><code>FC-DNN</code>即<code>Fully-Connected (FC) Deep Neural Network (DNN)</code>，在输入和输出层的中间有一系列全连接层，本例使用的DNN网络结构如下：<br><img src="./images/ab30.png" alt></p>
+<p>这个FC-DNN结构的中间层设计了三个全连接层，全连接顾名思义就是每个节点都互相连接，三个层的神经元数量分别是20、10、5。通过这些个连接层和神经元，经过后面的最优拟合训练，就可以构建起了重力场（input）和海底地形（output）之间的非线性关系。最终在预测水深的时候，只需要输入重力场和位置信息就可以输出对应位置的水深。</p>
+<blockquote>
+<p>DNN结构绘图代码使用了<code>latex</code>：<a href="https://github.com/GenericAltimetryTools/AIBathy/blob/main/figs/fig4/main.tex" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy/blob/main/figs/fig4/main.tex</a></p>
+</blockquote>
+<p>这个FC-DNN结构对应的Python代码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model = models.Sequential()</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(20, input_shape=(None,6), <span class="attribute">activation</span>=<span class="string">'relu'</span>)) # change shape <span class="keyword">for</span> case</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(10, <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(5, <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(1))</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中<code>input_shape=(None,6)</code>表示输入的元素个数，需要根据具体输入参数的类型来确定，比如如果仅仅输入经纬度和重力异常，那这儿就是<code>3</code>；<code>activation=&#39;relu&#39;</code>表示激活函数为<code>relu</code>。</p>
+<blockquote>
+<p><code>Keras</code>内置的深度学习模型确实很方便，对于非计算机方向的纯用户非常好用，仅几行代码就完成了一个模型的搭建。</p>
+</blockquote>
+<p>设置完毕后，开始训练：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">opt = optimizers.Adam(<span class="attribute">learning_rate</span>=0.001)</span><br><span class="line">Patience = 3</span><br><span class="line">reduce_lr = ReduceLROnPlateau(<span class="attribute">monitor</span>=<span class="string">'root_mean_squared_error'</span>, <span class="attribute">factor</span>=0.5, <span class="attribute">patience</span>=Patience, <span class="attribute">mode</span>=<span class="string">'min'</span>,</span><br><span class="line">                         <span class="attribute">min_delta</span>=0.001, <span class="attribute">min_lr</span>=1e-6, <span class="attribute">verbose</span>=1)</span><br><span class="line">model.compile(</span><br><span class="line">        <span class="attribute">optimizer</span>=opt,</span><br><span class="line">        <span class="attribute">loss</span>=<span class="string">'mse'</span>,metrics='RootMeanSquaredError')</span><br><span class="line">model.fit(train_case3, y_trian, <span class="attribute">epochs</span>=30</span><br><span class="line">                    , <span class="attribute">batch_size</span>=128</span><br><span class="line">                    ,<span class="attribute">callbacks</span>=reduce_lr)</span><br></pre></td></tr></table></figure>
+
+<p>训练过程是确定最优拟合的过程。这里面有一些常见的设置，比如<code>optimizer</code>优化器、<code>loss</code>损失函数、<code>epochs</code>训练的次数等等。 这些知识点可以轻易在网上获得，因为本篇幅过长，这儿就不细说了。</p>
+<h3 id="网格重力到网格水深的预测"><a href="#网格重力到网格水深的预测" class="headerlink" title="网格重力到网格水深的预测"></a>网格重力到网格水深的预测</h3><p>Python代码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">grid_ai</span>=model.predict(pre_case3, <span class="attribute">batch_size</span>=120)</span><br><span class="line">grid_depth = scalerytrain.inverse_transform(grid_ai)</span><br><span class="line"><span class="attribute">depth_ai</span>=np.concatenate((free_short.values[:,0:2], grid_depth), <span class="attribute">axis</span>=1)</span><br></pre></td></tr></table></figure>
+<p>通过输入网格重力<code>pre_case3</code>就可以直接得到归一化的网格水深，进一步还需要还原为实际水深值。</p>
+<p><img src="./images/ab31.png" alt></p>
+<h3 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h3><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pre = model.predict(test_case3, batch_size=<span class="number">120</span>)</span><br><span class="line">pre_raw = scalerytrain.inverse_transform(pre)</span><br><span class="line">m = <span class="built_in">np</span>.<span class="built_in">abs</span>(<span class="built_in">np</span>.<span class="built_in">mean</span>((y_test1-pre_raw)))</span><br><span class="line"><span class="built_in">std</span> = <span class="built_in">np</span>.<span class="built_in">std</span>(y_test1-pre_raw)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">std</span>,m)</span><br></pre></td></tr></table></figure>
+
+<p>训练完成后，使用<code>predict</code>函数预测检核点<code>test_case3</code>的水深，并将归一化的预测结果还原成真实的水深，最后就可以使用实测水深对其进行统计评估了。</p>
+<p>或者也可以使用GMT和测试数据对导出的网格进行评估，理论上效果是一样的：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">gmt</span> grdtrack check_feizhou.txt -Gdepth_case1.nc | awk <span class="string">'&#123;print <span class="variable">$3</span>,<span class="variable">$4</span>&#125;'</span> &gt; draper.txt</span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>-<span class="variable">$2</span>&#125;'</span> draper.txt| gmt gmtmath STDIN -Sl MEAN  =</span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>-<span class="variable">$2</span>&#125;'</span> draper.txt| gmt gmtmath STDIN -Sl STD  =</span><br></pre></td></tr></table></figure>
+
+<h3 id="几点结果"><a href="#几点结果" class="headerlink" title="几点结果"></a>几点结果</h3><ul>
+<li>短波重力作为输入可以明显提高模型精度，和检核点水深差异的标准偏差为73.5m；不加入短波重力，若使用重力异常、重力梯度和垂线偏差为训练数据，则STD为227m。</li>
+<li>加入短波重力之后，再加入其他数据作为输入，得到结果几乎一样，即仅使用短波重力一个量就可以得到高精度的水深预测值。</li>
+<li>使用同样的训练数据和检核数据，GGM和真值差异的STD为85m，即FC-DNN精度超过了GGM。</li>
+</ul>
+<blockquote>
+<p>！注意，为了和已发表论文（<code>Annan和Wan，2022</code>）的结果比较，上述结果并未进行第一节所展示的数据质控，如果进行数据质控FC-DNN的精度大约在30m，几乎接近当今先进多波束的测量精度！！</p>
+</blockquote>
+<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><p>CNN用卷积对<code>图像</code>做操作，将所使用的卷积核看做未知参数，在训练网络的过程中求出最优参数。可能会有人疑问，重力和水深不是图像，怎么用CNN呢？的确，和经典数字识别、猫狗识别完全不同，重力数据是一个网格文件，实测水深是一些船测航迹，本质上没有一连串的同样大小的图像。</p>
+<p>使用CNN的思路大概是：每一个水深点有一个经纬度坐标，这个坐标的四周组可成一个4×4大小的二维矩阵坐标，矩阵坐标上可以安置任意的<code>input</code>，比如重力异常、重力梯度、垂线偏差和经纬度，这样形成6个通道（类似图像的RGB通道）的三维张量，然后每一个水深点坐标上都可以组成一个同样大小的二维矩阵，这就形成了一些列的<code>伪图像</code>（四维张量），从而可以满足CNN的训练。</p>
+<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h3><p>这里我们复现<code>Annan和Wan</code>的网络结构：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">model = models.Sequential()</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(64,(3,3), input_shape=(4,4,6),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv1"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.MaxPooling2D(pool_size=(2,2)))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(128, (3,3),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv2"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.MaxPooling2D(pool_size=(2,2)))</span><br><span class="line"><span class="comment"># model.add(layers.BatchNormalization(axis=-1))</span></span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(256, (3,3),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv3"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Conv2D(512, (3,3),<span class="attribute">activation</span>=<span class="string">'relu'</span>,padding="same", <span class="attribute">name</span>=<span class="string">"conv5"</span>,data_format = <span class="string">'channels_last'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.BatchNormalization())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dropout(0.2))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Flatten())</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(512, <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">model.<span class="builtin-name">add</span>(layers.Dense(1))</span><br></pre></td></tr></table></figure>
+
+<p>上面有一些CNN架构的知识点，比如<code>池化层</code>,<code>卷积层</code>等等，读者可以轻松从网上查到，这里也不介绍这些内容啦。</p>
+<h3 id="训练、预测和评估"><a href="#训练、预测和评估" class="headerlink" title="训练、预测和评估"></a>训练、预测和评估</h3><p>读者最好前往开源仓库查看完整代码，并自己运行一下，提高对这些代码的理解。</p>
+<blockquote>
+<p><a href="https://github.com/GenericAltimetryTools/AIBathy/blob/main/Africa_cnn.ipynb" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/AIBathy/blob/main/Africa_cnn.ipynb</a></p>
+</blockquote>
+<h4 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h4><p>Python代码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">opt = optimizers.Adam(<span class="attribute">learning_rate</span>=0.001)</span><br><span class="line">Patience = 3</span><br><span class="line">early_stop = EarlyStopping(<span class="attribute">monitor</span>=<span class="string">'loss'</span>, <span class="attribute">mode</span>=<span class="string">'min'</span>, <span class="attribute">patience</span>=Patience)</span><br><span class="line">reduce_lr = ReduceLROnPlateau(<span class="attribute">monitor</span>=<span class="string">'root_mean_squared_error'</span>, <span class="attribute">factor</span>=0.5, <span class="attribute">patience</span>=Patience, <span class="attribute">mode</span>=<span class="string">'min'</span>,</span><br><span class="line">                         <span class="attribute">min_delta</span>=0.001, <span class="attribute">min_lr</span>=1e-7, <span class="attribute">verbose</span>=1)</span><br><span class="line">model.compile(</span><br><span class="line">        <span class="attribute">optimizer</span>=opt,</span><br><span class="line">        <span class="attribute">loss</span>=<span class="string">'mse'</span>,metrics='RootMeanSquaredError')</span><br><span class="line"><span class="comment"># tf.config.experimental_run_functions_eagerly(True)</span></span><br><span class="line">model.fit(x_train, y_train, <span class="attribute">epochs</span>=40</span><br><span class="line">                    , <span class="attribute">batch_size</span>=128</span><br><span class="line">                    ,<span class="attribute">callbacks</span>=reduce_lr)</span><br></pre></td></tr></table></figure>
+
+<h4 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h4><p>Python代码：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pre_depth</span> = model.predict(x_pre,batch_size=<span class="number">120</span>)</span><br><span class="line"><span class="attr">grid_depth</span> = scalerdepth.inverse_transform(pre_depth)</span><br></pre></td></tr></table></figure>
+<p><img src="./images/ab32.png" alt></p>
+<h4 id="评估-1"><a href="#评估-1" class="headerlink" title="评估"></a>评估</h4><p>方法和FC-DNN一致。可以使用GMT对输出的水深网格进行评估，或者使用<code>keras</code>内置函数在训练结束后进行评估。 此外我们还可以通过差异直方图、回归分析和功率密度谱等方式对结果进行评估分析，具体代码已上传到Github的<code>fig</code>文件夹。</p>
+<h4 id="几点结果-1"><a href="#几点结果-1" class="headerlink" title="几点结果"></a>几点结果</h4><ul>
+<li>CNN使用卷积，有固定窗口大小，自带滤波效果，因此预测水深略平滑。使用功率谱分析也表明在短波尺度它不如FC-DNN，但在中间尺度，它的能量高于FC-DNN。</li>
+<li>CNN的精度大概是120 m，这和<code>Annan和Wan</code>的结论基本一致。</li>
+<li>CNN效果不如GGM，并且差距较大。</li>
+<li>CNN效果不如FC-DNN，这说明高维度的、更复杂的网络并不一定能得到更好的预测结果。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>问题答案：</p>
+<ul>
+<li>物理机制计算的短波重力能提高精度吗？<code>是</code></li>
+<li>高维度的CNN是不是比更低维的DNN好呢？<code>否</code></li>
+<li>人工智能是否比传统方法效果好呢？<code>是</code></li>
+</ul>
+<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>深度学习的核心代码由<strong>张雨元</strong>同学编写，对此小编表示万分感谢。</p>
+<h2 id="预告"><a href="#预告" class="headerlink" title="预告"></a>预告</h2><p>年底了，人们都更加忙碌起来。距离明年的基金时间也不远了，因此下一系列会关注自然科学基金：</p>
+<ul>
+<li>国家自然科学基金的海洋遥感、海洋测绘课题资助分析，总体趋势如何？热点领域在哪？</li>
+<li>卫星测高在哪些领域获得资助，趋势如何？</li>
+<li>据传，测绘口凡带着深度学习的基金会轻易被毙？是真的吗？原因是什么？</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GMT/" rel="tag"># GMT</a>
+              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag"># 人工智能</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/31/ai3/" rel="prev" title="人工智能海底地形反演(3)-张量构建和归一化">
+      <i class="fa fa-chevron-left"></i> 人工智能海底地形反演(3)-张量构建和归一化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/11/26/jj1/" rel="next" title="国家自然科学基金-卫星测高立项统计">
+      国家自然科学基金-卫星测高立项统计 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#FC-DNN"><span class="nav-number">1.</span> <span class="nav-text">FC-DNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型构建"><span class="nav-number">1.1.</span> <span class="nav-text">模型构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网格重力到网格水深的预测"><span class="nav-number">1.2.</span> <span class="nav-text">网格重力到网格水深的预测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评估"><span class="nav-number">1.3.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几点结果"><span class="nav-number">1.4.</span> <span class="nav-text">几点结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN"><span class="nav-number">2.</span> <span class="nav-text">CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型架构"><span class="nav-number">2.1.</span> <span class="nav-text">模型架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练、预测和评估"><span class="nav-number">2.2.</span> <span class="nav-text">训练、预测和评估</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#训练"><span class="nav-number">2.2.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预测"><span class="nav-number">2.2.2.</span> <span class="nav-text">预测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评估-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#几点结果-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">几点结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#致谢"><span class="nav-number"></span> <span class="nav-text">致谢</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#预告"><span class="nav-number">1.</span> <span class="nav-text">预告</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
