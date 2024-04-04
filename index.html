@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">88</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">91</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">157</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">161</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,478 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2024/04/04/swotl3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/04/swotl3/" class="post-title-link" itemprop="url">SWOT L3轻量级数据发布</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-04 17:09:04 / 修改时间：17:11:52" itemprop="dateCreated datePublished" datetime="2024-04-04T17:09:04+08:00">2024-04-04</time>
+            </span>
+
+          
+            <span id="/2024/04/04/swotl3/" class="post-meta-item leancloud_visitors" data-flag-title="SWOT L3轻量级数据发布" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/04/04/swotl3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/04/04/swotl3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>近期，AVISO公布了SWOT Level-3 (SWOT_L3_SSH) 数据产品，该数据是基于Level-2的“Beta Pre-validated” KaRIn 海洋产品重处理得到，含盖了2023年3月29日至7月10日的1天周期快速定标轨道和2023年9月7日至11月21日的21天周期科学轨道。</p>
+<p>SWOT_L3_SSH数据产品是多任务、交叉定标后得到的产品，专门为海洋学研究提供必要的海面地形数据（SSHA），同时也特别适用于大地测量和海洋测绘研究，例如潮汐模型、重力场和地形反演等。L3产品基础版数据仅包含必要的经纬度、时间和SSHA等主要信息，且数据未经插值处理，提供了一种原始且直接的海洋观测资料。当用户需要一个简单、即取即用的产品，且希望将其与其他任务数据（例如CMEMS多任务高度计产品）结合使用时，SWOT_L3_SSH尤为合适。</p>
+<p><img src="./images/swotl3.webp" alt="SWOT L3数据探测的El Niño（AVISO）"></p>
+<blockquote>
+<p>获取方式: <a href="ftp://usrname@ftp-access.aviso.altimetry.fr/swot_st/swot_beta_products/l3_karin_nadir" target="_blank" rel="noopener">ftp://usrname@ftp-access.aviso.altimetry.fr/swot_st/swot_beta_products/l3_karin_nadir</a></p>
+</blockquote>
+<h3 id="数据改进"><a href="#数据改进" class="headerlink" title="数据改进"></a>数据改进</h3><ul>
+<li>地球物理校正：使用基于FES22模型的原生高分辨率非结构化网格进行海洋潮汐校正，不同于之前版本0.2使用的标准FES22模型的规则笛卡尔网格。</li>
+<li>数据选择：改进了Level-3标记/编辑策略，以更好地移除粗差数据。版本0.3采用更复杂的选择标准，包括产品标记、局部统计、滤波器等，以更好地考虑到区域噪声、地平和云雨效应。</li>
+<li>交叉校准：优化了L3校准处理中涉及的滤波，特别是针对沿海地区和封闭海域。</li>
+<li>去噪声：考虑到版本0.2中基于AI的噪声缓解算法的一些不足，版本0.3作出改善。</li>
+</ul>
+<h3 id="数据应用初探"><a href="#数据应用初探" class="headerlink" title="数据应用初探"></a>数据应用初探</h3><ul>
+<li><p>简版数据读取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># Load the netCDF file to analyze its content</span></span><br><span class="line">file_path = os.path.join(<span class="string">r'.\swot\data\L3'</span>, <span class="string">"SWOT_L3_LR_SSH_Basic_005_215_20231020T080346_20231020T085512_v0.3.nc"</span>)</span><br><span class="line">data = xr.open_dataset(file_path)</span><br><span class="line"><span class="comment"># Extracting only the names of the data variables in the dataset</span></span><br><span class="line">data_variable_names = list(data.variables.keys())</span><br><span class="line">data_variable_names</span><br></pre></td></tr></table></figure>
+<p>其包含的参数如下：<br><img src="./images/swot0.webp" alt></p>
+</li>
+<li><p>绘制南海观测数据</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(12, 8))</span><br><span class="line">ax = plt.axes(<span class="attribute">projection</span>=ccrs.PlateCarree())</span><br><span class="line">ax.coastlines()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting the extent </span></span><br><span class="line">ax.set_extent([100, 120, 5, 25], <span class="attribute">crs</span>=ccrs.PlateCarree())</span><br><span class="line">ax.gridlines(<span class="attribute">draw_labels</span>=<span class="literal">True</span>, <span class="attribute">dms</span>=<span class="literal">True</span>, <span class="attribute">x_inline</span>=<span class="literal">False</span>, <span class="attribute">y_inline</span>=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">ssh_plot = plt.pcolormesh(ssh_karin.longitude, ssh_karin.latitude, ssh_karin, <span class="attribute">cmap</span>=<span class="string">'viridis'</span>, <span class="attribute">transform</span>=ccrs.PlateCarree())</span><br><span class="line">ssh_plot.set_clim(-0.2, 0.3)</span><br><span class="line">plt.colorbar(ssh_plot, <span class="attribute">label</span>=<span class="string">'SSHA (m)'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="./images/swot2.webp" alt="南海观测数据"></p>
+<p><img src="./images/swot3.webp" alt="局部放大"></p>
+<p><img src="./images/swot4.webp" alt="永兴岛周边数据"></p>
+<p>SWOT的独特能力在于捕捉海洋表面的微妙变化，这些细节远远超过了传统高度计所能提供的信息。</p>
+<ul>
+<li>内波</li>
+</ul>
+<p>内波是一种海洋中的重要现象，通常在密度分层的海域中出现。它们是由水密度变化引起的，当海水在不同密度层之间运动时，会产生内波。下面以印尼海为例，该海域内部存在非常强烈的潮混合和内波混合现象，SWOT卫星的高空间分辨率观测使我们能够直接测量内波的高度和特征，这对于物理海洋学来说是一项重大突破。</p>
+<p><img src="./images/swot5.webp" alt="印尼海域内波"></p>
+<p>接下来，我将继续分享SWOT卫星在波浪、极地海冰、海底地形和重力场等领域的观测成果。这些研究将帮助深入了解海洋和地球的各种复杂现象，从波浪动力学到极地海冰变化，再到海底地形的奥秘以及地球的重力场特征。让我们一同期待这些精彩的研究成果。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2024/04/04/altimetry30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/04/altimetry30/" class="post-title-link" itemprop="url">雷达高度计三十年研讨会</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-04 17:06:15 / 修改时间：17:07:31" itemprop="dateCreated datePublished" datetime="2024-04-04T17:06:15+08:00">2024-04-04</time>
+            </span>
+
+          
+            <span id="/2024/04/04/altimetry30/" class="post-meta-item leancloud_visitors" data-flag-title="雷达高度计三十年研讨会" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/04/04/altimetry30/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/04/04/altimetry30/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="./images/a30.webp" alt></p>
+<p>在过去的三十年里，雷达高度计技术为我们打开了认识海洋世界的新视角，成为研究海平面变化、海洋动力学和全球气候变化的重要工具。随着ERS-1和TOPEX/Poseidon任务的成功发射，我们获取了前所未有的全球海洋数据。为纪念这一技术的发展里程碑，欧空局（ESA）与法国国家空间研究中心（CNES）联手举办了系列科学研讨会，回顾过去成就，展望未来方向。</p>
+<p>自2006年在威尼斯举办的首届研讨会起，每五年一次的聚会成为了全球科学家交流的盛会。这些研讨会覆盖了雷达高度计技术在海洋学、极地研究和沿海区域管理等多个领域的应用，展现了其在环境监测和科学研究中的广泛影响力。</p>
+<p>2024年，迎来了“雷达高度计技术30年进展研讨会”，此次活动将于9月份在法国蒙彼利埃（Montpellier）举行，汇集世界各地的专家学者，共同探讨雷达高度计技术在海洋科学领域的贡献及其面临的新挑战。会议内容丰富，不仅聚焦于传统的海平面监测和海洋动力学研究，还将讨论该技术在新的研究领域，如极地科学和沿海区域管理的应用。</p>
+<p>过往的研讨会成果通过会议论文集和专题期刊对外发布，为雷达高度计技术的发展历程和未来方向提供了宝贵的参考资料。这些成果不仅记录了该领域的科研进展，也指引了科学家们未来的研究方向。<br>本次研讨会不仅是对雷达高度计技术三十年成就的庆祝，更是对未来海洋科学研究方向的深入探索和规划。</p>
+<h3 id="会议网站"><a href="#会议网站" class="headerlink" title="会议网站"></a>会议网站</h3><p><a href="https://www.altimetry2024.org/abstract-submission" target="_blank" rel="noopener">https://www.altimetry2024.org/abstract-submission</a></p>
+<h3 id="重要日期"><a href="#重要日期" class="headerlink" title="重要日期"></a>重要日期</h3><ul>
+<li><strong>征集摘要开始</strong>：2024年1月15日</li>
+<li><strong>摘要提交截止日期</strong>：2024年3月15日</li>
+<li><strong>接受通知</strong>：2024年5月中旬</li>
+<li><strong>初步议程</strong>：2024年5月中旬</li>
+<li><strong>注册开放</strong>：2024年6月16日</li>
+<li><strong>注册截止</strong>：2024年7月12日</li>
+<li><strong>研讨会</strong>：2024年9月2日至7日</li>
+</ul>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><h4 id="雷达高度计三十年进展：历史视角（主题演讲）"><a href="#雷达高度计三十年进展：历史视角（主题演讲）" class="headerlink" title="雷达高度计三十年进展：历史视角（主题演讲）"></a>雷达高度计三十年进展：历史视角（主题演讲）</h4><ul>
+<li>历史回顾</li>
+<li>过去五年的教训</li>
+<li>SAR、Ka波段和宽刈幅雷达高度计的改进</li>
+<li>在全球海洋、沿海区域、极地海洋、陆地及内陆水域、冰冻圈中，成功与未能实现的项目</li>
+</ul>
+<h4 id="对动态海洋的理解进展"><a href="#对动态海洋的理解进展" class="headerlink" title="对动态海洋的理解进展"></a>对动态海洋的理解进展</h4><ul>
+<li>海流：三十年来有何改进？</li>
+<li>大尺度海洋现象：季节内、季节循环、厄尔尼诺现象、罗斯贝波、多年振荡</li>
+<li>潮汐模型、非线性作用、内波</li>
+<li>高频信号和中尺度</li>
+<li>海洋气象学、波高和风速</li>
+<li>降雨检测、海-气交换通量</li>
+</ul>
+<h4 id="对沿海过程的理解进展"><a href="#对沿海过程的理解进展" class="headerlink" title="对沿海过程的理解进展"></a>对沿海过程的理解进展</h4><ul>
+<li>沿海波形重跟踪</li>
+<li>沿海校正</li>
+<li>多任务沿海产品的整合</li>
+<li>沿海过程建模</li>
+<li>沿海/区域模型中的数据同化</li>
+<li>社会影响（例如，侵蚀、风暴潮…）</li>
+</ul>
+<h4 id="对极地海洋的理解进展"><a href="#对极地海洋的理解进展" class="headerlink" title="对极地海洋的理解进展"></a>对极地海洋的理解进展</h4><ul>
+<li>海洋动力学和海冰监测、海冰厚度、海冰范围</li>
+<li>冰山追踪</li>
+<li>极地海洋对平均海平面的影响</li>
+<li>在这些复杂区域的重追踪、特定校正和处理方法（潮汐、平均海面高度…）</li>
+<li>多任务产品的整合</li>
+<li>过程建模</li>
+<li>数据同化</li>
+</ul>
+<h4 id="雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献"><a href="#雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献" class="headerlink" title="雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献"></a>雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献</h4><ul>
+<li>长周期任务的影响、进一步改进和期望</li>
+<li>海底地形绘制</li>
+<li>轨道确定和重力模型定制：DORIS的贡献</li>
+<li>DORIS、GPS、激光技术和雷达高度计</li>
+<li>大地测量任务的重力测量结果（包括CHAMP、GRACE、GOCE、SWARM和MAGIC/NGGM的准备工作）</li>
+<li>改进的平均海面（大地测量任务的贡献）</li>
+</ul>
+<h4 id="陆地和内陆水体"><a href="#陆地和内陆水体" class="headerlink" title="陆地和内陆水体"></a>陆地和内陆水体</h4><ul>
+<li>针对内陆水应用的专门数据处理</li>
+<li>河流水位和流量及陆地-海洋交换（重点是河口）</li>
+<li>湖泊水位和体积变化监测</li>
+<li>湿地</li>
+<li>雷达高度计与其他遥感数据的协同</li>
+<li>水力和水文建模及数据同化</li>
+<li>全球数字高程模型</li>
+</ul>
+<h4 id="对冰冻圈的理解进展"><a href="#对冰冻圈的理解进展" class="headerlink" title="对冰冻圈的理解进展"></a>对冰冻圈的理解进展</h4><ul>
+<li>南极和格陵兰地形、体积和质量平衡</li>
+<li>大陆冰川</li>
+</ul>
+<h4 id="建立三十年雷达高度计记录：挑战与成就"><a href="#建立三十年雷达高度计记录：挑战与成就" class="headerlink" title="建立三十年雷达高度计记录：挑战与成就"></a>建立三十年雷达高度计记录：挑战与成就</h4><ul>
+<li>定标和长期监测仪器：偏差、漂移模型、缺点、改进</li>
+<li>用实地数据验证长时间序列</li>
+<li>从LRM到SAR雷达高度计：如何确保无缝过渡</li>
+<li>全球和区域多卫星海平面变化：空间和时间记录</li>
+<li>精度进展：从15厘米到毫米（和亚毫米/年）挑战！</li>
+<li>有趣/意外的科学结果：绝对动态地形、全球和区域平均海平面趋势、湖泊和河流排放趋势、冰量趋势、年际变化中的涡旋过程、十年振荡…</li>
+</ul>
+<h4 id="雷达高度计、其他数据和模型之间的协同"><a href="#雷达高度计、其他数据和模型之间的协同" class="headerlink" title="雷达高度计、其他数据和模型之间的协同"></a>雷达高度计、其他数据和模型之间的协同</h4><ul>
+<li>与实地数据的比较：潮汐计、船舶数据、浮标、Argo浮标和HF雷达…</li>
+<li>与变化重力（GRACE、GRACE-FO、MAGIC/NGGM）、热膨胀（Argo）和雷达高度计的协同。</li>
+<li>海平面、海表温度、海洋颜色、海表盐度和风应力的协同</li>
+<li>海洋环流与海洋生物学和海-气耦合过程的相互作用的协同研究</li>
+<li>雷达高度计在海洋监测和运行预报系统中的影响</li>
+<li>业务化水文学</li>
+</ul>
+<h4 id="推广"><a href="#推广" class="headerlink" title="推广"></a>推广</h4><ul>
+<li>教育项目</li>
+<li>科学成果向公众的回报</li>
+<li>使用互联网和社交媒体推广卫星雷达高度计</li>
+<li>开放和公民科学</li>
+</ul>
+<h4 id="展望：下一代雷达高度计"><a href="#展望：下一代雷达高度计" class="headerlink" title="展望：下一代雷达高度计"></a>展望：下一代雷达高度计</h4><ul>
+<li>未来雷达高度计任务的要求（海洋学、沿海区域、内陆水、陆地、冰冻圈）</li>
+<li>业务化海洋学和水文学任务</li>
+<li>第三代高度计</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2024/04/04/chatgptlunwen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/04/chatgptlunwen/" class="post-title-link" itemprop="url">ChatGPT在科研中的使用</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-04 17:00:35 / 修改时间：17:05:25" itemprop="dateCreated datePublished" datetime="2024-04-04T17:00:35+08:00">2024-04-04</time>
+            </span>
+
+          
+            <span id="/2024/04/04/chatgptlunwen/" class="post-meta-item leancloud_visitors" data-flag-title="ChatGPT在科研中的使用" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/04/04/chatgptlunwen/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/04/04/chatgptlunwen/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="中国地质大学的ChatGPT客套话"><a href="#中国地质大学的ChatGPT客套话" class="headerlink" title="中国地质大学的ChatGPT客套话"></a>中国地质大学的ChatGPT客套话</h2><p><img src="./images/gpt1.webp" alt></p>
+<p>近日，中国地质大学发表的一篇论文因未能删除包含ChatGPT典型客套话的“Certainly, here is a possible introduction for your topic”而受到公众关注。这一小疏忽不仅反映了ChatGPT在硕士及博士科研活动中的深入应用，而且暗示了它作为一种<strong>新型生产力</strong>的巨大潜能。</p>
+<p>然而，问题的根源在于中国地质大学的研究者们在审稿的最后阶段缺乏彻底的检查，导致文章开篇即暴露了ChatGPT的标准用语。这一插曲可能折射出背后的复杂情境，如博士生迫于毕业和奖学金的压力、导师急于完成项目等。更值得深思的是，该论文与另一篇论文在内容上的高度相似性——包括图像、数据和方法的显著重叠，而这正是使用ChatGPT所能有效减轻的问题。</p>
+<p>这起事件不仅揭示了人工智能技术在学术研究中的渗透和应用，也反映了在追求科研效率和创新的道路上，学术界需要对原创性和学术诚信持续保持警觉。它提醒我们，在利用AI技术优化研究流程的同时，必须更加严谨地处理研究成果，确保科学探索的纯粹性和独立性不受损害。</p>
+<p><img src="./images/gpt2.webp" alt></p>
+<h2 id="审稿忘了删除提示词"><a href="#审稿忘了删除提示词" class="headerlink" title="审稿忘了删除提示词"></a>审稿忘了删除提示词</h2><p>如我之前所介绍的AI审稿可能性，在我审稿的实际经历中，曾因忘记删除提示词而引发了与作者的一系列交锋。首先尽管是使用AI做了语言的润色和和结构重组，但这的确是我审稿过程的意外疏漏，不过也反映了作者对看到AI痕迹的复杂反应。该作者对修改建议表现出明显的不情愿，甚至采取反击态度，这导致了两次大修和一次小修的结果，但文章质量仍未达标。</p>
+<p><img src="./images/gpt3.jpg" alt></p>
+<h2 id="怎么使用ChatGPT科研"><a href="#怎么使用ChatGPT科研" class="headerlink" title="怎么使用ChatGPT科研"></a>怎么使用ChatGPT科研</h2><p>随着人工智能技术，特别是ChatGPT的不断发展和应用，我们确实站在了科技文明的一个新的交汇点上。AI在写作论文、审阅论文乃至科研工作的其他方面的应用，引发了对于人类科技文明未来发展的广泛思考。AI是否能够创造知识，目前仍是一个值得深入探讨的问题。从目前的技术发展和应用情况来看，AI特别是像ChatGPT这样的工具，在某些方面已经显示出其巨大的潜力和价值。</p>
+<h3 id="在科研中的实用性"><a href="#在科研中的实用性" class="headerlink" title="在科研中的实用性"></a>在科研中的实用性</h3><ol>
+<li><p><strong>语言润色</strong>：ChatGPT在语言润色方面的应用，极大提高了科研写作的效率和质量。它不仅能帮助非英语母语的研究者改善论文的语言表达，还能让论文的叙述更加清晰流畅。这种能力已经对传统的论文润色服务产生了显著的冲击。</p>
+</li>
+<li><p><strong>数据处理编程</strong>：ChatGPT在辅助编程方面同样表现出色，特别是在数据处理和分析领域。它能够基于准确的提示词提供高效可靠的编程解决方案，让数据分析变得更加高效，大大缩短了科研项目的周期。</p>
+</li>
+</ol>
+<h3 id="创新与限制"><a href="#创新与限制" class="headerlink" title="创新与限制"></a>创新与限制</h3><p>尽管AI在实用主义角度上有着诸多优点，但其在创造全新知识、理解复杂概念和进行创新性研究方面的能力仍然有限。AI目前更多的是作为一种工具，帮助人类加工、分析信息和数据，而真正的创新和洞察仍然需要人类的直觉、经验和深刻理解。</p>
+<h3 id="未来的可能性"><a href="#未来的可能性" class="headerlink" title="未来的可能性"></a>未来的可能性</h3><p>未来，随着AI技术的进一步发展，我们可以预见AI在科研工作中的角色将会更加重要。但是，这并不意味着人类研究者的作用会被边缘化。相反，最理想的情形是人类与AI合作，结合AI的数据处理能力和人类的创造力与直觉，共同推动科学研究的边界。如同IEEE的规定所反映的那样，<strong>允许使用ChatGPT写作论文，但需要公开声明AI工具的使用</strong>，正是这种合作模式的一个体现，它既保证了研究的透明度和可靠性，也开启了科研工作新的可能性。</p>
+<p><img src="./images/gpt4.webp" alt></p>
+<blockquote>
+<p>论文地址：<a href="https://ieeexplore.ieee.org/document/10473765" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/10473765</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2024/04/04/GNSSbuoy-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/04/GNSSbuoy-0/" class="post-title-link" itemprop="url">什么？GNSS波浪浮标又要降价了？</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-04 16:53:56 / 修改时间：16:59:49" itemprop="dateCreated datePublished" datetime="2024-04-04T16:53:56+08:00">2024-04-04</time>
+            </span>
+
+          
+            <span id="/2024/04/04/GNSSbuoy-0/" class="post-meta-item leancloud_visitors" data-flag-title="什么？GNSS波浪浮标又要降价了？" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/04/04/GNSSbuoy-0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/04/04/GNSSbuoy-0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>据中科院海洋所官网报道，我国科研人员已经开发出实时、高精度、低成本的GNSS波浪反演技术，研究成果发表在国际遥感权威期刊IEEE TGRS。该方法预计将GNSS硬件成本再次大幅降低（约50%），采用消费级别的单频GNSS芯片就能实现高精度的波浪信息提取。</p>
+<p>研究表明海浪在时间和空间域上呈现出显著变化的特性，因此对海浪进行有效监测对于海洋灾害防护和海洋动力变化精确预测非常关键。虽然人类在海浪观测领域已经取得了显著进展，但是高昂的观测成本严重限制了对海浪进行广泛监测的能力。GNSS浮标通过在全球统一的坐标框架内直接测量海面的高度和速度，为高精度地测量波高、波周期和海浪能谱等关键参数提供了可能。然而，导致GNSS浮标未能大规模部署的主要原因包括硬件成本高、实时性难以保证以及对基站的依赖等问题。</p>
+<p>此项研究综合对比了GNSS的原始多普勒、事后动态载波相位差分PPK、双频消电离层组合的时间差分载波相位（Time-Differenced Carrier Phase，TDCP）以及单频TDCP等方案测速精度。结果显示，单频TDCP方案的测速精度比原始多普勒技术提高了将近五倍，并且也相对于PPK和双频TDCP方案有所提高。通过在海上进行的实际测试，证明了单频GNSS在测量波高和周期方面的精度分别可达到6厘米和0.1秒，这与昂贵的传统加速度计海浪浮标的测量精度一致。</p>
+<p>基于这一创新算法，我国研究团队正致力于开发一款高精度单频GNSS浮标。这款浮标不仅成本低廉，数据处理量小，性能稳定，算法简化，还具备灵活布放的特点，既可采用漂浮式也可进行固定式布放，对于实现人类对海浪进行全面监测具有深远的影响。</p>
+<p>文章第一作者是徐永生团队在读博士生杨磊，徐永生研究员为通讯作者。合作单位还有自然资源部第一海洋研究所、山东农业工程学院、希腊克里特大学、自然资源部北海预报减灾中心等单位。</p>
+<p><strong>新闻链接</strong>：<a href="http://qdio.cas.cn/2019Ver/News/kyjz/202404/t20240402_7067782.html" target="_blank" rel="noopener">http://qdio.cas.cn/2019Ver/News/kyjz/202404/t20240402_7067782.html</a></p>
+<p><img src="./images/gnssb.webp" alt="Utilizing PPK, L1 TDCP, LC TDCP, and Original Doppler Methods to Determine NEU Direction Velocity Accuracy"></p>
+<p><img src="./images/gnssb2.webp" alt="GNSS浮标和业务化波浪浮标的结果对比"></p>
+<p><img src="./images/gnssb3.webp" alt="小型GNSS浮标模型"></p>
+<p><img src="./images/gnssb4.webp" alt="浮标静态观测测试"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1081,491 +1553,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/12/02/wanliu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/02/wanliu/" class="post-title-link" itemprop="url">GEE中分析HYCOM时间序列-湾流变慢了吗？</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-12-02 21:38:51 / 修改时间：21:40:48" itemprop="dateCreated datePublished" datetime="2023-12-02T21:38:51+08:00">2023-12-02</time>
-            </span>
-
-          
-            <span id="/2023/12/02/wanliu/" class="post-meta-item leancloud_visitors" data-flag-title="GEE中分析HYCOM时间序列-湾流变慢了吗？" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/12/02/wanliu/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/12/02/wanliu/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在前一篇文章中，我们提出了一个思考题：如何利用Google Earth Engine（GEE）这一前沿的地球观测工具，来深入分析HYCOM中的时间序列数据。这不仅是一个技术问题，更在科学研究中有着不可忽视的重要性。</p>
-<p>近期发表在《地球物理研究快报》（GRL）的研究表明，过去四十年间流经佛罗里达海峡的墨西哥湾流速度出现了约4%的下降。墨西哥湾流不仅是支撑美国东海岸生态和气候的重要海洋流体系统，其变化还可能在全球范围内产生深远的影响。因此，在本篇文章中，我们将充分发挥GEE强大的数据处理和分析能力，来探究这一现象是否具有长期和普遍的科学意义。</p>
-<h3 id="使用谷歌Colab和geemap-Python库"><a href="#使用谷歌Colab和geemap-Python库" class="headerlink" title="使用谷歌Colab和geemap Python库"></a>使用谷歌Colab和geemap Python库</h3><p>在这一节中，我们将使用Google Colab，一个基于云的Python代码编辑和运行环境，来进行进一步的数据处理和分析。为了方便进行空间数据的处理和可视化，我们将使用geemap。geemap是一个Python库，专门用于与Google Earth Engine进行交互，包括地图可视化和地理空间数据分析。这个库提供了一系列简单易用的API，允许用户快速地创建交互式地图，并且支持多种地图图层的叠加和编辑。它内置了丰富的功能和工具，能够让我们更高效地进行地理信息的获取、处理和分析。</p>
-<p>接下来，我们将通过墨西哥湾流实例来展示如何使用Google Colab和geemap库进行HYCOM数据的时间序列分析。</p>
-<h3 id="湾流介绍"><a href="#湾流介绍" class="headerlink" title="湾流介绍"></a>湾流介绍</h3><p>墨西哥湾流是北美大陆东海岸附近的一股重要洋流，起源于墨西哥湾，经过佛罗里达海峡，然后顺着美国东海岸流动，一路向北加速，直至北纬36°左右（北卡罗来纳州附近）开始转向东方。在约北纬40°和西经30°的地点，墨西哥湾流分裂成两条主要分支：一条是北流的北大西洋暖流，影响着西北欧；另一条是南流的Canary洋流。</p>
-<p>墨西哥湾流不仅影响美国从佛罗里达到弗吉尼亚的东海岸气候，还在更大范围内影响着西北欧的气候。这使得西北欧的气候比同纬度地区更为温暖，这一现象至少部分地归因于北大西洋暖流的影响。除了气候影响外，墨西哥湾流也对大气和海洋内的气旋发展、生态系统以及海洋流动等方面有重要影响。</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import geemap.colormaps as cm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个geemap地图实例</span></span><br><span class="line"><span class="attr">Map</span> = geemap.Map()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义与数据处理</span></span><br><span class="line"><span class="attr">Gs</span> = ee.Geometry.Rectangle([-<span class="number">85</span>, <span class="number">20</span>, -<span class="number">65</span>, <span class="number">40</span>]) <span class="comment"># 湾流</span></span><br><span class="line"></span><br><span class="line">def getAprilAverage(year):</span><br><span class="line">    <span class="attr">startDate</span> = ee.Date.fromYMD(year, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="attr">endDate</span> = ee.Date.fromYMD(year, <span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="attr">collection</span> = (ee.ImageCollection('HYCOM/sea_water_velocity')</span><br><span class="line">                  .filterDate(startDate, endDate)</span><br><span class="line">                  .<span class="built_in">map</span>(lambda image: image.divide(<span class="number">1000</span>)))</span><br><span class="line"></span><br><span class="line">    return collection.mean()</span><br><span class="line"></span><br><span class="line"><span class="attr">years</span> = ee.List.sequence(<span class="number">1997</span>, <span class="number">1997</span>)</span><br><span class="line"><span class="attr">averages</span> = years.<span class="built_in">map</span>(getAprilAverage)</span><br><span class="line"><span class="attr">twoDecadesAverage</span> = ee.ImageCollection(averages).mean()</span><br><span class="line"></span><br><span class="line"><span class="attr">speed</span> = twoDecadesAverage.select('velocity_u_0').hypot(twoDecadesAverage.select('velocity_v_0'))</span><br><span class="line"><span class="attr">maskedSpeed</span> = speed.clip(Gs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加图层</span></span><br><span class="line"><span class="attr">vis_params</span> = &#123;</span><br><span class="line">    'min': <span class="number">0</span>,</span><br><span class="line">    'max': <span class="number">1</span>,</span><br><span class="line">    'palette': ['blue', 'yellow', 'red'],</span><br><span class="line">&#125;</span><br><span class="line">Map.addLayer(maskedSpeed, vis_params, 'Southern Ocean Speed <span class="number">20</span>-Year Average')</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加colorbar</span></span><br><span class="line"><span class="attr">colors</span> = vis_params['palette']</span><br><span class="line"><span class="attr">vmin</span> = vis_params['min']</span><br><span class="line"><span class="attr">vmax</span> = vis_params['max']</span><br><span class="line"></span><br><span class="line">Map.add_colorbar_branca(</span><br><span class="line">    <span class="attr">colors=colors,</span> <span class="attr">vmin=vmin,</span> <span class="attr">vmax=vmax,</span> <span class="attr">layer_name="Southern</span> Ocean Speed <span class="number">20</span>-Year Average<span class="string">"</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Map.centerObject(Gs, 4)</span></span><br><span class="line"><span class="string">Map</span></span><br></pre></td></tr></table></figure>
-<p>首先我们选择一天的数据看一看湾流的特征。</p>
-<p><img src="./images/w-1.png" alt></p>
-<p>然后，我们修改部分代码，计算长时间序列的空间均值。</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def get<span class="constructor">AprilAverage(<span class="params">year</span>)</span>:</span><br><span class="line">    startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span></span><br><span class="line">    endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 6, 15)</span></span><br><span class="line"></span><br><span class="line">    collection = (ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                  .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                  .map(lambda image: image.divide(<span class="number">1000</span>)))</span><br><span class="line"></span><br><span class="line">    return collection.mean<span class="literal">()</span></span><br><span class="line"></span><br><span class="line">years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">1997</span>, <span class="number">2007</span>)</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="./images/w-2.png" alt></p>
-<h3 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h3><p>我们使用GEE来分析1994年到2023年之间墨西哥湾流速度的趋势。以下是一种可能的实现方法：</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> ee</span><br><span class="line"><span class="built_in">import</span> geemap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 范围</span></span><br><span class="line"><span class="comment"># Gs = ee.Geometry.Rectangle([-85, 20, -65, 40]) # 湾流</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 定义一个函数来获取每年4月的数据，并返回这个月的均值</span></span><br><span class="line">def getAprilAverage(year):</span><br><span class="line">    <span class="attr">startDate</span> = ee.Date.fromYMD(year, <span class="number">4</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="attr">endDate</span> = ee.Date.fromYMD(year, <span class="number">4</span>, <span class="number">40</span>)</span><br><span class="line"></span><br><span class="line">    <span class="attr">collection</span> = (ee.ImageCollection('HYCOM/sea_water_velocity')</span><br><span class="line">                  .filterDate(startDate, endDate)</span><br><span class="line">                  .<span class="built_in">map</span>(lambda image: image.divide(<span class="number">1000</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="attr">average_image</span> = collection.mean()</span><br><span class="line">    <span class="attr">speed</span> = average_image.select('velocity_u_0').hypot(average_image.select('velocity_v_0'))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取该范围内的均值速度</span></span><br><span class="line">    <span class="attr">mean_speed</span> = speed.reduceRegion(</span><br><span class="line">        <span class="attr">reducer=ee.Reducer.mean(),</span></span><br><span class="line">        <span class="attr">geometry=southernOceanRegion,</span></span><br><span class="line">        <span class="attr">scale=1000,</span>  <span class="comment"># 根据数据的分辨率选择适当的值</span></span><br><span class="line">        <span class="attr">maxPixels=1e9</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    return mean_speed</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 使用循环来获取均值时间序列</span></span><br><span class="line"><span class="attr">years</span> = list(range(<span class="number">1994</span>, <span class="number">2023</span>))</span><br><span class="line"><span class="attr">speed_averages</span> = []</span><br><span class="line"></span><br><span class="line">for year <span class="keyword">in</span> years:</span><br><span class="line">    <span class="attr">annual_avg</span> = getAprilAverage(year).getInfo()</span><br><span class="line">    speed_averages.append(annual_avg['velocity_u_0'])  <span class="comment"># velocity_u_0为速度的波段</span></span><br><span class="line">    print(year)</span><br><span class="line"></span><br><span class="line">print(speed_averages)  <span class="comment"># 打印每年的均值速度列表</span></span><br></pre></td></tr></table></figure>
-
-<p>这样，你就得到了一个数组，其中包含了从1994年到2023年墨西哥湾流在所选月份的平均速度。有了这些年度平均速度数据，就可以使用它们来计算任何你感兴趣的统计指标，例如趋势、标准差等。</p>
-<h3 id="慢了吗？"><a href="#慢了吗？" class="headerlink" title="慢了吗？"></a>慢了吗？</h3><p>在海洋科学研究中，精确的数据分析是至关重要的。通过对HYCOM数据进行细致的清洗和预处理，我们发现墨西哥湾流在近几十年里流速有所减缓，这一发现不仅科学上具有深远意义，还可能对全球气候和社会经济产生影响。更为引人关注的是，我们还观察到数据中存在长周期性的波动，暗示着更复杂的海洋动力学机制可能在起作用。这一周期性的存在既可能影响气候模式，也可能对海洋生态和经济活动产生长期影响。因此，持续的数据验证和多角度审视成为进一步研究的必要步骤，以提高研究的整体质量和可靠性。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 剔除大于0.5的数值和None的值</span></span><br><span class="line">filtered_data = [(year, avg) <span class="keyword">for</span> year, avg <span class="keyword">in</span> zip(years, speed_averages) <span class="keyword">if</span> avg is <span class="keyword">not</span> None <span class="keyword">and</span> avg &lt;= 0.5]</span><br><span class="line">filtered_years, filtered_speed_averages = zip(<span class="number">*f</span>iltered_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用matplotlib绘制时间序列</span></span><br><span class="line">plt.figure(figsize=(10, 5))</span><br><span class="line">plt.plot(filtered_years, filtered_speed_averages, <span class="attribute">marker</span>=<span class="string">'o'</span>, <span class="attribute">linestyle</span>=<span class="string">'-'</span>, <span class="attribute">color</span>=<span class="string">'b'</span>)</span><br><span class="line">plt.title(<span class="string">'Gulf Stream Speed Average (April) from 2002 to 2022'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Year'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Average Speed'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.xticks(filtered_years, <span class="attribute">rotation</span>=45)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="./images/w-3.png" alt></p>
-<h3 id="《后天》会来吗？"><a href="#《后天》会来吗？" class="headerlink" title="《后天》会来吗？"></a>《后天》会来吗？</h3><p>气候变化和人为活动对大西洋经向翻转环流（AMOC）产生了不容忽视的影响。最新研究显示，大西洋暖流目前已经减弱到至少1600年来的最低水平，这一变化可能会对全球气候产生深远的影响。具体来说，如果墨西哥湾流发生灾难性的崩溃，西欧将面临更加极端的冬季气候，美国东海岸的海平面可能会迅速上升，同时全球范围内的重要热带降雨模式也将被扰乱。研究进一步指出，自公元400年以来，大西洋暖流已经减弱了约15%，这是一个相当显著的变化。人为造成的全球变暖被认为是导致这一趋势的重要因素之一。</p>
-<p>虽然2004年的电影《后天》提供了一种戏剧性的设想，即AMOC的迅速关闭将导致全球性的气候灾难，但事实上，自工业革命以来，AMOC的削弱确实是一个日益严重的问题，它已经引发了一系列环境和气候变化。这些变化不仅会影响特定地区，更可能在全球范围内引发一系列复杂的生态和社会问题。</p>
-<blockquote>
-<p>文献：Robust Weakening of the Gulf Stream During the Past Four Decades Observed in the Florida Straits.Geophysical Research Letters, 2023; 50 (18) DOI:10.1029/2023GL105170</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/12/02/altime/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/02/altime/" class="post-title-link" itemprop="url">卫星高度计的物理海洋应用系列 - 西边界流</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-12-02 16:03:15 / 修改时间：21:34:20" itemprop="dateCreated datePublished" datetime="2023-12-02T16:03:15+08:00">2023-12-02</time>
-            </span>
-
-          
-            <span id="/2023/12/02/altime/" class="post-meta-item leancloud_visitors" data-flag-title="卫星高度计的物理海洋应用系列 - 西边界流" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/12/02/altime/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/12/02/altime/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近公布的2023年院士评选结果出炉了，我并未入选。但坦白说，这对我，乃至我的粉丝们来说，实际上是一件好事。若我真成了院士，必将被繁杂的事务和没完没了的会议所困。如此一来，我又如何能有足够的时间和精力，去投入到我所热爱的科研和科普工作中呢？</p>
-<p>其实，成为院士，并不能改变一个人的本质。戴上这顶帽子，不代表你就更优秀。作为一名科研工作者，我们追求的是在科学的长河中留下独特的印记，为这个社会贡献自己的力量。从这个初心出发，我们应当始终追求更高的目标。</p>
-<p>不得不说，这件事也影响了我为粉丝们写作的计划。我的粉丝数量增长放缓，偶尔还会掉粉，这让我颇感心痛。为此，我制定了一项新的写作计划，专注于撰写一系列关于卫星高度计在物理海洋学方面应用的文章。在这个系列中，我将深入探讨卫星高度计技术如何帮助我们更好地理解海洋，特别是在中尺度和行星尺度上的海洋波动研究上。在即将推出的系列文章中，我们将探索多个关键的物理海洋学概念和现象，这个内容丰富且深入的系列将涵盖理论解析与Python编程实践。其主要目的是为海洋遥感领域的研究生群体提供清晰、系统的理论阐述，以及相应的技术实现。完成这一系列内容可能需要数月时间，但我们致力于提供深度且实用的学习资源，以促进对海洋科学的深入理解和研究。</p>
-<p>今天我们首先探讨西边界流。接着上次的话题，黑潮和湾流变慢了吗？我们使用卫星高度计实测数据进行分析计算。</p>
-<h2 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h2><p>首先要下载高度计再分析产品，这里我下载了欧洲cmems数据中心的高度计产品，下载地址是：</p>
-<ul>
-<li><a href="ftp://username@my.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_MY_008_047/cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.25deg_P1D" target="_blank" rel="noopener">ftp://username@my.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_MY_008_047/cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.25deg_P1D</a></li>
-</ul>
-<p>第一步制作一个文件列表：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">import</span> <span class="string">os</span></span><br><span class="line"><span class="attr">from</span> <span class="string">pathlib import Path</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义根目录</span></span><br><span class="line"><span class="attr">root_dir</span> = <span class="string">Path("..", "dataset-duacs-rep-global-merged-allsat-phy-l4")</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个空列表来存储所有文件路径</span></span><br><span class="line"><span class="attr">all_file_paths</span> = <span class="string">[]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历年份</span></span><br><span class="line"><span class="attr">for</span> <span class="string">year in range(1993, 2019):</span></span><br><span class="line"><span class="comment">    # 循环遍历月份</span></span><br><span class="line">    <span class="attr">for</span> <span class="string">month in range(1, 13):</span></span><br><span class="line"><span class="comment">        # 格式化月份，确保它总是两位数</span></span><br><span class="line">        <span class="attr">month_str</span> = <span class="string">str(month).zfill(2)</span></span><br><span class="line"><span class="comment">        # 创建月份目录的路径</span></span><br><span class="line">        <span class="attr">month_dir</span> = <span class="string">root_dir / str(year) / month_str</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">        # 检查目录是否存在</span></span><br><span class="line">        <span class="attr">if</span> <span class="string">month_dir.exists():</span></span><br><span class="line"><span class="comment">            # 循环遍历月份目录中的文件</span></span><br><span class="line">            <span class="attr">for</span> <span class="string">day_file in month_dir.iterdir():</span></span><br><span class="line"><span class="comment">                # 只考虑 .nc（NetCDF）文件</span></span><br><span class="line">                <span class="attr">if</span> <span class="string">day_file.suffix == '.nc':</span></span><br><span class="line"><span class="comment">                    # 将完整文件路径添加到列表中</span></span><br><span class="line">                    <span class="attr">all_file_paths.append(day_file)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="计算流速"><a href="#计算流速" class="headerlink" title="计算流速"></a>计算流速</h2><p>初步观察利用高度计进行的全球流场分布，我们可以清楚地识别出主要的海洋流系统。这些包括南极绕极流、西边界流、赤道流等，以及众多大小不一的中尺度涡旋。这些观测结果生动地展示了海洋永无休止的旋转和流动。这些动态的海洋模式不仅是地球气候系统的重要组成部分，也对海洋生物的分布和迁移产生深远影响。通过细致分析这些流场分布，我们可以更深入地理解海洋动力学的复杂性和它们在全球环境中的作用。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Load the NetCDF file</span></span><br><span class="line">file_path = all_file_paths[0]  # <span class="builtin-name">Get</span> the first file path as a string</span><br><span class="line">ds = xr.open_dataset(file_path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract the 'ugos' variable</span></span><br><span class="line">ugos_data = ds[<span class="string">'ugos'</span>]</span><br><span class="line"><span class="comment"># Extract the 'vgos' variable</span></span><br><span class="line">vgos_data = ds[<span class="string">'vgos'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate the magnitude of the velocity (flow speed) for the first time step</span></span><br><span class="line">flow_speed = np.sqrt(ugos_data.isel(<span class="attribute">time</span>=0)**2 + vgos_data.isel(<span class="attribute">time</span>=0)**2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot the flow speed with constrained velocity range between -1 and 1 m/s</span></span><br><span class="line">plt.figure(figsize=(18, 10))</span><br><span class="line">flow_speed.plot(<span class="attribute">cmap</span>=<span class="string">'RdBu_r'</span>, <span class="attribute">vmin</span>=-0, <span class="attribute">vmax</span>=1.5)</span><br><span class="line">plt.title(<span class="string">'Flow Speed at first time step (Constrained between -1 and 1 m/s)'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Longitude'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Latitude'</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算时间平均</span></span><br><span class="line">time_mean_speed = speed_data_3d.mean(<span class="attribute">dim</span>=<span class="string">'time'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = time_mean_speed.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>, </span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                            <span class="attribute">vmin</span>=-0.0, <span class="attribute">vmax</span>=0.8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed Mean'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算时间标准差</span></span><br><span class="line">time_std_speed = speed_data_3d.std(<span class="attribute">dim</span>=<span class="string">'time'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = time_std_speed.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>, </span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                            <span class="attribute">vmin</span>=-0.0, <span class="attribute">vmax</span>=0.3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed STD'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算相对时间标准差</span></span><br><span class="line">relative_std_speed = time_std_speed / time_mean_speed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = relative_std_speed.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>, </span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;</span><br><span class="line">                            )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed STD'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="./images/gee-1.png" alt><br><img src="./images/gee-2.png" alt><br><img src="./images/gee-3.png" alt><br><img src="./images/gee-4.png" alt></p>
-<p>尽管高度计的观测揭示了多种海洋流系统和动态模式，但在今天的讨论中，我们将专注于西边界流的长期变化及其时空特征。考虑到数据量巨大，我们的代码中采取了特定的策略来优化数据处理流程。例如，通过设置for file_path in all_file_paths[::100]:，我们将每隔100天读取一次数据文件。这种方法旨在平衡数据的全面性与处理的可行性。读者可以根据自己的研究需求和资源限制，调整读取数据的间隔。这种灵活性使得我们的研究方法不仅适用于探索西边界流的长期趋势，也方便个性化地调整以适应不同的研究目标和数据集大小。</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> xarray as xr</span><br><span class="line"><span class="built_in">import</span> numpy as np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个空的列表用于存储速度数据</span></span><br><span class="line"><span class="attr">speed_data</span> = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义感兴趣的区域（纬度和经度的范围）</span></span><br><span class="line">lat_min, <span class="attr">lat_max</span> = -<span class="number">60.0</span>, <span class="number">60.0</span></span><br><span class="line">lon_min, <span class="attr">lon_max</span> = <span class="number">0</span>, <span class="number">360.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每一个文件</span></span><br><span class="line">for file_path <span class="keyword">in</span> all_file_paths[::<span class="number">100</span>]:</span><br><span class="line">    <span class="comment"># 打开NetCDF数据集</span></span><br><span class="line">    <span class="attr">ds</span> = xr.open_dataset(file_path)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 提取感兴趣的区域</span></span><br><span class="line">    <span class="attr">ds_subset</span> = ds.sel(<span class="attr">latitude=slice(lat_min,</span> lat_max), <span class="attr">longitude=slice(lon_min,</span> lon_max))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 提取 ugos 和 vgos 数据，并取第一个时间步</span></span><br><span class="line">    <span class="attr">u_gos</span> = ds_subset['ugos'].isel(<span class="attr">time=0)</span></span><br><span class="line">    <span class="attr">v_gos</span> = ds_subset['vgos'].isel(<span class="attr">time=0)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算速度</span></span><br><span class="line">    <span class="attr">u_speed</span> = np.sqrt(u_gos**<span class="number">2</span> + v_gos**<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将计算出的速度添加到列表中</span></span><br><span class="line">    speed_data.append(u_speed)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 将列表转换为xarray DataArray 对象，从而形成一个3维数组</span></span><br><span class="line"><span class="attr">speed_data_3d</span> = xr.concat(speed_data, <span class="attr">dim='time')</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示结果（或进行后续分析）</span></span><br><span class="line"><span class="comment"># print(speed_data_3d)</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="./images/gee-5.png" alt></p>
-<h2 id="长期趋势计算"><a href="#长期趋势计算" class="headerlink" title="长期趋势计算"></a>长期趋势计算</h2><p>首先，我们确定了数据集中时间、纬度和经度这三个维度的大小。这一步是为了确保我们精确地理解数据的结构，从而可以高效地处理和分析它。接着，我们初始化了一个数组，用于存储每个空间格点的趋势值。</p>
-<p>紧接着，我们对每个格点进行了遍历。在每个格点，我们提取了随时间变化的速度数据，并运用线性回归来计算趋势。通过这种方法，我们能够量化每个格点上流速的变化趋势。更进一步，我们将这些趋势转换为每十年的变化率，这使得结果更加直观，也便于与历史数据或未来预测进行比较。</p>
-<p>最后，我们利用xarray.DataArray将计算出的趋势值与其对应的空间坐标结合起来，形成一个新的数据结构，这使得数据更易于操作和分析。通过这样的数据处理和分析，我们能够更深入地理解西边界流随时间的变化，为研究全球气候变化及其对海洋环境的影响提供了宝贵的洞见。</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取时间坐标信息，并转换为Pandas的TimedeltaIndex，以天为单位</span></span><br><span class="line"><span class="attr">time_coords</span> = speed_data_3d.coords['time']</span><br><span class="line"><span class="attr">days</span> = (time_coords - time_coords[<span class="number">0</span>]).dt.days</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取时间维度的长度和空间维度的大小</span></span><br><span class="line"><span class="attr">n_time</span> = speed_data_3d.shape[<span class="number">0</span>]</span><br><span class="line"><span class="attr">n_lat</span> = speed_data_3d.shape[<span class="number">1</span>]</span><br><span class="line"><span class="attr">n_lon</span> = speed_data_3d.shape[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个数组来存储每个格点的趋势</span></span><br><span class="line"><span class="attr">trend_array</span> = np.zeros((n_lat, n_lon))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每个格点</span></span><br><span class="line">for i <span class="keyword">in</span> range(n_lat):</span><br><span class="line">    for j <span class="keyword">in</span> range(n_lon):</span><br><span class="line">        <span class="comment"># 提取该格点的时间序列</span></span><br><span class="line">        <span class="attr">time_series</span> = speed_data_3d[:, i, j].values  <span class="comment"># 使用 .values 将xarray.DataArray转换为NumPy数组</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 使用线性回归计算趋势</span></span><br><span class="line">        slope, <span class="attr">intercept</span> = np.polyfit(days, time_series, <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 将趋势转换为每十年的量级（1年 = 365.25天）</span></span><br><span class="line">        <span class="attr">trend_per_decade</span> = slope * <span class="number">365.25</span> * <span class="number">10</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 存储趋势</span></span><br><span class="line">        trend_array[i, j] = trend_per_decade</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建带有时间和空间坐标的趋势DataArray</span></span><br><span class="line"><span class="attr">trend_dataarray</span> = xr.DataArray(</span><br><span class="line">    trend_array,</span><br><span class="line">    <span class="attr">coords=&#123;</span></span><br><span class="line">        <span class="string">"latitude"</span>: speed_data_3d.coords[<span class="string">"latitude"</span>],</span><br><span class="line">        <span class="string">"longitude"</span>: speed_data_3d.coords[<span class="string">"longitude"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">dims=["latitude",</span> <span class="string">"longitude"</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = trend_dataarray.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>,</span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                            <span class="attribute">vmin</span>=-0.1, <span class="attribute">vmax</span>=0.1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed Trend'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="./images/gee-6.png" alt></p>
-<p>这幅地图展示了全球海洋表面流速的趋势分布，色标从蓝色到红色代表了流速趋势的变化范围，蓝色代表速度减缓（负趋势），而红色代表速度加快（正趋势）。可以观察到，特定区域如西边界流域显示出明显变化趋势，但呈现出条纹状，意味着这些区域的海流速度在过去十年既有有增加的趋势，又有下降的趋势。这背后的机制可能是由于局部海洋环流的变化或长期的气候模式变动所导致。</p>
-<p>我们把黑潮和湾流区进行放大观察：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择黑潮区域的数据</span></span><br><span class="line">kuroshio_trend = trend_dataarray.sel(<span class="attribute">latitude</span>=slice(20, 40), <span class="attribute">longitude</span>=slice(120, 160))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.1</span></span><br><span class="line">plot = kuroshio_trend.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>,</span><br><span class="line">                           cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                           <span class="attribute">vmin</span>=-0.1, <span class="attribute">vmax</span>=0.1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Kuroshio Current Speed Trend'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="./images/gee-7.png" alt></p>
-<p>我们可以对黑潮及其延伸体的长期变化进行一些具体分析。黑潮作为西太平洋的一个主要海流，其主轴的流速趋势在这幅图中没有显示出明显的增强或减弱的迹象，这表明在观测期间，黑潮主轴的强度保持相对稳定。</p>
-<p>然而，值得注意的是，在黑潮延伸体的区域，地图展示了一种流轴北移的现象。具体来说，这意味着在黑潮南侧的海域流速变慢（如图中蓝色区域所示），而北侧的流速有所增加（相应的红色区域）。这种变化可能指示了海流的某种空间重组，它可能与多种海洋和气候因素有关，如北太平洋年代际振荡（PDO）、黑潮大弯曲事件和全球变暖，以及局部风场的变化、海水温度梯度的变化，以及其他影响海流结构和强度的因素。</p>
-<p>总体上，地图上的色彩分布似乎显示了一种对称守恒的格局，即南侧减慢的流速和北侧加快的流速在数量上相互抵消。这种对称性可能反映了黑潮系统内部动力学的一个重要特性，即在某些自然变化或外部强迫下，系统倾向于通过调整其流速分布来维持能量的平衡。这些观测结果对于理解区域海洋动力学的变化具有重要意义，并可能为预测黑潮以及其延伸体在未来气候变化情景下的响应提供线索。</p>
-<p><img src="./images/gee-8.png" alt></p>
-<p><img src="./images/gee-9.png" alt></p>
-<p>观察空间分布上表现出减速趋势的海域，并对其时间序列进行分析，这是理解海洋流速变化的重要环节。结果显示这些海域的流速确实在减慢，且这一减慢的趋势是非线性的，变化过程中还伴随着波动。非线性的趋势和中间的波动意味着这些海域的流速变化并非单一方向上的简单增减，而是包含了多个时间尺度上的复杂动力过程。例如，可能存在一个长期的减速趋势，但在这个趋势中叠加了短期的加速和减速周期。这些波动可能是由季节性因素、气候事件如厄尔尼诺或拉尼娜现象，甚至是更长期的气候循环模式所导致的。</p>
-<p>要深入理解这些非线性变化，可能需要应用高级的统计方法或时间序列分析工具，例如小波分析或傅立叶变换，以识别和分离出不同时间尺度上的变化成分。此外，与气候模型输出和长期观测数据相结合的方法可以帮助揭示造成这些变化的潜在机制，并预测未来的变化趋势。这对于预测海洋环流如何影响全球气候系统以及海洋生态系统至关重要。</p>
-<p><img src="./images/gee-10.png" alt></p>
-<p>湾流也呈现出类似的特征。湾流作为北大西洋的一个主要暖流，对调节北半球的气候起着至关重要的作用。我们看到湾流也显示出北移现象，这可能意味着流速在南侧减慢而北侧增快。这样的变化可能与大尺度气候模式如北大西洋涛动（NAO）或全球变暖背景下的海水温度变化有关。湾流的这种行为可能会导致能量分布的重新配置，并可能对北大西洋的海洋生态系统和欧洲的气候产生影响。</p>
-<h2 id="问题探讨"><a href="#问题探讨" class="headerlink" title="问题探讨"></a>问题探讨</h2><ul>
-<li>西边界流是全球最稳定的洋流，为什么东向流动的延伸体会向北移动？</li>
-<li>具体的机制是什么？</li>
-</ul>
-<p>西边界流的稳定性和其东向流动的延伸体北移现象确实是一个引人入胜的研究话题。西边界流，如北太平洋的黑潮和北大西洋的湾流，通常是强大而稳定的，这主要是由于它们在特定的海洋盆地边缘受到地形的引导和科里奥利力的影响。东向流动的延伸体向北移动可能与多种因素有关，包括但不限于海水温度变化、风应力的变化、气候变化导致的大尺度气候模式的漂移。</p>
-<p>如解决上面的问题，我相信这将是一篇NS级别的文章吧，希望有兴趣的兄弟们可以试一试，也可以联系我一起合作。</p>
-<h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><ul>
-<li>卫星高度计探测Rossby wave</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/10/19/gee-hycom/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/19/gee-hycom/" class="post-title-link" itemprop="url">利用GEE云平台的HYCOM数据进行海洋流速分析及可视化</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-19 21:38:49" itemprop="dateCreated datePublished" datetime="2023-10-19T21:38:49+08:00">2023-10-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-02 21:37:42" itemprop="dateModified" datetime="2023-12-02T21:37:42+08:00">2023-12-02</time>
-              </span>
-
-          
-            <span id="/2023/10/19/gee-hycom/" class="post-meta-item leancloud_visitors" data-flag-title="利用GEE云平台的HYCOM数据进行海洋流速分析及可视化" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/10/19/gee-hycom/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/10/19/gee-hycom/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="GEE中的HYCOM"><a href="#GEE中的HYCOM" class="headerlink" title="GEE中的HYCOM"></a>GEE中的HYCOM</h3><p>GEE，或者说Google Earth Engine，你可能听过或者没听过，但它确实是当前地球科学领域的一颗璀璨明星。为什么？想象一下，地学数据的规模巨大到我们很难在个人电脑上进行存储和分析。但有了GEE，这一切都变得简单了。它让我们可以直接在云端处理这些庞大的数据，不必费心把数据拷贝回本地，更不用说还能借助谷歌强大的计算能力了。关于这点，不少从事光学遥感、合成孔径雷达（SAR）研究的学者都给出了自己的实证研究和论文成果。</p>
-<p>说起HYCOM，这可不是一两句话能说清楚的。它是Hybrid Coordinate Ocean Model的缩写，由美国多家机构联手组建的开源海洋环流建模系统，得到了美国国家海洋合作项目（NOPP）的赞助，并作为美国全球海洋数据同化实验（GODAE）的一部分。该模型主要用于研究海洋和大气之间的相互作用，包括短期和长期过程，它对于海洋预测、数据同化乃至气候研究都是至关重要的。而GEE上的HYCOM数据集，无疑是为我们这些研究者铺设了一条快捷之路，轻松获取、分析，再也不用为数据的下载、分析和可视化而烦恼了。</p>
-<h3 id="南大洋流场"><a href="#南大洋流场" class="headerlink" title="南大洋流场"></a>南大洋流场</h3><p>南大洋，也被称为南极洋或南极圈内的海洋，是地球上最冷、最偏远的海洋。它环绕整个南极大陆，并与三大洋——大西洋、太平洋和印度洋接壤。南大洋的流场特征对全球气候和海洋环流有着重要影响。最显著的流场特征是西风漂流，这是一种东向的表面流，由于缺乏大陆的阻碍，它在南大洋的纬度范围内持续不断地环绕地球。此外，南大洋还是形成深海下沉流的关键区域，这些冷的盐水从表面下沉到深海，成为全球深海环流的驱动力。</p>
-<p>通过下面的例子，我们不仅会看到如何利用GEE计算二十年的流速均值和其变化特征，而且还会深入到如何计算涡度、Enstrophy和KE等关键的物理海洋参数。这些参数为我们提供了关于流动形态、能量分布和流动稳定性的关键信息。值得注意的是，使用GEE，这样的复杂分析可以在几秒钟内完成，这在传统的数据处理方法中是难以想象的。这种处理速度不仅加速了研究的进程，而且为实时监测和预测提供了新的可能性。</p>
-<p><img src="./images/g-1.png" alt="HYCOM在南大洋某时的流场"></p>
-<h3 id="20年的流速平均"><a href="#20年的流速平均" class="headerlink" title="20年的流速平均"></a>20年的流速平均</h3><p>下面这段代码是在分析和展示南大洋在过去20年（从2002年至2022年）中每年1月的前15天的海洋流速均值。</p>
-<p>首先，代码定义了南大洋的矩形区域。接着，通过一个函数获取每年1月的前15天的流速数据并计算其均值。这个函数主要过滤特定日期的HYCOM海洋流速数据，并对数据进行了单位转换（除以1000）。然后，我们为2002至2022的每一年都调用了这个函数，得到这20年中的每年均值，并进一步计算出20年的总均值。最终，将结果限制在我们定义的南大洋区域内，裁剪后的速度被添加到了地图上，并将地图的中心设置为南大洋区域。</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义南大洋的区域</span></span><br><span class="line">var southernOceanRegion = ee.Geometry.<span class="constructor">Rectangle([0, -80, 180, -35])</span>;  <span class="comment">// 注意调整了范围以覆盖整个南大洋</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义一个函数来获取每年4月的数据，并返回这个月的均值</span></span><br><span class="line"><span class="keyword">function</span> get<span class="constructor">AprilAverage(<span class="params">year</span>)</span> &#123;</span><br><span class="line">  var startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span>;</span><br><span class="line">  var endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 15)</span>;</span><br><span class="line">  </span><br><span class="line">  var collection = ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                     .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                     .map(<span class="keyword">function</span>(image) &#123;</span><br><span class="line">                        return image.divide(<span class="number">1000</span>);</span><br><span class="line">                     &#125;);</span><br><span class="line">                     </span><br><span class="line">  return collection.mean<span class="literal">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用循环来获取2002至2022这20年的4月的均值</span></span><br><span class="line">var years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">2002</span>, <span class="number">2022</span>);</span><br><span class="line">var averages = years.map(<span class="keyword">function</span>(year) &#123;</span><br><span class="line">  return get<span class="constructor">AprilAverage(<span class="params">year</span>)</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var twoDecadesAverage = ee.<span class="module-access"><span class="module"><span class="identifier">ImageCollection</span>.</span></span>from<span class="constructor">Images(<span class="params">averages</span>)</span>.mean<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 从这个二十年的均值图像中计算速度</span></span><br><span class="line">var speed = twoDecadesAverage.select('velocity_u_0').hypot(twoDecadesAverage.select('velocity_v_0'));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 使用南大洋区域裁剪速度图像</span></span><br><span class="line">var maskedSpeed = speed.clip(southernOceanRegion);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 将裁剪后的速度图像添加到地图上</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>add<span class="constructor">Layer(<span class="params">maskedSpeed</span>, &#123;<span class="params">min</span>: 0, <span class="params">max</span>: 1, <span class="params">palette</span>: ['<span class="params">blue</span>', '<span class="params">yellow</span>', '<span class="params">red</span>']&#125;, 'Southern Ocean Speed 20-Year Average')</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 7. 将地图的中心设置为南大洋区域</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>center<span class="constructor">Object(<span class="params">southernOceanRegion</span>, 4)</span>;</span><br></pre></td></tr></table></figure>
-
-<p><img src="./images/g-2.png" alt="HYCOM在南大洋二十年的平均流"></p>
-<h3 id="20年流速变化特征"><a href="#20年流速变化特征" class="headerlink" title="20年流速变化特征"></a>20年流速变化特征</h3><p>使用标准偏差进行流场变化的统计。</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义南大洋的区域</span></span><br><span class="line">var southernOceanRegion = ee.Geometry.<span class="constructor">Rectangle([0, -80, 180, -35])</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义一个函数来获取每年4月的数据，并返回这个月的速度</span></span><br><span class="line"><span class="keyword">function</span> get<span class="constructor">AprilSpeed(<span class="params">year</span>)</span> &#123;</span><br><span class="line">  var startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span>;</span><br><span class="line">  var endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 15)</span>;</span><br><span class="line">  </span><br><span class="line">  var velocity = ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                     .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                     .mean<span class="literal">()</span></span><br><span class="line">                     .divide(<span class="number">1000</span>);</span><br><span class="line">                     </span><br><span class="line">  return velocity.select('velocity_u_0').hypot(velocity.select('velocity_v_0'));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用循环来获取1993至2022这30年的4月的速度</span></span><br><span class="line">var years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">2002</span>, <span class="number">2022</span>);</span><br><span class="line">var speeds = years.map(<span class="keyword">function</span>(year) &#123;</span><br><span class="line">  return get<span class="constructor">AprilSpeed(<span class="params">year</span>)</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var speedCollection = ee.<span class="module-access"><span class="module"><span class="identifier">ImageCollection</span>.</span></span>from<span class="constructor">Images(<span class="params">speeds</span>)</span>;</span><br><span class="line">var speedStdDev = speedCollection.reduce(ee.<span class="module-access"><span class="module"><span class="identifier">Reducer</span>.</span></span>std<span class="constructor">Dev()</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 使用南大洋区域裁剪速度标准差图像</span></span><br><span class="line">var maskedStdDev = speedStdDev.clip(southernOceanRegion);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 将裁剪后的速度标准差图像添加到地图上</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>add<span class="constructor">Layer(<span class="params">maskedStdDev</span>, &#123;<span class="params">min</span>: 0, <span class="params">max</span>: 1, <span class="params">palette</span>: ['<span class="params">blue</span>', '<span class="params">yellow</span>', '<span class="params">red</span>']&#125;, 'Southern Ocean Speed STD')</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 将地图的中心设置为南大洋区域</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>center<span class="constructor">Object(<span class="params">southernOceanRegion</span>, 4)</span>;</span><br></pre></td></tr></table></figure>
-<p><img src="./images/g-3.png" alt="HYCOM在南大洋二十年的流速变化特征"></p>
-<h3 id="涡度"><a href="#涡度" class="headerlink" title="涡度"></a>涡度</h3><p>涡度 (Vorticity) 是流体力学中的一个重要概念，特别在描述流体中旋转现象时。它是一种局 部旋转度量，描述了流体旋转的强度和方向。涡度的方向垂直于流体的旋转平面。<br>涡度的计算公式:<br>涡度的定义基于流体速度场。在二维流中，涡度（通常用符号 $\zeta$ 表示）的定义如下：<br>$$<br>\zeta=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}<br>$$<br>其中:</p>
-<ul>
-<li>$u$ 是流速的 $\mathrm{x}$ 分量</li>
-<li>$v$ 是流速的 $\mathrm{y}$ 分量</li>
-<li>$\frac{\partial v}{\partial x}$ 是流速 $\mathbf{v}$ 关于 $\mathbf{x}$ 的偏导数</li>
-<li>$\frac{\partial u}{\partial y}$ 是流速 $\mathrm{u}$ 关于 $\mathrm{y}$ 的偏导数</li>
-</ul>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> dateStr = <span class="string">'2023010100'</span>;</span><br><span class="line"><span class="built_in">var</span> velocity = ee.Image(<span class="string">'HYCOM/sea_water_velocity/'</span> + dateStr);</span><br><span class="line"></span><br><span class="line"><span class="comment">// var projection = velocity.select('velocity_u_0').projection();</span></span><br><span class="line"><span class="comment">// var nominalScale = projection.nominalScale();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// print('Nominal scale (in meters):', nominalScale);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 加载指定日期的速度数据</span></span><br><span class="line"><span class="comment">// var date = '2023-01-01';</span></span><br><span class="line"><span class="comment">// var velocity = ee.Image('HYCOM/sea_water_velocity/' + date).divide(1000);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 提取 u 和 v 的分量</span></span><br><span class="line"><span class="built_in">var</span> u = velocity.<span class="keyword">select</span>(<span class="string">'velocity_u_0'</span>);</span><br><span class="line"><span class="built_in">var</span> v = velocity.<span class="keyword">select</span>(<span class="string">'velocity_v_0'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 计算偏导数</span></span><br><span class="line"><span class="built_in">var</span> dudx = u.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line"><span class="built_in">var</span> dvdx = v.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line"><span class="built_in">var</span> dudy = u.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line"><span class="built_in">var</span> dvdy = v.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 使用上述的旋度公式</span></span><br><span class="line"><span class="built_in">var</span> vorticity = dvdx.subtract(dudy);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 在地图上显示结果</span></span><br><span class="line"><span class="built_in">Map</span>.addLayer(vorticity, &#123;<span class="keyword">min</span>: <span class="number">-0.1</span>, <span class="keyword">max</span>: <span class="number">0.1</span>, palette: <span class="meta">[</span><span class="string">'blue'</span>, <span class="string">'white'</span>, <span class="string">'red'</span><span class="meta">]</span>&#125;, 'Vorticity');</span><br></pre></td></tr></table></figure>
-
-<p><img src="./images/g-4.png" alt="HYCOM在南大洋某时的涡度特征"></p>
-<h3 id="Enstrophy"><a href="#Enstrophy" class="headerlink" title="Enstrophy"></a>Enstrophy</h3><p>Enstrophy 在流体动力学中表示流体内部的涡旋强度，常用于研究湍流流动。Enstrophy 是涡 度 (vorticity) 的平方的一半，表示为:<br>Enstrophy $=\frac{1}{2} \omega^2$<br>其中 $\omega$ 是涡度。在之前的涡度计算中，我们得到了涡度 $\omega=d v / d x-d u / d y$ 。<br>接下来，我们可以根据上述的涡度计算来进一步计算Enstrophy。</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义2023年1月的日期范围</span></span><br><span class="line"><span class="built_in">var</span> startDate = ee.<span class="built_in">Date</span>(<span class="string">'2023-01-01'</span>);</span><br><span class="line"><span class="built_in">var</span> endDate = ee.<span class="built_in">Date</span>(<span class="string">'2023-01-7'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从HYCOM数据集中加载2023年1月份的所有数据</span></span><br><span class="line"><span class="built_in">var</span> januaryCollection = ee.ImageCollection(<span class="string">'HYCOM/sea_water_velocity'</span>)</span><br><span class="line">    .filterDate(startDate, endDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用map函数计算每天的涡度（Enstrophy）</span></span><br><span class="line"><span class="built_in">var</span> enstrophyCollection = januaryCollection.<span class="built_in">map</span>(function(image) &#123;</span><br><span class="line">    <span class="built_in">var</span> u = image.<span class="keyword">select</span>(<span class="string">'velocity_u_0'</span>);</span><br><span class="line">    <span class="built_in">var</span> v = image.<span class="keyword">select</span>(<span class="string">'velocity_v_0'</span>);</span><br><span class="line">    <span class="built_in">var</span> dudx = u.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line">    <span class="built_in">var</span> dvdx = v.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line">    <span class="built_in">var</span> dudy = u.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line">    <span class="built_in">var</span> dvdy = v.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line">    <span class="built_in">var</span> vorticity = dvdx.subtract(dudy);</span><br><span class="line">    <span class="keyword">return</span> vorticity.pow(<span class="number">2</span>).multiply(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算2023年1月份的涡度（Enstrophy）均值</span></span><br><span class="line"><span class="built_in">var</span> meanEnstrophy = enstrophyCollection.mean();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对均值进行对数变换，避免对数0的情况，通常会加上一个小的值</span></span><br><span class="line"><span class="built_in">var</span> logMeanEnstrophy = meanEnstrophy.add(<span class="number">1e-10</span>).<span class="keyword">log</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在地图上显示对数转换后的结果</span></span><br><span class="line"><span class="built_in">Map</span>.addLayer(logMeanEnstrophy, &#123;<span class="keyword">min</span>: <span class="number">-20</span>, <span class="keyword">max</span>: <span class="number">-4</span>, palette: <span class="meta">[</span><span class="string">'blue'</span>, <span class="string">'white'</span>, <span class="string">'red'</span><span class="meta">]</span>&#125;, 'Log Enstrophy');</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="./images/g-5.png" alt="HYCOM在南大洋一月份的Enstrophy"></p>
-<h3 id="KE"><a href="#KE" class="headerlink" title="KE"></a>KE</h3><p>要计算流体中的动能 (Kinetic Energy, KE)，公式为 $K E=0.5 *\left(u^2+v^2\right)$ ，其中 $u$ 和 $v$ 分 别是速度的水平和垂直分量。</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义2023年1月的日期范围</span></span><br><span class="line"><span class="keyword">var</span> startDate = <span class="string">'2023-01-01'</span>;</span><br><span class="line"><span class="keyword">var</span> endDate = <span class="string">'2023-01-31'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取该日期范围内的速度数据集</span></span><br><span class="line"><span class="keyword">var</span> velocityCollection = ee.ImageCollection(<span class="string">'HYCOM/sea_water_velocity'</span>)</span><br><span class="line">                            .filterDate(startDate, endDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用map函数来为每一天计算动能 (KE)</span></span><br><span class="line"><span class="keyword">var</span> keCollection = velocityCollection.map(<span class="function"><span class="keyword">function</span>(<span class="params">image</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> u = image.select(<span class="string">'velocity_u_0'</span>);</span><br><span class="line">  <span class="keyword">var</span> v = image.select(<span class="string">'velocity_v_0'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计算 KE</span></span><br><span class="line">  <span class="keyword">return</span> u.pow(<span class="number">2</span>).add(v.pow(<span class="number">2</span>)).multiply(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算整月的KE均值</span></span><br><span class="line"><span class="keyword">var</span> monthlyMeanKE = keCollection.mean();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义要计算均值的区域，例如全球范围</span></span><br><span class="line"><span class="keyword">var</span> globalRegion = ee.<span class="built_in">Geometry</span>.Rectangle([<span class="number">-180</span>, <span class="number">-90</span>, <span class="number">180</span>, <span class="number">90</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 reduceRegion 来计算全球的KE均值</span></span><br><span class="line"><span class="keyword">var</span> globalAverageKE = monthlyMeanKE.reduceRegion(&#123;</span><br><span class="line">  reducer: ee.Reducer.mean(),</span><br><span class="line">  geometry: globalRegion,</span><br><span class="line">  scale: <span class="number">10000</span>,  <span class="comment">// 此处的scale取决于HYCOM数据集的分辨率</span></span><br><span class="line">  maxPixels: <span class="number">1e13</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印统计信息</span></span><br><span class="line">print(<span class="string">'Global Average KE for January 2023:'</span>, globalAverageKE);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在地图上显示月均值的KE</span></span><br><span class="line"><span class="keyword">var</span> logmonthlyMeanKE = monthlyMeanKE.add(<span class="number">1e-10</span>).log();</span><br><span class="line"><span class="keyword">var</span> keViz = &#123;<span class="attr">min</span>: <span class="number">10</span>, <span class="attr">max</span>: <span class="number">15</span>, <span class="attr">palette</span>: [<span class="string">'blue'</span>, <span class="string">'green'</span>, <span class="string">'red'</span>]&#125;;</span><br><span class="line">Map.addLayer(logmonthlyMeanKE, keViz, <span class="string">'Monthly Mean KE January 2023'</span>);</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="./images/g-6.png" alt="KE"></p>
-<blockquote>
-<p>本代码仅供参考和学习之用，用于展示基本的功能和计算方法。在使用这些代码进行实际的数据处理和分析之前，请确保您已对输入数据进行了适当的单位统一和其他必要的预处理。特别是涉及速度单位的部分，直接使用这些代码可能会导致不准确或误导的结果。建议在实际应用中进行仔细的数据验证和校准，以确保结果的准确性和可靠性。</p>
-</blockquote>
-<ul>
-<li>思考题：如何使用GEE绘制某范围内的流速的长时间序列？</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/25/ksl/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/25/ksl/" class="post-title-link" itemprop="url">物理海洋课后习题-科氏力为什么带2</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-25 21:57:22" itemprop="dateCreated datePublished" datetime="2023-09-25T21:57:22+08:00">2023-09-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-11 23:03:04" itemprop="dateModified" datetime="2023-12-11T23:03:04+08:00">2023-12-11</time>
-              </span>
-
-          
-            <span id="/2023/09/25/ksl/" class="post-meta-item leancloud_visitors" data-flag-title="物理海洋课后习题-科氏力为什么带2" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/09/25/ksl/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/25/ksl/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="科里奥利力"><a href="#科里奥利力" class="headerlink" title="科里奥利力"></a>科里奥利力</h4><p>科里奥利力是一个惯性力，它只在旋转参考系中存在。它的出现是由于在旋转参考系中观察物体运动时，物体的运动路径与非旋转参考系中的路径不同。</p>
-<p>考虑一个质点在旋转参考系中的运动。科里奥利力的定义是:<br>$$<br>\vec{F}_c=-2 m\left(\vec{\omega} \times \vec{v}\right)<br>$$<br>其中， $\vec{F}_c$ 是科里奥利力， $\vec{\omega}$ 是旋转参考系的角速度， $\vec{v}$ 是质点相对于旋转参考系的速度，</p>
-<p>科里奥利力水平分量的大小是由物体在旋转参考系中的速度、参考系的角速度和物体的质量决定的。 科里奥利力的大小为:<br>$$<br>F_c=2 m v \omega \sin (\phi)<br>$$</p>
-<p>科里奥利力的方向始终垂直于物体的速度向量和地球的旋转轴。</p>
-<h4 id="科氏参数"><a href="#科氏参数" class="headerlink" title="科氏参数"></a>科氏参数</h4><p>科氏参数，通常表示为 $f$ ，是描述地球旋转对流体流动 (如大气和海洋流动) 影响的一个重 要参数。它是地球的角速度和纬度的函数，定义为:<br>$$<br>f=2 \omega \sin (\phi)<br>$$<br>其中:</p>
-<ul>
-<li>$\omega$ 是地球的平均角速度，约为 $7.27 \times 10^{-5} \mathrm{rad} / \mathrm{s}$ 。</li>
-<li>$\phi$ 是纬度，北纬为正，南纬为负。<br>以下是科氏参数的几个关键特点:</li>
-</ul>
-<ol>
-<li>赤道附近: 在赤道附近 (即 $\phi \approx 0^{\circ}$ )，科氏参数接近零，这意味着科里奥利力对流体的影 响在这里最小。</li>
-<li>极地: 当接近北极 $\left(\phi \approx 90^{\circ}\right)$ 或南极 $\left(\phi \approx-90^{\circ}\right)$ 时，科氏参数的绝对值最大，这意味 着科里奥利力对流体的影响在这里最大。</li>
-<li>南半球与北半球: 在北半球，科氏参数为正，而在南半球为负。这决定了北半球和南半球中 流体的偏转方向。</li>
-</ol>
-<blockquote>
-<p>为什么科里奥利力和科氏参数公式中有因子2？这可以从物体在旋转参考系中的运动动力学推导出来。</p>
-</blockquote>
-<h2 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h2><h3 id="惯性力的定义："><a href="#惯性力的定义：" class="headerlink" title="惯性力的定义："></a>惯性力的定义：</h3><p>若一个质点 $m$ 某时刻在惯性系 $S$ 中的加速度为 $\mathbf{a_S}$ ，在另一个非惯性系 $S^{\prime}$ 中的加速度为 $\mathbf{a_{S^\prime}}$ ，则可假设质点受到 一个惯性力 (inertial force 或 fictitious force)<br>$$<br>\mathbf{f}=m\left(\mathbf{a}_{S^{\prime}}-\mathbf{a}_S\right),<br>$$<br>使得牛顿运动定律在非惯性系 $S^{\prime}$ 中仍然成立。</p>
-<h3 id="加速度的坐标变换"><a href="#加速度的坐标变换" class="headerlink" title="加速度的坐标变换"></a>加速度的坐标变换</h3><h4 id="无相对转动"><a href="#无相对转动" class="headerlink" title="无相对转动"></a>无相对转动</h4><p>若两个参考系之间只有平移没有转动，某时刻两个参考系中任意两个固定点之间的加速度都是相等的。令某时刻点 $P$ 相对于 $S$ 系和 $S^{\prime}$ 系的加速度分别为 $\mathbf{a_S}$ 和 $\mathbf{a_{S^\prime}}$ ，再令两坐标系之间的加速度为 $\mathbf{a_r}$ ，那么有<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r}.<br>$$</p>
-<h4 id="有相对转动"><a href="#有相对转动" class="headerlink" title="有相对转动"></a>有相对转动</h4><p>若两参考系之间有可能存在转动，牵连加速度 $\mathbf{a_r}$ 的定义会变得比牵连速度 $\mathbf{v_r}$ 更微妙，因为牵连速度 与参考系的选取无关，而牵连加速度却有关! </p>
-<p>我们在 $S$ 系中讨论问题。定义 $t$ 时刻点 $P$ 在 $S^\prime$ 系中的固定点相对于 $S$ 系的加速度为 $\mathbf{a_r}$ 。那么<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r} +2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$<br>其中 $\boldsymbol{\omega}$ 是 $S^{\prime}$ 系相对于 $S$ 系的瞬时角速度。最后一项被称为科里奥利加速度 (Coriolis Acceleration)<br>$$<br>\mathbf{a_c}=2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$</p>
-<h2 id="总惯性力"><a href="#总惯性力" class="headerlink" title="总惯性力"></a>总惯性力</h2><p>任意非惯性系 $S^{\prime}$ 中质点的总惯性 力 $(S$ 为任意惯性系) 为</p>
-<p>$$<br>\mathbf{F_c} = m\left(\mathbf{a_{S^\prime}}-\mathbf{a_S}\right) = -m \mathbf{a_r} - 2m \boldsymbol{\omega} \times \mathbf{v_{S^\prime}}.<br>$$</p>
-<p>其中第一项包含平移惯性力和转动惯性力，转动惯性力又可划分为离心力以及角加速度产生的惯性力，但与质 点相对 $S^{\prime}$ 的速度无关，所以只将科里奥利力定义为第二项。</p>
-<h2 id="应用于地球"><a href="#应用于地球" class="headerlink" title="应用于地球"></a>应用于地球</h2><p>影响在地球表面“滑动”的空气运动的加速度是科里奥利项的水平分量<br>$$<br>-2 \boldsymbol{\omega} \times \boldsymbol{v}<br>$$</p>
-<p><img src="https://wuli.wiki/online/4d404c496fa983f9.svg" alt></p>
-<p>该分量与地球表面的速度正交，由以下表达式给出<br>$$\omega v 2 \sin \phi$$</p>
-<ul>
-<li>$\omega$ 是地球的自转速率</li>
-<li>$\phi$ 是纬度, 北半球为正，为负 南半球</li>
-</ul>
-<p>在北半球，纬度为正，从上方观察，该加速度位于运动方向的右侧。相反，在南半球它位于左侧。</p>
-<h5 id="证明为什么出现2"><a href="#证明为什么出现2" class="headerlink" title="证明为什么出现2"></a>证明为什么出现2</h5><p><a href="https://wuli.wiki/online/Corio.html" target="_blank" rel="noopener">https://wuli.wiki/online/Corio.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1633,7 +1625,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1646,7 +1638,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">91</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1839,54 +1831,6 @@
   
 
   
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
 
   
 

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="在过去的三十年里，雷达高度计技术为我们打开了认识海洋世界的新视角，成为研究海平面变化、海洋动力学和全球气候变化的重要工具。随着ERS-1和TOPEX&#x2F;Poseidon任务的成功发射，我们获取了前所未有的全球海洋数据。为纪念这一技术的发展里程碑，欧空局（ESA）与法国国家空间研究中心（CNES）联手举办了系列科学研讨会，回顾过去成就，展望未来方向。 自2006年在威尼斯举办的首届研讨会起，每五年一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="雷达高度计三十年研讨会">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2024/04/04/altimetry30/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="在过去的三十年里，雷达高度计技术为我们打开了认识海洋世界的新视角，成为研究海平面变化、海洋动力学和全球气候变化的重要工具。随着ERS-1和TOPEX&#x2F;Poseidon任务的成功发射，我们获取了前所未有的全球海洋数据。为纪念这一技术的发展里程碑，欧空局（ESA）与法国国家空间研究中心（CNES）联手举办了系列科学研讨会，回顾过去成就，展望未来方向。 自2006年在威尼斯举办的首届研讨会起，每五年一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://assz0a.coding-pages.com/2024/04/04/altimetry30/images/a30.webp">
+<meta property="article:published_time" content="2024-04-04T09:06:15.000Z">
+<meta property="article:modified_time" content="2024-04-04T09:07:31.751Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="卫星测高">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/2024/04/04/altimetry30/images/a30.webp">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2024/04/04/altimetry30/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>雷达高度计三十年研讨会 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">91</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">161</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2024/04/04/altimetry30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          雷达高度计三十年研讨会
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-04 17:06:15 / 修改时间：17:07:31" itemprop="dateCreated datePublished" datetime="2024-04-04T17:06:15+08:00">2024-04-04</time>
+            </span>
+
+          
+            <span id="/2024/04/04/altimetry30/" class="post-meta-item leancloud_visitors" data-flag-title="雷达高度计三十年研讨会" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/04/04/altimetry30/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/04/04/altimetry30/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="./images/a30.webp" alt></p>
+<p>在过去的三十年里，雷达高度计技术为我们打开了认识海洋世界的新视角，成为研究海平面变化、海洋动力学和全球气候变化的重要工具。随着ERS-1和TOPEX/Poseidon任务的成功发射，我们获取了前所未有的全球海洋数据。为纪念这一技术的发展里程碑，欧空局（ESA）与法国国家空间研究中心（CNES）联手举办了系列科学研讨会，回顾过去成就，展望未来方向。</p>
+<p>自2006年在威尼斯举办的首届研讨会起，每五年一次的聚会成为了全球科学家交流的盛会。这些研讨会覆盖了雷达高度计技术在海洋学、极地研究和沿海区域管理等多个领域的应用，展现了其在环境监测和科学研究中的广泛影响力。</p>
+<p>2024年，迎来了“雷达高度计技术30年进展研讨会”，此次活动将于9月份在法国蒙彼利埃（Montpellier）举行，汇集世界各地的专家学者，共同探讨雷达高度计技术在海洋科学领域的贡献及其面临的新挑战。会议内容丰富，不仅聚焦于传统的海平面监测和海洋动力学研究，还将讨论该技术在新的研究领域，如极地科学和沿海区域管理的应用。</p>
+<p>过往的研讨会成果通过会议论文集和专题期刊对外发布，为雷达高度计技术的发展历程和未来方向提供了宝贵的参考资料。这些成果不仅记录了该领域的科研进展，也指引了科学家们未来的研究方向。<br>本次研讨会不仅是对雷达高度计技术三十年成就的庆祝，更是对未来海洋科学研究方向的深入探索和规划。</p>
+<h3 id="会议网站"><a href="#会议网站" class="headerlink" title="会议网站"></a>会议网站</h3><p><a href="https://www.altimetry2024.org/abstract-submission" target="_blank" rel="noopener">https://www.altimetry2024.org/abstract-submission</a></p>
+<h3 id="重要日期"><a href="#重要日期" class="headerlink" title="重要日期"></a>重要日期</h3><ul>
+<li><strong>征集摘要开始</strong>：2024年1月15日</li>
+<li><strong>摘要提交截止日期</strong>：2024年3月15日</li>
+<li><strong>接受通知</strong>：2024年5月中旬</li>
+<li><strong>初步议程</strong>：2024年5月中旬</li>
+<li><strong>注册开放</strong>：2024年6月16日</li>
+<li><strong>注册截止</strong>：2024年7月12日</li>
+<li><strong>研讨会</strong>：2024年9月2日至7日</li>
+</ul>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><h4 id="雷达高度计三十年进展：历史视角（主题演讲）"><a href="#雷达高度计三十年进展：历史视角（主题演讲）" class="headerlink" title="雷达高度计三十年进展：历史视角（主题演讲）"></a>雷达高度计三十年进展：历史视角（主题演讲）</h4><ul>
+<li>历史回顾</li>
+<li>过去五年的教训</li>
+<li>SAR、Ka波段和宽刈幅雷达高度计的改进</li>
+<li>在全球海洋、沿海区域、极地海洋、陆地及内陆水域、冰冻圈中，成功与未能实现的项目</li>
+</ul>
+<h4 id="对动态海洋的理解进展"><a href="#对动态海洋的理解进展" class="headerlink" title="对动态海洋的理解进展"></a>对动态海洋的理解进展</h4><ul>
+<li>海流：三十年来有何改进？</li>
+<li>大尺度海洋现象：季节内、季节循环、厄尔尼诺现象、罗斯贝波、多年振荡</li>
+<li>潮汐模型、非线性作用、内波</li>
+<li>高频信号和中尺度</li>
+<li>海洋气象学、波高和风速</li>
+<li>降雨检测、海-气交换通量</li>
+</ul>
+<h4 id="对沿海过程的理解进展"><a href="#对沿海过程的理解进展" class="headerlink" title="对沿海过程的理解进展"></a>对沿海过程的理解进展</h4><ul>
+<li>沿海波形重跟踪</li>
+<li>沿海校正</li>
+<li>多任务沿海产品的整合</li>
+<li>沿海过程建模</li>
+<li>沿海/区域模型中的数据同化</li>
+<li>社会影响（例如，侵蚀、风暴潮…）</li>
+</ul>
+<h4 id="对极地海洋的理解进展"><a href="#对极地海洋的理解进展" class="headerlink" title="对极地海洋的理解进展"></a>对极地海洋的理解进展</h4><ul>
+<li>海洋动力学和海冰监测、海冰厚度、海冰范围</li>
+<li>冰山追踪</li>
+<li>极地海洋对平均海平面的影响</li>
+<li>在这些复杂区域的重追踪、特定校正和处理方法（潮汐、平均海面高度…）</li>
+<li>多任务产品的整合</li>
+<li>过程建模</li>
+<li>数据同化</li>
+</ul>
+<h4 id="雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献"><a href="#雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献" class="headerlink" title="雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献"></a>雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献</h4><ul>
+<li>长周期任务的影响、进一步改进和期望</li>
+<li>海底地形绘制</li>
+<li>轨道确定和重力模型定制：DORIS的贡献</li>
+<li>DORIS、GPS、激光技术和雷达高度计</li>
+<li>大地测量任务的重力测量结果（包括CHAMP、GRACE、GOCE、SWARM和MAGIC/NGGM的准备工作）</li>
+<li>改进的平均海面（大地测量任务的贡献）</li>
+</ul>
+<h4 id="陆地和内陆水体"><a href="#陆地和内陆水体" class="headerlink" title="陆地和内陆水体"></a>陆地和内陆水体</h4><ul>
+<li>针对内陆水应用的专门数据处理</li>
+<li>河流水位和流量及陆地-海洋交换（重点是河口）</li>
+<li>湖泊水位和体积变化监测</li>
+<li>湿地</li>
+<li>雷达高度计与其他遥感数据的协同</li>
+<li>水力和水文建模及数据同化</li>
+<li>全球数字高程模型</li>
+</ul>
+<h4 id="对冰冻圈的理解进展"><a href="#对冰冻圈的理解进展" class="headerlink" title="对冰冻圈的理解进展"></a>对冰冻圈的理解进展</h4><ul>
+<li>南极和格陵兰地形、体积和质量平衡</li>
+<li>大陆冰川</li>
+</ul>
+<h4 id="建立三十年雷达高度计记录：挑战与成就"><a href="#建立三十年雷达高度计记录：挑战与成就" class="headerlink" title="建立三十年雷达高度计记录：挑战与成就"></a>建立三十年雷达高度计记录：挑战与成就</h4><ul>
+<li>定标和长期监测仪器：偏差、漂移模型、缺点、改进</li>
+<li>用实地数据验证长时间序列</li>
+<li>从LRM到SAR雷达高度计：如何确保无缝过渡</li>
+<li>全球和区域多卫星海平面变化：空间和时间记录</li>
+<li>精度进展：从15厘米到毫米（和亚毫米/年）挑战！</li>
+<li>有趣/意外的科学结果：绝对动态地形、全球和区域平均海平面趋势、湖泊和河流排放趋势、冰量趋势、年际变化中的涡旋过程、十年振荡…</li>
+</ul>
+<h4 id="雷达高度计、其他数据和模型之间的协同"><a href="#雷达高度计、其他数据和模型之间的协同" class="headerlink" title="雷达高度计、其他数据和模型之间的协同"></a>雷达高度计、其他数据和模型之间的协同</h4><ul>
+<li>与实地数据的比较：潮汐计、船舶数据、浮标、Argo浮标和HF雷达…</li>
+<li>与变化重力（GRACE、GRACE-FO、MAGIC/NGGM）、热膨胀（Argo）和雷达高度计的协同。</li>
+<li>海平面、海表温度、海洋颜色、海表盐度和风应力的协同</li>
+<li>海洋环流与海洋生物学和海-气耦合过程的相互作用的协同研究</li>
+<li>雷达高度计在海洋监测和运行预报系统中的影响</li>
+<li>业务化水文学</li>
+</ul>
+<h4 id="推广"><a href="#推广" class="headerlink" title="推广"></a>推广</h4><ul>
+<li>教育项目</li>
+<li>科学成果向公众的回报</li>
+<li>使用互联网和社交媒体推广卫星雷达高度计</li>
+<li>开放和公民科学</li>
+</ul>
+<h4 id="展望：下一代雷达高度计"><a href="#展望：下一代雷达高度计" class="headerlink" title="展望：下一代雷达高度计"></a>展望：下一代雷达高度计</h4><ul>
+<li>未来雷达高度计任务的要求（海洋学、沿海区域、内陆水、陆地、冰冻圈）</li>
+<li>业务化海洋学和水文学任务</li>
+<li>第三代高度计</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%AB%E6%98%9F%E6%B5%8B%E9%AB%98/" rel="tag"># 卫星测高</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/04/chatgptlunwen/" rel="prev" title="ChatGPT在科研中的使用">
+      <i class="fa fa-chevron-left"></i> ChatGPT在科研中的使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/04/04/swotl3/" rel="next" title="SWOT L3轻量级数据发布">
+      SWOT L3轻量级数据发布 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#会议网站"><span class="nav-number">1.</span> <span class="nav-text">会议网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要日期"><span class="nav-number">2.</span> <span class="nav-text">重要日期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">3.</span> <span class="nav-text">主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#雷达高度计三十年进展：历史视角（主题演讲）"><span class="nav-number">3.1.</span> <span class="nav-text">雷达高度计三十年进展：历史视角（主题演讲）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对动态海洋的理解进展"><span class="nav-number">3.2.</span> <span class="nav-text">对动态海洋的理解进展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对沿海过程的理解进展"><span class="nav-number">3.3.</span> <span class="nav-text">对沿海过程的理解进展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对极地海洋的理解进展"><span class="nav-number">3.4.</span> <span class="nav-text">对极地海洋的理解进展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献"><span class="nav-number">3.5.</span> <span class="nav-text">雷达高度计对重力场、海洋大地水准面、海底地形建模和定轨的贡献</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陆地和内陆水体"><span class="nav-number">3.6.</span> <span class="nav-text">陆地和内陆水体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对冰冻圈的理解进展"><span class="nav-number">3.7.</span> <span class="nav-text">对冰冻圈的理解进展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立三十年雷达高度计记录：挑战与成就"><span class="nav-number">3.8.</span> <span class="nav-text">建立三十年雷达高度计记录：挑战与成就</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#雷达高度计、其他数据和模型之间的协同"><span class="nav-number">3.9.</span> <span class="nav-text">雷达高度计、其他数据和模型之间的协同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推广"><span class="nav-number">3.10.</span> <span class="nav-text">推广</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#展望：下一代雷达高度计"><span class="nav-number">3.11.</span> <span class="nav-text">展望：下一代雷达高度计</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">161</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

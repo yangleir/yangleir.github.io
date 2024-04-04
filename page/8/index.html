@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">88</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">91</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">157</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">161</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,471 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/08/18/distance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/18/distance/" class="post-title-link" itemprop="url">GMT的海岸线空间数据分析功能</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-18 21:27:35" itemprop="dateCreated datePublished" datetime="2021-08-18T21:27:35+08:00">2021-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-20 21:44:11" itemprop="dateModified" datetime="2021-08-20T21:44:11+08:00">2021-08-20</time>
+              </span>
+
+          
+            <span id="/2021/08/18/distance/" class="post-meta-item leancloud_visitors" data-flag-title="GMT的海岸线空间数据分析功能" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/18/distance/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/18/distance/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>下面介绍：使用GMT和海岸线数据绘任意距离的海岸延伸线（如12海里线等）；使用海岸线距离进行站点数据的筛选（如提取沿海50km以内的GNSS点位）。</p>
+<h2 id="根据离岸的距离对GNSS站点进行提取"><a href="#根据离岸的距离对GNSS站点进行提取" class="headerlink" title="根据离岸的距离对GNSS站点进行提取"></a>根据离岸的距离对GNSS站点进行提取</h2><p>在利用GNSS水汽对卫星高度计进行湿延迟评估时，需要提取距离海岸线小于50km的站点做比对。这里我们使用GMT快速分析提取数据并绘图展示。</p>
+<p>绘图采用的数据主要是中国地震局陆态网、IGS和自然资源部沿海业务化GNSS系统，卫星数据主要是我国的海洋二号以及国外的Jason，绘图数据见文末链接。</p>
+<blockquote>
+<p>中国陆态网数据和国际IGS数据为共享开放资料。由于政策原因，沿海业务化GNSS资料暂未公开。海洋二号高度计资料和国外高度计资料已全面开放共享。</p>
+</blockquote>
+<p>绘图任务主要步骤总结为：</p>
+<ul>
+<li><code>grdmath</code>的<code>LDISTG</code>计算网格点到<code>GSHHG</code>岸线的距离，生成网格文件；</li>
+<li><code>grdlandmask</code>分离陆海；</li>
+<li><code>grdcontour</code>提取某值的等值线；</li>
+<li><code>select</code>依据点位到某等值线的距离筛选站点。</li>
+</ul>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>下面是windows下的代码：</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM             GMT EXAMPLE xxxx</span></span><br><span class="line"><span class="comment">REM             2019-04-14 leiyang@fio.org.cn</span></span><br><span class="line"><span class="comment">REM Purpose:    Using grdmath to show the distance from GSHHG  coastline data</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=wet.ps</span><br><span class="line"></span><br><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br><span class="line">gmt grdlandmask -R -Dl -I10m -N1/-<span class="number">1</span> -Gland_mask.nc -V</span><br><span class="line">gmt grdmath dist_to_gshhg.nc land_mask.nc MUL = file.nc</span><br><span class="line">gmt grdsample dist_to_gshhg.nc -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -I1m -Gfile2.nc</span><br><span class="line"><span class="comment">REM Outut 50km coordinates.</span></span><br><span class="line">gmt grdcontour file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C50, -D &gt; out.d50</span><br><span class="line">gmt makecpt -Ccopper -T-<span class="number">0</span>/<span class="number">50</span>/<span class="number">1</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4.<span class="number">5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt -t80&gt; <span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J out.d50 -W0.<span class="number">4</span>p,green -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt pscoast -R -JM4.<span class="number">5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -K -Swhite -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Begin the sites selection.</span></span><br><span class="line">gmt pscoast -R -M -W -Dc -A10000&gt; coastal.txt</span><br><span class="line">gmt select trc.dat -Lcoastal.txt+d50k -fg &gt; subset.d2</span><br><span class="line"></span><br><span class="line"><span class="comment">REM satellite tracks</span></span><br><span class="line">gmt psxy -R -J ja.dat -W1p,black -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J hy2.dat -W1p,red -O -K -t80&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM All CMONOC sites</span></span><br><span class="line">gmt psxy -R -J trc.dat -Sc0.<span class="number">1</span> -Gblack -O -K -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM tide sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">3</span>, $<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">1</span>&#125;" yh_tide.txt2  &gt;temp.d</span><br><span class="line"><span class="comment">REM Coastal GNSS sites</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss.txt &gt;temp.d01</span><br><span class="line">gmt psxy temp.d01  -R  -J  -K -O  -Gblack -St0.<span class="number">05</span>i -t70 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Plot the selected sites </span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt psxy -R -J -O -Gred -Sc0.<span class="number">08</span>i -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J subset.d2 -Ss0.<span class="number">15</span> -GDEEPSKYBLUE1 -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">2</span> -Gred -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gmt psxy -R -J gnss3.txt -Ss0.<span class="number">12</span> -Gblue -O -K &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span> | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">118</span>.<span class="number">38</span>,<span class="number">24</span>.<span class="number">46</span>  | gmt psxy -R -J -Sa0.<span class="number">2</span> -Gblue -O -K&gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gawk "!/SDYT/ &amp;&amp; !/SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "/SDYT/ || /SDQD/ &#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">3</span>&#125;" gnss3.txt | gmt pstext  -R -J -F+f7p,black+jTL -O -K -Gwhite -D-<span class="number">0</span>.<span class="number">5</span>/<span class="number">0</span>.<span class="number">4</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, $<span class="number">4</span>&#125;" gnss2.txt | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"><span class="built_in">echo</span> <span class="number">1</span>.<span class="number">2116450</span>e+<span class="number">02</span>,<span class="number">2</span>.<span class="number">4953600</span>e+<span class="number">01</span>,TWTF | gmt pstext -R -J -F+f7p,black+jTL -O -K -Gwhite -D0.<span class="number">2</span>/<span class="number">0</span>.<span class="number">1</span>&gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM add legend</span></span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">05</span>c black <span class="number">1</span>p,black <span class="number">0</span>.<span class="number">3</span>i Total CMONOC &gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">15</span>c DEEPSKYBLUE1 .<span class="number">7</span>p,DEEPSKYBLUE1 <span class="number">0</span>.<span class="number">3</span>i Coastal CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i s <span class="number">0</span>.<span class="number">2</span>c blue <span class="number">0</span>.<span class="number">7</span>p,red <span class="number">0</span>.<span class="number">3</span>i Selected CMONOC &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i t <span class="number">0</span>.<span class="number">05</span>i gray - <span class="number">0</span>.<span class="number">3</span>i Costal CGN&gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i c <span class="number">0</span>.<span class="number">08</span>i  red - <span class="number">0</span>.<span class="number">3</span>i Selected CGN &gt;&gt;le.d</span><br><span class="line"><span class="built_in">echo</span> S <span class="number">0</span>.<span class="number">1</span>i a <span class="number">0</span>.<span class="number">15</span>c blue <span class="number">0</span>.<span class="number">7</span>p,blue <span class="number">0</span>.<span class="number">3</span>i IGS &gt;&gt;le.d</span><br><span class="line">gmt pslegend -D+w1.<span class="number">6</span>i+jBL+o2.<span class="number">8</span>i/<span class="number">0</span>.<span class="number">2</span>i -R -J -O -F+p1p+gwhite --FONT_ANNOT_PRIMARY=<span class="number">7</span>p le.d &gt;&gt; <span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">REM Creat kml file to be loaded in Google earth.</span></span><br><span class="line">gmt <span class="number">2</span>kml subset.d2 -Gred+f -<span class="built_in">Fs</span> &gt; mypoints.kml</span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="200公里线绘制"><a href="#200公里线绘制" class="headerlink" title="200公里线绘制"></a>200公里线绘制</h2><p>使用GMT岸线绘制领海线、专属经济区等政治界线比较危险，因为上面的数据分析使用了低分辨率的岸线，并忽略了很多海岛。这里选择绘制距离大陆200km的等值线。</p>
+<p>具体做法是对<code>grdcontour</code>的<code>-C</code>做修改，设置为<code>-C200,</code>。其他距离可以通过设定<code>-C</code>后面的数值实现。</p>
+<h4 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gmt grdcontour file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -C200, -D &gt; <span class="keyword">out</span>.d50</span><br><span class="line">gmt makecpt -Ccopper -T<span class="number">-0</span>/<span class="number">200</span>/<span class="number">10</span>&gt; t.cpt</span><br><span class="line"></span><br><span class="line">gmt grdimage file2.nc -JM4<span class="number">.5</span>i -R100/<span class="number">130</span>/<span class="number">15</span>/<span class="number">45</span> -P -K -Ct.cpt &gt; %ps%</span><br><span class="line">gmt psxy -R -J <span class="keyword">out</span>.d50 -W0<span class="number">.4</span>p,green -O -K &gt;&gt;%ps%</span><br><span class="line">gmt pscoast -R -JM4<span class="number">.5</span>i -Dl -A10000/<span class="number">0</span>/<span class="number">1</span> -B5g5 --FONT_TITLE=<span class="number">10</span>p -Gwhite -W0<span class="number">.1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -O -N1&gt;&gt; %ps%</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/gnss_sites.png" alt></p>
+<center>距离岸线50km的GNSS站点分布</center>
+
+
+<p><img src="/images/200.png" alt></p>
+<center>距离岸线200km的等值线</center>
+
+<h2 id="坐标文件"><a href="#坐标文件" class="headerlink" title="坐标文件"></a>坐标文件</h2><p>陆态网GNSS站点坐标<code>trc.dat</code>：<a href="https://www.jianguoyun.com/p/DZNDa0kQ2PCQBxih5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DZNDa0kQ2PCQBxih5ogE</a><br>HY-2高度计卫星轨迹<code>hy2.dat</code>：<a href="https://www.jianguoyun.com/p/DZvezRQQ2PCQBxim5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DZvezRQQ2PCQBxim5ogE</a><br>Jason-2高度计轨迹<code>ja.dat</code>：<a href="https://www.jianguoyun.com/p/Dfulo24Q2PCQBxiq5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/Dfulo24Q2PCQBxiq5ogE</a><br>沿海验潮站概略坐标<code>yh_tide.txt2</code>：<a href="https://www.jianguoyun.com/p/DaYSJ8kQ2PCQBxis5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DaYSJ8kQ2PCQBxis5ogE</a><br>沿海GNSS业务化系统概略坐标<code>gnss.txt</code>：<a href="https://www.jianguoyun.com/p/DWhRCEUQ2PCQBxiv5ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DWhRCEUQ2PCQBxiv5ogE</a><br>绘图用的个别GNSS站点：<a href="https://www.jianguoyun.com/p/DdUqCG4Q2PCQBxi05ogE；" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DdUqCG4Q2PCQBxi05ogE；</a> <a href="https://www.jianguoyun.com/p/DcBuNBsQ2PCQBxi15ogE" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DcBuNBsQ2PCQBxi15ogE</a> </p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt grdmath -R100/<span class="number">140</span>/<span class="number">15</span>/<span class="number">45</span> -A1000000/<span class="number">0</span>/<span class="number">4</span> -Dc -I10m LDISTG = dist_to_gshhg.nc</span><br></pre></td></tr></table></figure>
+
+<p>这一行代码中的<code>-Dc</code>表示低分辨率海岸线，如果计算的区域比较大，使用低分辨率岸线可以加快时间。不然，计算速度可能非常慢。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/08/07/arctic-proj/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/07/arctic-proj/" class="post-title-link" itemprop="url">GMT极地投影</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-07 08:35:30" itemprop="dateCreated datePublished" datetime="2021-08-07T08:35:30+08:00">2021-08-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-08 22:25:22" itemprop="dateModified" datetime="2021-08-08T22:25:22+08:00">2021-08-08</time>
+              </span>
+
+          
+            <span id="/2021/08/07/arctic-proj/" class="post-meta-item leancloud_visitors" data-flag-title="GMT极地投影" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/07/arctic-proj/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/07/arctic-proj/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>GMT的地图投影分成了4类，分别是圆锥投影、方位投影、圆柱投影和混合投影，共计有30多种投影方法。地球的极地区域多使用极地方位投影。</p>
+<h2 id="极地方位投影-Polar-Stereographic-Map"><a href="#极地方位投影-Polar-Stereographic-Map" class="headerlink" title="极地方位投影 Polar Stereographic Map"></a>极地方位投影 Polar Stereographic Map</h2><p>方位投影特点是保持角度无变形，面积和距离有变形，又称为等角投影。方位投影多用于单个半球以及极地区域地图，当用于极地时成为<code>Polar Stereographic Map</code>，一般区域则成为<code>Stereographic Map</code>。</p>
+<p><img src="/images/bianxing.jpg" alt></p>
+<center>距离投影中心点越远，变形越大。</center>
+
+<p>更多信息：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//m</span>anifold.net<span class="regexp">/doc/m</span>fd9<span class="regexp">/polar_stereographic_projection.htm</span></span><br></pre></td></tr></table></figure>
+
+<p>下面使用一行代码绘制北极区域地图。如果需要叠加其他点、线等要素，则使用对应的命令追加即可。</p>
+<h3 id="投影中心在北极点，展示极地区域"><a href="#投影中心在北极点，展示极地区域" class="headerlink" title="投影中心在北极点，展示极地区域"></a>投影中心在北极点，展示极地区域</h3><p>这种地图特点是边界为圆形，以北极点为中心，各纬圈方向变形均匀对称。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt pscoast -R0/<span class="number">360</span>/<span class="number">60</span>/<span class="number">90</span> -JS0/<span class="number">90</span>/<span class="number">10</span>c -Bag -Dl -A25000 -Groyalblue -Sseashell &gt; GMT_stereographic_polar1.ps</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/GMT_stereographic_polar1.png" alt></p>
+<h3 id="投影中心点偏移，不在北极点"><a href="#投影中心点偏移，不在北极点" class="headerlink" title="投影中心点偏移，不在北极点"></a>投影中心点偏移，不在北极点</h3><p>通过设置<code>-JSlon/lat/size</code>中的<code>lon/lat</code>调整投影中心点。地图仍旧是圆形边界，但是中心点已经不是北极点，投影的变形也不具备对称特点。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt pscoast -R120/<span class="number">260</span>/<span class="number">10</span>/<span class="number">75</span> -JS190/<span class="number">70</span>/<span class="number">10</span>c -Bag -Dl -A25000 -Groyalblue -Sseashell &gt; GMT_stereographic_polar2.ps</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/GMT_stereographic_polar2.png" alt></p>
+<h3 id="投影中心点偏移，非全极效果"><a href="#投影中心点偏移，非全极效果" class="headerlink" title="投影中心点偏移，非全极效果"></a>投影中心点偏移，非全极效果</h3><p>设置<code>-JSlon/lat/size</code>中的<code>lat</code>为90。但是<code>-R</code>的坐标范围是扇形区域，绘制出的地图也是扇形。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt pscoast -R100/<span class="number">260</span>/<span class="number">10</span>/<span class="number">75</span> -JS180/<span class="number">90</span>/<span class="number">10</span>c -Bag -Dl -A25000 -Groyalblue -Sseashell &gt; GMT_stereographic_polar3.ps</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/GMT_stereographic_polar3.png" alt></p>
+<h3 id="矩形地图展示全极区"><a href="#矩形地图展示全极区" class="headerlink" title="矩形地图展示全极区"></a>矩形地图展示全极区</h3><p>通过设置<code>-R-45/50/135/50r</code>，以左下角和右上角坐标为边界，并且加<code>+r</code>。这种地图也较为常用，但是GMT绘制技巧埋藏的比较深，同样是<code>JS</code>投影，改变的仅仅是坐标边界。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt pscoast -R<span class="number">-45</span>/<span class="number">50</span>/<span class="number">135</span>/<span class="number">50</span>r -JS0/<span class="number">90</span>/<span class="number">11</span>c -Ba30g30 -Dl -A25000 -Wthinnest -Groyalblue -Sseashell &gt; GMT_stereographic_rect.ps</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/GMT_stereographic_rect.png" alt></p>
+<h3 id="竖版地图"><a href="#竖版地图" class="headerlink" title="竖版地图"></a>竖版地图</h3><p>竖版地图对我们的海洋观念影响很大，在国内也一度热炒。GMT中有一种通用墨卡托全球投影（Transverse Mercator projection），可以将南北极同时绘制。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt pscoast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT180/<span class="number">-30</span>/<span class="number">4</span>i -A25000 -Groyalblue -Sseashell  -Bg30a30 &gt;TMcontours.ps</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/TMcontours34.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/07/31/beiji2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/31/beiji2/" class="post-title-link" itemprop="url">北极问题：治理进程、态势评估及应对之策</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-31 18:06:22 / 修改时间：18:26:57" itemprop="dateCreated datePublished" datetime="2021-07-31T18:06:22+08:00">2021-07-31</time>
+            </span>
+
+          
+            <span id="/2021/07/31/beiji2/" class="post-meta-item leancloud_visitors" data-flag-title="北极问题：治理进程、态势评估及应对之策" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/31/beiji2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/31/beiji2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文章来源：李振福, 李诗悦. 北极问题：治理进程、态势评估及应对之策[J]. 俄罗斯学刊, 2021, 11(03): 5–28.</p>
+</blockquote>
+<blockquote>
+<p>作者简介:李振福，大连海事大学交通运输工程学院教授、博士生导师，大连海事大学极地海事研究中心主任，大连海事大学专业学位教育学院院长；李诗悦，吉林大学东北亚研究院博士研究生。</p>
+</blockquote>
+<blockquote>
+<p>【内容摘要】北极问题在复杂多变的国际形势下愈发受到世界各主要相关国家的关注。面对日趋复杂的全球北极问题，以北极国家和北极理事会为主导的传统北极治理模式已显得捉襟见肘，该领域的全球治理也不免出现“失灵”的局面。北极问题治理分为治理初始阶段、治理过渡阶段和以2007 年俄罗斯“北冰洋底插旗事件”为起点至今的激烈角逐阶段。进而，北极问题治理完成了从封闭到开放、从区域向全球转变的发展过程。目前北极问题已从单纯的气候环境领域扩展到航线、资源、能源、主权、科考等更大范围的发展过程；既有航线主权争议、规则之争，也有北极理事会的作用等方面的问题。中国参与北极事务的深度治理可从以下方面展开：推动北极治理机制的完善、积极应对地缘政治威胁、以中俄合作为关键切入点、推动建设北极命运共同体等。</p>
+</blockquote>
+<p>近年来，随着全球气候变暖的加剧，北冰洋海冰的融化速度和范围也在逐渐增大，致使北方海航道的商业化步伐逐渐加快，北极能源的大规模开发也逐渐成为可能。因此，北极国家陆续出台或更新本国与北极地区相关的国家战略，进一步加强对北极的争夺和控制。其他有关国家也积极出台北极相关政策，谋求在北极地区的存在。从战略位置来看，北极位于地球最北端，北方海航道是连接欧、亚、美三大洲的最短航线，也是连接北太平洋与北大西洋的重要交通通道，其军事价值和通道战略价值极其重要。从资源储量来看，北极地区蕴藏极其丰富的油气资源，被誉为“中东的继承者”。同时，北极煤炭资源总体储量也极其丰富，占全球煤炭总储量的四分之一。在世界资源日益短缺的形势下，北极在资源争夺中的重要性不言而喻。与此同时，北冰洋海冰逐渐消融，北极地区的航道价值也日益显现。</p>
+<p>自然环境的不断变化和人类北极活动的增加导致北极问题越来越复杂，影响范围越来越广泛，日渐呈现全球化的发展态势。北极问题作为国际公共问题，具有公共性、全球性、综合性等特点，其有效治理对北极和全球发展来说都至关重要。以北极国家和北极理事会为主导的传统北极治理模式显得能力不足，全球北极问题治理时常出现“失灵”现象，对世界地缘政治和地缘经济方面带来不利影响。</p>
+<h1 id="一、北极问题治理的发展进程"><a href="#一、北极问题治理的发展进程" class="headerlink" title="一、北极问题治理的发展进程"></a>一、北极问题治理的发展进程</h1><p>严格讲，人类在北极活动的时间仅200 多年，而对于北极问题的治理，是从二战后才开始的。自第二次世界大战开始，北极地区的军事战略地位凸显，北极也成为二战的战场之一。冷战结束后，北极国家及其他相关国家在北极地区的开发、科考等活动不断增强，由此引发了北极资源、领土归属等问题，北极也逐渐从旧地缘政治的边缘踏入到全球治理的中心区域a。</p>
+<h2 id="（一）北极问题治理的发展阶段"><a href="#（一）北极问题治理的发展阶段" class="headerlink" title="（一）北极问题治理的发展阶段"></a>（一）北极问题治理的发展阶段</h2><p>北极问题治理是从冷战开始之后逐渐形成的，其演化过程大致可以分为以下几个阶段。</p>
+<p>第一，北极问题治理初始阶段（冷战开始至20世纪80年代）。这一阶段，北极问题治理主要是作为一项地区性问题，更多被国际环境保护倡议运动所关注，不在国际地区争端的主要关注范围a。20 世纪50 年代，加拿大曾暂短宣布对北极拥有主权，但并未被国际社会接受，遭到其他国家的一致反对。另外，因为北极问题牵涉的利益冲突还不够敏感，在此后的相当长一段时间，北极问题治理的重点体现在安全领域，呈现一种相对平静的状态。</p>
+<p>第二，北极问题治理的过渡阶段（20 世纪80 年代末至2007 年）。这一阶段的基调由苏联领导人戈尔巴乔夫1987 年的“摩尔曼斯克讲话”所奠定，讲话标志着北极问题治理范畴的重大转变——从单一的安全治理开始向内容更为广泛的多维利用和规制方向转变，重点为环境和原住民问题。这一阶段最重要的节点性事件是北极理事会的成立。开始时仅有北极圈内8 国和北极相关组织作为成员参与北极事务，其后，法国、荷兰、英国等国及多个国际组织进入北极理事会。越来越多的北极域外国家或地区以及国际组织获得参与北极事务的机会，并积极参与到北极事务处理的过程中，北极事务的参与者与北极治理主体不再局限于北极8 国，呈现多元化的发展趋势。此外，为约束和规范各参与者的行为，实现北极问题治理的规范化，大量有关北极治理的法律法规逐渐出现。这一阶段，在北极理事会的框架下，北极问题治理机制也在逐渐形成。</p>
+<p>第三，以2007 年俄罗斯“北冰洋底插旗事件”为起点至今的激烈角逐阶段。“北冰洋底插旗事件”标志着北极问题治理的范围从上一个阶段的生态环境和原住民等单向度问题，转向更高层级、更加敏感的高政治议题b。“北冰洋海底插旗事件”之后，北极问题治理范围进一步扩大，但北极国家和北极理事会在北极问题治理中仍处于主导地位，北极域外国家和国际组织在北极地区的活动受到严格限制。伴随各国对北极的“暴风式”开发，北极问题日渐复杂，辐射范围日益广泛，北极治理对象也逐渐多样化，北极问题逐渐“出圈”，全球北极问题呈现出越来越强的跨区域性和国际公共性特征，有关北极问题治理的法律法规也更加具体规范，日渐形成了软硬法混合的合作治理模式。北极问题治理完成了从封闭到开放、从区域向全球转变的发展过程。</p>
+<h2 id="（二）北极问题治理的发展现状"><a href="#（二）北极问题治理的发展现状" class="headerlink" title="（二）北极问题治理的发展现状"></a>（二）北极问题治理的发展现状</h2><p>北极问题治理的主要目的在于促进这一地区的可持续发展，并增进全人类的共同福祉。随着北极的冰雪消融，在北极航线航行商业化、能源及资源开发利用、渔业和旅游业不断兴起等经济发展的强烈刺激下，主权国家、国际组织、相关行业和跨国企业等对北极的兴趣愈加浓厚，这使得北极与世界主要地区的地缘经济及地缘政治联系逐渐加强a，也令北极问题治理的压力与日俱增，需要形成完善的有效治理机制。</p>
+<p>面对越来越严重的北极问题治理挑战，相关国际组织、原住民组织、跨国企业、非政府组织以及行为体政府等扮演着越来越重要的角色，但毋庸置疑的是主权国家在目前北极问题治理中依然处于主导性地位。需要指出的是，北极问题治理是有一定机制基础的，包括《联合国海洋法公约》和《联合国气候变化框架公约》等全球性问题治理框架，北极理事会和巴伦支海欧洲北极理事会等组织的区域性框架协议，以及《北极冰封水域船只航行指南》等航行规范等。</p>
+<p>现有机制安排在北极问题治理上存在着一些明显不足：</p>
+<p>第一，《联合国海洋法公约》不是针对北极及北冰洋的特征和诉求制定的，更多体现的是国际海洋法的一般性规定，很难适用于北极地区的能源资源开采、航线开发利用、极地科学考察、渔业开发、生态环境保护和军事化冲突等特殊问题。《联合国海洋法公约》关于200 海里外大陆架的规定更是可能加剧北极争夺。</p>
+<p>第二，多边环境与气候框架公约对北极特殊的环境和气候问题缺乏针对性。北极生态环境极其脆弱和敏感，一旦遭受损害，极难恢复，北极地区的气候和环境需要更为严格的预防和保护措施。</p>
+<p>第三，美国并未参加《联合国海洋法公约》《关于持久性有机污染物的斯德哥尔摩公约》《京都议定书》等国际公约，这使得北极问题治理的相关国际法在北极的适用性和权威性严重受损。国际海事组织、北极理事会所制定的没有法律约束力的“软法性”文件执行弹性较大，难以保证达到预期效果。</p>
+<p>第四，北极理事会等现有区域治理机制主要解释和处理科研、环保及可持续发展问题，缺乏处理政治、军事问题的功能和机制。现有相关区域机制也无法解决跨区域的环境、气候问题以及航运、能源等具有全球特征的问题。</p>
+<p>总之，北极地区目前严重缺乏一种具有更大适用性和支配性的政治和法律机制，现有法律机制不能满足北极区域总体可持续发展的需求，也无法协调各国在北极能源资源以及其他领域的冲突和矛盾。</p>
+<h2 id="（三）北极问题治理的发展趋势"><a href="#（三）北极问题治理的发展趋势" class="headerlink" title="（三）北极问题治理的发展趋势"></a>（三）北极问题治理的发展趋势</h2><p>从北极问题治理的各个发展阶段可以看出，北极问题治理总体围绕两方面展开：一是北极的经济性开发，其中包括北方海航道开发和北极资源开发；二是北极秩序维护，重点针对的是北极国家主权纠纷、军事部署和北极环境保护。而未来的北极问题治理也将以此为基础进行拓展补充，并根据各国北极发展战略体现出相应的侧重。</p>
+<p>在北极地区的经济开发方面，首要的是北极航线的开发问题。从航运距离角度来看，北方海航道较传统航线具有更高的经济性，然而综合分析航行风险、航行成本等因素，目前北方海航道整体经济性远不如传统航线。若要实现其经济价值，只有实现班轮运输，需要进一步降低航道的航行风险。但从目前的发展状况来看，实现班轮运输还需很长一段时间的技术积累和设施供给。各国或地区均在开展北极资源开发，但到目前为止，北极的石油生产活动主要是在陆地或靠近陆地的近海，而实际上北极石油勘探重点应在远深海地区，因技术所限，北极远深海油井的开发难度较大，短时间内难以成行。因此，虽然潜力巨大，但是由于开发难度较大、开发时间较短等原因，北极经济性的实现还存在一定的不确定性，未来北极经济的开发也将在很长一段时间内继续以基础建设为主，以探索的姿态进行。</p>
+<p>在北极秩序方面，尽管随着海冰融化，北极利益凸显，北极各国对北极的竞争将愈演愈烈，但是更多的非北极国家在北极问题上开始发出自己的声音，并积极参与进来，通过国际组织合作来维持北极的和平局面；而北极国家一方面需要与他国合作以实现更高效的北极开发，另一方面又担忧自身的固有利益受损。因此，北极的国际治理环境将长期处于一种矛盾状态。北极问题治理秩序环境是与北极经济开发相辅相成的，同时又先其一步，未来随着北极庞大的经济价值不断被确认，北极问题治理秩序将最先受到影响并产生效应。</p>
+<h1 id="二、北极问题态势评估"><a href="#二、北极问题态势评估" class="headerlink" title="二、北极问题态势评估"></a>二、北极问题态势评估</h1><p>目前，北极问题已从单纯的气候环境领域扩展到航线、资源、能源、主权、科考等更大范围，立体化的北极问题构成需要从多角度来评估其发展态势。</p>
+<h2 id="（一）航线主权争议：俄美加三国的利益诉求和做法明显不同"><a href="#（一）航线主权争议：俄美加三国的利益诉求和做法明显不同" class="headerlink" title="（一）航线主权争议：俄美加三国的利益诉求和做法明显不同"></a>（一）航线主权争议：俄美加三国的利益诉求和做法明显不同</h2><p>北极问题的首要矛盾是北极海域的主权问题。北极海域分为公海和北极沿岸国管辖海域，北极航线贯穿其中，一旦进行商业航行便会牵扯到一系列主权问题，因此北极海域的主权问题也多以航线主权博弈的形式展开。</p>
+<p><code>北极目前可利用的航线分为东北航线和西北航线两部分</code>。关于东北航线，俄罗斯在本国的北方海航道管理上，政策不断开放，管制不断放松，总体来看开放态势良好，然而依旧具有较高的商业垄断性，无论从地理位置、历史发展还是国际法律规定方面看，俄罗斯对于整个北方海航道的主权把控都是毋庸置疑的，然而也正是这种绝对性，在某种程度上限制了东北航线的商业开发。在俄罗斯联邦成立初期，北方海航道主要作为俄罗斯国内的海运航线使用，仅限于能源资源运输和极地科学考察。直到1999 年4 月30 日俄罗斯颁布《俄罗斯商业航运法》，情况才有所改变，北方海航道的商业航行开始适度放开。2001年俄罗斯颁布的《俄罗斯联邦至2020年期间的海洋学说》提出，包括外国人的有关承运人，均可以平等地进入该航线并享受破冰服务a。2013 年1 月17 日俄罗斯联邦交通部批准的《北方海航道水域航行规则》，对在北方海航道海域航行的船舶提出了较详细的要求和规范，将破冰船强制引航制度改变为许可证制度，并制定了一系列的独立航行许可条件。要求独立航行船舶需向北方海航道管理局提交许可证申请书，管理部门要严格审查提交的船舶冰级等信息，检查船舶是否存在违反有关航行安全规定和污染海洋环境等方面的情况，船舶申请破冰船提供破冰服务后，仅能由悬挂俄罗斯国旗并在该海域被授权的破冰船执行援助业务；要求冰区引航员必须为俄罗斯公民等。尽管近10 年来俄罗斯在东北航线上对外寻求合作开发的诉求愈发强烈，但在其巨大商业价值下，俄罗斯一直采取非常谨慎的开放态度，希望为本国谋求更多的利益。在自相矛盾的发展战略下，俄罗斯北极沿岸落后的基础设施建设与强制交纳的高额破冰引航费用，成为影响东北航线发展的主要制约因素。</p>
+<p>关于西北航线，加拿大一直认为属于其主权范围，但这一点在国际社会一直存有争议。由于北极环境变化带来的经济利益凸显，以及北极治理机制的缺失，加拿大早期宣称的在北极的主权和主权权利主张时常受到威胁。虽然多数国家也都默认遵循加拿大的管理制度，以求得顺利通行，但仍有以美国为主的国家利用加拿大传统内水的国际法律界定模糊对加拿大西北航线治理设置障碍。直至美加达成《极地合作协议》情况才有所好转，协议允许美国破冰船通航西北航线。但美国破冰船由隶属于国土安全部的美国海岸警卫队指挥，加拿大破冰船由国家渔业与海洋部管理，因此，加拿大认为自己的北极主权受到长期的潜在威胁。因为国家综合实力较弱，无法与美俄等大国抗争，加拿大在北极战略上采取从低政治领域涉入再逐渐成为该领域引领者的策略，扮演各种多边会谈的积极组织者和支持者，引导制定相关规范以提升话语权，同时对于北极主权问题保持高度的政治敏感性。另外，加拿大一直以保护自身海岸和北极环境为由，依照《北极水域污染防治法》对他国在北极航行的船舶规格进行严格限制。西北航线目前由于航行条件，航运安全尚不能得到保障，因此短时间内无法实现商业通航，而一旦满足通航条件，会极大缩减美国东部至东亚的航运距离，美国将成为最大受益方，届时美国难免会重新采取强硬措施对加拿大施压以谋求在西北航线上更多的经济利益，而未来有关北方海航道主权争议的问题也将主要围绕西北航线展开。</p>
+<h2 id="（二）规则之争：很难形成各方认同的规则和条约"><a href="#（二）规则之争：很难形成各方认同的规则和条约" class="headerlink" title="（二）规则之争：很难形成各方认同的规则和条约"></a>（二）规则之争：很难形成各方认同的规则和条约</h2><p>北极地区的海洋争端问题通常涉及国际条约法、国际组织法以及国际法的其他部门法。一直以来，北极公海海域的专属法律制定存在众多难题。北方海航道涉及公海、沿岸国专属经济区、沿岸国领海等，加之北极资源与航线开发经济价值较大，影响全球的经济发展方向，因此各国始终没有制定如《南极条约》这种系统完整且适用性强的国际公约。目前，仅以北极理事会为主要平台，各类北极组织在各领域统筹和协调各国在北极地区的活动，并根据《联合国海洋法公约》和北极国家联合制定的多边层面的各类条约（如《国际北极科学委员会章程》等）对北极问题进行治理。《联合国海洋法公约》并不是专门针对北极地区而制定的特定区域国际公约，因而其中的相关规则很难适应北极地区的具体情况。虽如此，但因为没有其他国际法可以遵循，目前只能暂时参照《联合国海洋法公约》体系下的基本原则和规范来处置北极地区的海洋法律问题，迫切需要北极相关主体尽快制定出一整套具有北极地区特色并专门针对北极地区具体情况的规范性区域性国际法律体系。</p>
+<p>《联合国海洋法公约》规定，主权国家将距其领海基线200海里的范围划为大陆架，并在此范围内行使主权；如果一个国家能提供200海里外的大陆架是其陆地领土的自然延伸的地理证据，大陆架可以延伸至200海里之外。<code>但由于《联合国海洋法公约》相关法律机制存在一定滞后性，不能有效适应当前海洋勘测科技的发展，海床底部大陆架部分的生物性和非生物性资源的归属问题得不到解决，北极地区的利益规则之争不断激化，北极海域的外大陆架划界问题所涉利益冲突范围不断扩大，不再仅仅是个别国家间的利益博弈，而是需要从整个国际社会利益的角度去协调</code>。</p>
+<p>此外，尽管《联合国海洋法公约》后续更改了一些规则希望美国加入，但遭美国拒绝。与此同时，美国又是国际海事组织的理事国和北极理事会的创始成员国，在享受国际法带来的利益的同时，又因自身没有加入《联合国海洋法公约》而无须受其限制。也正因为美国的这种行为，在《联合国海洋法公约》框架下制定的国际秩序的执行力和强制作用受限，一旦发生因规则不同而引发的矛盾，现有北极治理机制很难保护《联合国海洋法公约》缔约国的正当利益。</p>
+<p>而若参考《南极条约》制定《北极条约》，同样存在许多难以解决的问题。《南极条约》制定于南极大规模开发之前，且南极处于孤立状态，不存在主权界限，而北极开发早已成为世界相关国家的战略发展方向，北极主权问题却一直未获共识，制定《北极条约》极易因影响他国的北极利益而遭反对。2008年丹麦、美国、俄罗斯、加拿大和挪威五国签署的《伊鲁利萨特宣言》声明，无须制定新条约来对北极环境进行管理。与此同时，北极是军事战略要地，从美苏冷战时起，北极海域的军事设施建设从未间断，以美国、俄罗斯和加拿大为主的北极国家长期在北极地区进行军事投入。在上述条件下制定新条约的可能性不大。</p>
+<h2 id="（三）北极理事会：充满权力博弈和不确定性"><a href="#（三）北极理事会：充满权力博弈和不确定性" class="headerlink" title="（三）北极理事会：充满权力博弈和不确定性"></a>（三）北极理事会：充满权力博弈和不确定性</h2><p>北极理事会，也称北极议会、北极委员会和北极协会等。北极理事会于1996年在加拿大渥太华成立，是由美国、加拿大、俄罗斯等领土处于北极圈以内的8个国家作为常任理事国的政府间论坛，其宗旨是保护北极地区的生态环境并促进该地区的经济、社会可持续发展。北极理事会主席国采取轮值制，由8 个常任理事国轮流担任，任期2年。北极理事会规定，轮值主席国在其任期内可以根据需要提出自己关注的议题和计划。北极理事会对于轮值主席国利益的迁就，使北极理事会提出的长期计划目标一般无法达成。</p>
+<p>2011 年5 月，北极理事会召开努克会议，对非北极国家在北极理事会中的责任和权利进行了明确的规定：非北极国家只能申请北极理事会观察员国，并要交纳高额会费。即使这样，非北极国家在北极理事会中也只有提议权，没有投票权。这对非北极国家的北极事务参与是极大的限制，北极地区事务“私物化”倾向愈加显著。非北极国家多有自己的北极政策或北极定位，但北极国家在北极理事会中的一致排他性，令非北极国家的北极政策很难真正实施。然而，北极理事会作为处理北极事务的最重要机构，也是非北极国家参与北极事务的几乎唯一途径，因此，非北极国家只能通过获取观察员国身份得到北极国家的最大程度认可。2013 年5 月15 日，中国与意大利、印度、日本、韩国和新加坡等国一起成为北极理事会正式观察员国。</p>
+<p>从治理成效来看，北极理事会对北极区域的治理有一定效果，如北极理事会获诺贝尔和平奖提名，体现了北极理事会的积极作用。获提名的主要原因在于，现阶段北极理事会的政策着力点是各国都能接受和认可的北极环境保护和可持续发展问题，并且采取的相关措施比较严格。面对北极问题的“强演化”趋势，北极理事会的“私物化”性质会越来越限制其处理北极事务的灵活性。对于非北极国家加入北极理事会等问题，北极8 国也反应不一：美国比较欢迎观察员国积极参与北极事务；瑞典、丹麦、芬兰、挪威和冰岛等国对于新成员的加入报以谨慎的欢迎态度c；俄罗斯在新增观察员国的问题上选择较为消极的态度，主要是不想让非北极国家对其北极地位带来负面影响，进而坚决否决印度的扩大观察员国权利提案；加拿大虽然欢迎合作，但对于非北极国家加入北极理事会等问题表现得更加谨慎。因此，北极理事会的作用有限，加上其固守“半闭关”政策，在北极问题的有效解决上，其价值和作用并不乐观。</p>
+<h2 id="（四）航运发展：航线利用和生态保护的两难处境"><a href="#（四）航运发展：航线利用和生态保护的两难处境" class="headerlink" title="（四）航运发展：航线利用和生态保护的两难处境"></a>（四）航运发展：航线利用和生态保护的两难处境</h2><p>进入21 世纪以来，北极升温的幅度不断增大。北极的融冰季节一般从6 月份开始至8 月份结束。2019 年7 月30 日至8 月3 日，北极格陵兰岛90% 以上的表层融化，融冰达550 亿吨a，融冰规模超过以往。历史资料表明，北极冰川每年都会自然融化，但大多数科学家认为，2019年的这次大面积冰融应该为人类活动导致。因此，目前保护北极生态环境确实必要而又紧迫。与此同时，赫伯罗特、达飞、地中海航运等世界著名海运公司表示，<code>拒绝将北极的西北航线或东北航线作为航运路线</code>。这些公司的理由是，在海运过程中碳基化石燃料燃烧产生的颗粒会加剧全球变暖，危害全球生态系统。</p>
+<p>这三家世界性海运公司的表态折射出两个问题：一是目前北方海航道运输的经济效益尚不显著，或者说还不具备经济可行性；二是北方海航道运输的经济价值和北极生态之间的矛盾是不争的事实。世界经济最发达的国家大多集中在北半球高纬度地区，北方海航道是连接这些经济发达区域的更为便捷的通道，其重要性不言而喻。北方海航道的进一步开通，会使地球中路战略地位下降，北极地区战略地位大大提升，最终致使世界航运重心向北极方向转移，世界格局也会因此而改变。中国海运公司虽然没有明确表示使用北方海航道，但2018 年1 月发布的《中国的北极政策》白皮书表示，中国将着力促进北极的可持续发展，愿依托北方海航道的开发利用，与相关各方共建“冰上丝绸之路”。赫伯罗特等海运公司拒绝使用北方海航道运输，可能会对中国北极航行产生负面影响。最令人担心的是，赫伯罗特等海运公司的表态可能会使北方海航线政治化，<code>北极国家可能会以生态安全问题为由，阻止包括中国在内的各国航运公司使用北方海航道，北方海航道的开发利用受到的限制不可估量，北极问题的治理也会遭遇较大障碍。</code></p>
+<p>（五）能源资源：北极地缘政治角逐的新领域<br>…</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/07/31/beiji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/31/beiji/" class="post-title-link" itemprop="url">俄罗斯第五军区的组建动因及战略任务</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-31 17:32:53 / 修改时间：18:28:30" itemprop="dateCreated datePublished" datetime="2021-07-31T17:32:53+08:00">2021-07-31</time>
+            </span>
+
+          
+            <span id="/2021/07/31/beiji/" class="post-meta-item leancloud_visitors" data-flag-title="俄罗斯第五军区的组建动因及战略任务" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/31/beiji/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/31/beiji/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文章来源：安洪若, 董达飞. 俄罗斯第五军区的组建动因及战略任务[J]. 飞航导弹, 2021(05): 61–65.</p>
+</blockquote>
+<blockquote>
+<p>摘要：2021年1月1日起，俄罗斯北方舰队升级为第五军区，旨在进一步强化俄罗斯的北极军事实力、维护其北极的战略利益。从北极地区竞争态势、北约东扩对俄影响、北极地区军事安全威胁、俄军优化指挥层级和强化海军建设的内在驱动共5个方面剖析了俄第五军区的组建动因。从常规军事力量、战略核力量、制定作战想定和开发北极航道4个方面分析了俄组建第五军区的主要战略任务。并结合其组建，给出几点启示。</p>
+</blockquote>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>2020年6月，俄罗斯总统普京签署第374号总统令［1］，正式宣布自2021年1月1日起，俄北方舰队独立为军事行政单位，正式成为继中央军区、西部军区、东部军区、南部军区后的第五军区，其辖区包括科米共和国、阿尔汉斯克州、摩尔曼斯克州以及原属于西部军区管辖的涅涅茨自治区共4个联邦主体。早在2014年12月1日，俄罗斯将其北方舰队从西部军区划分出来，并在此基础上成立了北极战略司令部，成为俄罗斯名义上的第五军区。此次总统令的签署是首次以官方形式确立第五军区的存在，是俄罗斯国家政策方针在北极战略方向军事领域全面实施的重要体现，反映了俄罗斯提升北极军事实力以维护北极战略利益的坚定决心［2］。</p>
+<h1 id="1-第五军区的组建动因"><a href="#1-第五军区的组建动因" class="headerlink" title="1 第五军区的组建动因"></a>1 第五军区的组建动因</h1><p>近年来，北极地区国家愈加重视北冰洋大陆架和岛屿的重要战略意义，并通过逐渐强化军事存在，不断扩大和提升本国对北极地区的控制权。因此，当前北极地区的军事政治形势表现出区域性矛盾增大和军事活跃度渐强的特点。第五军区的组建是俄军历史上首次正式将北方舰队提升至军区级别，是俄罗斯为应对上述问题所做出的有力回应。具体而言，其深层动因包括以下5个方面。</p>
+<h2 id="1-1-北极地区争夺战日趋激烈"><a href="#1-1-北极地区争夺战日趋激烈" class="headerlink" title="1. 1 北极地区争夺战日趋激烈"></a>1. 1 北极地区争夺战日趋激烈</h2><p>冷战结束后，随着全球气候变暖进一步加剧，北极因其丰富的自然资源和优越的地理位置逐渐被世界各国所关注，成为地缘政治竞争的桥头堡。</p>
+<p>（1） 美俄两国对抗不断升级。一是美国在新版的《美国国家安全战略》和《美国国防战略》中不断提及“大国竞争”这一概念，并于2020年7月发布首份《空军北极战略》，意欲打压俄罗斯渴望在北极地区以传统军事大国身份谋求更大国际政治空间的想法；二是美国于2018 年重启于2011年撤编的第二舰队，规定辖区为美国东海岸、整个北极圈、白令海峡以及挪威和俄罗斯沿海，遏制俄罗斯的意图不言自明；三是随着美国退出《中导条约》，由于其所采用的导弹战略是飞跃北极的打击方式，直接导致俄罗斯北极上空的防空反导压力陡增。</p>
+<p>（2） 世界多国表达对北极地区的利益诉求。这些国家在北极形成了代表各方利益的国际组织和国家团体，其中包括北极五国（俄罗斯、美国、加拿大、丹麦和挪威），亚北极国家（冰岛、瑞典和芬兰），北极理事会（俄罗斯、美国、加拿大、丹麦、挪威、冰岛、瑞典和芬兰），巴伦支海欧洲—北极理事会（俄罗斯、丹麦、冰岛、瑞典和芬兰），北欧部长理事会（丹麦、冰岛、瑞典和芬兰以及奥兰群岛），极地科学亚洲论坛（中国、日本、朝鲜、泰国和马来西亚）。这些主权国家、国家集团和国际组织通过宣誓主权、军事演习、构建极地军事设施等多元化的方式，积极参与北极地区政治、军事和经济等领域的竞争。</p>
+<p>（3） 俄方持续推进北极发展战略。为在北极争夺战中取得优势，俄罗斯近年出台了多部国家级战略， 分别于2008、2013、2014 年发布了《2020年前俄罗斯联邦北极地区国家政策原则及远景规划》、《2020年前俄罗斯联邦北极地区发展和国家安全保障战略》和《2020年前俄罗斯联邦北极地区社会经济发展国家纲要》［3］，并于2017年将纲要的时间节点延长至2035年［4］，在2020年又出台了《俄罗斯2035年前国家北极政策基础》［5］。</p>
+<p>综上所述，为了在北极地区争夺战中占据领先地位，俄罗斯不断调整北极战略政策，逐渐形成了以军事威慑为主，同步提升其在北极地缘政治经济影响力的独特模式。</p>
+<h2 id="1-2-北约东扩压缩俄罗斯地缘战略空间"><a href="#1-2-北约东扩压缩俄罗斯地缘战略空间" class="headerlink" title="1. 2 北约东扩压缩俄罗斯地缘战略空间"></a>1. 2 北约东扩压缩俄罗斯地缘战略空间</h2><p>随着苏联解体，北约与华约的漫长对抗也随之宣告结束，但北约并未停止吸收新成员国以扩张自身势力范围的进程。事实上，为进一步压缩俄罗斯的战略生存空间，北约一直努力鼓动前苏联加盟国加入其组织，这导致俄罗斯的战略纵深大幅缩减，来自陆上、空中以及海洋的军事威胁陡增。在美国授意下，北约不断东扩，逼近俄罗斯边境，近年来又有继续深入巴伦支海的动作迹象。为此，俄罗斯从现实安全威胁出发，将北极作为新的战略支点，以求实现地缘战略空间突围。<code>作为传统的北极大国，北极的战略地位关乎俄罗斯的国家核心利益</code>。第五军区的组建，进一步表明了俄国防部已将北极地区视为国家安全战略和军事战略的优先关注方向，在未来很长一段时间内，北极都将被视为关键战略地区。<code>俄国防部长绍伊古直言：“当前开发北极就是保障俄罗斯的未来”</code>［6］。</p>
+<h2 id="1-3-俄罗斯北极地区面临的军事安全威胁日益"><a href="#1-3-俄罗斯北极地区面临的军事安全威胁日益" class="headerlink" title="1. 3 俄罗斯北极地区面临的军事安全威胁日益"></a>1. 3 俄罗斯北极地区面临的军事安全威胁日益</h2><p>严峻虽然北极地区当前的军事政治形势总体稳定可控，但俄罗斯仍面临来自北极战略方向复杂多变、严峻且充满不确定性的现实军事威胁。从作战空间来看，俄罗斯的北极安全主要源于空中和水下威胁。空中威胁包括战略轰炸机群、巡航导弹、战术和舰载飞机、美国和北约用于保障歼击机和远程无人预警机群的无人机；水下威胁包括美国和北约专门针对俄北方舰队和海上战略核力量的核潜艇，利用航空兵、潜艇以及水下机器人系统布置的雷区。《2035 前俄罗斯北极政策基础》中明确指出：一些国家正在强化北极地区军事存在，爆发军事冲突的可能性增加［5］。</p>
+<p>首先，北约的海军作战能力有了大幅提升，海基反导预警系统得到了长足发展［7］。其次，外国针对北极地区的军事企图日益明显，2006年起，北约陆海空军和特种部队定期举行“寒冷反应”联合军演；2007年起，加拿大定期组织“北极熊行动”军事演习，目标对象直指俄罗斯；2013年，美国出台《北极地区国家战略》，明确指出华盛顿有权采取单方面行动捍卫其在北极地区的重要利益；2015年，美国、英国、荷兰、瑞士、德国和法国首次在瑞典、芬兰和挪威的北部地区举行“北极挑战” 联合军演；2018年，代号为“三叉戟”的北约多国联合军演拉开帷幕，此次演习是冷战结束以来规模最大的一次。最后，针对北极地区的侦察监视活动频繁。美国不断增加军事卫星数量，北约也不断加强对北极和俄罗斯边境地区的情报侦察活动。</p>
+<h2 id="1-4-俄军指挥体制有待完善"><a href="#1-4-俄军指挥体制有待完善" class="headerlink" title="1. 4 俄军指挥体制有待完善"></a>1. 4 俄军指挥体制有待完善</h2><p>根据俄罗斯武装力量军区条例［8］，第五军区被赋予“跨军种战略领土军团”的地位。即从2021 年1 月起，上述四个联邦主体包括陆、海、空天军及其他军兵种在内的所有军事单位都将服从于第五军区的统一指挥。第五军区将直接对海军总参谋长、总参谋部和俄武装力量最高统帅负责。俄罗斯著名军事专家维克多• 穆拉霍夫斯基指出，第五军区的组建将理顺北极地区武装力量的指挥层级，确保各军种在北极地区的协作更加高效［9］。为了加强各军兵种的协作，俄罗斯之前在主要战略方向上组建了集团军，并将所有舰队划归军区管辖，作为俄海军中实力最强的北方舰队被划归到西部军区，这在军事战略专家和基层指挥官中引发了较大的争议。俄海军上校、军事专家维克托•马卡洛夫甚至直言：陆军的将领们永远不会去研究海军的作战战法［10］。此次将北方舰队独立出来并赋予其行政领导和作战指挥职能，有效解决了各军种之间“谁服从于谁”的矛盾。在北方舰队司令部中设置岸防部队、航空兵和防空反导部队的指挥官岗位，也将彻底解决此前俄北方舰队隶属关系与履行职能不匹配的矛盾，从而优化俄罗斯联邦武装力量的指挥管理体系。</p>
+<h2 id="1-5-俄军强化海军建设的内在驱动"><a href="#1-5-俄军强化海军建设的内在驱动" class="headerlink" title="1. 5 俄军强化海军建设的内在驱动"></a>1. 5 俄军强化海军建设的内在驱动</h2><p>在北约加紧对俄罗斯实施制裁且俄罗斯实际可用海上通道有限的背景下，<code>若战时以美国为首的北约对波罗的海、黑海和日本海实施封锁，俄罗斯将面临非常危险的局面</code>。因此，为实施战略突围，俄军将视角转向北极，大力强化海军建设，尤其是计划对四大舰队之首的北方舰队的武器装备和人员军事素质进行大规模升级和提升，以巩固对北极航路的控制。2015年版《俄罗斯联邦海洋学说》中，俄罗斯将北大西洋和北极地区视为其海上战略的优先方向［3］；2017年颁布《2030年前国家军事海洋活动政策基本原则》，将“以美国及其盟友为代表的一系列国家争夺海上霸权”看作俄罗斯国家安全的主要威胁之一，认为“对俄罗斯及其盟友具有重要意义的领土上的武装冲突渐增”趋势不容忽视，计划到2030年应拥有在各个战略方向实力均衡的舰队［11］。据此推断，在不远的将来，太平洋舰队、黑海舰队和波罗的海舰队的战略地位也将得到质的提升。</p>
+<h1 id="2-第五军区的主要战略任务"><a href="#2-第五军区的主要战略任务" class="headerlink" title="2 第五军区的主要战略任务"></a>2 第五军区的主要战略任务</h1><p><code>俄罗斯北方舰队始建于沙俄时期，初期即被命名为北极圈舰队，苏联成立后，被扩编命名为红军北方舰队，现在是俄海军的主力部队，拥有俄罗斯唯一的库兹涅佐夫号航空母舰，舰队战斗力强悍，行动区域遍及整个北极圈和北大西洋水域</code>。截至2020年5月，俄北方舰队拥有44艘水面舰艇、41艘潜艇以及9支特种部队，分别驻扎在摩尔曼斯克、加季耶沃、波尔尼、维迪亚沃、佐泽尔斯克和塞维罗德文斯克［12］。升格为第五军区后，其所辖兵力、地位和权力大幅提升，所担负的战略任务也更加艰巨。</p>
+<h2 id="2-1-依靠常规军事力量，确保俄在北极地区的家安全与发展利益"><a href="#2-1-依靠常规军事力量，确保俄在北极地区的家安全与发展利益" class="headerlink" title="2. 1 依靠常规军事力量，确保俄在北极地区的家安全与发展利益"></a>2. 1 依靠常规军事力量，确保俄在北极地区的家安全与发展利益</h2><p>当前，世界主要国家对北极地区的关注度不断提升，并在经济和国家安全等领域不断强化军事存在。俄罗斯谋求确立并保持在北极地区的领导地位，但想在谈判中捍卫其对北极海域、部分<br>大陆架和自然资源的权利将变得愈发困难。</p>
+<p>因此，俄罗斯计划将北方舰队由一个海军单位转型为一个由海军主导的跨军兵种的联合作战兵团，不断加强在北极地区的常规军事力量建设。<br>（1） 进攻兵力层面，俄罗斯在北极部署有第200独立电动步枪旅、第80独立电动步枪旅、第61海军陆战队独立旅、第45航空防空军等部队［13］；<br>（2） 防御侦察层面，已部署了S-400 防空系统、共振和向日葵雷达站以及29B6集装箱超视距雷达系统等一批先进预警装备，可以对北极方向的敌人动向实施监控［14］；<br>（3） 海军力量层面，作为第五军区主体的北方舰队，近年来不断增强自身作战能力。</p>
+<p>据俄北方舰队司令亚历山大·莫伊谢耶夫称，俄罗斯在2020年底前将有超过180种武器装备在北极的严寒地区列装。同时，将继续对包括高超声速武器在内的新型武器进行试验，这些新技术将使北方舰队的作战潜力得到质的提升［15］。此外，俄罗斯还计划在北极构建对空中目标的梯次侦察体系和电子情报侦察的前沿预警阵地，以实现对北极地区及其周边军事态势实施全时段全天候监控，以便构建一座隐形的“防空穹顶”。</p>
+<h2 id="2-2-依托海基战略核力量，确保俄对敌强大核威慑力"><a href="#2-2-依托海基战略核力量，确保俄对敌强大核威慑力" class="headerlink" title="2. 2 依托海基战略核力量，确保俄对敌强大核威慑力"></a>2. 2 依托海基战略核力量，确保俄对敌强大核威慑力</h2><p>俄罗斯的海基战略核力量是其“三位一体”核力量的重要组成，其支柱是战略核潜艇。俄北方舰队目前拥有9艘战略核潜艇，其中包括1艘941型战略核潜艇、6艘667型战略核潜艇、1艘955型战略核潜艇和1艘955A型战略核潜艇。这4种核潜艇中前两种研发于苏联时期，941型最多可同时发射200枚核弹头，667型最多可携带16枚P-29PM潜射弹道导弹，955型北风之神系列弹道导弹核潜艇最为先进。官方数据显示，北风之神战略核潜艇最多可携带16枚布拉瓦（RSM-56） 潜射弹道导弹，射程超过8 000 km，每枚导弹有10个弹头，每艘潜艇共计携带72~196个核弹头［16］，确保俄罗斯核武数量的绝对优势。</p>
+<h2 id="2-3-制定完备的作战想定，确保俄有效应对任何形式的风险挑战"><a href="#2-3-制定完备的作战想定，确保俄有效应对任何形式的风险挑战" class="headerlink" title="2. 3 制定完备的作战想定，确保俄有效应对任何形式的风险挑战"></a>2. 3 制定完备的作战想定，确保俄有效应对任何形式的风险挑战</h2><p>通过分析北极地区的军事政治形势，结合现代军事斗争经验，俄方专家认为未来北极地区可能爆发以下4种针对俄罗斯的军事冲突［17］：一是经济矛盾发展为局部武装冲突，但未进一步升级；二是经济矛盾演变为局部武装冲突，后升级为大规模战争；三是敌方使用常规武器对俄罗斯发起突然性大规模侵略；四是敌方使用核武器对俄罗斯发起突然性的大规模侵略。</p>
+<p>面对北极地区现实军事安全威胁和未来可能爆发的军事冲突，第五军区组建后，其辖区内所有军事机构可以实现统一指挥调度，可以更加高效应对未来可能爆发的北极地区军事冲突。</p>
+<p>首先，在经济矛盾发展为<code>局部武装冲突</code>，但未进一步升级的情况下，俄第五军区将使用雷达对空天方向进行实时监控，在空天军防区内施行空中交通管制；运用歼击航空兵拦截敌机以阻止其非法行为，并迫使其在专用机场降落，如若不遵守指令，便可开火予以击落；此外，还应根据实际情况，使用防空反导武器打击军事冲突区的敌方主要目标，或使用强击航空兵和轰炸航空兵摧毁军事冲突区的敌关键设施。</p>
+<p>其次，在经济矛盾演变为局部武装冲突，后升级为<code>大规模战争</code>的情况下，俄第五军区除采取上述应对措施之外，还应确保各军兵种按照北方舰队指挥部的统一指挥行动，确保俄海上战略核威慑有效可靠，并做好使用一切防空反导兵力兵器保护第五军区所有设施目标的准备。</p>
+<p>再次，在敌使用<code>常规武器</code>对俄罗斯发起突然性大规模侵略的情况下，俄第五军区应由防御转入进攻，对敌实施空天突袭，向俄军政高层通报大规模空天打击的情况，并按照俄军相关战略战役计划对敌实施大规模反击。</p>
+<p>最后，在敌方使用<code>核武器</code>对俄罗斯发起突然性大规模侵略的情况下，俄第五军区应在对敌实施空天突袭和大规模反击的同时，确保海军战略核力量作战使用的稳定可靠，并确保空天军参与核战争后的作战行动直至战争完全结束。</p>
+<h2 id="2-4-彰显强大军事实力，确保俄对北极航道的开发"><a href="#2-4-彰显强大军事实力，确保俄对北极航道的开发" class="headerlink" title="2. 4 彰显强大军事实力，确保俄对北极航道的开发"></a>2. 4 彰显强大军事实力，确保俄对北极航道的开发</h2><p>随着北极冰川的融化，北极航道的战略意义逐渐显现。在俄罗斯北极战略回归的背景下，对北极航路的开发被提上议程，开发北极航道在俄罗斯历次颁布的北极战略中多次出现。为确保北极航道开发的顺利实施，对抗北约国家的抵近骚扰，北方舰队不断强化军事部署。目前，俄军正有序恢复北极航道上的军事基地，升级军事基础设施，增加北极战略方向的军事预算。此外，定期在北极地区举行两栖军事演习并对北极战略方向的部队进行突击战备检查，向外界展示了诸如DT-10PM双节运输车、T-80BVM坦克和ChaborzM-3轻型越野突击车等大量北极高寒地区的主战装备［13］，充分彰显了俄军强悍的北极作战潜力，体现了俄军政高层对控制北极航道的坚定决心，这也是俄北极战略的具体体现。</p>
+<h1 id="3-俄罗斯组建第五军区的几点启示"><a href="#3-俄罗斯组建第五军区的几点启示" class="headerlink" title="3 俄罗斯组建第五军区的几点启示"></a>3 俄罗斯组建第五军区的几点启示</h1><p>俄罗斯为北方舰队配备各兵种并将其地位升级，突出了第五军区的战略地位，赋予了北方舰队更大自主权，提升了北极地区俄军兵种协同程度，<code>反映了俄罗斯试图加强北极地区军事存在的决心</code>。</p>
+<h2 id="3-1-突出第五军区战略地位是巩固俄北极防御的重要举措"><a href="#3-1-突出第五军区战略地位是巩固俄北极防御的重要举措" class="headerlink" title="3. 1 突出第五军区战略地位是巩固俄北极防御的重要举措"></a>3. 1 突出第五军区战略地位是巩固俄北极防御的重要举措</h2><p>近年来，以美国为首的国家、国家集团和国际组织加强了围绕北极地区的主权和利益争夺，相关国家有意增强了在北极地区的军事存在，对俄罗斯北极地区和北部战略方向构成了巨大的现实威胁。作为回应，俄罗斯历史上首次将北方舰队提升为第五军区，原属西部军区四个联邦主体的所有军事机构均划归北方舰队指挥部管辖，大幅提升了第五军区的联合作战能力，战略地位更加突出，保持并扩大了俄罗斯在北极地区的战略优势。</p>
+<h2 id="3-2-完善第五军区职能范围是确保俄军高效专业的重要途径"><a href="#3-2-完善第五军区职能范围是确保俄军高效专业的重要途径" class="headerlink" title="3. 2 完善第五军区职能范围是确保俄军高效专业的重要途径"></a>3. 2 完善第五军区职能范围是确保俄军高效专业的重要途径</h2><p>俄罗斯以北方舰队为基础成立第五军区，赋予其行政和经费管理职能，将有助于北方舰队更加独立自主，更高效完成北极战略方向的军事任务，更好实现其在北极地区的军事存在。同时，为俄罗斯对北极地区与航道的开发提供了保障，震慑了以美国为首的北约国家，进而确保俄罗斯的国家安全与发展利益。</p>
+<h2 id="3-3-强化第五军区军兵种协同是保障俄北极安全的重要方式"><a href="#3-3-强化第五军区军兵种协同是保障俄北极安全的重要方式" class="headerlink" title="3. 3 强化第五军区军兵种协同是保障俄北极安全的重要方式"></a>3. 3 强化第五军区军兵种协同是保障俄北极安全的重要方式</h2><p><code>第五军区作为跨军种战略领土军团，其下辖包括陆军、海军、空天军在内的军区应有的所有军兵种</code>，列装了包括S-400防空系统、铠甲-S弹炮合一防空系统、北风之神系列弹道导弹核潜艇、轰炸机、歼击机在内的全类型武器装备。随着第五军区的正式成立，在未来举行的军事演习中，实现各军兵种在司令部统一指挥下高效顺畅协同，确保各分队和作战要素在统一指挥链路中发挥最大化作用，进而保障俄罗斯北极地区的绝对安全。</p>
+<h1 id="4-结束语"><a href="#4-结束语" class="headerlink" title="4 结束语"></a>4 结束语</h1><p>综上所述，北极地区的争夺战日趋激烈，军事冲突风险极高。俄罗斯依托国家北极战略，积极推进本国在北极地区的军事化进程，将北方舰队独立并以此为基础组建单独的第五军区，弥补前期成立的北极联合战略司令部职能的不足，有效缓解俄军内部现存的一些指挥矛盾，进一步强化俄军兵种之间的战略协同，实现俄罗斯的国家利益和安全诉求。</p>
+<h3 id="参考文献（略）"><a href="#参考文献（略）" class="headerlink" title="参考文献（略）"></a>参考文献（略）</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -776,554 +1241,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/11/ns/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/11/ns/" class="post-title-link" itemprop="url">海洋酸化论文数据造假令人震惊</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-11 21:09:54" itemprop="dateCreated datePublished" datetime="2021-05-11T21:09:54+08:00">2021-05-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-15 22:46:58" itemprop="dateModified" datetime="2021-05-15T22:46:58+08:00">2021-05-15</time>
-              </span>
-
-          
-            <span id="/2021/05/11/ns/" class="post-meta-item leancloud_visitors" data-flag-title="海洋酸化论文数据造假令人震惊" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/11/ns/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/11/ns/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>这可能近几年海洋科学领域最大的瓜了。</p>
-<p>事情比较曲折，慢慢捋一捋。</p>
-<p>2019年，澳大利亚科学家青年Timothy Clark 等人发表《Nature》论文，质疑另一名澳大利亚泰斗级科学家Philip Munday 10年来关于海洋酸化对鱼类的影响研究，Munday认为“Ocean acidification can mess with a fish’s mind”，就是说海洋酸化可以干扰鱼类的行为，Clark花费了三年的时间开展酸化对鱼类行为影响试验，却无法复制Munday的结果。2020年，Munday在《Nature》发文进行自我辩护和驳斥，Clark紧随其后在同一期《Nature》逐条反驳Munday的辩驳。之后，Munday觉得《Nature》版面不够，又在网上发表29页的详细辩驳材料，然后就退休了。你来我往，互相发表了好几篇《Nature》，好像是比饶毅和院士互相举报有业绩啊。</p>
-<p>在《Nature》闹后，Clark等七人联盟向澳大利亚和美国资助机构反映Munday和他的博士生Danielle L. Dixson（美国人）数据造假问题，七人联盟中有挪威科学家Jutfelt和瑞典科学家Sundin，他们在澳大利亚蜥蜴岛（Munday研究海洋酸化的地方）相识。2016年，Sundin和Jutfelt曾举报瑞典Uppsala University 博士后Lönnstedt（Munday的博士生，Sundin的女闺蜜）的《Science》论文，这篇论文研究了微塑料对鱼类的行为影响，Sundin认为论文胡扯，并告到了瑞典中央伦理审查委员会，结果是《Science》撤稿，Lönnstedt丢掉科研工作，她的Research Gate 2016年后再也没有更新，Lönnstedt的博士后导师（第二作者）一开始非常信任Lönnstedt，并为其辩护，但审查结果出来后改口称“I have never done research on microplastics and I probably will never do research on microplastics.”，意思是“你才做微塑料，你们全家都做微塑料”，最后二人都叛有罪。后来，Sundin又扒出了Lönnstedt以往的造假历史，但此时，Lönnstedt已经在没有消息了。</p>
-<p>这七人联盟的举报行为已经在已经小有名气。有人称他们的《Nature》文章是最好的，也有人称他们很奇葩，<code>The seven were an “odd little bro-pocket” whose “whole point is to harm other scientists,”</code>，Munday本人则称之为诽谤和可恶的团伙，IPCC共同主席批评他们七人“以评论他人的工作来建立自己的事业是不对的”。</p>
-<p>最近，《Science》忍不住了，发表专题文章《Sea of doubts》对此事进行评论，对其中的数据造假问题进行了细致分析，欣赏下这篇文章吧。</p>
-<blockquote>
-<p>ENSERINK M. Sea of Doubts[J]. Science, 2021, 372(6542): 560–565. DOI:10.1126/science.372.6542.560.</p>
-</blockquote>
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>当Philip Munday在2020年12月的Zoom会议上与70多位同事和学生讨论他对海洋酸化的研究时，他不仅仅是对十年来的科学成果做了一个自信的概述。位于汤斯维尔的詹姆斯-库克大学（JCU）的海洋生态学家Munday是为了捍卫他的科学遗产而发言。</p>
-<p>Munday与人合著了250多篇论文，并吸引了数十名有抱负的科学家来到汤斯维尔，这里是澳大利亚东北海岸的海洋生物学圣地。他最出名的是关于海洋化学变化对鱼类影响的开创性工作，其中部分工作是与美国生物学家Dixson一起进行的，她在Munday的指导下于2012年获得博士学位，此后成为特拉华大学（UD）卢斯分校的一名成功的实验室负责人。</p>
-<p>2009年，Munday和Dixson开始发表证据，证明海洋酸化–地球大气中二氧化碳（CO2）水平上升的连锁反应–对鱼类的行为产生了一系列惊人的影响，例如使它们变得更加大胆，并引导它们走向由捕食者产生的化学物质。正如一位报道这项研究的记者所说，”海洋酸化会扰乱鱼类的思维”。Munday和Dixson警告说，这些发现被列入政府间气候变化专门委员会（IPCC）2014年的一份报告，最终可能对 “海洋多样性 “和渔业产生深远影响。</p>
-<p>但是他们的工作受到了攻击。2020年1月，由澳大利亚吉隆迪肯大学的鱼类生理学家Timothy Clark领导的7位年轻科学家发表了一篇《自然》论文，报告说在一项为期3年的大规模研究中，他们根本没有看到酸化对鱼类行为的这些戏剧性影响。</p>
-<p>这篇论文在该领域被证明是如此的两极化，”这就像共和党和民主党，”共同作者加拿大渥太华卡尔顿大学的Dominique Roche说。一些科学家称赞它是研究复制的一个杰出的例子，它使人们对那些从一开始就应该接受更严格审查的非同寻常的主张产生了怀疑。”伦敦布鲁内尔大学的生态毒理学家约翰-桑普特说：”这是迄今为止我读到的最好的环境科学论文。</p>
-<p>其他人则批评这篇论文不必要地咄咄逼人。尽管Clark和他的同事们没有使用科学的 “F”字，即捏造(fabrication)，但他们确实说 “方法或分析上的弱点 “可能导致了不可复制的结果。研究界的许多人都知道这七位作者对马虎的科学和欺诈行为非常感兴趣–他们曾对Munday的另一位前博士生在2016年发表的《科学》论文进行过揭发，该论文后来被认为是欺诈性的，并被撤回。2020年10月，北卡罗来纳大学教堂山分校的海洋生态学家约翰-布鲁诺–他没有与Dixson和Munday合作过–在推特上说，这七个人是一个 “奇怪的小兄弟”，他们的 “全部意义在于伤害其他科学家”。”残酷的行为是工作的动力。”</p>
-<p>很少有研究人员知道的是，2020年8月，Clark和该小组的其他三人又迈出了另一个更大的步伐。他们要求在Dixson和Munday的工作上总共花费了数百万美元的三个资助者–澳大利亚研究理事会（ARC）、美国国家科学基金会（NSF）和美国国家卫生研究院（NIH）–调查22篇论文中可能存在的欺诈行为。</p>
-<p>他们与《科学》杂志的记者分享了这一请求，理由是他们说有证据表明有两篇论文的公开原始数据文件被篡改，其中一篇发表在《科学》杂志上，另一篇发表在《自然-气候变化》杂志上，再加上许多其他论文中报告的二氧化碳产生的显著的、”统计学上不可能 “的影响。他们还提供了Dixson和Munday实验室前成员的证词，其中一些人监测了Dixson的活动，并得出了她编造数据的结论。</p>
-<p>ARC和NSF拒绝与《科学》杂志讨论此案，但表示他们通常会将此类案件移交给研究机构–本案中的JCU；Dixson在2011年至2015年间工作的佐治亚理工学院；以及UD。美国国立卫生研究院表示，它将案件移交给美国研究诚信办公室，该办公室不对案件进行评论。</p>
-<p>Munday称这些欺诈指控是 “可恶的 “和 “诽谤的”，JCU的一位发言人说，经过初步调查，该校已经驳回了这些指控。(Munday于4月从JCU退休，并搬到了塔斯马尼亚，但他强调这个时间点与这些指控之间没有任何联系。) UD说它不能对人事问题发表评论；佐治亚理工学院的发言人拒绝发表评论，只是说该学院 “认真对待所有关于研究不当行为的指控”。Dixson也否认编造数据。”我完全支持我收集的所有数据，我支持我们已经发表的论文，”她在2月的一次采访中告诉《科学》。”这些数据是以诚信的方式收集的。我的意思是，我向我的学生宣扬这一点。”</p>
-<p>但是，与Clark集团无关的多位科学家和数据专家应《科学》杂志的要求审查了这一案例，他们指出了这两组数据中的一系列问题，其中一位发现了他所说的由Munday共同撰写的其他论文数据中的严重违规行为。</p>
-<p>两个因对鱼类的热情而团结在一起的团体之间的斗争，不仅仅是关于数据和海洋的未来。它强调了科学的社会学、心理学和政治学问题，包括研究人员在顶级期刊上发表论文的压力，期刊对引人注目和令人震惊的发现的渴求，以及告密所涉及的风险。</p>
-<p>Clark小组的成员说，他们很快就会在PubPeer（一个讨论已发表作品的网站）上公布所谓的数据问题。他们说，对于是否在调查可能正在进行时与记者讨论他们的担忧，他们想了很久。瑞典农业科学大学的Josefin Sundin说：”根据我的经验，举报人，包括我自己和其他人，如果在调查得出不当行为的结论之前与媒体交谈，就会感到羞耻，”他是《自然》复制论文的最后一位作者。”但这是为什么呢？如果进行调查，它可能会拖很长时间。如果你知道数据被捏造，为什么对它保持沉默几个月甚至几年被认为是正确的事情？</p>
-<p>如果你想成为一名海洋生物学家，TOWNSVILLE可能是世界上最好的地方之一。JCU的网站拥有 “独特的热带学习环境，有研究站、最先进的实验室，大堡礁就在我们家门口”。该大学是ARC珊瑚礁研究卓越中心的所在地，Munday在那里有他的实验室。为了进行实地研究，科学家们飞往蜥蜴岛。蜥蜴岛是大堡礁上的一块花岗岩，在海洋生物学家中颇具传奇色彩，这要归功于澳大利亚博物馆运营良好的研究站、超凡的潜水和海滩烧烤。(“伙计，我想念那个岛，”Dixson去年在推特上说。)</p>
-<p>Munday的实验室一直是JCU成功的引擎之一。Munday最初专注于研究珊瑚鱼的竞争和它们转换性别的能力，在2000年代末，他将注意力转移到了海洋酸化。2007年来到JCU的Dixson也接受了这个课题。</p>
-<p>由于二氧化碳水平的上升导致更多的气体溶解在海洋中，酸化对海洋生物构成了严重的威胁，削弱了珊瑚和其他具有碳酸盐外壳或骨架的生物体。但是，2009年发表在《美国国家科学院院刊》（PNAS）上的一篇论文（Munday和Dixson分别是第一和第二作者）报告了另一个令人不安的影响。当鱼缸里的水的pH值从8.15（目前海水的水平）降低到7.8（预计到21世纪末的水平）时，橙色小丑鱼的幼虫对来自健康的珊瑚礁的化学线索的吸引较少，但对来自草和刺鼻的沼泽树的线索的吸引更大，而这些树的气味通常会排斥它们。作者总结说，这可能导致小丑鱼失去在珊瑚礁上找到合适的家的能力。</p>
-<p>根据更多的实验室实验，Munday、Dixson和其他研究人员后来报告说，高二氧化碳水平还以其他方式扰乱了鱼类的思维。例如，它们会变得迷失方向、过度活跃，并冒险远离庇护所，同时它们的视力和听力也会下降。在许多这样的研究中，科学家们通过把鱼放在水槽中来测量它们的喜好，这是一种迫使它们做出选择的装置（见第564页的图片）。来自两个不同来源的水并排流入水槽，研究人员测量鱼在任何一个来源的水中花费的时间。</p>
-<p>Munday和Dixson经常发现海洋酸化的影响异常大。例如，在PNAS的论文中，橙色小丑鱼在水槽的恶臭一侧的时间从0%上升到80%。在2010年《生态学通讯》的一项研究中，在正常海水中饲养的小丑鱼幼虫完全避开了两种捕食者的化学线索，即小石首鱼和点头鱼，但是在更酸的水中，它们花了100%的时间在这些捕食者的气味周围–这是一种 “致命的吸引力”，作者说。2013年发表在《海洋生物学》上的一篇论文报告说，珊瑚鳟鱼，一个经济上重要的物种，在高二氧化碳水平下变得更加活跃90倍。</p>
-<p>Dixson还将水槽用于与海洋酸化无关的研究。举报人质疑的《科学》论文发表于2014年，当时她在佐治亚理工学院海洋生态学家Mark Hay的实验室工作，论文显示，在斐济海岸收集的鱼类和珊瑚幼虫被健康、受保护的珊瑚礁的化学线索所吸引，但被以海藻为主的过度捕捞的珊瑚礁的水排斥。这又是一个坏消息，表明退化的珊瑚礁将难以自行恢复，因为它们无法吸引珊瑚和鱼类幼虫）。</p>
-<p>在这篇论文发表后不久，《科学》杂志收到了JCU珊瑚礁生态学家Andrew Baird的”技术评论”，他指出了几个问题，包括Dixson的水槽所引用的水流比任何珊瑚幼虫的游泳速度要快得多，这意味着幼虫会被冲出水槽的后面。《科学》杂志的审查程序认为该评论 “不适合发表”，负责研究的副编辑Sacha Vignieri说《科学》杂志的新闻和编辑部相互独立运作。Baird将其作为预印本发表，但它没有引起什么注意。</p>
-<p>斐济的论文是Dixson在《科学》杂志上发表的第二篇论文–2012年，她和海伊报告了一些珊瑚分泌化学信号，”招募 “鱼类来修剪有毒的海藻，这巩固了她作为一颗新星的地位。2015年，她离开佐治亚理工学院，在特拉华州建立了自己的实验室。</p>
-<p>Clark是一名鱼类生理学家，他于2011年来到汤斯维尔，在澳大利亚海洋科学研究所担任研究工作，该研究所是位于该市东部50公里处的一个政府实验室。为了寻找新的研究对象，他说他开始阅读Dixson和Munday的海洋酸化论文，并被其巨大的效应规模所震撼。”他说：”我认为它们是整个生物学学科中最惊人的发现。他来到蜥蜴岛，用捕食者的提示重复这项工作，认为他可以解开这一现象背后的生理学。</p>
-<p>但他根本没有得到同样的结果。放在水槽中的鱼会开始探索它们的周围环境，但它们很少像Dixson和Munday报告的那样，对某一边有强烈的偏好，而且增加二氧化碳也没有什么不同。挪威科技大学的Fredrik Jutfelt说，有些鱼被 “吓坏了”，根本不动，他在2014年与Clark一起在蜥蜴岛呆了一个季度，还有Sundin和其他一些科学家。”Jutfelt说：”它们被带离了它们的环境，并被置于一个非常不自然的环境中。</p>
-<p>Clark急于发表研究结果，但他说：”我们可以想到相当多的方法论理由，可以用来淡化我们的研究结果。” 他和Sundin在蜥蜴岛组织了第二个季节，重新进行其他研究。研究人员对每个实验都进行了录像，并使用自动跟踪软件监测鱼的行为，以此来排除偏见，而Munday和Dixson并没有这样做。</p>
-<p>2016年6月，《科学》杂志发表了另一位成功的JCU校友、海洋生态学家Oona Lönnstedt的一篇论文，当时这项工作仍在进行中。在汤斯维尔获得博士学位后–Munday是她的三位导师之一–Lönnstedt于2014年回到她的祖国瑞典，成为乌普萨拉大学（UU）的一名博士后，探索一种新的环境威胁：被称为微塑料的塑料垃圾的微小碎片，污染了许多水生环境。在2016年的《科学》论文中，她和UU的湖沼学家Peter Eklöv报告说，波罗的海的鲈鱼幼虫喜欢吞食微塑料而不是真正的食物，这减少了它们的生长，而且–就像升高的二氧化碳–干扰了它们对化学线索的反应，使它们自己更可能最终成为鱼类的食物。</p>
-<p>当时也在UU的Sundin说，她立即认为这篇论文是 “完全的幻想”。她和Jutfelt曾与Lönnstedt在波罗的海岛屿研究站呆过一段时间，但从未见过论文中描述的那种规模的研究；许多其他细节也与他们的想法不符（Science, 2017年3月24日，第1254页）。他们决定报告他们的怀疑，并得到Clark、罗氏和其他他们在蜥蜴岛认识的研究人员的支持。</p>
-<p>这群人学到了一些痛苦的教训。经过初步调查，一个UU小组在一份简洁的报告中驳回了调查请求，并责备该小组没有在 “正常的学术讨论 “中与Lönnstedt和Eklöv讨论其关切。Lönnstedt说该小组只是嫉妒。指控者花了许多个月的时间收集额外的文件，牺牲了他们自己的研究。2017年4月，瑞典中央伦理审查委员会认为该研究确实存在 “科学上的不诚实”，《科学》杂志撤回了这篇论文；8个月后，一项全面的UU快三官网调查得出结论，数据是捏造的。（Eklöv指责Lönnstedt；Lönnstedt坚持认为她是无辜的）。</p>
-<p>这种明显的欺骗行为让Jutfelt感到震惊。”他说：”这真的极大地触发了我对科学的怀疑态度。他说：”在那篇论文之前，我无法理解怎么会有人捏造数据。这对我来说是不可想象的。” 现在，他开始怀疑还有多少论文可能是完全的幻想。Clark说，这次经历也让他们知道，如果他们再次吹响哨子，他们必须从一开始就提出一个更有力的案例。</p>
-<p>在地球的另一端，该小组的指控引起了Munday的注意。”看来，Clark和Jutfelt是想通过批评别人的工作来谋求事业。我只能假设他们自己没有足够的好主意来填补他们的时间，”他在2016年6月写给Lönnstedt的电子邮件中说，她在向道德委员会的辩护中使用了这封电子邮件。”最近，我发现他们一直在’秘密’地做高二氧化碳对珊瑚礁鱼类的行为影响的工作，大概是因为他们想对我们工作的某些方面进行批评。”</p>
-<p>2020年1月，《自然》杂志发表了Clark团队的研究结果。水中升高的二氧化碳水平对鱼类对来自捕食者的化学线索的吸引、它们的活动水平和 “横向化”–它们在某些行为中倾向于左侧或右侧–的影响 “可以忽略不计”。根据一种称为自举模拟的统计程序，该小组报告说，Munday和Dixson关于化学信号偏好的数据有 “万分之零 “的真实性。他们让读者自己决定如何看待这个问题。</p>
-<p>正如Clark所预测的那样，随后的辩论集中在方法的差异上。复制运动的先驱、弗吉尼亚大学的心理学家布莱恩-诺塞克（Brian Nosek）说：”当复制失败时往往如此。在2020年10月发表在《自然》杂志上的一篇反驳文章中，Munday、Dixson和其他11位共同作者认为，复制工作至少在16个 “关键 “点上与原始研究不同，包括使用的物种、二氧化碳测量方法，以及一些工作是在2016年蜥蜴岛的热浪中完成的，这可能会抑制二氧化碳的影响。”他们以关键的方式改变了方法，降低了检测效果的可能性，”Munday在他2020年12月的Zoom研讨会上说。</p>
-<p>Clark承认他的团队的方法确实存在差异，有时是必要的，因为原始论文是模糊的，或者所描述的方法不可行，他说。他说，其他的观点也很容易反驳。例如，该团队确实使用了几个与Munday和Dixson相同的物种，而且热浪并没有影响他们鱼缸中的温度。而且，他指出，”许多物种的巨大影响不应该因为方法上的小变化或改进而突然消失。”</p>
-<p>桑普特同意。Munday和Dixson的辩护策略是：”我将用基督–知道多少不同的理由来压倒他们。他说：”在我看来，这并不是解决问题的方法。但反驳让布鲁诺相信了 “兄弟袋 “的推文。”我很震惊，《自然》杂志发表了一个所谓的’可重复性’研究，甚至没有接近模仿原始科学。蹩脚，”他在推特上说。”如果Clark等人没有被撤稿，我会感到惊讶。”</p>
-<p>另一些人则以外交方式为Munday和Dixson辩护。布鲁诺所说的四位 “该领域的祖师爷 “在《生物地理科学》的一篇论文中批评了这种复制。一位作者，德国不来梅港阿尔弗雷德-魏格纳研究所的Hans-Otto Pörtner说，他自己的工作在过去也曾受到过 “年轻群体 “的批评。Pörtner说：”把事业建立在评判别人的工作上是不对的，”他是IPCC的三个工作组之一的联合主席。”如果这样的争论到了社区之外，那是有害的，因为整个社区失去了可信度。”</p>
-<p>JUTFELT说，该团队很快就有理由走得更远。在《自然》杂志发表后，Munday和Dixson实验室的几位前成员与他们联系，渴望讨论他们的经历。他和Clark还联系了以前的学生本人，并收集了书面声明，其中8份声明包括在他们于2020年8月发送给三个资助机构的调查请求中。除一人外，所有前学生和同事都愿意向资助者透露他们的身份，尽管有几个人告诉《科学》，他们担心会遭到报复。</p>
-<p>关于Munday实验室的声明并不包含具体的欺诈指控，但关于Dixson的声明包含。一位前同事变得 “慢慢地更加怀疑”，特别是对水槽研究的怀疑，并开始暗中监视他们。证词中包含短信和实验室笔记本的照片，这些信息似乎表明Dixson在实验室中没有花足够的时间进行一项特定的研究，不可能产生她报告的数据。</p>
-<p>这位研究人员在接受《科学》杂志采访时说，他们在要求那里的官员调查Dixson的工作后离开了UD。（UD的一位发言人说，该大学不对人事问题发表评论）。另外两名前实验室成员说，他们也怀疑Dixson在编造数据。</p>
-<p>其中一名前实验室成员还开始检查Munday和Dixson撰写的论文的原始数据文件，寻找不正常情况。对于大多数论文来说，这些文件是不可用的–许多期刊要求科学家公布他们的原始数据，但并不执行这一政策，但在两个可用的文件中，他们发现了几个问题。Dixson在2014年发表的《科学》论文（Munday不是作者）中，似乎有几十组重复的数字。例如，一列20个数字在Excel文件中至少出现了6次–这表明在6个物种的20个个体中进行的相同实验每次都产生了完全相同的结果。在过去，众所周知，犯有欺诈行为的科学家会复制数据，作为一种简单的方法来编造数据。</p>
-<p>荷兰统计学家克里斯-哈特格林克（Chris Hartgerink）拥有检测数据集欺诈的博士学位，现在是一家名为Liberate Science的公司的负责人，他在应《科学》杂志要求所做的审查中确认了这些重复的数据，并说它们 “至少值得表示关注”。然而，他不会立即给它们贴上欺诈的标志。”哈特格林克说：”看起来这个研究项目出了很大的问题，这可能是由于渎职、系统性的疏忽，或者其他广泛的扭曲因素造成的。为这个故事咨询的另一位 “数据侦探 “尼古拉斯-布朗说，该文件提供了 “基本上无可争辩的证据”，证明数据是伪造的。（布朗于2019年在荷兰格罗宁根大学获得博士学位，现已退休，住在西班牙）。</p>
-<p>Dixson在2月份的采访中说，她不知道这些指控。虽然她否认编造数据，但 “假设里面可能有错误，”她说，也许是因为转录数据时的错误；”我不知道。我是人。” 论文的最后一位作者Hay说，他将 “在调查结束后能够讨论我所知道的和我的印象”，但没有说明谁在调查。科学》杂志的编辑Vignieri说她没有听说过这些问题，但是大学而不是杂志通常会进行调查。她同意样本量和报告的效果都很大，但她说 “这两者往往是一起的，都不能被当作令人担忧的指标，默认为是。”</p>
-<p>Clark及其同事还发现了《自然-气候变化》杂志2014年论文的数据问题，该论文显示，在巴布亚新几内亚海岸的天然二氧化碳渗漏附近，鱼类行为发生了改变。(Munday是这项研究的五位作者中的第一位，Dixson是第三位。)该数据集也包含几个相同的测量数据块，尽管比《科学》杂志的论文少得多。亚利桑那大学的生态学家Nicholas DiRienzo在接受本报记者采访时确认了这些重复的数据，并发现了更多的重复数据，他称之为 “另一个强有力的编造指标”。</p>
-<p>Munday说，Dixson最近向他提供了该研究的一份原始数据表，这表明她在将测量结果转录到Excel文件时犯了一个错误，从而解释了最大的一组重复情况。”他说：”这是一个简单的人为错误，不是欺诈。他说，许多其他的数据点是类似的，因为该方法只能产生有限的数字组合。Munday说他已经给《自然-气候变化》杂志发了一份作者更正，但他说这个错误并不影响论文的结论。</p>
-<p>布朗决定自己更深入地研究这个案子，他在Munday的另外两篇论文中发现了不同性质的问题，这些论文没有被Clark团队标记为可疑，而且Dixson也不是作者。在《自然-气候变化》杂志2014年的另一篇论文的一个非常大的数据文件中，大约有20个地方的原始数据与右边几列出现的总分不一致。而在2016年《保护生理学》上的一篇论文中，那些加起来应该正好是1的分数往往没有；相反，总和从0.15到1.8不等。</p>
-<p>Munday承认这两个数据集也有问题，他说这是由于它们的第一作者将数据手工复制到Excel文件中。他说这些文件将被纠正，并通知这两家期刊。但布朗说，这些反常现象强烈地表明是伪造的。他说，没有一个明智的科学家会手工计算结果，然后将原始数据和总数–在一个案例中是成千上万的数字–输入电子表格。</p>
-<p>在他看来，数据集中发现的问题也让人对举报人标记的22篇论文中的许多 “可笑的效果大小 “产生怀疑。”假设你去一个你认为可能在处理被盗电视的人的家里，你在他的地下室发现了22台全新的电视，其中三台的序列号与商店里被盗的电视相一致，”布朗说。”你是否会说，’是的，我们会认为你有其他19台的购买收据’？” 哈特格林克更加谨慎。”他在为《科学》撰写的报告中写道：”我确实发现了22篇论文中反复出现的问题模式，这可能证明是有问题的，值得进一步调查，”但不可能确定这些问题的意图、动机或起源。</p>
-<p>JCU表示，在一名外部调查员的建议下，它已经驳回了Clark小组提起的诉讼。发言人说，生活在二氧化碳渗漏附近的鱼类数据中的问题只构成了对JCU研究准则的 “轻微违反”，Munday已经对此做出了解释。</p>
-<p>Clark和他的同事说他们并不感到惊讶。他们说，多年前，UU和JCU都没有对Lönnstedt的工作的担忧做出充分的回应。Sundin说：”大学有很大的利益冲突，”他回应了许多其他举报人的经历。”幸运的是，瑞典有一个中央伦理审查委员会，”Clark说。”澳大利亚没有这样的委员会。”</p>
-<p>该小组现在担心，如果Dixson被发现捏造数据，Munday将逃避责任，尽管在她的部分工作中是她的主管。这将让人联想到微塑料案，根据第二审查小组的意见，埃克洛夫承担了部分责任，但没有被认定犯有捏造罪，并保留了他的工作，而伦斯特德则失去了她的工作。自然》杂志复制品的共同作者、蒙特利尔大学的桑德拉-宾宁说，这一结果会让人倍感悲哀，因为伦斯特德和Dixson在一个女性代表人数不足的领域充当着榜样。”这一点我并不陌生。”</p>
-<p>自从Munday和Dixson在2009年开始发表关于海洋酸化的文章以来，他们的工作已经产生了一个迷你领域，吸引了数十名其他研究人员。许多人–甚至是Clark小组的成员，在早期的工作中–都报告说看到了鱼类行为的变化，尽管很少像Munday和Dixson所说的那样戏剧性。研究人员还试图解开行为变化的生理和神经基础。在《自然》杂志的反驳中，Munday指出，到目前为止，有85篇论文报告了二氧化碳浓度升高的影响，这些论文的共同作者超过180人，来自90多个机构。正如Dixson在一条批评复制工作的推特上所问的，”一项研究就能声称推翻11年的研究吗？”</p>
-<p>Jutfelt说，现实更加复杂。他指出，在这85篇论文中，有43篇是由Munday共同撰写的。他说，更重要的是，无意识和有意识的偏见可能发挥了作用。包括他自己的研究在内的许多研究确实报告了一种影响，但并不是盲目的。研究人员知道哪些鱼被暴露在高二氧化碳水平下，他们也知道在这种情况下鱼应该做什么。Jutfelt承认，他自己过去的一些研究，包括在瑞典发现二氧化碳对棒鱼有强烈影响的研究，”设计得很差。”我已经更清楚地认识到了这一切。我认为我已经成为一个更好的科学家，”他指着复制工作中的自动分析说。</p>
-<p>桑普特也不奇怪这么多已发表的研究都朝着同一个方向发展。他说他自己的领域–生态毒理学–充斥着具有大效应的小型研究；它们很容易发表。”但是如果你声称化学品X在相关浓度下似乎没有什么作用，很有可能期刊编辑会直接把它打回给你，说，不用这些词：不是真的令人兴奋。</p>
-<p>尽管如此，随着时间的推移，二氧化碳对鱼类行为和生态学的影响的报道似乎已经淡化。加拿大渔业和海洋部的Jeff Clements最近对95篇论文进行了元分析，与Jutfelt、Sundin和Clark一起作为预印本发表，显示该领域正经历着强烈的 “衰退效应”，这种现象是，在最初的戏剧性发现之后，报告的效果变得越来越小了。</p>
-<p>Munday在12月的研讨会上承认，后来的研究发现了一些 “缓解因素”，这些因素抑制了他的实验室在早期实验中看到的令人震惊的影响。”他说：”我们现在预测的影响是，我们从十年的研究中获得了这些额外的知识，”他说，”将比我们在第一批研究发表时预测的要少得多。时间可能会告诉我们这些影响是否首先存在。</p>
-<p>这个故事得到了科学调查报告基金的支持。</p>
-<blockquote>
-<p>原文地址 <a href="https://science-sciencemag-org-s--ncu1.naihes.cn/content/372/6542/560" target="_blank" rel="noopener">https://science-sciencemag-org-s--ncu1.naihes.cn/content/372/6542/560</a></p>
-</blockquote>
-<p>附相关文献：<br>[1]NOSEK B A, ERRINGTON T M. The Best Time to Argue about What a Replication Means? Before You Do It: 7817[J]. Nature, 2020, 583(7817): 518–520. DOI:10.1038/d41586-020-02142-6.<br>[2]MUNDAY P L, DIXSON D L, WELCH M J, 等. Additional material associated with the Matters Arising article published in Nature by Munday and colleagues[EB/OL]. Townsville, QLD, Australia: James Cook University, 2020(2020)[2021–05–10]. <a href="https://doi.org/10.25903/7rz7-4640" target="_blank" rel="noopener">https://doi.org/10.25903/7rz7-4640</a>. DOI:10.25903/7rz7-4640.<br>[3]PARKER T H, FORSTMEIER W, KORICHEVA J, 等. Transparency in Ecology and Evolution: Real Problems, Real Solutions[J]. Trends in Ecology &amp; Evolution, 2016, 31(9): 711–719. DOI:10.1016/j.tree.2016.07.002.<br>[4]CLARK T D, BINNING S A, RABY G D, 等. Scientific Misconduct: The Elephant in the Lab. A Response to Parker et Al.[J]. Trends in Ecology &amp; Evolution, 2016, 31(12): 899–900. DOI:10.1016/j.tree.2016.09.006.<br>[5]CLARK T D. Science, Lies and Video-Taped Experiments[J]. Nature News, 2017, 542(7640): 139. DOI:10.1038/542139a.<br>[6]ENSERINK M. Sea of Doubts[J]. Science, 2021, 372(6542): 560–565. DOI:10.1126/science.372.6542.560.<br>[7]MUNDAY P L, DIXSON D L, WELCH M J, 等. Methods Matter in Repeating Ocean Acidification Studies: 7830[J]. Nature, 2020, 586(7830): E20–E24. DOI:10.1038/s41586-020-2803-x.<br>[8]ENSERINKDEC. 8 M, 2017, PM 3:55. Researcher in Swedish Fraud Case Speaks out: ‘I’m Very Disappointed by My Colleague’<a href="2017–12–08">EB/OL</a>[2021–05–11]. <a href="https://www.sciencemag.org/news/2017/12/researcher-swedish-fraud-case-speaks-out-i-m-very-disappointed-my-colleague" target="_blank" rel="noopener">https://www.sciencemag.org/news/2017/12/researcher-swedish-fraud-case-speaks-out-i-m-very-disappointed-my-colleague</a>.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/10/paper-haiyangxinxi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/10/paper-haiyangxinxi/" class="post-title-link" itemprop="url">我国海洋信息研究发展现状及对策建议</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-10 22:03:20 / 修改时间：22:30:42" itemprop="dateCreated datePublished" datetime="2021-05-10T22:03:20+08:00">2021-05-10</time>
-            </span>
-
-          
-            <span id="/2021/05/10/paper-haiyangxinxi/" class="post-meta-item leancloud_visitors" data-flag-title="我国海洋信息研究发展现状及对策建议" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/10/paper-haiyangxinxi/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/10/paper-haiyangxinxi/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>文章来源：杨远征, 唐世林, 李莎, 等. 我国海洋信息研究发展现状及对策建议[J]. 科技促进发展, 2020, 16(11): 1343–1353.</p>
-</blockquote>
-<p>杨远征1 唐世林1 李莎1 徐超1 马丽丽2 李桂菊2</p>
-<ol>
-<li>中国科学院南海海洋研究所海洋信息服务中心广州510301</li>
-<li>科技大数据湖北省重点实验室（ 中国科学院武汉文献情报中心） 武汉430071</li>
-</ol>
-<blockquote>
-<p>海洋信息是重要的国家基础性和战略性资源，海洋信息研究对促进中国的海洋力量建设具有重大战略意义。本文利用信息可视化软件CiteSpace 对中国知网（CNKI)收录的国内海洋信息相关研究文献进行了可视化分析和知识图谱绘制，以期为理解我国海洋信息领域研究现状和推动该领域深入发展提供理论和情报参考。研究表明：（1）海洋信息领域研究演变路径主要有3 个阶段：起步阶段（1992-1999 年）、快速发展阶段（2000-2013 年）和持续发展阶段（2014-2019 年）；（2）研究机构主要集中在国家海洋局和中国科学院；且国内已形成核心的研究团队，但团队之间缺乏合作；（3）国内海洋信息研究热点主题主要有数字海洋、可视化、大数据、云计算等；（4）云计算成为近年来海洋信息领域研究前沿，并且新一代信息技术有望继续成为新研究前沿趋势。随着新一代信息技术的发展及国家海洋强国战略的推进，信息技术在海洋领域的融合将更加广泛、深入和高效，建议围绕“关心海洋、认识海洋、经略海洋”中的现实需求加强海洋信息领域研究，助力海洋强国建设。</p>
-</blockquote>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>海洋信息主要包括海洋资源信息、海洋经济信息、海洋环境信息、海洋基础地理信息、海洋情报文献信息和海洋法规信息等[1]，可见海洋信息资源是基础性和战略性资源。易受月球引力等外界影响的海洋跟陆地具有完全不一样的特性：空间范围大、瞬息万变和界限的不确切等特性，这些特性决定了人类在了解海洋有很大的挑战。据统计人类对海洋的了解不足5%，也就是说95%的海洋人类缺乏了解[2]，那么，作为人类开展一切海洋活动基础的海洋信息在了解海洋、经略海洋过程中所进行的研究也就势在必行。同时，随着国家海洋强国和21 世纪海上丝绸之路建设等国家海洋战略的不断推进，中国在认识海洋、管理海洋和开发海洋过程中对各类海洋信息的需求在数量和质量上的要求必将越来越高。因此，加大力度开展海洋信息研究具有重要意义。</p>
-<p>从国内外海洋信息化建设进展来看，海洋信息建设过程是以海洋信息基础设施为保障，针对人类认知海洋的具体需求，<code>利用信息技术最终实现海洋信息应用服务</code>[4]。随着国家不断推进海洋事业的建设，我国在海洋信息方面加大了建设步伐，从而带动了国内海洋信息的研究热潮。首先，在海洋信息基础设施建设方面，2003-2011 年我国建设了数字海洋信息基础框架，并取得了数字海洋标准体系、数字海洋网络和数字海洋仓库等一系列研究成果，为我国数字海洋的全面建设奠定了坚实基础，也为我国海洋信息的发展打牢了基础[5-6]。其次，在海洋信息技术研究方面，已有文献主要是探讨了信息技术在海洋领域的具体应用，比如华彦宁等[7]总结了云计算的关键技术，并实践了云计算在海洋环境信息领域的应用效果；嵇晓峰等[8]提出并实例验证了海洋流场流向、流速等特征信息的动态流线可视化技术，提升了流场时空特征和复杂动态过程的可视化效率；李晓峰等[9]提出了适合于海洋遥感影像的深度学习模型，并在海岸带水淹区域制图、溢油区域提取和舰船检测等八个典型海洋遥感应用方面验证了其精准性和高效性。而海洋信息的建设最终主要应用在海洋管理、海洋开发、海洋灾害防御和海洋权益维护等各个方面，沈少青等[10]利用GIS、GPS、传感等信息技术，建立了一个集成多种监测手段、融合各类海洋自然和人文数据的深圳市海洋综合管理信息平台，用于支撑海洋空间管理、海洋环境保护和海洋经济发展等多项管理业务；王丽琳等[11]采用数据库、中间件和可视化等信息技术，建立了一套集成专题地图、观测数据、预报及减灾产品的东海区海洋观测预报减灾信息可视化系统，为防灾减灾工作提供了辅助决策服务。另外，以往对海洋信息领域的系统性综述中，主要采用传统的文献综述方法对海洋信息在获取、传输、处理及融合方面的研究[12]、海洋环境信息的可视化研究[13]、物联网技术在我国海洋领域的研究[14]、海洋地理信息系统的研究[15]等进行了论述。以上研究归纳总结了我国海洋信息相关理论和实践方面的研究成果，并在不同程度上推动了我国海洋信息领域的发展。</p>
-<p>然而，现有关于海洋信息领域的研究主要包括海洋信息基础设施研究、海洋信息技术研究、海洋信息应用服务研究和海洋信息理论研究等，鲜有文献是基于系统性地量化分析海洋信息研究文献的方法，从宏观上较全面客观揭示国内海洋信息领域的阶段性研究成果、研究热点和研究前沿等研究现状。鉴于此，本文尝试利用<code>CiteSpace</code>系统性地量化分析国内海洋信息领域研究文献，利用文献计量学和知识图谱方法对国内海洋信息领域研究文献进行信息挖掘和图谱分析，梳理我国海洋信息研究的现状与发展历程，归纳我国海洋信息的研究力量、热点以及前沿，从而客观展现了我国海洋信息研究的总体状况，以期为准确掌握我国海洋信息研究状况、深入研究和实践探索提供理论和情报参考。同时，在此基础上，参考和借鉴我国海洋信息研究现状，准确把握海洋信息发展趋势，突破海洋信息技术，从而提升系统抢救、收集和电子化我国南海及其附属岛礁海洋科学考察历年来所取得的珍贵历史数据和史料的整编水平，提升南海海洋重点数据库建设与应用服务水平，提升海洋环境信息等海洋科技大数据支撑服务水平。</p>
-<h1 id="方法与数据"><a href="#方法与数据" class="headerlink" title="方法与数据"></a>方法与数据</h1><h2 id="研究方法"><a href="#研究方法" class="headerlink" title="研究方法"></a>研究方法</h2><p>CiteSpace 软件是由美国德雷赛尔（Drexel）大学陈超美教授[16]开发的对某一研究领域文献进行计量，并可以绘制出该研究文献的作者、关键词、研究机构、国家和术语（文献标题和摘要）等知识图谱的一款信息可视化软件。本文借助CiteSpace 软件，以中国海洋信息研究领域的文献为研究对象，分别通过选择软件中的Institution（机构）、Author（作者）和Keyword（关键词）等选项，得到该领域的研究机构、关键词和作者等知识图谱，并对相应知识图谱进行分析其研究力量、热点、演变路径及前沿等。</p>
-<h2 id="数据来源"><a href="#数据来源" class="headerlink" title="数据来源"></a>数据来源</h2><p>中国知网（China National Knowledge Infrastructure，简称CNKI）是世界上最大的连续动态更新的中国学术文献数据库[17]，文中数据来源于CNKI，从而确保了本文的研究具有全面性和客观性。另外，虽然CNKI 收录了众多学术期刊，但期刊的差距较大，因此，本文选定文献的来源类别为：“SCI 来源期刊”、“EI 来源期刊”、“核心期刊”以及“CSSCI 来源期刊”并使用CNKI 高级检索，检索时间为2019 年12 月20 日，以“海洋信息”or “数字海洋”or “海洋数据”or “海洋资料”为检索主题，检索1992-2019年间的文献共862篇，剔除不相关的文章及卷首语等非学术性文献，并删除重复文献，最终选择810 篇高相关的中文期刊论文作为研究对象。</p>
-<h1 id="结果与分析"><a href="#结果与分析" class="headerlink" title="结果与分析"></a>结果与分析</h1><h2 id="中国海洋信息研究文献量的时序分析"><a href="#中国海洋信息研究文献量的时序分析" class="headerlink" title="中国海洋信息研究文献量的时序分析"></a>中国海洋信息研究文献量的时序分析</h2><p>文献量是衡量一个研究领域发展状况的重要尺度之一[18]。整理出检索到的1992-2019 年810 篇海洋信息研究的核心期刊文献，并绘制出以年份为横坐标，文献量为纵坐标的文献量变化趋势图（图1）。从图1 可以看出，<code>中国海洋信息研究的文献量呈“S”型上升趋势</code>，可以分为3 个阶段：（1）起步阶段（1992-1999 年），这一阶段发文量仅为71 篇，占总文献量的8.77%.（2）快速增长阶段（2000-2013 年），该阶段文献量为407 篇，占总文献量的50.24%，并且文献量呈线性增长趋势。（3）持续发展阶段（2014-2019 年），该阶段在2014 年的文献量比2013 年有所减少，并且年文献量有起伏，不过仍保持年平均文献量55.33 篇的较高水平。这3 个阶段在一定程度上反映了我国海洋信息研究的总体发展状况。</p>
-<p><img src="/images/info/a1.png" alt></p>
-<h2 id="我国海洋信息研究力量分析"><a href="#我国海洋信息研究力量分析" class="headerlink" title="我国海洋信息研究力量分析"></a>我国海洋信息研究力量分析</h2><h3 id="海洋信息研究机构共现分析"><a href="#海洋信息研究机构共现分析" class="headerlink" title="海洋信息研究机构共现分析"></a>海洋信息研究机构共现分析</h3><p>研究机构是组织研究者进行领域研究的重要依托。研究机构共现分析可以识别出某一研究领域的核心机构及研究机构之间的合作情况。通过CiteSpace，选择机构（Institution）为网络节点类型、时间跨度为1992-2019年、时间切片为1 及阀值选择TOP100 生成由75 节点，49条连线组成的海洋信息研究机构共现知识图谱（见图2），图中节点代表研究机构，节点的大小反映了该机构的发文量，节点之间的连线代表机构之间具有合作关系。图中共有75 个节点，49 条连线，网络密度仅为0.0177，网络密度值在0 至1 范围，值越接近1 则说明彼此间关系越紧密[19]，因此，<code>国内海洋信息研究机构之间的合作交流较少，也在一定程度上反映了先进的海洋信息技术与宝贵的海洋信息资源无法实现高利用率的共享</code>，从而在某些方面限制了我国海洋信息领域的发展。另外合并二级机构、附属机构及名称变更机构，得到发文量4 篇及以上的研究机构共有10 个，具体详见表1所示。</p>
-<p>从科研实力来看，不同机构间海洋信息研究能力存在较大差异。结合图2 和表1 可知，国家海洋局（现自然资源部）和中国科学院的发文量是最多的分别为108 和82，<code>主要原因是国家海洋局和中国科学院的二级机构较多</code>，也表明了国内海洋信息研究集中在国家海洋局和中国科学院。另外，发文量在4 篇及以上的机构有10 个，共发文量283 篇，占总发文量的34.94%，可见，研究机构之间的海洋信息研究能力相差悬殊，在一定程度上反映了<code>海洋信息研究经费投入和科技资源分布上存在不均衡</code>。从研究机构的区域角度来看，海洋信息研究机构分布不均衡，沿海区域发文数量较多，内陆地区较少，主要原因是国内海洋类高校和海洋研究机构集中于沿海地区。</p>
-<p><img src="/images/info/a2.png" alt></p>
-<h3 id="海洋信息研究作者共现分析"><a href="#海洋信息研究作者共现分析" class="headerlink" title="海洋信息研究作者共现分析"></a>海洋信息研究作者共现分析</h3><p>作者共现知识图谱能够识别出一个研究领域作者的发文量及其之间的合作关系[20]。运用CiteSpace 软件，选择作者（Author）为节点类型、时间跨度为1992-2019年、时间切片为1 及阀值选择TOP100 生成了由162 个节点，167 条连线组成的海洋信息研究作者共现知识图谱（图3），图中的节点大小表示作者发文量的多少，节点之间连线表示作者之间的合作关系。从图中可以识别出，发文最多的是黄冬梅，达到23 篇；发文有6 篇的作者是杜云艳、姜晓轶、李莎、李四海、许建平、苏奋振；发文5 篇的作者是王振华、张峰。从作者之间合作角度看，形成了<code>4 个主要的研究团队：上海海洋大学的黄冬梅、王振华、杜艳玲组成的研究团队，国家海洋信息中心的姜晓轶、蒋冰、李四海、张峰等组成的研究团队，中科院地理科学与资源研究所的苏奋振、杜云艳组成的研究团队，国家海洋局第二研究所的许建平、刘增宏、孙朝辉、李宏等组成的研究团队</code>。显然，研究团队的成员大多来自同一研究机构，作者之间的合作大多是在同一机构研究团队内部，因此，应加强不同的机构研究团队之间的合作交流，促进海洋信息领域的发展。</p>
-<p><img src="/images/info/a3.png" alt></p>
-<h2 id="我国海洋信息研究演变路径梳理"><a href="#我国海洋信息研究演变路径梳理" class="headerlink" title="我国海洋信息研究演变路径梳理"></a>我国海洋信息研究演变路径梳理</h2><h3 id="关键词共现分析"><a href="#关键词共现分析" class="headerlink" title="关键词共现分析"></a>关键词共现分析</h3><p>关键词是文献核心内容的高度概括，那么，通过关键词出现的频次能够识别出研究领域的研究热点[21]。使用CiteSpace，设置时间跨度为1992-2019 年，时间切片为1 年，阀值选择TOP100，节点类型为关键词(Keyword)，采用寻径网络进行剪裁方式，运行软件后得到由104 个关键词节点和75 条连线组成的海洋信息研究的关键词共现知识图谱（图4）。图4 中，十字架大小表示关键词出现的频次，连线表示节点之间的关系。海洋信息研究领域的关键词（按频次由高到低）主要有数字海洋、数据处理、海洋、海洋环境、可视化、南海、云计算、数据库、质量控制、海洋数据、海洋地质、数据仓库、三维可视化、数据采集、大数据、地理信息系统、海洋观测、数字地球、海洋大数据、卫星测高、海洋监测数据、数据挖掘等关键词，这些关键词是国内海洋信息研究学者重点关注的内容。根据Donohue提出的关键词频次高低划分公式：T=[-1+(1+8I)1/2]/2(I是关键词的总个数，T 是高频词的最低次数)[22]，计算出海洋信息研究领域的T 为14，即频次为14 次及以上的关键词是该领域的高频关键词，数字海洋（29 次）和数据处理（16 次）是仅有的2 个高频关键词，高频关键词占总数的1.92%，说明<code>中国海洋信息研究的内容较广泛，但可能不够深入</code>。</p>
-<p><img src="/images/info/a4.png" alt></p>
-<h3 id="关键词演变趋势"><a href="#关键词演变趋势" class="headerlink" title="关键词演变趋势"></a>关键词演变趋势</h3><p>关键词演变趋势可以通过关键词时区视图揭示各个关键词随时间的演进情况[23]。运用CiteSpace 软件，设置时间跨度1992-2019 年，为了更好地展现关键词总体的演变趋势，时间切片选择为<code>4 年</code>，可视化视图选择时区视图（Timezone View），得到了1992-1995、1996-1999、2000-2003、2004-2007、2008-2011、2012-2015、2016-2019 年共7 个时间段的中国海洋信息研究的关键词演变图（图5）。从图5 可以看出，1992-1998 年，数据处理、数据库、质量控制、海洋数据、海洋资料浮标是研究重点，1999 年以来，数字海洋、资料同化、地理信息系统、元数据、数据挖掘、数据集成、信息服务、网格、可视化陆续成为海洋信息研究学者所关注的热点关键词，<code>近几年，云计算、海洋大数据、物联网、深度学习</code>等新一代信息技术是热度较高的关键词。由此可见，<code>海洋信息的每一次的跨越式发展，都得益于信息技术的发展</code>。当前，<code>以物联网、大数据、人工智能为代表的新一代信息技术革命正深刻改变着社会各行各业，海洋领域也不例外</code>。</p>
-<h3 id="关键词聚类分析"><a href="#关键词聚类分析" class="headerlink" title="关键词聚类分析"></a>关键词聚类分析</h3><p>使用CiteSpace 的最大似然法(Log-Likelihood Ratio,简称LLR)对海洋信息研究关键词共现知识图谱进行聚类并选择时间线视图（Timeline）按钮得到海洋信息研究的关键词聚类图（图6）。从图6 可以看出，海洋信息研究领域形成了包括质量控制、数据融合、气候预测、浮标、netcdf、海洋、海洋监测数据、水文要素、数字海洋、物联网、资料同化和时空特征共12 个聚类，Q 值是0.8397，S值是0.5561。一般而言Q值在[0，1]区间内，意味着结构显著的，S 值在0.5 以上，一般认为聚类是合理的[23]，因此，1992-2019 年海洋信息研究关键词所有聚类不仅合适而且聚集特征很明显，同时很多聚类之间既有关联又有不同的，说明学科之间、研究方向等融合交叉密切，研究范围较为广泛。根据我国海洋信息研究关键词聚类图，<code>可将该领域主要研究方向分成以下几个方面：（1）海上自动观测站、海洋浮标、海洋卫星等海洋信息基础设施研究；（2）数据融合、数据库系统、数据挖掘、大数据、云计算、物联网等海洋信息技术研究；（3）虚拟场景、高分辨率、海洋资料同化、数据共享、可视化、气候预测等海洋信息应用与服务研究。</code></p>
-<p><img src="/images/info/a5.png" alt></p>
-<p><img src="/images/info/a6.png" alt></p>
-<p>通过以上对我国海洋信息研究的关键词共现图、演变趋势图以及聚类图的分析，可进一步梳理出我国海洋信息研究的演变路径：（1）<code>海洋信息发展的起步阶段（1992-1999）</code>。该阶段主要是海洋信息的数字化。这个阶段的主要研究热点有海洋资料浮标、数据处理、质量控制以及数据库等传统的研究，海洋信息研究学者对海洋监测、调查等传统手段获取的各种海洋要素的数据以数字编码形式进行储存、传输、加工、处理和应用等数字化处理，为海洋信息化奠定了基础。不过由于我国海洋信息研究起步比较晚，当时信息技术在我国还没有完全普及，很多海洋信息技术只停留在理论的探索阶段，并没有得到实际上的应用，比如，蔡明理等[24]学者在理论上介绍了海洋地理信息系统的构成、工作流程和功能，但并没有在实践中应用海洋地理信息系统。（2）<code>海洋信息发展的快速发展阶段（2000-2013）</code>。该阶段主要是海洋信息的网络化。文献量以及热点关键词在这个阶段快速增长，主要热点关键词有数字海洋、海洋环境、海洋资料同化、数据挖掘、数据共享、可视化、云计算和大数据等方面的研究。同时，这个阶段的海洋信息研究一方面促进了地理信息系统、数据挖掘、可视化与海洋信息的融合与发展，实现了对来源广泛、种类繁多的海洋信息资源的采集、存储、交换、共享和应用等方面的管理，并网络化后向互联网用户共享发布了各渠道获取的海洋信息[15,25-31]；另一方面，国家海洋局启动了我国首个全国范围内的大型海洋信息系统工程项目“数字海洋”的建设，该项目网络化分布在国家和11 个沿海省（自治区、直辖市）海洋行政主管部门的海洋信息资源，并实现了海洋信息的分布式交换与共享服务[6,32]。<code>（3）海洋信息发展的持续发展阶段（2014-2019）</code>。该阶段主要是海洋信息的智能化。这个阶段主要研究热点是物联网、云计算、大数据和深度学习等新一代信息技术在海洋领域的应用[33-38]，可见海洋信息智能化的热潮已经来临，海洋信息应用的层次与水平从此进入了更高阶段。物联网是人与物、物与物相连的智能化网络[39]，能够实现海洋信息的实时获取，而海洋环境是瞬息万变的，那么，通过实时的海洋信息能更好地认识海洋，不少学者针对海洋环境数据或信息的特点，通过物联网技术实现了海洋环境监测系统对海洋环境数据或信息的实时采集、收发和控制等智能化操作[40-42]，另外，有学者运用深度学习等人工智能技术将海洋多源数据进行融合分析实现海洋信息相关应用[43-44]，帮助人类更好认知海洋和经略海洋。</p>
-<h2 id="我国海洋信息研究前沿探析"><a href="#我国海洋信息研究前沿探析" class="headerlink" title="我国海洋信息研究前沿探析"></a>我国海洋信息研究前沿探析</h2><p>陈超美[45]将研究前沿定义为一组突现，突现（Burst）指关键词、术语或文献被引频次在某个时间范围突然增加，在CiteSpace 中用“突现率”表示，另外，关键词是文献核心内容的高度概括，那么，通过CiteSpace 得到关键词的突现率能够识别出该领域的研究前沿。在1992—2019 年海洋信息研究关键词知识图谱的基础上，使用CiteSpace 软件的Visualization 菜单中的Citation/Frequencyburst history 功能后，得到了5 个中国海洋信息领域的突现词（见表2）。</p>
-<p>根据表2 的突现词的突现率起止时间，可以识别出我国海洋信息研究各阶段的研究前沿：最早出现较强突现率的是在2001 年，因此，基于突现率检测的研究前沿是从2001 年开始算起；从表2 可以看出<code>数据处理</code>是中国海洋信息突现时间最长的突现词，可见在长达11 年之久的时期内数据处理一直是中国海洋信息研究人员研究的重点；<code>数字地球和数据仓库</code>分别是2001-2003 年、2005-2009 年的研究前沿；<code>数字海洋</code>在2008-2012 年成为突现率最强的研究前沿；随着国家的发展和信息技术的不断进步，新一代信息技术<code>云计算</code>在2015-2019 年占据了国内海洋信息领域研究前沿的位置。随着新一代信息技术不断进步及国家海洋战略的不断推进下，<code>新一代信息技术将有可能继续成为新的研究前沿趋势</code>，新一代信息技术与海洋学科将深度融合，并在海洋领域的应用更加广泛和成熟，国内海洋信息领域将因此实现变革与突破式发展。</p>
-<p><img src="/images/info/a7.png" alt></p>
-<h1 id="结论与讨论"><a href="#结论与讨论" class="headerlink" title="结论与讨论"></a>结论与讨论</h1><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>CiteSpace 可视化分析软件具有针对研究文献进行定量分析某一学科领域的研究力量、研究热点、演变路径和发展态势的功能，本文在海洋信息领域中得到了很好的应用，通过在CNKI 数据库中收录的海洋信息研究的文献进行相关的可视化分析，得出以下结论：（1）我国海洋信息<code>研究力量</code>：从空间格局上看，我国海洋信息的研究力量主要分布于沿海地区。我国海洋信息研究形成了研究人员之间的核心—边缘型社会网络结构，形成了以黄冬梅、姜晓轶、苏奋振、许建平等学者为核心的研究团队，并且涉及到了信息学、地理学、海洋学等多个交叉学科背景,以及形成了国家海洋局、中国科学院、上海海洋大学、中国海洋大学等为首的研究机构。不足之处在于研究机构之间以及研究团队之间的合作交流较少，因此，应加强国内合作交流。（2）我国海洋信息<code>研究热点</code>主要有“数字海洋”、“可视化”、“海洋观测”、“数据处理”、“数据库”、“大数据”、“云计算”等。（3）我国海洋信息发展的<code>演变路径</code>：①1992-1999 年海洋信息数字化奠定了基础。海洋信息研究者对海洋监测、调查等传统手段获取的各种海洋要素的数据以数字编码形式进行储存、传输、加工、处理和应用等数字化处理，为海洋信息化奠定了基础；②2000-2013 年海洋信息网络化打造了互联互通的海洋信息服务平台。通过互联网技术，促进了海洋数据或信息的汇聚、管理、共享和交换，并向互联网用户共享发布了各渠道获取的海洋信息；③2014-2019 年海洋信息智能化展现了海洋信息的实时采集、接受和处理的能力，通过物联网技术实现了多源海洋数据实时获取、接收，并利用了深度学习等人工智能技术将多源数据进行融合分析实现海洋信息相关应用，帮助人类更好认知海洋和经略海洋。（4）<code>云计算</code>在2015-2019 年成为了研究前沿并在未来新一代信息技术有望继续成为新的研究前沿趋势。</p>
-<h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><p>（1）海洋信息研究领域是具有海洋学、信息技术学、地理学、气象学等学科背景的研究领域，应充分整合各个学科领域的知识、方法和技能。因此，应加强不同学科背景的学者之间的合作以及研究机构之间的合作，并将各个学科的优势交叉融合贯穿于海洋信息研究的全过程，实现海洋信息技术和海洋信息资源高利用率的共享，促进海洋信息领域发展。</p>
-<p>（2）泛在、智能的海洋信息生态系统是海洋信息领域未来的发展方向。图灵奖得主Allen Newell 和诺贝尔奖得主Herbert A.Simon 定义智能为“适应环境变化，实现自身目的”[46]。那么，针对海洋面积大、瞬息万变等特点，泛在、智能的海洋信息生态系统是在广泛存在的海洋环境中利用物联网、大数据、人工智能等新一代信息技术，能够无时无刻地做到海洋信息的智能采集、汇聚、管理、处理、分析和预判等，实现全面了解海洋、认识海洋和经略海洋。</p>
-<p>（3）加强海洋信息关键核心技术攻关。信息技术具有很强渗透、溢出、带动和引领等效应[47]，信息技术创新和应用已经成为推动海洋信息不断发展的重要手段，因此，海洋信息关键核心技术创新能力直接关系到海洋信息的总体水平。虽然国内不少海洋信息研究者利用SkyLine，World Wind，Google Earth 等国外的可视化技术实现了海洋信息可视化[48-50]，并取得了良好效果，但在海洋信息领域要形成核心竞争力，必须提升自主研发水平，把关键核心技术掌握在自己手中，特别是在美国发布了数据分析技术、人工智能和机器学习等14 大门类的先进技术管制清单的背景下[51]，提升关键核心技术创新能力，切实解决制约海洋信息发展的“卡脖子”技术，为海洋信息发展提供坚实的技术支撑。</p>
-<p>（4）加强海洋社会科学类信息的研究。上文已分析总结出了国内海洋信息领域的主要研究方向是海洋信息基础设施研究、海洋信息技术研究和海洋信息应用与服务研究等海洋自然科学类信息方面的研究。<code>海洋社会科学类信息是相对于海洋自然科学类信息而言，海洋社会类数据可分为海洋战略数据、海洋经济数据和海洋文化数据</code>[52]，并且建设海洋强国需要发展海洋文化等海洋社会科学[53]，那么，加强海洋社会科学类信息的汇聚、管理和分析等方面的研究，把海洋自然科学类信息与海洋社会科学类信息有机结合起来，才能更加全面客观地认识海洋和经略海洋，更好地理解国家海洋战略的丰富内涵，助力构建中国特色的海洋强国。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/09/data2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/09/data2/" class="post-title-link" itemprop="url">海洋遥感数据共享II</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-09 18:13:49" itemprop="dateCreated datePublished" datetime="2021-05-09T18:13:49+08:00">2021-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-03 16:12:36" itemprop="dateModified" datetime="2022-01-03T16:12:36+08:00">2022-01-03</time>
-              </span>
-
-          
-            <span id="/2021/05/09/data2/" class="post-meta-item leancloud_visitors" data-flag-title="海洋遥感数据共享II" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/09/data2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/09/data2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="卫星遥感"><a href="#卫星遥感" class="headerlink" title="卫星遥感"></a>卫星遥感</h1><ul>
-<li><p>SST<br><a href="https://www.ncei.noaa.gov/data/oceans/pathfinder/Version5.3/L3C/" target="_blank" rel="noopener">https://www.ncei.noaa.gov/data/oceans/pathfinder/Version5.3/L3C/</a><br>也可在GEE获得：</p>
-<blockquote>
-<p>ee.ImageCollection(“NOAA/CDR/SST_WHOI/V2”) </p>
-</blockquote>
-</li>
-<li><p>ocean current<br><a href="https://podaac-tools.jpl.nasa.gov/drive/files/allData/oscar/L4/oscar_1_deg" target="_blank" rel="noopener">https://podaac-tools.jpl.nasa.gov/drive/files/allData/oscar/L4/oscar_1_deg</a></p>
-</li>
-<li><p>Sentinel-1/2和Landsat8在线浏览<br><a href="https://www.sentinel-hub.com/" target="_blank" rel="noopener">https://www.sentinel-hub.com/</a></p>
-</li>
-<li><p>GNSS和验潮站并置数据<br><a href="https://www.sonel.org/?lang=en" target="_blank" rel="noopener">https://www.sonel.org/?lang=en</a></p>
-</li>
-<li><p>高频验潮数据，包含准实时的数据。<br><a href="http://www.ioc-sealevelmonitoring.org" target="_blank" rel="noopener">http://www.ioc-sealevelmonitoring.org</a></p>
-</li>
-<li><p>英国海洋数据中心，提供CTD、验潮、滑翔机等资料。<br><a href="https://www.bodc.ac.uk/" target="_blank" rel="noopener">https://www.bodc.ac.uk/</a></p>
-</li>
-<li><p>马航370船测地形数据<br><a href="http://www.ga.gov.au/about/projects/marine/mh370-data-release" target="_blank" rel="noopener">http://www.ga.gov.au/about/projects/marine/mh370-data-release</a></p>
-</li>
-<li><p>潮汐调和分析T_tide、地图m_map 等Matlab开源程序包<br><a href="https://www.eoas.ubc.ca/%7Erich/index.html" target="_blank" rel="noopener">https://www.eoas.ubc.ca/%7Erich/index.html</a></p>
-</li>
-<li><p>中国学者整理的海洋研究领域常用Matlab工具集合<br><a href="https://github.com/PanhaiDongPhD/sea-mat/blob/master/src/index.md" target="_blank" rel="noopener">https://github.com/PanhaiDongPhD/sea-mat/blob/master/src/index.md</a></p>
-</li>
-<li><p>欧洲哥白尼海洋数据，含有实测数据、卫星数据等。其中验潮站数据含1min采样。<br><a href="https://marine.copernicus.eu/access-data" target="_blank" rel="noopener">https://marine.copernicus.eu/access-data</a><br>帮助：<a href="https://notebook.community/pprandi/cmems-training/notebook/01_dataDownload" target="_blank" rel="noopener">https://notebook.community/pprandi/cmems-training/notebook/01_dataDownload</a></p>
-</li>
-<li><p>SODA再分析资料，<br><a href="https://dsrs.atmos.umd.edu/DATA/soda3.12.2/REGRIDED/ocean/" target="_blank" rel="noopener">https://dsrs.atmos.umd.edu/DATA/soda3.12.2/REGRIDED/ocean/</a><br><a href="https://www.soda.umd.edu/" target="_blank" rel="noopener">https://www.soda.umd.edu/</a></p>
-</li>
-<li><p>美国环境信息中心ncei产品，含物理海洋、气候态等（SST，Wind，ssh，Global Temperature and Salinity Profile，）<br><a href="https://www.ncei.noaa.gov/products" target="_blank" rel="noopener">https://www.ncei.noaa.gov/products</a></p>
-</li>
-<li><p>World Ocean Atlas<br><a href="https://www.ncei.noaa.gov/products/world-ocean-atlas" target="_blank" rel="noopener">https://www.ncei.noaa.gov/products/world-ocean-atlas</a></p>
-</li>
-<li><p>World Ocean Database<br><a href="https://www.ncei.noaa.gov/products/world-ocean-database" target="_blank" rel="noopener">https://www.ncei.noaa.gov/products/world-ocean-database</a></p>
-</li>
-<li><p>NCDC美国，数据会转到NCEI<br><a href="https://www.ncdc.noaa.gov/" target="_blank" rel="noopener">https://www.ncdc.noaa.gov/</a></p>
-</li>
-<li><p>NODC，美国。数据会转到NCEI<br><a href="https://www.nodc.noaa.gov/access/index.html" target="_blank" rel="noopener">https://www.nodc.noaa.gov/access/index.html</a></p>
-</li>
-<li><p>REMSS公司，数据中心主要有微波传感器观测的参数（wind，SST）<br><a href="https://www.remss.com/" target="_blank" rel="noopener">https://www.remss.com/</a></p>
-</li>
-<li><p>ESA CCI数据中心（盐度，SST，SSH等）<br><a href="https://climate.esa.int/en/odp/#/project/sea-surface-salinity" target="_blank" rel="noopener">https://climate.esa.int/en/odp/#/project/sea-surface-salinity</a></p>
-</li>
-<li><p>LEGOS，数据涵盖了高度计、温盐、潮汐、重力、水文、冰川等资料。<br><a href="https://www.legos.omp.eu/en/homepage/" target="_blank" rel="noopener">https://www.legos.omp.eu/en/homepage/</a><br><a href="https://www.legos.omp.eu/en/data/" target="_blank" rel="noopener">https://www.legos.omp.eu/en/data/</a></p>
-</li>
-<li><p>National Center for Atmospheric Research in Boulder, Colorado. RDA：Cross-Calibrated Multi-Platform Ocean Surface Wind Vector Analysis Product V2, 1987 - ongoing，风场<br><a href="https://rda.ucar.edu/datasets/ds745.1/" target="_blank" rel="noopener">https://rda.ucar.edu/datasets/ds745.1/</a><br><code>contains a large and diverse collection of meteorological and oceanographic observations, operational and reanalysis model outputs, and remote sensing datasets to support atmospheric and geosciences research.</code></p>
-</li>
-<li><p>ESA数据<br><a href="https://earth.esa.int/eogateway/catalog/" target="_blank" rel="noopener">https://earth.esa.int/eogateway/catalog/</a></p>
-</li>
-<li><p>SSS，盐度<br><a href="https://smos-diss.eo.esa.int/oads/access/" target="_blank" rel="noopener">https://smos-diss.eo.esa.int/oads/access/</a></p>
-</li>
-<li><p>argo<br><a href="http://www.argodatamgt.org/Access-to-data/Argo-GDAC-ftp-and-https-servers" target="_blank" rel="noopener">http://www.argodatamgt.org/Access-to-data/Argo-GDAC-ftp-and-https-servers</a><br><a href="https://argo.ucsd.edu/data/argo-data-products/" target="_blank" rel="noopener">https://argo.ucsd.edu/data/argo-data-products/</a></p>
-</li>
-<li><p>CTD：CCHDO (CLIVAR and Carbon Hydrographic Data Office) supports oceanographic research by providing access to high quality, global, vessel-based CTD and hydrographic data from GO-SHIP, WOCE, CLIVAR and other repeat hydrography programs. These data are openly accessible and served in standardized community formats (WHP-Exchange, WOCE, and netCDF). CCHDO also manages public and non-public CTD data for use by the global Argo and OceanSITES programs.<br><a href="https://cchdo.ucsd.edu/；" target="_blank" rel="noopener">https://cchdo.ucsd.edu/；</a> <a href="https://www.go-ship.org/" target="_blank" rel="noopener">https://www.go-ship.org/</a></p>
-</li>
-<li><p>盐度数据，含Singularity Analysis Service<br><a href="http://bec.icm.csic.es/" target="_blank" rel="noopener">http://bec.icm.csic.es/</a></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/05/08/arctic-route/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/08/arctic-route/" class="post-title-link" itemprop="url">基于CiteSpace的北极航线研究进展与展望</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-08 21:22:05 / 修改时间：22:35:37" itemprop="dateCreated datePublished" datetime="2021-05-08T21:22:05+08:00">2021-05-08</time>
-            </span>
-
-          
-            <span id="/2021/05/08/arctic-route/" class="post-meta-item leancloud_visitors" data-flag-title="基于CiteSpace的北极航线研究进展与展望" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/08/arctic-route/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/08/arctic-route/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>阅读文献综述可快速了解某一领域研究进展，随着各类数据库中文献数量的不断增加，如何全面掌握一个研究领域的进展，最好使用专门的工具。Citespace就是这样的文献分析工具，可支持CNKI、WoS等数据库，具备聚类分析、共现分析、共被引分析、热点趋势探测等功能。目前CNKI已经出现了数千篇专门的Citespace相关论文，但文章结构基本相似，下面是一篇以北极航线为主题的论文综述，一方面可以使读者了解北极航向研究情况，有观点称若北极航线开通，图们江流域的珲春取得与新加坡同等重要地位，一方面也使读者掌握类似文章的架构，以便自己也可以写出此类文章。关于Citespace对CNKI和WoS数据库的处理技巧，后面将慢慢整理分享。</p>
-</blockquote>
-<blockquote>
-<p>文章来源：王武林,龚姣,王成金.基于CiteSpace的北极航线研究进展与展望[J].资源科学,2020,42(11):2075–2091.</p>
-</blockquote>
-<p>作者：王武林1，2，龚姣2，王成金1，3<br>1.中国科学院区域可持续发展分析与模拟重点实验室/中国科学院地理科学与资源研究所，北京100101；<br>2.福州大学环境与资源学院，福建福州350116；<br>3.中国科学院大学，北京100049</p>
-<blockquote>
-<p>当前北极航线已成为全球航运研究的重要议题，梳理其研究脉络及发展态势，对后续理论研究和实践探索具有重要的借鉴意义。本文以CNKI数据库和WebofScience核心合集数据库中的北极航线相关文献为数据基础，使用CiteSpace绘制国内外北极航线研究的合作网络图谱和关键词共现图谱，阐明北极航线研究的知识结构关系与演进规律。结果显示：国内外北极航线研究分别开始于2007年和1991年，在2014年和2015年成为研究热点，国内研究文献年度分布趋势与国际后两阶段基本一致；各领域学者积极参与研究，国内外发文量最多的学者分别是李振福（大连海事大学）和EhlersS（俄罗斯科学院），研究以个人为主，团队合作较少；大连海事大学交通运输管理学院和RussianAcadSci（俄罗斯科学院）分别是国内外研究机构合作网络的核心，各研究机构间合作较少，跨区域、跨部门合作较少；文献关键词词汇类别日趋多元化，研究主题和研究方法趋于多样化；北极航线研究主题集中在北极航线经济可行性、北极航线对经济贸易和海运网络的影响、北极航线通航环境与安全、国家北极航线政策与实施等方面，国内外研究侧重点有所不同；未来北极航线领域可能出现的研究热点有北极航线与冰上丝绸之路融合、航线人文环境、航线安全、联合研究等。</p>
-</blockquote>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>北极航线是指穿过北冰洋并把大西洋和太平洋连接起来的海上航线（图1），包括连接欧亚大陆的东北航线、穿过加拿大北极群岛的西北航线和直接穿越北极点的穿极航线，其中东北航线西起西欧和北欧港口穿过西伯利亚沿岸海域，绕过白令海峡到达中国或日本港口。2007年8月美国宇航局卫星照片显示，东北航线和西北航线首次同时完全融化开通[1]，预计到2040年北冰洋将无冰覆盖[2]。2009年夏天，德国“友爱”号和“远见”号两艘货船从韩国经东北航线到达荷兰鹿特丹港，标志着北极航线商业运行阶段的开始[3]。<code>2012年中国“雪龙号”科考船首航东北航线</code>，2017年中国与俄罗斯提出共同打造包括北极航线在内的“冰上丝绸之路”。由此可见，北极航线因经济效益和战略地位而成为国际关注的焦点，近年来，相关研究成果不断涌现，北极航线研究正在成为一个不断发展演进的知识领域，准确把握北极航线的研究进展和学术态势，对后续研究具有重要意义。</p>
-<p>北极航线研究领域主题丰富，学科分布广泛，梳理文献可看出，现有研究主要集中在北极航线对国际经济贸易的影响[4,5]、北极航线安全问题[6,7]、北极航线与“冰上丝绸之路”[8]、北极航线的利益和问题[9,10]等方面，这些研究分别从不同视角对北极航线进行分析，但仍缺少对北极航线研究成果的量化分析和综述性评价。本文基于CNKI数据库和WebofScience核心数据库，利用CiteSpace软件的文献计量法，对国内外北极航线研究领域文献进行系统性可视化分析和文献总结，探究北极航线的研究现状，客观揭示该研究领域的态势，为准确评价北极航线研究进展、梳理研究框架、拓展新的思路和方法提供借鉴和参考。</p>
-<p><img src="/images/arctic/a1.png" alt></p>
-<h1 id="数据来源与研究方法"><a href="#数据来源与研究方法" class="headerlink" title="数据来源与研究方法"></a>数据来源与研究方法</h1><h2 id="数据来源"><a href="#数据来源" class="headerlink" title="数据来源"></a>数据来源</h2><p>为保证原始数据的准确性和科学性，本文使用<code>中国知网（CNKI）</code>数据库中的期刊文献作为国内中文文献来源，以中文核心期刊、CSSCI来源期刊、科学引文索引来源期刊、工程索引来源期刊为检索对象，检索主题设置为：北极航线或北极航道或东北航线或东北航道或西北航线或西北航道或北方海航道。使用<code>WebofScience</code>核心合集数据库作为国际（含中国）北极航线文献来源，检索主题设置为：“ArcticPassage”OR“ArcticRoute”OR“ArcticSeaRoute”OR“ArcticShippingRoute”OR“NortheastPassage”OR“NortheastRoute”OR“NorthwestPassage”OR“NorthwestRoute”OR“NorthernSeaRoute”。上述两个数据库检索时间都截至2019年12月31日。将检索到的文献进行筛选和整理，去除杂谈、新闻报道、无作者、书评、会议征稿以及明显与主题无关的文献，共得到国内文献282篇和国际文献291篇作为研究样本。</p>
-<h2 id="研究方法"><a href="#研究方法" class="headerlink" title="研究方法"></a>研究方法</h2><p>本文采用的<code>CiteSpace</code>软件是陈超美教授基于Java语言开发的可视化软件，该软件可绘制某一领域的知识图谱，能呈现和分析该领域学科的结构、规律和分布情况，从而使复杂的信息变得直观和形象[11,12]。但CiteSpace软件仅用于处理文献之间关系，只能计算出该领域重要学者、热点关键词等，具体的文献信息，还需结合文献进行深入阅读。在生成的图谱中，N表示节点数目，E表示连线数量，Density表示网络密度，节点以年轮形式表示，节点半径的大小代表节点出现频次的高低[11]。节点出现突现表示该节点在短时间内出现频率急剧上升，半衰期表示节点在此期间内该保持一定的影响[12]。随后，本文通过系统梳理北极航线相关文献，对北极航线研究主题及相关研究的特点进行总结与解析。</p>
-<h1 id="结果与分析"><a href="#结果与分析" class="headerlink" title="结果与分析"></a>结果与分析</h1><h2 id="基于CiteSpace的结果统计与分析"><a href="#基于CiteSpace的结果统计与分析" class="headerlink" title="基于CiteSpace的结果统计与分析"></a>基于CiteSpace的结果统计与分析</h2><h3 id="发文时间分析"><a href="#发文时间分析" class="headerlink" title="发文时间分析"></a>发文时间分析</h3><p>研究文献数量年度分布和变化趋势能够反映该领域的重要性和受关注程度。北极航线研究领域文献数量年度分布如图2所示，<code>总体来看，国内外文献数量均呈现波动增长趋势，2013年后国内文献数量明显增加，2014年后国际文献数量快速增长</code>。从发展阶段来看，国内研究大致可分为平稳发展阶段（2007—2013年）和快速发展阶段（2014—2019年）。平稳发展阶段文献数量波动增加，年均发文量较少，相关研究在国内尚未形成热点，参与研究的学者较少；快速发展阶段年度发文量猛增，并在2018年达到峰值50篇，随着中国成为北极理事会正式观察员国和“冰上丝绸之路”政策的提出，国内对北极航线的研究热度和重视程度不断增加，大量研究成果相继发表。国际研究大致可分为缓慢发展阶段（1991—2009年）、平稳发展阶段（2010—2014年）和快速发展阶段（2015—2019年）。缓慢发展阶段文献数量极少，且以北极航线概况的介绍性文章为主；平稳发展阶段年度发文量呈现出“N”型的分布趋势，发文量比上一阶段稍多且研究主题开始多样化；快速发展阶段年度发文量猛增，并在2018年到达峰值52篇。国际上对北极航线的研究起步较早且较为系统，研究主题与研究成果不断丰富和完善，研究视角和研究方法也日趋多元化。国内相关研究起步较晚，国内的两个研究阶段与国际研究的后两个阶段的发文趋势基本一致，且国内外相关研究均在2018年达到年度发文量的峰值。</p>
-<p><img src="/images/arctic/a2.png" alt></p>
-<h3 id="发文作者分析"><a href="#发文作者分析" class="headerlink" title="发文作者分析"></a>发文作者分析</h3><p>发文作者是科学研究的主体，通过CiteSpace软件的作者合作网络分析可以识别研究领域的核心学者及其合作关系。通过CiteSpace软件计算得到国内外作者合作网络图谱（图3）和主要作者指标信息表（表1），<code>李振福</code>以53篇的发文量居国内北极航线发文学者的第1位，且远超其他学者，是作者合作网络图谱的核心，除李振福外其余发文量在5篇及以上的学者有<code>肖洋、白佳玉、张韧、王文雅</code>。从第一作者发文量来看，李振福、肖洋和白佳玉分别有47、10、8篇，王丹、刘同超、章成、郑雷、郭培清均有4篇。从合作网络来看，<code>国内北极航线研究已形成少数研究团队，但团队之间联系微弱，仍处于相对独立的阶段，学者之间的合作仅限于团队内部，跨团队的合作较少，合作网络表现出大分散、小集聚的特征。</code>从作者的突现性和半衰期来看，影响力较大或期限较长的有：李振福、肖洋、张韧、王丹、寿建敏和郭培清。国内主要学者及其研究主题有：李振福主要研究北极航线地缘政治[13]、北极航线环境[14]、航线开通对中国的影响及中国应该采取的措施[15]等；肖洋主要研究北极航线利益相关国的政策及实施[16,17]；白佳玉主要研究北极航线的法律地位及航线治理[18]；王丹主要研究北极航线开通对中国及沿线国家的影响[19]；刘同超主要研究北极航线安全[20]；寿建敏主要研究北极航线的潜力[21]；章成主要研究中国北极权益[22]；郑雷主要研究北极航线航行自由[23]；郭培清主要研究北极航线的法律问题[24]。国际发文量在10篇以上的学者有Ehlers S和Lasserre F，发文量4篇及以上的学者还有Wang YJ、Khan F、Zhang R、Fan HM等。从第一作者发文量来看，发文较多的是Lasserre F、Ehlers S、Wang YJ、Hong DB，分别有4、3、3、2篇。从合作网络来看，学者们呈部分集中、整体分散的状态，已形成以Ehlers S、Lasserre F、Wang YJ、Fan HM为核心的研究团队，团队之间相互独立，未形成合作紧密的网络。从作者的突现性和半衰期来看，影响力较大或期限较长的有：Ehlers S、Lasserre F、Khan F和Fan HM。国际主要学者及其研究主题包括：Ehlers S主要研究北极航线运输模式和风险[25-27]、北极航行船舶[28]；Lasserre F主要研究北极航线潜力和经济可行性[29]、航运企业[30,31]；Wang YJ主要研究航线规划[32]、北极航线对海运网络的影响[33]；Khan F主要研究航运风险[25,34,35]；Fan HM主要研究航线通航环境[36]、通航风险[37]；Yamaguchi H主要研究北极航线海冰及天气预报[38-40]；Yang CS主要研究北极航线海冰识别[41,42]；Hu H主要研究航运风险和网络[43]、航线经济可行性[44,45]等。</p>
-<p><img src="/images/arctic/a3.png" alt><br><img src="/images/arctic/a4.png" alt></p>
-<h3 id="发文机构分析"><a href="#发文机构分析" class="headerlink" title="发文机构分析"></a>发文机构分析</h3><p>对国内外北极航线文献发文机构进行分析，得到机构合作网络图谱（图4）和主要机构指标信息表（表2）。国内研究机构以<code>大连海事大学交通运输管理学院</code>的发文量为最多，占总文献量的18%。其余发文量在5篇及以上的有<code>中国海洋大学法政学院、武汉大学中国边界与海洋研究院、北京师范大学全球变化与地球系统科学研究院、国防科技大学气象海洋学院</code>。排名前10的机构发文量占总文献量的41%，说明国内北极航线研究机构相对集中，科研成果差异较大。从合作网络来看，研究机构之间的合作少，少量合作均发生在高校内部不同学院和地理位置相近的机构之间，尚未形成较广泛和紧密的学术合作网络。从机构的突现性和半衰期来看，影响力较大或期限较长的有：大连海事大学交通运输管理学院、中国海洋大学法政学院、中国极地研究中心、上海海事大学、大连海事大学法学院和上海国际问题研究院。<code>结合表2可以看出，大连海事大学交通运输管理学院、中国海洋大学法政学院和中国极地研究中心是国内较早介入北极航线研究的主
-要机构，武汉大学中国边界与海洋研究院和国防科技大学气象海洋学院是国内近几年才介入北极航线研究的机构。</code></p>
-<p>国际发文量最多的研究机构是<code>Russian Acad Sci</code>，发文量在5篇及以上的机构有Norwegian Univ Sci &amp; Technol、Dalian Maritime Univ、Univ Laval、Mem Univ Newfoundland、Shanghai Maritime Univ、Univ Tokyo、Shanghai Jiao Tong Univ。从合作网络来看，各研究机构之间较为分散，未形成较强的学术合作网络，Russian Acad Sci 是合作网络图谱中大的节点，但未与其他任何研究机构存在合作，其他研究机构之间的合作很少，这些少量的合作大多发生在同一国家。从机构突现性和半衰期来看，影响力较大或期限较长的机构有Norwegian Univ Sci&amp; Technol、Russian Acad Sci、Univ Laval、Natl Inst Polar Res，这些机构是国际北极航线研究的主要力量。从发文量前10的研究机构所属国家来看，<code>中国占4家</code>，其发文量占排名前10机构总发文量的31%，俄罗斯占21%，挪威和加拿大均占18%，日本占13%。<code>发文量排名前5的科研机构所属国家除中国以外，其余均为北极理事会成员国，排名6到10的机构所属国均为北极理事会正式观察员国，这些国家相关科研机构组成了国际北极航线研究的中坚力量</code>。</p>
-<p><img src="/images/arctic/a55.png" alt><br><img src="/images/arctic/a66.png" alt></p>
-<h3 id="关键词分析"><a href="#关键词分析" class="headerlink" title="关键词分析"></a>关键词分析</h3><p>关键词的共现关系是分析该领域研究热点的重要依据，多个节点通过边相连并且聚集在一起，结合频次、突现度等指标信息能够较直观地呈现研究的重要关键词，为明确该领域的研究热点提供依据[46]。通过CiteSpace软件计算并将含义相近的关键词合并，得到国内外关键词共现图谱（图5）和主要关键词指标信息表（表3）。<code>国内北极航线研究关键词共现图谱中最大的节点是北极航线，频次为111，其次为北极和东北航线，频次分别为48和35</code>。近年来随着“冰上丝绸之路”政策的提出，北极航线引发更多关注和研究，关键词词汇类别逐渐多样化，研究主题也呈现多元化趋势。从研究方法来看，前期多采用定性研究方法，近年来多采用定量研究或定性与定量研究相结合的研究方法，随着研究主题的愈加深入，研究方法也愈加多样化。国内北极航线研究领域的重点主题是北极航线对中国的经济发展、沿海港口、航运业等的影响以及中国的应对策略，在高被引Top50文献中有21篇文献涉及了该主题的研究，此外北极航线的经济可行性、北极航线的法律地位、北极航线与“一带一路”的关系、其他国家的北极航线政策也较为重要，在高被引Top50文献中分别有4、4、3、3篇文献对这些主题进行了探讨，<code>可以看出国内研究主要是集聚在北极航线与中国关系的相关研究主题上，其他主题的研究相对较少</code>。</p>
-<p>从国际北极航线研究关键词共现图谱连线颜色来看，2013年后的连线数量远多于之前的年份，表明近年出现的关键词数量呈激增态势。北方海航道（Northern Sea Route）是图谱中最大的节点，频次为76，其次为冰（ice）和北极（Arctic），频次均为33。国际研究始于20世纪90年代，前期研究主要集中在<code>北极气候变化、海冰分布、航线通航环境等</code>，近年来关注于北极航线的<code>经济可行性、发展潜力、航行安全与风险、航线开通对北极自然环境和生物的影响等</code>。关键词词汇类别逐渐多样化，研究主题逐渐多元化和分散化。在高被引Top50文献中，北极航线的经济可行性、北极航线开通对环境及生物的影响、北极航线的通航窗口、北极航线海冰分布分别有8、8、5、5篇文献，其余研究主题还包括航运企业对北极航线的态度、航行船舶碰撞、航行风险等。</p>
-<p><img src="/images/arctic/a5.png" alt><br><img src="/images/arctic/a6.png" alt></p>
-<h2 id="北极航线研究主题"><a href="#北极航线研究主题" class="headerlink" title="北极航线研究主题"></a>北极航线研究主题</h2><h3 id="北极航线经济可行性"><a href="#北极航线经济可行性" class="headerlink" title="北极航线经济可行性"></a>北极航线经济可行性</h3><p>相比传统航线，北极航线开通可以<code>缩短西北欧与北太平洋港口之间的海运里程、降低航行成本和时间等</code>，但船舶航行北极航线的运营成本和安全风险远大于传统航线，故其是否具有经济可行性，目前主要存在两种截然不同的观点。首先，北极航线通航具有经济可行性，北纬30°以北任何港口之间使用北极航线要比使用传统航线<code>节省40%的里程</code>，运营成本会相应减少，经济潜力巨大[47]，尤其在干散货运输方面，北极航线具有灵活性、敏捷性和适应性等优点[48]。通过对比船舶航行北极航线和传统航线的经济成本发现，<code>在通航期内通过东北航线的集装箱运输航次成本节约10%左右，燃油成本节约35%左右</code>[21]；<code>需要破冰服务时北极航线航运利润增加约56%，无需破冰服务时，航运利润增加约105%</code>[49]。北极航线与传统航线联合运输，即在北极航线通航期内使用北极航线、其余时间使用传统航线被认为是一种可行的模式，使用联合运输的北极集装箱服务更加经济[50]；Arc7自破冰LNG船全年用联合运输会显著降低运输成本[51]；若考虑欧盟<code>征收碳税</code>，联合运输在全年经济测算中必要运费率最低、经济效益最好[52]，联合运输可作为未来中国船运企业从中国至欧洲集装箱运输的主导模式[53]。</p>
-<p>其次，北极航线开通不具有经济可行性或其经济成本优势需要在一定条件下才能实现。通过北极航线缩短的航运里程并不意味着成本的节省，额外的破冰服务以及适航时间、征费、燃油价格等均会影响航运利润[54]，此外还需要对其基础设施和海洋服务提供更多的投资，以确保船舶运输的安全并尽可能减少对环境的影响[55]。尽管使用东北航线能明显缩短航程，但由于全年航次较少，运输成本并无突破性降低[21]，加之目前通航船舶体积小、负荷率低，其环境成本高于苏伊士运河航线[56]。北极航线中短期市场小而成本风险大，大多航运公司对其可行性持怀疑态度，<code>在运营初期，大部分东亚和欧洲的航运公司不会使用北极航线</code>[57]，只有少数亚洲航运公司对北极航线感兴趣，他们关注于航线的目的地，而非过境航运[58]。如果考虑北极天气和海冰年际变化、俄罗斯收取的费用、石油生产和消费的地理位置、立法问题和基础设施等因素，北方海航道不能替代传统航线[59,60]。<code>北极航线在经济上是否可行与破冰服务成本有关，破冰服务成本越低，北极航线的竞争力越强</code>[54,61]，北极航线的经济性还取决于航线的选择[62]。</p>
-<h3 id="北极航线对经济贸易与海运网络的影响"><a href="#北极航线对经济贸易与海运网络的影响" class="headerlink" title="北极航线对经济贸易与海运网络的影响"></a>北极航线对经济贸易与海运网络的影响</h3><p>北极航线开通将对世界港口航运产生重大影响[63]，使之成为连接欧亚海运贸易的关键纽带[55]，会对全球经济贸易带来重大影响，能够增加贸易流量并改变贸易流向，从而影响世界贸易格局并促进全球经济增长，<code>东亚、欧盟、北美等将成为最大受益方</code>[64,65]。北极航线带来的经济影响会在地理空间上形成<code>北极航线经济圈</code>，中国、日本、韩国、美国、俄罗斯等国是主要的参与者[66]，基于北极航线可划分其经济腹地的范围和等级[67]。作为国际能源运输的新通道，北极航线将在一定程度上改变全球能源贸易的地理方向，使全球能源贸易的来源与通道集中度降低[1]，特别是北极石油资源的开发，将对世界石油海运格局产生巨大冲击，<code>预测北极石油海运贸易将占世界石油贸易总量的26.5%左右</code>[68]。此外，北极航线能够加强港口间的联系，增强海运网络的层次性[69]，增大中国与加拿大、美国及西北欧海运国家的集装箱海运空间联系强度[70]。未来20~30年间北极航线货流量将快速增长[71]，如果实现全年通航，东北航线对全球集装箱货物的配流量将超过一半以上，纬度越高及距离东北航线越近的港口在东北航线的配流量和比例越高[72]。相关研究还模拟了北极航线的经济效益[54,62]、港口枢纽区位[73]、航线竞争力[74]等方面。</p>
-<p>中国与欧美的贸易量巨大并不断攀升，这些贸易绝大部分通过海上运输来完成，北极航线的开发利用将会对中国的经济发展带来新动力和机遇。北极航线能提升中国对航线受益国家的进出口潜力[75]；提升中国与美国、加拿大和北欧五国的经济联系程度，维持中俄之间原有的经济联系程度[76]。北极航线的开通会扩大中国沿海在连接世界各国海洋航线方面的优势，提高中国北部和东部沿海地区的贸易潜力[5]，进而影响沿海地区产业分工和经济发展战略布局[77]；<code>也促使图们江流域的珲春取得与新加坡同等重要地位</code>[78]。北极航线还将成为中国石油进口通道之一，将承担中国约7%的石油进口运输量，随着通航环境的改善和极地石油勘探开采技术的提升，该比重会进一步增加[79]。此外北极航线对中国北方港口的竞争程度、网络结构、腹地范围、区位条件等各方面都有一定影响[1,3]，尽管东北航线开通不会打破现阶段环渤海港口的整体雁阵模式，但同一层次不同港口的发展位序将会发生改变[80]。</p>
-<h3 id="北极航线通航环境与航线安全"><a href="#北极航线通航环境与航线安全" class="headerlink" title="北极航线通航环境与航线安全"></a>北极航线通航环境与航线安全</h3><p>（1）航线通航环境</p>
-<p>北极航线大部分位于北极圈内，影响其通航环境的因素复杂多变，可将北极航线通航环境影响因素归类为<code>自然环境、助航、人文环境因素3类</code>[14]。在北极航线通航环境影响因素中，<code>海冰是主要的限制因素</code>，关键区域的冰情会直接影响航线的开通，影响东北航线通航的关键区域是东西伯利亚海、新西伯利亚群岛、北地群岛、拉普捷夫海和维利基茨基海峡至谢尔盖·基洛夫群岛[81,82]；影响西北航线南线关键区域是维多利亚海峡、皮尔海峡和巴罗海峡；影响西北航线北线的关键区域是麦克卢尔海峡和梅尔维尔子爵海峡[83]。</p>
-<p>随着全球气候变暖，北极海冰总量减少而流动性增强，每年通航期内海冰分布范围有所不同，导致航行线路不固定，因此需要加强北极海冰监测和预报能力，为未来航线利用提供保障[83]。近年来各国北极海冰和气象预报水平提升，合作交流扩大，但仍存在观测数据应用不充分、北极中央区预报能力偏弱以及<code>预报信息共享度不够</code>等问题[84]。为了提高北极海冰和天气预报的可靠性，高分辨率的冰海耦合模式[85]、TOPAZ4冰洋资料同化系统[86]以及加入2082北极无线电探空仪观测[39]等模型和方法得到广泛应用。北极航线的通航期随海冰融化而变化，东北航线平均通航期是7月中下旬至10月中下旬[82]，全线开通期主要集中在8月下旬至10月上旬，西北航线南线开通期主要集中在8月上中旬至10月上旬，西北航线北线开通时间主要集中在9月[51]。预计到21世纪中叶，北方海航道通航期约2<del>3个月，到21世纪末约3</del>6个月[87,88]。</p>
-<p>北极航线通航带来的诸多污染和干扰，对北极脆弱的生态环境形成严峻挑战，其中最主要的污染来自<code>船舶溢油</code>，具有危害范围广且持续时间长的特点。以FLUENT为研究平台，基于多项因素共同作用下的船舶溢油模型分析溢油在有冰海域中的运动特点[89]，或使用高分辨率海洋模型和拉格朗日粒子追踪来模拟污染物的扩散，其扩散的距离高度依赖泄漏发生的地点，在一些地点泄漏的污染物有可能进入深水无法回收[90]。污染和干扰还会对北极生物产生影响，例如在压载舱航行中幸存下来的生物可以建立一个稳定或不断增长的种群，并以压载水为媒介最终成为入侵生物[91]。</p>
-<p>（2）航线安全及风险评估</p>
-<p>影响北极航线通航安全的因素较多，可将其分为人、机、环境、管理4类，目前环境方面占有较大比例，后期人、机和管理方面占有较大比例[20]。评估北极航行安全和风险的模型和方法包括基于贝叶斯网络的风险模型[34]、统一的态势监测和智力支持系统[92]、基于智能GIS的安全监测方法[93]等。近年来北极水域船舶航行事故数逐年上升，主要发生在巴伦支海东部的俄罗斯摩尔曼斯克港口水域和挪威北部水域[94]。为此学者们提出不同的方法来研究北极海域船舶事故，包括利用模糊事件树分析方法评估北极海域重大船舶事故的风险[95]；利用Bowtie关系量化北极水域航行过程中船舶发生事故的概率以及相关的事故后果[25]；构建北极地区碰撞与触地故障树来分析海上事故的原因[96]。</p>
-<p>破冰船协助船舶通行北极航线是当前主要的通行模式，俄罗斯组建了庞大的破冰船队以维护其北部港口和航线的安全[97]，但这种通行模式可能导致破冰船与船舶的碰撞，为了识别破冰船与船舶碰撞危险因素，可建立破冰船与船舶碰撞事故的人为和组织因素专用模型[98]，亦可基于船舶跟航理论的不同冰情下安全距离的定量计算模型，量化不同冰情下可接受的安全间隔距离，以及破冰船和护航船舶的运动特性[99]，或建立适用于北极航线的交通流跟驰模型，计算船舶安全间距、船头间距、船舶跟驰速度[100]。在关键海峡的自然环境风险评估方面，东北航线的红军海峡、德朗海峡和维利基茨基海峡自然环境风险均逐年下降，通航期内9月自然环境风险最低，7月最高[101]；红军海峡自然环境风险减小趋势最大，德朗海峡的自然环境风险度最低，维利基茨基海峡次之，红军海峡风险度最高[102]。此外，北极航线也存在地缘政治安全问题，即北极航线有地缘关系的世界各国在争取北极航线权益过程中涉及和带来的安全问题，其地缘政治格局可以聚类为以美国、俄罗斯和英国为主的国家组成的3个国家集团，为此李振福提出符合北极航线地缘安全需要、有利于维护地缘安全和稳定的“大北极机制”[13,103]。</p>
-<h3 id="国家北极航线政策与实施"><a href="#国家北极航线政策与实施" class="headerlink" title="国家北极航线政策与实施"></a>国家北极航线政策与实施</h3><p>（1）国际政策与实施</p>
-<p>环北极8国尤其是俄罗斯较早研究北极航线，沙俄时代即已利用东北航线运输物资，第一次世界大战之后前苏联对北方海航道进行了科学考察并建立研究机构，为更有效地开发北极航线，<code>俄罗斯实施实际占有战略，试图直接控制北极航线</code>，但由于立法目的不同和国际法与国内法的优先适用问题，俄罗斯的相关国内法规与《联合国海洋法公约》存在严重分歧[104]。在俄罗斯新颁布的法律条文中将破冰船强制领航制度改变为许可证制度，使得外国船只能在北方海航道独立航行，俄罗斯北方海航道政策有进一步向国际开放的政策倾向[105]。余下的北极7国中，<code>冰岛在北极事务中拥有较强的国际话语权，其北极战略是重构外交政策、挖掘北极潜在经济价值和应对北极危机等</code>[106]；瑞典强调其与北极历史联系，侧重关注气候与环境、经济发展和人文发展，通过强化与北极国家的合作来提升其在北极的影响力[107]；挪威的北极战略是维护国家安全、挖掘经济机遇、提升国际政治影响力[108]；加拿大的北极战略目标涉及国家主权、经济和社会的发展、环境保护、地区善治等[109]；美国将北极战略嵌入其全球战略之中，以应对气候变化为突破口，获取北极治理的领导权[110]。丹麦国家内部分裂和北极地缘政治的演变，使得其北极战略从温和保守转化为主动进攻[17]。芬兰的北极战略主要侧重于安全和稳定，积极推动北极合作，通过构建北极治理框架实现北极和平发展[111]。</p>
-<p>（2）中国政策与实施</p>
-<p><code>作为北极航线延长线上的国家之一，中国正从海运大国迈向海洋强国，开通北极航线对中国而言既是机遇也是挑战</code>[112]，《联合国海洋法公约》及其他相关海事条约提供了中国参与北极事务和利用北极航线的相关权利依据，也是实现中国北极权益的科学路径[113,114]。<code>推动航线安全合作是北极国际治理的主要内容，也是中国介入北极事务的最佳切入点之一</code>[115]。目前北极航运治理正处在建章立制阶段，中国可以通过参与构建北极航运国际管制机制，提升中国在北极航运事务治理中的话语权，进而实现和保障中国在北极地区的最大权益[116]。在2017 年发布的《“一带一路”建设海上合作设想》文件中，已经将北极航线明确为“一带一路”的三大主要海上通道之一，同年中俄决定共建“冰上丝绸之路”，该倡议实现了“一带一路”在北极地区的延伸，俄罗斯希望借助中国力量增强在北极地区的活动能力，填补欧洲国家在北极开发合作中的地位和作用[117]，而美国对于“冰上丝绸之路”采取竞争性抵制的拒阻思维，可能会导致未来北极地缘政治经济格局出现两种力量并存的趋势[16]。</p>
-<p>（3）北极航线法律地位</p>
-<p><code>北极航线法律地位问题是与北极航线相关的最重大国际问题之一</code>，各方主张的法律依据或理论本身缺乏具体标准，相关条约条款在执行实践中存在分歧，并且随着航线通航区域逐步扩大，航线法律地位问题冲突呈现白热化趋势。俄加两国学者从本国利益出发提出了扇形理论、海冰与陆地同权理论、海峡基线法、历史性权利、直线基线法等分别主张东北航线、西北航线是其内水，否认他国船只的无害通过权和过境通行权，而美国和欧盟等则主张北极航线属于用于国际航行的海峡，应开放过境通行，且得到了多数北极圈外国家学者的支持[23,114,118]。加拿大在西北航线管理及主权诉求过程中，通过国内法以环境保护名义间接谋求其西北航线主权地位，并使其国内法相关原则在国际法中得以体现，为本国赢取了航线管理的有利因素[119]，俄罗斯以有限开放原则为基础采取选择性妥协治理路径，在航行规则和基础设施建设等问题上主动妥协，将北方海航道作为应对外部挑战和国内发展需求的新增长点[120]。国内有学者认为北极航线应定性为用于国际航行的海峡，北极航线军事演习具有非法属性，<code>军事测量自由是相对性自由</code>，应合理限定冰封区域条款在北极航线的适用[118,121]，并确立北极航线特殊条约规制型海峡治理模式[122]。</p>
-<h3 id="国内外北极航线研究异同"><a href="#国内外北极航线研究异同" class="headerlink" title="国内外北极航线研究异同"></a>国内外北极航线研究异同</h3><p>随着全球气候变暖、北极冰层融化，北极8 国愈加重视北极航线研究，其他利益相关国开始关注北极航线问题，国外关于北极航线议题的研究起步较早，在技术层面和理论层面都有一定程度的积累。国内对北极航线的科学考察和研究相对较晚且理论进展相对迟缓，近年来国内逐渐重视北极航线的研究，对于北极航线的经济性、北极航线治理与中国如何参与治理、北极航线对中国的战略意义以及中国应采取的策略等开展了大量研究，但研究深度和广度以及研究成果影响力与北极8 国相比仍存在较大差距。国内外研究主题基本一致，相较而言在研究方向和研究尺度上存在着较大差异，国内学者大多从国家或地区视角研究北极航线，部分国际学者是以航运公司、托运人等视角进行研究；<code>在航线发展潜力与经济性研究中，国内学者认为北极航线的开通将会给中国以及相关国家带来诸多益处，且会给海运格局带来巨大的变革，国际学者大多认为北极航线目前还不足以对世界经济发展起到推动作用，同时可能会严重破坏北极的生态环境</code>[123]；在北极航线通航环境研究中，国内学者主要通过以往的数据来分析通航窗口、关键海域等，国际学者侧重于对未来通航窗口、航线规划、海冰和天气的预测；对于北极航线通航性的研究，国内学者对航线通航性持积极态度，国际学者一般认为航线还处于不安全通航状态之下；在航线安全研究中，国内侧重于航运安全和地缘安全且对航线治理及中国参与航线治理研究较多，国际学者则侧重于提出预测航线风险的方法与模型；在相关国家政策战略研究中，国内学者大多将重点放在俄罗斯且对中俄合作十分注重，其次是对韩国、日本、加拿大等国的研究，国际学者对美国、俄罗斯、加拿大的研究较多。</p>
-<h1 id="结论与展望"><a href="#结论与展望" class="headerlink" title="结论与展望"></a>结论与展望</h1><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>本文以CNKI 和WOS数据库中北极航线相关文献为研究对象，采取信息可视化研究方法并应用CiteSpace 软件，对国内外北极航线研究的相关文献进行可视化分析和文献评述，研究结果显示：</p>
-<p>（1）从年度发文量来看，国内可以划分为平稳发展和快速发展2 个阶段，国际可以划分为缓慢发展、平稳发展和快速发展3 个阶段，国内外北极航线研究的文献数量随着年份变化整体上呈逐渐增长趋势，国内大量文献出现在2013 年后，国际大量文献出现在2014年后。</p>
-<p>（2）从发文作者来看，李振福、肖洋、白佳玉、张韧、王丹、刘同超、寿建敏、郭培清是国内北极航线研究的核心作者，Ehlers S 和Lasserre F 是国际北极航线研究的核心作者，国内外均已形成少数联系微弱的研究团队，未形成合作紧密的网络。</p>
-<p>（3）从发文机构来看，国内主要发文机构有大连海事大学、极地研究中心、中国海洋大学、武汉大学等，国际主要发文机构有Russian Acad Sci、NorwegianUniv Sci &amp; Technol、Dalian Maritime Univ、Univ Laval、Mem Univ Newfoundland 等，团队内部之间合作关系较为密切，不同团队之间受地域学缘等因素影响，联系强度和合作关系较弱。</p>
-<p>（4）从关键词共现来看，北极航线研究随时间变化越来越活跃，关键词词汇类别逐渐多样化，研究主题和方向逐渐多元化，研究方法逐渐深入化，国内外的高被引论文的研究主题不一，国内研究主题相对集中，而国际研究主题较为分散、多元。</p>
-<p>（5）从研究主题来看，北极航线研究热点主要聚焦于北极航线的经济可行性、北极航线对世界经济贸易与海运网络的影响、北极航线通航环境与航线安全以及北极航线政策与实施等主题。国内外研究侧重点有所不同，国内侧重于研究北极航线的地缘政治、国家利益、经济贸易、经济可行性，国际侧重于研究航线安全、生态环境、海冰天气预测等，大部分国内学者对航线经济性、通航情况、未来发展持积极态度，而国际学者则较为保守和谨慎。</p>
-<h2 id="展望"><a href="#展望" class="headerlink" title="展望"></a>展望</h2><p>未来北极航线研究方法和研究视角有待进一步丰富，研究领域和研究深度需拓展和加强。北极航线研究领域未来可能出现的研究热点：</p>
-<p>一是北极航线与“冰上丝绸之路”融合问题。已有学者将北极航线与“冰上丝绸之路”进行了联合研究，这是一个新的并可积极拓展的研究方向，在未来几年可能会成为研究热点。</p>
-<p>二是北极航线人文环境方面的研究。当前大量研究围绕气候、海冰、水文、物种、生态等自然环境方面进行展开，尚缺少人文环境方面的研究，例如土著人民对北极航线开发的态度以及影响。</p>
-<p>三是北极航线安全问题。随着通航窗口的增加，北极航线安全问题愈加明显，未来应重视基于理论视角从微观和宏观方面对北极航线安全问题进行研究。</p>
-<p>四是联合研究问题。目前主题联合研究和国内外联合研究还较少。在主题联合研究方面，可将航线经济性和环境影响、航线地缘安全和通航环境安全、国家地区视角和航运公司视角等进行联合研究。在国内外联合研究方面，可与北极8 国进行航线开发、自然生态环境保护、极地船舶技术、北极资源开发等方面研究；可与日本、韩国等航线延长线国家进行合作参与北极事务、利用北极航线等方面研究。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1391,7 +1313,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1404,7 +1326,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">91</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">88</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">91</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">157</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">161</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,524 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/09/03/proj/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/03/proj/" class="post-title-link" itemprop="url">PROJ 坐标转换的几个例子</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 08:08:27 / 修改时间：08:13:16" itemprop="dateCreated datePublished" datetime="2020-09-03T08:08:27+08:00">2020-09-03</time>
+            </span>
+
+          
+            <span id="/2020/09/03/proj/" class="post-meta-item leancloud_visitors" data-flag-title="PROJ 坐标转换的几个例子" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/03/proj/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/03/proj/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="PROJ-转ITRF地心坐标到经纬度"><a href="#PROJ-转ITRF地心坐标到经纬度" class="headerlink" title="PROJ 转ITRF地心坐标到经纬度"></a>PROJ 转ITRF地心坐标到经纬度</h2><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">4097216.6805</span>  <span class="number">4429119.0287</span> <span class="number">-2065771.3676</span> <span class="number">0</span> | cct -I +proj=cart +ellps=GRS80</span><br><span class="line"> <span class="number">47.2292116930</span>  <span class="number">-19.0183060232</span>     <span class="number">1552.9924</span>        <span class="number">0.0000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="PROJ-转经纬度到ITRF地心坐标"><a href="#PROJ-转经纬度到ITRF地心坐标" class="headerlink" title="PROJ 转经纬度到ITRF地心坐标"></a>PROJ 转经纬度到ITRF地心坐标</h2> <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="number">47.2292116930</span>  <span class="number">-19.0183060232</span>     <span class="number">1552.9924</span> <span class="number">0</span> | cct +proj=cart +ellps=GRS80</span><br><span class="line"><span class="number">4097216.6805</span>   <span class="number">4429119.0287</span>  <span class="number">-2065771.3676</span>        <span class="number">0.0000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件的批量转换"><a href="#文件的批量转换" class="headerlink" title="文件的批量转换"></a>文件的批量转换</h2> <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> $ cat points_xyz.dat | head</span><br><span class="line"><span class="number">2919786.0</span>        <span class="number">-5383745.0</span>      <span class="number">1774604.0</span></span><br><span class="line"><span class="number">4097216.6805</span>     <span class="number">4429119.0287</span>    <span class="number">-2065771.3676</span></span><br><span class="line"><span class="number">6347491.3770</span>     <span class="number">-22944.8191</span>     <span class="number">622823.1488</span></span><br><span class="line"><span class="number">4913652.948</span>      <span class="number">3945922.493</span>     <span class="number">995383.145</span></span><br><span class="line">+<span class="number">2765120.9</span>       <span class="number">-4449250.25</span>     <span class="number">-3626405.6</span></span><br><span class="line"><span class="number">-3530185.489</span>     <span class="number">4118797.337</span>     <span class="number">3344036.931</span></span><br><span class="line"><span class="number">4696990.000</span>      <span class="number">723994.000</span>      <span class="number">4239678.000</span></span><br><span class="line"><span class="number">-2341332.8840</span>    <span class="number">-3539049.5090</span>   <span class="number">4745791.3600</span></span><br><span class="line"><span class="number">918129.40</span>        <span class="number">-4346071.20</span>     <span class="number">4561977.80</span></span><br><span class="line"><span class="number">-4052051.767</span>     <span class="number">4212836.215</span>     <span class="number">-2545106.027</span></span><br><span class="line"></span><br><span class="line"> $ cat points_xyz.dat | cct -I +proj=cart +ellps=GRS80 | head</span><br><span class="line"><span class="number">-61.5275339092</span>   <span class="number">16.2622989639</span>      <span class="number">-25.6724</span>           inf</span><br><span class="line"> <span class="number">47.2292116930</span>  <span class="number">-19.0183060232</span>     <span class="number">1552.9924</span>           inf</span><br><span class="line"> <span class="number">-0.2071110447</span>    <span class="number">5.6414771807</span>       <span class="number">83.4568</span>           inf</span><br><span class="line"> <span class="number">38.7663016596</span>    <span class="number">9.0351340011</span>     <span class="number">2439.1542</span>           inf</span><br><span class="line"><span class="number">-58.1398674816</span>  <span class="number">-34.8737126913</span>       <span class="number">42.0708</span>           inf</span><br><span class="line"><span class="number">130.5995927060</span>   <span class="number">31.8240613970</span>      <span class="number">314.6402</span>           inf</span><br><span class="line">  <span class="number">8.7626079453</span>   <span class="number">41.9274508625</span>       <span class="number">98.7752</span>           inf</span><br><span class="line"><span class="number">-123.4874696602</span>   <span class="number">48.3897817140</span>       <span class="number">31.7442</span>           inf</span><br><span class="line"><span class="number">-78.0713675911</span>   <span class="number">45.9558003990</span>      <span class="number">200.8294</span>           inf</span><br><span class="line"><span class="number">133.8855132190</span>  <span class="number">-23.6701238732</span>      <span class="number">603.3581</span>           inf</span><br></pre></td></tr></table></figure>
+<p> 注意到第四列是时间信息，如果文件中缺少，则转换结果中提示<code>inf</code>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/08/16/GAT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/16/GAT/" class="post-title-link" itemprop="url">GAT, The Generic Altimetry Tools</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-16 14:41:28 / 修改时间：14:54:20" itemprop="dateCreated datePublished" datetime="2020-08-16T14:41:28+08:00">2020-08-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%AB%E6%98%9F%E6%B5%8B%E9%AB%98/" itemprop="url" rel="index">
+                    <span itemprop="name">卫星测高</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/08/16/GAT/" class="post-meta-item leancloud_visitors" data-flag-title="GAT, The Generic Altimetry Tools" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/16/GAT/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/16/GAT/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="卫星测高通用工具GAT"><a href="#卫星测高通用工具GAT" class="headerlink" title="卫星测高通用工具GAT"></a>卫星测高通用工具GAT</h2><p>我开源了卫星雷达高度计（卫星测高）的一些基本程序，取名<a href="https://github.com/GenericAltimetryTools" target="_blank" rel="noopener">The Generic Altimetry Tools</a>，简称GAT。名字的选择特别向<a href="https://github.com/GenericMappingTools/gmt" target="_blank" rel="noopener">GMT</a>致敬，GMT帮助了全世界无数的地球科学研究科研人员。<br>GAP程序面向卫星测高的科研人员，学生等群体，主要目的是对卫星测高数据进行数据处理，因此采用数据处理能力较强的matlab语言和PYTHON语言编写，并调用GMT的基本程序，现在可以实现如下功能：</p>
+<ul>
+<li>Netcdf文件格式的读取</li>
+<li>SSH，SLA的计算</li>
+<li>卫星测高交叉点分析</li>
+<li>卫星测高绝对定标</li>
+<li>卫星测高的湿延迟评估</li>
+<li>卫星测高河湖的水位计算</li>
+<li>卫星测高波形读取和绘图</li>
+</ul>
+<p>计划加入的功能：</p>
+<ul>
+<li>卫星测高交叉点平差</li>
+<li>卫星测高共线平差</li>
+<li>卫星测高重力反演</li>
+<li>卫星测高水深反演</li>
+<li>卫星测高中尺度涡探测</li>
+<li>卫星测高的海平面变化分析</li>
+<li>卫星测高波形重定</li>
+<li>卫星测高极地海冰厚度计算</li>
+<li>卫星测高海冰识别</li>
+<li>卫星测高极地波形分类</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/08/16/linux-tools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/16/linux-tools/" class="post-title-link" itemprop="url">命令工具常用操作</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-16 10:29:04" itemprop="dateCreated datePublished" datetime="2020-08-16T10:29:04+08:00">2020-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-11 22:04:52" itemprop="dateModified" datetime="2023-12-11T22:04:52+08:00">2023-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/08/16/linux-tools/" class="post-meta-item leancloud_visitors" data-flag-title="命令工具常用操作" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/16/linux-tools/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/16/linux-tools/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这里列举一些常用的，又不容易记忆的linux工具命令</p>
+<h3 id="zotero-添加SCIhub"><a href="#zotero-添加SCIhub" class="headerlink" title="zotero 添加SCIhub"></a>zotero 添加SCIhub</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Edit-Preference-Config</span> <span class="selector-tag">editor-extensions</span><span class="selector-class">.zotero</span><span class="selector-class">.findPDFs</span><span class="selector-class">.resolvers</span></span><br></pre></td></tr></table></figure>
+<p>添加</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>:<span class="string">"Sci-Hub"</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"GET"</span>,</span><br><span class="line">    <span class="attr">"url"</span>:<span class="string">"https://sci-hub.ren/&#123;doi&#125;"</span>,</span><br><span class="line">    <span class="attr">"mode"</span>:<span class="string">"html"</span>,</span><br><span class="line">    <span class="attr">"selector"</span>:<span class="string">"#pdf"</span>,</span><br><span class="line">    <span class="attr">"attribute"</span>:<span class="string">"src"</span>,</span><br><span class="line">    <span class="attr">"automatic"</span>:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，使用<code>Zotero Connector</code>或者<code>Find Available PDF</code>均可下载已有的PDF文件。</p>
+<h3 id="nvidia"><a href="#nvidia" class="headerlink" title="nvidia"></a>nvidia</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi # 查看显卡信息</span><br><span class="line">watch -n <span class="number">0.1</span> nvidia-smi #每隔<span class="number">0.1</span>s更新</span><br><span class="line">lspci|grep NVIDIA # 查看显卡驱动</span><br><span class="line">lspci | grep -i vga</span><br><span class="line">sudo sh NVIDIA-Linux-x86_64<span class="number">-440.64</span>.run # 安装Nvidia驱动</span><br><span class="line"># 或者下面代码安装cuda</span><br><span class="line">sudo chmod +x cuda_11<span class="number">.0</span><span class="number">.3</span>_450<span class="number">.51</span><span class="number">.06</span>_linux.run</span><br><span class="line">sudo ./cuda_11<span class="number">.0</span><span class="number">.3</span>_450<span class="number">.51</span><span class="number">.06</span>_linux.run</span><br></pre></td></tr></table></figure>
+<p>添加路径</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit ~/.bashrc</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">"/usr/local/cuda-11.0/bin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LD_LIBRARY_PATH</span>=<span class="string">"/usr/local/cuda-11.0/lib64:<span class="variable">$LD_LIBRARY_PATH</span>"</span></span><br><span class="line">source ~/.bashrc</span><br><span class="line">nvcc -V # 查看cuda安装</span><br></pre></td></tr></table></figure>
+
+<p>删除cuda。（有时候需要删除后，重新安装别的版本）</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/cuda-11.0/bin/</span></span><br><span class="line">sudo <span class="string">./cuda-uninstaller</span></span><br><span class="line">sudo rm -rf <span class="string">/usr/local/cuda-11.0</span></span><br></pre></td></tr></table></figure>
+
+<p>安装cupti</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libcupti-dev</span><br><span class="line">export LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/usr/local/cuda/extras/CUPTI/lib64</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Sphinx"><a href="#Sphinx" class="headerlink" title="Sphinx"></a>Sphinx</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> Sphinx</span><br><span class="line">sphinx-<span class="keyword">build</span> <span class="comment">--version</span></span><br><span class="line">sphinx-quickstart docs</span><br><span class="line">sphinx-<span class="keyword">build</span> -b html docs docs/_build/html</span><br></pre></td></tr></table></figure>
+
+<h3 id="Colab"><a href="#Colab" class="headerlink" title="Colab"></a>Colab</h3><p>Colaboratory is built on top of Jupyter Notebook.</p>
+<p>GPU可以快速提高训练的速度。Colab提供K80显卡，价格一万多元。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 查看显存情况</span></span><br><span class="line">!/opt/bin/nvidia-smi</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看GPU</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="title">tf</span>.test.gpu_device_name()</span><br><span class="line"><span class="meta"># 在使用哪个GPU</span></span><br><span class="line"><span class="title">from</span> tensorflow.python.client <span class="keyword">import</span> device_lib</span><br><span class="line"><span class="title">device_lib</span>.list_local_devices()</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看CPU</span></span><br><span class="line">!cat  /<span class="keyword">proc</span>/cpuinfo</span><br><span class="line"></span><br><span class="line"><span class="meta"># RAM大小</span></span><br><span class="line">!cat /<span class="keyword">proc</span>/meminfo</span><br></pre></td></tr></table></figure>
+
+<p>使用google drive数据的方法：<a href="https://colab.research.google.com/notebooks/io.ipynb" target="_blank" rel="noopener">https://colab.research.google.com/notebooks/io.ipynb</a></p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> drive</span><br><span class="line">drive.mount(<span class="string">'/content/drive'</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="built_in">os</span></span><br><span class="line"><span class="built_in">os</span>.chdir(<span class="string">'/content/drive/My Drive/'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h3><p>Conda 比较慢，可以使用mamba加速：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="keyword">install</span> -c conda-forge mamba</span><br></pre></td></tr></table></figure>
+<p>之后，使用mamba替代conda使用。</p>
+<p>Conda是一种python包管理工具，可以对环境进行封闭管理，不同环境之间不相互干扰。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="comment">--version # 版本号</span></span><br><span class="line">conda env list <span class="comment"># 列出所有环境</span></span><br><span class="line">conda list -n python_3.9 <span class="comment"># 列出非当前环境的包</span></span><br><span class="line">conda list <span class="comment"># 列出当前环境的包</span></span><br><span class="line">conda <span class="keyword">create</span> -n env_name package_name <span class="comment"># 创建环境，如conda create -n python2 python=2.7 </span></span><br><span class="line">conda <span class="keyword">activate</span> python2<span class="number">.7</span> <span class="comment"># 激活某环境</span></span><br><span class="line">conda deactivate <span class="comment"># 退出当前环境</span></span><br><span class="line">conda <span class="keyword">install</span> package_name <span class="comment">#在当前环境中安装包</span></span><br><span class="line">conda remove <span class="keyword">package</span> <span class="comment">#删除当前环境中的包</span></span><br><span class="line">conda <span class="keyword">install</span> <span class="comment">--name env_name package_name #在指定环境中安装包</span></span><br><span class="line">conda remove <span class="comment">-- name env_name package </span></span><br><span class="line">conda <span class="keyword">create</span> -n tensorflow_env tensorflow <span class="comment">#安装tensorflow的CPU版本</span></span><br><span class="line">conda <span class="keyword">install</span> tensorflow <span class="comment"># 在当前环境下安装tensorflow</span></span><br><span class="line">conda <span class="keyword">search</span> tensorflow <span class="comment"># 查找版本</span></span><br></pre></td></tr></table></figure>
+
+<p>删除环境之前需要先<code>deactivate</code></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate tensorflow_env</span><br><span class="line">conda <span class="built_in">remove</span> -n tensorflow_env <span class="comment">--all</span></span><br></pre></td></tr></table></figure>
+
+<p>添加conda-forge channel并设置为最高优先级</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda<span class="built_in"> config </span>--<span class="builtin-name">add</span> channels conda-forge</span><br></pre></td></tr></table></figure>
+
+<p>查看现在的channel状态和优先级</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda<span class="built_in"> config </span>--<span class="builtin-name">get</span> channels</span><br></pre></td></tr></table></figure>
+
+<p>激活某个环境，在环境中设置channel的严格优先。注，如果该环境中已经安装了若干库，则需要先更新所有的库以保证大多数库从conda-forge下载，以保持库的一致性。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># activate my environment</span></span><br><span class="line">conda activate my_env</span><br><span class="line"><span class="comment"># update all packages if needed</span></span><br><span class="line">conda update --all</span><br><span class="line"><span class="comment"># set channel priority as strict</span></span><br><span class="line">conda<span class="built_in"> config </span>--<span class="builtin-name">set</span> channel_priority strict</span><br></pre></td></tr></table></figure>
+
+
+<p>使用添加频道 conda config –add 频道 —（你的频道） 您添加的最后一个频道获得最高优先级……所以请保持顺序。您可以添加频道，即使您已经拥有它们，以便更改优先级顺序.</p>
+<p>恢复原来的源,删除添加的源和设置。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda<span class="built_in"> config </span>--remove-key channels</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>理解image、container。image可以共用，比如Ubuntu环境，而且非常精简。container是每次启动后的封闭容器，一个Ubuntu可以启动无数个container，彼此不相干。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">images</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">info</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">run -it ubuntu bash</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">ps</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">ps -aq</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">start (id)</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">restart</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">kill</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">kill $(docker ps -aq)</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">start -d (id)</span></span><br></pre></td></tr></table></figure>
+<p>退出容器：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+<p>退出，但是还在后台运行，<code>Ctrl+P+Q</code>.<br>退出后再次进入<code>docker start -d (id)</code>或者<code>docker exec -it 3e17550b10c8 bash</code>。此外还有<code>attach</code>可以进入正在运行的窗口。</p>
+<p>查看日志</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f -t <span class="comment">--details 3e17550b10c8</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p>下面是简单的上传博客文章的hexo命令，其中<code>hexo d -m &quot;message&quot;</code> 可以产生<code>commit</code>。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type">post</span> <span class="string">"linux tools"</span></span><br><span class="line">hexo g</span><br><span class="line">hexo d -m <span class="string">"linux tools"</span></span><br></pre></td></tr></table></figure>
+
+<p>插入公式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">uninstall</span> hexo-math <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-renderer-mathjax <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p>配置参考：</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/9b9c241146bc" target="_blank" rel="noopener">https://www.jianshu.com/p/9b9c241146bc</a></p>
+</blockquote>
+<blockquote>
+<p>行内的公式用<code>$</code>公式内容<code>$</code>包裹起来，在公式中右键即可查看公式$\TeX$代码。<br>同样右键可查看公式代码。</p>
+</blockquote>
+<p>例如：<br>\begin{equation} \sum_{k=1}^{n} \frac{1}{1+8 \sin ^{2} \frac{k \pi}{n}}=\frac{n\left(2^{n}+1\right)}{3\left(2^{n}-1\right)} \end{equation}</p>
+<p>文章抬头需要加入类似：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">hexo中插入数学公式</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019</span><span class="number">-05</span><span class="number">-09</span> <span class="number">12</span><span class="string">:40:16</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>常用git命令</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">status</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"add dac"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure>
+
+<p>弹出openSSH的问题，要求第二次输入username和密码，注意这里需要登录GitHub，新建一个Personal access tokens。username就是note的名字，密码就是token。</p>
+<p>更新代码到本地。如果本地没有修改，可以直接使用：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git pull</span></span><br></pre></td></tr></table></figure>
+
+<p>撤销不小心add的文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset data<span class="regexp">/era5/</span><span class="number">4</span>d<span class="regexp">/south/</span>era5.pl.*.nc</span><br></pre></td></tr></table></figure>
+
+<p><code>.gitignore</code>修改无效的问题<br><code>.gitignore</code>只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的，所以我们需要使用rm命令清除一下相关的缓存内容.这样文件将以未追踪的形式出现，对某个文件取消跟踪。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r <span class="comment">--cached .</span></span><br><span class="line">git <span class="keyword">add</span> .</span><br><span class="line">git <span class="keyword">commit</span> -m <span class="string">'update .gitignore'</span></span><br></pre></td></tr></table></figure>
+
+<p>git撤回commit</p>
+<blockquote>
+<p>写完代码后，我们一般这样<br>git add . //添加所有文件<br>git commit -m “本功能全部完成”<br>执行完commit后，想撤回commit，怎么办？<br>这样凉拌：<br>git reset –soft HEAD^</p>
+</blockquote>
+<p>不再追踪某文件</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">rm</span> --cached <span class="keyword">test</span>/ja3_check/mypoints.kml</span><br></pre></td></tr></table></figure>
+
+<p>在VPN，比如clash，环境下使用，遇到错误：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: unable <span class="keyword">to</span> access <span class="string">'https://github.com/yangleir/gnsswave.git/'</span>: failed <span class="keyword">to</span> connect <span class="keyword">to</span> github.com<span class="built_in"> port </span>443: timed out</span><br></pre></td></tr></table></figure>
+<p>解决方案：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> https<span class="variable">.proxy</span> http:<span class="comment">//127.0.0.1:7890</span></span><br><span class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> https<span class="variable">.proxy</span> https:<span class="comment">//127.0.0.1:7890</span></span><br></pre></td></tr></table></figure>
+<p>或者在用户根目录下，直接打开<code>.gitconfig</code>，手动修改：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[http]</span><br><span class="line">	postBuffer = 524288000</span><br><span class="line"><span class="built_in">	proxy </span>= 127.0.0.1:7890</span><br><span class="line">[https]</span><br><span class="line"><span class="built_in">	proxy </span>= 127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="批量解压gz"><a href="#批量解压gz" class="headerlink" title="批量解压gz"></a>批量解压gz</h3><p>我下载了很多个文件夹，每个文件夹下都是<code>gz</code>压缩文件，现在想批量解压指定文件夹的文件。</p>
+<p>文件下载如下：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ ls | head</span><br><span class="line">cycle_0066/</span><br><span class="line">cycle_0067/</span><br><span class="line">cycle_0068/</span><br><span class="line">cycle_0069/</span><br><span class="line">cycle_0070/</span><br><span class="line">cycle_0071/</span><br><span class="line">cycle_0072/</span><br><span class="line">cycle_0073/</span><br><span class="line">cycle_0074/</span><br><span class="line">cycle_0075/</span><br><span class="line"></span><br><span class="line">$ ls cycle_0099 | head</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0001_20150704T020146_20150704T024914_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0002_20150704T025439_20150704T034613_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0003_20150704T034614_20150704T043339_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0004_20150704T043901_20150704T053040_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0005_20150704T053041_20150704T062248_20180712T075832.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0006_20150704T062321_20150704T071508_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0007_20150704T071509_20150704T080720_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0008_20150704T080722_20150704T085935_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0009_20150704T085936_20150704T095149_20180712T075833.nc.gz</span><br><span class="line">global_sl<span class="built_in">a_l2p</span>_ntc_h2_C0099_P0010_20150704T095150_20150704T104402_20180712T075833.nc.gz</span><br></pre></td></tr></table></figure>
+<p>解压cycle_0068和cycle_0069两个文件夹下的全部gz文件，并删除gz原始文件。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip -d cycle_006[<span class="number">8</span><span class="number">-9</span>]<span class="comment">/*.gz</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="批量转换图片格式"><a href="#批量转换图片格式" class="headerlink" title="批量转换图片格式"></a>批量转换图片格式</h3><p>把pdf转为png，并设置density 300，表示图像每英寸面积内的像素点数，数值越高图片质量越高</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for <span class="meta">file</span> <span class="meta">in</span> <span class="comment">*.pdf;</span> <span class="meta">do</span> magick convert -density 300 $<span class="meta">file</span> $&#123;<span class="meta">file</span>%%.<span class="comment">*&#125;.png;</span> done</span><br></pre></td></tr></table></figure>
+<h3 id="视频编辑"><a href="#视频编辑" class="headerlink" title="视频编辑"></a>视频编辑</h3><p>截取视频</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg  -i ./linchang.mp4 -vcodec copy -acodec copy -ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> -to <span class="number">00</span>:<span class="number">00</span>:<span class="number">16</span> ./cutout1.mp4 -y</span><br><span class="line">$ ffmpeg  -i ./linchang.mp4 -vcodec copy -acodec copy -ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">29</span> -to <span class="number">00</span>:<span class="number">00</span>:<span class="number">48</span> ./cutout2.mp4 -y</span><br></pre></td></tr></table></figure>
+<p>合并视频(对于MP4格式，需要先转ts再合并)</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg -<span class="selector-tag">i</span> cutout1<span class="selector-class">.mp4</span> -c copy -bsf:v h264_mp4toannexb -f mpegts input1<span class="selector-class">.ts</span>   </span><br><span class="line">$ ffmpeg -<span class="selector-tag">i</span> cutout2<span class="selector-class">.mp4</span> -c copy -bsf:v h264_mp4toannexb -f mpegts input2<span class="selector-class">.ts</span>   </span><br><span class="line">$ ffmpeg -<span class="selector-tag">i</span> <span class="string">"concat:input1.ts|input2.ts"</span> -c copy -bsf:<span class="selector-tag">a</span> aac_adtstoasc -movflags +faststart output.mp4</span><br></pre></td></tr></table></figure>
+<p>慢速，三倍慢速</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg -i <span class="number">2021</span><span class="number">-02</span><span class="number">-19</span><span class="number">-22</span><span class="number">-38</span><span class="number">-32.</span>mp4 -vf  <span class="string">"setpts=3*PTS"</span> test2.mp4</span><br></pre></td></tr></table></figure>
+<h3 id="Latex转word"><a href="#Latex转word" class="headerlink" title="Latex转word"></a>Latex转word</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">pandoc</span> <span class="selector-tag">template</span><span class="selector-class">.tex</span> <span class="selector-tag">-o</span> <span class="selector-tag">output</span><span class="selector-class">.docx</span> <span class="selector-tag">-w</span> <span class="selector-tag">docx</span>  <span class="selector-tag">--pdf-engine</span> <span class="selector-tag">pdflatex</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-解压乱码问题"><a href="#Linux-解压乱码问题" class="headerlink" title="Linux 解压乱码问题"></a>Linux 解压乱码问题</h3><p>使用下面的编码即可。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip -O CP936 <span class="keyword">test</span>.<span class="keyword">zip</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/06/23/wavenumber-grdfft-spectrum1d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/23/wavenumber-grdfft-spectrum1d/" class="post-title-link" itemprop="url">wavenumber的模拟计算(二)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-23 17:57:28" itemprop="dateCreated datePublished" datetime="2020-06-23T17:57:28+08:00">2020-06-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-26 09:11:29" itemprop="dateModified" datetime="2021-02-26T09:11:29+08:00">2021-02-26</time>
+              </span>
+
+          
+            <span id="/2020/06/23/wavenumber-grdfft-spectrum1d/" class="post-meta-item leancloud_visitors" data-flag-title="wavenumber的模拟计算(二)" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/23/wavenumber-grdfft-spectrum1d/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/wavenumber-grdfft-spectrum1d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上一篇使用了MATLAB模拟二维波动网格，使用GMT做谱分析和绘图。本文进一步简化模拟代码，仅使用GMT一种语言可完成波数谱的模拟，并展示一维和二维波数谱的差异。</p>
+<h2 id="GMT有几种计算波数谱的程序"><a href="#GMT有几种计算波数谱的程序" class="headerlink" title="GMT有几种计算波数谱的程序"></a>GMT有几种计算波数谱的程序</h2><p>GMT有spectrum1D和grdfft可以计算波数谱。</p>
+<ul>
+<li>spectrum1D:一维谱分析。</li>
+<li>grdfft:二维谱分析，含x,y和径向三个方向的计算。</li>
+</ul>
+<h2 id="模拟代码"><a href="#模拟代码" class="headerlink" title="模拟代码"></a>模拟代码</h2><p>下面利用完全GMT工具进行波数谱的模拟，首先利用grdmath模拟出一个规范的正弦波二维矩阵，形成网格文件。然后使用grdfft计算三个方向的谱，使用spectrum1D计算X方向的一维波数谱。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">ps=testgrd.ps</span><br><span class="line"></span><br><span class="line"># gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X Y ADD SIN = x.nc</span><br><span class="line">gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X SIN = x.nc</span><br><span class="line"></span><br><span class="line">gmt makecpt -Crainbow -T<span class="number">-1</span>/<span class="number">1</span>/<span class="number">0.1</span> &gt; t.cpt</span><br><span class="line">gmt grdimage x.nc -R<span class="number">-30</span>/<span class="number">30</span>/<span class="number">-30</span>/<span class="number">30</span> -JX3i -Ct.cpt -Bxa -Bya -BWSne -P -K -Y7i &gt; $ps</span><br><span class="line"></span><br><span class="line">gmt grd2xyz x.nc | awk '&#123;if ($<span class="number">2</span> == <span class="number">0</span>) print $<span class="number">0</span>&#125;' &gt; x.txt</span><br><span class="line">gmt psxy -R -J -O -K x.txt -Sc0<span class="number">.03</span>i -Gblack &gt;&gt; $ps</span><br><span class="line"># Do grdfft</span><br><span class="line">gmt grdfft x.nc -Er+w+n -Gfft.txt</span><br><span class="line">gmt grdfft x.nc -Ex+w+n -Gfftx.txt</span><br><span class="line">gmt grdfft x.nc -Ey+w+n -Gffty.txt</span><br><span class="line">gmt math fftx.txt -C1 SQR ffty.txt SQR ADD SQRT = fftrr.txt</span><br><span class="line"></span><br><span class="line"># Plot specrum result from grdfft</span><br><span class="line">gmt psbasemap -R1/<span class="number">20</span>/<span class="number">1e-14</span>/<span class="number">1e-2</span> -JX<span class="number">-2.8</span>il/<span class="number">3</span>il -Bxa1pf2g3+l<span class="string">"Wavelength"</span> -Bya1pg+l<span class="string">"power spectrum"</span> -BwNsE -K -X3<span class="number">.2</span>i -O &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fft.txt  -J -W0<span class="number">.5</span>p,red, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fftx.txt  -J -W0<span class="number">.5</span>p,blue, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R ffty.txt  -J -W0<span class="number">.5</span>p,green, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fftrr.txt  -J -W0<span class="number">.5</span>p,black, -O -K &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R0<span class="number">.05</span>/<span class="number">1e0</span>/<span class="number">1e-14</span>/<span class="number">1e-2</span> -JX2<span class="number">.8</span>il/<span class="number">3</span>il -BSE -Bxa1p+l<span class="string">"wavenumber/cycle"</span> -O -K&gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">gmt pslegend -D+w1<span class="number">.2</span>i+jBL+o0<span class="number">.1</span>i/<span class="number">0.1</span>i -R -J -O -K -F+p1p+glightgray --FONT_ANNOT_PRIMARY=<span class="number">10</span>p,<span class="number">1</span>,black &lt;&lt; <span class="literal">EOF</span> &gt;&gt; $ps</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,red, <span class="number">0.5</span>i r</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,blue <span class="number">0.5</span>i x</span><br><span class="line">S <span class="number">0.2</span>i - <span class="number">0.5</span>i - <span class="number">1</span>p,green, <span class="number">0.5</span>i y</span><br><span class="line"><span class="literal">EOF</span></span><br><span class="line"></span><br><span class="line"># Do spectrum1D</span><br><span class="line">gmt psxy -R<span class="number">-30</span>/<span class="number">30</span>/<span class="number">-1</span>/<span class="number">1</span> -JX3i/<span class="number">3</span>i x.txt -i0,<span class="number">2</span> -Bxaf -Byaf -BWSne -O -K -X<span class="number">-3.2</span>i -Y<span class="number">-4.5</span>i &gt;&gt; $ps</span><br><span class="line">gmt psxy -R -J x.txt -i0,<span class="number">2</span> -Sc0<span class="number">.03</span>i -Gred -O -K &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">awk '&#123;print $<span class="number">1</span>,$<span class="number">3</span>&#125;' x.txt | gmt spectrum1d  -S256 -W --GMT_FFT=brenner -N -i1 -D0<span class="number">.2</span>  &gt; fft_spec.txt</span><br><span class="line">gmt psbasemap -R1/<span class="number">20</span>/<span class="number">1e-12</span>/<span class="number">1e2</span> -JX<span class="number">-2.8</span>il/<span class="number">3</span>il -Bxa1pf2g3+l<span class="string">"Wavelength"</span> -Bya1pg+l<span class="string">"power spectrum"</span> -BwNsE -K -X3<span class="number">.2</span>i -O &gt;&gt; $ps</span><br><span class="line">gmt psxy -R fft_spec.txt -J -W0<span class="number">.5</span>p,red, -O -K &gt;&gt; $ps</span><br><span class="line">gmt psbasemap -R0<span class="number">.05</span>/<span class="number">1e0</span>/<span class="number">1e-12</span>/<span class="number">1e2</span> -JX2<span class="number">.8</span>il/<span class="number">3</span>il -BSE -Bxa1p+l<span class="string">"wavenumber/cycle"</span> -O &gt;&gt; $ps</span><br><span class="line"></span><br><span class="line">awk '&#123;print $<span class="number">3</span>&#125;' x.txt| gmt gmtmath STDIN -Sl STD  SQR =</span><br><span class="line"></span><br><span class="line">gmt psconvert  $ps -P -Tg -A</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><h3 id="z-sin-x"><a href="#z-sin-x" class="headerlink" title="z=sin(x)"></a>z=sin(x)</h3><p><img src="/images/testgrd.png" alt></p>
+<p>上为二维FFT在三个方向的谱分析结果，黑色曲线为sqrt(x^2+y^2),径向的能量谱不与一维的平方和（开根号）相等。下为一维（彩图中横线的采样）谱分析结果（形状与二维FFT的X方向一致，但能量大小不一样）。</p>
+<h3 id="z-sin-x-y"><a href="#z-sin-x-y" class="headerlink" title="z=sin(x+y)"></a>z=sin(x+y)</h3><p><img src="/images/testgrd2.png" alt></p>
+<p>上图把函数改变，数据x和y方向周期依然是2pi,但是r方向是2pi*cos(pi/2)，即4.44。这样可以帮助理解r方向是什么方向。运行时，把下面的代码取消注释。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># gmt grdmath -R<span class="number">-50</span>/<span class="number">50</span>/<span class="number">-50</span>/<span class="number">50</span> -I0<span class="number">.2</span> X Y ADD SIN = x.nc</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意的问题"><a href="#注意的问题" class="headerlink" title="注意的问题"></a>注意的问题</h2><ul>
+<li>spectrum1D得到的波数谱符合能量守恒定律，即输入信号的方差等于功率谱密度的积分，也就是谱和X轴围起来的面积。例如正弦波的方差为0.5，而功率密度的积分也恰好为0.5。</li>
+<li>grdfft得到的波数谱不是密度谱，所以不遵循能量守恒。</li>
+<li>grdfft的三个方向的谱的关系是什么？r^2=x^2+y^2？</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://yangleir.github.io/2020/02/15/wavenumber/" target="_blank" rel="noopener">wavenumber的模拟计算</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -794,436 +1312,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/23/cygwin-gmt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/23/cygwin-gmt/" class="post-title-link" itemprop="url">Windows的cygwin环境下编译GMT</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-23 20:22:43" itemprop="dateCreated datePublished" datetime="2020-01-23T20:22:43+08:00">2020-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-02 16:05:36" itemprop="dateModified" datetime="2020-03-02T16:05:36+08:00">2020-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cygwin/" itemprop="url" rel="index">
-                    <span itemprop="name">cygwin</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/23/cygwin-gmt/" class="post-meta-item leancloud_visitors" data-flag-title="Windows的cygwin环境下编译GMT" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/23/cygwin-gmt/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/23/cygwin-gmt/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h2><p>问：在windows下通常都是直接安装GMT的exe程序，这样导致不能使用github上最新的开发版，而开发版通常fix了很多的bug。如果想在win上安装编译开发版本，怎么办？<br>答：应该尝试cygwin+cmake。</p>
-<p>问：cygwin是什么？怎么使用？<br>答：可以看<a href="https://cygwin.com/index.html" target="_blank" rel="noopener">这里</a>. cygwin的各个库升级都是通过<code>setup**.exe</code>实现的，每一次升级或者安装新的模块，都要打开这个程序。用习惯了，不觉得麻烦。</p>
-<p>问：cmake怎么在这下面安装？<br>答：可以使用<code>setup**.exe</code>，选择cmake进行安装。<br><img src="/images/cygwin.png" alt><br>安装完成后打开命令行界面，查看cygwin版本：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/23/cygwin-gmt/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/21/proj-api/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/21/proj-api/" class="post-title-link" itemprop="url">PROJ API调用的一个简单例子</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-21 16:22:07" itemprop="dateCreated datePublished" datetime="2020-01-21T16:22:07+08:00">2020-01-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-02 16:06:53" itemprop="dateModified" datetime="2020-03-02T16:06:53+08:00">2020-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PROJ/" itemprop="url" rel="index">
-                    <span itemprop="name">PROJ</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/21/proj-api/" class="post-meta-item leancloud_visitors" data-flag-title="PROJ API调用的一个简单例子" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/21/proj-api/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/21/proj-api/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h1><h2 id="PROJ是什么？"><a href="#PROJ是什么？" class="headerlink" title="PROJ是什么？"></a>PROJ是什么？</h2><p><b><a href="https://proj.org/" target="_blank" rel="noopener">PROJ</a></b> 是安装GMT时依赖的一个程序，功能是提供地理坐标、大地测量坐标和投影坐标的转换功能。GMT中的投影、坐标转换和椭球面距离计算等功能来自PROJ。如果用户自己加入或者修改投影，则修改此程序。<br>PROJ项目开始于1983年。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/21/proj-api/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/19/line-width-km/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/19/line-width-km/" class="post-title-link" itemprop="url">GMT以公里为单位绘制线的宽度</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-19 22:21:20" itemprop="dateCreated datePublished" datetime="2020-01-19T22:21:20+08:00">2020-01-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-02 16:06:38" itemprop="dateModified" datetime="2020-03-02T16:06:38+08:00">2020-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GMT/" itemprop="url" rel="index">
-                    <span itemprop="name">GMT</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/19/line-width-km/" class="post-meta-item leancloud_visitors" data-flag-title="GMT以公里为单位绘制线的宽度" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/19/line-width-km/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/19/line-width-km/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="问答"><a href="#问答" class="headerlink" title="问答"></a>问答</h1><p>问：GMT中psxy绘制线的宽度单位能设置为km吗？<br>答：psxy的线宽单位只有<code>c,i,p</code>，是没有办法直接设置地图中线的宽度是地理单位的，例如m，km等。</p>
-<blockquote>
-<p>Width is by default measured in points (1/72 of an inch). Append c, i, or p to specify pen width in cm, inch, or points, respectively.</p>
-</blockquote>
-<p>问：就没有别的办法了吗？<br>答：可以通过设定地图比例尺<code>scale</code>，然后根据比例尺来计算出地图上1cm表示的实际地理长度。例如比例尺为<code>1:500000</code>时，线宽1m表示500,000米，1cm表示5km。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/19/line-width-km/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/18/awk/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/18/awk/" class="post-title-link" itemprop="url">awk的几点用法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-18 10:00:59" itemprop="dateCreated datePublished" datetime="2020-01-18T10:00:59+08:00">2020-01-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-11 10:02:08" itemprop="dateModified" datetime="2020-06-11T10:02:08+08:00">2020-06-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/18/awk/" class="post-meta-item leancloud_visitors" data-flag-title="awk的几点用法" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/18/awk/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/18/awk/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>AWK</code>是常用的数据处理工具，内置的变量名称为：</p>
-<blockquote>
-<p>变量名    含义<br>ARGC   命令行变元个数<br>ARGV   命令行变元数组<br>FILENAME   当前输入文件名<br>FNR   当前文件中的记录号<br>FS   输入域分隔符，默认为一个空格<br>RS   输入记录分隔符<br>NF   当前记录里域个数<br>NR   到目前为止记录数<br>OFS   输出域分隔符<br>ORS   输出记录分隔<br>$NF    表示最后一列</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/18/awk/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1291,7 +1384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1304,7 +1397,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">88</span>
+        <span class="site-state-item-count">91</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1497,6 +1590,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
