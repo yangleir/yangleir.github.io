@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">162</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">163</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -181,6 +181,139 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/02/13/math/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/13/math/" class="post-title-link" itemprop="url">偏微分方程学习</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-13 12:12:40" itemprop="dateCreated datePublished" datetime="2021-02-13T12:12:40+08:00">2021-02-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-07 15:16:11" itemprop="dateModified" datetime="2021-03-07T15:16:11+08:00">2021-03-07</time>
+              </span>
+
+          
+            <span id="/2021/02/13/math/" class="post-meta-item leancloud_visitors" data-flag-title="偏微分方程学习" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/13/math/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/13/math/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="偏微分方程化标准型"><a href="#偏微分方程化标准型" class="headerlink" title="偏微分方程化标准型"></a>偏微分方程化标准型</h2><p>在书P113页，当$\Delta&gt;0$时，偏微分方程为双曲线型，其标准型为：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial \xi \partial \eta}=-\frac{1}{2b}(d\frac{\partial u}{\partial \xi}+e\frac{\partial u}{\partial \eta}+{fu}-g)<br>\end{equation}</p>
+<p>利用变换：$\xi=\mu+\nu,\eta=\mu=\nu$，可得：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial^2 \mu} - \frac{\partial^2 u}{\partial^2 \nu} =-\frac{1}{b}\left((d+e)\frac{\partial u}{\partial \mu}+(d-e)\frac{\partial u}{\partial \nu} +{fu}-g \right)<br>\end{equation}</p>
+<p>这是一个基本的变换运算，首先得$\mu=\frac{1}{2}(\xi+\eta),\nu=\frac{1}{2}(\xi-\eta)$</p>
+<p>用到链式法则：<br>\begin{equation}<br>\begin{split}<br>\frac{\partial u}{\partial \xi}&amp;=\frac{\partial u}{\partial \mu}\frac{\partial \mu}{\partial \xi}+\frac{\partial u}{\partial \nu}\frac{\partial \nu}{\partial \xi},  \<br>\frac{\partial u}{\partial \eta}&amp;=\frac{\partial u}{\partial \mu}\frac{\partial \mu}{\partial \eta}+\frac{\partial u}{\partial \nu}\frac{\partial \nu}{\partial \eta}<br>\end{split}<br>\end{equation}<br>得到:<br>\begin{equation}<br>\begin{split}<br>\frac{\partial u}{\partial \xi}&amp;=\frac{\partial u}{\partial \mu}\frac{1}{2}+\frac{\partial u}{\partial \nu}\frac{1}{2},  \<br>\frac{\partial u}{\partial \eta}&amp;=\frac{\partial u}{\partial \mu}\frac{1}{2}-\frac{\partial u}{\partial \nu}\frac{1}{2}<br>\end{split}<br>\end{equation}<br>然后：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial \xi \partial \eta} =\frac{1}{2}\left(\frac{\partial^2 u}{\partial^2 \mu}\frac{\partial \mu}{\partial \eta}+\frac{\partial^2 u}{\partial \mu \partial \nu} \frac{\partial \nu}{\partial \eta}+\frac{\partial^2 u}{\partial^2 \nu}\frac{\partial \nu}{\partial \eta}+\frac{\partial^2 u}{\partial \nu \partial \mu}\frac{\partial \mu}{\partial \eta}\right)<br>\end{equation}<br>得到：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial \xi \partial \eta} =\frac{1}{4}\left(\frac{\partial^2 u}{\partial^2 \mu}-\frac{\partial^2 u}{\partial^2 \nu}\right)<br>\end{equation}</p>
+<p>整理后即可得经典的波动方程形式，也是标准型的另一种表达形式：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial^2 \mu}-\frac{\partial^2 u}{\partial^2 \nu}=-\frac{1}{b}\left((d+e)\frac{\partial u}{\partial \mu}+(d-e)\frac{\partial u}{\partial \nu}+2fu-2g\right)<br>\end{equation}</p>
+<p>此处有双曲线型的两个表达形式，最初可能有点迷惑，其实二者是一样的本质。例如书中P119页例（2）化波动方程为标准型：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial^2 t}=a^2\frac{\partial^2 u}{\partial^2 x}<br>\end{equation}</p>
+<p>通过特征方程，得到特征曲线$\xi=x+at,\eta=x-at$，然后代入公式即可得:<br>\begin{equation}<br>\frac{\partial^2 u}{\partial \xi \partial \eta}=0<br>\end{equation}</p>
+<h2 id="偏微分方程为什么要化为标准型"><a href="#偏微分方程为什么要化为标准型" class="headerlink" title="偏微分方程为什么要化为标准型"></a>偏微分方程为什么要化为标准型</h2><p>初学者自然有这个疑问，就算看了许多书，可能这个疑问也不完全消失。时间久了，慢慢有一点领悟。</p>
+<blockquote>
+<p>书中说之所以化标准型，是为了分类，偏微分方程有三种类型，双曲线、抛物线和椭圆型，不同类型的偏微分方程有不同的解法，分类便于研究共性。</p>
+</blockquote>
+<p>但是看波动方程的常见形式：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial^2 t}=a^2\frac{\partial^2 u}{\partial^2 x}<br>\end{equation}</p>
+<p>上面的波动方程有时间和空间项，各个参数有明显的物理意义，但是它不是标准型，化标准型的步骤是：</p>
+<ul>
+<li>特征方程</li>
+<li>特征线</li>
+<li>微分链式法则回代原方程</li>
+<li>结束</li>
+</ul>
+<p>（10）的特征方程为：<br>\begin{equation}<br>(dx/dt)^2-0-a^2=0<br>\end{equation}</p>
+<p>解为：<br>\begin{equation}<br>x=\pm{at}+c<br>\end{equation}</p>
+<p>特征线为：<br>\begin{equation}<br>\xi=x+at, \eta=x-at<br>\end{equation}</p>
+<p>代入（10），利用链式法则，它的标准型为：<br>\begin{equation}<br>\frac{\partial^2 u}{\partial \xi \partial \eta}=0<br>\end{equation}</p>
+<p>那么这样做有什么缘由吗？除了<code>标准型</code>的书面回答。答案可能还有一个，就是方便计算偏微分方程的通解。<br>在书中P279，解一维波动方程（10）中，先化为标准型，然后首先对（14）做一次$\eta$的积分：<br>\begin{equation}<br>\frac{\partial u}{\partial \xi}=C_1<br>\end{equation}<br>$C_1$是积分常数，不含$\eta$，但是必须含$\xi$，否则两个积分曲线相关。于是：<br>\begin{equation}<br>\frac{\partial u}{\partial \xi}=f(\xi)<br>\end{equation}<br>再对$\xi$积分：<br>\begin{equation}<br>u(\xi,\eta)=\int_{}^{} f(\xi)\ d\xi+C_2<br>\end{equation}<br>$C_2$含$\eta$，但不含$\xi$。<br>所以标准型（14）方程的解为：<br>\begin{equation}<br>u(\xi,\eta)=f_1(\xi)+f_2(\eta)<br>\end{equation}<br>等同于：<br>\begin{equation}<br>u(x,t)=f_1(x+at)+f_2(x-at)<br>\end{equation}<br>这样就通过标准型的两次积分得到了方程的通解，如果从波动方程（10）积分，则比较困难。</p>
+<h2 id="分离变量方法中一个小疑问？"><a href="#分离变量方法中一个小疑问？" class="headerlink" title="分离变量方法中一个小疑问？"></a>分离变量方法中一个小疑问？</h2><p>在泛定方程为非齐次热传导方程的分离变量法中，解$T$方程的时候，通常是一阶常微分方程：<br>\begin{equation}<br>T^{‘}+\lambda{T}=f(t)<br>\end{equation}<br>$t&gt;0$无边界。</p>
+<p>这个方程可以使用高数中的知识快速的计算出来，其解为：<br>\begin{equation}<br>T=e^{-\int{\lambda dt}}\left(\int{f(t)e^{\int{\lambda dt}}dt+C} \right)<br>\end{equation}</p>
+<p>然而，书中的非齐次解法（归到本征函数法）却采用别的方法，例如采用Laplace变换法：<br>\begin{equation}<br>pG(p)-C_n+\lambda{G(p)}-F(p)=0<br>\end{equation}<br>\begin{equation}<br>C_n=G(0)<br>\end{equation}<br>这里考虑了初值$C_n$(具体用傅里叶级数表示)，赋予了$G(0)$。</p>
+<p>利用拉普拉斯变换、卷积定理可以得到：<br>\begin{equation}<br>T=C_n{e^{-\int{\lambda dt}}}+ \left(\int_0^{t}{f(\eta)e^{\int{-\lambda(t-\eta) d\eta}}dt+C} \right)<br>\end{equation}<br>到这里函数$T(t)$已近得到。在本征函数法中再带入原一般解：<br>\begin{equation}<br>u(x,t)=\sum_{n=1}^\infty{T_n(t)sin\sqrt{\lambda}x}<br>\end{equation}<br>就得到了最终方程的解。<br>注意到，这里没有再根据初值，计算方程$g$的系数$C_n$,因为初值在拉普拉斯变换的过程用到了。<br>因此我们看到，本征函数发解非齐次偏微分方程时，用拉普拉斯变换解一阶常微分方程的不同之处了，同时还有原因。如果仍旧采用高数中的方法，那么对于$t=0$的初值问题，不好解决（注意方程21中，积分中含有$f(t)$）。<br>但是对于其次方程，一阶常微分的解中有$f(t)=0$，所以初值非常容易得到，故可以直接用高数中的公式计算。所以说到底，是考虑初值条件导致解法不同。</p>
+<p>但是，对于一些$f(t)$一直且容易计算的方程，使用高数的公式或者拉普拉斯变换的结果是一样的，重要的区别点在于常系数的计算。</p>
+<p>拉普拉斯变换对于初值问题计算较为方便，不用真正的计算积分。</p>
+<h2 id="环形laplace的解"><a href="#环形laplace的解" class="headerlink" title="环形laplace的解"></a>环形laplace的解</h2><p>题：</p>
+<p>$$\frac{\partial^2u}{\partial r^2}+\frac{1}{r}\frac{\partial u}{\partial r}+\frac{1}{r^2}\frac{\partial u^2}{\partial r^2}  = 0$$</p>
+<p>$$ 1&lt;r&lt;2;0&lt;\theta&lt;\pi $$<br>$$ u(1,\theta)  = sin(\theta), u(2,\theta)=0 $$<br>$$ u(r,0)  =  u(r,\pi)=0 $$</p>
+<p>解：<br>使用分离变量法</p>
+<p>\begin{equation}<br>u=R\Theta<br>\end{equation}</p>
+<p>代入原泛定方程，展开可得：</p>
+<p>$$r^2R^{‘’}+rR^{‘} -\lambda R=0 $$<br>$$\Theta^{‘’}+\lambda{\Theta}=0 $$<br>$$\Theta(0)=0,\Theta(\pi)=0$$</p>
+<p>易解：<br>\begin{equation}<br>\Theta=C_{1}cos{k\theta}+C_{2}sin{k\theta}<br>\end{equation}</p>
+<p>考虑角度条件，可得<br>$$C_{1}=0,k=n,\lambda=n^2$$<br>$$\Theta=C_{2}sin{n\theta},n&gt;0$$</p>
+<p>$\lambda$带入$R$的函数：<br>\begin{equation}<br>r^2R^{‘’}+rR^{‘} -n^2 R=0<br>\end{equation}</p>
+<p>解欧拉方程可得：<br>$$R=A_{n}r^n+B_{n}r^{-n}$$<br>故：<br>$$U=\sum_{n=1}^{\infty} (D_{n}r^n+E_{n}r^{-n})sin(n\pi)$$</p>
+<p>考虑径向条件：<br>$$D_{n}2^n+E_{n}2^{-n}=0$$<br>得:<br>$$D_{n}=-E_{n}4^{-n}$$<br>进一步：<br>\begin{equation}<br>U=\sum_{n=1}^{\infty} (-E_{n}4^{-n}+E_{n})sin(n\theta)=sin(\theta)<br>\end{equation}</p>
+<p>故：<br>$$E_{n}=\frac{1}{1-4^{-n}}\frac{2}{\pi}\int_{0}^{\pi} sin(\theta)sin(n\theta)d\theta$$</p>
+<p>现在已经得到可解的系数，回代即可。</p>
+<p>参考：</p>
+<blockquote>
+<p>数学物理方法，科学出版社，顾樵 著<br><a href="https://math.stackexchange.com/questions/3119397/laplace-equation-in-a-ring-variable-separation" target="_blank" rel="noopener">https://math.stackexchange.com/questions/3119397/laplace-equation-in-a-ring-variable-separation</a><br><a href="https://math.stackexchange.com/questions/2533143/solve-the-laplace-equation-on-an-annular-region?rq=1" target="_blank" rel="noopener">https://math.stackexchange.com/questions/2533143/solve-the-laplace-equation-on-an-annular-region?rq=1</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1261,151 +1394,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/01/22/share-rs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/22/share-rs/" class="post-title-link" itemprop="url">海洋数据资源共享</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-01-22 21:37:51" itemprop="dateCreated datePublished" datetime="2021-01-22T21:37:51+08:00">2021-01-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-18 10:10:32" itemprop="dateModified" datetime="2021-11-18T10:10:32+08:00">2021-11-18</time>
-              </span>
-
-          
-            <span id="/2021/01/22/share-rs/" class="post-meta-item leancloud_visitors" data-flag-title="海洋数据资源共享" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/01/22/share-rs/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/22/share-rs/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这里分享一些遥感、测绘、海洋等地球科学领域的开放资源。</p>
-<h2 id="潮汐实测"><a href="#潮汐实测" class="headerlink" title="潮汐实测"></a>潮汐实测</h2><ul>
-<li>Permanent Service for Mean Sea Level (PSMSL)： <a href="http://www.psmsl.org/" target="_blank" rel="noopener">http://www.psmsl.org/</a></li>
-<li>UHSLC – University of Hawaii Sea Level Center： <a href="http://uhslc.soest.hawaii.edu/network/" target="_blank" rel="noopener">http://uhslc.soest.hawaii.edu/network/</a><br>夏威夷的这个网站含有逐时的潮位数据，也包括我国10个左右的逐时潮位数据，但数据自上个世纪以来未更新。</li>
-<li>法国Corsica 卫星高度计定标场10分钟采样的潮汐数据: <a href="https://www.aviso.altimetry.fr/en/data/calval/in-situ/absolute-calibration/download-tide-gauge-data.html" target="_blank" rel="noopener">https://www.aviso.altimetry.fr/en/data/calval/in-situ/absolute-calibration/download-tide-gauge-data.html</a></li>
-<li>中国珠海万山卫星高度计定标场(需是定标合作伙伴计划成员)高频验潮数据: <a href="ftp://1.203.103.214" target="_blank" rel="noopener">ftp://1.203.103.214</a></li>
-<li>中国海洋信息中心: <a href="http://mds.nmdis.org.cn/pages/dataViewDetail.html?dataSetId=5" target="_blank" rel="noopener">http://mds.nmdis.org.cn/pages/dataViewDetail.html?dataSetId=5</a><br>信息中心公开了我国6个海洋站的月均潮位数据，搜集并公布了日本29个站点的逐时(一小时一个)潮位数据。我国海洋系统布设有120多个海洋站点，观测了半个多世纪的沿海潮位数据，目前（长期以来）把潮位数据当做保密数据，科研需求的申请非常困难，但是花钱往往就行，呵呵。<br>值得表扬的是，信息中心近两年逐渐开放了一部分海洋站点数据，比如14个台站的逐时的波浪、温盐和气象资料。</li>
-</ul>
-<h2 id="海平面变化数据"><a href="#海平面变化数据" class="headerlink" title="海平面变化数据"></a>海平面变化数据</h2><ul>
-<li>Sea Level Research Group of colorado: <a href="https://sealevel.colorado.edu/" target="_blank" rel="noopener">https://sealevel.colorado.edu/</a><br><img src="/images/gmsl_2020rel1_seasons_rmvd_4.png" alt></li>
-<li>AVISO 海平面变化在线分析:<a href="https://www.aviso.altimetry.fr/en/data/products/ocean-indicators-products/mean-sea-level/products-and-images-selection-without-saral-old.html" target="_blank" rel="noopener">https://www.aviso.altimetry.fr/en/data/products/ocean-indicators-products/mean-sea-level/products-and-images-selection-without-saral-old.html</a><br><img src="/images/aviso.png" alt></li>
-</ul>
-<h2 id="卫星测高数据"><a href="#卫星测高数据" class="headerlink" title="卫星测高数据"></a>卫星测高数据</h2><ul>
-<li>AVISO: <a href="https://www.aviso.altimetry.fr" target="_blank" rel="noopener">https://www.aviso.altimetry.fr</a><br>主要的资源在AVISO的FTP(<a href="ftp://ftp-access.aviso.altimetry.fr)，" target="_blank" rel="noopener">ftp://ftp-access.aviso.altimetry.fr)，</a> 包含了Jason-1/2/3，Saral等卫星的GDR、IGDR、SGDR等数据。 此外这里还有许多辅助数据，比如DAC，MSS，Tide等等。我国HY-2A的再分析数据也可以在这下载，目录为 <code>/uncross-calibrated/open-ocean/non-time-critical/l2p/sla/h2/</code>。</li>
-<li>中国海洋卫星数据服务系统: <a href="https://osdds.nsoas.org.cn" target="_blank" rel="noopener">https://osdds.nsoas.org.cn</a><br>HY-2A和HY-2B的数据使用FTP比较方便，(<a href="ftp://osdds-ftp.nsoas.org.cn/HY-2B/)。" target="_blank" rel="noopener">ftp://osdds-ftp.nsoas.org.cn/HY-2B/)。</a> 现在已经公开了SGDR，GDR，IGDR等。</li>
-<li>Sentinel3高度计分两个地址下载，陆地数据：<a href="https://scihub.copernicus.eu/" target="_blank" rel="noopener">https://scihub.copernicus.eu/</a> ， 海洋数据：<a href="https://coda.eumetsat.int/" target="_blank" rel="noopener">https://coda.eumetsat.int/</a> （现在coda网站仅仅有1年的Sentinel3数据，历史数据需要到eumetsat的数据中心下载，<a href="https://www.eumetsat.int/eumetsat-data-centre）" target="_blank" rel="noopener">https://www.eumetsat.int/eumetsat-data-centre）</a></li>
-<li>Icesat-2下载：<a href="https://nsidc.org/data/icesat-2/data-sets，" target="_blank" rel="noopener">https://nsidc.org/data/icesat-2/data-sets，</a> 在线预览：<a href="https://openaltimetry.org/data/icesat2/" target="_blank" rel="noopener">https://openaltimetry.org/data/icesat2/</a><br><img src="/images/openalti.png" alt></li>
-<li>CryoSat: <a href="ftp://science-pds.cryosat.esa.int/SIR_GDR" target="_blank" rel="noopener">ftp://science-pds.cryosat.esa.int/SIR_GDR</a><br>和传统高度计数据的品类不同，Crysat有很多种数据，根据需求选择下载。</li>
-<li>RADS: <a href="http://rads.tudelft.nl/" target="_blank" rel="noopener">http://rads.tudelft.nl/</a><br>RADS提供了文本格式的测高结果，免编程处理nc格式，也可以配合开发者remkos的开源项目使用<a href="https://github.com/remkos/rads" target="_blank" rel="noopener">https://github.com/remkos/rads</a></li>
-</ul>
-<h2 id="地球物理调查（水深、重力、磁力等等）"><a href="#地球物理调查（水深、重力、磁力等等）" class="headerlink" title="地球物理调查（水深、重力、磁力等等）"></a>地球物理调查（水深、重力、磁力等等）</h2><ul>
-<li>美国NGDC：<a href="https://maps.ngdc.noaa.gov/" target="_blank" rel="noopener">https://maps.ngdc.noaa.gov/</a></li>
-<li>日本godac：<a href="http://www.godac.jamstec.go.jp" target="_blank" rel="noopener">http://www.godac.jamstec.go.jp</a><br>日本开放的调查数据比NGDC的较新，质量更高，在西太平洋区域更丰富。<br><img src="/images/jap.png" alt></li>
-<li>德国BSH（Federal Maritime and Hydrographic Agency）：<a href="https://www.bsh.de/EN/DATA/data_node.html" target="_blank" rel="noopener">https://www.bsh.de/EN/DATA/data_node.html</a></li>
-<li>中国海洋信息中心：呵呵<br>主要放了一些外国搜集的数据，而我国观测数据为保密数据。</li>
-</ul>
-<h2 id="常用模型"><a href="#常用模型" class="headerlink" title="常用模型"></a>常用模型</h2><ul>
-<li>NAO: <a href="https://www.miz.nao.ac.jp/staffs/nao99/index_En.html" target="_blank" rel="noopener">https://www.miz.nao.ac.jp/staffs/nao99/index_En.html</a></li>
-<li>FES2014: <a href="ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/" target="_blank" rel="noopener">ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/</a></li>
-<li>DTU MSS：<a href="ftp://ftp.space.dtu.dk/pub/DTU18/" target="_blank" rel="noopener">ftp://ftp.space.dtu.dk/pub/DTU18/</a></li>
-<li>重力场: <a href="http://icgem.gfz-potsdam.de/home" target="_blank" rel="noopener">http://icgem.gfz-potsdam.de/home</a><br>有了这个在线计算的网站，免去编译源代码。<br><img src="/images/gra.png" alt></li>
-</ul>
-<h2 id="GNSS"><a href="#GNSS" class="headerlink" title="GNSS"></a>GNSS</h2><ul>
-<li>陆态网: <a href="http://www.cgps.ac.cn/index.htm" target="_blank" rel="noopener">http://www.cgps.ac.cn/index.htm</a><br>这是中国做的很好的一个数据共享项目，把10多年的陆态网GNSS计算结果免费对外公开。含有坐标长时间序列、对流层、电离层等产品。现需要申请注册一个FTP账号。</li>
-<li>IGS：<a href="https://cddis.nasa.gov/archive/gnss/products/" target="_blank" rel="noopener">https://cddis.nasa.gov/archive/gnss/products/</a></li>
-<li>Nevada Geodetic Laboratory：<a href="http://geodesy.unr.edu/" target="_blank" rel="noopener">http://geodesy.unr.edu/</a></li>
-</ul>
-<h2 id="卫星遥感影像"><a href="#卫星遥感影像" class="headerlink" title="卫星遥感影像"></a>卫星遥感影像</h2><p>GEE: <a href="https://earthengine.google.com/" target="_blank" rel="noopener">https://earthengine.google.com/</a><br>有了GEE，再也不用到处下载数据了。GEE有众多的数据资源，常见的MODIS，Sentinel1/2/3/5，Landsat等等，还有非常多的专题数据，如LIDAR测量的荷兰0.5m分辨率的DEM，LIDAR测量的澳大利亚5m的DEM。GEE是真正意义上的大数据、云计算和AI集大成者。<br><img src="/images/gee.png" alt></p>
-<h2 id="Worldview开放数据"><a href="#Worldview开放数据" class="headerlink" title="Worldview开放数据"></a>Worldview开放数据</h2><p><a href="https://www.maxar.com/open-data/" target="_blank" rel="noopener">https://www.maxar.com/open-data/</a></p>
-<h2 id="sentinel-hub-在线浏览"><a href="#sentinel-hub-在线浏览" class="headerlink" title="sentinel-hub 在线浏览"></a>sentinel-hub 在线浏览</h2><p><a href="https://apps.sentinel-hub.com/sentinel-playground/" target="_blank" rel="noopener">https://apps.sentinel-hub.com/sentinel-playground/</a></p>
-<h2 id="数据共享平台"><a href="#数据共享平台" class="headerlink" title="数据共享平台"></a>数据共享平台</h2><ul>
-<li>极地中心：<a href="https://www.chinare.org.cn/data" target="_blank" rel="noopener">https://www.chinare.org.cn/data</a><br>共享了历次的极地科学考察现场调查资料，包含很多学科的很多数据，但是目前看，许多数据没有整理到能用的程度，仅仅是放在网上了，希望再好好改进一下。</li>
-<li>中国海洋卫星数据服务系统: <a href="https://osdds.nsoas.org.cn" target="_blank" rel="noopener">https://osdds.nsoas.org.cn</a><br>除了测高，还有HY-1和GF-3.</li>
-<li>中国海洋信息中心: <a href="http://mds.nmdis.org.cn/" target="_blank" rel="noopener">http://mds.nmdis.org.cn/</a><br>共享了很多外国数据。呵呵</li>
-<li>日本航天局卫星共享平台gportal：<a href="https://gportal.jaxa.jp/gpr/" target="_blank" rel="noopener">https://gportal.jaxa.jp/gpr/</a></li>
-<li>ESA卫星共享平台：<a href="https://scihub.copernicus.eu/" target="_blank" rel="noopener">https://scihub.copernicus.eu/</a><br>上面提到卫星测高（Sentinel-3），此外还有其他Sentinel卫星资源，如SAR和水色等。</li>
-<li>自然资源卫星遥感云服务平台：<a href="http://sasclouds.com/chinese/home/" target="_blank" rel="noopener">http://sasclouds.com/chinese/home/</a><br>仅检索，不能下载。</li>
-<li>载人航天：<a href="http://www.msadc.cn" target="_blank" rel="noopener">http://www.msadc.cn</a><br><img src="/images/tg.png" alt></li>
-<li>Beaufort Gyre Exploration Project：<a href="https://www.whoi.edu/website/beaufortgyre/home" target="_blank" rel="noopener">https://www.whoi.edu/website/beaufortgyre/home</a><br>Beaufort专项数据，含有潜标、海底声呐等。</li>
-<li>National Snow and Ice Data Center： <a href="https://nsidc.org/" target="_blank" rel="noopener">https://nsidc.org/</a><br>最丰富的的极地数据平台。</li>
-<li>Data Publisher for Earth &amp; Environmental Science（pangaea）：<a href="https://pangaea.de/" target="_blank" rel="noopener">https://pangaea.de/</a><br>德国的地球科学和极地相关数据共享平台。</li>
-<li>ERA5:<a href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels?tab=overview" target="_blank" rel="noopener">https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels?tab=overview</a></li>
-</ul>
-<h2 id="爬虫数据资源"><a href="#爬虫数据资源" class="headerlink" title="爬虫数据资源"></a>爬虫数据资源</h2><ul>
-<li>三峡库区每日库水位下载：<a href="https://blog.cuger.cn/p/54193/" target="_blank" rel="noopener">https://blog.cuger.cn/p/54193/</a><br>爬虫抓取</li>
-<li>大气：<a href="https://quotsoft.net/air/" target="_blank" rel="noopener">https://quotsoft.net/air/</a><br>好心人整理了中国环境监测站的污染物数据。</li>
-</ul>
-<h2 id="2021年4月后增加"><a href="#2021年4月后增加" class="headerlink" title="2021年4月后增加"></a>2021年4月后增加</h2><h3 id="水深"><a href="#水深" class="headerlink" title="水深"></a>水深</h3><!-- US American National Oceanographic and Atmospheric Administration (https://maps.ngdc.noaa.gov/viewers/bathymetry)
-Japan Agency for Marine-Earth Science and Technology (http://www.godac.jamstec.go.jp/darwin/e) -->
-<p>German Datacenter for bathymetric data (<a href="https://www.bsh.de/EN/DATA/Oceanographic_Data_Center/Surveying_data/surveying_data_node" target="_blank" rel="noopener">https://www.bsh.de/EN/DATA/Oceanographic_Data_Center/Surveying_data/surveying_data_node</a>).</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1478,7 +1466,7 @@ Japan Agency for Marine-Earth Science and Technology (http://www.godac.jamstec.g
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">163</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
