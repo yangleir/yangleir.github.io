@@ -53,13 +53,13 @@
 <meta property="og:site_name" content="学习笔记">
 <meta property="og:description" content="大赛简介为加速AI和卫星测高的跨界研究，推动AI海洋大地测量领域的整体良性发展，海洋遥感与数据共享公众号携手多家海洋研究机构和高校科研单位，联合发起“安海”卫星测高水深反演算法大赛，邀请多为卫星测高和海洋大地测量专家拟定赛题，聚集国内海洋遥感和AI人才，发挥AI辅助大洋水深反演效能，解决船测水深资料不足困境。 赛道信息本次比赛设置唯一赛道：卫星测高水深反演 背景海底地形是最基础的海洋环境要素之一，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/19/ai-bisai/images/ai_depth.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/ai_depth.png">
 <meta property="article:published_time" content="2022-09-19T09:25:02.000Z">
-<meta property="article:modified_time" content="2022-09-23T14:03:35.407Z">
+<meta property="article:modified_time" content="2024-06-10T15:18:25.133Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/09/19/ai-bisai/images/ai_depth.png">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/ai_depth.png">
 
 <link rel="canonical" href="http://assz0a.coding-pages.com/2022/09/19/ai-bisai/">
 
@@ -227,7 +227,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-23 22:03:35" itemprop="dateModified" datetime="2022-09-23T22:03:35+08:00">2022-09-23</time>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
               </span>
 
           
@@ -267,7 +267,7 @@
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>海底地形是最基础的海洋环境要素之一，船测单波束和多波束是主要的水深数据来源，然而2019年全球海洋实测水深只占15%，在日本财团支持的联合国海洋科学可持续发展十年项目Seabed 2030支持下，2022年这一数字已达到23.4%，卫星测高反演仍旧是海洋空白区的重要水深来源。目前的反演算法中，多采用物理模型或者经验函数，建立重力信号和地形的相关联系。地形和重力之间的关系不是简单的数学公式可以描述的，存在有复杂的非线性，而当前迅速发展的人工智能技术为该领域提供了新的途径。然而目前人工智能在海洋测绘，特别是海洋大地测量领域，仍旧少有应用。通过人工智能辅助大洋水深反演显得十分必要。</p>
 <h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>人工智能的大洋水深反演不仅可挖掘重力和水深的复杂非线性关系，也可以在提升分辨率、数据融合等方面提供有价值的参考。</p>
 <h3 id="赛题介绍"><a href="#赛题介绍" class="headerlink" title="赛题介绍"></a>赛题介绍</h3><p>选手使用船测单波束数据和重力异常模型、重力梯度模型、垂线偏差模型以及相关地质地球物理模型进行训练建模，使用上述模型构建网格的水深模型，并使用船测单波束检核点进行精度评估。</p>
-<h3 id="研究数据和验证指标"><a href="#研究数据和验证指标" class="headerlink" title="研究数据和验证指标"></a>研究数据和验证指标</h3><p><img src="./images/ai_depth.png" alt></p>
+<h3 id="研究数据和验证指标"><a href="#研究数据和验证指标" class="headerlink" title="研究数据和验证指标"></a>研究数据和验证指标</h3><p><img src="/images/ai_depth.png" alt></p>
 <p>研究区域为太平洋马里亚纳海沟海域，此处地形复杂，有海沟、海山和平原，水深反演具有挑战性和代表性，前期研究成果较多，是测试算法能力的理想海域。</p>
 <p>单波束数据来自美国NGDI数据中心，重力相关模型由Sandwell等提供，地质地球物理模型由earthbyte提供。采用随机抽样的方式，将单波束数据分为训练和测试两部分。以上数据均由大赛主办方提供。</p>
 <p>数据验证指标包括标准差STD、偏差BIAS、相关系数和其他误差统计分布特征。</p>

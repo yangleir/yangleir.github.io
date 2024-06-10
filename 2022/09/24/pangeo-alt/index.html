@@ -53,21 +53,21 @@
 <meta property="og:site_name" content="学习笔记">
 <meta property="og:description" content="基于Pangeo的云生态系统，介绍卫星测高沿轨和网格两种产品的云计算，主要包含数据读取、绘图、时空特征分析等，并略谈并行计算。 沿轨数据沿轨测高数据的源为Copernicus的L3级别产品，目前云端数据包含了全世界主要的测高任务，其中也有我国HY-2A： 1&#39;al&#39;, &#39;alg&#39;, &#39;c2&#39;, &#39;e1&#39;, &#39;e1g&#39;, &#39;e2&#39;, &#39;en&#39;, &#39;enn&#39;, &#39;g2&#39;, &#39;h2&#39;, &#39;j1&#39;, &#39;j">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa1.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa2.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa4.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa5.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa6.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa7.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa8.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa9.png">
-<meta property="og:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa10.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa1.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa2.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa4.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa5.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa6.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa7.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa8.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa9.png">
+<meta property="og:image" content="http://assz0a.coding-pages.com/images/pa10.png">
 <meta property="article:published_time" content="2022-09-24T11:09:57.000Z">
-<meta property="article:modified_time" content="2022-09-24T14:08:41.194Z">
+<meta property="article:modified_time" content="2024-06-10T15:18:25.365Z">
 <meta property="article:author" content="Yang Lei">
 <meta property="article:tag" content="pangeo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/images/pa1.png">
+<meta name="twitter:image" content="http://assz0a.coding-pages.com/images/pa1.png">
 
 <link rel="canonical" href="http://assz0a.coding-pages.com/2022/09/24/pangeo-alt/">
 
@@ -227,10 +227,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-09-24 19:09:57 / 修改时间：22:08:41" itemprop="dateCreated datePublished" datetime="2022-09-24T19:09:57+08:00">2022-09-24</time>
+              <time title="创建时间：2022-09-24 19:09:57" itemprop="dateCreated datePublished" datetime="2022-09-24T19:09:57+08:00">2022-09-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
 
           
             <span id="/2022/09/24/pangeo-alt/" class="post-meta-item leancloud_visitors" data-flag-title="卫星测高数据云计算" title="阅读次数">
@@ -276,29 +282,29 @@
 <p>可使用<code>intake</code>读取卫星测高数据，使用<code>to_dask</code>把数据转为xarray格式，方便运算操作：</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from intake import open_catalog</span><br><span class="line">cat = <span class="keyword">open</span><span class="constructor">_catalog(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean/altimetry.yaml"</span>)</span></span><br><span class="line">ds = cat<span class="literal">['<span class="identifier">h2</span>']</span>.<span class="keyword">to</span><span class="constructor">_dask()</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="./images/pa1.png" alt></p>
+<p><img src="/images/pa1.png" alt></p>
 <h3 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h3><p>选择经纬度和SLA参数，舍弃其他参数，绘图查看。下图显示了HY-2A的100个测量点SLA，如果显示全部的轨迹点时间序列，修改<code>slice</code>内容包含全部时间段即可。：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ds_ll = ds<span class="string">[['latitude', 'longitude', 'sla_filtered']]</span></span><br><span class="line">ds_ll.isel(<span class="built_in">time</span>=slice(<span class="number">0</span>,<span class="number">100</span>,<span class="number">1</span>)).sla_filtered.plot()</span><br></pre></td></tr></table></figure>
 
-<p><img src="./images/pa2.png" alt></p>
+<p><img src="/images/pa2.png" alt></p>
 <p>接下来计算日均值时间序列，这里使用了一个滑动平均函数<code>rolling</code>，计算量不算太小，但云计算表现不错，用时仅27s：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmp=ds_ll.sla_filtered.isel<span class="params">(<span class="attr">time</span>=slice(0,28571752,100)</span>)<span class="string">.dropna</span><span class="params">("time")</span><span class="string">.rolling</span><span class="params">(<span class="attr">time</span>=86400, <span class="attr">center</span>=True)</span><span class="string">.mean</span><span class="params">()</span></span><br><span class="line">tmp.plot<span class="params">()</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="./images/pa4.png" alt></p>
+<p><img src="/images/pa4.png" alt></p>
 <h3 id="空间分布"><a href="#空间分布" class="headerlink" title="空间分布"></a>空间分布</h3><p>把所有数据载入，并简化coordinate：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds_ll = ds<span class="string">[['latitude', 'longitude', 'sla_filtered']]</span>.reset_coords().astype(<span class="string">'f4'</span>).<span class="built_in">load</span>()</span><br></pre></td></tr></table></figure>
 <p>这样原本在xarray数据结构中是<code>coordinate</code>的经纬度就变成了<code>variable</code>。我们选择14天的HY-2A轨迹数据，展示空间分布图：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">tmp</span>=ds_ll.isel(time=slice(86400*14))</span><br><span class="line"></span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">tmp.plot.scatter( <span class="attribute">y</span>=<span class="string">"latitude"</span>,</span><br><span class="line">                 <span class="attribute">x</span>=<span class="string">"longitude"</span>, </span><br><span class="line">                 <span class="attribute">hue</span>=<span class="string">"sla_filtered"</span>,</span><br><span class="line">                 <span class="attribute">s</span>=2,</span><br><span class="line">                 <span class="attribute">vmin</span>=-0.4,</span><br><span class="line">                 <span class="attribute">vmax</span>=0.4,</span><br><span class="line">                 <span class="attribute">levels</span>=9, </span><br><span class="line">                 <span class="attribute">cmap</span>=<span class="string">"jet"</span>,</span><br><span class="line">                 <span class="attribute">aspect</span>=2.5,</span><br><span class="line">                 <span class="attribute">size</span>=9, )</span><br><span class="line"></span><br><span class="line">plt.title(f<span class="string">"sla from HY-2A"</span>)</span><br><span class="line">plt.xlim(  0., 360.)</span><br><span class="line">plt.ylim(-67.,  67.)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="./images/pa5.png" alt></p>
+<p><img src="/images/pa5.png" alt></p>
 <h3 id="空间变化"><a href="#空间变化" class="headerlink" title="空间变化"></a>空间变化</h3><p>因为这里使用的不是网格文件，是轨迹文件，所以不能使用xarray的<code>std</code>进行网格点的变化计算，这里使用一个统计库<code>xhistogram</code>计算器sla的变化，也就是标准差：</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from xhistogram.xarray <span class="built_in">import</span> histogram</span><br><span class="line"></span><br><span class="line"><span class="attr">lon_bins</span> = np.arange(<span class="number">0</span>, <span class="number">361</span>, <span class="number">2</span>)</span><br><span class="line"><span class="attr">lat_bins</span> = np.arange(-<span class="number">70</span>, <span class="number">71</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># helps with memory management</span></span><br><span class="line"><span class="attr">ds_ll_chunked</span> = ds_ll.chunk(&#123;'time': '<span class="number">5</span>MB'&#125;)</span><br><span class="line"></span><br><span class="line"><span class="attr">sla_variance</span> = histogram(ds_ll_chunked.longitude, ds_ll_chunked.latitude,</span><br><span class="line">                         <span class="attr">bins=[lon_bins,</span> lat_bins],</span><br><span class="line">                         <span class="attr">weights=ds_ll_chunked.sla_filtered.fillna(0.)**2)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">norm</span> = histogram(ds_ll_chunked.longitude, ds_ll_chunked.latitude,</span><br><span class="line">                         <span class="attr">bins=[lon_bins,</span> lat_bins])</span><br><span class="line"></span><br><span class="line"><span class="comment"># let's get at least 200 points in a box for it to be unmasked</span></span><br><span class="line"><span class="attr">thresh</span> = <span class="number">200</span></span><br><span class="line"><span class="attr">sla_variance</span> = sla_variance / norm.where(norm &gt; thresh)</span><br></pre></td></tr></table></figure>
 
 <p>在几秒钟后（云计算太快了），完成全部HY-2A数据的计算，然后绘图，我们清晰的看到南极绕极流、南非大回旋、黑潮、湾流等强流特征，这表明我们国家的HY-2A数据质量很好：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sla_variance.plot(<span class="attribute">y</span>=<span class="string">'latitude_bin'</span>, figsize=(12, 6), <span class="attribute">vmax</span>=0.07)</span><br></pre></td></tr></table></figure>
-<p><img src="./images/pa6.png" alt></p>
+<p><img src="/images/pa6.png" alt></p>
 <h2 id="网格数据"><a href="#网格数据" class="headerlink" title="网格数据"></a>网格数据</h2><p>下面是对网格测高的云计算。网格测高数据的源同样是欧洲Copernicus海洋项目，通过数据格式转化，这一批数据已经以Zarr格式存储在云端，我们使用Pangeo瞬间打开这一批巨大的数据（74G）：</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from intake <span class="built_in">import</span> open_catalog</span><br><span class="line"><span class="attr">cat</span> = open_catalog(<span class="string">"https://raw.githubusercontent.com/pangeo-data/pangeo-datastore/master/intake-catalogs/ocean.yaml"</span>)</span><br><span class="line"><span class="attr">ds</span>  = cat[<span class="string">"sea_surface_height"</span>].to_dask()</span><br></pre></td></tr></table></figure>
-<p><img src="./images/pa7.png" alt></p>
+<p><img src="/images/pa7.png" alt></p>
 <p>数据内容包含sla和流场。数据时间从1993年到2017年，数据不能更新是Pangeo云计算的一个弊端，不仅对测高如此，对别的云数据也一样。因此Pangeo社区后来发起了Pangeo Forge项目，召集全球学者参加众包数据计划，小编非常希望未来有人专门维护一套高质量的测高云数据。</p>
 <p>绘图使用<code>ds.sla.isel(time=0).plot()</code>即可，速度也是秒级，这里不展示。</p>
 <h3 id="时间序列-1"><a href="#时间序列-1" class="headerlink" title="时间序列"></a>时间序列</h3><p>计算每一个网格文件（约9000个）的均值，得到全球海面高度日均时间序列，这一步计算相对消耗时间，大约用时1-2min：</p>
@@ -306,15 +312,15 @@
 
 <p>对数据进一步做年滑动平均，然后绘图：</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.plot</span>(label=<span class="string">'full data'</span>)</span><br><span class="line"><span class="selector-tag">sla_timeseries</span><span class="selector-class">.rolling</span>(time=<span class="number">365</span>, center=True)<span class="selector-class">.mean</span>()<span class="selector-class">.plot</span>(label=<span class="string">'rolling annual mean'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.ylabel</span>(<span class="string">'Sea Level Anomaly [m]'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.title</span>(<span class="string">'Global Mean Sea Level'</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.legend</span>()</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.grid</span>()</span><br></pre></td></tr></table></figure>
-<p><img src="./images/pa8.png" alt></p>
+<p><img src="/images/pa8.png" alt></p>
 <h3 id="空间变化-1"><a href="#空间变化-1" class="headerlink" title="空间变化"></a>空间变化</h3><p>进一步，我们想研究海平面变化的经纬方向空间变化，这需要仅对一个维度进行求均值，这样绘制的图形时间沿横坐标，而SLA沿纵坐标（仿<a href="https://en.wikipedia.org/wiki/Hovm%C3%B6ller_diagram" target="_blank" rel="noopener">Hovmöller diagram</a>）。 </p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sla_hov = ds.sla.mean(<span class="attribute">dim</span>=<span class="string">'longitude'</span>).load()</span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 4))</span><br><span class="line">sla_hov.name = <span class="string">'Sea Level Anomaly [m]'</span></span><br><span class="line">sla_hov.transpose().plot(<span class="attribute">vmax</span>=0.2, <span class="attribute">ax</span>=ax)</span><br></pre></td></tr></table></figure>
-<p><img src="./images/pa9.png" alt></p>
+<p><img src="/images/pa9.png" alt></p>
 <p>可以看到北纬40°有特别显著的强变化区，那里是西边界流导致的黑潮和湾流区，赤道也有一个随时间变化的流场，呈现了正弦分布。这张图中的科学太多了，小编一时无法完整解读，有兴趣的读者可以研究下。</p>
 <p>同样我们也能研究SLA在南北向的变化时间序列。此处略。</p>
 <h3 id="STD空间分布"><a href="#STD空间分布" class="headerlink" title="STD空间分布"></a>STD空间分布</h3><p>因为是网格文件的时间序列，这里可以使用xarray对每一个固定网格点的时间轴做计算，同样计算量大，也略消耗时间，耗时2min。有兴趣的话，此处可以使用dask来并行计算，时间快一倍（1min）。因为dask的启动时间和任务分配时间较长，因此综合来看，小的计算量节约时间有限，甚至还慢。大数据计算耗时在1小时之上可尝试dask并行计算。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sla_std</span> = ds.sla.std(dim=<span class="string">'time'</span>).load()</span><br><span class="line"><span class="attr">sla_std.name</span> = <span class="string">'Sea Level Variability [m]'</span></span><br><span class="line"><span class="attr">ax</span> = sla_std.plot()</span><br><span class="line"><span class="attr">_</span> = plt.title(<span class="string">'Sea Level Variability'</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="./images/pa10.png" alt></p>
+<p><img src="/images/pa10.png" alt></p>
 <h4 id="Dask并行计算"><a href="#Dask并行计算" class="headerlink" title="Dask并行计算"></a>Dask并行计算</h4><p>本次并行计算视频：</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
 <li>测高云计算比较方便，计算速度快，数据无需下载</li>

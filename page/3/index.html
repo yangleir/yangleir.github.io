@@ -190,6 +190,250 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/25/ksl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/25/ksl/" class="post-title-link" itemprop="url">物理海洋课后习题-科氏力为什么带2</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-25 21:57:22" itemprop="dateCreated datePublished" datetime="2023-09-25T21:57:22+08:00">2023-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/09/25/ksl/" class="post-meta-item leancloud_visitors" data-flag-title="物理海洋课后习题-科氏力为什么带2" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/25/ksl/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/25/ksl/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="科里奥利力"><a href="#科里奥利力" class="headerlink" title="科里奥利力"></a>科里奥利力</h4><p>科里奥利力是一个惯性力，它只在旋转参考系中存在。它的出现是由于在旋转参考系中观察物体运动时，物体的运动路径与非旋转参考系中的路径不同。</p>
+<p>考虑一个质点在旋转参考系中的运动。科里奥利力的定义是:<br>$$<br>\vec{F}_c=-2 m\left(\vec{\omega} \times \vec{v}\right)<br>$$<br>其中， $\vec{F}_c$ 是科里奥利力， $\vec{\omega}$ 是旋转参考系的角速度， $\vec{v}$ 是质点相对于旋转参考系的速度，</p>
+<p>科里奥利力水平分量的大小是由物体在旋转参考系中的速度、参考系的角速度和物体的质量决定的。 科里奥利力的大小为:<br>$$<br>F_c=2 m v \omega \sin (\phi)<br>$$</p>
+<p>科里奥利力的方向始终垂直于物体的速度向量和地球的旋转轴。</p>
+<h4 id="科氏参数"><a href="#科氏参数" class="headerlink" title="科氏参数"></a>科氏参数</h4><p>科氏参数，通常表示为 $f$ ，是描述地球旋转对流体流动 (如大气和海洋流动) 影响的一个重 要参数。它是地球的角速度和纬度的函数，定义为:<br>$$<br>f=2 \omega \sin (\phi)<br>$$<br>其中:</p>
+<ul>
+<li>$\omega$ 是地球的平均角速度，约为 $7.27 \times 10^{-5} \mathrm{rad} / \mathrm{s}$ 。</li>
+<li>$\phi$ 是纬度，北纬为正，南纬为负。<br>以下是科氏参数的几个关键特点:</li>
+</ul>
+<ol>
+<li>赤道附近: 在赤道附近 (即 $\phi \approx 0^{\circ}$ )，科氏参数接近零，这意味着科里奥利力对流体的影 响在这里最小。</li>
+<li>极地: 当接近北极 $\left(\phi \approx 90^{\circ}\right)$ 或南极 $\left(\phi \approx-90^{\circ}\right)$ 时，科氏参数的绝对值最大，这意味 着科里奥利力对流体的影响在这里最大。</li>
+<li>南半球与北半球: 在北半球，科氏参数为正，而在南半球为负。这决定了北半球和南半球中 流体的偏转方向。</li>
+</ol>
+<blockquote>
+<p>为什么科里奥利力和科氏参数公式中有因子2？这可以从物体在旋转参考系中的运动动力学推导出来。</p>
+</blockquote>
+<h2 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h2><h3 id="惯性力的定义："><a href="#惯性力的定义：" class="headerlink" title="惯性力的定义："></a>惯性力的定义：</h3><p>若一个质点 $m$ 某时刻在惯性系 $S$ 中的加速度为 $\mathbf{a_S}$ ，在另一个非惯性系 $S^{\prime}$ 中的加速度为 $\mathbf{a_{S^\prime}}$ ，则可假设质点受到 一个惯性力 (inertial force 或 fictitious force)<br>$$<br>\mathbf{f}=m\left(\mathbf{a}_{S^{\prime}}-\mathbf{a}_S\right),<br>$$<br>使得牛顿运动定律在非惯性系 $S^{\prime}$ 中仍然成立。</p>
+<h3 id="加速度的坐标变换"><a href="#加速度的坐标变换" class="headerlink" title="加速度的坐标变换"></a>加速度的坐标变换</h3><h4 id="无相对转动"><a href="#无相对转动" class="headerlink" title="无相对转动"></a>无相对转动</h4><p>若两个参考系之间只有平移没有转动，某时刻两个参考系中任意两个固定点之间的加速度都是相等的。令某时刻点 $P$ 相对于 $S$ 系和 $S^{\prime}$ 系的加速度分别为 $\mathbf{a_S}$ 和 $\mathbf{a_{S^\prime}}$ ，再令两坐标系之间的加速度为 $\mathbf{a_r}$ ，那么有<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r}.<br>$$</p>
+<h4 id="有相对转动"><a href="#有相对转动" class="headerlink" title="有相对转动"></a>有相对转动</h4><p>若两参考系之间有可能存在转动，牵连加速度 $\mathbf{a_r}$ 的定义会变得比牵连速度 $\mathbf{v_r}$ 更微妙，因为牵连速度 与参考系的选取无关，而牵连加速度却有关! </p>
+<p>我们在 $S$ 系中讨论问题。定义 $t$ 时刻点 $P$ 在 $S^\prime$ 系中的固定点相对于 $S$ 系的加速度为 $\mathbf{a_r}$ 。那么<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r} +2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$<br>其中 $\boldsymbol{\omega}$ 是 $S^{\prime}$ 系相对于 $S$ 系的瞬时角速度。最后一项被称为科里奥利加速度 (Coriolis Acceleration)<br>$$<br>\mathbf{a_c}=2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$</p>
+<h2 id="总惯性力"><a href="#总惯性力" class="headerlink" title="总惯性力"></a>总惯性力</h2><p>任意非惯性系 $S^{\prime}$ 中质点的总惯性 力 $(S$ 为任意惯性系) 为</p>
+<p>$$<br>\mathbf{F_c} = m\left(\mathbf{a_{S^\prime}}-\mathbf{a_S}\right) = -m \mathbf{a_r} - 2m \boldsymbol{\omega} \times \mathbf{v_{S^\prime}}.<br>$$</p>
+<p>其中第一项包含平移惯性力和转动惯性力，转动惯性力又可划分为离心力以及角加速度产生的惯性力，但与质 点相对 $S^{\prime}$ 的速度无关，所以只将科里奥利力定义为第二项。</p>
+<h2 id="应用于地球"><a href="#应用于地球" class="headerlink" title="应用于地球"></a>应用于地球</h2><p>影响在地球表面“滑动”的空气运动的加速度是科里奥利项的水平分量<br>$$<br>-2 \boldsymbol{\omega} \times \boldsymbol{v}<br>$$</p>
+<p><img src="https://wuli.wiki/online/4d404c496fa983f9.svg" alt></p>
+<p>该分量与地球表面的速度正交，由以下表达式给出<br>$$\omega v 2 \sin \phi$$</p>
+<ul>
+<li>$\omega$ 是地球的自转速率</li>
+<li>$\phi$ 是纬度, 北半球为正，为负 南半球</li>
+</ul>
+<p>在北半球，纬度为正，从上方观察，该加速度位于运动方向的右侧。相反，在南半球它位于左侧。</p>
+<h5 id="证明为什么出现2"><a href="#证明为什么出现2" class="headerlink" title="证明为什么出现2"></a>证明为什么出现2</h5><p><a href="https://wuli.wiki/online/Corio.html" target="_blank" rel="noopener">https://wuli.wiki/online/Corio.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/14/fule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/14/fule/" class="post-title-link" itemprop="url">富勒投影：地图的艺术</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-14 22:26:13" itemprop="dateCreated datePublished" datetime="2023-09-14T22:26:13+08:00">2023-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/09/14/fule/" class="post-meta-item leancloud_visitors" data-flag-title="富勒投影：地图的艺术" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/14/fule/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/14/fule/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>地图，作为一个实用工具，自古以来就在指引人们的方向和理解世界中起着重要作用。但是，传统的地图制图技术，例如墨卡托投影，虽然实用，却因为空间的变形扭曲了人们对地球的感知。这种扭曲不仅在几何层面，甚至渗透到文化和政治层面，影响了人们对世界的认知。</p>
+<p>在20世纪，一位名叫理查·巴克敏斯特·富勒的先驱，以一种全新的方式颠覆了地图制作的艺术。这就是富勒投影，一种地图制作技术，将地球的三维真实性以极小的失真呈现在二维平面上。</p>
+<p><img src="/images/640.jpg" alt></p>
+<p align="center">1964年《时代》杂志的富勒</p>
+
+<h2 id="变形的挑战"><a href="#变形的挑战" class="headerlink" title="变形的挑战"></a>变形的挑战</h2><p>地图投影一直是地理和地图科学中的一个复杂问题。毕竟，将地球这样一个三维球体精确地展现在二维平面上是一个非常棘手的任务。橘子皮的比喻非常形象地描述了这一挑战，试图将橘子皮平铺在桌子上，不管是通过挤压还是剥开的方式，都会造成皮肤的某种形式的变形。同样，地图投影也会使得地球的某些部分产生扭曲或压缩。不同的投影方法在尺度、形状、方向和区域等方面的精确性方面有所不同。</p>
+<p>例如墨卡托投影在赤道附近的区域精度较高，但对地球的南北极产生了巨大变形。这在视觉上产生了一种不平衡，这种投影方法在描绘距离和方向时可能非常精确，但在展示陆地的相对大小时却显得扭曲。</p>
+<p><img src="/images/641.png" alt></p>
+<p align="center">墨卡托投影示意图</p>
+
+
+<p>墨卡托等投影的这一缺陷引发了对更准确、更公正地描绘地球表面的需求。理查·巴克敏斯特·富勒所创建的富勒投影（或称戴美克森投影）就是对这一挑战的回应。通过将地球投影到正二十面体上，富勒地图不仅减小了南北极地区的变形，还为我们提供了一种全新的观察和理解世界的方式。</p>
+<p><img src="/images/642.png" alt></p>
+<p align="center">富勒投影示变形</p>
+
+
+<h2 id="富勒投影的革新"><a href="#富勒投影的革新" class="headerlink" title="富勒投影的革新"></a>富勒投影的革新</h2><p>富勒投影应运而生，采用正二十面体的形状，通过手工绘制将地球表面的每个细节精确地投影到每个等边三角形上。富勒进一步将每个三角形细分，最小化变形，使地图的每个细节都呈现得精确而真实。</p>
+<p><img src="/images/644.jpg" alt></p>
+<p align="center">富勒基于正二十面体的戴美克森地图</p>
+
+
+
+<p>这一革新之处不仅在于其几何结构，更在于其提供的全新视角。富勒投影消除了墨卡托投影的极端变形，还允许不同的布局和方向，从而为观察世界提供了新的可能性。这一方法甚至可以揭示地球表面之间的拓扑关系，揭示了不同地区之间可能的迁移路径。</p>
+<p>富勒投影的另一项革命性贡献在于其去中心化的视角。与传统地图的中心主义思维方式不同，富勒投影没有固定的中心，允许以任何方向和角度展示地球的表面。这一突破性设计避免了某些地区或国家受到强调或忽略的问题，真实地反映了地球的普遍性和客观性。富勒投影的这一特性不仅摆脱了地理、政治和文化的局限，还开启了一种全新的空间认知方式。通过重新构建地图的视觉逻辑，富勒投影鼓励观众从多角度、多维度的视野来重新思考和理解我们所居住的世界。这一全球视角不仅有助于促进跨文化的沟通和理解，还可能推动科学、艺术和人文领域的创新探索。</p>
+<p>在军事行动的决策方面，富勒通过戴美克森地图发现了陆地几何中心位于当时苏联的伏尔加格勒。这一几何中心具有特殊的地缘战略意义：从该处到各大洲的最远端的距离几乎相等。后来的情报分析证实，该地区正是苏联的关键导弹发射中心，这一发现为战略规划提供了极为重要的信息。此外，在第二次世界大战期间，富勒还向美国军方提出了一项大胆的军事计划。他建议联合苏联从东部反攻纳粹德国，而不是从西部沿岸登陆。虽然当时这一建议未被采纳，但后来的分析与德国方面的情报揭示了这一战略的潜在价值：如果当时按照富勒的方案执行，纳粹德国的溃败可能会更迅速。这些例子展示了富勒投影在军事策略分析中的创新应用，其精确性和独特视角为战争决策提供了新的洞察。</p>
+<h2 id="编程语言绘图"><a href="#编程语言绘图" class="headerlink" title="编程语言绘图"></a>编程语言绘图</h2><p>富勒投影的实现和可视化并不局限于理论探讨和手工绘制。随着现代编程和可视化工具的发展，富勒投影已经可以通过多种编程语言和库实现。这一点不仅促进了富勒投影的普及，还增加了它的实用性和灵活性。</p>
+<p>以下是一些在线绘制富勒投影（Airocean projection）的资源链接：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JavaScript库实现：使用d3-geo-polygon库，可以轻松实现Airocean投影以及其他多面体投影。具体代码和示例可在Observable平台上查看：<span class="string">https:</span><span class="comment">//observablehq.com</span></span><br><span class="line"><span class="regexp">/@fil/</span>airocean-projection</span><br><span class="line">Python代码实现：如果您使用Python进行地图绘制，可以参考此GitHub链接中的代码来实现富勒投影。<span class="string">https:</span><span class="comment">//github.com/locoluis/isea-airocean</span></span><br></pre></td></tr></table></figure>
+
+<p>通过这些现代工具和库的支持，富勒投影不仅在地图学和地理科学领域中具有广泛的应用，还可以方便地融入到多领域的项目和研究中，从而继续推动富勒投影的创新和发展。</p>
+<p><img src="/images/645.png" alt><br><img src="/images/646.png" alt><br><img src="/images/648.png" alt></p>
+<p align="center">使用d3-geo-polygon绘制富勒投影使用Python绘制富勒投影</p>
+
+
+
+<h2 id="影响和启示"><a href="#影响和启示" class="headerlink" title="影响和启示"></a>影响和启示</h2><p>富勒地图的影响远不止于此。它改变了人们对地球的空间认知，消除了统治者的幻影，还揭示了地球的海陆拓扑关系与可能的迁徙路径。在历史解释上，富勒用他的地图论证了南极洲作为古代快速航路的可能性。在军事战略上，他的地图更是揭示了苏联的导弹发射中心的几何位置。富勒投影不仅是一项技术创新，更是一门艺术。它展示了地图可以如何超越纯粹的实用价值，成为连接人们与世界的桥梁。理查·巴克敏斯特·富勒用他的智慧和才华，展示了地图的可能性和潜力。他的地图投影，成为了一种象征，一种展示地球真实美丽的方式，是地图制作的一次革命。</p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><ul>
+<li>关于富勒的维基百科页面: <a href="https://en.wikipedia.org/wiki/Buckminster_Fuller" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Buckminster_Fuller</a></li>
+<li>富勒地图的详细介绍: <a href="http://www.bfi.org/about-fuller/big-ideas/dymaxion-world/dymaxion-map" target="_blank" rel="noopener">http://www.bfi.org/about-fuller/big-ideas/dymaxion-world/dymaxion-map</a></li>
+<li>关于墨卡托投影的信息: <a href="https://en.wikipedia.org/wiki/Mercator_projection" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mercator_projection</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/14/liangang/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -213,10 +457,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-09-14 22:05:56 / 修改时间：22:09:21" itemprop="dateCreated datePublished" datetime="2023-09-14T22:05:56+08:00">2023-09-14</time>
+              <time title="创建时间：2023-09-14 22:05:56" itemprop="dateCreated datePublished" datetime="2023-09-14T22:05:56+08:00">2023-09-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
 
           
             <span id="/2023/09/14/liangang/" class="post-meta-item leancloud_visitors" data-flag-title="用量纲分析洞察湍流：Kolmogorov的-5/3定律" title="阅读次数">
@@ -326,10 +576,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-07-15 06:51:48 / 修改时间：06:52:21" itemprop="dateCreated datePublished" datetime="2023-07-15T06:51:48+08:00">2023-07-15</time>
+              <time title="创建时间：2023-07-15 06:51:48" itemprop="dateCreated datePublished" datetime="2023-07-15T06:51:48+08:00">2023-07-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
 
           
             <span id="/2023/07/15/tibxs/" class="post-meta-item leancloud_visitors" data-flag-title="The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop" title="阅读次数">
@@ -479,10 +735,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-05-29 16:04:07 / 修改时间：16:07:58" itemprop="dateCreated datePublished" datetime="2023-05-29T16:04:07+08:00">2023-05-29</time>
+              <time title="创建时间：2023-05-29 16:04:07" itemprop="dateCreated datePublished" datetime="2023-05-29T16:04:07+08:00">2023-05-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
 
           
             <span id="/2023/05/29/buoy2/" class="post-meta-item leancloud_visitors" data-flag-title="故事会系列2：井底之蛙变形记" title="阅读次数">
@@ -520,7 +782,7 @@
 <p>有一天，小青在池塘边欣赏着东海的波涛声，突然听到一声兴奋的声音：“喂，小青，你知道东海有多宏伟壮观吗？”小青抬头一看，原来是它的朋友东海鳖。</p>
 <p>小青好奇地问道：“东海有多大？”东海鳖微笑着回答：“小青啊，东海千里之广，千仞之深。海水浩瀚无边，无法用言语形容其广阔和深邃。洪水滔滔，海水不会因此增多；大旱连连，水位也不会因此下降。无论何时，无论天气如何变化，东海的高程始终保持不变。”</p>
 <p>小青陷入沉思，思考着东海的壮丽与稳定，觉得不可思议，为什么海平面不会变化？这是真的吗？。正当它陷入困惑时，一个人影出现在远处。走近一看，原来是青岛安海公司的雷总。雷总向小青走来，微笑着说道：“小青，你知道我们人类发明了一种叫做GNSS浮标的神奇工具吗？它可以测量海面的高度变化，让我们更好地了解东海的秘密。”</p>
-<p><img src="./images/buoy.jpg" alt></p>
+<p><img src="/images/buoy.jpg" alt></p>
 <p>小青震惊地问道：“真的吗？东海鳖以为海水是永恒不变的。”雷总点头笑道：“是的，东海虽然深广无垠，但它也在悄悄地发生着变化。GNSS浮标可以提供准确的海面高观测数据，帮助我们了解海平面的变化趋势。通过这项技术，我们可以深入了解东海的奥秘。”</p>
 <p>小青感到非常兴奋，它决定要一台GNSS浮标，以便能够更好地了解东海的变化。雷总留下了GNSS浮标的销售电话15563986819，并鼓励小青多了解关于大海的知识。</p>
 <p>从此，小青在东海之滨的池塘旁，安放了一台GNSS浮标。它通过测量海面高度的变化，深入探索东海的秘密，领悟到人类的智慧和科技的力量。小青意识到，尽管自己只是一只青蛙，但通过学习和探索，它可以超越自己的局限，去领略更广阔的世界。</p>
@@ -567,10 +829,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-05-28 16:08:28 / 修改时间：16:17:07" itemprop="dateCreated datePublished" datetime="2023-05-28T16:08:28+08:00">2023-05-28</time>
+              <time title="创建时间：2023-05-28 16:08:28" itemprop="dateCreated datePublished" datetime="2023-05-28T16:08:28+08:00">2023-05-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
 
           
             <span id="/2023/05/28/gnssbuot/" class="post-meta-item leancloud_visitors" data-flag-title="《西游记》中的海洋测绘故事" title="阅读次数">
@@ -608,9 +876,9 @@
 <p>故事的开始，孙悟空为了寻找合适的兵器，抢走了龙王的神铁金箍棒。这根金箍棒原本是龙王用来测量海水深浅的上古工具，是大禹治水时留下的宝贵遗产。然而，失去了这块神铁，龙王对海洋水位的变化无法准确了解，施政受到了严重的影响。全球的云雨混乱，海洋动荡不安，全球气候变化受到了极大的干扰。</p>
 <p>龙王愤怒地向玉帝告状，要求归还金箍棒。玉帝责问孙悟空，为何偷取神铁。孙悟空此时眼含智慧，他告诉玉帝，现在海洋测绘已经不再使用神铁的方式。他指向天空中闪烁的人造卫星，这些是人类科技的结晶，提供了全新的海洋测绘仪器：GNSS浮标。</p>
 <p>GNSS浮标是一种先进的卫星海洋测绘仪器，它不仅可以精准测量海水的深度变化，还能感知海洋的轻微波动。相比起金箍棒上没有刻度的简陋工具，这款浮标能够以厘米级的精度测量水位的变化，以及测量波浪的高度和频率。</p>
-<p><img src="./images/buoy.jpg" alt></p>
+<p><img src="/images/buoy.jpg" alt></p>
 <p>这一重大的科技突破由青岛安海公司独家代理。公司的雷总在这里给龙王留下了联系电话15563986819，并表示提到孙悟空的名字，将享受优惠待遇。</p>
-<p><img src="./images/buoy2.jpg" alt></p>
+<p><img src="/images/buoy2.jpg" alt></p>
 <p>这个故事告诉了我们，科技的进步不断推动着人类对自然的探索和理解。从神铁金箍棒到GNSS浮标，我们见证了测绘技术的飞跃。人类的智慧和创新为我们提供了更准确、更高效的海洋测绘手段。通过这些先进工具的运用，我们能够更好地管理海洋资源，保护海洋环境，促进可持续发展。</p>
 <p>正如孙悟空所说，现在的海洋测绘已经走向了新的时代，而这项技术的进步不仅改变了龙王对海洋的认知，也让我们认识到科技在推动人类文明进步和保护自然环境方面的巨大潜力。让我们借鉴这个故事，继续探索和创新，为海洋的研究和保护贡献我们的智慧和力量。</p>
 
@@ -663,7 +931,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-03-12 00:25:47" itemprop="dateModified" datetime="2023-03-12T00:25:47+08:00">2023-03-12</time>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
               </span>
 
           
@@ -870,7 +1138,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-22 10:25:07" itemprop="dateModified" datetime="2022-12-22T10:25:07+08:00">2022-12-22</time>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
               </span>
 
           
@@ -906,8 +1174,8 @@
 
       
           <p>这里遥感（Remote Sensing）和海洋科学（oceanography）的学科分类参考了科睿唯安JCR（Journal Citation Reports）分类，其中遥感一共有34本期刊，海洋科学有66本。具体清单如下，红色表示为中科院TOP期刊，分区为2022年中科院升级版最新分区，IF（Impact Factor）为2022年发布的最新影响因子：</p>
-<h2 id="遥感期刊"><a href="#遥感期刊" class="headerlink" title="遥感期刊"></a>遥感期刊</h2><p><img src="./images/rs2.png" alt></p>
-<h2 id="海洋科学期刊"><a href="#海洋科学期刊" class="headerlink" title="海洋科学期刊"></a>海洋科学期刊</h2><p><img src="./images/ocean.jpg" alt></p>
+<h2 id="遥感期刊"><a href="#遥感期刊" class="headerlink" title="遥感期刊"></a>遥感期刊</h2><p><img src="/images/rs2.png" alt></p>
+<h2 id="海洋科学期刊"><a href="#海洋科学期刊" class="headerlink" title="海洋科学期刊"></a>海洋科学期刊</h2><p><img src="/images/ocean.jpg" alt></p>
 <h1 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h1>
       
     </div>
@@ -950,10 +1218,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-12-21 17:23:45 / 修改时间：19:20:37" itemprop="dateCreated datePublished" datetime="2022-12-21T17:23:45+08:00">2022-12-21</time>
+              <time title="创建时间：2022-12-21 17:23:45" itemprop="dateCreated datePublished" datetime="2022-12-21T17:23:45+08:00">2022-12-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
 
           
             <span id="/2022/12/21/fenqu/" class="post-meta-item leancloud_visitors" data-flag-title="中科院分区2022-地学和工程技术类" title="阅读次数">
@@ -1011,10 +1285,10 @@
 <li>IEEE JSTAR，三区。期刊开源之后，即从二区掉到三区，同时出版数量差不多翻了一倍，从开源之前年均不到500篇快速增长到2021年的950篇。</li>
 <li>GPS solutions，2021年基础版三区，升级版一区，2022年升级版一区。</li>
 </ul>
-<h1 id="地学和工程技术分区清单"><a href="#地学和工程技术分区清单" class="headerlink" title="地学和工程技术分区清单"></a>地学和工程技术分区清单</h1><h2 id="地学一区和二区"><a href="#地学一区和二区" class="headerlink" title="地学一区和二区"></a>地学一区和二区</h2><p><img src="./images/%E5%9C%B0%E5%AD%A61.jpg" alt><br><img src="./images/%E5%9C%B0%E5%AD%A62.jpg" alt><br><img src="./images/%E5%9C%B0%E5%AD%A63.jpg" alt><br><img src="./images/%E5%9C%B0%E5%AD%A64.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A65.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A66.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A67.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A68.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A69.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A610.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A611.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A612.png" alt><br><img src="./images/%E5%9C%B0%E5%AD%A613.png" alt></p>
-<h2 id="工程技术一区和二区"><a href="#工程技术一区和二区" class="headerlink" title="工程技术一区和二区"></a>工程技术一区和二区</h2><p><img src="./images/%E5%B7%A5%E7%A8%8B1.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B2.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B3.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B4.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B5.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B6.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B7.jpg" alt></p>
-<p><img src="./images/%E5%B7%A5%E7%A8%8B8.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B9.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B10.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B11.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B12.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B13.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B14.jpg" alt></p>
-<p><img src="./images/%E5%B7%A5%E7%A8%8B15.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B16.jpg" alt><br><img src="./images/%E5%B7%A5%E7%A8%8B17.jpg" alt></p>
+<h1 id="地学和工程技术分区清单"><a href="#地学和工程技术分区清单" class="headerlink" title="地学和工程技术分区清单"></a>地学和工程技术分区清单</h1><h2 id="地学一区和二区"><a href="#地学一区和二区" class="headerlink" title="地学一区和二区"></a>地学一区和二区</h2><p><img src="/images/%E5%9C%B0%E5%AD%A61.jpg" alt><br><img src="/images/%E5%9C%B0%E5%AD%A62.jpg" alt><br><img src="/images/%E5%9C%B0%E5%AD%A63.jpg" alt><br><img src="/images/%E5%9C%B0%E5%AD%A64.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A65.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A66.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A67.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A68.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A69.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A610.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A611.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A612.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A613.png" alt></p>
+<h2 id="工程技术一区和二区"><a href="#工程技术一区和二区" class="headerlink" title="工程技术一区和二区"></a>工程技术一区和二区</h2><p><img src="/images/%E5%B7%A5%E7%A8%8B1.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B2.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B3.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B4.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B5.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B6.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B7.jpg" alt></p>
+<p><img src="/images/%E5%B7%A5%E7%A8%8B8.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B9.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B10.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B11.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B12.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B13.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B14.jpg" alt></p>
+<p><img src="/images/%E5%B7%A5%E7%A8%8B15.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B16.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B17.jpg" alt></p>
 
       
     </div>
@@ -1057,10 +1331,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-12-17 21:38:59 / 修改时间：22:26:53" itemprop="dateCreated datePublished" datetime="2022-12-17T21:38:59+08:00">2022-12-17</time>
+              <time title="创建时间：2022-12-17 21:38:59" itemprop="dateCreated datePublished" datetime="2022-12-17T21:38:59+08:00">2022-12-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
 
           
             <span id="/2022/12/17/haiyangyaogan/" class="post-meta-item leancloud_visitors" data-flag-title="NSFC-海洋遥感资助项目回顾和热点分析(基于2015-2020年项目统计)" title="阅读次数">
@@ -1094,199 +1374,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="数量、类型和经费"><a href="#数量、类型和经费" class="headerlink" title="数量、类型和经费"></a>数量、类型和经费</h2><h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p><img src="./images/yg3.png" alt></p>
-<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="./images/yg2.png" alt></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="./images/yg4.png" alt></p>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="./images/yg1.png" alt></p>
+          <h2 id="数量、类型和经费"><a href="#数量、类型和经费" class="headerlink" title="数量、类型和经费"></a>数量、类型和经费</h2><h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p><img src="/images/yg3.png" alt></p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="/images/yg2.png" alt></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/yg4.png" alt></p>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="/images/yg1.png" alt></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然海洋遥感在海洋科学下面设立一个代码，但是海洋遥感领域的立项课题不限于本代码。如果您也从事海洋遥感，选择代码的时候需要多多考虑。</p>
 <p>#清单</p>
-<h2 id="除面上和青年之外课题"><a href="#除面上和青年之外课题" class="headerlink" title="除面上和青年之外课题"></a>除面上和青年之外课题</h2><p><img src="./images/yg5.jpg" alt></p>
-<h2 id="面上"><a href="#面上" class="headerlink" title="面上"></a>面上</h2><p><img src="./images/yg6.jpg" alt></p>
-<h2 id="青年"><a href="#青年" class="headerlink" title="青年"></a>青年</h2><p><img src="./images/yg7.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/16/swot3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/16/swot3/" class="post-title-link" itemprop="url">SWOT发射成功，6个月后开始观测</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-12-16 21:18:07 / 修改时间：22:24:08" itemprop="dateCreated datePublished" datetime="2022-12-16T21:18:07+08:00">2022-12-16</time>
-            </span>
-
-          
-            <span id="/2022/12/16/swot3/" class="post-meta-item leancloud_visitors" data-flag-title="SWOT发射成功，6个月后开始观测" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/16/swot3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/16/swot3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="./images/swot41.jpg" alt><br><font size="2"><center> SpaceX猎鹰9火箭于12月16日6:46（美国东部时间）成功发射SWOT卫星。图片来源：NASA </center></font></p>
-<h2 id="发射成功"><a href="#发射成功" class="headerlink" title="发射成功"></a>发射成功</h2><p>经过了近20年的准备之后，刚才SpaceX猎鹰9火箭将SWOT卫星发射升空，目前火箭推进部分成功着落回收，SWOT载荷被送入预定轨道，并通讯正常。</p>
-<p>SWOT全面工作还需要几个月的时间。法国制造的Ka波段雷达干涉仪(KaRIn)采用两个5m吊杆，需要在太空完全展开才可以工作。一旦就位，雷达高度计天线将开始发射干涉信号到地球表面，并计算信号返回卫星所需的时间，正是这些干涉雷达高度计的返回信号让SWOT能够非常精确地确定地表水高度。</p>
-<h2 id="水文"><a href="#水文" class="headerlink" title="水文"></a>水文</h2><p>从本质上讲，这颗卫星将对水体进行3D成像，详细评估它们的时空变化。SWOT能够观测到所有大于100米宽的河流和大于6公顷的湖泊。</p>
-<p>NASA/JPL 卫星测高首席科学家Lee-Lueng Fu博士说：“SWOT观测的河流和湖泊数据量将比目前已存在的数据量多几个数量级。”</p>
-<p>“例如，目前1000个湖泊中只有10个得到了很好的调查。而我们将调查数百万个湖泊。” </p>
-<h2 id="海洋"><a href="#海洋" class="headerlink" title="海洋"></a>海洋</h2><p><img src="./images/swot43.png" alt></p>
-<p>对于海洋，SWOT将看到20公里宽的亚中尺度海流和涡旋形态。正是这种亚中尺度的海水旋转将热量和二氧化碳从大气中吸收，从而缓和了全球变暖。SWOT将有助于回答一个关键问题：海洋开始将大量热量排放回大气，而不是吸收热量的临界点是什么？ </p>
-<p>“SWOT也可以提高对海洋环流的认识，这有可能为航运、渔业甚至娱乐等更广泛行业提供重要信息，” NASA 海平面变化科学家Ben Hamlington解释道。</p>
-<p>“我们还知道，小尺度涡旋负责将污染物输送到海洋周围，然后再输送到我们的海岸。包括石油泄漏或海啸后产生的海洋垃圾。”</p>
-<h2 id="定标"><a href="#定标" class="headerlink" title="定标"></a>定标</h2><p><img src="./images/swot44.png" alt></p>
-<p>英国将参加即将到来的春季“定标和验证”活动，这将检查SWOT是否观测正常。</p>
-<p>英国参与人员在布里斯托尔河口放置传感器，以便在SWOT从头顶飞过时进行定标。 选择河口是因为这里有世界上最大的潮差之一，水位存在巨大变化。</p>
-<p>负责英国SWOT定标工作的布里斯托尔大学Bates教授说：“SWOT能够提供10厘米以内的高度变化。因此，我们必须以更准确的地面绝对高度去评估它”</p>
-<p>“我们一直在使用验潮仪，并在它们上面安装GPS站，然后考虑温度、压力、盐度等所有潜在的变量。我们最终会得到一个非常准确的河口水位。”</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/12/swot2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/12/swot2/" class="post-title-link" itemprop="url">Science：SWOT卫星将以前所未有的分辨率测量全球水循环和涡流</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-12-12 09:29:46 / 修改时间：10:31:54" itemprop="dateCreated datePublished" datetime="2022-12-12T09:29:46+08:00">2022-12-12</time>
-            </span>
-
-          
-            <span id="/2022/12/12/swot2/" class="post-meta-item leancloud_visitors" data-flag-title="Science：SWOT卫星将以前所未有的分辨率测量全球水循环和涡流" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/12/swot2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/12/swot2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="./images/swot2.jpg" alt><br><font size="2"><center> 2019年，波罗的海遥感影像捕捉到了卷入漩涡中的大量绿藻。 </center></font></p>
-<p>涡流(eddy)被忽视的时间太长了。这些湍流漩涡的大小从几公里到几百公里不等，它们从大洋环流中剥离，将热量和碳混合到更深的海洋，就像将奶油搅拌到咖啡中一样。它们是海洋中最有活力的旋转运动，对气候模型的正确性至关重要。但小尺度涡流也是卫星看不到的，除非它们碰巧卷入了大量的绿色浮游植物。</p>
-<p>现在即将不一样了。在美国国家航空航天局（NASA）和法国国家空间研究中心（CNES）联合发射地表水和海洋地形（SWOT）卫星后，小尺度涡流以及陆地河湖将迅速成为焦点。这颗价值<strong>12亿美元</strong>的卫星预计<strong>12月15日</strong>从加州范登堡空军基地由SpaceX公司的猎鹰9号火箭发射。SWOT携带一个干涉测量高度计，可以测量几厘米之内的水面高度变化，使研究人员能够推断出水面的运动状态。<code>伍兹霍尔海洋研究所（WHOI）</code>的物理海洋学家J.Thomas Farrar说：”我们预计SWOT带来的变化将是巨大的。”</p>
-<p><img src="./images/swot3.jpeg" alt><br><font size="2"><center> 2022年11月18日，SWOT被移入加利福尼亚州范登堡太空部队基地的运输容器中。</center></font></p>
-<p>法国图卢兹<code>空间、地球物理和海洋学研究实验室</code>的物理海洋学家Rosemary Morrow说，对于海洋学家来说，这就像戴上一副眼镜。这颗卫星将捕捉到小至7公里宽的涡流，每21天覆盖几乎整个地球。在陆地上，SWOT将能够绘制600多万个湖泊的高度变化图，同时还能捕捉到超过100米宽的河流的流量。它将取代来自地面的零星测量，并使水文领域比以往更具有经验性和全球性。<code>北卡罗来纳大学教堂山分校</code>的水文学家、SWOT淡水科学小组的联合领导Tamlin Pavelsky说：”它将帮助我们观察水循环在北极和非洲的运作方式–在那些我们没有实地数据的地方。”</p>
-<p>近40年来，NASA和CNES发射了一系列雷达测高卫星，这些卫星使用雷达的反射脉冲来测量水面高度。卫星高度计监测到了全球海平面的加速上升，这是气候变化的一个基本指标。通过测量海洋表面的高度起伏，它们还跟踪到了地球上的大规模洋流。但是卫星粗糙的空间分辨率意味着河流和中小尺度漩涡是无法测量的。</p>
-<p>在两个5米长度的基线杆帮助下，SWOT可利用干涉测高技术获得更高分辨率的水面高度形态，SWOT干涉基线两端都有一个天线来捕捉雷达脉冲的反射信号。这两个相距甚远的天线使SWOT有足够的分辨率来测量仅几公里宽的水面，从而使小尺度涡流进入视野。</p>
-<p>有了精确的观测数据，水文学家将得到湖泊和河流的季节性水位变化，以及短期气候驱动因素（如厄尔尼诺现象）。对于海洋生态学家来说，SWOT将能够绘制世界主要河流的水位在大坝或堰塞湖的干扰下如何变化，以及这对水生动植物栖息地的影响程度。它还将看到河流浅滩和深潭的涟漪，这对研究河流如何演变是一个福音。SWOT将捕捉到洪水顺流而下的过程，这应该有助于洪水建模。</p>
-<p>尽管SWOT计划运行3年，但其科学团队打算寻找其探测到的水流动力高度与陆地观测卫星任务（Landsat）的可见光影像之间的关联，例如变化的湖泊和河流宽度。Pavelsky说，这些可见的变化可以作为水位的替代指标，使研究人员能够继续关注地球的水循环情况。”即使SWOT消失了，你仍然可以继续这种分析。”</p>
-<p>SWOT对中小尺度涡流的观测可能是其最大的成就。WHOI的物理海洋学家Sylvia Cole说，SWOT将检验在任何时候都存在的成千上万的中小尺度涡流对海洋的混合作用。 Morrow说，小尺度涡流对于热量和碳汇入两极海水发挥关键作用。她说，它们还将推动小型海域的热能和碳混合研究。”比如我们可能低估了地中海地区90%的能量，因为我们不知道这些较小规模涡流的结构。”</p>
-<p><code>杜兰大学</code>的物理海洋学家Sönke Dangendorf说，SWOT将推动研究海平面上升如何影响海岸线的变迁。Morrow说，SWOT还将促进飓风监测，因为中小涡流使水变暖，进一步助长更强的飓风。她补充说”我们不仅在表面，而且在更深处捕获了热量”。这些都是需要快速回答的重要问题，因为人类大部分生活在沿海地区。”在沿海地区，一切都会被更敏锐地感受到。”</p>
+<h2 id="除面上和青年之外课题"><a href="#除面上和青年之外课题" class="headerlink" title="除面上和青年之外课题"></a>除面上和青年之外课题</h2><p><img src="/images/yg5.jpg" alt></p>
+<h2 id="面上"><a href="#面上" class="headerlink" title="面上"></a>面上</h2><p><img src="/images/yg6.jpg" alt></p>
+<h2 id="青年"><a href="#青年" class="headerlink" title="青年"></a>青年</h2><p><img src="/images/yg7.jpg" alt></p>
 
       
     </div>
