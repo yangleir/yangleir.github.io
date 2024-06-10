@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">163</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">166</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,360 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/14/liangang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/14/liangang/" class="post-title-link" itemprop="url">用量纲分析洞察湍流：Kolmogorov的-5/3定律</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-14 22:05:56 / 修改时间：22:09:21" itemprop="dateCreated datePublished" datetime="2023-09-14T22:05:56+08:00">2023-09-14</time>
+            </span>
+
+          
+            <span id="/2023/09/14/liangang/" class="post-meta-item leancloud_visitors" data-flag-title="用量纲分析洞察湍流：Kolmogorov的-5/3定律" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/14/liangang/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/14/liangang/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在生活中，我们时常被大自然的神秘现象所震撼，如旋风般的湍流、风暴中的雷电、星空下的北极光。这些看似复杂的天然奇观，其背后真的只是无法解释的魔法吗？读者们，有没有想过为什么，有时，这些复杂得超乎想象的现象，却能够通过简单的理论或方法得以解释？</p>
+<p>例如，湍流，这一连续介质力学中最为棘手的问题，尽管在研究中屡遭困境，但也有时候能够通过数学和物理的神奇魅力被探究其深层原理。这里，我们即将使用一种源于上个世纪初、既经典又简单的方法—量纲分析，来为各位揭示湍流背后的神奇秘密。正是这种将复杂事物回归简单的探索精神，使得我们对自然界的理解越来越深入，科技与自然的关系也因此变得更加和谐。</p>
+<p>让我们一起走进Kolmogorov的 $-5/3$定律的神奇世界。</p>
+<h2 id="量纲分析：开始的第一步"><a href="#量纲分析：开始的第一步" class="headerlink" title="量纲分析：开始的第一步"></a>量纲分析：开始的第一步</h2><p>首先，我们需要明确涉及的物理量及其量纲：</p>
+<ul>
+<li><strong>能量传递速率</strong> $( \varepsilon)$: <ul>
+<li>$ [\varepsilon] = L^2T^{-3} $</li>
+</ul>
+</li>
+<li><strong>波数</strong> $( k )$: <ul>
+<li>$ [k] = L^{-1} $</li>
+</ul>
+</li>
+<li><strong>能量光谱</strong> $( E(k) )$: <ul>
+<li>$ [E(k)] = L^3T^{-2} $</li>
+</ul>
+</li>
+</ul>
+<p>记住，量纲分析的魅力在于其简洁和普遍性。使用Buckingham’s $( \pi )$ 定理，我们可以将这些物理量联系起来。</p>
+<h2 id="Buckingham’s-pi-定理"><a href="#Buckingham’s-pi-定理" class="headerlink" title="Buckingham’s $( \pi )$ 定理"></a>Buckingham’s $( \pi )$ 定理</h2><p>我们有三个物理量: $( \varepsilon, k, E(k) )$ 和两个基本量纲：$( L, T )$。</p>
+<p>我们的目标是找到一个无量纲组合：<br>$$ \Pi = \varepsilon^a k^b E(k)^c $$</p>
+<p>通过量纲关系，我们得到：<br>$$ L^{2a-b+3c}T^{-3a-2c} = 1 $$</p>
+<p>满足这些关系，我们需要：</p>
+<p>$$ 2a - b + 3c = 0 $$<br>$$  -3a - 2c = 0 $$</p>
+<p>经过计算，我们得到 $( a = \frac{2}{5} )$, $( b = -1 )$, 和 $( c = -\frac{3}{5} )$，这为我们提供了最终的无量纲组合：<br>$[ \Pi = \varepsilon^{\frac{2}{5}}k E(k)^{-\frac{3}{5}} ]$</p>
+<p>这个组合是无量纲的，因此它是一个常数。进一步得出：<br>$[ E(k) \propto \varepsilon^{\frac{2}{3}}k^{-\frac{5}{3}} ]$<br>这就是我们的Kolmogorov $-5/3$定律！</p>
+<p>量纲分析为我们提供了一个简单且有力的工具，使我们能够洞察湍流中的能量如何分布。Kolmogorov的$-5/3$定律不仅是湍流理论的一个核心部分，也是使用简单的数学方法揭示物理现象背后复杂性的一个绝佳示范。</p>
+<h4 id="关于-Charney-的-“Geostrophic-Turbulence”"><a href="#关于-Charney-的-“Geostrophic-Turbulence”" class="headerlink" title="关于 Charney 的 “Geostrophic Turbulence”"></a>关于 Charney 的 “Geostrophic Turbulence”</h4><p>在1971年的论文中，Charney深入探讨了地转涡旋流动的统计特性。他提出，在地转平衡中，涡旋动能的能量谱是 $k^{−3}$，与Kolmogorov的经典湍流理论中的 $k^{−5/3}$ 法则存在明显的不同。这一差异反映了大气流中地转效应的显著影响。</p>
+<p>Charney指出，地转涡旋流动中的这种 $k^{−3}$ 能量分布是由于强大的地转效应，它抑制了三维的湍流涡旋，导致了二维的能量传播模式。相比之下，Kolmogorov的 $k^{−5/3}$ 法则更多地描述了没有强地转效应影响的三维湍流。</p>
+<p>总之，Charney通过考虑地转效应来解释了大气流中涡旋能量的分布，而这一解释与Kolmogorov的经典湍流理论存在显著的不同。</p>
+<h4 id="海洋运动的波数谱"><a href="#海洋运动的波数谱" class="headerlink" title="海洋运动的波数谱"></a>海洋运动的波数谱</h4><p>近年来，海洋动力学领域的研究者们对海洋中的波数谱斜率如何分布存在着持续的争议。尽管卫星高度计的观测技术为我们提供了大量关于波数斜率的数据，但这些数据在空间上存在着显著的差异性。有研究指出，动能谱中的波数应该遵循 $k^{−3}$ 的分布律，其中 $k$表示波数。进一步地，在地转平衡下，海表面高度（SSH）的波数谱则应遵循 $k^{−5}$ 的分布律。</p>
+<p>然而，真正的转机即将到来。SWOT（Surface Water and Ocean Topography）成像雷达高度计预计在今年10月发布其首批数据。与现有的观测手段相比，SWOT将提供前所未有的二维高分辨率SSH数据，为我们提供了一个全新的、更加精细的视角来重新评估波数谱的真实特性。</p>
+<p>这将是一个巨大的突破，因为重新分析这些高分辨率数据将有望揭示海洋能量分布的更多细节。有了SWOT的数据，我们不仅可以更好地了解海洋的动力学机制，还可以解开许多现有争议，为未来的海洋科学研究打下坚实的基础。</p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/07/15/tibxs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/15/tibxs/" class="post-title-link" itemprop="url">The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-07-15 06:51:48 / 修改时间：06:52:21" itemprop="dateCreated datePublished" datetime="2023-07-15T06:51:48+08:00">2023-07-15</time>
+            </span>
+
+          
+            <span id="/2023/07/15/tibxs/" class="post-meta-item leancloud_visitors" data-flag-title="The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/07/15/tibxs/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/15/tibxs/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="The-11th-Tibet-Xinjiang-and-Siberia-TibXS-International-Workshop"><a href="#The-11th-Tibet-Xinjiang-and-Siberia-TibXS-International-Workshop" class="headerlink" title="The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop"></a>The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop</h1><h2 id="Background-Information"><a href="#Background-Information" class="headerlink" title="Background Information"></a>Background Information</h2><p>Tibet, Xinjiang and Siberia (TibXS) are the regions of scientific interests of this workshop. We discuss a number of issues over TibXS, including hydrological change, crustal deformation, regional gravity field and variation, mass migration and redistribution, geodynamic and cryospheric processes and climate change, based on various observations from space-borne and terrestrial sensors. </p>
+<p>The meeting encourages the latest research achievements as well as potential ideas, suggestions and original and challenging insights in science. The following subjects are accepted (but not limited to): hydrological change over river basins, lake level variation, crustal deformation and its mechanism, mountain glacier change, atmospheric circulation in TibXS, time and frequency applications in geoscience, geopotential and orthometric height determinations, unification of world height datum systems.</p>
+<h3 id="Topics-of-the-workshop"><a href="#Topics-of-the-workshop" class="headerlink" title="Topics of the workshop"></a>Topics of the workshop</h3><ul>
+<li>Long-term monitoring of surface processes from satellite altimeter</li>
+<li>Results of satellite and terrestrial-based gravimetric observations</li>
+<li>Results of GNSS observations, GNSS meteorology and ionosphere</li>
+<li>Regional hydrology, vertical displacement, glacier change, lake level change and their interpretations from altimeter, GNSS monthly GRACE fields and gravimeters</li>
+<li>Various applications, geophysical interpretations and consequences of gravity, GNSS, satellite altimetry and seismic observations</li>
+<li>SAR and LiDAR detections of surface deformation, especially over TibXS</li>
+<li>Crust structure and density refinement especially in the region TibXS using multi-datasets </li>
+<li>Earth rotation modeling and Earth rotation parameters estimates based on various observations</li>
+<li>Temporal gravity fields, mass migration and strain/stress fields</li>
+<li>Time and frequency applications in geoscience</li>
+</ul>
+<h2 id="Scientific-Organization-Committee"><a href="#Scientific-Organization-Committee" class="headerlink" title="Scientific Organization Committee"></a>Scientific Organization Committee</h2><ul>
+<li>Chair: Cheinway Hwang, Yang Ming Chiao Tung University, Taiwan</li>
+<li>Co-Chair: Wen-Bin Shen, Wuhan University, China</li>
+</ul>
+<h2 id="Scientific-Organization-Committee-1"><a href="#Scientific-Organization-Committee-1" class="headerlink" title="Scientific Organization Committee"></a>Scientific Organization Committee</h2><ul>
+<li>Cheinway Hwang (Chair), Yang Ming Chiao Tung University, Taiwan</li>
+<li>Wen-Bin Shen (Co-Chair), Wuhan University, China</li>
+<li>Shaofeng Bian, Naval University of Engineering, China</li>
+<li>Benjamin Fong Chao, Academia Sinica, Taiwan</li>
+<li>Xiaoli Ding, Hongkong Technical University, Hong Kong</li>
+<li>Kosuke Heki, Hokkaido University, Japan / Shanghai Astronomical Observatory, Chinese Academy of Science, China</li>
+<li>Zhicai Luo, Huazhong University of Science and Technology, China</li>
+<li>Chongyang Shen, China Earthquake Administration, China </li>
+<li>CK Shum, Ohio State University, USA</li>
+<li>Xiaodong Song, Peking University, China</li>
+<li>Heping Sun, Innovation Academy for Precision Measurement Science and Technology (APM), Chinese Academy of Science, China</li>
+<li>Wenke Sun, University of Chinese Academy of Sciences, China</li>
+<li>Robert Tenzer, The Hong Kong Polytechnic University, Kowloon, Hong Kong</li>
+<li>Caijun Xu, Wuhan University, China</li>
+<li>Jianqiao Xu, APM, Chinese Academy of Science, China</li>
+<li>Shuangxi Zhang, Wuhan University, China </li>
+<li>Min Zhong, Sun Yat-sen University, China</li>
+</ul>
+<h2 id="Local-Organization-Committee"><a href="#Local-Organization-Committee" class="headerlink" title="Local Organization Committee"></a>Local Organization Committee</h2><ul>
+<li>Chair: Wei Feng, Sun Yat-sen University, China</li>
+<li>Co-Chair: Jiangcun Zhou, APM, Chinese Academy of Science, China</li>
+</ul>
+<h2 id="Venue"><a href="#Venue" class="headerlink" title="Venue"></a>Venue</h2><p>Cang’er Yilong Hotel, No. 14 Binhai Avenue, Dali City, Dali Bai Autonomous Prefecture, Yunnan Province, China (中国云南省大理白族自治州大理市滨海大道14号，苍洱逸龙酒店)</p>
+<h2 id="Abstract-Submission"><a href="#Abstract-Submission" class="headerlink" title="Abstract Submission"></a>Abstract Submission</h2><p>Deadline for Abstracts Submission is July 15, 2023. Abstracts should be submitted to Mr. Shuwei An (<a href="mailto:anshw@mail2.sysu.edu.cn">anshw@mail2.sysu.edu.cn</a>) and Prof. Wei Feng (<a href="mailto:fengwei@sysu.edu.cn">fengwei@sysu.edu.cn</a>).</p>
+<h2 id="Special-Issue-of-an-International-Journal"><a href="#Special-Issue-of-an-International-Journal" class="headerlink" title="Special Issue of an International Journal"></a>Special Issue of an International Journal</h2><p>Contributions from the 11th TibXS are encouraged to submit manuscript to a special issue of an international SCI journal (to be determined), to document new scientific findings in TibXS based on multi-datasets especially the GRACE and altimeter data and time-frequency applications in geoscience. The guest editors will be announced later. The tentative deadline of full paper submission is expected on December 31, 2023. Requirements in details will be described in special announcement. </p>
+<h2 id="Registration-and-Presentation"><a href="#Registration-and-Presentation" class="headerlink" title="Registration and Presentation"></a>Registration and Presentation</h2><p>On-site registration on 10 August (whole day) 2023 is recommended. The registration fee is 150 USD (or RMB 1000) by credit card. For a student, the registration fee is 80 USD (or RMB 500). Days of presentation and discussions: August 11-12.</p>
+<h2 id="Formal-Language-of-the-Workshop"><a href="#Formal-Language-of-the-Workshop" class="headerlink" title="Formal Language of the Workshop"></a>Formal Language of the Workshop</h2><p>All abstracts, full papers, and presentations should be given in English.</p>
+<h2 id="Best-Paper-Awards-for-Graduate-Students"><a href="#Best-Paper-Awards-for-Graduate-Students" class="headerlink" title="Best Paper Awards for Graduate Students"></a>Best Paper Awards for Graduate Students</h2><p>During the meeting, best paper awards (first prize and second prize for Master or Doctor candidates) will be selected by the Scientific Committee.</p>
+<h2 id="Accommodation"><a href="#Accommodation" class="headerlink" title="Accommodation"></a>Accommodation</h2><p>Accommodation cost is covered by participants themselves. Accommodation cost in Hotel: 350/380 RMB/night for two-beds room (twin room) or 350 RMB/night for one big-bed room. The LOC will reserve the rooms for participants.</p>
+<h2 id="Transportation"><a href="#Transportation" class="headerlink" title="Transportation"></a>Transportation</h2><p>Please take taxis or public buses from Dali Fengyi Airport or Dali Train Station to the Cang’er Yilong Hotel. Please contact Ms. Lina LI (<a href="mailto:lilina3@mail.sysu.edu.cn">lilina3@mail.sysu.edu.cn</a>) for transport service.</p>
+<h2 id="Reception-and-Invitations"><a href="#Reception-and-Invitations" class="headerlink" title="Reception and Invitations"></a>Reception and Invitations</h2><p>All representatives are invited to attend the reception from 18:00 to 20:30 on August 10, 2023 (GMT+08:00).<br>Dinner Invitations: All representatives are invited to attend the meeting closing dinner: starting at 18:30 on August 12, 2023.</p>
+<h2 id="Pre-Registration"><a href="#Pre-Registration" class="headerlink" title="Pre-Registration"></a>Pre-Registration</h2><p>The participants are invited to fill in and submit the attached registration form to Mr. Shuwei An (<a href="mailto:anshw@mail2.sysu.edu.cn">anshw@mail2.sysu.edu.cn</a>) and Prof. Wei Feng (<a href="mailto:fengwei@sysu.edu.cn">fengwei@sysu.edu.cn</a>)  with the titles of your presentations before July 15, 2023.</p>
+<h2 id="Organized-and-Sponsored-By"><a href="#Organized-and-Sponsored-By" class="headerlink" title="Organized and Sponsored By"></a>Organized and Sponsored By</h2><ul>
+<li>School of Geospatial Engineering and Science, Sun Yat-sen University, Zhuhai, China;</li>
+<li>School of Geodesy and Geomatics / Key Laboratory of Geospace Environment and Geodesy, Wuhan University, Wuhan, China;</li>
+<li>Department of Civil Engineering, Yang Ming Chiao Tung University, Hsinchu, Taiwan;</li>
+<li>Subcommission 2.6 and Subcommission 2.4e of International Association of Geodesy (IAG);</li>
+<li>NSFC (grant Nos. 42061134010, 41874095, and 42030105)</li>
+</ul>
+<h2 id="Registration-Form"><a href="#Registration-Form" class="headerlink" title="Registration Form"></a>Registration Form</h2><p>International Workshop of 11th TibXS, August 10-13, 2023, Dali, Yunan, China</p>
+<p>Surname: <strong>____</strong><br>Given Name: <strong>____</strong><br>Title: <strong>____</strong><br>Sex: <strong>____</strong><br>Address: <strong>____</strong><br>Post code: <strong>____</strong><br>Country: <strong>____</strong><br>City: <strong>____</strong><br>Email: <strong>____</strong><br>Accommodation: </p>
+<ul>
+<li><input disabled type="checkbox"> Two-beds room </li>
+<li><input disabled type="checkbox"> Two-beds room (shared)</li>
+<li><input disabled type="checkbox"> One big-bed room<br>Days: From <strong>__ to __</strong><br>Institute: <strong>____</strong><br>Title(s) of Presentation(s): <strong>____</strong><br>I’ll be accompanied by: <strong>____</strong></li>
+</ul>
+<p>Please send this form before July 15, 2023<br>To: Mr. Shuwei An (<a href="mailto:anshw@mail2.sysu.edu.cn">anshw@mail2.sysu.edu.cn</a>) and Wei Feng (<a href="mailto:fengwei@sysu.edu.cn">fengwei@sysu.edu.cn</a>) </p>
+<h2 id="Abstract-Template"><a href="#Abstract-Template" class="headerlink" title="Abstract Template"></a>Abstract Template</h2><p>Title of your abstract here<br>A.B. Author(1), C.D. Author(2) and E.F. Author (3)</p>
+<ul>
+<li>(1) Please enter A.B. Author affiliation here with full address, (<a href="mailto:abauthor@mail.com">abauthor@mail.com</a> / your phone here)</li>
+<li>(2) Please enter C.D. Author affiliation here with full address, (<a href="mailto:cdauthor@mail.com">cdauthor@mail.com</a>)</li>
+<li>(3) Please enter E.F. Author affiliation here with full address, (<a href="mailto:efauthor@mail.com">efauthor@mail.com</a>)</li>
+</ul>
+<p>Please enter the main text of your abstract here. </p>
+<p>Keywords: keyword1, keyword2, keyword3<br>Presentation preference: (Oral/Poster/no preference)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/05/29/buoy2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/29/buoy2/" class="post-title-link" itemprop="url">故事会系列2：井底之蛙变形记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-29 16:04:07 / 修改时间：16:07:58" itemprop="dateCreated datePublished" datetime="2023-05-29T16:04:07+08:00">2023-05-29</time>
+            </span>
+
+          
+            <span id="/2023/05/29/buoy2/" class="post-meta-item leancloud_visitors" data-flag-title="故事会系列2：井底之蛙变形记" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/05/29/buoy2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/29/buoy2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在《庄子》中，有一个著名的井底之蛙的故事。事情发生在东海边的一个小村庄里，这儿有一只名叫小青的青蛙，它生活在一个清澈的池塘中。尽管距离东海只有几步之遥，但对小青来说，那是一个遥不可及的神秘世界。</p>
+<p>有一天，小青在池塘边欣赏着东海的波涛声，突然听到一声兴奋的声音：“喂，小青，你知道东海有多宏伟壮观吗？”小青抬头一看，原来是它的朋友东海鳖。</p>
+<p>小青好奇地问道：“东海有多大？”东海鳖微笑着回答：“小青啊，东海千里之广，千仞之深。海水浩瀚无边，无法用言语形容其广阔和深邃。洪水滔滔，海水不会因此增多；大旱连连，水位也不会因此下降。无论何时，无论天气如何变化，东海的高程始终保持不变。”</p>
+<p>小青陷入沉思，思考着东海的壮丽与稳定，觉得不可思议，为什么海平面不会变化？这是真的吗？。正当它陷入困惑时，一个人影出现在远处。走近一看，原来是青岛安海公司的雷总。雷总向小青走来，微笑着说道：“小青，你知道我们人类发明了一种叫做GNSS浮标的神奇工具吗？它可以测量海面的高度变化，让我们更好地了解东海的秘密。”</p>
+<p><img src="./images/buoy.jpg" alt></p>
+<p>小青震惊地问道：“真的吗？东海鳖以为海水是永恒不变的。”雷总点头笑道：“是的，东海虽然深广无垠，但它也在悄悄地发生着变化。GNSS浮标可以提供准确的海面高观测数据，帮助我们了解海平面的变化趋势。通过这项技术，我们可以深入了解东海的奥秘。”</p>
+<p>小青感到非常兴奋，它决定要一台GNSS浮标，以便能够更好地了解东海的变化。雷总留下了GNSS浮标的销售电话15563986819，并鼓励小青多了解关于大海的知识。</p>
+<p>从此，小青在东海之滨的池塘旁，安放了一台GNSS浮标。它通过测量海面高度的变化，深入探索东海的秘密，领悟到人类的智慧和科技的力量。小青意识到，尽管自己只是一只青蛙，但通过学习和探索，它可以超越自己的局限，去领略更广阔的世界。</p>
+<p>这个故事告诉我们，无论我们身处何地，探索未知和超越自我都是一种宝贵的精神。而GNSS浮标则成为小青认识世界的窗口，让它在东海之滨揭开了一个崭新的篇章。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -948,389 +1302,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/08/dadicel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/08/dadicel/" class="post-title-link" itemprop="url">国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-08 19:12:04" itemprop="dateCreated datePublished" datetime="2022-12-08T19:12:04+08:00">2022-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-11 11:12:31" itemprop="dateModified" datetime="2022-12-11T11:12:31+08:00">2022-12-11</time>
-              </span>
-
-          
-            <span id="/2022/12/08/dadicel/" class="post-meta-item leancloud_visitors" data-flag-title="国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计)" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/08/dadicel/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/08/dadicel/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>近年来，基金申报和资助的情报本身已成为一种研究对象，对于机构研究实力评估以及科研人员项目申报有一定的指导作用。本文以2015-2020年国家自然科学基金资助的大地测量学469个项目为样本，浅析了大地测量学域的研究图景。</p>
-<h2 id="大地测量学是什么"><a href="#大地测量学是什么" class="headerlink" title="大地测量学是什么"></a>大地测量学是什么</h2><p>大地测量学是准确测量和理解地球形状、空间方位和重力，为人类活动提供地球空间信息的学科，属于地球科学的一个分支。</p>
-<p>其范畴主要包括：</p>
-<ul>
-<li>确定地球形状及其外部重力场及其随时间的变化，建立统一的大地测量坐标系，研究地壳形变（包括地壳垂直升降及水平位移），测定极移以及海洋水面地形及其变化等。</li>
-<li>研究月球及太阳系行星的形状及其重力场。</li>
-<li>建立和维持具有高科技水平的国家和全球的天文大地水平控制网和精密水准网以及海洋大地控制网，以满足国民经济和国防建设的需要。</li>
-<li>研究为获得高精度测量成果的仪器和方法等。</li>
-<li>研究地球表面向椭球面或平面的投影数学变换及有关的大地测量计算。</li>
-<li>研究大规模、高精度和多类别的地面网、空间网及其联合网的数学处理的理论和方法，测量数据库建立及应用等。</li>
-<li>大地测量学的一个特殊领域是海洋测量和河流的水文断面的研究。</li>
-</ul>
-<h2 id="数据来源"><a href="#数据来源" class="headerlink" title="数据来源"></a>数据来源</h2><p>本文通过Letpub所收录的基金数据库检索得到2015-2020年资助的大地测量学科（含物理大地测量、动力大地测量和卫星大地测量）相关的项目，通过统计的方式简要分析项目研究关键词，未能从Letpub系统检索到的项目不在分析之列。</p>
-<h2 id="总体情况"><a href="#总体情况" class="headerlink" title="总体情况"></a>总体情况</h2><p>据不完全统计，2015年至2020年六年以来在大地测量领域已获审批的各项国家自然科学基金项目共有469项，其中面上227项，青年195项，还包括专项项目1项，重点项目16项，优青1项，主任项目7项，港澳台合作2项，重大仪器1项，杰青3项，国际合作7项，地区项目7项，创新群体2项。具体项目清单附在在文末。</p>
-<p>六年以来，每年申请获批的面上和青年项目数量如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>年份</th>
-<th>2015</th>
-<th>2016</th>
-<th>2017</th>
-<th>2018</th>
-<th>2019</th>
-<th>2020</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>面上</td>
-<td>33</td>
-<td>43</td>
-<td>43</td>
-<td>44</td>
-<td>41</td>
-<td>23*</td>
-</tr>
-<tr>
-<td>青年</td>
-<td>34</td>
-<td>33</td>
-<td>38</td>
-<td>38</td>
-<td>42</td>
-<td>10*</td>
-</tr>
-</tbody></table>
-<p>从表中可以看出，基金委每年资助大地测量领域面上和青年项目均保持在30至45项之间，2020年减少可能是由于数据统计缺失造成的。</p>
-<blockquote>
-<p>*比较遗憾，没有找到更为齐全的2020年和之后的数据。如果您有更加准确的数据库资源，可回复本文。</p>
-</blockquote>
-<h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p><img src="./images/jj20.png" alt></p>
-<p>据不完全统计，近六年以来，武汉大学是大地测量领域国家自然科学基金面上和青年项目获批人数最多的高校，共有95项，远远超过其他单位。中南大学、同济大学、长安大学、矿大等也获得较多资助。</p>
-<h2 id="负责人"><a href="#负责人" class="headerlink" title="负责人"></a>负责人</h2><p><img src="./images/jj21.png" alt></p>
-<p>上图为负责人姓名生成的词云图，据不完全统计共有7人在6年间获得了3次资助，分别是<strong>朱建军、涂锐、王琪、申文斌、徐新禹、李斐、李博峰</strong>，还有60人获得了2次资助。</p>
-<h1 id="内容分析"><a href="#内容分析" class="headerlink" title="内容分析"></a>内容分析</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="./images/jj22.png" alt></p>
-<p>给基金取一个题目，是写基金的第一步，题目定了，内容也就确定了，下面看看大家是怎么给基金取名的。</p>
-<p>我们从资助题目中提取词条进行统计，首先使用最多的词汇是一些通俗共性词，比如<code>研究</code>这个词条共出现329次，这说明半数以上的基金偏好于使用<code>研究</code>这个词汇，<code>基于</code>出现116次，<code>方法</code>出现121次，<code>模型</code>出现75次，<code>理论</code>出现69次，此外<code>联合</code>、<code>融合</code>、<code>利用</code>、<code>面向</code>、<code>顾及</code>、<code>及其</code>、<code>多</code>也是常用的共性词条。这个<code>多</code>又包含了<code>多源</code>、<code>多维</code>、<code>多元</code>、<code>多系统</code>、<code>多天线</code>、<code>多卫星</code>、<code>多频</code>、<code>多模</code>等。</p>
-<p>因此可以想想大地测量课题中最常见的题目套路为“基于…的方法（模型、理论）研究”。大家可能觉得俗气，但是管用就好啊。<br>例如：</p>
-<p><img src="./images/jj28.jpg" alt></p>
-<p>也有一些题目取得清新简介，极简题目中蕴含着核心问题，这种题目让人读着欲罢不能，比如小于15字符的题目有：</p>
-<p><img src="./images/jj27.jpg" alt></p>
-<p>有时候必须把一些信息包含在题目中，因此取得很长的也有：</p>
-<p><img src="./images/jj26.jpg" alt></p>
-<blockquote>
-<p>统计发现大地测量课题题目长度主要集中在20-30个字符，平均值为25.6。 如果题目能简化在18字符以内，并包含核心问题，通俗易懂最好。</p>
-</blockquote>
-<h2 id="研究热点"><a href="#研究热点" class="headerlink" title="研究热点"></a>研究热点</h2><p>学科热点的研究和挖掘一直是科学界研究的重要内容之一。学科内不同研究领域通常用不同的词条表示。词条出现的频次和频率代表词条的热度，词条热度的变化能直接反映学科研究热点的变化和趋势。</p>
-<p>针对研究内容而言，最大的热点是<code>GNSS</code>，出现了122次，另外同类词<code>GPS</code>21次，<code>北斗</code>31次，也就是说4个课题中就有一个是直接带有<code>GNSS</code>的。顾及一些标题不含GNSS的研究，可以说导航定位课题占据了大地测量学的半壁江山。<code>重力</code>、<code>测高</code>、<code>InSAR</code>、<code>地震</code>等相关研究从数量统计上看属于第二梯队，再往后则是少数的地球动力学、地球物理、数学原理等交叉领域研究。</p>
-<p>另外一些可能有价值的统计：出现频次最高的地名是<code>青藏高原</code>，<code>中国</code>，<code>南极</code>和<code>尼泊尔</code>；频次最多的时间词汇是<code>实时</code>（25次），均和GNSS相关课题有关，其次是<code>现今</code>（19次），与构造研究有关，GNSS相关的<code>快速</code>关键词也出现较多。</p>
-<p>以上热点分析可为2023年的国家自然科学基金项目申报人员在拟定自己的申报题目时提供参考。</p>
-<p><img src="./images/jj29.png" alt></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>据不完全统计：</p>
-<ul>
-<li>武大项目最多，和第二梯队拉开了很大距离</li>
-<li>6年间，7人获得三次资助，60获得2次资助</li>
-<li>基于…的..的研究是最火爆的题目，名字平均长度25.6</li>
-<li>GNSS导航定位在大地测量学最火</li>
-</ul>
-<h2 id="清单"><a href="#清单" class="headerlink" title="清单"></a>清单</h2><blockquote>
-<p>!2020年信息不完整。</p>
-</blockquote>
-<h4 id="除面上和青年之外的项目资助清单："><a href="#除面上和青年之外的项目资助清单：" class="headerlink" title="除面上和青年之外的项目资助清单："></a>除面上和青年之外的项目资助清单：</h4><p><img src="./images/jj23.jpg" alt></p>
-<h4 id="面上项目清单"><a href="#面上项目清单" class="headerlink" title="面上项目清单"></a>面上项目清单</h4><p><img src="./images/jj24.jpg" alt></p>
-<h4 id="青年项目清单"><a href="#青年项目清单" class="headerlink" title="青年项目清单"></a>青年项目清单</h4><p><img src="./images/jj25.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/11/27/jj2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/27/jj2/" class="post-title-link" itemprop="url">国家自然科学基金-卫星测高立项统计</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-11-27 11:54:23 / 修改时间：12:05:27" itemprop="dateCreated datePublished" datetime="2022-11-27T11:54:23+08:00">2022-11-27</time>
-            </span>
-
-          
-            <span id="/2022/11/27/jj2/" class="post-meta-item leancloud_visitors" data-flag-title="国家自然科学基金-卫星测高立项统计" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/11/27/jj2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/11/27/jj2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>因为接到大量询问，怎么查询基金，因此本文取回重发。新增加查询方法，文末附卫星测高基金资助清单。</p>
-</blockquote>
-<p>写基金书是科研人的核心工作之一，马上到2022年12月了，现在写一份基金书还来得及赶明年3月份提交，当然更多人应该是提前更久准备的。写基金书是一项消耗人的事情，从选题到编写初稿，再不断的修改完善，都需要持续的精力投入。基金对于科研人是如此重要，为促进基金交流，决定做一个国自然系列文章。内容初步包括：</p>
-<ul>
-<li>历年立项情报分析</li>
-<li>基金申报的交流报告</li>
-<li>邀请海洋遥感、测绘领域基金大牛做报告 </li>
-<li>选题和编写的技巧</li>
-<li>学科代码的重要性</li>
-</ul>
-<p>以<code>卫星测高</code>为例，分析2015年以来这个领域的立项信息。</p>
-<h2 id="卫星测高"><a href="#卫星测高" class="headerlink" title="卫星测高"></a>卫星测高</h2><p>卫星测高测量海面地形，分辨率高，覆盖全球，重访时间短。 自20世纪70年代中期首次执行任务以来，单次海面高度测量的精度提高了100倍，接近今天的1厘米水平。 测高任务收集的数据为地球科学的许多领域提供了宝贵的信息，卫星测高彻底改变了我们对海洋重力场、海洋动力学和海洋环流、与气候相关的海平面上升，甚至陆地水文学的认识。在本文中，我们总结2015年以来国家自然科学基金资助的项目情况。</p>
-<h3 id="情报查询"><a href="#情报查询" class="headerlink" title="情报查询"></a>情报查询</h3><blockquote>
-<p>现在基金委官网的查询虽然可以查询，但是功能较单一，我使用的是letpub网站的基金模块，VIP会员可以使用更多功能。地址：<a href="http://www.letpub.com.cn/index.php?page=grant" target="_blank" rel="noopener">http://www.letpub.com.cn/index.php?page=grant</a></p>
-</blockquote>
-<p>我们使用一些关键词，比如<code>卫星测高</code>、<code>卫星测高</code>、<code>雷达高度计</code>等，进行数据库检索，并经过人工判别剔除无关课题，最终统计表明2015年至2022年，基金委共资助66项<code>卫星测高</code>课题，每年平均约8项。</p>
-<p>该领域的资助项目主要在地学部，少数分布在信息学部。资助类别以面上项目和青年项目为主，面向项目为38项，青年项目为27项，有1项为同济大学承担的国际（地区）合作与交流项目（经费10万元）。该领域的一级学科主要为地球物理学和空间物理学、海洋科学和地理学。二级学科主要为物理大地测量学和海洋遥感，这个我们对卫星测高应用领域的认知是一致的。武大、同济、海洋一所等单位承担课题较多。特别注意的是南阳师范学院承担两项课题，说明这个领域是没有什么学校壁垒的，给广大二本青椒带了希望。值得注意的是有7名科学家获得过2次资助，有一名外籍人士获得过资助。</p>
-<h3 id="2015-2022立项清单"><a href="#2015-2022立项清单" class="headerlink" title="2015-2022立项清单"></a>2015-2022立项清单</h3><p><img src="./images/jj20.jpg" alt></p>
-<h3 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h3><ul>
-<li>大地测量学基金情报</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/11/26/jj1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/26/jj1/" class="post-title-link" itemprop="url">国家自然科学基金-卫星测高立项统计</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-26 18:07:51" itemprop="dateCreated datePublished" datetime="2022-11-26T18:07:51+08:00">2022-11-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-27 12:05:35" itemprop="dateModified" datetime="2022-11-27T12:05:35+08:00">2022-11-27</time>
-              </span>
-
-          
-            <span id="/2022/11/26/jj1/" class="post-meta-item leancloud_visitors" data-flag-title="国家自然科学基金-卫星测高立项统计" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/11/26/jj1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/11/26/jj1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>写基金书是科研人的核心工作之一，马上到2022年12月了，现在写一份基金书还来得及赶明年3月份提交，当然更多人应该是提前更久准备的。写基金书是一项消耗人的事情，从选题到编写初稿，再不断的修改完善，都需要持续的精力投入。基金对于科研人是如此重要，为促进基金交流，决定做一个国自然系列文章。内容初步包括：</p>
-<ul>
-<li>历年立项情报分析</li>
-<li>基金申报的交流报告</li>
-<li>邀请海洋遥感、测绘领域基金大牛做报告 </li>
-<li>选题和编写的技巧</li>
-<li>学科代码的重要性</li>
-<li>失败案例交流（邀请反面典型）</li>
-<li>打招呼是绝对不行的（邀请匿名专家哈哈哈哈）</li>
-</ul>
-<p>今天以<code>卫星测高</code>为例，分析2015年以来这个领域的立项信息。</p>
-<h2 id="卫星测高"><a href="#卫星测高" class="headerlink" title="卫星测高"></a>卫星测高</h2><p>卫星测高测量海面地形，分辨率高，覆盖全球，重访时间短。 自20世纪70年代中期首次执行任务以来，单次海面高度测量的精度提高了100倍，接近今天的1厘米水平。 测高任务收集的数据为地球科学的许多领域提供了宝贵的信息，卫星测高彻底改变了我们对海洋重力场、海洋动力学和海洋环流、与气候相关的海平面上升，甚至陆地水文学的认识。在本文中，我们总结2015年以来国家自然科学基金资助的项目情况。</p>
-<h3 id="情报分析"><a href="#情报分析" class="headerlink" title="情报分析"></a>情报分析</h3><p>我们使用一些关键词，比如<code>卫星测高</code>、<code>卫星测高</code>、<code>雷达高度计</code>等，进行数据库检索，并经过人工判别剔除无关课题，最终统计表明2015年至2022年，基金委共资助66项<code>卫星测高</code>课题，每年平均约8项。</p>
-<p>该领域的资助项目主要在地学部，少数分布在信息学部。资助类别以面上项目和青年项目为主，面向项目为38项，青年项目为27项，有1项为同济大学承担的国际（地区）合作与交流项目（经费10万元）。<br><img src="./images/jj1.png" alt></p>
-<p>该领域的一级学科主要为地球物理学和空间物理学、海洋科学和地理学。二级学科主要为物理大地测量学和海洋遥感，这个我们对卫星测高应用领域的认知是一致的。</p>
-<p><img src="./images/jj3.png" alt></p>
-<p><img src="./images/jj4.png" alt></p>
-<p>武大、同济、海洋一所等单位承担课题较多。特别注意的是南阳师范学院承担两项课题，说明这个领域是没有什么学校壁垒的，给广大二本青椒带了希望。</p>
-<p><img src="./images/jj5.png" alt></p>
-<p>下图是课题负责人分布图，值得注意的是有7名科学家获得过2次资助，有一名外籍人士获得过资助。</p>
-<p><img src="./images/jj6.png" alt></p>
-<h3 id="无用的研究和随意的预测"><a href="#无用的研究和随意的预测" class="headerlink" title="无用的研究和随意的预测"></a>无用的研究和随意的预测</h3><ul>
-<li>题目最长的是<code>融合岸/船/机/星载多源数据基于新一代GNSS-R卫星测高原理反演全球高精度和高空间分辨率海洋重力场的理论和方法</code>，一共是57字，课题负责人是中国空间技术研究院的郑伟。题目最短的是<code>台风致地转响应的高度计观察</code>，一共是13字，课题负责人是南海所卢著敏。</li>
-<li><code>基于三维成像雷达高度计的海洋重力场探测关键问题研究</code>（2019立项）和<code>宽刈幅高度计反演海洋重力场的关键技术研究</code>（2020立项）先后立项，这说明前人立项不影响后人申请，因此大家不用焦虑被抢先立项。</li>
-<li>2015年立项<code>宽刈幅高度计海面高度反演算法研究</code>，2018年立项<code>基于三维成像雷达高度计的海冰厚度探测机理与方法</code>，2019年立项<code>干涉成像高度计卫星轨道及载荷技术参数对海洋涡旋探测的定量化影响分析</code>，2020年立项<code>宽幅高精度干涉SAR海面高度测量与仿真研究</code>，2021年立项<code>基于宽刈幅测高资料的东海黑潮两侧亚中尺度过程三维结构特征分析</code>，2022年立项<code>成像高度计高精度海面地形反演与亚中尺度动力过程解耦方法研究</code>，这个小方向的资助每年都有1-2项。</li>
-<li>SWOT即将发射，宽刈幅高度计数据将开放获取，因此预计2023年将有2-3项相关课题立项，题目都想好了：1、成像高度计亚中尺度过程，2、成像高度计地表水文过程，2、成像高度计海底地形探测。</li>
-</ul>
-<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p>基金项目情报已经整理上传到GitHub仓库：<a href="https://github.com/GenericAltimetryTools/Fund" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/Fund</a> ，后面每年会更新一次。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1403,7 +1374,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">163</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1609,6 +1580,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 

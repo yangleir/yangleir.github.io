@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">163</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">166</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,327 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/06/07/anni/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/07/anni/" class="post-title-link" itemprop="url">GMT 制作GIF动画</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-07 15:14:42" itemprop="dateCreated datePublished" datetime="2020-06-07T15:14:42+08:00">2020-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-01 12:19:33" itemprop="dateModified" datetime="2021-03-01T12:19:33+08:00">2021-03-01</time>
+              </span>
+
+          
+            <span id="/2020/06/07/anni/" class="post-meta-item leancloud_visitors" data-flag-title="GMT 制作GIF动画" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/07/anni/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/07/anni/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="问：GMT自带的movie程序怎么制作动画？是否简单易用？"><a href="#问：GMT自带的movie程序怎么制作动画？是否简单易用？" class="headerlink" title="问：GMT自带的movie程序怎么制作动画？是否简单易用？"></a>问：GMT自带的movie程序怎么制作动画？是否简单易用？</h3><p>答：<a href="https://docs.generic-mapping-tools.org/dev/movie.html#s" target="_blank" rel="noopener">movie</a>是GMT的一个动画制作程序，设计的比较复杂，上手时间长，不易用。希望尝试的话，可以运行自带例子，你会发现它设计的使用方法和经典GMT是差别很大的，个人学习的使用经历比较糟糕。</p>
+<h3 id="问：那怎么利用GMT做GIF动画？"><a href="#问：那怎么利用GMT做GIF动画？" class="headerlink" title="问：那怎么利用GMT做GIF动画？"></a>问：那怎么利用GMT做GIF动画？</h3><p>答：可以使用<a href="https://imagemagick.org" target="_blank" rel="noopener">ImageMagick</a>工具，只需要一行命令即可。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magick convert -<span class="keyword">delay</span> <span class="number">64</span> -<span class="keyword">loop</span> <span class="number">0</span> *.png  <span class="keyword">out</span>.gif</span><br></pre></td></tr></table></figure>
+<p>首先使用GMT制作每帧png，然后用上面的命令把连续的png图像制作成GIF动画。（GMT movie的基本原理可能也是如此，但设计的复杂度太高）</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>这里以GNSS浮标观测的海面波动为例，希望展示波浪的时间变化规律。动画设置每一帧显示一个小时的波浪功率谱图像，不同帧使用不同的颜色表达。</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env bash</span></span><br><span class="line">gmt <span class="builtin-name">set</span> FORMAT_DATE_MAP <span class="string">"o dd"</span> FORMAT_CLOCK_MAP hh:mm </span><br><span class="line"><span class="attribute">gnss1</span>=./gnss_b1_hlf_allppk.txt</span><br><span class="line"><span class="attribute">R</span>=-R32400/119700/-0.565631/0.828242</span><br><span class="line"><span class="comment"># ==========================================================================================================</span></span><br><span class="line"><span class="keyword">for</span>((<span class="attribute">i</span>=1;i&lt;=23;i++));  </span><br><span class="line"><span class="keyword">do</span>   </span><br><span class="line">	echo <span class="variable">$i</span></span><br><span class="line">	((name = <span class="variable">$i</span> + 100))</span><br><span class="line">	<span class="attribute">ps</span>=a00$name.ps</span><br><span class="line">	<span class="attribute">r</span>=$(($RANDOM%255))</span><br><span class="line">	<span class="attribute">g</span>=$(($RANDOM%255))</span><br><span class="line">	<span class="attribute">b</span>=$(($RANDOM%255))</span><br><span class="line">	</span><br><span class="line">	((max =  <span class="variable">$i</span> * 3600))</span><br><span class="line">	((min = (<span class="variable">$i</span>-1) * 3600))</span><br><span class="line">	echo <span class="variable">$min</span></span><br><span class="line"></span><br><span class="line">	gmt psbasemap -R2019-03-31T09:00:00/2019-04-01T09:00:00/-0.565631/0.828242 -Bpxa4Hf1h -Bsxa1Df1D -Bpya0.4g0.2f0.2+l<span class="string">"WSSE(HPF)/m"</span> -JX10c/4c -BWSne -K &gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psbasemap -R2/20/1e-4/1e0 -JX-10cl/10cl -Bxa2f3g3+l<span class="string">"period:second"</span> -Bya-1pg+l<span class="string">"power spectrum:m@+2@+/cycle/s"</span> -BWNse -K  -Y2.7i -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	</span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span> | gmt spectrum1d  -S256 -W <span class="attribute">--GMT_FFT</span>=brenner -N -i1 -D1 &gt; pow5.txt</span><br><span class="line">	awk <span class="string">' NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">'   &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,lightgray -P -K -O -Y-2.7i &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -P -K -O  &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psxy -R2/20/1e-4/1e0 -JX-10cl/10cl -K pow5.txt -W2.25p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -O -Y2.7i -i0,1 &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">	gmt psbasemap -R0.05/0.5/1e-4/0.5 -JX10cl/10cl -Bxa2f3g3+l<span class="string">"Frequency:cycle/second"</span> -BS  -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -Tg</span><br><span class="line">done</span><br><span class="line">magick convert -delay 64 -loop 0 *.png  out.gif</span><br></pre></td></tr></table></figure>
+
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="/images/wave_spectrum.gif" alt></p>
+<h3 id="在一张图上"><a href="#在一张图上" class="headerlink" title="在一张图上"></a>在一张图上</h3><p>如果是做PPT展示用，动画较好。如果是插入论文，则需要把不同时间的曲线叠加到一张图上。同样使用<code>for</code>循环，代码如下:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env bash</span></span><br><span class="line"><span class="comment"># Testing gmt spectrum1d power spectrum values</span></span><br><span class="line">gmt <span class="builtin-name">set</span> FORMAT_DATE_MAP <span class="string">"o dd"</span> FORMAT_CLOCK_MAP hh:mm </span><br><span class="line"><span class="attribute">ps</span>=test.ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># ==========================================================================================================</span></span><br><span class="line"><span class="comment"># Use GMT spectrum to calculate power spetrum of SSH</span></span><br><span class="line"><span class="attribute">gnss1</span>=./gnss_b1_hlf_allppk.txt</span><br><span class="line"><span class="attribute">gnss2</span>=./gnss_b2_hlf_allppk.txt</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R2019-03-31T09:00:00/2019-04-01T09:00:00/-0.565631/0.828242 -Bpxa4Hf1h -Bsxa1Df1D -Bpya0.4g0.2f0.2+l<span class="string">"WSSE(HPF)/m"</span> -JX10c/4c -BWSne -K &gt; <span class="variable">$ps</span></span><br><span class="line">gmt psbasemap -R2/20/1e-4/1e0 -JX-10cl/10cl -Bxa2f3g3+l<span class="string">"period:second"</span> -Bya-1pg+l<span class="string">"power spectrum:m@+2@+/cycle/s"</span> -BWNse -K  -Y2.7i -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">R</span>=-R32400/119700/-0.565631/0.828242</span><br><span class="line">echo period &gt; period1_wind.txt</span><br><span class="line"><span class="comment"># echo period &gt; period_l.txt</span></span><br><span class="line"><span class="comment"># GNSS buoy1 set i&lt;=23;</span></span><br><span class="line"><span class="comment"># GNSS buoy2 set i&lt;=24;</span></span><br><span class="line"><span class="keyword">for</span>((<span class="attribute">i</span>=1;i&lt;=23;i++));  </span><br><span class="line"><span class="keyword">do</span>   </span><br><span class="line">	echo <span class="variable">$i</span></span><br><span class="line">	<span class="attribute">r</span>=$(($RANDOM%255))</span><br><span class="line">	<span class="attribute">g</span>=$(($RANDOM%255))</span><br><span class="line">	<span class="attribute">b</span>=$(($RANDOM%255))</span><br><span class="line">	# ((<span class="attribute">a</span>=1+2**3-4%3))</span><br><span class="line">	((max =  <span class="variable">$i</span> * 3600))</span><br><span class="line">	((min = (<span class="variable">$i</span>-1) * 3600))</span><br><span class="line">	echo <span class="variable">$min</span></span><br><span class="line">	# echo $(expr <span class="variable">$i</span> \* 3 + 1);  </span><br><span class="line">	# awk 中使用变量的小技巧“‘val’”</span><br><span class="line">	</span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span> | gmt spectrum1d  -S256 -W <span class="attribute">--GMT_FFT</span>=brenner -N -i1 -D1 &gt; pow5.txt</span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss1</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -P -K -O -Y-2.7i &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psxy -R2/20/1e-4/1e0 -JX-10cl/10cl -K pow5.txt -W2.25p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -O -Y2.7i -i0,1 &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">	gmt gmtselect -R2/7/1e-4/1e0 pow5.txt | sort -k 2 | tail -n 1| awk <span class="string">'&#123;print '</span><span class="string">"<span class="variable">$i</span>+8"</span><span class="string">',$1&#125;'</span> &gt;&gt; period1_wind.txt</span><br><span class="line">done</span><br><span class="line">gmt psbasemap -R0.05/0.5/1e-4/1e0 -JX10cl/10cl -Bxa2f3g3+l<span class="string">"Frequency:cycle/second"</span> -BS  -O -K&gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###B2</span></span><br><span class="line">gmt psbasemap -R2019-03-31T09:00:00/2019-04-01T09:00:00/-0.565631/0.828242 -Bpxa4Hf1h -Bsxa1Df1D -Bpya0.4g0.2f0.2+l<span class="string">"WSSE(HPF)/m"</span> -JX10c/4c -BwSnE -K  -X11c -Y-2.7i -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psbasemap -R2/20/1e-4/1e0 -JX-10cl/10cl -Bxa2f3g3+l<span class="string">"period:second"</span> -Bya-1pg+l<span class="string">"power spectrum:m@+2@+/cycle/s"</span> -BwNsE -K  -Y2.7i -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">R</span>=-R32400/119700/-0.565631/0.828242</span><br><span class="line">echo period &gt; period2_wind.txt</span><br><span class="line"><span class="comment"># GNSS buoy1 set i&lt;=23;</span></span><br><span class="line"><span class="comment"># GNSS buoy2 set i&lt;=24;</span></span><br><span class="line"><span class="keyword">for</span>((<span class="attribute">i</span>=1;i&lt;=24;i++));  </span><br><span class="line"><span class="keyword">do</span>   </span><br><span class="line">	echo <span class="variable">$i</span></span><br><span class="line">	<span class="attribute">r</span>=$(($RANDOM%255))</span><br><span class="line">	<span class="attribute">g</span>=$(($RANDOM%255))</span><br><span class="line">	<span class="attribute">b</span>=$(($RANDOM%255))</span><br><span class="line">	# ((<span class="attribute">a</span>=1+2**3-4%3))</span><br><span class="line">	((max =  <span class="variable">$i</span> * 3600))</span><br><span class="line">	((min = (<span class="variable">$i</span>-1) * 3600))</span><br><span class="line">	echo <span class="variable">$min</span></span><br><span class="line">	# echo $(expr <span class="variable">$i</span> \* 3 + 1);  </span><br><span class="line">	# awk 中使用变量的小技巧“‘val’”</span><br><span class="line">	</span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span> <span class="variable">$gnss2</span> | gmt spectrum1d  -S256 -W <span class="attribute">--GMT_FFT</span>=brenner -N -i1 -D1 &gt; pow5.txt</span><br><span class="line">	awk <span class="string">'NR&lt;'</span><span class="string">"<span class="variable">$max</span>"</span><span class="string">' &amp;&amp; NR&gt;'</span><span class="string">"<span class="variable">$min</span>"</span><span class="string">'  &#123;print $1,$2&#125;'</span>  <span class="variable">$gnss2</span>| gmt psxy  <span class="variable">$R</span>  -JX10c/4c -W0.5p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -P -K -O -Y-2.7i &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	gmt psxy -R2/20/1e-4/1e0 -JX-10cl/10cl -K pow5.txt -W2.25p,<span class="variable">$r</span>/<span class="variable">$g</span>/<span class="variable">$b</span> -O -Y2.7i -i0,1 &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">	gmt gmtselect -R2/7/1e-4/1e0 pow5.txt | sort -k 2 | tail -n 1| awk <span class="string">'&#123;print '</span><span class="string">"<span class="variable">$i</span>+8"</span><span class="string">',$1&#125;'</span> &gt;&gt; period2_wind.txt</span><br><span class="line">done</span><br><span class="line">gmt psbasemap -R0.05/0.5/1e-4/1e0 -JX10cl/10cl -Bxa2f3g3+l<span class="string">"Frequency:cycle/second"</span> -BS  -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -Tf</span><br><span class="line">rm gmt.* h_f.txt smooth_track* t.d</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/one_figure_more_color.png" alt></p>
+<h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><p><a href="https://www.jianguoyun.com/p/DXyywDoQ2PCQBxjrxaAD" target="_blank" rel="noopener">GNSS data 1</a><br><a href="https://www.jianguoyun.com/p/DedS1rAQ2PCQBxirpOMD" target="_blank" rel="noopener">GNSS data 2</a></p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ul>
+<li><a href="http://www.graphicsmagick.org" target="_blank" rel="noopener">GraphicsMagick</a>是从<a href="https://imagemagick.org/" target="_blank" rel="noopener">ImageMagick</a>中分离出来的，推荐下载ImageMagick。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/03/02/distance-to-coast/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/02/distance-to-coast/" class="post-title-link" itemprop="url">GMT 计算任意点到海岸线的最短距离</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-02 15:14:42" itemprop="dateCreated datePublished" datetime="2020-03-02T15:14:42+08:00">2020-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-24 21:43:12" itemprop="dateModified" datetime="2020-03-24T21:43:12+08:00">2020-03-24</time>
+              </span>
+
+          
+            <span id="/2020/03/02/distance-to-coast/" class="post-meta-item leancloud_visitors" data-flag-title="GMT 计算任意点到海岸线的最短距离" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/02/distance-to-coast/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/02/distance-to-coast/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="问：我想计算海洋上的任意点到海岸线的（最短）距离，并制作一个网格文件存储这些距离，请问如何？"><a href="#问：我想计算海洋上的任意点到海岸线的（最短）距离，并制作一个网格文件存储这些距离，请问如何？" class="headerlink" title="问：我想计算海洋上的任意点到海岸线的（最短）距离，并制作一个网格文件存储这些距离，请问如何？"></a>问：我想计算海洋上的任意点到海岸线的（最短）距离，并制作一个网格文件存储这些距离，请问如何？</h3><p>答：使用grdmath可获得全球任意点到海岸线距离的网格。这里的距离就是垂直最短距离。</p>
+<h3 id="问：我想绘制一条线，表示到海岸线的距离。"><a href="#问：我想绘制一条线，表示到海岸线的距离。" class="headerlink" title="问：我想绘制一条线，表示到海岸线的距离。"></a>问：我想绘制一条线，表示到海岸线的距离。</h3><p>答：通过设置grdcontour可以导出指定的等值线坐标到文本，比如我们要绘制距离海岸线50km的线，或者专属经济区的线等。</p>
+<h3 id="问：我想根据到海岸线的距离提取点位，可以吗？"><a href="#问：我想根据到海岸线的距离提取点位，可以吗？" class="headerlink" title="问：我想根据到海岸线的距离提取点位，可以吗？"></a>问：我想根据到海岸线的距离提取点位，可以吗？</h3><p>答：可以。下面的例子中有这个功能的使用。如从我国GNSS陆态网站点中提取出距离海岸线50km的点，并绘制。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/02/distance-to-coast/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/02/15/wavenumber/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/15/wavenumber/" class="post-title-link" itemprop="url">wavenumber的模拟计算</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-15 22:01:51" itemprop="dateCreated datePublished" datetime="2020-02-15T22:01:51+08:00">2020-02-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-25 22:39:58" itemprop="dateModified" datetime="2021-02-25T22:39:58+08:00">2021-02-25</time>
+              </span>
+
+          
+            <span id="/2020/02/15/wavenumber/" class="post-meta-item leancloud_visitors" data-flag-title="wavenumber的模拟计算" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/15/wavenumber/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/15/wavenumber/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在物理海洋学中有一个常用的量叫做wavenumber，翻译为波数，其频谱叫做波数谱。一般来说，遥感和测绘学科中对波数谱较为陌生，大家使用最多的时间相关的频率谱，而波数谱是空间谱。海洋学中定点观测（如浮标）获得的数据一般是时间序列，可以计算频率谱，而卫星（如高度计）得到的是沿轨数据，属于空间域，卫星数据可以用于计算波数谱。本文简单对此介绍，并使用GMT和MATLAB做简单的模拟，以求两种维度的谱概念清晰易懂。</p>
+<h2 id="wavenumber是什么？和frequency是什么关系？"><a href="#wavenumber是什么？和frequency是什么关系？" class="headerlink" title="wavenumber是什么？和frequency是什么关系？"></a>wavenumber是什么？和frequency是什么关系？</h2><ul>
+<li>wavenumber是空间域频率，相当于单位长度有多少个波，也就是波数，其物理单位可以是CPKM(cycle per km)。 所谓波数谱分析就是指空间域的FFT分析，可以是一维的along-track分析，也可以是二维的空间分析，波数谱分析的Y轴单位一般是cm^2/CPKM，表示在某一波数上的能量。</li>
+<li>frequency是时间域的频率，相当于单位时间内的波的个数，大家都懂。</li>
+<li>wavelength是波长，就是一个波的空间长度（空间域）或者时间长度（时间域），时空通用。<blockquote>
+<p>In the physical sciences, the wavenumber (also wave number or repetency) is the spatial frequency of a wave, measured in cycles per unit distance or radians per unit distance. Whereas temporal frequency can be thought of as the number of waves per unit time, wavenumber is the number of waves per unit distance.</p>
+</blockquote>
+</li>
+<li>维基百科<a href="https://en.wikipedia.org/wiki/Wavenumber" target="_blank" rel="noopener">wavenumber</a></li>
+<li>参考图（来自维基百科）：<img src="/images/wave.png" alt></li>
+<li>k表示波数，是物理海洋中的一个常见符号。例如，波长为0.5km，那么线性的波数为2，表示单位长度（1km）内有两个波。k也可以用弧度表示,等于2Pi/wavelenth，线性波数2再乘以2Pi为4Pi，是以[rad/m]为单位的波数表达形式。</li>
+</ul>
+<h2 id="wavenumber怎么计算，MATLAB、PYTHON，GMT？"><a href="#wavenumber怎么计算，MATLAB、PYTHON，GMT？" class="headerlink" title="wavenumber怎么计算，MATLAB、PYTHON，GMT？"></a>wavenumber怎么计算，MATLAB、PYTHON，GMT？</h2><p>几乎所有的语言都可以计算波数（傅里叶分析），下列是几套较为成熟的开源软件：</p>
+<ul>
+<li>PYTHON: <a href="https://github.com/pyspec" target="_blank" rel="noopener">pyspec</a>，论文中开源的代码和数据，含有详细的结果分析。</li>
+<li>Matlab: <a href="https://github.com/jonathanlilly/jLab" target="_blank" rel="noopener">jlab</a>，一套丰富的海洋大数据分析工具。</li>
+<li>GMT: GMT内置了两种计算PSD的程序，一维的spectrum1d和二维的grdfft。</li>
+</ul>
+<h2 id="MATALB-GMT的二维wavenumber模拟计算"><a href="#MATALB-GMT的二维wavenumber模拟计算" class="headerlink" title="MATALB+GMT的二维wavenumber模拟计算"></a>MATALB+GMT的二维wavenumber模拟计算</h2><h3 id="MATLAB模拟二维网格"><a href="#MATLAB模拟二维网格" class="headerlink" title="MATLAB模拟二维网格"></a>MATLAB模拟二维网格</h3><p>参数设置：</p>
+<ul>
+<li>网格维度为1600*801，间隔为0.3m。</li>
+<li>波长为50m和10m的叠加。</li>
+<li>加入了白噪声。</li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% test NetCDF write</span></span><br><span class="line"><span class="comment">% Author: Yang Lei,2020-04-19,Qingdao. Email:leiyang@fio.org.cn</span></span><br><span class="line">clear all;</span><br><span class="line">delete (<span class="string">'test_simulate.nc'</span>)</span><br><span class="line">lati = <span class="built_in">linspace</span>(<span class="number">0</span>,<span class="number">1600</span>*<span class="number">0.3</span>,<span class="number">1600</span>);</span><br><span class="line">long = <span class="built_in">linspace</span>(<span class="number">0</span>,<span class="number">1600</span>*<span class="number">0.3</span>,<span class="number">1600</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% simulate wave </span></span><br><span class="line"><span class="comment">% build 1D sinewave</span></span><br><span class="line">SineMid = <span class="built_in">sin</span>(<span class="number">2</span>*<span class="built_in">pi</span>/<span class="number">10</span>*long);</span><br><span class="line"></span><br><span class="line"><span class="comment">% translate 1D wave into 2D sinewave</span></span><br><span class="line">SinewaveM = <span class="built_in">repmat</span>(SineMid,[<span class="number">1600</span>,<span class="number">1</span>]);</span><br><span class="line">imagesc(SinewaveM)</span><br><span class="line">Angle = <span class="number">10</span>;</span><br><span class="line">Irot = imrotate(SinewaveM, Angle, <span class="string">'loose'</span>, <span class="string">'bilinear'</span>);</span><br><span class="line"><span class="comment">% imagesc(Irot)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% figure out the image size of new Sinewave.</span></span><br><span class="line">Start = <span class="built_in">floor</span>(<span class="built_in">size</span>(Irot,<span class="number">1</span>)/<span class="number">4</span>);</span><br><span class="line">Stop = <span class="number">3</span>*Start;</span><br><span class="line"> </span><br><span class="line"><span class="comment">% image crop</span></span><br><span class="line">Icrop = Irot(Start:Stop,Start:Stop);</span><br><span class="line">L_x=<span class="built_in">length</span>(Icrop);</span><br><span class="line"></span><br><span class="line">temp=Icrop;</span><br><span class="line"></span><br><span class="line">ssh_wave = temp+<span class="number">0.1</span>*<span class="built_in">rand</span>(L_x,L_x);</span><br><span class="line">imagesc(ssh_wave)</span><br><span class="line"></span><br><span class="line"><span class="comment">% netcdf.create</span></span><br><span class="line">nccreate(<span class="string">'test_simulate.nc'</span>,<span class="string">'lat'</span>,<span class="string">'Dimensions'</span>,&#123;<span class="string">'lat'</span> L_x&#125;);</span><br><span class="line"></span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lat'</span>, <span class="string">'standard_name'</span>, <span class="string">'lat'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lat'</span>, <span class="string">'long_name'</span>, <span class="string">'lat'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lat'</span>, <span class="string">'units'</span>, <span class="string">'meter'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lat'</span>, <span class="string">'_CoordinateAxisType'</span>, <span class="string">'Lat'</span>);</span><br><span class="line"><span class="comment">% ncwriteatt('test_files.nc','/','standard_name','latitude');</span></span><br><span class="line">nccreate(<span class="string">'test_simulate.nc'</span>,<span class="string">'lon'</span>,<span class="string">'Dimensions'</span>,&#123;<span class="string">'lon'</span> L_x&#125;);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lon'</span>, <span class="string">'standard_name'</span>, <span class="string">'lon'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lon'</span>, <span class="string">'long_name'</span>, <span class="string">'lon'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lon'</span>, <span class="string">'units'</span>, <span class="string">'meter'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'lon'</span>, <span class="string">'_CoordinateAxisType'</span>, <span class="string">'Lon'</span>);</span><br><span class="line"></span><br><span class="line">nccreate(<span class="string">'test_simulate.nc'</span>,<span class="string">'Q'</span>,<span class="string">'datatype'</span>,<span class="string">'double'</span>,<span class="string">'Dimensions'</span>,&#123;<span class="string">'lat'</span> L_x <span class="string">'lon'</span> L_x&#125;);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'Q'</span>, <span class="string">'standard_name'</span>, <span class="string">'ssh'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'Q'</span>, <span class="string">'long_name'</span>, <span class="string">'sea surface height'</span>);</span><br><span class="line">ncwriteatt(<span class="string">'test_simulate.nc'</span>, <span class="string">'Q'</span>, <span class="string">'units'</span>, <span class="string">'m'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% ncdisp('test_files.nc');</span></span><br><span class="line">ncwrite(<span class="string">'test_simulate.nc'</span>,<span class="string">'lat'</span>,lati(<span class="number">1</span>:L_x));</span><br><span class="line">ncwrite(<span class="string">'test_simulate.nc'</span>,<span class="string">'lon'</span>,long(<span class="number">1</span>:L_x));</span><br><span class="line"></span><br><span class="line">ncwrite(<span class="string">'test_simulate.nc'</span>,<span class="string">'Q'</span>,ssh_wave);</span><br><span class="line"></span><br><span class="line">ncdisp(<span class="string">'test_simulate.nc'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="利用GMT的grdfft进行二维FFT分析，得到波数谱。"><a href="#利用GMT的grdfft进行二维FFT分析，得到波数谱。" class="headerlink" title="利用GMT的grdfft进行二维FFT分析，得到波数谱。"></a>利用GMT的grdfft进行二维FFT分析，得到波数谱。</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="attribute">gmt</span> gmtset MAP_GRID_PEN_PRIMARY	= <span class="number">0</span>.1p,<span class="number">0</span>/<span class="number">0</span>/<span class="number">0</span>,2_1_0.25_1:<span class="number">0</span></span><br><span class="line"></span><br><span class="line">ps=gf-fft.ps</span><br><span class="line"></span><br><span class="line">data_jizai=test_simulate.nc</span><br><span class="line"></span><br><span class="line">gmt grdfft <span class="variable">$data_jizai</span> -Ex+w+n -Gx.txt</span><br><span class="line">gmt grdfft <span class="variable">$data_jizai</span> -Ey+w+n -Gy.txt</span><br><span class="line">gmt grdfft <span class="variable">$data_jizai</span> -Er+w+n -Gr.txt</span><br><span class="line"></span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>,<span class="variable">$2</span>&#125;'</span> x.txt &gt; jizai.x </span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>,<span class="variable">$2</span>&#125;'</span> y.txt &gt; jizai.y</span><br><span class="line">awk <span class="string">'&#123;print <span class="variable">$1</span>,<span class="variable">$2</span>&#125;'</span> r.txt &gt; jizai.z</span><br><span class="line"></span><br><span class="line">x=`awk <span class="string">'&#123;print <span class="variable">$1</span>,<span class="variable">$2</span>&#125;'</span> x.txt | sort -k <span class="number">2</span> | head -n <span class="number">1</span> | awk <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span>`</span><br><span class="line">y=`awk <span class="string">'&#123;print <span class="variable">$1</span>,<span class="variable">$2</span>&#125;'</span> y.txt | sort -k <span class="number">2</span> | head -n <span class="number">1</span> | awk <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span>`</span><br><span class="line">r=`awk <span class="string">'&#123;print <span class="variable">$1</span>,<span class="variable">$2</span>&#125;'</span> r.txt | sort -k <span class="number">2</span> | head -n <span class="number">1</span> | awk <span class="string">'&#123;print <span class="variable">$1</span>&#125;'</span>`</span><br><span class="line"></span><br><span class="line">echo <span class="variable">$x</span> <span class="variable">$y</span> <span class="variable">$r</span></span><br><span class="line">gmt gmtmath -Q <span class="variable">$x</span> <span class="variable">$y</span> DIV ATAN <span class="number">180</span> pi DIV MUL <span class="number">90</span> SUB NEG =</span><br><span class="line"></span><br><span class="line">gmt psbasemap -R0.<span class="number">1</span>/1e3/1e-<span class="number">15</span>/1e5 -JX-4il/4il -Bxa1pf3g3+l<span class="string">"Wavelength/m"</span> -Bya1pf1+l<span class="string">"power spectrum"</span> -BWNe -K &gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt psxy -R jizai.x  -J -W0.5p,black, -O -K &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psxy -R jizai.y -J -W0.5p,blue, -O -K &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psxy -R jizai.z -J -W0.5p,red, -O -K &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt psbasemap -R1e-<span class="number">3</span>/1e1/1e-<span class="number">15</span>/1e5 -JX4il/4il -BSE -Bxa1p+l<span class="string">"wavenumber/cycle/m"</span> -O -K&gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt pslegend -D+w0.8i+jBL+o0i/.2i -R -J -O -F+p1p+glightgray --FONT_ANNOT_PRIMARY=7p &lt;&lt; EOF &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">S <span class="number">0</span>.2i - <span class="number">0</span>.5i - 1p,red <span class="number">0</span>.5i x</span><br><span class="line">S <span class="number">0</span>.2i - <span class="number">0</span>.5i - 1p,blue <span class="number">0</span>.5i y  </span><br><span class="line">S <span class="number">0</span>.2i - <span class="number">0</span>.5i - 1p,tan <span class="number">0</span>.5i r</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">$ps</span> -A -P -Tg</span><br><span class="line"></span><br><span class="line">rm <span class="regexp">gmt.*</span> <span class="regexp">jizai.*</span> <span class="regexp">*.cpt</span> <span class="regexp">*.d</span> <span class="regexp">*.nc</span></span><br></pre></td></tr></table></figure>
+
+<p>结果计算得到三个方向的波长和径向传播角度：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">61.478424015</span> <span class="number">10.2464040025</span> <span class="number">10.2464040025</span></span><br><span class="line"><span class="number">9.46232220803</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/gf-fft.png" alt></p>
+<h3 id="PLOT-grid"><a href="#PLOT-grid" class="headerlink" title="PLOT grid"></a>PLOT grid</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">	</span><br><span class="line">data=test_files.nc</span><br><span class="line"></span><br><span class="line">ps=mss.ps</span><br><span class="line">J=JX4i</span><br><span class="line"></span><br><span class="line">gmt makecpt -Crainbow -T-13/13/0.01 -Z &gt;mss.cpt</span><br><span class="line">gmt psbasemap -R<span class="variable">$data</span> -<span class="variable">$J</span> -BWNSE -Bxya100 -K &gt; <span class="variable">$ps</span></span><br><span class="line">gmt grdimage <span class="variable">$data</span> -<span class="variable">$J</span> -Cmss.cpt -K -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psscale -DjCB+w1.5i+o0/-1.4c+h -Cmss -Bxaf -By+lm -R -J -O -V &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt psconvert mss.ps -A -P -Tg</span><br></pre></td></tr></table></figure>
+<p><img src="/images/grid_fft.png" alt></p>
+<h2 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h2><ul>
+<li>如果matlab中的XY属性给的随意，写成了longitude，latitude，而实际上是笛卡尔坐标，则GMT在识别的时候仍旧认为是经纬度，因此不能大于360或者90。所以在写nc文件的时候要注意属性名称。</li>
+<li>kx和ky的计算分别使用-Ex和-Ey.</li>
+<li>默认的计算方向是the radial direction </li>
+<li>波的传播方向可以通过kx和ky的波长计算，atan(ky/kx)。</li>
+<li>波的径向传播方向只能通过径向的FFT计算，不可以简单的相加kx和ky。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -926,345 +1247,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/10/landmask/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/10/landmask/" class="post-title-link" itemprop="url">grdlandmask和grdmath配合解决陆海数据分离</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-10 22:47:35" itemprop="dateCreated datePublished" datetime="2020-01-10T22:47:35+08:00">2020-01-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 12:42:40" itemprop="dateModified" datetime="2020-03-14T12:42:40+08:00">2020-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GMT/" itemprop="url" rel="index">
-                    <span itemprop="name">GMT</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/10/landmask/" class="post-meta-item leancloud_visitors" data-flag-title="grdlandmask和grdmath配合解决陆海数据分离" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/10/landmask/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/10/landmask/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先解决几个基本的问题。</p>
-<p>提问：我有一个tif格式的文件，可以在GMT中直接使用吗？<br>回答：可以直接使用。因为GMT已经引用了GDAL。</p>
-<p>提问：我的tif坐标是UTM，能转成经纬度吗？<br>回答：可以，有两种方法可以转化，并互相检验。一种是grdproject，一种是先通过grd2xyz转成文本，然后通过mapproject转换为经纬度，在通过xyz2grd转为nc。经检验，两种方法一致，因此直接采用第一种即可。需要注意的是选择UTM投影代号。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/10/landmask/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/08/fft-gmt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/08/fft-gmt/" class="post-title-link" itemprop="url">GMT用于功率谱分析</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-08 14:16:14" itemprop="dateCreated datePublished" datetime="2020-01-08T14:16:14+08:00">2020-01-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-16 10:39:08" itemprop="dateModified" datetime="2020-04-16T10:39:08+08:00">2020-04-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GMT/" itemprop="url" rel="index">
-                    <span itemprop="name">GMT</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/08/fft-gmt/" class="post-meta-item leancloud_visitors" data-flag-title="GMT用于功率谱分析" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/08/fft-gmt/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/08/fft-gmt/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>傅里叶变换是常用的计算信号频率（功率谱）的工具，各种编程语言都可以简单的快速实现FFT变换。GMT作为绘图工具，不仅可以绘图，也集成了非常强大的地学数据处理功能，对一维、二维的数据都可以实现傅里叶变换，从而确定出信号的频率信息。</p>
-<p><code>spectrum1d</code>(<a href="https://docs.generic-mapping-tools.org/latest/spectrum1d.html" target="_blank" rel="noopener">help-page</a>)是计算一维信号频域信息的工具，它采用了Welch的计算方法，该方法在<a href="https://www.mathworks.com/help/signal/ref/pwelch.html" target="_blank" rel="noopener">Matlab</a>中也经常使用，优点是可靠、易编程，结果易理解。</p>
-<p>GMT开发者给出了一个例子，可参考<a href="https://github.com/GenericMappingTools" target="_blank" rel="noopener">github</a>，但是例子中的数学稍微不易理解。经过修改，输入信号修改为两个周期三角函数的叠加，经过测试，GMT可以准确地计算出频率和波长。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/08/fft-gmt/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2020/01/05/map-different-view/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/05/map-different-view/" class="post-title-link" itemprop="url">竖版地图的科学绘制</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-05 23:08:12" itemprop="dateCreated datePublished" datetime="2020-01-05T23:08:12+08:00">2020-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-02 20:13:52" itemprop="dateModified" datetime="2021-03-02T20:13:52+08:00">2021-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GMT/" itemprop="url" rel="index">
-                    <span itemprop="name">GMT</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/01/05/map-different-view/" class="post-meta-item leancloud_visitors" data-flag-title="竖版地图的科学绘制" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/01/05/map-different-view/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/05/map-different-view/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="地图投影"><a href="#地图投影" class="headerlink" title="地图投影"></a>地图投影</h2><p>地图投影的基本原理是球坐标到平面坐标的数学变换，按照变形又分为等面积投影、等角度投影和任意投影,传统地图考虑到人类生存的大陆投影变形最小，而放大了南北极的变形，且一般遵从上北下南的常识（即下图的东西撕开）。<br><img src="/images/%E5%88%87.jfif" alt></p>
-<h2 id="竖地图"><a href="#竖地图" class="headerlink" title="竖地图"></a>竖地图</h2><p>竖地图也是一种地图投影。国内较著名的竖版地图由长期从事<code>大地测量学</code>、<code>地球物理学</code>、<code>地震学</code>、<code>地图学</code>、<code>地理学</code>、<code>马克思主义哲学</code>研究的<code>诗人</code><a href="http://www.hxgmap.com" target="_blank" rel="noopener">郝晓光</a>研究员编制，他的地图将南北极以较小的变形投影到一张图上，这版地图相当受欢迎，获得了各个社会群体的喜爱。国产竖版地图影响甚大，除了改变人类的“世界观”，它还改变了北斗卫星在北极的布局，改变了中国对美战略等。近期的一则消息拿美国Princeton University科学家所公开的<a href="https://arxiv.org/abs/2102.08176" target="_blank" rel="noopener">Gott-Wagner投影</a>和国产竖版地图做比较，专家结论是美国地图不好，并给出了几点依据。不明觉厉吧，国产的地图真无敌，轻松打败美国地图。</p>
-<p><img src="/images/1106south.jpg" alt></p>
-<center>竖版地图，图片来源：郝晓光主页 </center>
-
-<p>经资料查询，其竖版地图的制图法则在于：</p>
-<blockquote>
-<p>“经向世界地图”采用“等差分纬线多圆锥投影方法”，而我们所做的只是将“经向世界地图”的纵坐标线（经线）与横坐标线（纬线），变换成“纬向世界地图”的横坐标（经线）与纵坐标线（纬线）。也就是说，“纬向世界地图”与“经向世界地图”在投影方法上的区别仅仅是“坐标换轴”。（《经纬跨越四百年）</p>
-</blockquote>
-<p>简单理解，就是把经纬替换，投影的数学法则不变。</p>
-<p>下面我们试着用<code>GMT</code>软件和另一种投影方式制作竖版地图，主要目的是<code>好玩</code>。</p>
-<h2 id="GMT通用绘图工具绘制不同投影的全球地图"><a href="#GMT通用绘图工具绘制不同投影的全球地图" class="headerlink" title="GMT通用绘图工具绘制不同投影的全球地图"></a>GMT通用绘图工具绘制不同投影的全球地图</h2><p>GMT是科学绘图领域使用最普遍的开源工具，它调用了另一个开源软件<a href="https://proj.org/" target="_blank" rel="noopener"><code>Proj</code></a>的全部投影（有149种），基本满足各种制图场景。</p>
-<p>使用GMT绘制全球地图非常方便，例如仅下面一行命令，就绘制出常见的Robinson projection（罗宾逊投影）地图:</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gmt pscoast -Rd -JN5i -Bg30 -Df -A10000 -Glightgray -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c -png mapnormal</span><br></pre></td></tr></table></figure>
-<p><img src="/images/mapnormal.png" alt></p>
-<center>GMT绘制的Robinson投影全球地图</center>
-
-<blockquote>
-<p>1963年，阿瑟·h·罗宾逊(Arthur H. Robinson)响应兰德·麦克纳利公司(Rand McNally company)的呼吁，发明了罗宾逊投影。从那时起，该公司就在通用世界地图中使用了这种投影技术。罗宾逊在1974年公布了该计划的建造细节，1988年，国家地理学会(NGS)开始使用罗宾逊投影法绘制通用世界地图，取代了范德格林滕投影法，NGS在1998年放弃了罗宾逊投影，转而使用Winkel tripel投影，因为后者“减少了靠近极地的陆地的变形”。<a href="https://en.wikipedia.org/wiki/Robinson_projection" target="_blank" rel="noopener">来源</a></p>
-</blockquote>
-<h2 id="GMT绘制竖版地图"><a href="#GMT绘制竖版地图" class="headerlink" title="GMT绘制竖版地图"></a>GMT绘制竖版地图</h2><p>使用GMT的通用墨卡托全球投影（Transverse Mercator projection）投影，可以仅一行代码实现竖版地图：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gmt begin TMcontours ps,png</span><br><span class="line">    gmt coast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT160/<span class="number">-50</span>/<span class="number">4</span>i -Glightgray -A10000 -Df -Ba30g30 -X6i -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c </span><br><span class="line">gmt end</span><br></pre></td></tr></table></figure>
-<p><img src="/images/TMcontours.png" alt></p>
-<p>仔细看这幅地图，容易发现澳大利亚和南极洲的海岸线匹配较好，可能亿万年前澳大利亚是南极洲的一部分吧。</p>
-<p><img src="/images/TMcontours_3.png" alt></p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gmt begin TMcontours ps,png</span><br><span class="line">	gmt coast -R0/<span class="number">360</span>/<span class="number">-80</span>/<span class="number">80</span> -JT330/<span class="number">-40</span>/<span class="number">4</span>i -Glightgray -A10000 -Df -Ba30g30 -N1/<span class="number">0.005</span>c -W1/<span class="number">0.01</span>c</span><br><span class="line">gmt end</span><br></pre></td></tr></table></figure>
-<p>如果换一个视角，可以更加清晰展示全球五大洲陆地的版块运动，上图易见：南美洲和非洲，南极的威德尔海和南非，马达加斯加和非洲大陆都可以<code>拼在一起</code>。这或许可以解释为什么南非、南美洲、澳大利亚有企鹅。</p>
-<p><img src="/images/dis_p.webp" alt></p>
-<center>企鹅分布</center> 
-
-<p><a href="https://www.reddit.com/r/MapPorn/comments/d45pxl/global_distribution_of_penguins" target="_blank" rel="noopener">图片来源</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1337,7 +1319,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">163</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
