@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">167</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">168</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,143 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/12/02/altime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/02/altime/" class="post-title-link" itemprop="url">卫星高度计的物理海洋应用系列 - 西边界流</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-12-02 16:03:15" itemprop="dateCreated datePublished" datetime="2023-12-02T16:03:15+08:00">2023-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/12/02/altime/" class="post-meta-item leancloud_visitors" data-flag-title="卫星高度计的物理海洋应用系列 - 西边界流" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/12/02/altime/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/12/02/altime/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近公布的2023年院士评选结果出炉了，我并未入选。但坦白说，这对我，乃至我的粉丝们来说，实际上是一件好事。若我真成了院士，必将被繁杂的事务和没完没了的会议所困。如此一来，我又如何能有足够的时间和精力，去投入到我所热爱的科研和科普工作中呢？</p>
+<p>其实，成为院士，并不能改变一个人的本质。戴上这顶帽子，不代表你就更优秀。作为一名科研工作者，我们追求的是在科学的长河中留下独特的印记，为这个社会贡献自己的力量。从这个初心出发，我们应当始终追求更高的目标。</p>
+<p>不得不说，这件事也影响了我为粉丝们写作的计划。我的粉丝数量增长放缓，偶尔还会掉粉，这让我颇感心痛。为此，我制定了一项新的写作计划，专注于撰写一系列关于卫星高度计在物理海洋学方面应用的文章。在这个系列中，我将深入探讨卫星高度计技术如何帮助我们更好地理解海洋，特别是在中尺度和行星尺度上的海洋波动研究上。在即将推出的系列文章中，我们将探索多个关键的物理海洋学概念和现象，这个内容丰富且深入的系列将涵盖理论解析与Python编程实践。其主要目的是为海洋遥感领域的研究生群体提供清晰、系统的理论阐述，以及相应的技术实现。完成这一系列内容可能需要数月时间，但我们致力于提供深度且实用的学习资源，以促进对海洋科学的深入理解和研究。</p>
+<p>今天我们首先探讨西边界流。接着上次的话题，黑潮和湾流变慢了吗？我们使用卫星高度计实测数据进行分析计算。</p>
+<h2 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h2><p>首先要下载高度计再分析产品，这里我下载了欧洲cmems数据中心的高度计产品，下载地址是：</p>
+<ul>
+<li><a href="ftp://username@my.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_MY_008_047/cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.25deg_P1D" target="_blank" rel="noopener">ftp://username@my.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_MY_008_047/cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.25deg_P1D</a></li>
+</ul>
+<p>第一步制作一个文件列表：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">import</span> <span class="string">os</span></span><br><span class="line"><span class="attr">from</span> <span class="string">pathlib import Path</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义根目录</span></span><br><span class="line"><span class="attr">root_dir</span> = <span class="string">Path("..", "dataset-duacs-rep-global-merged-allsat-phy-l4")</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个空列表来存储所有文件路径</span></span><br><span class="line"><span class="attr">all_file_paths</span> = <span class="string">[]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历年份</span></span><br><span class="line"><span class="attr">for</span> <span class="string">year in range(1993, 2019):</span></span><br><span class="line"><span class="comment">    # 循环遍历月份</span></span><br><span class="line">    <span class="attr">for</span> <span class="string">month in range(1, 13):</span></span><br><span class="line"><span class="comment">        # 格式化月份，确保它总是两位数</span></span><br><span class="line">        <span class="attr">month_str</span> = <span class="string">str(month).zfill(2)</span></span><br><span class="line"><span class="comment">        # 创建月份目录的路径</span></span><br><span class="line">        <span class="attr">month_dir</span> = <span class="string">root_dir / str(year) / month_str</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">        # 检查目录是否存在</span></span><br><span class="line">        <span class="attr">if</span> <span class="string">month_dir.exists():</span></span><br><span class="line"><span class="comment">            # 循环遍历月份目录中的文件</span></span><br><span class="line">            <span class="attr">for</span> <span class="string">day_file in month_dir.iterdir():</span></span><br><span class="line"><span class="comment">                # 只考虑 .nc（NetCDF）文件</span></span><br><span class="line">                <span class="attr">if</span> <span class="string">day_file.suffix == '.nc':</span></span><br><span class="line"><span class="comment">                    # 将完整文件路径添加到列表中</span></span><br><span class="line">                    <span class="attr">all_file_paths.append(day_file)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="计算流速"><a href="#计算流速" class="headerlink" title="计算流速"></a>计算流速</h2><p>初步观察利用高度计进行的全球流场分布，我们可以清楚地识别出主要的海洋流系统。这些包括南极绕极流、西边界流、赤道流等，以及众多大小不一的中尺度涡旋。这些观测结果生动地展示了海洋永无休止的旋转和流动。这些动态的海洋模式不仅是地球气候系统的重要组成部分，也对海洋生物的分布和迁移产生深远影响。通过细致分析这些流场分布，我们可以更深入地理解海洋动力学的复杂性和它们在全球环境中的作用。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Load the NetCDF file</span></span><br><span class="line">file_path = all_file_paths[0]  # <span class="builtin-name">Get</span> the first file path as a string</span><br><span class="line">ds = xr.open_dataset(file_path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract the 'ugos' variable</span></span><br><span class="line">ugos_data = ds[<span class="string">'ugos'</span>]</span><br><span class="line"><span class="comment"># Extract the 'vgos' variable</span></span><br><span class="line">vgos_data = ds[<span class="string">'vgos'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate the magnitude of the velocity (flow speed) for the first time step</span></span><br><span class="line">flow_speed = np.sqrt(ugos_data.isel(<span class="attribute">time</span>=0)**2 + vgos_data.isel(<span class="attribute">time</span>=0)**2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot the flow speed with constrained velocity range between -1 and 1 m/s</span></span><br><span class="line">plt.figure(figsize=(18, 10))</span><br><span class="line">flow_speed.plot(<span class="attribute">cmap</span>=<span class="string">'RdBu_r'</span>, <span class="attribute">vmin</span>=-0, <span class="attribute">vmax</span>=1.5)</span><br><span class="line">plt.title(<span class="string">'Flow Speed at first time step (Constrained between -1 and 1 m/s)'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Longitude'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Latitude'</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算时间平均</span></span><br><span class="line">time_mean_speed = speed_data_3d.mean(<span class="attribute">dim</span>=<span class="string">'time'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = time_mean_speed.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>, </span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                            <span class="attribute">vmin</span>=-0.0, <span class="attribute">vmax</span>=0.8)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed Mean'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算时间标准差</span></span><br><span class="line">time_std_speed = speed_data_3d.std(<span class="attribute">dim</span>=<span class="string">'time'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = time_std_speed.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>, </span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                            <span class="attribute">vmin</span>=-0.0, <span class="attribute">vmax</span>=0.3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed STD'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算相对时间标准差</span></span><br><span class="line">relative_std_speed = time_std_speed / time_mean_speed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = relative_std_speed.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>, </span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;</span><br><span class="line">                            )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed STD'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/gee-1.png" alt><br><img src="/images/gee-2.png" alt><br><img src="/images/gee-3.png" alt><br><img src="/images/gee-4.png" alt></p>
+<p>尽管高度计的观测揭示了多种海洋流系统和动态模式，但在今天的讨论中，我们将专注于西边界流的长期变化及其时空特征。考虑到数据量巨大，我们的代码中采取了特定的策略来优化数据处理流程。例如，通过设置for file_path in all_file_paths[::100]:，我们将每隔100天读取一次数据文件。这种方法旨在平衡数据的全面性与处理的可行性。读者可以根据自己的研究需求和资源限制，调整读取数据的间隔。这种灵活性使得我们的研究方法不仅适用于探索西边界流的长期趋势，也方便个性化地调整以适应不同的研究目标和数据集大小。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> xarray as xr</span><br><span class="line"><span class="built_in">import</span> numpy as np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个空的列表用于存储速度数据</span></span><br><span class="line"><span class="attr">speed_data</span> = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义感兴趣的区域（纬度和经度的范围）</span></span><br><span class="line">lat_min, <span class="attr">lat_max</span> = -<span class="number">60.0</span>, <span class="number">60.0</span></span><br><span class="line">lon_min, <span class="attr">lon_max</span> = <span class="number">0</span>, <span class="number">360.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每一个文件</span></span><br><span class="line">for file_path <span class="keyword">in</span> all_file_paths[::<span class="number">100</span>]:</span><br><span class="line">    <span class="comment"># 打开NetCDF数据集</span></span><br><span class="line">    <span class="attr">ds</span> = xr.open_dataset(file_path)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 提取感兴趣的区域</span></span><br><span class="line">    <span class="attr">ds_subset</span> = ds.sel(<span class="attr">latitude=slice(lat_min,</span> lat_max), <span class="attr">longitude=slice(lon_min,</span> lon_max))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 提取 ugos 和 vgos 数据，并取第一个时间步</span></span><br><span class="line">    <span class="attr">u_gos</span> = ds_subset['ugos'].isel(<span class="attr">time=0)</span></span><br><span class="line">    <span class="attr">v_gos</span> = ds_subset['vgos'].isel(<span class="attr">time=0)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算速度</span></span><br><span class="line">    <span class="attr">u_speed</span> = np.sqrt(u_gos**<span class="number">2</span> + v_gos**<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将计算出的速度添加到列表中</span></span><br><span class="line">    speed_data.append(u_speed)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 将列表转换为xarray DataArray 对象，从而形成一个3维数组</span></span><br><span class="line"><span class="attr">speed_data_3d</span> = xr.concat(speed_data, <span class="attr">dim='time')</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示结果（或进行后续分析）</span></span><br><span class="line"><span class="comment"># print(speed_data_3d)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/gee-5.png" alt></p>
+<h2 id="长期趋势计算"><a href="#长期趋势计算" class="headerlink" title="长期趋势计算"></a>长期趋势计算</h2><p>首先，我们确定了数据集中时间、纬度和经度这三个维度的大小。这一步是为了确保我们精确地理解数据的结构，从而可以高效地处理和分析它。接着，我们初始化了一个数组，用于存储每个空间格点的趋势值。</p>
+<p>紧接着，我们对每个格点进行了遍历。在每个格点，我们提取了随时间变化的速度数据，并运用线性回归来计算趋势。通过这种方法，我们能够量化每个格点上流速的变化趋势。更进一步，我们将这些趋势转换为每十年的变化率，这使得结果更加直观，也便于与历史数据或未来预测进行比较。</p>
+<p>最后，我们利用xarray.DataArray将计算出的趋势值与其对应的空间坐标结合起来，形成一个新的数据结构，这使得数据更易于操作和分析。通过这样的数据处理和分析，我们能够更深入地理解西边界流随时间的变化，为研究全球气候变化及其对海洋环境的影响提供了宝贵的洞见。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取时间坐标信息，并转换为Pandas的TimedeltaIndex，以天为单位</span></span><br><span class="line"><span class="attr">time_coords</span> = speed_data_3d.coords['time']</span><br><span class="line"><span class="attr">days</span> = (time_coords - time_coords[<span class="number">0</span>]).dt.days</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取时间维度的长度和空间维度的大小</span></span><br><span class="line"><span class="attr">n_time</span> = speed_data_3d.shape[<span class="number">0</span>]</span><br><span class="line"><span class="attr">n_lat</span> = speed_data_3d.shape[<span class="number">1</span>]</span><br><span class="line"><span class="attr">n_lon</span> = speed_data_3d.shape[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化一个数组来存储每个格点的趋势</span></span><br><span class="line"><span class="attr">trend_array</span> = np.zeros((n_lat, n_lon))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每个格点</span></span><br><span class="line">for i <span class="keyword">in</span> range(n_lat):</span><br><span class="line">    for j <span class="keyword">in</span> range(n_lon):</span><br><span class="line">        <span class="comment"># 提取该格点的时间序列</span></span><br><span class="line">        <span class="attr">time_series</span> = speed_data_3d[:, i, j].values  <span class="comment"># 使用 .values 将xarray.DataArray转换为NumPy数组</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 使用线性回归计算趋势</span></span><br><span class="line">        slope, <span class="attr">intercept</span> = np.polyfit(days, time_series, <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 将趋势转换为每十年的量级（1年 = 365.25天）</span></span><br><span class="line">        <span class="attr">trend_per_decade</span> = slope * <span class="number">365.25</span> * <span class="number">10</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 存储趋势</span></span><br><span class="line">        trend_array[i, j] = trend_per_decade</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建带有时间和空间坐标的趋势DataArray</span></span><br><span class="line"><span class="attr">trend_dataarray</span> = xr.DataArray(</span><br><span class="line">    trend_array,</span><br><span class="line">    <span class="attr">coords=&#123;</span></span><br><span class="line">        <span class="string">"latitude"</span>: speed_data_3d.coords[<span class="string">"latitude"</span>],</span><br><span class="line">        <span class="string">"longitude"</span>: speed_data_3d.coords[<span class="string">"longitude"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">dims=["latitude",</span> <span class="string">"longitude"</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.2</span></span><br><span class="line">plot = trend_dataarray.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>,</span><br><span class="line">                            cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                            <span class="attribute">vmin</span>=-0.1, <span class="attribute">vmax</span>=0.1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Ocean Surface Speed Trend'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/gee-6.png" alt></p>
+<p>这幅地图展示了全球海洋表面流速的趋势分布，色标从蓝色到红色代表了流速趋势的变化范围，蓝色代表速度减缓（负趋势），而红色代表速度加快（正趋势）。可以观察到，特定区域如西边界流域显示出明显变化趋势，但呈现出条纹状，意味着这些区域的海流速度在过去十年既有有增加的趋势，又有下降的趋势。这背后的机制可能是由于局部海洋环流的变化或长期的气候模式变动所导致。</p>
+<p>我们把黑潮和湾流区进行放大观察：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择黑潮区域的数据</span></span><br><span class="line">kuroshio_trend = trend_dataarray.sel(<span class="attribute">latitude</span>=slice(20, 40), <span class="attribute">longitude</span>=slice(120, 160))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个更大的图形</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(12, 8))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 xarray 的绘图功能，并设置数据范围为 ±0.1</span></span><br><span class="line">plot = kuroshio_trend.plot(<span class="attribute">ax</span>=ax, <span class="attribute">cmap</span>=<span class="string">'coolwarm'</span>,</span><br><span class="line">                           cbar_kwargs=&#123;<span class="string">'label'</span>: <span class="string">'Trend (per decade)'</span>, <span class="string">'orientation'</span>: <span class="string">'horizontal'</span>&#125;,</span><br><span class="line">                           <span class="attribute">vmin</span>=-0.1, <span class="attribute">vmax</span>=0.1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加标题和标签</span></span><br><span class="line">plt.title(<span class="string">'Kuroshio Current Speed Trend'</span>, <span class="attribute">fontsize</span>=16)</span><br><span class="line">ax.set_xlabel(<span class="string">'Longitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line">ax.set_ylabel(<span class="string">'Latitude'</span>, <span class="attribute">fontsize</span>=12)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/gee-7.png" alt></p>
+<p>我们可以对黑潮及其延伸体的长期变化进行一些具体分析。黑潮作为西太平洋的一个主要海流，其主轴的流速趋势在这幅图中没有显示出明显的增强或减弱的迹象，这表明在观测期间，黑潮主轴的强度保持相对稳定。</p>
+<p>然而，值得注意的是，在黑潮延伸体的区域，地图展示了一种流轴北移的现象。具体来说，这意味着在黑潮南侧的海域流速变慢（如图中蓝色区域所示），而北侧的流速有所增加（相应的红色区域）。这种变化可能指示了海流的某种空间重组，它可能与多种海洋和气候因素有关，如北太平洋年代际振荡（PDO）、黑潮大弯曲事件和全球变暖，以及局部风场的变化、海水温度梯度的变化，以及其他影响海流结构和强度的因素。</p>
+<p>总体上，地图上的色彩分布似乎显示了一种对称守恒的格局，即南侧减慢的流速和北侧加快的流速在数量上相互抵消。这种对称性可能反映了黑潮系统内部动力学的一个重要特性，即在某些自然变化或外部强迫下，系统倾向于通过调整其流速分布来维持能量的平衡。这些观测结果对于理解区域海洋动力学的变化具有重要意义，并可能为预测黑潮以及其延伸体在未来气候变化情景下的响应提供线索。</p>
+<p><img src="/images/gee-8.png" alt></p>
+<p><img src="/images/gee-9.png" alt></p>
+<p>观察空间分布上表现出减速趋势的海域，并对其时间序列进行分析，这是理解海洋流速变化的重要环节。结果显示这些海域的流速确实在减慢，且这一减慢的趋势是非线性的，变化过程中还伴随着波动。非线性的趋势和中间的波动意味着这些海域的流速变化并非单一方向上的简单增减，而是包含了多个时间尺度上的复杂动力过程。例如，可能存在一个长期的减速趋势，但在这个趋势中叠加了短期的加速和减速周期。这些波动可能是由季节性因素、气候事件如厄尔尼诺或拉尼娜现象，甚至是更长期的气候循环模式所导致的。</p>
+<p>要深入理解这些非线性变化，可能需要应用高级的统计方法或时间序列分析工具，例如小波分析或傅立叶变换，以识别和分离出不同时间尺度上的变化成分。此外，与气候模型输出和长期观测数据相结合的方法可以帮助揭示造成这些变化的潜在机制，并预测未来的变化趋势。这对于预测海洋环流如何影响全球气候系统以及海洋生态系统至关重要。</p>
+<p><img src="/images/gee-10.png" alt></p>
+<p>湾流也呈现出类似的特征。湾流作为北大西洋的一个主要暖流，对调节北半球的气候起着至关重要的作用。我们看到湾流也显示出北移现象，这可能意味着流速在南侧减慢而北侧增快。这样的变化可能与大尺度气候模式如北大西洋涛动（NAO）或全球变暖背景下的海水温度变化有关。湾流的这种行为可能会导致能量分布的重新配置，并可能对北大西洋的海洋生态系统和欧洲的气候产生影响。</p>
+<h2 id="问题探讨"><a href="#问题探讨" class="headerlink" title="问题探讨"></a>问题探讨</h2><ul>
+<li>西边界流是全球最稳定的洋流，为什么东向流动的延伸体会向北移动？</li>
+<li>具体的机制是什么？</li>
+</ul>
+<p>西边界流的稳定性和其东向流动的延伸体北移现象确实是一个引人入胜的研究话题。西边界流，如北太平洋的黑潮和北大西洋的湾流，通常是强大而稳定的，这主要是由于它们在特定的海洋盆地边缘受到地形的引导和科里奥利力的影响。东向流动的延伸体向北移动可能与多种因素有关，包括但不限于海水温度变化、风应力的变化、气候变化导致的大尺度气候模式的漂移。</p>
+<p>如解决上面的问题，我相信这将是一篇NS级别的文章吧，希望有兴趣的兄弟们可以试一试，也可以联系我一起合作。</p>
+<h2 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h2><ul>
+<li>卫星高度计探测Rossby wave</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1315,119 +1452,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/21/fenqu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/21/fenqu/" class="post-title-link" itemprop="url">中科院分区2022-地学和工程技术类</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-21 17:23:45" itemprop="dateCreated datePublished" datetime="2022-12-21T17:23:45+08:00">2022-12-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/12/21/fenqu/" class="post-meta-item leancloud_visitors" data-flag-title="中科院分区2022-地学和工程技术类" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/21/fenqu/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/21/fenqu/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>就在今天，2022年中科院SCI期刊分区发布了。小编顾不上嗓子疼，抓紧上网找到比较全面的分区数据，分享给大家。</p>
-<h2 id="完整分区获取"><a href="#完整分区获取" class="headerlink" title="完整分区获取"></a>完整分区获取</h2><p>可以直接查看: <a href="http://advanced.fenqubiao.com/" target="_blank" rel="noopener">http://advanced.fenqubiao.com/</a></p>
-<blockquote>
-<p>不用谢。</p>
-</blockquote>
-<h2 id="遥感期刊看点"><a href="#遥感期刊看点" class="headerlink" title="遥感期刊看点"></a>遥感期刊看点</h2><p>中科院分区共设置了包括自然科学和社会科学在内的18个大类。地学遥感相关期刊主要分布在<code>地球科学</code>和<code>工程技术</code>，实际上更多是在<code>工程技术</code>类。由于取消了基础版，只保留<code>升级版</code>，因此以后再不用纠结使用版本的问题了。</p>
-<p>今年的分区变化喜人，总体上一些很好的老牌期刊合理的升区了，比如IEEE TGRS升级一区，还有大地测量的Journal of Geodesy也成为了一区。Remote Sensing、IEEE GRSL等期刊保持在二区，也基本合理。暂未发现降区的期刊。</p>
-<p>下面列出一些重要的分区看点：</p>
-<h3 id="升区"><a href="#升区" class="headerlink" title="升区"></a>升区</h3><ul>
-<li>IEEE TGRS，曾经多年的二区遥感顶刊，今年终于上了中科院一区。</li>
-<li>Journal of Geodesy，大地测量领域的顶级期刊，升级到中科院一区。由于领域偏小，每年出版100篇左右（2021年122篇），可能在文献计量统计上略不占优，这个期刊大多年份在一区和二区徘徊，也在TOP和非TOP徘徊。</li>
-<li>GRL，从二区升级到一区。</li>
-<li>SURVEYS IN GEOPHYSICS， 从二区升级到一区。</li>
-<li>IEEE Geoscience and Remote Sensing Magazine，IEEE地学遥感神刊，由于只发少量综述，IF奇高（13.9），中科院分区2021基础版一区，升级版三区，在2022年分到二区。</li>
-</ul>
-<h3 id="不变"><a href="#不变" class="headerlink" title="不变"></a>不变</h3><ul>
-<li>REMOTE SENSING OF ENVIRONMENT，一区。</li>
-<li>ISPRS Journal of Photogrammetry and Remote Sensing (P&amp;RS)，一区。</li>
-<li>International Journal of Applied Earth Observation and Geoinformation，一区。</li>
-<li>Remote Sensing，2022年分区仍然是二区，不过按照现在审稿水平（应收尽收）和发文数量（2022年至今已发5905篇），很可能在3年后发文破万，存在掉区和预警可能。</li>
-<li>IEEE GRSL，二区。</li>
-<li>IEEE JSTAR，三区。期刊开源之后，即从二区掉到三区，同时出版数量差不多翻了一倍，从开源之前年均不到500篇快速增长到2021年的950篇。</li>
-<li>GPS solutions，2021年基础版三区，升级版一区，2022年升级版一区。</li>
-</ul>
-<h1 id="地学和工程技术分区清单"><a href="#地学和工程技术分区清单" class="headerlink" title="地学和工程技术分区清单"></a>地学和工程技术分区清单</h1><h2 id="地学一区和二区"><a href="#地学一区和二区" class="headerlink" title="地学一区和二区"></a>地学一区和二区</h2><p><img src="/images/%E5%9C%B0%E5%AD%A61.jpg" alt><br><img src="/images/%E5%9C%B0%E5%AD%A62.jpg" alt><br><img src="/images/%E5%9C%B0%E5%AD%A63.jpg" alt><br><img src="/images/%E5%9C%B0%E5%AD%A64.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A65.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A66.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A67.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A68.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A69.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A610.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A611.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A612.png" alt><br><img src="/images/%E5%9C%B0%E5%AD%A613.png" alt></p>
-<h2 id="工程技术一区和二区"><a href="#工程技术一区和二区" class="headerlink" title="工程技术一区和二区"></a>工程技术一区和二区</h2><p><img src="/images/%E5%B7%A5%E7%A8%8B1.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B2.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B3.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B4.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B5.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B6.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B7.jpg" alt></p>
-<p><img src="/images/%E5%B7%A5%E7%A8%8B8.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B9.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B10.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B11.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B12.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B13.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B14.jpg" alt></p>
-<p><img src="/images/%E5%B7%A5%E7%A8%8B15.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B16.jpg" alt><br><img src="/images/%E5%B7%A5%E7%A8%8B17.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1500,7 +1524,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">167</span>
+          <span class="site-state-item-count">168</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
