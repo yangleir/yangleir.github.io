@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">168</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">169</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,123 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2024/04/04/swotl3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/04/swotl3/" class="post-title-link" itemprop="url">SWOT L3轻量级数据发布</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-04 17:09:04" itemprop="dateCreated datePublished" datetime="2024-04-04T17:09:04+08:00">2024-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2024/04/04/swotl3/" class="post-meta-item leancloud_visitors" data-flag-title="SWOT L3轻量级数据发布" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2024/04/04/swotl3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/04/04/swotl3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>近期，AVISO公布了SWOT Level-3 (SWOT_L3_SSH) 数据产品，该数据是基于Level-2的“Beta Pre-validated” KaRIn 海洋产品重处理得到，含盖了2023年3月29日至7月10日的1天周期快速定标轨道和2023年9月7日至11月21日的21天周期科学轨道。</p>
+<p>SWOT_L3_SSH数据产品是多任务、交叉定标后得到的产品，专门为海洋学研究提供必要的海面地形数据（SSHA），同时也特别适用于大地测量和海洋测绘研究，例如潮汐模型、重力场和地形反演等。L3产品基础版数据仅包含必要的经纬度、时间和SSHA等主要信息，且数据未经插值处理，提供了一种原始且直接的海洋观测资料。当用户需要一个简单、即取即用的产品，且希望将其与其他任务数据（例如CMEMS多任务高度计产品）结合使用时，SWOT_L3_SSH尤为合适。</p>
+<p><img src="/images/swotl3.webp" alt="SWOT L3数据探测的El Niño（AVISO）"></p>
+<blockquote>
+<p>获取方式: <a href="ftp://usrname@ftp-access.aviso.altimetry.fr/swot_st/swot_beta_products/l3_karin_nadir" target="_blank" rel="noopener">ftp://usrname@ftp-access.aviso.altimetry.fr/swot_st/swot_beta_products/l3_karin_nadir</a></p>
+</blockquote>
+<h3 id="数据改进"><a href="#数据改进" class="headerlink" title="数据改进"></a>数据改进</h3><ul>
+<li>地球物理校正：使用基于FES22模型的原生高分辨率非结构化网格进行海洋潮汐校正，不同于之前版本0.2使用的标准FES22模型的规则笛卡尔网格。</li>
+<li>数据选择：改进了Level-3标记/编辑策略，以更好地移除粗差数据。版本0.3采用更复杂的选择标准，包括产品标记、局部统计、滤波器等，以更好地考虑到区域噪声、地平和云雨效应。</li>
+<li>交叉校准：优化了L3校准处理中涉及的滤波，特别是针对沿海地区和封闭海域。</li>
+<li>去噪声：考虑到版本0.2中基于AI的噪声缓解算法的一些不足，版本0.3作出改善。</li>
+</ul>
+<h3 id="数据应用初探"><a href="#数据应用初探" class="headerlink" title="数据应用初探"></a>数据应用初探</h3><ul>
+<li><p>简版数据读取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># Load the netCDF file to analyze its content</span></span><br><span class="line">file_path = os.path.join(<span class="string">r'.\swot\data\L3'</span>, <span class="string">"SWOT_L3_LR_SSH_Basic_005_215_20231020T080346_20231020T085512_v0.3.nc"</span>)</span><br><span class="line">data = xr.open_dataset(file_path)</span><br><span class="line"><span class="comment"># Extracting only the names of the data variables in the dataset</span></span><br><span class="line">data_variable_names = list(data.variables.keys())</span><br><span class="line">data_variable_names</span><br></pre></td></tr></table></figure>
+<p>其包含的参数如下：<br><img src="/images/swot0.webp" alt></p>
+</li>
+<li><p>绘制南海观测数据</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(12, 8))</span><br><span class="line">ax = plt.axes(<span class="attribute">projection</span>=ccrs.PlateCarree())</span><br><span class="line">ax.coastlines()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setting the extent </span></span><br><span class="line">ax.set_extent([100, 120, 5, 25], <span class="attribute">crs</span>=ccrs.PlateCarree())</span><br><span class="line">ax.gridlines(<span class="attribute">draw_labels</span>=<span class="literal">True</span>, <span class="attribute">dms</span>=<span class="literal">True</span>, <span class="attribute">x_inline</span>=<span class="literal">False</span>, <span class="attribute">y_inline</span>=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">ssh_plot = plt.pcolormesh(ssh_karin.longitude, ssh_karin.latitude, ssh_karin, <span class="attribute">cmap</span>=<span class="string">'viridis'</span>, <span class="attribute">transform</span>=ccrs.PlateCarree())</span><br><span class="line">ssh_plot.set_clim(-0.2, 0.3)</span><br><span class="line">plt.colorbar(ssh_plot, <span class="attribute">label</span>=<span class="string">'SSHA (m)'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="/images/swot2.webp" alt="南海观测数据"></p>
+<p><img src="/images/swot3.webp" alt="局部放大"></p>
+<p><img src="/images/swot4.webp" alt="永兴岛周边数据"></p>
+<p>SWOT的独特能力在于捕捉海洋表面的微妙变化，这些细节远远超过了传统高度计所能提供的信息。</p>
+<ul>
+<li>内波</li>
+</ul>
+<p>内波是一种海洋中的重要现象，通常在密度分层的海域中出现。它们是由水密度变化引起的，当海水在不同密度层之间运动时，会产生内波。下面以印尼海为例，该海域内部存在非常强烈的潮混合和内波混合现象，SWOT卫星的高空间分辨率观测使我们能够直接测量内波的高度和特征，这对于物理海洋学来说是一项重大突破。</p>
+<p><img src="/images/swot5.webp" alt="印尼海域内波"></p>
+<p>接下来，我将继续分享SWOT卫星在波浪、极地海冰、海底地形和重力场等领域的观测成果。这些研究将帮助深入了解海洋和地球的各种复杂现象，从波浪动力学到极地海冰变化，再到海底地形的奥秘以及地球的重力场特征。让我们一同期待这些精彩的研究成果。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1495,119 +1612,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/12/02/wanliu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/02/wanliu/" class="post-title-link" itemprop="url">GEE中分析HYCOM时间序列-湾流变慢了吗？</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-12-02 21:38:51" itemprop="dateCreated datePublished" datetime="2023-12-02T21:38:51+08:00">2023-12-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2023/12/02/wanliu/" class="post-meta-item leancloud_visitors" data-flag-title="GEE中分析HYCOM时间序列-湾流变慢了吗？" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2023/12/02/wanliu/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/12/02/wanliu/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在前一篇文章中，我们提出了一个思考题：如何利用Google Earth Engine（GEE）这一前沿的地球观测工具，来深入分析HYCOM中的时间序列数据。这不仅是一个技术问题，更在科学研究中有着不可忽视的重要性。</p>
-<p>近期发表在《地球物理研究快报》（GRL）的研究表明，过去四十年间流经佛罗里达海峡的墨西哥湾流速度出现了约4%的下降。墨西哥湾流不仅是支撑美国东海岸生态和气候的重要海洋流体系统，其变化还可能在全球范围内产生深远的影响。因此，在本篇文章中，我们将充分发挥GEE强大的数据处理和分析能力，来探究这一现象是否具有长期和普遍的科学意义。</p>
-<h3 id="使用谷歌Colab和geemap-Python库"><a href="#使用谷歌Colab和geemap-Python库" class="headerlink" title="使用谷歌Colab和geemap Python库"></a>使用谷歌Colab和geemap Python库</h3><p>在这一节中，我们将使用Google Colab，一个基于云的Python代码编辑和运行环境，来进行进一步的数据处理和分析。为了方便进行空间数据的处理和可视化，我们将使用geemap。geemap是一个Python库，专门用于与Google Earth Engine进行交互，包括地图可视化和地理空间数据分析。这个库提供了一系列简单易用的API，允许用户快速地创建交互式地图，并且支持多种地图图层的叠加和编辑。它内置了丰富的功能和工具，能够让我们更高效地进行地理信息的获取、处理和分析。</p>
-<p>接下来，我们将通过墨西哥湾流实例来展示如何使用Google Colab和geemap库进行HYCOM数据的时间序列分析。</p>
-<h3 id="湾流介绍"><a href="#湾流介绍" class="headerlink" title="湾流介绍"></a>湾流介绍</h3><p>墨西哥湾流是北美大陆东海岸附近的一股重要洋流，起源于墨西哥湾，经过佛罗里达海峡，然后顺着美国东海岸流动，一路向北加速，直至北纬36°左右（北卡罗来纳州附近）开始转向东方。在约北纬40°和西经30°的地点，墨西哥湾流分裂成两条主要分支：一条是北流的北大西洋暖流，影响着西北欧；另一条是南流的Canary洋流。</p>
-<p>墨西哥湾流不仅影响美国从佛罗里达到弗吉尼亚的东海岸气候，还在更大范围内影响着西北欧的气候。这使得西北欧的气候比同纬度地区更为温暖，这一现象至少部分地归因于北大西洋暖流的影响。除了气候影响外，墨西哥湾流也对大气和海洋内的气旋发展、生态系统以及海洋流动等方面有重要影响。</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import geemap.colormaps as cm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个geemap地图实例</span></span><br><span class="line"><span class="attr">Map</span> = geemap.Map()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义与数据处理</span></span><br><span class="line"><span class="attr">Gs</span> = ee.Geometry.Rectangle([-<span class="number">85</span>, <span class="number">20</span>, -<span class="number">65</span>, <span class="number">40</span>]) <span class="comment"># 湾流</span></span><br><span class="line"></span><br><span class="line">def getAprilAverage(year):</span><br><span class="line">    <span class="attr">startDate</span> = ee.Date.fromYMD(year, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="attr">endDate</span> = ee.Date.fromYMD(year, <span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="attr">collection</span> = (ee.ImageCollection('HYCOM/sea_water_velocity')</span><br><span class="line">                  .filterDate(startDate, endDate)</span><br><span class="line">                  .<span class="built_in">map</span>(lambda image: image.divide(<span class="number">1000</span>)))</span><br><span class="line"></span><br><span class="line">    return collection.mean()</span><br><span class="line"></span><br><span class="line"><span class="attr">years</span> = ee.List.sequence(<span class="number">1997</span>, <span class="number">1997</span>)</span><br><span class="line"><span class="attr">averages</span> = years.<span class="built_in">map</span>(getAprilAverage)</span><br><span class="line"><span class="attr">twoDecadesAverage</span> = ee.ImageCollection(averages).mean()</span><br><span class="line"></span><br><span class="line"><span class="attr">speed</span> = twoDecadesAverage.select('velocity_u_0').hypot(twoDecadesAverage.select('velocity_v_0'))</span><br><span class="line"><span class="attr">maskedSpeed</span> = speed.clip(Gs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加图层</span></span><br><span class="line"><span class="attr">vis_params</span> = &#123;</span><br><span class="line">    'min': <span class="number">0</span>,</span><br><span class="line">    'max': <span class="number">1</span>,</span><br><span class="line">    'palette': ['blue', 'yellow', 'red'],</span><br><span class="line">&#125;</span><br><span class="line">Map.addLayer(maskedSpeed, vis_params, 'Southern Ocean Speed <span class="number">20</span>-Year Average')</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加colorbar</span></span><br><span class="line"><span class="attr">colors</span> = vis_params['palette']</span><br><span class="line"><span class="attr">vmin</span> = vis_params['min']</span><br><span class="line"><span class="attr">vmax</span> = vis_params['max']</span><br><span class="line"></span><br><span class="line">Map.add_colorbar_branca(</span><br><span class="line">    <span class="attr">colors=colors,</span> <span class="attr">vmin=vmin,</span> <span class="attr">vmax=vmax,</span> <span class="attr">layer_name="Southern</span> Ocean Speed <span class="number">20</span>-Year Average<span class="string">"</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Map.centerObject(Gs, 4)</span></span><br><span class="line"><span class="string">Map</span></span><br></pre></td></tr></table></figure>
-<p>首先我们选择一天的数据看一看湾流的特征。</p>
-<p><img src="/images/w-1.png" alt></p>
-<p>然后，我们修改部分代码，计算长时间序列的空间均值。</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def get<span class="constructor">AprilAverage(<span class="params">year</span>)</span>:</span><br><span class="line">    startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span></span><br><span class="line">    endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 6, 15)</span></span><br><span class="line"></span><br><span class="line">    collection = (ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                  .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                  .map(lambda image: image.divide(<span class="number">1000</span>)))</span><br><span class="line"></span><br><span class="line">    return collection.mean<span class="literal">()</span></span><br><span class="line"></span><br><span class="line">years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">1997</span>, <span class="number">2007</span>)</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/w-2.png" alt></p>
-<h3 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h3><p>我们使用GEE来分析1994年到2023年之间墨西哥湾流速度的趋势。以下是一种可能的实现方法：</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> ee</span><br><span class="line"><span class="built_in">import</span> geemap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 范围</span></span><br><span class="line"><span class="comment"># Gs = ee.Geometry.Rectangle([-85, 20, -65, 40]) # 湾流</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 定义一个函数来获取每年4月的数据，并返回这个月的均值</span></span><br><span class="line">def getAprilAverage(year):</span><br><span class="line">    <span class="attr">startDate</span> = ee.Date.fromYMD(year, <span class="number">4</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="attr">endDate</span> = ee.Date.fromYMD(year, <span class="number">4</span>, <span class="number">40</span>)</span><br><span class="line"></span><br><span class="line">    <span class="attr">collection</span> = (ee.ImageCollection('HYCOM/sea_water_velocity')</span><br><span class="line">                  .filterDate(startDate, endDate)</span><br><span class="line">                  .<span class="built_in">map</span>(lambda image: image.divide(<span class="number">1000</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="attr">average_image</span> = collection.mean()</span><br><span class="line">    <span class="attr">speed</span> = average_image.select('velocity_u_0').hypot(average_image.select('velocity_v_0'))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取该范围内的均值速度</span></span><br><span class="line">    <span class="attr">mean_speed</span> = speed.reduceRegion(</span><br><span class="line">        <span class="attr">reducer=ee.Reducer.mean(),</span></span><br><span class="line">        <span class="attr">geometry=southernOceanRegion,</span></span><br><span class="line">        <span class="attr">scale=1000,</span>  <span class="comment"># 根据数据的分辨率选择适当的值</span></span><br><span class="line">        <span class="attr">maxPixels=1e9</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    return mean_speed</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 使用循环来获取均值时间序列</span></span><br><span class="line"><span class="attr">years</span> = list(range(<span class="number">1994</span>, <span class="number">2023</span>))</span><br><span class="line"><span class="attr">speed_averages</span> = []</span><br><span class="line"></span><br><span class="line">for year <span class="keyword">in</span> years:</span><br><span class="line">    <span class="attr">annual_avg</span> = getAprilAverage(year).getInfo()</span><br><span class="line">    speed_averages.append(annual_avg['velocity_u_0'])  <span class="comment"># velocity_u_0为速度的波段</span></span><br><span class="line">    print(year)</span><br><span class="line"></span><br><span class="line">print(speed_averages)  <span class="comment"># 打印每年的均值速度列表</span></span><br></pre></td></tr></table></figure>
-
-<p>这样，你就得到了一个数组，其中包含了从1994年到2023年墨西哥湾流在所选月份的平均速度。有了这些年度平均速度数据，就可以使用它们来计算任何你感兴趣的统计指标，例如趋势、标准差等。</p>
-<h3 id="慢了吗？"><a href="#慢了吗？" class="headerlink" title="慢了吗？"></a>慢了吗？</h3><p>在海洋科学研究中，精确的数据分析是至关重要的。通过对HYCOM数据进行细致的清洗和预处理，我们发现墨西哥湾流在近几十年里流速有所减缓，这一发现不仅科学上具有深远意义，还可能对全球气候和社会经济产生影响。更为引人关注的是，我们还观察到数据中存在长周期性的波动，暗示着更复杂的海洋动力学机制可能在起作用。这一周期性的存在既可能影响气候模式，也可能对海洋生态和经济活动产生长期影响。因此，持续的数据验证和多角度审视成为进一步研究的必要步骤，以提高研究的整体质量和可靠性。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 剔除大于0.5的数值和None的值</span></span><br><span class="line">filtered_data = [(year, avg) <span class="keyword">for</span> year, avg <span class="keyword">in</span> zip(years, speed_averages) <span class="keyword">if</span> avg is <span class="keyword">not</span> None <span class="keyword">and</span> avg &lt;= 0.5]</span><br><span class="line">filtered_years, filtered_speed_averages = zip(<span class="number">*f</span>iltered_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用matplotlib绘制时间序列</span></span><br><span class="line">plt.figure(figsize=(10, 5))</span><br><span class="line">plt.plot(filtered_years, filtered_speed_averages, <span class="attribute">marker</span>=<span class="string">'o'</span>, <span class="attribute">linestyle</span>=<span class="string">'-'</span>, <span class="attribute">color</span>=<span class="string">'b'</span>)</span><br><span class="line">plt.title(<span class="string">'Gulf Stream Speed Average (April) from 2002 to 2022'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Year'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Average Speed'</span>)</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.xticks(filtered_years, <span class="attribute">rotation</span>=45)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/w-3.png" alt></p>
-<h3 id="《后天》会来吗？"><a href="#《后天》会来吗？" class="headerlink" title="《后天》会来吗？"></a>《后天》会来吗？</h3><p>气候变化和人为活动对大西洋经向翻转环流（AMOC）产生了不容忽视的影响。最新研究显示，大西洋暖流目前已经减弱到至少1600年来的最低水平，这一变化可能会对全球气候产生深远的影响。具体来说，如果墨西哥湾流发生灾难性的崩溃，西欧将面临更加极端的冬季气候，美国东海岸的海平面可能会迅速上升，同时全球范围内的重要热带降雨模式也将被扰乱。研究进一步指出，自公元400年以来，大西洋暖流已经减弱了约15%，这是一个相当显著的变化。人为造成的全球变暖被认为是导致这一趋势的重要因素之一。</p>
-<p>虽然2004年的电影《后天》提供了一种戏剧性的设想，即AMOC的迅速关闭将导致全球性的气候灾难，但事实上，自工业革命以来，AMOC的削弱确实是一个日益严重的问题，它已经引发了一系列环境和气候变化。这些变化不仅会影响特定地区，更可能在全球范围内引发一系列复杂的生态和社会问题。</p>
-<blockquote>
-<p>文献：Robust Weakening of the Gulf Stream During the Past Four Decades Observed in the Florida Straits.Geophysical Research Letters, 2023; 50 (18) DOI:10.1029/2023GL105170</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1680,7 +1684,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
