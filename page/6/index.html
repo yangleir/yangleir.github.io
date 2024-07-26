@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">91</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">92</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">166</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">167</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,151 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/08/02/llc1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/02/llc1/" class="post-title-link" itemprop="url">xmitgcm下载LLC海洋模式数据</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-02 11:50:14" itemprop="dateCreated datePublished" datetime="2022-08-02T11:50:14+08:00">2022-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2022/08/02/llc1/" class="post-meta-item leancloud_visitors" data-flag-title="xmitgcm下载LLC海洋模式数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/08/02/llc1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/02/llc1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上一节，我们介绍了xmitgcm的LLCreader入门操作，总体上这个工具可以通过网络自动加载门户网站（ECCO）的模式数据，实现对大数据模式LLC4320和LLC2160的读取。但还有许多问题尚未解决：</p>
+<ul>
+<li>能否保存数据到本地</li>
+<li>能否按照经纬范围选取数据</li>
+<li>能否选择连续的一段时间（如70天，每小时一个）</li>
+<li>能否做较复杂计算</li>
+</ul>
+<p>本节先介绍怎么通过LLCreader将数据下载本地，并使用GMT绘图。</p>
+<h4 id="加载llcreader"><a href="#加载llcreader" class="headerlink" title="加载llcreader"></a>加载llcreader</h4><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xmitgcm.llcreader <span class="keyword">as</span> llcreader</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化模型"><a href="#初始化模型" class="headerlink" title="初始化模型"></a>初始化模型</h4><p>因为LLC4320数据体量较大，这里先以LLC2160为例。我们选择<code>Theta</code>进行导出测试。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">model = llcreader.ECCOPortalLLC2160Model()</span><br><span class="line"></span><br><span class="line">ds_sst = model.get_dataset(varnames=[<span class="string">'Theta'</span>], k_levels=[0], <span class="attribute">type</span>=<span class="string">'latlon'</span>,</span><br><span class="line">                          <span class="attribute">iter_start</span>=model.iter_start,</span><br><span class="line">                          iter_stop=(model.iter_start + model.iter_step),</span><br><span class="line">                          <span class="attribute">read_grid</span>=<span class="literal">True</span>)</span><br><span class="line">ds_sst.Theta</span><br></pre></td></tr></table></figure>
+<p><img src="../images/llc1.png" alt></p>
+<p><code>ds_sst</code>的数据结构为Xarray的<code>dataset</code>，<code>ds_sst.Theta</code>的数据结构为Xarray的<code>dataarray</code>。可以看到<code>Theta</code>的数据大小是231M，这只是一个小时快照的单层全球数据，体积不算太大。</p>
+<p><img src="en-resource://database/1799:1" alt="424563f1e8a8cb5512488f4924a7206b.png"></p>
+<p>上图为其<code>coordinates</code>，这是<code>dataarray</code>数据结构的一个关键术语，其中黑色粗体<code>i,j,k,time</code>表示维度坐标(Dimension coordinate)，其他为无维度坐标(Non-dimension coordinate)。</p>
+<blockquote>
+<p>Xarray: <a href="https://docs.xarray.dev/en/stable/user-guide/terminology.html#term-Dimension-coordinate" target="_blank" rel="noopener">https://docs.xarray.dev/en/stable/user-guide/terminology.html#term-Dimension-coordinate</a></p>
+</blockquote>
+<h4 id="绘图查看"><a href="#绘图查看" class="headerlink" title="绘图查看"></a>绘图查看</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">temp</span><span class="selector-class">.Theta</span><span class="selector-class">.plot</span>()</span><br></pre></td></tr></table></figure>
+<p><img src="../images/llc2.png" alt></p>
+<p>维度坐标<code>i,j</code>作为其<code>x</code>和<code>y</code>轴，另一维度<code>time</code>和<code>k</code>(深度0)出现在标题上。</p>
+<p>因为LLC为特殊的网格结构，这里暂时不能直接实现地理绘图。后面会对此进行单独介绍。</p>
+<h4 id="保存-to-netcdf"><a href="#保存-to-netcdf" class="headerlink" title="保存 .to_netcdf()"></a>保存 .to_netcdf()</h4><p><code>to_netcdf()</code>是<code>Xarray</code>内置的函数，可将数据保存为nc格式。注意数据保存和<code>llcreader</code>函数无关，<code>llcreader</code>的主要作用是在线获得LLC模式数据，并转化成<code>Xarray</code>特有的数据结构，后面所有的操作都是使用<code>Xarray</code>，因此有必要对<code>Xarray</code>做全面的学习。后面会对此介绍。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds_sst.<span class="module-access"><span class="module"><span class="identifier">Theta</span>.</span></span><span class="keyword">to</span><span class="constructor">_netcdf('<span class="params">myfile</span>.<span class="params">nc</span>')</span></span><br></pre></td></tr></table></figure>
+<p>上述命令可以将<code>Theta</code>参数保存。通过<code>panoply</code>可以绘图展示SST参数的全球分布：</p>
+<p><img src="../images/llc3.png" alt></p>
+<h4 id="删除不重要的坐标"><a href="#删除不重要的坐标" class="headerlink" title="删除不重要的坐标"></a>删除不重要的坐标</h4><p>但可以发现保存的文件大小是2.5G，远远超过了其自身大小，这是什么原因呢？</p>
+<p><img src="../images/llc5.png" alt></p>
+<p>原来是把无维度坐标全部保存了，这些坐标其实也是数据，因此占用很大空间。一共有11个这样的2D坐标，再加上<code>Theta</code>，数据体积就达到2.5G了。<br><img src="../images/llc6.png" alt></p>
+<p>这些无维度坐标可以删去：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ds_sst.Theta.reset_coords<span class="params">()</span> <span class="comment"># 将无维度坐标转为变量(不删除)</span></span><br><span class="line">ds_sst[[<span class="string">"Theta"</span>]]<span class="string">.reset_coords</span><span class="params">(<span class="attr">drop</span>=True)</span> <span class="comment"># 将会删去无维度坐标</span></span><br></pre></td></tr></table></figure>
+<p><img src="../images/llc7.png" alt></p>
+<p>若想保留某些坐标，比如经纬度<code>XC,YC</code>：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ds_sst</span><span class="selector-class">.Theta</span><span class="selector-class">.reset_coords</span>()<span class="selector-attr">[[<span class="string">"XC"</span>, <span class="string">"YC"</span>,<span class="string">"Theta"</span>]</span>]</span><br></pre></td></tr></table></figure>
+<p>上面使用了<code>[[ ]]</code>做变量的筛选。</p>
+<blockquote>
+<p>参考：<a href="https://docs.xarray.dev/en/stable/user-guide/data-structures.html#transforming-datasets" target="_blank" rel="noopener">https://docs.xarray.dev/en/stable/user-guide/data-structures.html#transforming-datasets</a></p>
+</blockquote>
+<p>然后保存：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ds_sst<span class="literal">[["T<span class="identifier">heta</span>"]</span>].reset<span class="constructor">_coords(<span class="params">drop</span>=True)</span>.<span class="keyword">to</span><span class="constructor">_netcdf('<span class="params">myfile2</span>.<span class="params">nc</span>')</span></span><br><span class="line">ds_sst.<span class="module-access"><span class="module"><span class="identifier">Theta</span>.</span></span>reset<span class="constructor">_coords()</span><span class="literal">[["XC", "YC","T<span class="identifier">heta</span>"]</span>].<span class="keyword">to</span><span class="constructor">_netcdf('<span class="params">myfile3</span>.<span class="params">nc</span>')</span></span><br></pre></td></tr></table></figure>
+<p>这样，数据体积就小了，其中<code>myfile2.nc</code>仅包含<code>Theta</code>，大小213M。</p>
+<p><img src="../images/llc8.png" alt></p>
+<h4 id="GMT绘图"><a href="#GMT绘图" class="headerlink" title="GMT绘图"></a>GMT绘图</h4><p>GMT绘图比ython自带函数更加强大，既然已经下载到本地，则看一下GMT绘图效果：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">gmt begin ex02 png</span><br><span class="line">	gmt set MAP_ANNOT_OBLIQUE <span class="number">0</span></span><br><span class="line">	gmt subplot begin <span class="number">2</span>x1 -A+JTL -Fs16c/<span class="number">10</span>c -M0 -R1000/<span class="number">2000</span>/<span class="number">2500</span>/<span class="number">3500</span> -JX15/<span class="number">13</span>c -B100 -T<span class="string">"Aghulhas Rings"</span></span><br><span class="line">		gmt subplot set <span class="number">0</span>,<span class="number">0</span> -Ce3c</span><br><span class="line">		gmt grd2cpt myfile3.nc?Theta -Cjet -Z</span><br><span class="line">		gmt grdimage myfile3.nc?Theta -I+a90  </span><br><span class="line">		gmt colorbar -DJRM+o1<span class="number">.5</span>c/<span class="number">0</span>+mc -I0<span class="number">.3</span> -Bx2+lTheta -By+ldegree</span><br><span class="line"></span><br><span class="line">		gmt subplot set <span class="number">1</span>,<span class="number">0</span> -Ce3c</span><br><span class="line">		gmt grd2cpt myfile4.nc?Theta -Crainbow -Z</span><br><span class="line">		gmt grdimage myfile4.nc?Theta</span><br><span class="line">		gmt colorbar -DJRM+o1<span class="number">.5</span>c/<span class="number">0</span>+e+mc -Bx2+lTheta -By+ldegree</span><br><span class="line">	gmt subplot end</span><br><span class="line">gmt end show</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/4320.png" alt></p>
+<h4 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h4><ul>
+<li>范围的筛选</li>
+<li>时间维度的连续导出</li>
+</ul>
+<h2 id="交流群"><a href="#交流群" class="headerlink" title="交流群"></a>交流群</h2><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
+<p><strong>主要功能定位：</strong></p>
+<ul>
+<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
+<li>对国内海洋实测数据的申请提供必要的指导</li>
+<li>物理海洋、大地测量、海洋遥感等学科交流</li>
+<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
+</ul>
+<p><img src="../images/qq.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1597,96 +1742,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/25/spetial-issue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/25/spetial-issue/" class="post-title-link" itemprop="url">Remote Sensing 专刊：卫星测高进展</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-25 21:51:32" itemprop="dateCreated datePublished" datetime="2022-05-25T21:51:32+08:00">2022-05-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/05/25/spetial-issue/" class="post-meta-item leancloud_visitors" data-flag-title="Remote Sensing 专刊：卫星测高进展" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/25/spetial-issue/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/25/spetial-issue/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="专刊信息"><a href="#专刊信息" class="headerlink" title="专刊信息"></a>专刊信息</h2><p>近日，《Remote Sensing》（中科院二区TOP）推出“Advances in Satellite Altimetry”专刊，特邀编辑为希腊克里特理工大学Stelios Mertikas教授、澳大利亚纽卡斯尔大学Xiaoli Deng教授和欧空局地球观测项目主管Jérôme Benveniste博士。</p>
-<p>在本期专刊中，将接受雷达和激光测高领域的最新研究成果，比如处理算法、定标检验、干涉测高、空间基准、海洋遥感、海平面变化、环流和海洋动力、海岸带测高、极地测高、内陆测高、海洋测绘等各方面应用，并鼓励提交测高应用综述文章。</p>
-<h2 id="截止时间"><a href="#截止时间" class="headerlink" title="截止时间"></a>截止时间</h2><p>专刊截止时间：31 January 2023</p>
-<h2 id="投稿地址"><a href="#投稿地址" class="headerlink" title="投稿地址"></a>投稿地址</h2><p><a href="https://www.mdpi.com/journal/remotesensing/special_issues/satellite_altimetry" target="_blank" rel="noopener">https://www.mdpi.com/journal/remotesensing/special_issues/satellite_altimetry</a></p>
-<p><img src="/images/rs.png" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1759,7 +1814,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1772,7 +1827,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">92</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
