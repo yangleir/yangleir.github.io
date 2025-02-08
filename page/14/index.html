@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">187</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">191</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,475 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/29/gmt-moive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/29/gmt-moive/" class="post-title-link" itemprop="url">GMT动画绘制地震演变</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-29 21:47:53" itemprop="dateCreated datePublished" datetime="2021-03-29T21:47:53+08:00">2021-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2021/03/29/gmt-moive/" class="post-meta-item leancloud_visitors" data-flag-title="GMT动画绘制地震演变" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/29/gmt-moive/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/29/gmt-moive/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天分享一位GMT志愿者的动画制作代码，内容和上一篇的地震分布演变类似。</p>
+<ul>
+<li>代码使用了GMT开发版的功能，建议在Linux下通过源码更新GMT，win下的源码安装稍微麻烦。否则无法得到结果。</li>
+<li>需要下载地震数据，地址为:<a href="https://github.com/GenericMappingTools/gmt/pull/5019" target="_blank" rel="noopener">https://github.com/GenericMappingTools/gmt/pull/5019</a></li>
+<li>这个例子的代码正在快速更新中，问题尚未全部解决，请关注上面的git网址跟踪。</li>
+</ul>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#	WIP: Explain</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">#	Titulo del mapa</span></span><br><span class="line">	<span class="attribute">title</span>=anim14</span><br><span class="line">	echo <span class="variable">$title</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">#	Proyeccion del mapa y ancho del mapa</span></span><br><span class="line">	<span class="attribute">W</span>=23.64c</span><br><span class="line">	<span class="attribute">W</span>=22.3c</span><br><span class="line"></span><br><span class="line"><span class="comment">#	Dimensiones del Grafico (en cm): Ancho (L), Altura inferior (H1) y arriba (H2)</span></span><br><span class="line">	<span class="attribute">H</span>=3.5</span><br><span class="line">	<span class="attribute">H1</span>=3.8</span><br><span class="line">	<span class="attribute">PROJ</span>=M$W</span><br><span class="line">	</span><br><span class="line">	<span class="attribute">DEM</span>=C:/Users/yangleir/Documents/dtu/earth_relief_15s.grd</span><br><span class="line"></span><br><span class="line">	# <span class="attribute">DEM</span>=@earth_relief_15s</span><br><span class="line">	</span><br><span class="line"><span class="comment">#	Region geografica del mapa (W/E/S/N)</span></span><br><span class="line">	<span class="attribute">REGION</span>=-75/-61/-33.2/-28.7 # v0</span><br><span class="line"></span><br><span class="line"><span class="comment">#	Coordendas iniciales (1) y finales del perfil (2)</span></span><br><span class="line">	<span class="attribute">Long1</span>=-74</span><br><span class="line">	<span class="attribute">Long2</span>=-64</span><br><span class="line">	<span class="attribute">Lat1</span>=-29</span><br><span class="line">	<span class="attribute">Lat2</span>=-33</span><br><span class="line">	<span class="attribute">KM</span>=1052.32</span><br><span class="line"></span><br><span class="line"><span class="comment">#	Distancia perpendicular al pefil (en km) y rango de profundidades del perfil (en km)</span></span><br><span class="line">	<span class="attribute">Dist_Perfil</span>=100</span><br><span class="line">	<span class="attribute">DepthMin</span>=0</span><br><span class="line">	<span class="attribute">DepthMax</span>=200</span><br><span class="line"></span><br><span class="line"><span class="comment">#	Offset en X/Y</span></span><br><span class="line">	<span class="attribute">X</span>=0.32</span><br><span class="line">	<span class="attribute">Y</span>=0.91</span><br><span class="line">	</span><br><span class="line"><span class="comment">#       -----------------------------------------------------------------------------------------------------------</span></span><br><span class="line">cat &lt;&lt; EOF &gt; pre.sh</span><br><span class="line"></span><br><span class="line">	gmt <span class="builtin-name">set</span> COLOR_HSV_MIN_V 0</span><br><span class="line">	gmt <span class="builtin-name">set</span> FONT_LABEL 10p</span><br><span class="line">	gmt <span class="builtin-name">set</span> FONT_ANNOT_PRIMARY 7p</span><br><span class="line">	gmt <span class="builtin-name">set</span> MAP_FRAME_PEN thin,black</span><br><span class="line">	</span><br><span class="line">gmt begin</span><br><span class="line"></span><br><span class="line"><span class="comment">#	Crear lista de fechas para la animacion: Inicio/Fin/Intervalo. o: meses. y: años</span></span><br><span class="line">	gmt math -o0 -T2005-01-01T/2020-12-1T/10y T = times.txt</span><br><span class="line">	gmt math -o0 -T2005-01-01T/2020-12-1T/1o T = times.txt</span><br><span class="line"><span class="comment">#	gmt math -o0 -T2005-01-01T/2020-12-1T/7d T = times.txt</span></span><br><span class="line"></span><br><span class="line">	gmt makecpt -T0/<span class="variable">$DepthMax</span> -Cbatlow -I -H &gt; q.cpt</span><br><span class="line"></span><br><span class="line"><span class="comment">#       -----------------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">#	Eje X (Sn) e Y</span></span><br><span class="line">	gmt basemap -R0/<span class="variable">$KM</span>/<span class="variable">$DepthMin</span>/<span class="variable">$DepthMax</span> -JX<span class="variable">$W</span>/-<span class="variable">$H</span> -Bxaf+l<span class="string">"Distance (km)"</span> -Byaf+l<span class="string">"Depth (km)"</span> -Y<span class="variable">$Y</span> -X<span class="variable">$X</span>  <span class="attribute">--MAP_FRAME_AXES</span>=wESn </span><br><span class="line"></span><br><span class="line">	gmt grdimage <span class="variable">$DEM</span> -Coleron -I+nt1.2 -R<span class="variable">$REGION</span> -J<span class="variable">$PROJ</span> -Y<span class="variable">$H1</span>  # Map</span><br><span class="line"></span><br><span class="line"><span class="comment">#	Dibujar Bordes Administrativos. N1: paises. N2: Provincias, Estados, etc. N3: limites marítimos (Nborder[/pen])</span></span><br><span class="line">	gmt coast -Df -N1/0.30 -N2/0.2,-</span><br><span class="line"></span><br><span class="line"><span class="comment">#	gmt basemap -Bxf1 -Byf1</span></span><br><span class="line">	gmt basemap -Baf <span class="attribute">--MAP_FRAME_AXES</span>=wEsN</span><br><span class="line">	gmt basemap -Ln0.87/0.1+w100k+f+u -F+p+gwhite+s+r</span><br><span class="line"></span><br><span class="line">	gmt plot -W1p,red &lt;&lt;- END</span><br><span class="line">	<span class="variable">$Long1</span> <span class="variable">$Lat1</span></span><br><span class="line">	<span class="variable">$Long2</span> <span class="variable">$Lat2</span></span><br><span class="line">	END</span><br><span class="line">		</span><br><span class="line">gmt end</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment">#	----------------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 	2. Set up main script</span></span><br><span class="line">cat &lt;&lt; EOF &gt; main.sh</span><br><span class="line">gmt begin</span><br><span class="line">	gmt <span class="builtin-name">set</span> COLOR_HSV_MIN_V 0</span><br><span class="line">	gmt <span class="builtin-name">set</span> FONT_LABEL 6p</span><br><span class="line">	gmt <span class="builtin-name">set</span> FONT_ANNOT_PRIMARY 6p</span><br><span class="line"></span><br><span class="line">	gmt events -R0/<span class="variable">$KM</span>/<span class="variable">$DepthMin</span>/<span class="variable">$DepthMax</span> -JX<span class="variable">$W</span>/-<span class="variable">$H</span> -Y<span class="variable">$Y</span> -X<span class="variable">$X</span> <span class="string">"Datos_Mec.txt"</span> -Z<span class="string">"coupe -Aa<span class="variable">$Long1</span>/<span class="variable">$Lat1</span>/<span class="variable">$Long2</span>/<span class="variable">$Lat2</span>/90/100/<span class="variable">$DepthMin</span>/<span class="variable">$DepthMax</span> -Q -Sd0.3c+f0"</span> -Wfaint -T\<span class="variable">$&#123;MOVIE_COL0&#125;</span> -Es+r2+p1+d6+f1 -Mi1+c-0.5 -Ms1.5+c0.8 -Mt+c10 <span class="attribute">--TIME_UNIT</span>=o  -Cq.cpt </span><br><span class="line">	gmt events -R<span class="variable">$REGION</span> -J<span class="variable">$PROJ</span> <span class="string">"Datos_Mec.txt"</span>  -Wfaint -T\<span class="variable">$&#123;MOVIE_COL0&#125;</span> -Es+r2+p1+d6+f1 -Mi1+c-0.5 -Ms1.5+c0.8 -Mt+c10 <span class="attribute">--TIME_UNIT</span>=o -Y<span class="variable">$H1</span> -Cq.cpt </span><br><span class="line">gmt end</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment">#	----------------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 	3. Run the movie</span></span><br><span class="line">gmt movie main.sh -Sbpre.sh -Chd -Ttimes.txt -N<span class="variable">$title</span> -H2 -Lc0+jTR+o1.7/0.6+gwhite <span class="attribute">--FONT_TAG</span>=13p,Helvetica,black <span class="attribute">--FORMAT_CLOCK_MAP</span>=- <span class="attribute">--FORMAT_DATE_MAP</span>=o-yyyy -Fmp4 -D14 -Ml,png -Ve -Zs -Pd+ap+jRM+w6.2c+o1.8/1.8c</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><video id="video" controls preload="none">
+    <source id="mp4" src="/images/anim14.mp4" type="video/mp4">
+</video>
+<center>Pacific Earthquakes in 2018</center>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/24/anxianxiuce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/24/anxianxiuce/" class="post-title-link" itemprop="url">新一轮海岸线修测工作中的几点思考</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-24 21:18:21" itemprop="dateCreated datePublished" datetime="2021-03-24T21:18:21+08:00">2021-03-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2021/03/24/anxianxiuce/" class="post-meta-item leancloud_visitors" data-flag-title="新一轮海岸线修测工作中的几点思考" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/24/anxianxiuce/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/24/anxianxiuce/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="新一轮海岸线修测工作中的几点思考"><a href="#新一轮海岸线修测工作中的几点思考" class="headerlink" title="新一轮海岸线修测工作中的几点思考"></a>新一轮海岸线修测工作中的几点思考</h1><p>修淳1,2，王国钢3，杜明1,2，霍素霞1,2，刘莹1,2，陈可可1,2，马芳1,2</p>
+<ol>
+<li>国家海洋局北海环境监测中心 青岛 266033；</li>
+<li>山东省海洋生态环境与防灾减灾重点实验室 青岛 266061；</li>
+<li>山东省海洋局 济南 250002</li>
+</ol>
+<p>作者简介：修淳，博士，高级工程师，主要从事海洋地质学、海域海岛监管技术研究.</p>
+<blockquote>
+<p>摘要：海岸线不仅是海陆分界的重要地理要素，其所属的海岸带也是人类活动最集中的区域。<br>根据自然资源部关于开展新一轮海岸线修测工作的相关部署，全国海岸线修测工作于2019<br>年正式启动。本文从地方标准和全国规程的解读入手，结合修测工作实践，分析了修测过程<br>中的地方标准和全国规程有机结合、复杂区域海岸线类型界定等问题，提出了尽快实施基于<br>新一轮修测成果的海岸线定期调查更新与自然岸线评估机制、自然岸线占补平衡机制等相关<br>机制体系研究，旨在为海岸线修测成果报批以及陆海统筹管理提供策略支持。</p>
+</blockquote>
+<p>《海洋学术语 海洋地质学》中将海岸线定义为<code>“多年大潮平均高潮位时海陆分界痕迹
+线”</code>[1]，尽管其他标准或著述对海岸线的定义描述存在一定的差异，但基本遵循海岸线为<code>平
+均大潮高潮痕迹线</code>的本质特性[2,3]。海岸线不仅是海陆分界的重要地理要素，其所在的海岸<br>带也是人类活动最集中的区域。研究表明，海岸线附近区域的人口密度是世界平均人口密度<br>的近3 倍[4]。据模型统计显示，2015 年我国海岸带438个统计单元的人口总数约为3.59 亿<br>人，平均人口密度为6.37 人/公顷[5]。海岸带地区人口的高密度聚集使海岸线资源日益紧张，<br>也引发了经济、社会和环境等方面的多种问题，如湿地面积骤减、岸线固化比例过多、海水<br>倒灌加剧等。这也反映出被视为地理指标的海岸线同时还具有与生产生活密切相关的社会属<br>性。</p>
+<p>我国现行有效的海岸线基础数据来源于<code>2007—2008年</code>各省（区、市）人民政府批准公<br>布的修测成果[6]，迄今已过去十多年。这期间随着社会经济发展和海岸带环境变化的影响，<br>海岸线发生了较大程度的变化[7-9]，同时诸如<code>岸线资源粗放式开发、陆海管理交叉</code>等问题的<br>凸显以及陆海统筹和国土空间规划的需求，都促使亟需开展新一轮修测，以满足新时代生态<br>文明建设和海洋强国建设要求。2016 年11 月1 日，中央全面深化改革领导小组审议通过了<br>《海岸线保护与利用管理办法》，这为构建科学合理的海岸线保护与利用格局提供了重要依<br>据。《海岸线保护与利用管理办法》对开展新一轮全国海岸线调查（修测）进行了明确要求，即“省级海洋行政主管部门会同有关部门开展海岸线调查工作”，“由省级人民政府批准后公<br>布”。</p>
+<p><code>浙江省和山东省</code>在全国范围内属于较早启动新一轮海岸线修测工作的省份，分别于<br>2018 年4 月和2019 年6 月年正式实施了本省首个与海岸线修测（调查）相关的地方标准，<br>即《海岸线调查统计技术规范》（DB33/T 2106-2018）和《海岸线调查技术规程》（DB37/T<br>3588-2019），这两个节点均早于《全国海岸线修测技术规程》的印发时间（2019 年7 月）。<br>山东省已于2019 年10 月前完成了新一轮海岸线修测外业测量和内业制作工作。本文从地方<br>标准和全国规程的解读入手，结合现场修测实践，提出了本次海岸线修测工作中的几点思考<br>和建议，旨在为海岸线修测成果报批、陆海统筹管理、国土空间规划等提供策略支持。需说<br>明的是，本文提及的海岸线主要指大陆海岸线，海岛岸线不在本次讨论范围内。</p>
+<h2 id="地方标准与全国规程的有机结合问题"><a href="#地方标准与全国规程的有机结合问题" class="headerlink" title="地方标准与全国规程的有机结合问题"></a>地方标准与全国规程的有机结合问题</h2><p>如前所述，浙江省和山东省地方标准的发布和实施时间以及全面开始海岸线现场测量的<br>时间均在全国规程印发时间之前，因此其海岸线修测依据实际上是以地方标准为主、全国规<br>程为辅。尽管地方标准与全国规程在海岸线分类、位置界定、自然岸线保有率统计等方面存<br>在一定程度的差异（另有详文述及），但为了贯彻落实自然资源部关于开展海岸线修测工作<br>的相关部署，在后期成果制作过程中仍按照全国规程对修测数据进行了局部调整。</p>
+<p>需注意的是，沿海个别省份在近几年就已经启动并完成了海岸线修测工作，也有省份正<br>式发布实施了与海岸线修测（调查）相关的地方标准。这些已正式生效的地方标准相对全国<br>规程应能更好地体现当地的实际情况。<code>如果“一刀切”式地要求已完成岸线修测工作（前提
+是依据生效的地方标准）的省份按照全国规程进行全面的修改，会造成大量的重复性工作以
+及人力、物力的较大浪费。</code>因此，如何根据本省海岸线的实际情况，做到地方标准和全国规<br>程的有机结合是早先已完成海岸线修测工作的省份需要深入思考的问题。事实上，目前已实<br>施的地方标准和全国规程在本质上并无冲突，两者在一定程度上可相互辅成，共同致力于界<br>定出一条符合本省实际情况和海陆统筹管理要求的海岸线。</p>
+<h2 id="围海养殖岸线的类型界定问题"><a href="#围海养殖岸线的类型界定问题" class="headerlink" title="围海养殖岸线的类型界定问题"></a>围海养殖岸线的类型界定问题</h2><p>通过海岸线修测实地踏勘发现有一种海岸线界定情况值得进一步商榷，即<code>可自然纳潮的
+土质围堤养殖池岸线类型</code>界定。根据全国规程，可自然纳潮的土质围堤养殖池的岸线位置应<br>界定在养殖池向陆一侧的堤坝前沿处，岸线类型为人工岸线（一级类）、围海（二级类），但<br>实际上养殖池的向海侧和向陆侧围堤均为<code>土质堤坝</code>，并不符合规程中对于人工岸线的定义—<br>—由<code>永久性构筑物</code>组成的岸线。这类养殖池塘靠陆一侧的岸线一般多为自然或半自然状态下的泥质岸线，具有破损程度较高、生态功能较差等特点，如果后期实施养殖设施拆除，可一<br>定程度上恢复自然岸线原貌及属性，破损严重岸段可进行整治修复。针对这一问题，建议围<br>海养殖向陆一侧的岸线类型界定<code>应以事实为准，不能简单地全部界定为人工岸线</code>。例如，如<br>果该区域有已批准的整治修复方案或开发利用规划，则根据具体方案规划可将岸线类型界定<br>为自然岸线或生态恢复岸线，纳入自然岸线管控及保有率统计之中；如果没有任何方案规划，<br>则以便于统一管理、避免岸线细碎化为原则，可参照相邻岸线类型界定为自然岸线或人工岸<br>线。</p>
+<h2 id="建立海岸线定期调查更新与自然岸线评估机制"><a href="#建立海岸线定期调查更新与自然岸线评估机制" class="headerlink" title="建立海岸线定期调查更新与自然岸线评估机制"></a>建立海岸线定期调查更新与自然岸线评估机制</h2><p>本次海岸线修测距离上一次修测已过去十余年，沿海各省（区、市）的海岸线长度和形<br>态发生了较大程度的变化，如果将海岸线修测更新周期设置为每十年一次明显不符合新时代<br>生态文明建设和海洋强国建设要求。环保督察和海洋督察期间发现部分地区存在海岸线向海<br>一侧管理交叉等问题，也不适应海陆统筹管理战略部署。在《国务院关于加强滨海湿地保护<br>严格管控围填海的通知》（国发〔2018〕24 号）要求下，以往粗放式的围填海开发利用活动<br>得到了有效管控，但由于自然因素干扰或重大战略项目实施导致的岸线变化的可能性仍在存<br>在。因此在本轮海岸线修测成果支撑下，结合各省（区、市）实际情况，有必要建立海岸线<br>定期调查更新机制，明确更新周期，完善海岸线调查体系和评估机制。更新数据得到具有资<br>质的测绘质量检验部门检定合格后，由自然资源主管部门及时发布，实现海岸线的精细化管<br>理。同时，基于定期更新的数据，建立自然岸线现势数据库，全面分析自然岸线稳定性，客<br>观评价自然岸线质量，科学选划潜在的生态修复岸线，为各级海岸线保护与利用以及自然岸<br>线保有率管控提供翔实数据。</p>
+<h2 id="建立自然岸线占补平衡机制"><a href="#建立自然岸线占补平衡机制" class="headerlink" title="建立自然岸线占补平衡机制"></a>建立自然岸线占补平衡机制</h2><p>以山东省为例，本次修测发现沿海各市在海岸线开发程度和质量等方面差距较大，导致<br>现存的自然岸线保有量在东西地区之间以及黄渤海之间差距明显，自然岸线保护仍面临多方<br>面压力。例如，某一地区自然岸线保有率较低，但并不意味着岸线开发质量高；某一区域海<br>岸线开发利用程度和质量均较好，自然岸线保有率却不低。自然岸线保有率目标是海岸线保<br>护的底线，是海岸线开发利用不可逾越的红线，为加快推进区域协调发展战略，建议尽快研<br>究建立适用于本省实际情况的自然岸线占补平衡机制，加快制定占补平衡标准。占多少、补<br>多少，甚至加倍补；补的不仅是数量，更应注重质量；实行资金补偿、修复补偿、异地补偿<br>等多种模式，共同确保自然岸线保有率不降低，海岸线总体质量不降低。</p>
+<p>需进一步说明的是，广东省自然资源厅于2019 年4 月就《广东省海岸线使用占补制度实施意见（试行）》面向社会公开征求意见，明确了岸线整治修复的原则、措施，规定了岸<br>线占补流程、岸线整治修复工程竣工验收等，其中就包括 “按照占用自然岸线1:1.5 的比例、<br>占用人工岸线1:0.8 的比例整治修复岸线”。这标志着广东省在推行海岸线占补机制方面走在<br>了前列，同时也为其他省份制定海岸线占补平衡机制提供了重要参考。</p>
+<h2 id="加快出台海岸线保护规划"><a href="#加快出台海岸线保护规划" class="headerlink" title="加快出台海岸线保护规划"></a>加快出台海岸线保护规划</h2><p>目前，沿海各省（区、市）海岸线修测成果已处于提交审查阶段，计划在2020 年底公<br>布。在《海岸线保护与利用管理办法》、《国务院关于加强滨海湿地保护 严格管控围填海的<br>通知》等相关政策文件要求下，不仅应修测出一条符合技术规范要求、利于陆海统筹管理的<br>海岸线，更将严格保护海岸线这一理念根植到各级主管部门的管理理念中，切实提高海岸线<br>管理水平。建议加快新一轮海岸线修测成果转化与应用，推动海岸线保护规划编制工作，坚<br>持陆海统筹，按照“一线（即海岸线）管控、两域（即海域与陆域）对接”的总体思路，划<br>定严格保护、限制开发、优化利用岸线类别，构建科学合理的自然岸线保护格局；坚持区域<br>化、一体化整治修复思路，开展海岸线形态和生态功能修复，提高海岸线总体生境质量，不<br>断推进我国海岸线综合治理体系和治理能力建设。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>海岸线作为海陆分界线，兼具地理和行政双重属性。随着人为活动和自然因素的影响，<br>近十余年海岸线发生了较大程度的变化，开展新一轮海岸线修测势在必行。<br>新一轮海岸线修测严格按照技术规程开展，<code>外业和内业工作已全面完成</code>，修测成果正处<br>于提交审查阶段。在工作开展过程中，地方标准与全国规程的有机结合、复杂区域的海岸线<br>类型划分等问题对修测成果具有重要影响，需综合考虑分析；同时，随着下一步修测成果的<br>公布，与之相关的海岸线定期调查更新与自然岸线评估机制、自然岸线占补平衡机制等相关<br>机制体系研究应尽快提上日程。</p>
+<h3 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h3><blockquote>
+<p>修淳,王国钢,杜明,霍素霞,刘莹,陈可可,马芳.新一轮海岸线修测工作中的几点思考[J/OL].海洋开发与管理:1-5[2021-03-24].<a href="http://kns.cnki.net/kcms/detail/11.3525.P.20210120.1025.006.html" target="_blank" rel="noopener">http://kns.cnki.net/kcms/detail/11.3525.P.20210120.1025.006.html</a>.</p>
+</blockquote>
+<p>《海洋遥感数据共享》高度重视版权，对于来自期刊媒介的稿件，会在文章开头显著标明出处，以表达对作者和平台版权的充分尊重和感谢。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/23/onepapar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/23/onepapar/" class="post-title-link" itemprop="url">我国海洋卫星数据应用发展现状与思考</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-23 22:49:19" itemprop="dateCreated datePublished" datetime="2021-03-23T22:49:19+08:00">2021-03-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2021/03/23/onepapar/" class="post-meta-item leancloud_visitors" data-flag-title="我国海洋卫星数据应用发展现状与思考" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/23/onepapar/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/23/onepapar/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="我国海洋卫星数据应用发展现状与思考"><a href="#我国海洋卫星数据应用发展现状与思考" class="headerlink" title="我国海洋卫星数据应用发展现状与思考"></a>我国海洋卫星数据应用发展现状与思考</h1><h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p>文质彬1，吴园涛1，李琛1，殷建平2</p>
+<ol>
+<li>中国科学院重大科技任务局，北京100864；</li>
+<li>中国科学院南海海洋研究所，广东广州 510301</li>
+</ol>
+<p>作者简介：文质彬（1984年—），女，四川省成都市人，硕士，研究方向：主要从事光电空天领域重大任务管理工作。email: <a href="mailto:zbwen@cashq.ac.cn">zbwen@cashq.ac.cn</a>。<br>通信作者：殷建平 email：<a href="mailto:yjp@scsio.ac.cn">yjp@scsio.ac.cn</a></p>
+<blockquote>
+<p>海洋科学是一门依赖于观测的学科，卫星是海洋研究的重要观测平台之一，海洋卫星数据在海洋科学研究中具有重要的意义。本世纪初以来，我国陆续发射了多颗专门用于海洋观测的卫星，初步拥有了了自主海洋卫星全球观测网络。本文针对国内外海洋卫星资源基本情况，研究分析了我国海洋卫星数据应用发展现状，特别是在海洋卫星数据接收、处理、管理、应用等方面的情况，提出了我国海洋科学研究对卫星数据的科研需求，探讨了我国海洋卫星数据科学应用存在的问题和发展策略。</p>
+</blockquote>
+<p>为服务海洋经济与海洋科技的发展，国内外众多机构不断增加发射海洋卫星，卫星数据资源不断丰富，数据精度及应用的深度和广度也不断增强并日臻完善。利用海洋卫星可开展海洋水色、海洋动力、海冰、台风、海洋渔业等业务化应用，在海洋环境保护、海洋预报（刘娜等，2018）、海洋监测与减灾防灾（蒋兴伟等，2019；林明森等，2018）、海洋资源开发（官文江等，2017）、海上公共安全与重大工程建设、海洋科学研究和区域海洋应用等各方面都发挥了重要的作用。伴随大数据时代的来临，海洋卫星数据的应用前景广阔。本文总结了国内外海洋卫星的基本情况和我国海洋卫星数据应用发展的现状，在此基础上提出我国海洋卫星数据应用发展中存在的主要问题，并提出未来的发展策略。</p>
+<h2 id="国内外海洋卫星资源基本情况"><a href="#国内外海洋卫星资源基本情况" class="headerlink" title="国内外海洋卫星资源基本情况"></a>国内外海洋卫星资源基本情况</h2><p>全球航天大国均具有较为完备的海洋空间观测系统。作为世界航天最强国，美国从20世纪70年代就发射了专门的海洋卫星，首颗专门用于海洋观测的卫星SEASAT于1978年成功发射，40年来发展了海洋环境、海洋水色、海洋动力等不同类型的专用海洋卫星，实现了从空间快速获取海洋信息的强大能力，并形成了多种业务应用。我国海洋卫星发展起步较晚，本世纪初才发射第一颗海洋卫星HY-1A（蒋兴伟等，2008）。我国海洋卫星发展迅速，已经逐步构建起我国自主海洋卫星的全球观测网。目前海洋卫星系列已经成为我国卫星对地观测系统的主要组成部分，也是《国家民用空间基础设施中长期发展规划（2015-2025）》中遥感卫星的重要组成部分。“十三五”到“十四五”期间，我国将要发射10颗以上海洋系列卫星或以海洋为主要应用方向的卫星；到2025年，我国将建立完备的海洋卫星体系。</p>
+<h3 id="海洋卫星主要类别"><a href="#海洋卫星主要类别" class="headerlink" title="海洋卫星主要类别"></a>海洋卫星主要类别</h3><p>国际上的海洋卫星大体分为三类：<code>海洋水色卫星</code>（如SeaWiFS）、<code>海洋动力环境卫星</code>（欧洲中心的Jason系列卫星）、<code>海洋综合探测卫星</code>（如Sentinel-3卫星）。<br><code>海洋水色卫星</code>是对海洋水色要素（如叶绿素、悬浮沙和可溶性的有色有机物质等）和水温及其动态变化的探测（Hooker等，1993; Gregg 等1998）。有效载荷通常选用灵敏度高、信噪比高、光谱分辨率高、波段多、带宽窄的海洋水色扫描仪（张可立等，2018）。通常空间分辨率在300-1000米，地面覆盖周期2-3天。发展海洋水色卫星的目的在于掌握海洋初级生产力分布、海洋渔业及养殖业资源状况和环境质量，了解河口港湾的悬浮泥沙分布规律，监测近海溢油（孙乐成等，2019）、赤潮富营养化、循环水排海热污染、海冰冰情（张树德等，2019）、浅海地形等。<br><code>海洋动力环境卫星</code>是对海洋风场、海面高度、浪场、流场以及温度场等动力环境要素探测的卫星（林明森等，2018），有效载荷通常是微波散射计、微波辐射计、雷达高度计等，并具有多种模式和多种分辨率。发展海洋动力环境系列卫星的主要目的在于利用微波散射计监控全球海洋表面风场，得到全球海洋上的风矢量场和表面风应力数据，利用雷达高度计提供全球海洋地形数据，得到全球高分辨率的大洋环流、海洋大地水准面、重力场和极地冰盖的变异等（Chelton, 1985）。海洋动力环境卫星获取的实时高精度海面动力和海底拓扑资料，具有重要的战略价值。<br><code>海洋综合探测卫星</code>是对全球与近海（包括海岸带）海洋动力环境和生态环境各种信息的综合遥感监测，同时具备多种载荷。有效载荷包括可见光、红外，主动、被动遥感器，如多光谱成像仪、合成孔径雷达、微波散射计、辐射计、高度计等（Donlon等，2012）。发展海洋环境综合卫星的主要目的在于提供全天时、全天候海况实时资料，用于改进海况数值预报模式，提高中长期海况预报准确率。同时提供海上目标、海岸带调查、海洋污染的实时同步海洋要素，为海洋环境监测、维护海洋权益和海岸带资源调查、综合利用与管理服务。</p>
+<h3 id="国外海洋卫星发展现状"><a href="#国外海洋卫星发展现状" class="headerlink" title="国外海洋卫星发展现状"></a>国外海洋卫星发展现状</h3><p>目前国外主要海洋卫星包括美国SeaWiFS、MODIS、VIIRS，欧洲空间局的MERIS（陈双等，2014）、Sentinel-3卫星，韩国静止轨道卫星GOCI（李冠男等，2014），用于海洋水色的测量。例如：用于测量全球海表温度AVHRR系列卫星；用于构建海面高度数据的TOPEX/POSEIDON（陈双等，2014），Jason-1/2/3和ERS/Envisat 等多颗高度计卫星；用于提取海面高度的GRACE和CHAMP重力卫星，用于海面风速测量的快速散射计QUICKSCAT卫星，用于海面风速、降雨和海温反演的卫星AMSR-E、AMSR-2、WindSat、TRMM等，用于海面盐度（电导率）反演的美国Aquarius和欧空局的SMOS卫星，用于海冰参数测量ICESat，CryoSat-2，SSM/I、SSMIS等（蒋兴伟等，2018）。<br>同时，很多陆地卫星也用于海洋的研究中，包括传统的陆地卫星Landsat系列（段广拓等，2018），高分辨率光学卫星SPOT、Quickbird，Pleiades以及Worldview系列卫星，用于海面目标、近海岸带生态系统、海岛以及海岸线变迁研究；一些高分辨率雷达卫星，如加拿大Radarsat系列卫星，德国TerraSAR-X / TanDEM-X卫星，ENVISAT-ASAR，Sentinel-1等卫星，可用于海面粗糙度、海浪谱估算等的海洋动力过程研究。<br>国外海洋卫星发展形成了多种海洋业务化的卫星数据产品。包括：以海面风场、海浪、海表层流、海面温度、水汽含量等为代表的海洋动力环境及多源遥感融合数据产品；以叶绿素、有色溶解有机质、悬浮物、初级生产力、光合有效辐射等为代表的海洋光学参数、海洋生态环境参数及其衍生的（如海洋渔业）等遥感产品；以<code>海底地形</code>、<code>重力场</code>等为代表的海洋地球物理产品。</p>
+<h3 id="我国海洋卫星发展现状"><a href="#我国海洋卫星发展现状" class="headerlink" title="我国海洋卫星发展现状"></a>我国海洋卫星发展现状</h3><p>我国海洋卫星包括<code>海洋水色卫星星座</code>、<code>海洋动力卫星星座</code>和<code>海洋监视监测卫星</code>3个系列。<br><code>海洋水色卫星</code>是以可见光和红外成像观测为手段的海洋遥感卫星。我国海洋水色卫星星座的发展包括3个阶段。第一阶段：海洋1A和海洋1B卫星。其中，海洋1A卫星作为试验型业务卫星，有效载荷包括1台十谱段海洋水色水温扫描仪（COCTS）和1台四谱段海岸带成像仪（CZI），对中国邻近海域的重访周期为3天。海洋1A卫星在轨运行685天，成像约1900轨，在海洋环境保护和海洋科学研究等领域发挥了重要作用。海洋1B卫星是海洋水色系列卫星的第二颗实验星，同样装载了1台十谱段海洋水色水温扫描仪（COCTS）和1台四谱段海岸带成像仪（CZI），可实现对中国邻近海域的每天重复观测。海洋1B卫星在轨运行8年10个月，共成像19233轨，获得原始数据8.84TB。第二阶段：海洋1C和海洋1D卫星。其中，海洋1C卫星于2018年9月成功发射，是中国海洋系列卫星的首颗业务卫星。海洋1C卫星上的COCOTS信噪比大幅提升，可以分辨出更加细微的水色变化；CZI的空间分辨率提高到50米，卫星技术状态达到了国际先进水平，能够提供每天全球海洋空间全覆盖海洋水色卫星资料；海洋1D卫星于2020年6月成功发射，将与海洋1C卫星组网运行，开展大幅度、高精度、高时效观测，具备全球1天2次的水色水温探测覆盖能力，使海洋观测更加全天候。第三阶段：为实现国产水色卫星技术性能和应用能力达到国际先进水平的新一代水色卫星，包括正在规划的静止轨道卫星及预计于2022年发射的新一代HY1E卫星，后者将实现全球海洋水色的高空间分辨率，高光谱分辨率观测，相应载荷已经在“天宫二号”进行了实验（林明森等，2019）。</p>
+<p><img src="/images/paper-1.png" alt></p>
+<p><code>海洋动力环境卫星</code>包括<code>海洋2号系列卫星</code>、<code>中法海洋卫星</code>与<code>海风海浪卫星</code>和<code>海洋盐度卫星</code>。海洋2号系列卫星：海洋2号系列卫星以海面风场、高度、温度等动力环境要素为探测对象。2025年前的发展包括3个阶段：第一阶段：海洋2A卫星；第二阶段：海洋2B/C/D卫星；第三阶段：<code>新一代海洋动力环境卫星</code>。中法海洋卫星与海风海浪卫星：中法海洋卫星（CFOSAT，China-France Oceanographic Satellite）于2009年立项，2018年10月29日在酒泉卫星发射中心成功发射（王丽丽等，2018）。航天科技集团东方红卫星有限公司负责卫星平台研制，有效载荷包括法国CNES研制的海洋波谱仪（SWIM）和中国科学院国家空间科学中心研制的微波散射计（SCAT），较HY-2B/C/D星具有更高的空间分辨率和风向精度(Lin等，2011，2019；Xu等2019；Liu等，2020)。海风海浪卫星是中法海洋卫星的后续星。国家卫星海洋应用中心于2017年底启动了该星立项论证工作。<code>海洋盐度卫星</code>：海洋盐度卫星列入国家空间基础设施“十二五”科研星计划，于2015年开展先期攻关，目前已经批准立项。该星载荷包括二维综合孔径海洋盐度计和多频主被动微波成像仪，分别由航天科技集团西安分院和中国科学院国家空间科学中心牵头论证。<br>海洋监视监测卫星将包括低轨SAR卫星、高轨SAR卫星和高轨海洋卫星，通过高分辨率成像观测实现对海洋的综合监测监视。低轨SAR卫星（高分3号卫星）于2016年（杨劲松等，2017）发射。高轨SAR卫星列入国家民用空间基础设施“十二五”科研星计划，于2015年启动先期攻关。高轨海洋卫星列入国家民用空间基础设施“十四五”科研星计划，是国内首次在静止轨道上开展海洋水色观测，并以紫外成像为手段开展溢油观测，可以得到高时间分辨率的海洋环境光学观测数据，对海洋、环境等学科和应用有重要意义。<br>目前国内发射的光学卫星，如高分（程益锋等，2018）系列卫星（GF-1，GF-2，GF-4）、资源系列卫星（ZY-3）、环境系列卫星（HJ-1A/B）也用于海岸带海岛的研究中。</p>
+<h2 id="我国海洋卫星数据应用发展现状"><a href="#我国海洋卫星数据应用发展现状" class="headerlink" title="我国海洋卫星数据应用发展现状"></a>我国海洋卫星数据应用发展现状</h2><h3 id="海洋卫星数据接收、处理与管理"><a href="#海洋卫星数据接收、处理与管理" class="headerlink" title="海洋卫星数据接收、处理与管理"></a>海洋卫星数据接收、处理与管理</h3><p>我国<code>海洋水色</code>、<code>海洋动力环境卫星</code>数据由<code>国家卫星海洋中心</code>负责接收和处理；<code>海洋监视监测SAR卫星</code>数据由<code>中国资源卫星中心</code>、<code>中科院相关研究所</code>负责。海洋卫星数据处理主要由<code>国家卫星海洋应用中心</code>负责，中科院主要是作为有效载荷研制负责单位参与部分数据产品处理算法研究和软件研制工作。海洋卫星<code>数据产品</code>的开发由国家卫星海洋应用中心负责，并负责数据分发。目前国内海洋卫星已经初步形成了多样的海洋卫星数据产品，并由<code>国家卫星海洋应用中心</code>统一分发（<a href="https://osdds.nsoas.org.cn/）。" target="_blank" rel="noopener">https://osdds.nsoas.org.cn/）。</a> 初步形成了稳定、可靠的海洋卫星数据服务体系，<code>但海洋卫星数据的数据质量、数据分发系统能力尚需要改进和提高</code>。</p>
+<h3 id="海洋卫星数据应用"><a href="#海洋卫星数据应用" class="headerlink" title="海洋卫星数据应用"></a>海洋卫星数据应用</h3><p>通过对近年来报告的分析，我国海洋卫星数据应用与海洋卫星的能力相比有很大的提升空间。国外对于我国海洋卫星给予很大关注，特别是<code>HY-2A/2B</code>卫星得到国外的重视，法国、欧洲气象卫星组织（EUMETSAT）都通过双边合作获得HY-2A/2B（雷达高度计、微波散射计）数据，并开展了应用试验，<code>取得了较好的效果</code>，也验证了卫星载荷的性能（张有广等，2018）。但这些应用主要是获取部分低级产品数据进行处理生成高级试验产品进行试验。例如对海洋1C的CZI载荷在浑浊二类水体和清洁水体的不同带外响应（Out-Of-Band Response）特性进行评估（Cui et al., 2018）；利用海洋光学浮标(Marine Optical Buoy, MOBY)和MODIS/Terra观测的气溶胶信息对海洋1C的COCTS载荷进行辐射定标（Song et al., 2019）；对于利用海洋卫星数据开展的科学研究，对数据的要求更强调定量化、易获取和质量保证，并具有一定时长的数据积累，我国海洋卫星数据在这几个方面相对国外数据还有一定的差距，所以在科学研究方面国产卫星数据的应用受到一定限制。<br><code>国产海洋卫星数据整体应用不多</code>，其主要原因在于以下几个方面：<br>（1）国产海洋卫星数据时间较短。国产卫星起步较晚，早前卫星数据的精度不够，很难形成业务化应用产品，近年来卫星数据质量明显提高，但时间长度不够，对于需要较长时间序列分析的研究和应用，国产卫星数据时间长度不够。<br>（2）国产海洋卫星数据产品需要进一步丰富。目前共享的国产卫星数据产品最高级别为2级产品。并没有可以直接用于业务化分析的三级和四级产品，对于没有任何卫星遥感知识的科研工作者和业务化应用这存在一定的困难。<br>（3）国产海洋卫星的推广不够。目前国产海洋卫星的分发机构较少，数据主要由国家卫星海洋应用中心分发，尚未在国内其它数据共享系统中进行共享分发。<br>（4）国内海洋卫星全球近实时的观测处理和数据发布（时效性）能力尚未形成，是制约数据应用的重要因素之一。</p>
+<h3 id="海洋科学研究对卫星数据的需求"><a href="#海洋科学研究对卫星数据的需求" class="headerlink" title="海洋科学研究对卫星数据的需求"></a>海洋科学研究对卫星数据的需求</h3><p>经初步调研，我国海洋科学家使用海洋卫星数据的学科领域主要集中在<code>物理海洋学</code>、<code>海洋遥感</code>、<code>地球物理学</code>、<code>应用海洋学</code>、<code>地图学与地理信息系统</code>等，海洋卫星数据多用于海洋数值模拟、海洋环流与涡旋、海洋内波（孙丽娜等，2018）、海洋防灾减灾（贾永君等，2018）、气候与环境变化（丁庆霞等，2016）、北极海冰（马雪沂等，2019）等科学研究。<code>目前卫星资料使用主要以国外资料偏多</code>。</p>
+<p>海温数据主要来源于AVHRR、MODIS、TRMM、AMSR等卫星；多用于海气数值预报与数值同化、海洋三维温盐场实时重构、群发性海洋灾害致灾机理、黑潮入侵、海洋内波、多尺度海气相互作用及气候变化、生态过程与物理过程相互作用、北极海冰等研究。数据产品的空间精度一般在1/12°到1/4°。风场数据主要来源于QuikSCAT、ASCAT；多用于多尺度海气相互作用及气候变化、海洋环流与涡旋、台风对海洋（生态）环境影响、海洋灾害致灾机理等研究，空间分辨率通常在25km左右。<code>海面高度数据主要来源于AVISO高度计合成产品及融合资料</code>，GRACE和CHAMP重力资料，空间分辨率在1/4°左右；多用于数值预报与资料同化、多尺度海气相互作用与气候变暖、海洋环流与涡旋、海洋环境场实时重构、大地水准面和重力异常、地球表面流体质量多时空尺度变化及全球水质量分布研究。海面盐度数据主要来源于SMOS，Aquarius，空间分辨率在1°左右。多用于数值预报与资料同化、多尺度海气相互作用与气候变暖、海洋环流与涡旋、海洋热通量估算、海洋热盐环流等研究。叶绿素数据主要来源于MODIS、VIIRS、MERIS、SeaWiFS及Sentinel-3等，分辨率在300m-1000m之间。多用于海洋监测与防灾减灾、海洋初级生产力等研究。海面降雨数据主要来源于TRMM、AMSR-E、AMSR-2等。多用与海洋降水、海气通量、海洋气候等研究。</p>
+<p><code>海洋科学部分研究尚需要更高精度卫星数据</code>，如高分辨率海洋水色卫星，分辨率不低于30米，波段配置信噪比等不差于SeaWiFS，用于近岸河口水质监测；高分辨率海面高度数据（空间分辨率到公里级别）或海洋流场数据，用于研究海洋小尺度过程，如规划中的SWOT卫星（徐永生等，2017）；高空间分辨率卫星，包括米级和亚米级的光学、微波卫星，用于海岸带、海岛变迁等监测研究，如高分2号卫星；高分辨率海洋盐度卫星（张庆君等，2017），比SMOS，Aquarius卫星的分辨率高，且受干扰少；覆盖西太平洋海域（特别是130°E以东）的实时或准实时通信卫星。其他如对静止轨道卫星的需求，用于中国近岸水体水质监测。同时，在辨识海洋涡旋研究中，亟需SAR卫星图像。</p>
+<h2 id="我国海洋卫星数据应用发展存在的主要问题"><a href="#我国海洋卫星数据应用发展存在的主要问题" class="headerlink" title="我国海洋卫星数据应用发展存在的主要问题"></a>我国海洋卫星数据应用发展存在的主要问题</h2><p>通过国家民用空间基础设施建设，我国正逐步建立较为完备的海洋卫星观测系统。目前海洋卫星数据的下载和使用已经没有问题。但由于我国海洋卫星发展较晚，时间长度不够，<code>再加上科学研究长期以来一直使用国外数据</code>，改变这种沿用国外卫星数据的习惯还需要一定时间，国产海洋卫星数据推广应用还需要进一步提升。</p>
+<h3 id="海洋卫星发展起步较晚"><a href="#海洋卫星发展起步较晚" class="headerlink" title="海洋卫星发展起步较晚"></a>海洋卫星发展起步较晚</h3><p>我国海洋卫星起步较晚，早前的卫星与有效载荷性能和国际先进水平有一定差距。HY-1A卫星在轨时间短，HY-1B卫星有效载荷存在太阳照射污染观测数据存在问题，实际上不具备提供有效数据支持的能力。2018年成功发射的HY-1C（林明森等，2019）光学卫星和2019年发射的HY-1D卫星已经达到国外同类卫星产品水平，但目前卫星在轨工作时间只有两年多，数据的时间长度较短，同时由于科研和业务工作者长期使用国外数据形成一定的惯性，国产海洋卫星数据的推广使用还需要一定的时间。</p>
+<h3 id="海洋卫星数据及其处理过程的开放度尚需加强"><a href="#海洋卫星数据及其处理过程的开放度尚需加强" class="headerlink" title="海洋卫星数据及其处理过程的开放度尚需加强"></a>海洋卫星数据及其处理过程的开放度尚需加强</h3><p>目前海洋卫星数据的分发已经有了明显的提升，国家卫星海洋应用中心已经通过中国海洋卫星数据服务系统将卫星数据进行了<strong><code>全面的共享</code></strong>（osdds.nsoas.org.cn）。但数据质量尤其是二级以上产品质量的改善需要广大用户的测试和反馈。数据用户，特别是具有研究能力的研究团队需要对数据处理过程有完整的掌握，发现问题并提出改善数据质量的办法，从而参与数据的开发和利用，如NASA的水色数据产品，其数据参数和处理过程都集中在共享软件SeaDAS中，用户较容易掌握，而目前海洋卫星有共享相关的数据使用手册，但在数据处理及使用说明等方面还有待加强。另一方面，在部分研究领域，缺少相关数据支持，如在海冰研究领域，国内缺乏专门的数据或相关已处理并公开的成；SAR卫星数据经常处于购买状态，如发生重大事故，无法获取第一手卫星资料，同时缺少遥感影像使用；缺乏准实时业务化的多源卫星融合产品。</p>
+<h3 id="海洋卫星数据处理方面投入明显不足"><a href="#海洋卫星数据处理方面投入明显不足" class="headerlink" title="海洋卫星数据处理方面投入明显不足"></a>海洋卫星数据处理方面投入明显不足</h3><p><strong>重工程实现、轻数据处理与应用</strong>是我国遥感卫星规划和实施中普遍存在的现象，在我国海洋卫星计划在实施中对于数据处理、反演模型优化、试验验证、地面和在轨标定等工作投入明显不足，处理技术研究组织的明显不足，导致数据定量化与稳定性不足，数据质量还有待提高。相关部门目前对于数据应用能力的提升关注不够，缺乏长时间序列、高质量、易于使用的卫星数据产品，被使用频率较低。</p>
+<h2 id="我国海洋卫星数据应用发展建议"><a href="#我国海洋卫星数据应用发展建议" class="headerlink" title="我国海洋卫星数据应用发展建议"></a>我国海洋卫星数据应用发展建议</h2><p>海洋卫星数据在海洋科学研究中具有重要的意义，获得长期稳定可靠的卫星数据产品是海洋科学研究对卫星数据产品的需求。充分利用好国际和国内海洋卫星资源，将对提升我国海洋科学研究水平发挥积极的作用。</p>
+<h3 id="针对不同的应用目标，制定海洋卫星的长期发展规划"><a href="#针对不同的应用目标，制定海洋卫星的长期发展规划" class="headerlink" title="针对不同的应用目标，制定海洋卫星的长期发展规划"></a>针对不同的应用目标，制定海洋卫星的长期发展规划</h3><p>进一步加强我国海洋卫星数据资源的利用研究，加强科学卫星与业务卫星方面的协调和配合机制，加强海洋科学家和卫星研制、数据应用方面的交流。针对全球海洋水色的观测、全球海面高度、中国近海海岸带生态环境监测、关键海区目标的探测、海岛调查等重要科学问题，制定我国海洋卫星的长期发展规划，以便于获得长期稳定可靠卫星数据产品。</p>
+<h3 id="加强海洋卫星定标和数据处理队伍建设"><a href="#加强海洋卫星定标和数据处理队伍建设" class="headerlink" title="加强海洋卫星定标和数据处理队伍建设"></a>加强海洋卫星定标和数据处理队伍建设</h3><p>海洋卫星的<strong>数据定标和处理</strong>是后续卫星数据应用的保障。加强海洋卫星数据的处理是目前苛待解决的重要问题。呼吁增加海洋卫星数据的后续处理力量，应针对不同应用的系列卫星，成立稳定的海洋卫星数据处理、分发及技术支持队伍，这将为海洋卫星数据质量的改进提供支撑和保障，是产出稳定高质量的海洋卫星数据产品的基础。</p>
+<h3 id="制定良好的卫星数据共享机制"><a href="#制定良好的卫星数据共享机制" class="headerlink" title="制定良好的卫星数据共享机制"></a>制定良好的卫星数据共享机制</h3><p>卫星数据是国家的宝贵财富，制定良好的<code>共享机制</code>，是推广使用国产卫星数据的必要条件。<code>建议不仅仅将卫星数据本身，同时应该将数据处理方法/算法写入数据手册并全面开放共享，以便数据的推广和深入应用</code>。同时建议将海洋卫星数据产品在国家海洋科学数据中心、国家地球系统科学数据中心、国家对地观测科学数据中心等多个科学数据平台进行全面的推广使用。</p>
+<h2 id="参考文献-（略）"><a href="#参考文献-（略）" class="headerlink" title="参考文献 （略）"></a>参考文献 （略）</h2><h2 id="文章来源"><a href="#文章来源" class="headerlink" title="文章来源"></a>文章来源</h2><p>文质彬,吴园涛,李琛,殷建平. 我国海洋卫星数据应用发展现状与思考[J]. 热带海洋学报, 2021: 0–0. DOI:10.11978/2020122.</p>
+<p><a href="http://journal15.magtechjournal.com/Jwk3_rdhyxb/CN/10.11978/2020122" target="_blank" rel="noopener">http://journal15.magtechjournal.com/Jwk3_rdhyxb/CN/10.11978/2020122</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/20/haiyangtongbao/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/20/haiyangtongbao/" class="post-title-link" itemprop="url">《海洋通报》知识谱图</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-20 22:40:59" itemprop="dateCreated datePublished" datetime="2021-03-20T22:40:59+08:00">2021-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2021/03/20/haiyangtongbao/" class="post-meta-item leancloud_visitors" data-flag-title="《海洋通报》知识谱图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/20/haiyangtongbao/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/20/haiyangtongbao/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以中国知网1972～2020年间的北大核心期刊《海洋通报》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋通报》所发表论文的研究内容及其演变。</p>
+<h2 id="文献计量学"><a href="#文献计量学" class="headerlink" title="文献计量学"></a>文献计量学</h2><blockquote>
+<p>文献计量学是利用数学和统计学方法定量分析科技文献外部表征，进而揭示学术研究活动特征，已广泛地应用于多学科领域的发展现状和规律探索。文献计量学可以用于期刊评价，例如核心期刊的遴选，也可以从宏观角度揭示某一种学科的发展规律，并在微观角度揭示学科的知识流动。</p>
+</blockquote>
+<p>本文将使用文献计量方式分析《海洋通报》历年发文情况，制作关键词、作者、机构等知识共现谱图，通过共现聚类使主要研究内容、人员、机构的分布和关联清晰展现。因为受知识水平限制，本文不做过多的微观解释分析，主要以知识图谱展示，从宏观角度展现《海洋通报》。</p>
+<h2 id="海洋通报"><a href="#海洋通报" class="headerlink" title="海洋通报"></a>海洋通报</h2><blockquote>
+<p>《海洋通报》前身为《海洋科技资料》，1982年改现用名《海洋通报》，中国工程院院士方国洪担任主编，由自然资源部主管，国家海洋信息中心和中国海洋学会主办，自然资源部北海局、东海局和南海局协办，是国内海洋领域具有较大影响的综合学术刊物之一。双月刊 (CN 12-1076/P，ISSN 1001-6392)，大16开本，120页，逢双月 15 日出版，国内外公开发行。主旨为：坚持科学技术面向经济建设的方针，反映现代海洋科技发展的方向与水平，推广科技成果，传播科技信息，团结广大海洋科技工作者，积极开展学术交流，为繁荣我国的海洋事业服务。设有论文与综述等栏目。主要报道内容包括海洋水文、气象、物理、化学、生物、地质等基础理论研究和应用研究，以及海洋通报、资源开发、水产养殖、环境保护、环境预报、仪器设备等方面调查、研究和管理的新发展、新理论、新观点、新方法、新经验。它集学术性与技术性于一体，适合于广大海洋科技工作者、管理人员和有关大专院校的师生阅读。</p>
+</blockquote>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>由于《海洋通报》曾用名《海洋科技资料》，因此中国知网检索：</p>
+<blockquote>
+<p>检索条件： ( 拼音刊名= CJFD_HUTB or 出版物代码= CJFD_HUTB )；检索范围：总库。 </p>
+</blockquote>
+<p>此处，一般应剔除卷首语、编辑部声明等文献，进而得到纯粹的科学研究文献。</p>
+<h2 id="刊文数量"><a href="#刊文数量" class="headerlink" title="刊文数量"></a>刊文数量</h2><p><img src="/images/hytb/num.png" alt></p>
+<p>1972-2020年共发表4110篇文章，年发文一般不超过120篇，发文量在同类期刊属于中游水平。</p>
+<h2 id="机构"><a href="#机构" class="headerlink" title="机构"></a>机构</h2><p><img src="/images/hytb/jg.png" alt></p>
+<p>本图展现的机构节点数共计1081个（按照一定的节点强度阈值展现，表示研究单位数，并非全部），共现连接线477（表示合作关系），各单位之间合作关系相对上一篇《海洋科学进展》所得结论（比例接近1:1）偏弱。<br>发文最多的单位为<code>国家海洋信息中心</code>，表现在图谱上的特点就是节点中心性强，节点圈大（最大的圈），其文献的节点数超过167。其次为<code>海洋一所</code>，其文献的节点数为114，第一和第二之间的发文数量差距不太大。</p>
+<p>图中的节点（圆圈）的颜色表示时间，灰色表示年代久远的文献，彩虹色表示为近几年的文献。比如<code>海洋三所</code>多为为灰色，表示其文献的历史较早，目前活跃度不高。</p>
+<!-- 
+![](/images/hytb/jigou.png)
+<center>研究机构、关键词共现的聚类图谱</center>
+
+这张图展示的是研究机构和关键词的共现聚类，通俗理解为研究机构的研究兴趣。
+ -->
+
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="/images/hytb/key.png" alt></p>
+<center>关键词共现聚类</center>
+
+<p>这张图表明《海洋通报》文章的主要关注点是<code>浮游植物</code>、<code>沉积物分布</code>、<code>数值模拟</code>、<code>政府间海洋学委员会</code>、<code>大气环流</code>、<code>加里曼丹</code>、<code>黄河口</code>、<code>水下实验室</code>、<code>沿海国</code>等，和其他学术期刊不同的是，《海洋通报》形成了<code>沿海国</code>、<code>加里曼丹</code>、<code>政府间**</code>等国际热点聚类文献簇，以及<code>海洋经济</code>文献簇，可见，《海洋通报》发文除了形成海洋科学、海洋调查等文献聚类簇，也形成了一些软课题文献聚类簇。这也是和其他学术期刊的显著区别之一。</p>
+<p><img src="/images/hytb/key3.png" alt></p>
+<center>关键词聚类时间图谱</center>
+
+<p>这张时间图谱中不同聚类由平行轴线代表，不同关键词频次由节点大小代表，关键词首次出现年份由位置代，水平线的虚实表示其持续性，<code>#</code>前面的数字表示聚类的强度，<code>0</code>表示最强的聚类簇。从中可以基本判断，<code>浮游植物</code>持久性最强，说明热度持续，节点连线最为丰富，表明知识流动性好。</p>
+<h2 id="研究热点突现"><a href="#研究热点突现" class="headerlink" title="研究热点突现"></a>研究热点突现</h2><p><img src="/images/hytb/b.png" alt></p>
+<p>突现（Burst）是指特定时间段内通过关键词频次的变化将频次高的词探测出来，在一定程度上反映《海洋通报》的研究趋势。与上一幅时间轴的展示相差不多，但此处更加清晰的展现整体发文趋势，然而仅<code>余流</code>为近十年的一个突现词，可见《海洋通报》的热点突现并不明显。</p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="/images/hytb/author.png" alt><br>《海洋通报》发文作者合作脉络极为特别，聚类之后形成了奇特的长条形，说明作者合作关系扁平化，单独的研究群体内部合作良好，但研究群体之间缺乏深度合作，这和《海洋科学进展》、《海洋技术学报》等期刊的作者群落（发散合作，交叉性强）明显不同。此外，还有大批作者由于节点的强度不足，而游离在长条之外，其背后的原因尚待分析。</p>
+<p>图谱颜色的含义为，彩色表示时代较近，灰色表示时代较久。节点大小和位置表示作者的发文频次和中心性。连接线粗细表示不同作者之间的合作强度。</p>
+<blockquote>
+<p>网络中节点的<code>中心性</code>测量的是网络中节点的位置重要性。有两类节点可能具有较高的中介中心性：1）与其他节点高度相连的枢纽节点；2）位于不同聚类之间的节点。</p>
+</blockquote>
+<blockquote>
+<p>图谱中所展现的作者是按照一定的权重提取的，属于共现性强的作者。这里的节点数据并非全部作者，上面的关键词和机构也是如此。全部作者、机构和关键词的节点数据非常庞大，然而按照权重（具体为g-index）提取的节点更具代表性。</p>
+</blockquote>
+<h2 id="文献共引"><a href="#文献共引" class="headerlink" title="文献共引"></a>文献共引</h2><p>遗憾的是，CNKI导出的数据不含有引用信息，因此无法通过程序进行文献共引的计量分析，而文献的引用关系最能代表知识的流动脉络。这里，仅列举利用CNKI数据库检索到引用次数最多的前10个文献：</p>
+<blockquote>
+<p>[1]王晓坤,马家海,叶道才,陈孝德.浒苔(Enteromorpha prolifera)生活史的初步研究[J].海洋通报,2007(05):112-116.<br>[2]许妍,梁斌,鲍晨光,兰冬东,于春艳,马明辉.渤海生态红线划定的指标体系与技术方法研究[J].海洋通报,2013,32(04):361-367.<br>[3]王建伟,阎斌伦,林阿朋,胡静平,沈颂东.浒苔(Enteromorpha prolifera)生长及孢子释放的生态因子研究[J].海洋通报,2007(02):60-65.<br>[4]王金辉,黄秀清,刘阿成,张有份.长江口及邻近水域的生物多样性变化趋势分析[J].海洋通报,2004(01):32-39.<br>[5]彭云辉,孙丽华,陈浩如,王肇鼎.大亚湾海区营养盐的变化及富营养化研究[J].海洋通报,2002(03):44-49.<br>[6]李加林,杨晓平,童亿勤,张殿发,沈永明,张忍顺.互花米草入侵对潮滩生态系统服务功能的影响及其管理[J].海洋通报,2005(05):33-38.<br>[7]杨建强,崔文林,张洪亮,徐子钧.莱州湾西部海域海洋生态系统健康评价的结构功能指标法[J].海洋通报,2003(05):58-63.<br>[8]赵焕庭,王丽荣.中国海岸湿地的类型[J].海洋通报,2000(06):72-82.<br>[9]沈焕庭,朱建荣.论我国海岸带陆海相互作用研究[J].海洋通报,1999(06):11-17.<br>[10]周洪军,何广顺,王晓惠,李长如,杨娜.我国海洋产业结构分析及产业优化对策[J].海洋通报,2005(02):46-51.</p>
+</blockquote>
+<p>截止本文发布，《海洋通报》被引用最多的文献为王晓坤等发表于2007年的<code>浒苔(Enteromorpha prolifera)生活史的初步研究</code>，次数为172次，其次为许妍等人2013年发表的<code>渤海生态红线划定的指标体系与技术方法研究</code>，被引199次。</p>
+<p>此外CNKI可以统计文献下载次数，下载频次可反映文献受关注的程度，期刊最高下载量的两篇论文为2500左右，稍显偏低。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过对核心期刊《海洋通报》1972～2020年的文献计量分析，从期刊引文、关键词突现和研究热点时序聚类分析发现：《海洋通报》所刊论文的主要研究方向不仅涉及海洋科学技术，还涉及如<code>海洋经济</code>、<code>沿海国</code>等领域的研究；期刊最显著的特色是作者的合作脉络呈现扁平化，不发散。初步分析，原因极可能为海洋<code>信息数据</code>的不流通限制了作者合作的范围，这是目前海洋科学研究领域的极大弊端。</p>
+<h3 id="附：关于海洋数据共享"><a href="#附：关于海洋数据共享" class="headerlink" title="附：关于海洋数据共享"></a>附：关于海洋数据共享</h3><p>众所周知，国家海洋信息中心负责我国海洋调查观测数据的集中管理和数据共享，其<code>数据黑洞</code>的大名也由来已久，且至今难以改变。《海洋通报》为其主办的学术期刊，信息中心在该期刊的发文比例最大，造成其文献的影响强度也最高，而海洋信息数据的不共享或者有限共享导致作者的合作研究受到局限，最终表现在图谱上文献作者的扁平化合作关系，可以理解为利用近乎垄断的数据资源，在一批国家海洋信息中心的作者之间形成了扁平合作关系，其内部的交叉合作也非常薄弱。</p>
+<p>目前海洋科学数据的供给侧严重失衡，需求和供给明显的失衡，海洋科技工作者对海洋数据的<code>迫切需求</code>和海洋数据的<code>供给不足</code>形成当下海洋科学研究的卡脖子因素，严重制约了海洋领域的科学技术发展。<code>数据黑洞</code>还进一步造成了数据调查的重复性，浪费了大量国家资源。可以说数据的<code>难共享</code>百害无一利。</p>
+<p>实现数据共享的道路还很长，一些障碍还比较根深蒂固，比如<code>保密</code>这个大帽子，然而实际上无一部法律规定明确说海洋信息数据（如海洋站潮汐观测数据）是涉及国家安全不得共享。数据供给的改革还联系到部门利益，打破数据<code>垄断</code>，释放数据活力，需要壮士断腕般的魄力。然而一旦实现数据共享，其增值必将远大于目前有限范围内数据使用者所创造的价值。</p>
+<p>比如一位申请者在申请月均潮汐数据用于海平面研究时的申请受挫，对方的惯用理由即为<code>保密</code>：<br><img src="/images/hytb/tousu.png" alt></p>
+<p>下一步，全国海洋科技工作者团结起来，深入领会习近平总书记<code>海洋命运共同体</code>论述，实现海洋数据共享，建设海洋强国，为增进人类海洋福祉不懈努力。</p>
+<p>小编也将进一步搜集整理广大海洋科技工作者数据申请的被拒案例（若有诉求，可本公众号后台留言，小编将整理成集），进行广泛的数据共享满意度调查，适时地向主管部门进行情况反映，从需求侧倒闭供给问题难的解决方案。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -877,613 +1346,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/13/hykxjz/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/13/hykxjz/" class="post-title-link" itemprop="url">《海洋科学进展》知识图谱</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-13 09:24:26" itemprop="dateCreated datePublished" datetime="2021-03-13T09:24:26+08:00">2021-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2021/03/13/hykxjz/" class="post-meta-item leancloud_visitors" data-flag-title="《海洋科学进展》知识图谱" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/13/hykxjz/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/hykxjz/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以中国知网1983～2020年间的北大核心期刊《海洋科学进展》文献记录为研究对象，运用文献计量分析方法可视化分析《海洋科学进展》所发表论文的研究内容及其演变。研究表明，《海洋科学进展》期刊的研究内容覆盖物理海洋、海洋地质、生态环境、海洋生物、海洋调查等多个方面。研究论文具有典型的区域性，研究区域主要包含长江口、黄河口、滦河口、利河口、胶州湾、莱州湾、西太、北太、黄东海、渤海、冲绳海槽等，通过聚类形成了典型的海区研究论文簇。研究热点体现在研究区域的变化和研究内容的变化，在区域方面，由最初的“黄渤海”等近海海域逐渐向南海等远海演变，在内容方面，近几年出现<code>遥感</code>关键词的突现，出现了<code>气候变化</code>、<code>环境因子</code>、<code>滨海湿地</code>、<code>重金属</code>等明显与生态和气候变化相关的热点主题。</p>
-<h2 id="文献计量学"><a href="#文献计量学" class="headerlink" title="文献计量学"></a>文献计量学</h2><blockquote>
-<p>文献计量学是利用数学和统计学方法定量分析科技文献外部表征，进而揭示学术研究活动特征，已广泛地应用于多学科领域的发展现状和规律探索。文献计量学可以用于期刊评价，例如核心期刊的遴选，也可以从宏观角度揭示某一种学科的发展规律，并在微观角度揭示学科的知识流动。</p>
-</blockquote>
-<p>本文将使用文献计量方式分析《海洋科学进展》历年发文情况，制作关键词、作者、机构等知识共现谱图，通过共现聚类使主要研究内容、人员、机构的分布和关联清晰展现。因为受知识水平限制，本文不做过多的微观解释分析，主要以知识图谱展示，从宏观角度展现《海洋科学进展》。</p>
-<h2 id="海洋科学进展"><a href="#海洋科学进展" class="headerlink" title="海洋科学进展"></a>海洋科学进展</h2><blockquote>
-<p>《海洋科学进展》创刊于1983年，由自然资源部主管，中国海洋学会和自然资源部第一海洋研究所共同主办，是经国家新闻出版总署注册批准，海洋出版社出版，国内、国外公开发行的学报级学术期刊。主要刊登国内、外在海洋科学基础、应用基础和应用研究以及与海洋有关的交叉学科领域最新的学术成果。主要栏目有院士论坛、学术论文、研究报道、学术讨论、专题评述与综述、实验室介绍、海洋科学家介绍、快讯、书讯等。<br>《海洋科学进展》被下列国内检索系统收录：《中文核心期刊要目总览》、中国科技核心期刊、《中国科学引文数据库》（CSCD）、《中国学术期刊（网络版）》、《中国核心期刊（遴选）数据库》、《中文科技期刊数据库》、《中国生命科学文献数据库》（CBA）、《中国生物学文摘》。</p>
-</blockquote>
-<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>由于《海洋科学进展》曾用名《黄渤海海洋》，因此中国知网检索：</p>
-<blockquote>
-<p>JN=海洋科学进展 OR JN=黄渤海海洋</p>
-</blockquote>
-<p>此处，一般应剔除卷首语、编辑部声明等文献，进而得到纯粹的科学研究文献。</p>
-<h2 id="刊文数量"><a href="#刊文数量" class="headerlink" title="刊文数量"></a>刊文数量</h2><p><img src="/images/jinzhan/num.png" alt></p>
-<p>1983-2020年共发表2177篇文章，年发文不超过100篇，一方面和季刊有关，另一方面也说明《海洋科学进展》严格把控论文质量，发表高水平研究论文。</p>
-<h2 id="机构"><a href="#机构" class="headerlink" title="机构"></a>机构</h2><p><img src="/images/jinzhan/ORG_v668e669.png" alt></p>
-<p>机构节点数共计669个（表示研究单位总数），共现连接线683（表示合作关系），各单位之间具有深度的合作关系。<br>发文最多的单位为<code>自然资源部第一海洋研究所</code>，表现在图谱上的特点就是节点中心性强，节点圈大（最大的圈），其文献的节点数超过1000。其次为<code>中科院海洋所</code>，其文献的节点数为80，第一和第二之间的发文数量差距较大。</p>
-<p>图中的节点（圆圈）的颜色表示时间，灰色表示年代久远的文献，彩虹色表示为近几年的文献。比如<code>自然资源部第一海洋研究所</code>、<code>中科院海洋所</code>内部为灰色，表示其文献历史较早，而<code>青岛海洋科学与技术国家试点实验室</code>则为彩色，表示近几年才开始发表文献。</p>
-<p><img src="/images/jinzhan/ORG_v669e683-jigou.png" alt></p>
-<center>研究机构、关键词共现的聚类图谱</center>
-
-<p>这张图展示的是研究机构和关键词的共现聚类，通俗理解为研究机构的研究兴趣。</p>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="/images/jinzhan/CO-DESC_v1056e1042-keywprds.png" alt></p>
-<center>关键词共现聚类</center>
-
-<p>这张图表明《海洋科学进展》文章的主要关注点是<code>数值模拟</code>、<code>黄海</code>、<code>滨海湿地</code>、<code>黄河口</code>、<code>滦河口</code>、<code>地形测绘</code>、<code>厄尔尼诺</code>、<code>沿岸上升流</code>、<code>长江口</code>、<code>风暴潮灾</code>、<code>多毛类</code>。可见，除了在某一学科方向形成关键词聚类外，还形成了地域名称的聚类簇，这说明海洋科学研究的区域性特征较强，将不同海域单独研究成为海洋科学研究一个关键特征。</p>
-<p><img src="/images/jinzhan/CO-DESC_v1056e1042-timeline.png" alt></p>
-<center>关键词聚类时间图谱</center>
-
-<p>这张时间图谱中不同聚类由平行轴线代表，不同关键词频次由节点大小代表，关键词首次出现年份由位置代，水平线的虚实表示其持续性，<code>#</code>前面的数字表示聚类的强度，<code>0</code>表示最强的聚类簇。从中可以基本判断，<code>数值模拟</code>持久性最强，说明热度持续，节点连线最为丰富，表明知识流动性好。而遗憾的是，其中出现的<code>地形测绘</code>仅在上世纪80年代末火过一阵（仅代表在《海洋科学进展》期刊中的热度），其主要研究对象是<code>大陆架地形测绘</code>、<code>地貌调查</code>、<code>灵山湾</code>等。</p>
-<h2 id="研究热点突现"><a href="#研究热点突现" class="headerlink" title="研究热点突现"></a>研究热点突现</h2><p><img src="/images/jinzhan/burst.png" alt></p>
-<p>突现（Burst）是指特定时间段内通过关键词频次的变化将频次高的词探测出来，在一定程度上反映《海洋科学进展》的研究趋势。<code>营养盐</code>、<code>浮游植物</code>、<code>潮流</code>等关键词持续较久，具有较高的热度。近几年以及持续至今的突现词为<code>遥感</code>、<code>南海</code>、<code>沉积物</code>等。</p>
-<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="/images/jinzhan/COA_v957e1402.png" alt><br>《海洋科学进展》刊发海洋领域不同学科的文章，因此作者聚类效果明显，不同的研究团队形成聚类簇。颜色的含义为，彩色表示时代较近，灰色表示时代较久。节点大小和位置表示作者的发文频次和中心性。连接线粗细表示不同作者之间的合作强度。</p>
-<blockquote>
-<p>网络中节点的<code>中心性</code>测量的是网络中节点的位置重要性。有两类节点可能具有较高的中介中心性：1）与其他节点高度相连的枢纽节点；2）位于不同聚类之间的节点。</p>
-</blockquote>
-<h2 id="文献共引"><a href="#文献共引" class="headerlink" title="文献共引"></a>文献共引</h2><p>遗憾的是，CNKI导出的数据不含有引用信息，因此无法通过程序进行文献共引的计量分析，而文献的引用关系最能代表知识的流动脉络。这里，仅列举利用CNKI数据库检索到引用次数最多的文献：</p>
-<blockquote>
-<p>[1]张晓龙,李培英,李萍,徐兴永.中国滨海湿地研究现状与展望[J].海洋科学进展,2005(01):87-95.<br>[2]熊学军,郭炳火,胡筱敏,刘建军.EMD方法和Hilbert谱分析法的应用与探讨[J].黄渤海海洋,2002(02):12-21.<br>[3]洪磊,张秀梅.环境胁迫对鱼类生理机能的影响[J].海洋科学进展,2004(01):114-121.<br>[4]季如宝,毛兴华,朱明远.贝类养殖对海湾生态系统的影响[J].黄渤海海洋,1998(01):22-28.<br>[5]张波,唐启升.渤、黄、东海高营养层次重要生物资源种类的营养级研究[J].海洋科学进展,2004(04):393-404.<br>[6]朱明远,毛兴华,吕瑞华,孙明华.黄海海区的叶绿素α和初级生产力[J].黄渤海海洋,1993(03):38-51.<br>[7]孙军,刘东艳,钱树本.一种海洋浮游植物定量研究分析方法——Utermhl方法的介绍及其改进[J].黄渤海海洋,2002(02):105-112.<br>[8]乔方利,马德毅,朱明远,李瑞香,臧家业,于洪军.2008年黄海浒苔爆发的基本状况与科学应对措施[J].海洋科学进展,2008(03):409-410.<br>[9]金秉福,林振宏,季福武.海洋沉积环境和物源的元素地球化学记录释读[J].海洋科学进展,2003(01):99-106.<br>[10]薛超波,王国良,金珊,郑天伦.海洋微生物多样性研究进展[J].海洋科学进展,2004(03):377-384.</p>
-</blockquote>
-<p>截止本文发布，《海洋科学进展》被引用最多的文献为张晓龙等发表于2005年的<code>中国滨海湿地研究现状与展望</code>，次数为285次，其次为熊学军等人2002年发表的<code>EMD方法和Hilbert谱分析法的应用与探讨</code>，被引280次。</p>
-<p>此外CNKI可以统计文献下载次数，下载频次可反映文献受关注的程度。前五位为：</p>
-<blockquote>
-<p>[1]孙承君,蒋凤华,李景喜,郑立.海洋中微塑料的来源、分布及生态环境影响研究进展[J].海洋科学进展,2016,34(04):449-461.<br>[2]范海梅,张庆华,李丙瑞,曲媛媛,张志欣.第一斜压Rossby波在大洋传播中的调整[J].海洋科学进展,2007(01):15-19.<br>[3]王关锁,乔方利,杨永增.基于MPI的LAGFD-WAM海浪数值模式并行算法研究[J].海洋科学进展,2007(04):401-407.<br>[4]张晓龙,李培英,李萍,徐兴永.中国滨海湿地研究现状与展望[J].海洋科学进展,2005(01):87-95.<br>[5]刘伟民,麻常雷,陈凤云,刘蕾,葛云征,彭景平,吴浩宇,王泉斌.海洋可再生能源开发利用与技术进展[J].海洋科学进展,2018,36(01):1-18.</p>
-</blockquote>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过对核心期刊《海洋科学进展》1983～2020年的文献计量分析，从期刊引文、关键词突现和研究热点时序聚类分析发现：《海洋科学进展》所刊论文的主要研究方向具备明显的海域特征，河口、近海、远海形成了不同的文献簇，并由近海向深远海逐渐演变，主要发表的学科方向有<code>物理海洋</code>、<code>海洋地质</code>、<code>海洋生物化学</code>、<code>海洋灾害</code>等，在研究趋势方面，近几年出现了<code>气候变化、环境因子、滨海湿地、重金属</code>等明显与生态和气候变化相关的热点主题，和国家发展战略一致（如生态修复、环境保护等）。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/11/haiyangcehui-qikan/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/11/haiyangcehui-qikan/" class="post-title-link" itemprop="url">文献计量学视角下的《海洋测绘》创刊30年刊文分析</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-11 20:34:49" itemprop="dateCreated datePublished" datetime="2021-03-11T20:34:49+08:00">2021-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2021/03/11/haiyangcehui-qikan/" class="post-meta-item leancloud_visitors" data-flag-title="文献计量学视角下的《海洋测绘》创刊30年刊文分析" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/11/haiyangcehui-qikan/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/11/haiyangcehui-qikan/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先小编代表<code>海洋遥感数据共享</code>公众号祝贺《海洋测绘》入选北大核心，成为测绘类期刊中的核心期刊，相信《海洋测绘》未来发展会更好。<br><img src="/images/haiyangcehui/hexin.jpg" alt></p>
-<p>如入编通知所说，核心期刊的遴选是一门学问，这门学问属于情报学分支下的<code>文献计量学</code>。文献计量学不仅可以评价出版物，确定核心期刊，也可以从宏观角度揭示某一种学科的发展规律。本文利用文献计量学软件<code>citespace</code>对《海洋测绘》历年刊文进行分析，寻找海洋测绘这门学科的发展脉络。</p>
-<p>本文主要以知识图谱的方式来展示《海洋测绘》刊文的作者、关键词、机构的共现关系。</p>
-<h4 id="《海洋测绘》介绍"><a href="#《海洋测绘》介绍" class="headerlink" title="《海洋测绘》介绍"></a>《海洋测绘》介绍</h4><p>《海洋测绘》是国内唯一的海洋测绘类学术期刊，其刊载文章内容以海洋测绘为主，也包括测绘学的基本理论与技术，以及密切相关的江河湖泊测绘、海洋地质勘测、海洋水文和航海导航技术等。</p>
-<blockquote>
-<p>《海洋测绘》杂志，由海军海洋测绘研究所主办，双月刊，重视学术导向，坚持科学性、学术性、先进性、创新性,刊载内容涉及的栏目：学术研究、动态通讯、工程实践等。于1981年经新闻总署批准的正规刊物。曾荣获“全国优秀测绘期刊”、“海军优秀期刊”和“全军印刷优质产品优秀期刊奖”等称号，被中国学术期刊综合评价数据库、中国核心期刊数据库、中国科学引文数据库、中文期刊数据库、俄罗斯《文摘杂志》、日本《日本科学技术振兴机构数据库》、美国《艾博思科数据库》和《乌利希期刊指南》等国内外多个重要数据库收录，并于2020年入选全国地理资源领域高质量科技期刊分级目录和世界期刊影响力指数期刊目录。</p>
-</blockquote>
-<p><img src="/images/haiyangcehui/name.jpg" alt></p>
-<!-- 
-#### 信息搜集
-
-利用中国知网CNKI数据库对《海洋测绘》刊文进行检索，时间范围设置为1981年至2021年，共检索到3000多篇文献，转化为有效数据为2994条。
-
-知网检索格式：
->文献总数：2647 篇； 检索条件： ( ( ( ( 拼音刊名= CJFD_HYCH or 出版物代码= CJFD_HYCH ) NOT ( 主题%='研讨会' or 题名%='研讨会' or title=xls('研讨会') or v_subject=xls('研讨会') ) ) NOT ( 作者%'编辑部' or 中英文作者%'编辑部' or 作者名称%'编辑部' ) ) NOT ( 主题%='《海洋测绘》' or 题名%='《海洋测绘》' or title=xls('《海洋测绘》') or v_subject=xls('《海洋测绘》') ) )；检索范围：总库
-
-![](/images/haiyangcehui/num.png)
-<center>《海洋测绘》发文数量趋势</center>
-
-可见近几年，《海洋测绘》的刊文数量大概在100-150篇之间，数量偏少。
-
->由于1994年之前《海洋测绘》发文不在CNKI库中，因此缺少这段时间的数据。
->作为比较，同类期刊《测绘科学》年发文300-500篇，《测绘学报》年发文约250篇，《测绘通报》年发文500篇，《遥感信息》年发文150-200篇。
-
-#### 研究单位
-![](/images/ORG_v812e9261.png)
-<center>发文单位共现关系</center>
-
-通过研究机构的合作网络进行共现分析，绘制机构关系合作图谱，得到节点数500多个，连线数400多条，整体上结构较为密集，机构之间合作紧密。
-
-![](/images/haiyangcehui/jigou.png)
-<center>发文较多的单位</center>
-
-从发文数量、节点中心性两个标准评价，`海军海洋测绘研究所`位于机构首位，其次为`海军大连舰艇学院海洋测绘系`。
-
->网络中节点的`中心性`测量的是网络中节点的位置重要性。有两类节点可能具有较高的中介中心性：1）与其他节点高度相连的枢纽节点；2）位于不同聚类之间的节点。我们对于第二类节点更感兴趣，它们比第一类节点更可能导致新兴趋势的出现。
- -->
-
-<!-- 
-![](/images/ORG_v812e18283.png)
-<center>发文单位时间轴</center>
-
-上图反映我国海洋测绘研究机构的发文时间轴。可见军改之后，一些部队研究所、高校有较大变化，新组建机构开始出现，如`战略支援部队信息工程大学`以及`海军研究院`，涉及海洋测绘的地方高校院系也有所增加，如山东科技大学海洋工程研究院等，一家名为`广东邦鑫`的勘测公司也在近几年刊发研究论文。
- -->
-<!-- 
-![](/images/burst_au2.jpg)
-<center>发文单位burst</center> -->
-<!-- 
-#### 作者
-![](/images/COA_v877e1897.png)
-<center>《海洋测绘》发文作者共现图</center>
-
-通过文献作者合作网络进行共现分析，绘制作者合作关系图谱，其中节点700，连线数1800，表明合作非常密切。图中圆圈大小表示发文数量，颜色表示活跃度。
-
-![](/images/haiyangcehui/zuozhe.png)
-<center>《海洋测绘》发文较多的作者</center>
-
-上图为《海洋测绘》发文数量排在前列（超过20）的作者。
-
- -->
-
-<!-- 
-![](/images/a_b.jpg)
-<center>发文作者burst</center>
-
-![](/images/刘雁春.png)
-<center>发文作者burst,以刘雁春为例</center>
-作者刘雁春在《海洋测绘》发表了许多文章，具有较大的聚类指数，也具有较高的爆发，但是其发文多集中，而2013至后不发文。 -->
-<!-- 
-#### 关键词
-
-
-![](/images/CO-DESC_v829e1630.png)
-<center>海洋测绘主要关键词</center>
-
-关键词为对文献研究主题和核心内容的高度概括，利用关键词共现分析，可以快速了解海洋测绘研究热点分布及其发展规律。《海洋测绘》发文的关键词节点有800多个，连接线有1900多条，表明关键词之间共现性较好。按照频次，出现对多的最关键词为：`海洋测绘、海洋测量、多波束测深系统、海道测量、水深测量、GPS、深度基准面、海图制图、数字海图、卫星测高、余水位、水位改正等`。
-
- -->
-<!-- 
-![](/images/k_au.jpg)
-<center>关键词突现</center>
-
-关键词突现是指特定时间段内通过关键词频次的变化将频次高的词探测出来，在一定程度上反映海洋测绘的研究趋势。通过对《海洋测绘》关键词突现分析，绘制上图。可知`北斗导航定位系统`、`精密单点定位`、`声速剖面`、`水位改正`和`海图制图`等成为近几年的突现词。 -->
-<!-- 
-![](/images/CO-DESC_v829e16301.png)
-<center>海洋测绘主要关键词时间轴</center>
-
-通过本图，可发现一些有意思的结论。
-- 多波束测深、水深测量是海洋测绘的主要研究对象；
-- 地理信息系统、数字高程模型两个关键词已经消失在时间长河，基本无人再用。
-- 全球定位系统和gps作为关键词也逐渐无人使用，取而代之应该是gnss或者我国的北斗。
-- 测深仪无人使用，多波束取而代之。
- -->
-<!-- 
-#### 关键词聚类
-
-根据关键词共现，可以进一步生成聚类分析图谱，以更好的表现海洋测绘的研究主题。聚类效果的评判标准是关键词连线、模块值（Q值）和轮廓值（S值）。《海洋测绘》发文关键词聚类分析的Q值为0.67，S值为0.88，连线数为1866，具有良好的聚类效果。
-
-聚类图谱中的编号代表聚类簇的热度，`#0`的热度最高。可见除了`海洋测绘`、`海洋测量学`、`电子海图`、`深度基准`、`不确定度`、`GPS`、`测深仪`等为主要研究内容。
-
-![](/images/haiyangcehui/CO-DESC_v833e1886.png)
-<center>《海洋测绘》关键词聚类</center> -->
-<!-- 
-#### 文献引用
-
-文献的价值实现在于被他人引用，以下为引用前十位，括号内为引用次数：
-
->[1]吴永亭，周兴华，等. 水下声学定位系统及其应用[J]. 海洋测绘, 2003(04): 18–21. (264)
-[2]杨哲海，韩建峰，等. 高光谱遥感技术的发展与应用[J]. 海洋测绘, 2003(06): 55–58. (247)
-[3]吴迪，黄文骞. 虚拟现实技术的发展过程及研究现状[J]. 海洋测绘, 2002(06): 15–17. (219)
-[4]彭富清; 地磁模型与地磁导航[J]. 海洋测绘, 2006(02): 73–75. (202)
-[5]王家耀，崔铁军，等. 数字高程模型及其数据结构[J]. 海洋测绘, 2004(03): 1–4. (170)
-[6]刘经南，赵建虎. 多波束测深系统的现状和发展趋势[J]. 海洋测绘, 2002(05): 3–6. (164)
-[7]王家耀，魏海平，等. 时空GIS的研究与进展[J]. 海洋测绘, 2004(05): 1–4. (148)
-[8]段莉琼，朱建军，等. 改进的最短路径搜索A*算法的高效实现[J]. 海洋测绘, 2004(05): 20–22. (99)
-[9]范龙，柴洪洲; 北斗二代卫星导航系统定位精度分析方法研究[J]. 海洋测绘, 2009(01 vo 29): 25-27+45. (98)
-[10]任来平，赵俊生，等. 磁偶极子磁场空间分布模式[J]. 海洋测绘, 2002(02): 18–21. (93)
-
-
-排在首位的引用文献为水声定位研究论文，作者为自然资源部第一海洋研究所吴永亭等人。
- -->
-<!-- 
-## 小结
-本文基于文献计量学，对《海洋测绘》刊文的核心作者、研究机构、研究主题进行了分析，对研究内容进行了简略梳理，发现：
-- 《海洋测绘》刊文主要研究水深、水深基准、海图制图及其相关技术理论；
-- 《海洋测绘》刊文以军队研究机构为主，地方研究所以原国家海洋局下属事业单位为主，并形成稳定的合作群体；
-- 《海洋测绘》作者间合作紧密，核心研究人员的带头作用明显；
-- 北斗导航定位是新兴的热点，未来将可能成为海洋测绘的重要工具。
-- 新技术如人工智能、大数据和云计算尚未在《海洋测绘》刊文中出现热点，但未来可期。
-
-问题：
-- 主题窄，过度的集中在多波束领域。海洋测绘应有的主题应该不仅局限在期刊所涉及的主题。
-- 机构过于集中。因为专业性强，导致资源过于集中，机构过度集中，对专业发展有利有弊。弊端为不能吸引社会力量参与，研究趋于封闭。
-- 数据保密问题，可能是一个容易被忽略的问题。
-- 深度不够，科学问题不突出。 -->
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/09/citespace-GPR/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/09/citespace-GPR/" class="post-title-link" itemprop="url">citespace GPR</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-09 22:59:53" itemprop="dateCreated datePublished" datetime="2021-03-09T22:59:53+08:00">2021-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2021/03/09/citespace-GPR/" class="post-meta-item leancloud_visitors" data-flag-title="citespace GPR" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/09/citespace-GPR/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/09/citespace-GPR/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>计划写一篇自己不熟悉的领域的文献计量分析。类似陈超美写的再生医学，也不是他自己所了解的领域。但是却预测到了当年的诺贝尔医学奖。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2021/03/06/yaoganxuebao/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/06/yaoganxuebao/" class="post-title-link" itemprop="url">遥感学报35周年发文分析</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-06 13:54:31" itemprop="dateCreated datePublished" datetime="2021-03-06T13:54:31+08:00">2021-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2021/03/06/yaoganxuebao/" class="post-meta-item leancloud_visitors" data-flag-title="遥感学报35周年发文分析" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/06/yaoganxuebao/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/06/yaoganxuebao/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文计划投《遥感学报》报道栏目。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>《遥感学报》的前身是1986年创刊的《环境遥感》，她诞生于中国遥感事业的初创时期，是随着中国遥感事业的发展而成长起来的第一本遥感刊物。创刊以来，《遥感学报》结合中国遥感事业不同时期的重点和需要，刊登了大量国内最新科研成果和国家重点支持的研究项目的成果论文，对中国遥感科学技术的发展和人才培养发挥了巨大作用，成为目前中国遥感和地理信息科学领域最有影响的学术期刊。作为中国遥感领域唯一一本国家级综合性学术期刊，《遥感学报》致力于报道遥感领域及其相关学科具有国际、国内先进水平的研究报告和阶段性研究简报以及高水平的述评。</p>
-</blockquote>
-<p>本文分析《遥感学报》创刊35年（1986-2020）以来发表的文献，其中包含改名之前的《环境遥感》1986-1996年的发文。主要分析发文机构、作者及其合作关系的演变，关键词的关联及其演变。尝试分析《遥感学报》期刊的发文热点趋势。</p>
-<h2 id="数据和方法"><a href="#数据和方法" class="headerlink" title="数据和方法"></a>数据和方法</h2><p>文献计量学是重要的情报学分支，通过数学模型和统计学方法可以了解某一个学科的历史发展脉络，并根据研究热点的突现作出合理的趋势预测。文献计量分析软件citespace是目前主要的分析工具之一，具备中国知网（CNKI）、科学索引（WOS）等国内外重要数据库的分析能力。CiteSpace主要功能是对输入的文献信息进行关键词、作者、机构、资助、共引等信息矩阵共现分析，并可给出可视化的多种图谱。此外Citespace还具备突现（burst）分析能力，可获得关键词、作者、机构等热点动态。Citespace另一个重要功能是进行引文分析，即分析引证和被引证的知识联系和知识网络，揭示文献之间知识流动。然而，CNKI导出的文献格式暂不包含引文信息（WOS包含引文信息）。</p>
-<p>本文数据来源于CNKI收录的《遥感学报》文献，通过中国知网进行检索：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">JN</span>=遥感学报 <span class="keyword">OR</span> <span class="attribute">JN</span>=环境遥感</span><br></pre></td></tr></table></figure>
-<h2 id="发文数量"><a href="#发文数量" class="headerlink" title="发文数量"></a>发文数量</h2><p>截止到2020年底，共得到2932条文献（未进行人工剔除，如卷首语等）。其年度发文数量如下图所示，2000年之前年发文约50篇（1997例外），2000年以后发文数据迅速翻倍，当前年发文约100-150篇。作为一份纸质版期刊，总体上《遥感学报》发文数量并不高，作为参考，这里列出国内外一些遥感测绘领域的其他期刊发文数量：《测绘科学》年发文300-500篇，《测绘学报》年发文约250篇，《测绘通报》年发文500篇，《遥感信息》150-200篇，国外《remote sensing》2020年一年发文4192篇，超过《遥感学报》历史总发文数，并且仍处在上升趋势，顶刊《RSE》年发文约500篇，《JG》约100-150篇，IEEE《TGRS》约500-700篇。</p>
-<p><img src="/images/ygxb/num.png" alt></p>
-<center>历年发文数量</center>
-
-<p>一般来说，发文数量和发文质量有一定的联系，极端的例子《remote sensing》2020年一年发文数量超过了《遥感学报》过去35年发表总量，《RS》官网宣称最快3周发表，如此快速的发表速度确实非常有吸引力，但有一部分文章质量有可能降低。</p>
-<blockquote>
-<p>大水刊《Scientific Reports》2020年发文为22473篇，中国发文最多，，截止2021年3月超过3万篇，国家自然科学基金资助共计2万多篇，经费超过2千万。</p>
-</blockquote>
-<blockquote>
-<p>从2011年Scientific Reports创刊开始，中国学者发文占比一直在稳步上升，2015达到40%，此后逐年下降，直到2018年下降到21%，这可能和部分科研单位在考核时不再将SR文章列入考核范围有关。</p>
-</blockquote>
-<blockquote>
-<p>第一篇文献</p>
-</blockquote>
-<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="/images/ygxb/COA_v1193e2156.png" alt></p>
-<center>作者发文及其合作关系</center>
-总体上期刊发文作者具有良好的合作关联，但2000年以前作者的合作关系网较弱。作者的节点大小表示其发文数量，节点的颜色表示发文年代，颜色约灰暗表示发文越早，颜色越亮丽表示年代越近。
-
-<p>统计表明，论文出现频次最高的作者为柳钦火，发文超过20的作者为:<br><img src="/images/ygxb/author20.png" alt></p>
-<center>发文超过20次的作者</center>
-
-<p>发文突现表示某一段时间内该作者论文的产出激增，可反映其在遥感领域的创造力猛然提高，突现前20位为：<br><img src="/images/ygxb/author_b.png" alt></p>
-<center>作者发文突现前25位</center>
-
-<p>其中近几年出现的突现作者是当前创造力较强的研究者，参考往年的突现作者，可知全部取得了辉煌的学术成绩（3位当选院士）。</p>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>创刊以来，最高引用次数的文献为：</p>
-<blockquote>
-<p>[1]徐涵秋. 利用改进的归一化差异水体指数(MNDWI)提取水体信息的研究[J]. 遥感学报, 2005(05): 589–595.</p>
-</blockquote>
-<p>截止到2021年3月，改论文的引用超过1600次，独立作者徐涵秋来自<code>福州大学环境与资源学院</code>。</p>
-<p>引用次数前十位为(截止到2021-3-7)：</p>
-<blockquote>
-<p>[1]徐涵秋. 利用改进的归一化差异水体指数(MNDWI)提取水体信息的研究[J]. 遥感学报, 2005(05): 589–595.(引用次数：1688)<br>[2]孙红雨，王长耀，牛铮，布和敖斯尔李兵. 中国地表植被覆盖变化及其与气候因子关系──基于NOAA时间序列数据分析[J]. 遥感学报, 1998(03): 204–210.(985)<br>[3]李德仁. 论RS,GPS与GIS集成的定义、理论与关键技术[J]. 遥感学报, 1997(01): 64–68.(771)<br>[4]查勇，倪绍祥. 一种利用TM图像自动提取城镇用地信息的有效方法[J]. 遥感学报, 2003(01): 37-40+82.(551)<br>[5]唐军武，田国良. 水体光谱测量与分析Ⅰ:水面以上测量法[J]. 遥感学报, 2004(01): 37–44.(550)<br>[6]陈晋，陈云浩. 基于土地覆盖分类的植被覆盖率估算亚像元模型与应用[J]. 遥感学报, 2001(06): 416-422+481.(522)<br>[7]高志强，刘纪远. 基于遥感和GIS的中国土地利用/土地覆盖的现状研究[J]. 遥感学报, 1999(02): 51-55+83.(481)<br>[8]田光进，刘纪远. 基于遥感与GIS的中国农村居民点规模分布特征[J]. 遥感学报, 2002(04): 307-312+326.(399)<br>[9]都金康，黄永胜. SPOT卫星影像的水体提取方法及分类研究[J]. 遥感学报, 2001(03): 214–219.(387)<br>[10]刘伟东，项月琴. 高光谱数据与水稻叶面积指数及叶绿素密度的相关分析[J]. 遥感学报, 2000(04): 279–283.(384)</p>
-</blockquote>
-<p>引用前10位的文献主题分布为：水体指数、植被覆盖、城镇用地、水体光谱、国土利用、居民点分布、农作物遥感等。</p>
-<h2 id="机构"><a href="#机构" class="headerlink" title="机构"></a>机构</h2><p><img src="/images/ygxb/ORG_v961e718.png" alt></p>
-<center>《遥感学报》发文机构及其合作关系</center>
-
-<p>中科院系（中国科学院遥感应用研究所、中国科学院大学、中国科学院遥感与数字地球研究所、中国科学院遥感与数字地球研究所遥感科学国家重点实验室、中国科学院研究生院、     中国科学院地理科学与资源研究所等）是《遥感学报》的主力军，高校则以武汉大学测绘遥感信息工程国家重点实验室、武汉大学遥感信息工程学院、     南京大学国际地球系统科学研究所、北京大学遥感与地理信息系统研究所、北京师范大学遥感科学国家重点实验室、     中山大学地理科学与规划学院等为主。</p>
-<p>机构间的合作网络密集，主要是2000年以后机构间合作得到强化。</p>
-<p>《遥感学报》发文单位不乏一些国际研究机构，香港、美国、巴西、荷兰以及联合国教科文组织等均有发文。</p>
-<p><img src="/images/ygxb/ins.png" alt></p>
-<center>《遥感学报》发文机构突现</center>
-
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p>下图为出现频次大于10的关键词分布，</p>
-<p><img src="/images/ygxb/CO-DESC_v1098e1412.png" alt></p>
-<center>频次大于10的关键词分布</center>
-灰色表示已经失去活力，彩色表示该词较新。可见早期的关键词“卫星相片”当前已不再使用，因为它现在已经融入遥感学科，成了必备的数据之一，因此无人再其列为关键词。
-
-
-
-<p>下图为关键突现图，表示在一段时间内该关键词为热点研究。例如，汶川地震出现在列，表明地震后遥感学术界尝试用遥感手段进行地震灾害研究；再比如，当前机器学习为全球科学研究热点，2018年遥感领域也出现深度学习和卷积神经网络的关键词突现，其中以<code>深度学习</code>为关键词的论文在2020年出现10篇，加上<code>卷积神经网络</code>的关键词，几乎每期都出现机器学习的论文。这和当前遥感界国际主流的期刊《RSE》、《TGRS》等期刊的热点趋势一致，特别是IEEE旗下的三个遥感期刊现在几乎被AI和机器学习占领。</p>
-<p><img src="/images/ygxb/key_b.png" alt></p>
-<center>突现前25位的关键词分布</center>
-
-
-<p><img src="/images/ygxb/key_z.png" alt></p>
-<center>热点关键词时间轴分布</center>
-
-<!-- 
-![](/images/ygxb/zhuti.png)
-<center>聚类分析得到的主题分布</center> -->
-
-<h2 id="趋势"><a href="#趋势" class="headerlink" title="趋势"></a>趋势</h2><p>通过关键词的突现分析，特别是近2010年之后出现的突现词，可预知未来遥感热点问题大概有：</p>
-<ul>
-<li>AI应用</li>
-<li>高分辨率遥感</li>
-<li>激光雷达</li>
-<li>气溶胶</li>
-</ul>
-<h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><blockquote>
-<p>中心性(Centrality)是对网络中一个节点影响力的度量，具有高中间中心性值的关键词和主题表明其在农村生活污水研究领域的研究发展过程中的影响作用较大，以及该部分非关键词在连接其他几个研究主题中的重要性。<br>根据关键词共现分析，进一步对共现关键词信息进行聚类，从而形成了如图7所示的8个聚类簇，以期更好地呈现农村生活污水研究的主题。聚类效果判定的标准是根据关键词间连线、图谱信息模块性(Modularity Q, Q)以及图谱轮廓系数(Sihouette, S)，连线越多，Q值越大说明聚类效果越好，当Q＞0.3时图谱信息模块性显著，S值大于0.5时，则表示聚类结果较合理。<br>需要注意的是，不同的热点话题包含多个关键词，在农村生活污水处理研究的进程中，热点关键词是随时间不断变化的，因此需要进一步探究农村生活污水研究热点在时间上的变化，并据此给出该领域的不同研究前沿与研究趋势。<br>根据短时间内激增的突发术语或具有高引用频数的关键词对领域的发展趋势和未来方向进行判断。类似的，文章及研究领域的突发引用也可作为研究前沿和趋势的评判指标，关键词和文章的引用突发见表5-6。各表中，蓝色线条表示时间间隔，红色线条表示突发关键字的周期，红色线条的端点表示每个突发的时间间隔的开始和结束。由表5可知，近五年的突发关键词包括“horizontal subsurface flow”“river”“phragmites australi”“sediment”“temperature”。其中，“river”的突发强度最大为3.44，其相关的研究文章内容以农村生活污水及其沉积物(包含氮磷等营养元素、内分泌干扰物以及抗生素耐药基因等)流入河流后产生的环境效应，同时探究如何消减污水与沉积物中的污染物。<br>[1]李厚禹, 张春雪, 马晓敏, 等. 基于CiteSpace的农村生活污水处理研究进展与趋势可视化分析[J]. 农业资源与环境学报, [日期不详]: 1–14.</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1551,7 +1418,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
