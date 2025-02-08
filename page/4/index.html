@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">92</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">93</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">171</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">177</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,746 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/10/19/gee-hycom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/19/gee-hycom/" class="post-title-link" itemprop="url">利用GEE云平台的HYCOM数据进行海洋流速分析及可视化</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-19 21:38:49" itemprop="dateCreated datePublished" datetime="2023-10-19T21:38:49+08:00">2023-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/10/19/gee-hycom/" class="post-meta-item leancloud_visitors" data-flag-title="利用GEE云平台的HYCOM数据进行海洋流速分析及可视化" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/10/19/gee-hycom/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/10/19/gee-hycom/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="GEE中的HYCOM"><a href="#GEE中的HYCOM" class="headerlink" title="GEE中的HYCOM"></a>GEE中的HYCOM</h3><p>GEE，或者说Google Earth Engine，你可能听过或者没听过，但它确实是当前地球科学领域的一颗璀璨明星。为什么？想象一下，地学数据的规模巨大到我们很难在个人电脑上进行存储和分析。但有了GEE，这一切都变得简单了。它让我们可以直接在云端处理这些庞大的数据，不必费心把数据拷贝回本地，更不用说还能借助谷歌强大的计算能力了。关于这点，不少从事光学遥感、合成孔径雷达（SAR）研究的学者都给出了自己的实证研究和论文成果。</p>
+<p>说起HYCOM，这可不是一两句话能说清楚的。它是Hybrid Coordinate Ocean Model的缩写，由美国多家机构联手组建的开源海洋环流建模系统，得到了美国国家海洋合作项目（NOPP）的赞助，并作为美国全球海洋数据同化实验（GODAE）的一部分。该模型主要用于研究海洋和大气之间的相互作用，包括短期和长期过程，它对于海洋预测、数据同化乃至气候研究都是至关重要的。而GEE上的HYCOM数据集，无疑是为我们这些研究者铺设了一条快捷之路，轻松获取、分析，再也不用为数据的下载、分析和可视化而烦恼了。</p>
+<h3 id="南大洋流场"><a href="#南大洋流场" class="headerlink" title="南大洋流场"></a>南大洋流场</h3><p>南大洋，也被称为南极洋或南极圈内的海洋，是地球上最冷、最偏远的海洋。它环绕整个南极大陆，并与三大洋——大西洋、太平洋和印度洋接壤。南大洋的流场特征对全球气候和海洋环流有着重要影响。最显著的流场特征是西风漂流，这是一种东向的表面流，由于缺乏大陆的阻碍，它在南大洋的纬度范围内持续不断地环绕地球。此外，南大洋还是形成深海下沉流的关键区域，这些冷的盐水从表面下沉到深海，成为全球深海环流的驱动力。</p>
+<p>通过下面的例子，我们不仅会看到如何利用GEE计算二十年的流速均值和其变化特征，而且还会深入到如何计算涡度、Enstrophy和KE等关键的物理海洋参数。这些参数为我们提供了关于流动形态、能量分布和流动稳定性的关键信息。值得注意的是，使用GEE，这样的复杂分析可以在几秒钟内完成，这在传统的数据处理方法中是难以想象的。这种处理速度不仅加速了研究的进程，而且为实时监测和预测提供了新的可能性。</p>
+<p><img src="/images/g-1.png" alt="HYCOM在南大洋某时的流场"></p>
+<h3 id="20年的流速平均"><a href="#20年的流速平均" class="headerlink" title="20年的流速平均"></a>20年的流速平均</h3><p>下面这段代码是在分析和展示南大洋在过去20年（从2002年至2022年）中每年1月的前15天的海洋流速均值。</p>
+<p>首先，代码定义了南大洋的矩形区域。接着，通过一个函数获取每年1月的前15天的流速数据并计算其均值。这个函数主要过滤特定日期的HYCOM海洋流速数据，并对数据进行了单位转换（除以1000）。然后，我们为2002至2022的每一年都调用了这个函数，得到这20年中的每年均值，并进一步计算出20年的总均值。最终，将结果限制在我们定义的南大洋区域内，裁剪后的速度被添加到了地图上，并将地图的中心设置为南大洋区域。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义南大洋的区域</span></span><br><span class="line">var southernOceanRegion = ee.Geometry.<span class="constructor">Rectangle([0, -80, 180, -35])</span>;  <span class="comment">// 注意调整了范围以覆盖整个南大洋</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义一个函数来获取每年4月的数据，并返回这个月的均值</span></span><br><span class="line"><span class="keyword">function</span> get<span class="constructor">AprilAverage(<span class="params">year</span>)</span> &#123;</span><br><span class="line">  var startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span>;</span><br><span class="line">  var endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 15)</span>;</span><br><span class="line">  </span><br><span class="line">  var collection = ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                     .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                     .map(<span class="keyword">function</span>(image) &#123;</span><br><span class="line">                        return image.divide(<span class="number">1000</span>);</span><br><span class="line">                     &#125;);</span><br><span class="line">                     </span><br><span class="line">  return collection.mean<span class="literal">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用循环来获取2002至2022这20年的4月的均值</span></span><br><span class="line">var years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">2002</span>, <span class="number">2022</span>);</span><br><span class="line">var averages = years.map(<span class="keyword">function</span>(year) &#123;</span><br><span class="line">  return get<span class="constructor">AprilAverage(<span class="params">year</span>)</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var twoDecadesAverage = ee.<span class="module-access"><span class="module"><span class="identifier">ImageCollection</span>.</span></span>from<span class="constructor">Images(<span class="params">averages</span>)</span>.mean<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 从这个二十年的均值图像中计算速度</span></span><br><span class="line">var speed = twoDecadesAverage.select('velocity_u_0').hypot(twoDecadesAverage.select('velocity_v_0'));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 使用南大洋区域裁剪速度图像</span></span><br><span class="line">var maskedSpeed = speed.clip(southernOceanRegion);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 将裁剪后的速度图像添加到地图上</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>add<span class="constructor">Layer(<span class="params">maskedSpeed</span>, &#123;<span class="params">min</span>: 0, <span class="params">max</span>: 1, <span class="params">palette</span>: ['<span class="params">blue</span>', '<span class="params">yellow</span>', '<span class="params">red</span>']&#125;, 'Southern Ocean Speed 20-Year Average')</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 7. 将地图的中心设置为南大洋区域</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>center<span class="constructor">Object(<span class="params">southernOceanRegion</span>, 4)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/g-2.png" alt="HYCOM在南大洋二十年的平均流"></p>
+<h3 id="20年流速变化特征"><a href="#20年流速变化特征" class="headerlink" title="20年流速变化特征"></a>20年流速变化特征</h3><p>使用标准偏差进行流场变化的统计。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义南大洋的区域</span></span><br><span class="line">var southernOceanRegion = ee.Geometry.<span class="constructor">Rectangle([0, -80, 180, -35])</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义一个函数来获取每年4月的数据，并返回这个月的速度</span></span><br><span class="line"><span class="keyword">function</span> get<span class="constructor">AprilSpeed(<span class="params">year</span>)</span> &#123;</span><br><span class="line">  var startDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 1)</span>;</span><br><span class="line">  var endDate = ee.<span class="module-access"><span class="module"><span class="identifier">Date</span>.</span></span>from<span class="constructor">YMD(<span class="params">year</span>, 1, 15)</span>;</span><br><span class="line">  </span><br><span class="line">  var velocity = ee.<span class="constructor">ImageCollection('HYCOM<span class="operator">/</span><span class="params">sea_water_velocity</span>')</span></span><br><span class="line">                     .filter<span class="constructor">Date(<span class="params">startDate</span>, <span class="params">endDate</span>)</span></span><br><span class="line">                     .mean<span class="literal">()</span></span><br><span class="line">                     .divide(<span class="number">1000</span>);</span><br><span class="line">                     </span><br><span class="line">  return velocity.select('velocity_u_0').hypot(velocity.select('velocity_v_0'));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 使用循环来获取1993至2022这30年的4月的速度</span></span><br><span class="line">var years = ee.<span class="module-access"><span class="module"><span class="identifier">List</span>.</span></span>sequence(<span class="number">2002</span>, <span class="number">2022</span>);</span><br><span class="line">var speeds = years.map(<span class="keyword">function</span>(year) &#123;</span><br><span class="line">  return get<span class="constructor">AprilSpeed(<span class="params">year</span>)</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var speedCollection = ee.<span class="module-access"><span class="module"><span class="identifier">ImageCollection</span>.</span></span>from<span class="constructor">Images(<span class="params">speeds</span>)</span>;</span><br><span class="line">var speedStdDev = speedCollection.reduce(ee.<span class="module-access"><span class="module"><span class="identifier">Reducer</span>.</span></span>std<span class="constructor">Dev()</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 使用南大洋区域裁剪速度标准差图像</span></span><br><span class="line">var maskedStdDev = speedStdDev.clip(southernOceanRegion);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 将裁剪后的速度标准差图像添加到地图上</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>add<span class="constructor">Layer(<span class="params">maskedStdDev</span>, &#123;<span class="params">min</span>: 0, <span class="params">max</span>: 1, <span class="params">palette</span>: ['<span class="params">blue</span>', '<span class="params">yellow</span>', '<span class="params">red</span>']&#125;, 'Southern Ocean Speed STD')</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. 将地图的中心设置为南大洋区域</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Map</span>.</span></span>center<span class="constructor">Object(<span class="params">southernOceanRegion</span>, 4)</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/g-3.png" alt="HYCOM在南大洋二十年的流速变化特征"></p>
+<h3 id="涡度"><a href="#涡度" class="headerlink" title="涡度"></a>涡度</h3><p>涡度 (Vorticity) 是流体力学中的一个重要概念，特别在描述流体中旋转现象时。它是一种局 部旋转度量，描述了流体旋转的强度和方向。涡度的方向垂直于流体的旋转平面。<br>涡度的计算公式:<br>涡度的定义基于流体速度场。在二维流中，涡度（通常用符号 $\zeta$ 表示）的定义如下：<br>$$<br>\zeta=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}<br>$$<br>其中:</p>
+<ul>
+<li>$u$ 是流速的 $\mathrm{x}$ 分量</li>
+<li>$v$ 是流速的 $\mathrm{y}$ 分量</li>
+<li>$\frac{\partial v}{\partial x}$ 是流速 $\mathbf{v}$ 关于 $\mathbf{x}$ 的偏导数</li>
+<li>$\frac{\partial u}{\partial y}$ 是流速 $\mathrm{u}$ 关于 $\mathrm{y}$ 的偏导数</li>
+</ul>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> dateStr = <span class="string">'2023010100'</span>;</span><br><span class="line"><span class="built_in">var</span> velocity = ee.Image(<span class="string">'HYCOM/sea_water_velocity/'</span> + dateStr);</span><br><span class="line"></span><br><span class="line"><span class="comment">// var projection = velocity.select('velocity_u_0').projection();</span></span><br><span class="line"><span class="comment">// var nominalScale = projection.nominalScale();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// print('Nominal scale (in meters):', nominalScale);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 加载指定日期的速度数据</span></span><br><span class="line"><span class="comment">// var date = '2023-01-01';</span></span><br><span class="line"><span class="comment">// var velocity = ee.Image('HYCOM/sea_water_velocity/' + date).divide(1000);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 提取 u 和 v 的分量</span></span><br><span class="line"><span class="built_in">var</span> u = velocity.<span class="keyword">select</span>(<span class="string">'velocity_u_0'</span>);</span><br><span class="line"><span class="built_in">var</span> v = velocity.<span class="keyword">select</span>(<span class="string">'velocity_v_0'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 计算偏导数</span></span><br><span class="line"><span class="built_in">var</span> dudx = u.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line"><span class="built_in">var</span> dvdx = v.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line"><span class="built_in">var</span> dudy = u.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line"><span class="built_in">var</span> dvdy = v.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 使用上述的旋度公式</span></span><br><span class="line"><span class="built_in">var</span> vorticity = dvdx.subtract(dudy);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 在地图上显示结果</span></span><br><span class="line"><span class="built_in">Map</span>.addLayer(vorticity, &#123;<span class="keyword">min</span>: <span class="number">-0.1</span>, <span class="keyword">max</span>: <span class="number">0.1</span>, palette: <span class="meta">[</span><span class="string">'blue'</span>, <span class="string">'white'</span>, <span class="string">'red'</span><span class="meta">]</span>&#125;, 'Vorticity');</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/g-4.png" alt="HYCOM在南大洋某时的涡度特征"></p>
+<h3 id="Enstrophy"><a href="#Enstrophy" class="headerlink" title="Enstrophy"></a>Enstrophy</h3><p>Enstrophy 在流体动力学中表示流体内部的涡旋强度，常用于研究湍流流动。Enstrophy 是涡 度 (vorticity) 的平方的一半，表示为:<br>Enstrophy $=\frac{1}{2} \omega^2$<br>其中 $\omega$ 是涡度。在之前的涡度计算中，我们得到了涡度 $\omega=d v / d x-d u / d y$ 。<br>接下来，我们可以根据上述的涡度计算来进一步计算Enstrophy。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义2023年1月的日期范围</span></span><br><span class="line"><span class="built_in">var</span> startDate = ee.<span class="built_in">Date</span>(<span class="string">'2023-01-01'</span>);</span><br><span class="line"><span class="built_in">var</span> endDate = ee.<span class="built_in">Date</span>(<span class="string">'2023-01-7'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从HYCOM数据集中加载2023年1月份的所有数据</span></span><br><span class="line"><span class="built_in">var</span> januaryCollection = ee.ImageCollection(<span class="string">'HYCOM/sea_water_velocity'</span>)</span><br><span class="line">    .filterDate(startDate, endDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用map函数计算每天的涡度（Enstrophy）</span></span><br><span class="line"><span class="built_in">var</span> enstrophyCollection = januaryCollection.<span class="built_in">map</span>(function(image) &#123;</span><br><span class="line">    <span class="built_in">var</span> u = image.<span class="keyword">select</span>(<span class="string">'velocity_u_0'</span>);</span><br><span class="line">    <span class="built_in">var</span> v = image.<span class="keyword">select</span>(<span class="string">'velocity_v_0'</span>);</span><br><span class="line">    <span class="built_in">var</span> dudx = u.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line">    <span class="built_in">var</span> dvdx = v.gradient().<span class="keyword">select</span>(<span class="string">'x'</span>);</span><br><span class="line">    <span class="built_in">var</span> dudy = u.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line">    <span class="built_in">var</span> dvdy = v.gradient().<span class="keyword">select</span>(<span class="string">'y'</span>);</span><br><span class="line">    <span class="built_in">var</span> vorticity = dvdx.subtract(dudy);</span><br><span class="line">    <span class="keyword">return</span> vorticity.pow(<span class="number">2</span>).multiply(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算2023年1月份的涡度（Enstrophy）均值</span></span><br><span class="line"><span class="built_in">var</span> meanEnstrophy = enstrophyCollection.mean();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对均值进行对数变换，避免对数0的情况，通常会加上一个小的值</span></span><br><span class="line"><span class="built_in">var</span> logMeanEnstrophy = meanEnstrophy.add(<span class="number">1e-10</span>).<span class="keyword">log</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在地图上显示对数转换后的结果</span></span><br><span class="line"><span class="built_in">Map</span>.addLayer(logMeanEnstrophy, &#123;<span class="keyword">min</span>: <span class="number">-20</span>, <span class="keyword">max</span>: <span class="number">-4</span>, palette: <span class="meta">[</span><span class="string">'blue'</span>, <span class="string">'white'</span>, <span class="string">'red'</span><span class="meta">]</span>&#125;, 'Log Enstrophy');</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/g-5.png" alt="HYCOM在南大洋一月份的Enstrophy"></p>
+<h3 id="KE"><a href="#KE" class="headerlink" title="KE"></a>KE</h3><p>要计算流体中的动能 (Kinetic Energy, KE)，公式为 $K E=0.5 *\left(u^2+v^2\right)$ ，其中 $u$ 和 $v$ 分 别是速度的水平和垂直分量。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义2023年1月的日期范围</span></span><br><span class="line"><span class="keyword">var</span> startDate = <span class="string">'2023-01-01'</span>;</span><br><span class="line"><span class="keyword">var</span> endDate = <span class="string">'2023-01-31'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取该日期范围内的速度数据集</span></span><br><span class="line"><span class="keyword">var</span> velocityCollection = ee.ImageCollection(<span class="string">'HYCOM/sea_water_velocity'</span>)</span><br><span class="line">                            .filterDate(startDate, endDate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用map函数来为每一天计算动能 (KE)</span></span><br><span class="line"><span class="keyword">var</span> keCollection = velocityCollection.map(<span class="function"><span class="keyword">function</span>(<span class="params">image</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> u = image.select(<span class="string">'velocity_u_0'</span>);</span><br><span class="line">  <span class="keyword">var</span> v = image.select(<span class="string">'velocity_v_0'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 计算 KE</span></span><br><span class="line">  <span class="keyword">return</span> u.pow(<span class="number">2</span>).add(v.pow(<span class="number">2</span>)).multiply(<span class="number">0.5</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算整月的KE均值</span></span><br><span class="line"><span class="keyword">var</span> monthlyMeanKE = keCollection.mean();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义要计算均值的区域，例如全球范围</span></span><br><span class="line"><span class="keyword">var</span> globalRegion = ee.<span class="built_in">Geometry</span>.Rectangle([<span class="number">-180</span>, <span class="number">-90</span>, <span class="number">180</span>, <span class="number">90</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 reduceRegion 来计算全球的KE均值</span></span><br><span class="line"><span class="keyword">var</span> globalAverageKE = monthlyMeanKE.reduceRegion(&#123;</span><br><span class="line">  reducer: ee.Reducer.mean(),</span><br><span class="line">  geometry: globalRegion,</span><br><span class="line">  scale: <span class="number">10000</span>,  <span class="comment">// 此处的scale取决于HYCOM数据集的分辨率</span></span><br><span class="line">  maxPixels: <span class="number">1e13</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印统计信息</span></span><br><span class="line">print(<span class="string">'Global Average KE for January 2023:'</span>, globalAverageKE);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在地图上显示月均值的KE</span></span><br><span class="line"><span class="keyword">var</span> logmonthlyMeanKE = monthlyMeanKE.add(<span class="number">1e-10</span>).log();</span><br><span class="line"><span class="keyword">var</span> keViz = &#123;<span class="attr">min</span>: <span class="number">10</span>, <span class="attr">max</span>: <span class="number">15</span>, <span class="attr">palette</span>: [<span class="string">'blue'</span>, <span class="string">'green'</span>, <span class="string">'red'</span>]&#125;;</span><br><span class="line">Map.addLayer(logmonthlyMeanKE, keViz, <span class="string">'Monthly Mean KE January 2023'</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/g-6.png" alt="KE"></p>
+<blockquote>
+<p>本代码仅供参考和学习之用，用于展示基本的功能和计算方法。在使用这些代码进行实际的数据处理和分析之前，请确保您已对输入数据进行了适当的单位统一和其他必要的预处理。特别是涉及速度单位的部分，直接使用这些代码可能会导致不准确或误导的结果。建议在实际应用中进行仔细的数据验证和校准，以确保结果的准确性和可靠性。</p>
+</blockquote>
+<ul>
+<li>思考题：如何使用GEE绘制某范围内的流速的长时间序列？</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/25/ksl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/25/ksl/" class="post-title-link" itemprop="url">物理海洋课后习题-科氏力为什么带2</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-25 21:57:22" itemprop="dateCreated datePublished" datetime="2023-09-25T21:57:22+08:00">2023-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/09/25/ksl/" class="post-meta-item leancloud_visitors" data-flag-title="物理海洋课后习题-科氏力为什么带2" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/25/ksl/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/25/ksl/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="科里奥利力"><a href="#科里奥利力" class="headerlink" title="科里奥利力"></a>科里奥利力</h4><p>科里奥利力是一个惯性力，它只在旋转参考系中存在。它的出现是由于在旋转参考系中观察物体运动时，物体的运动路径与非旋转参考系中的路径不同。</p>
+<p>考虑一个质点在旋转参考系中的运动。科里奥利力的定义是:<br>$$<br>\vec{F}_c=-2 m\left(\vec{\omega} \times \vec{v}\right)<br>$$<br>其中， $\vec{F}_c$ 是科里奥利力， $\vec{\omega}$ 是旋转参考系的角速度， $\vec{v}$ 是质点相对于旋转参考系的速度，</p>
+<p>科里奥利力水平分量的大小是由物体在旋转参考系中的速度、参考系的角速度和物体的质量决定的。 科里奥利力的大小为:<br>$$<br>F_c=2 m v \omega \sin (\phi)<br>$$</p>
+<p>科里奥利力的方向始终垂直于物体的速度向量和地球的旋转轴。</p>
+<h4 id="科氏参数"><a href="#科氏参数" class="headerlink" title="科氏参数"></a>科氏参数</h4><p>科氏参数，通常表示为 $f$ ，是描述地球旋转对流体流动 (如大气和海洋流动) 影响的一个重 要参数。它是地球的角速度和纬度的函数，定义为:<br>$$<br>f=2 \omega \sin (\phi)<br>$$<br>其中:</p>
+<ul>
+<li>$\omega$ 是地球的平均角速度，约为 $7.27 \times 10^{-5} \mathrm{rad} / \mathrm{s}$ 。</li>
+<li>$\phi$ 是纬度，北纬为正，南纬为负。<br>以下是科氏参数的几个关键特点:</li>
+</ul>
+<ol>
+<li>赤道附近: 在赤道附近 (即 $\phi \approx 0^{\circ}$ )，科氏参数接近零，这意味着科里奥利力对流体的影 响在这里最小。</li>
+<li>极地: 当接近北极 $\left(\phi \approx 90^{\circ}\right)$ 或南极 $\left(\phi \approx-90^{\circ}\right)$ 时，科氏参数的绝对值最大，这意味 着科里奥利力对流体的影响在这里最大。</li>
+<li>南半球与北半球: 在北半球，科氏参数为正，而在南半球为负。这决定了北半球和南半球中 流体的偏转方向。</li>
+</ol>
+<blockquote>
+<p>为什么科里奥利力和科氏参数公式中有因子2？这可以从物体在旋转参考系中的运动动力学推导出来。</p>
+</blockquote>
+<h2 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h2><h3 id="惯性力的定义："><a href="#惯性力的定义：" class="headerlink" title="惯性力的定义："></a>惯性力的定义：</h3><p>若一个质点 $m$ 某时刻在惯性系 $S$ 中的加速度为 $\mathbf{a_S}$ ，在另一个非惯性系 $S^{\prime}$ 中的加速度为 $\mathbf{a_{S^\prime}}$ ，则可假设质点受到 一个惯性力 (inertial force 或 fictitious force)<br>$$<br>\mathbf{f}=m\left(\mathbf{a}_{S^{\prime}}-\mathbf{a}_S\right),<br>$$<br>使得牛顿运动定律在非惯性系 $S^{\prime}$ 中仍然成立。</p>
+<h3 id="加速度的坐标变换"><a href="#加速度的坐标变换" class="headerlink" title="加速度的坐标变换"></a>加速度的坐标变换</h3><h4 id="无相对转动"><a href="#无相对转动" class="headerlink" title="无相对转动"></a>无相对转动</h4><p>若两个参考系之间只有平移没有转动，某时刻两个参考系中任意两个固定点之间的加速度都是相等的。令某时刻点 $P$ 相对于 $S$ 系和 $S^{\prime}$ 系的加速度分别为 $\mathbf{a_S}$ 和 $\mathbf{a_{S^\prime}}$ ，再令两坐标系之间的加速度为 $\mathbf{a_r}$ ，那么有<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r}.<br>$$</p>
+<h4 id="有相对转动"><a href="#有相对转动" class="headerlink" title="有相对转动"></a>有相对转动</h4><p>若两参考系之间有可能存在转动，牵连加速度 $\mathbf{a_r}$ 的定义会变得比牵连速度 $\mathbf{v_r}$ 更微妙，因为牵连速度 与参考系的选取无关，而牵连加速度却有关! </p>
+<p>我们在 $S$ 系中讨论问题。定义 $t$ 时刻点 $P$ 在 $S^\prime$ 系中的固定点相对于 $S$ 系的加速度为 $\mathbf{a_r}$ 。那么<br>$$<br>\mathbf{a_S}=\mathbf{a_{S^\prime}}+\mathbf{a_r} +2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$<br>其中 $\boldsymbol{\omega}$ 是 $S^{\prime}$ 系相对于 $S$ 系的瞬时角速度。最后一项被称为科里奥利加速度 (Coriolis Acceleration)<br>$$<br>\mathbf{a_c}=2 \boldsymbol{\omega} \times \mathbf{v_{S^\prime}} .<br>$$</p>
+<h2 id="总惯性力"><a href="#总惯性力" class="headerlink" title="总惯性力"></a>总惯性力</h2><p>任意非惯性系 $S^{\prime}$ 中质点的总惯性 力 $(S$ 为任意惯性系) 为</p>
+<p>$$<br>\mathbf{F_c} = m\left(\mathbf{a_{S^\prime}}-\mathbf{a_S}\right) = -m \mathbf{a_r} - 2m \boldsymbol{\omega} \times \mathbf{v_{S^\prime}}.<br>$$</p>
+<p>其中第一项包含平移惯性力和转动惯性力，转动惯性力又可划分为离心力以及角加速度产生的惯性力，但与质 点相对 $S^{\prime}$ 的速度无关，所以只将科里奥利力定义为第二项。</p>
+<h2 id="应用于地球"><a href="#应用于地球" class="headerlink" title="应用于地球"></a>应用于地球</h2><p>影响在地球表面“滑动”的空气运动的加速度是科里奥利项的水平分量<br>$$<br>-2 \boldsymbol{\omega} \times \boldsymbol{v}<br>$$</p>
+<p><img src="https://wuli.wiki/online/4d404c496fa983f9.svg" alt></p>
+<p>该分量与地球表面的速度正交，由以下表达式给出<br>$$\omega v 2 \sin \phi$$</p>
+<ul>
+<li>$\omega$ 是地球的自转速率</li>
+<li>$\phi$ 是纬度, 北半球为正，为负 南半球</li>
+</ul>
+<p>在北半球，纬度为正，从上方观察，该加速度位于运动方向的右侧。相反，在南半球它位于左侧。</p>
+<h5 id="证明为什么出现2"><a href="#证明为什么出现2" class="headerlink" title="证明为什么出现2"></a>证明为什么出现2</h5><p><a href="https://wuli.wiki/online/Corio.html" target="_blank" rel="noopener">https://wuli.wiki/online/Corio.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/14/fule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/14/fule/" class="post-title-link" itemprop="url">富勒投影：地图的艺术</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-14 22:26:13" itemprop="dateCreated datePublished" datetime="2023-09-14T22:26:13+08:00">2023-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/09/14/fule/" class="post-meta-item leancloud_visitors" data-flag-title="富勒投影：地图的艺术" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/14/fule/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/14/fule/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>地图，作为一个实用工具，自古以来就在指引人们的方向和理解世界中起着重要作用。但是，传统的地图制图技术，例如墨卡托投影，虽然实用，却因为空间的变形扭曲了人们对地球的感知。这种扭曲不仅在几何层面，甚至渗透到文化和政治层面，影响了人们对世界的认知。</p>
+<p>在20世纪，一位名叫理查·巴克敏斯特·富勒的先驱，以一种全新的方式颠覆了地图制作的艺术。这就是富勒投影，一种地图制作技术，将地球的三维真实性以极小的失真呈现在二维平面上。</p>
+<p><img src="/images/640.jpg" alt></p>
+<p align="center">1964年《时代》杂志的富勒</p>
+
+<h2 id="变形的挑战"><a href="#变形的挑战" class="headerlink" title="变形的挑战"></a>变形的挑战</h2><p>地图投影一直是地理和地图科学中的一个复杂问题。毕竟，将地球这样一个三维球体精确地展现在二维平面上是一个非常棘手的任务。橘子皮的比喻非常形象地描述了这一挑战，试图将橘子皮平铺在桌子上，不管是通过挤压还是剥开的方式，都会造成皮肤的某种形式的变形。同样，地图投影也会使得地球的某些部分产生扭曲或压缩。不同的投影方法在尺度、形状、方向和区域等方面的精确性方面有所不同。</p>
+<p>例如墨卡托投影在赤道附近的区域精度较高，但对地球的南北极产生了巨大变形。这在视觉上产生了一种不平衡，这种投影方法在描绘距离和方向时可能非常精确，但在展示陆地的相对大小时却显得扭曲。</p>
+<p><img src="/images/641.png" alt></p>
+<p align="center">墨卡托投影示意图</p>
+
+
+<p>墨卡托等投影的这一缺陷引发了对更准确、更公正地描绘地球表面的需求。理查·巴克敏斯特·富勒所创建的富勒投影（或称戴美克森投影）就是对这一挑战的回应。通过将地球投影到正二十面体上，富勒地图不仅减小了南北极地区的变形，还为我们提供了一种全新的观察和理解世界的方式。</p>
+<p><img src="/images/642.png" alt></p>
+<p align="center">富勒投影示变形</p>
+
+
+<h2 id="富勒投影的革新"><a href="#富勒投影的革新" class="headerlink" title="富勒投影的革新"></a>富勒投影的革新</h2><p>富勒投影应运而生，采用正二十面体的形状，通过手工绘制将地球表面的每个细节精确地投影到每个等边三角形上。富勒进一步将每个三角形细分，最小化变形，使地图的每个细节都呈现得精确而真实。</p>
+<p><img src="/images/644.jpg" alt></p>
+<p align="center">富勒基于正二十面体的戴美克森地图</p>
+
+
+
+<p>这一革新之处不仅在于其几何结构，更在于其提供的全新视角。富勒投影消除了墨卡托投影的极端变形，还允许不同的布局和方向，从而为观察世界提供了新的可能性。这一方法甚至可以揭示地球表面之间的拓扑关系，揭示了不同地区之间可能的迁移路径。</p>
+<p>富勒投影的另一项革命性贡献在于其去中心化的视角。与传统地图的中心主义思维方式不同，富勒投影没有固定的中心，允许以任何方向和角度展示地球的表面。这一突破性设计避免了某些地区或国家受到强调或忽略的问题，真实地反映了地球的普遍性和客观性。富勒投影的这一特性不仅摆脱了地理、政治和文化的局限，还开启了一种全新的空间认知方式。通过重新构建地图的视觉逻辑，富勒投影鼓励观众从多角度、多维度的视野来重新思考和理解我们所居住的世界。这一全球视角不仅有助于促进跨文化的沟通和理解，还可能推动科学、艺术和人文领域的创新探索。</p>
+<p>在军事行动的决策方面，富勒通过戴美克森地图发现了陆地几何中心位于当时苏联的伏尔加格勒。这一几何中心具有特殊的地缘战略意义：从该处到各大洲的最远端的距离几乎相等。后来的情报分析证实，该地区正是苏联的关键导弹发射中心，这一发现为战略规划提供了极为重要的信息。此外，在第二次世界大战期间，富勒还向美国军方提出了一项大胆的军事计划。他建议联合苏联从东部反攻纳粹德国，而不是从西部沿岸登陆。虽然当时这一建议未被采纳，但后来的分析与德国方面的情报揭示了这一战略的潜在价值：如果当时按照富勒的方案执行，纳粹德国的溃败可能会更迅速。这些例子展示了富勒投影在军事策略分析中的创新应用，其精确性和独特视角为战争决策提供了新的洞察。</p>
+<h2 id="编程语言绘图"><a href="#编程语言绘图" class="headerlink" title="编程语言绘图"></a>编程语言绘图</h2><p>富勒投影的实现和可视化并不局限于理论探讨和手工绘制。随着现代编程和可视化工具的发展，富勒投影已经可以通过多种编程语言和库实现。这一点不仅促进了富勒投影的普及，还增加了它的实用性和灵活性。</p>
+<p>以下是一些在线绘制富勒投影（Airocean projection）的资源链接：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JavaScript库实现：使用d3-geo-polygon库，可以轻松实现Airocean投影以及其他多面体投影。具体代码和示例可在Observable平台上查看：<span class="string">https:</span><span class="comment">//observablehq.com</span></span><br><span class="line"><span class="regexp">/@fil/</span>airocean-projection</span><br><span class="line">Python代码实现：如果您使用Python进行地图绘制，可以参考此GitHub链接中的代码来实现富勒投影。<span class="string">https:</span><span class="comment">//github.com/locoluis/isea-airocean</span></span><br></pre></td></tr></table></figure>
+
+<p>通过这些现代工具和库的支持，富勒投影不仅在地图学和地理科学领域中具有广泛的应用，还可以方便地融入到多领域的项目和研究中，从而继续推动富勒投影的创新和发展。</p>
+<p><img src="/images/645.png" alt><br><img src="/images/646.png" alt><br><img src="/images/648.png" alt></p>
+<p align="center">使用d3-geo-polygon绘制富勒投影使用Python绘制富勒投影</p>
+
+
+
+<h2 id="影响和启示"><a href="#影响和启示" class="headerlink" title="影响和启示"></a>影响和启示</h2><p>富勒地图的影响远不止于此。它改变了人们对地球的空间认知，消除了统治者的幻影，还揭示了地球的海陆拓扑关系与可能的迁徙路径。在历史解释上，富勒用他的地图论证了南极洲作为古代快速航路的可能性。在军事战略上，他的地图更是揭示了苏联的导弹发射中心的几何位置。富勒投影不仅是一项技术创新，更是一门艺术。它展示了地图可以如何超越纯粹的实用价值，成为连接人们与世界的桥梁。理查·巴克敏斯特·富勒用他的智慧和才华，展示了地图的可能性和潜力。他的地图投影，成为了一种象征，一种展示地球真实美丽的方式，是地图制作的一次革命。</p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><ul>
+<li>关于富勒的维基百科页面: <a href="https://en.wikipedia.org/wiki/Buckminster_Fuller" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Buckminster_Fuller</a></li>
+<li>富勒地图的详细介绍: <a href="http://www.bfi.org/about-fuller/big-ideas/dymaxion-world/dymaxion-map" target="_blank" rel="noopener">http://www.bfi.org/about-fuller/big-ideas/dymaxion-world/dymaxion-map</a></li>
+<li>关于墨卡托投影的信息: <a href="https://en.wikipedia.org/wiki/Mercator_projection" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mercator_projection</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/09/14/liangang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/14/liangang/" class="post-title-link" itemprop="url">用量纲分析洞察湍流：Kolmogorov的-5/3定律</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-14 22:05:56" itemprop="dateCreated datePublished" datetime="2023-09-14T22:05:56+08:00">2023-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/09/14/liangang/" class="post-meta-item leancloud_visitors" data-flag-title="用量纲分析洞察湍流：Kolmogorov的-5/3定律" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/09/14/liangang/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/09/14/liangang/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在生活中，我们时常被大自然的神秘现象所震撼，如旋风般的湍流、风暴中的雷电、星空下的北极光。这些看似复杂的天然奇观，其背后真的只是无法解释的魔法吗？读者们，有没有想过为什么，有时，这些复杂得超乎想象的现象，却能够通过简单的理论或方法得以解释？</p>
+<p>例如，湍流，这一连续介质力学中最为棘手的问题，尽管在研究中屡遭困境，但也有时候能够通过数学和物理的神奇魅力被探究其深层原理。这里，我们即将使用一种源于上个世纪初、既经典又简单的方法—量纲分析，来为各位揭示湍流背后的神奇秘密。正是这种将复杂事物回归简单的探索精神，使得我们对自然界的理解越来越深入，科技与自然的关系也因此变得更加和谐。</p>
+<p>让我们一起走进Kolmogorov的 $-5/3$定律的神奇世界。</p>
+<h2 id="量纲分析：开始的第一步"><a href="#量纲分析：开始的第一步" class="headerlink" title="量纲分析：开始的第一步"></a>量纲分析：开始的第一步</h2><p>首先，我们需要明确涉及的物理量及其量纲：</p>
+<ul>
+<li><strong>能量传递速率</strong> $( \varepsilon)$: <ul>
+<li>$ [\varepsilon] = L^2T^{-3} $</li>
+</ul>
+</li>
+<li><strong>波数</strong> $( k )$: <ul>
+<li>$ [k] = L^{-1} $</li>
+</ul>
+</li>
+<li><strong>能量光谱</strong> $( E(k) )$: <ul>
+<li>$ [E(k)] = L^3T^{-2} $</li>
+</ul>
+</li>
+</ul>
+<p>记住，量纲分析的魅力在于其简洁和普遍性。使用Buckingham’s $( \pi )$ 定理，我们可以将这些物理量联系起来。</p>
+<h2 id="Buckingham’s-pi-定理"><a href="#Buckingham’s-pi-定理" class="headerlink" title="Buckingham’s $( \pi )$ 定理"></a>Buckingham’s $( \pi )$ 定理</h2><p>我们有三个物理量: $( \varepsilon, k, E(k) )$ 和两个基本量纲：$( L, T )$。</p>
+<p>我们的目标是找到一个无量纲组合：<br>$$ \Pi = \varepsilon^a k^b E(k)^c $$</p>
+<p>通过量纲关系，我们得到：<br>$$ L^{2a-b+3c}T^{-3a-2c} = 1 $$</p>
+<p>满足这些关系，我们需要：</p>
+<p>$$ 2a - b + 3c = 0 $$<br>$$  -3a - 2c = 0 $$</p>
+<p>经过计算，我们得到 $( a = \frac{2}{5} )$, $( b = -1 )$, 和 $( c = -\frac{3}{5} )$，这为我们提供了最终的无量纲组合：<br>$[ \Pi = \varepsilon^{\frac{2}{5}}k E(k)^{-\frac{3}{5}} ]$</p>
+<p>这个组合是无量纲的，因此它是一个常数。进一步得出：<br>$[ E(k) \propto \varepsilon^{\frac{2}{3}}k^{-\frac{5}{3}} ]$<br>这就是我们的Kolmogorov $-5/3$定律！</p>
+<p>量纲分析为我们提供了一个简单且有力的工具，使我们能够洞察湍流中的能量如何分布。Kolmogorov的$-5/3$定律不仅是湍流理论的一个核心部分，也是使用简单的数学方法揭示物理现象背后复杂性的一个绝佳示范。</p>
+<h4 id="关于-Charney-的-“Geostrophic-Turbulence”"><a href="#关于-Charney-的-“Geostrophic-Turbulence”" class="headerlink" title="关于 Charney 的 “Geostrophic Turbulence”"></a>关于 Charney 的 “Geostrophic Turbulence”</h4><p>在1971年的论文中，Charney深入探讨了地转涡旋流动的统计特性。他提出，在地转平衡中，涡旋动能的能量谱是 $k^{−3}$，与Kolmogorov的经典湍流理论中的 $k^{−5/3}$ 法则存在明显的不同。这一差异反映了大气流中地转效应的显著影响。</p>
+<p>Charney指出，地转涡旋流动中的这种 $k^{−3}$ 能量分布是由于强大的地转效应，它抑制了三维的湍流涡旋，导致了二维的能量传播模式。相比之下，Kolmogorov的 $k^{−5/3}$ 法则更多地描述了没有强地转效应影响的三维湍流。</p>
+<p>总之，Charney通过考虑地转效应来解释了大气流中涡旋能量的分布，而这一解释与Kolmogorov的经典湍流理论存在显著的不同。</p>
+<h4 id="海洋运动的波数谱"><a href="#海洋运动的波数谱" class="headerlink" title="海洋运动的波数谱"></a>海洋运动的波数谱</h4><p>近年来，海洋动力学领域的研究者们对海洋中的波数谱斜率如何分布存在着持续的争议。尽管卫星高度计的观测技术为我们提供了大量关于波数斜率的数据，但这些数据在空间上存在着显著的差异性。有研究指出，动能谱中的波数应该遵循 $k^{−3}$ 的分布律，其中 $k$表示波数。进一步地，在地转平衡下，海表面高度（SSH）的波数谱则应遵循 $k^{−5}$ 的分布律。</p>
+<p>然而，真正的转机即将到来。SWOT（Surface Water and Ocean Topography）成像雷达高度计预计在今年10月发布其首批数据。与现有的观测手段相比，SWOT将提供前所未有的二维高分辨率SSH数据，为我们提供了一个全新的、更加精细的视角来重新评估波数谱的真实特性。</p>
+<p>这将是一个巨大的突破，因为重新分析这些高分辨率数据将有望揭示海洋能量分布的更多细节。有了SWOT的数据，我们不仅可以更好地了解海洋的动力学机制，还可以解开许多现有争议，为未来的海洋科学研究打下坚实的基础。</p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/07/15/tibxs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/15/tibxs/" class="post-title-link" itemprop="url">The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-15 06:51:48" itemprop="dateCreated datePublished" datetime="2023-07-15T06:51:48+08:00">2023-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/07/15/tibxs/" class="post-meta-item leancloud_visitors" data-flag-title="The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/07/15/tibxs/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/07/15/tibxs/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="The-11th-Tibet-Xinjiang-and-Siberia-TibXS-International-Workshop"><a href="#The-11th-Tibet-Xinjiang-and-Siberia-TibXS-International-Workshop" class="headerlink" title="The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop"></a>The 11th Tibet, Xinjiang and Siberia (TibXS) International Workshop</h1><h2 id="Background-Information"><a href="#Background-Information" class="headerlink" title="Background Information"></a>Background Information</h2><p>Tibet, Xinjiang and Siberia (TibXS) are the regions of scientific interests of this workshop. We discuss a number of issues over TibXS, including hydrological change, crustal deformation, regional gravity field and variation, mass migration and redistribution, geodynamic and cryospheric processes and climate change, based on various observations from space-borne and terrestrial sensors. </p>
+<p>The meeting encourages the latest research achievements as well as potential ideas, suggestions and original and challenging insights in science. The following subjects are accepted (but not limited to): hydrological change over river basins, lake level variation, crustal deformation and its mechanism, mountain glacier change, atmospheric circulation in TibXS, time and frequency applications in geoscience, geopotential and orthometric height determinations, unification of world height datum systems.</p>
+<h3 id="Topics-of-the-workshop"><a href="#Topics-of-the-workshop" class="headerlink" title="Topics of the workshop"></a>Topics of the workshop</h3><ul>
+<li>Long-term monitoring of surface processes from satellite altimeter</li>
+<li>Results of satellite and terrestrial-based gravimetric observations</li>
+<li>Results of GNSS observations, GNSS meteorology and ionosphere</li>
+<li>Regional hydrology, vertical displacement, glacier change, lake level change and their interpretations from altimeter, GNSS monthly GRACE fields and gravimeters</li>
+<li>Various applications, geophysical interpretations and consequences of gravity, GNSS, satellite altimetry and seismic observations</li>
+<li>SAR and LiDAR detections of surface deformation, especially over TibXS</li>
+<li>Crust structure and density refinement especially in the region TibXS using multi-datasets </li>
+<li>Earth rotation modeling and Earth rotation parameters estimates based on various observations</li>
+<li>Temporal gravity fields, mass migration and strain/stress fields</li>
+<li>Time and frequency applications in geoscience</li>
+</ul>
+<h2 id="Scientific-Organization-Committee"><a href="#Scientific-Organization-Committee" class="headerlink" title="Scientific Organization Committee"></a>Scientific Organization Committee</h2><ul>
+<li>Chair: Cheinway Hwang, Yang Ming Chiao Tung University, Taiwan</li>
+<li>Co-Chair: Wen-Bin Shen, Wuhan University, China</li>
+</ul>
+<h2 id="Scientific-Organization-Committee-1"><a href="#Scientific-Organization-Committee-1" class="headerlink" title="Scientific Organization Committee"></a>Scientific Organization Committee</h2><ul>
+<li>Cheinway Hwang (Chair), Yang Ming Chiao Tung University, Taiwan</li>
+<li>Wen-Bin Shen (Co-Chair), Wuhan University, China</li>
+<li>Shaofeng Bian, Naval University of Engineering, China</li>
+<li>Benjamin Fong Chao, Academia Sinica, Taiwan</li>
+<li>Xiaoli Ding, Hongkong Technical University, Hong Kong</li>
+<li>Kosuke Heki, Hokkaido University, Japan / Shanghai Astronomical Observatory, Chinese Academy of Science, China</li>
+<li>Zhicai Luo, Huazhong University of Science and Technology, China</li>
+<li>Chongyang Shen, China Earthquake Administration, China </li>
+<li>CK Shum, Ohio State University, USA</li>
+<li>Xiaodong Song, Peking University, China</li>
+<li>Heping Sun, Innovation Academy for Precision Measurement Science and Technology (APM), Chinese Academy of Science, China</li>
+<li>Wenke Sun, University of Chinese Academy of Sciences, China</li>
+<li>Robert Tenzer, The Hong Kong Polytechnic University, Kowloon, Hong Kong</li>
+<li>Caijun Xu, Wuhan University, China</li>
+<li>Jianqiao Xu, APM, Chinese Academy of Science, China</li>
+<li>Shuangxi Zhang, Wuhan University, China </li>
+<li>Min Zhong, Sun Yat-sen University, China</li>
+</ul>
+<h2 id="Local-Organization-Committee"><a href="#Local-Organization-Committee" class="headerlink" title="Local Organization Committee"></a>Local Organization Committee</h2><ul>
+<li>Chair: Wei Feng, Sun Yat-sen University, China</li>
+<li>Co-Chair: Jiangcun Zhou, APM, Chinese Academy of Science, China</li>
+</ul>
+<h2 id="Venue"><a href="#Venue" class="headerlink" title="Venue"></a>Venue</h2><p>Cang’er Yilong Hotel, No. 14 Binhai Avenue, Dali City, Dali Bai Autonomous Prefecture, Yunnan Province, China (中国云南省大理白族自治州大理市滨海大道14号，苍洱逸龙酒店)</p>
+<h2 id="Abstract-Submission"><a href="#Abstract-Submission" class="headerlink" title="Abstract Submission"></a>Abstract Submission</h2><p>Deadline for Abstracts Submission is July 15, 2023. Abstracts should be submitted to Mr. Shuwei An (<a href="mailto:anshw@mail2.sysu.edu.cn">anshw@mail2.sysu.edu.cn</a>) and Prof. Wei Feng (<a href="mailto:fengwei@sysu.edu.cn">fengwei@sysu.edu.cn</a>).</p>
+<h2 id="Special-Issue-of-an-International-Journal"><a href="#Special-Issue-of-an-International-Journal" class="headerlink" title="Special Issue of an International Journal"></a>Special Issue of an International Journal</h2><p>Contributions from the 11th TibXS are encouraged to submit manuscript to a special issue of an international SCI journal (to be determined), to document new scientific findings in TibXS based on multi-datasets especially the GRACE and altimeter data and time-frequency applications in geoscience. The guest editors will be announced later. The tentative deadline of full paper submission is expected on December 31, 2023. Requirements in details will be described in special announcement. </p>
+<h2 id="Registration-and-Presentation"><a href="#Registration-and-Presentation" class="headerlink" title="Registration and Presentation"></a>Registration and Presentation</h2><p>On-site registration on 10 August (whole day) 2023 is recommended. The registration fee is 150 USD (or RMB 1000) by credit card. For a student, the registration fee is 80 USD (or RMB 500). Days of presentation and discussions: August 11-12.</p>
+<h2 id="Formal-Language-of-the-Workshop"><a href="#Formal-Language-of-the-Workshop" class="headerlink" title="Formal Language of the Workshop"></a>Formal Language of the Workshop</h2><p>All abstracts, full papers, and presentations should be given in English.</p>
+<h2 id="Best-Paper-Awards-for-Graduate-Students"><a href="#Best-Paper-Awards-for-Graduate-Students" class="headerlink" title="Best Paper Awards for Graduate Students"></a>Best Paper Awards for Graduate Students</h2><p>During the meeting, best paper awards (first prize and second prize for Master or Doctor candidates) will be selected by the Scientific Committee.</p>
+<h2 id="Accommodation"><a href="#Accommodation" class="headerlink" title="Accommodation"></a>Accommodation</h2><p>Accommodation cost is covered by participants themselves. Accommodation cost in Hotel: 350/380 RMB/night for two-beds room (twin room) or 350 RMB/night for one big-bed room. The LOC will reserve the rooms for participants.</p>
+<h2 id="Transportation"><a href="#Transportation" class="headerlink" title="Transportation"></a>Transportation</h2><p>Please take taxis or public buses from Dali Fengyi Airport or Dali Train Station to the Cang’er Yilong Hotel. Please contact Ms. Lina LI (<a href="mailto:lilina3@mail.sysu.edu.cn">lilina3@mail.sysu.edu.cn</a>) for transport service.</p>
+<h2 id="Reception-and-Invitations"><a href="#Reception-and-Invitations" class="headerlink" title="Reception and Invitations"></a>Reception and Invitations</h2><p>All representatives are invited to attend the reception from 18:00 to 20:30 on August 10, 2023 (GMT+08:00).<br>Dinner Invitations: All representatives are invited to attend the meeting closing dinner: starting at 18:30 on August 12, 2023.</p>
+<h2 id="Pre-Registration"><a href="#Pre-Registration" class="headerlink" title="Pre-Registration"></a>Pre-Registration</h2><p>The participants are invited to fill in and submit the attached registration form to Mr. Shuwei An (<a href="mailto:anshw@mail2.sysu.edu.cn">anshw@mail2.sysu.edu.cn</a>) and Prof. Wei Feng (<a href="mailto:fengwei@sysu.edu.cn">fengwei@sysu.edu.cn</a>)  with the titles of your presentations before July 15, 2023.</p>
+<h2 id="Organized-and-Sponsored-By"><a href="#Organized-and-Sponsored-By" class="headerlink" title="Organized and Sponsored By"></a>Organized and Sponsored By</h2><ul>
+<li>School of Geospatial Engineering and Science, Sun Yat-sen University, Zhuhai, China;</li>
+<li>School of Geodesy and Geomatics / Key Laboratory of Geospace Environment and Geodesy, Wuhan University, Wuhan, China;</li>
+<li>Department of Civil Engineering, Yang Ming Chiao Tung University, Hsinchu, Taiwan;</li>
+<li>Subcommission 2.6 and Subcommission 2.4e of International Association of Geodesy (IAG);</li>
+<li>NSFC (grant Nos. 42061134010, 41874095, and 42030105)</li>
+</ul>
+<h2 id="Registration-Form"><a href="#Registration-Form" class="headerlink" title="Registration Form"></a>Registration Form</h2><p>International Workshop of 11th TibXS, August 10-13, 2023, Dali, Yunan, China</p>
+<p>Surname: <strong>____</strong><br>Given Name: <strong>____</strong><br>Title: <strong>____</strong><br>Sex: <strong>____</strong><br>Address: <strong>____</strong><br>Post code: <strong>____</strong><br>Country: <strong>____</strong><br>City: <strong>____</strong><br>Email: <strong>____</strong><br>Accommodation: </p>
+<ul>
+<li><input disabled type="checkbox"> Two-beds room </li>
+<li><input disabled type="checkbox"> Two-beds room (shared)</li>
+<li><input disabled type="checkbox"> One big-bed room<br>Days: From <strong>__ to __</strong><br>Institute: <strong>____</strong><br>Title(s) of Presentation(s): <strong>____</strong><br>I’ll be accompanied by: <strong>____</strong></li>
+</ul>
+<p>Please send this form before July 15, 2023<br>To: Mr. Shuwei An (<a href="mailto:anshw@mail2.sysu.edu.cn">anshw@mail2.sysu.edu.cn</a>) and Wei Feng (<a href="mailto:fengwei@sysu.edu.cn">fengwei@sysu.edu.cn</a>) </p>
+<h2 id="Abstract-Template"><a href="#Abstract-Template" class="headerlink" title="Abstract Template"></a>Abstract Template</h2><p>Title of your abstract here<br>A.B. Author(1), C.D. Author(2) and E.F. Author (3)</p>
+<ul>
+<li>(1) Please enter A.B. Author affiliation here with full address, (<a href="mailto:abauthor@mail.com">abauthor@mail.com</a> / your phone here)</li>
+<li>(2) Please enter C.D. Author affiliation here with full address, (<a href="mailto:cdauthor@mail.com">cdauthor@mail.com</a>)</li>
+<li>(3) Please enter E.F. Author affiliation here with full address, (<a href="mailto:efauthor@mail.com">efauthor@mail.com</a>)</li>
+</ul>
+<p>Please enter the main text of your abstract here. </p>
+<p>Keywords: keyword1, keyword2, keyword3<br>Presentation preference: (Oral/Poster/no preference)</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2023/05/29/buoy2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/29/buoy2/" class="post-title-link" itemprop="url">故事会系列2：井底之蛙变形记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-29 16:04:07" itemprop="dateCreated datePublished" datetime="2023-05-29T16:04:07+08:00">2023-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2023/05/29/buoy2/" class="post-meta-item leancloud_visitors" data-flag-title="故事会系列2：井底之蛙变形记" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/05/29/buoy2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/05/29/buoy2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在《庄子》中，有一个著名的井底之蛙的故事。事情发生在东海边的一个小村庄里，这儿有一只名叫小青的青蛙，它生活在一个清澈的池塘中。尽管距离东海只有几步之遥，但对小青来说，那是一个遥不可及的神秘世界。</p>
+<p>有一天，小青在池塘边欣赏着东海的波涛声，突然听到一声兴奋的声音：“喂，小青，你知道东海有多宏伟壮观吗？”小青抬头一看，原来是它的朋友东海鳖。</p>
+<p>小青好奇地问道：“东海有多大？”东海鳖微笑着回答：“小青啊，东海千里之广，千仞之深。海水浩瀚无边，无法用言语形容其广阔和深邃。洪水滔滔，海水不会因此增多；大旱连连，水位也不会因此下降。无论何时，无论天气如何变化，东海的高程始终保持不变。”</p>
+<p>小青陷入沉思，思考着东海的壮丽与稳定，觉得不可思议，为什么海平面不会变化？这是真的吗？。正当它陷入困惑时，一个人影出现在远处。走近一看，原来是青岛安海公司的雷总。雷总向小青走来，微笑着说道：“小青，你知道我们人类发明了一种叫做GNSS浮标的神奇工具吗？它可以测量海面的高度变化，让我们更好地了解东海的秘密。”</p>
+<p><img src="/images/buoy.jpg" alt></p>
+<p>小青震惊地问道：“真的吗？东海鳖以为海水是永恒不变的。”雷总点头笑道：“是的，东海虽然深广无垠，但它也在悄悄地发生着变化。GNSS浮标可以提供准确的海面高观测数据，帮助我们了解海平面的变化趋势。通过这项技术，我们可以深入了解东海的奥秘。”</p>
+<p>小青感到非常兴奋，它决定要一台GNSS浮标，以便能够更好地了解东海的变化。雷总留下了GNSS浮标的销售电话15563986819，并鼓励小青多了解关于大海的知识。</p>
+<p>从此，小青在东海之滨的池塘旁，安放了一台GNSS浮标。它通过测量海面高度的变化，深入探索东海的秘密，领悟到人类的智慧和科技的力量。小青意识到，尽管自己只是一只青蛙，但通过学习和探索，它可以超越自己的局限，去领略更广阔的世界。</p>
+<p>这个故事告诉我们，无论我们身处何地，探索未知和超越自我都是一种宝贵的精神。而GNSS浮标则成为小青认识世界的窗口，让它在东海之滨揭开了一个崭新的篇章。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -688,685 +1428,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/17/haiyangyaogan/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/17/haiyangyaogan/" class="post-title-link" itemprop="url">NSFC-海洋遥感资助项目回顾和热点分析(基于2015-2020年项目统计)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-17 21:38:59" itemprop="dateCreated datePublished" datetime="2022-12-17T21:38:59+08:00">2022-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/12/17/haiyangyaogan/" class="post-meta-item leancloud_visitors" data-flag-title="NSFC-海洋遥感资助项目回顾和热点分析(基于2015-2020年项目统计)" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/17/haiyangyaogan/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/17/haiyangyaogan/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="数量、类型和经费"><a href="#数量、类型和经费" class="headerlink" title="数量、类型和经费"></a>数量、类型和经费</h2><h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p><img src="/images/yg3.png" alt></p>
-<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p><img src="/images/yg2.png" alt></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/yg4.png" alt></p>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="/images/yg1.png" alt></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然海洋遥感在海洋科学下面设立一个代码，但是海洋遥感领域的立项课题不限于本代码。如果您也从事海洋遥感，选择代码的时候需要多多考虑。</p>
-<p>#清单</p>
-<h2 id="除面上和青年之外课题"><a href="#除面上和青年之外课题" class="headerlink" title="除面上和青年之外课题"></a>除面上和青年之外课题</h2><p><img src="/images/yg5.jpg" alt></p>
-<h2 id="面上"><a href="#面上" class="headerlink" title="面上"></a>面上</h2><p><img src="/images/yg6.jpg" alt></p>
-<h2 id="青年"><a href="#青年" class="headerlink" title="青年"></a>青年</h2><p><img src="/images/yg7.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/16/swot3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/16/swot3/" class="post-title-link" itemprop="url">SWOT发射成功，6个月后开始观测</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-16 21:18:07" itemprop="dateCreated datePublished" datetime="2022-12-16T21:18:07+08:00">2022-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/12/16/swot3/" class="post-meta-item leancloud_visitors" data-flag-title="SWOT发射成功，6个月后开始观测" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/16/swot3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/16/swot3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/images/swot41.jpg" alt><br><font size="2"><center> SpaceX猎鹰9火箭于12月16日6:46（美国东部时间）成功发射SWOT卫星。图片来源：NASA </center></font></p>
-<h2 id="发射成功"><a href="#发射成功" class="headerlink" title="发射成功"></a>发射成功</h2><p>经过了近20年的准备之后，刚才SpaceX猎鹰9火箭将SWOT卫星发射升空，目前火箭推进部分成功着落回收，SWOT载荷被送入预定轨道，并通讯正常。</p>
-<p>SWOT全面工作还需要几个月的时间。法国制造的Ka波段雷达干涉仪(KaRIn)采用两个5m吊杆，需要在太空完全展开才可以工作。一旦就位，雷达高度计天线将开始发射干涉信号到地球表面，并计算信号返回卫星所需的时间，正是这些干涉雷达高度计的返回信号让SWOT能够非常精确地确定地表水高度。</p>
-<h2 id="水文"><a href="#水文" class="headerlink" title="水文"></a>水文</h2><p>从本质上讲，这颗卫星将对水体进行3D成像，详细评估它们的时空变化。SWOT能够观测到所有大于100米宽的河流和大于6公顷的湖泊。</p>
-<p>NASA/JPL 卫星测高首席科学家Lee-Lueng Fu博士说：“SWOT观测的河流和湖泊数据量将比目前已存在的数据量多几个数量级。”</p>
-<p>“例如，目前1000个湖泊中只有10个得到了很好的调查。而我们将调查数百万个湖泊。” </p>
-<h2 id="海洋"><a href="#海洋" class="headerlink" title="海洋"></a>海洋</h2><p><img src="/images/swot43.png" alt></p>
-<p>对于海洋，SWOT将看到20公里宽的亚中尺度海流和涡旋形态。正是这种亚中尺度的海水旋转将热量和二氧化碳从大气中吸收，从而缓和了全球变暖。SWOT将有助于回答一个关键问题：海洋开始将大量热量排放回大气，而不是吸收热量的临界点是什么？ </p>
-<p>“SWOT也可以提高对海洋环流的认识，这有可能为航运、渔业甚至娱乐等更广泛行业提供重要信息，” NASA 海平面变化科学家Ben Hamlington解释道。</p>
-<p>“我们还知道，小尺度涡旋负责将污染物输送到海洋周围，然后再输送到我们的海岸。包括石油泄漏或海啸后产生的海洋垃圾。”</p>
-<h2 id="定标"><a href="#定标" class="headerlink" title="定标"></a>定标</h2><p><img src="/images/swot44.png" alt></p>
-<p>英国将参加即将到来的春季“定标和验证”活动，这将检查SWOT是否观测正常。</p>
-<p>英国参与人员在布里斯托尔河口放置传感器，以便在SWOT从头顶飞过时进行定标。 选择河口是因为这里有世界上最大的潮差之一，水位存在巨大变化。</p>
-<p>负责英国SWOT定标工作的布里斯托尔大学Bates教授说：“SWOT能够提供10厘米以内的高度变化。因此，我们必须以更准确的地面绝对高度去评估它”</p>
-<p>“我们一直在使用验潮仪，并在它们上面安装GPS站，然后考虑温度、压力、盐度等所有潜在的变量。我们最终会得到一个非常准确的河口水位。”</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/12/swot2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/12/swot2/" class="post-title-link" itemprop="url">Science：SWOT卫星将以前所未有的分辨率测量全球水循环和涡流</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-12 09:29:46" itemprop="dateCreated datePublished" datetime="2022-12-12T09:29:46+08:00">2022-12-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/12/12/swot2/" class="post-meta-item leancloud_visitors" data-flag-title="Science：SWOT卫星将以前所未有的分辨率测量全球水循环和涡流" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/12/swot2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/12/swot2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/images/swot2.jpg" alt><br><font size="2"><center> 2019年，波罗的海遥感影像捕捉到了卷入漩涡中的大量绿藻。 </center></font></p>
-<p>涡流(eddy)被忽视的时间太长了。这些湍流漩涡的大小从几公里到几百公里不等，它们从大洋环流中剥离，将热量和碳混合到更深的海洋，就像将奶油搅拌到咖啡中一样。它们是海洋中最有活力的旋转运动，对气候模型的正确性至关重要。但小尺度涡流也是卫星看不到的，除非它们碰巧卷入了大量的绿色浮游植物。</p>
-<p>现在即将不一样了。在美国国家航空航天局（NASA）和法国国家空间研究中心（CNES）联合发射地表水和海洋地形（SWOT）卫星后，小尺度涡流以及陆地河湖将迅速成为焦点。这颗价值<strong>12亿美元</strong>的卫星预计<strong>12月15日</strong>从加州范登堡空军基地由SpaceX公司的猎鹰9号火箭发射。SWOT携带一个干涉测量高度计，可以测量几厘米之内的水面高度变化，使研究人员能够推断出水面的运动状态。<code>伍兹霍尔海洋研究所（WHOI）</code>的物理海洋学家J.Thomas Farrar说：”我们预计SWOT带来的变化将是巨大的。”</p>
-<p><img src="/images/swot3.jpeg" alt><br><font size="2"><center> 2022年11月18日，SWOT被移入加利福尼亚州范登堡太空部队基地的运输容器中。</center></font></p>
-<p>法国图卢兹<code>空间、地球物理和海洋学研究实验室</code>的物理海洋学家Rosemary Morrow说，对于海洋学家来说，这就像戴上一副眼镜。这颗卫星将捕捉到小至7公里宽的涡流，每21天覆盖几乎整个地球。在陆地上，SWOT将能够绘制600多万个湖泊的高度变化图，同时还能捕捉到超过100米宽的河流的流量。它将取代来自地面的零星测量，并使水文领域比以往更具有经验性和全球性。<code>北卡罗来纳大学教堂山分校</code>的水文学家、SWOT淡水科学小组的联合领导Tamlin Pavelsky说：”它将帮助我们观察水循环在北极和非洲的运作方式–在那些我们没有实地数据的地方。”</p>
-<p>近40年来，NASA和CNES发射了一系列雷达测高卫星，这些卫星使用雷达的反射脉冲来测量水面高度。卫星高度计监测到了全球海平面的加速上升，这是气候变化的一个基本指标。通过测量海洋表面的高度起伏，它们还跟踪到了地球上的大规模洋流。但是卫星粗糙的空间分辨率意味着河流和中小尺度漩涡是无法测量的。</p>
-<p>在两个5米长度的基线杆帮助下，SWOT可利用干涉测高技术获得更高分辨率的水面高度形态，SWOT干涉基线两端都有一个天线来捕捉雷达脉冲的反射信号。这两个相距甚远的天线使SWOT有足够的分辨率来测量仅几公里宽的水面，从而使小尺度涡流进入视野。</p>
-<p>有了精确的观测数据，水文学家将得到湖泊和河流的季节性水位变化，以及短期气候驱动因素（如厄尔尼诺现象）。对于海洋生态学家来说，SWOT将能够绘制世界主要河流的水位在大坝或堰塞湖的干扰下如何变化，以及这对水生动植物栖息地的影响程度。它还将看到河流浅滩和深潭的涟漪，这对研究河流如何演变是一个福音。SWOT将捕捉到洪水顺流而下的过程，这应该有助于洪水建模。</p>
-<p>尽管SWOT计划运行3年，但其科学团队打算寻找其探测到的水流动力高度与陆地观测卫星任务（Landsat）的可见光影像之间的关联，例如变化的湖泊和河流宽度。Pavelsky说，这些可见的变化可以作为水位的替代指标，使研究人员能够继续关注地球的水循环情况。”即使SWOT消失了，你仍然可以继续这种分析。”</p>
-<p>SWOT对中小尺度涡流的观测可能是其最大的成就。WHOI的物理海洋学家Sylvia Cole说，SWOT将检验在任何时候都存在的成千上万的中小尺度涡流对海洋的混合作用。 Morrow说，小尺度涡流对于热量和碳汇入两极海水发挥关键作用。她说，它们还将推动小型海域的热能和碳混合研究。”比如我们可能低估了地中海地区90%的能量，因为我们不知道这些较小规模涡流的结构。”</p>
-<p><code>杜兰大学</code>的物理海洋学家Sönke Dangendorf说，SWOT将推动研究海平面上升如何影响海岸线的变迁。Morrow说，SWOT还将促进飓风监测，因为中小涡流使水变暖，进一步助长更强的飓风。她补充说”我们不仅在表面，而且在更深处捕获了热量”。这些都是需要快速回答的重要问题，因为人类大部分生活在沿海地区。”在沿海地区，一切都会被更敏锐地感受到。”</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/12/08/dadicel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/08/dadicel/" class="post-title-link" itemprop="url">国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-12-08 19:12:04" itemprop="dateCreated datePublished" datetime="2022-12-08T19:12:04+08:00">2022-12-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/12/08/dadicel/" class="post-meta-item leancloud_visitors" data-flag-title="国家自然科学基金-大地测量学科资助项目回顾和热点分析(基于2015-2020年项目统计)" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/12/08/dadicel/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/12/08/dadicel/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>近年来，基金申报和资助的情报本身已成为一种研究对象，对于机构研究实力评估以及科研人员项目申报有一定的指导作用。本文以2015-2020年国家自然科学基金资助的大地测量学469个项目为样本，浅析了大地测量学域的研究图景。</p>
-<h2 id="大地测量学是什么"><a href="#大地测量学是什么" class="headerlink" title="大地测量学是什么"></a>大地测量学是什么</h2><p>大地测量学是准确测量和理解地球形状、空间方位和重力，为人类活动提供地球空间信息的学科，属于地球科学的一个分支。</p>
-<p>其范畴主要包括：</p>
-<ul>
-<li>确定地球形状及其外部重力场及其随时间的变化，建立统一的大地测量坐标系，研究地壳形变（包括地壳垂直升降及水平位移），测定极移以及海洋水面地形及其变化等。</li>
-<li>研究月球及太阳系行星的形状及其重力场。</li>
-<li>建立和维持具有高科技水平的国家和全球的天文大地水平控制网和精密水准网以及海洋大地控制网，以满足国民经济和国防建设的需要。</li>
-<li>研究为获得高精度测量成果的仪器和方法等。</li>
-<li>研究地球表面向椭球面或平面的投影数学变换及有关的大地测量计算。</li>
-<li>研究大规模、高精度和多类别的地面网、空间网及其联合网的数学处理的理论和方法，测量数据库建立及应用等。</li>
-<li>大地测量学的一个特殊领域是海洋测量和河流的水文断面的研究。</li>
-</ul>
-<h2 id="数据来源"><a href="#数据来源" class="headerlink" title="数据来源"></a>数据来源</h2><p>本文通过Letpub所收录的基金数据库检索得到2015-2020年资助的大地测量学科（含物理大地测量、动力大地测量和卫星大地测量）相关的项目，通过统计的方式简要分析项目研究关键词，未能从Letpub系统检索到的项目不在分析之列。</p>
-<h2 id="总体情况"><a href="#总体情况" class="headerlink" title="总体情况"></a>总体情况</h2><p>据不完全统计，2015年至2020年六年以来在大地测量领域已获审批的各项国家自然科学基金项目共有469项，其中面上227项，青年195项，还包括专项项目1项，重点项目16项，优青1项，主任项目7项，港澳台合作2项，重大仪器1项，杰青3项，国际合作7项，地区项目7项，创新群体2项。具体项目清单附在在文末。</p>
-<p>六年以来，每年申请获批的面上和青年项目数量如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>年份</th>
-<th>2015</th>
-<th>2016</th>
-<th>2017</th>
-<th>2018</th>
-<th>2019</th>
-<th>2020</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>面上</td>
-<td>33</td>
-<td>43</td>
-<td>43</td>
-<td>44</td>
-<td>41</td>
-<td>23*</td>
-</tr>
-<tr>
-<td>青年</td>
-<td>34</td>
-<td>33</td>
-<td>38</td>
-<td>38</td>
-<td>42</td>
-<td>10*</td>
-</tr>
-</tbody></table>
-<p>从表中可以看出，基金委每年资助大地测量领域面上和青年项目均保持在30至45项之间，2020年减少可能是由于数据统计缺失造成的。</p>
-<blockquote>
-<p>*比较遗憾，没有找到更为齐全的2020年和之后的数据。如果您有更加准确的数据库资源，可回复本文。</p>
-</blockquote>
-<h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p><img src="/images/jj20.png" alt></p>
-<p>据不完全统计，近六年以来，武汉大学是大地测量领域国家自然科学基金面上和青年项目获批人数最多的高校，共有95项，远远超过其他单位。中南大学、同济大学、长安大学、矿大等也获得较多资助。</p>
-<h2 id="负责人"><a href="#负责人" class="headerlink" title="负责人"></a>负责人</h2><p><img src="/images/jj21.png" alt></p>
-<p>上图为负责人姓名生成的词云图，据不完全统计共有7人在6年间获得了3次资助，分别是<strong>朱建军、涂锐、王琪、申文斌、徐新禹、李斐、李博峰</strong>，还有60人获得了2次资助。</p>
-<h1 id="内容分析"><a href="#内容分析" class="headerlink" title="内容分析"></a>内容分析</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/jj22.png" alt></p>
-<p>给基金取一个题目，是写基金的第一步，题目定了，内容也就确定了，下面看看大家是怎么给基金取名的。</p>
-<p>我们从资助题目中提取词条进行统计，首先使用最多的词汇是一些通俗共性词，比如<code>研究</code>这个词条共出现329次，这说明半数以上的基金偏好于使用<code>研究</code>这个词汇，<code>基于</code>出现116次，<code>方法</code>出现121次，<code>模型</code>出现75次，<code>理论</code>出现69次，此外<code>联合</code>、<code>融合</code>、<code>利用</code>、<code>面向</code>、<code>顾及</code>、<code>及其</code>、<code>多</code>也是常用的共性词条。这个<code>多</code>又包含了<code>多源</code>、<code>多维</code>、<code>多元</code>、<code>多系统</code>、<code>多天线</code>、<code>多卫星</code>、<code>多频</code>、<code>多模</code>等。</p>
-<p>因此可以想想大地测量课题中最常见的题目套路为“基于…的方法（模型、理论）研究”。大家可能觉得俗气，但是管用就好啊。<br>例如：</p>
-<p><img src="/images/jj28.jpg" alt></p>
-<p>也有一些题目取得清新简介，极简题目中蕴含着核心问题，这种题目让人读着欲罢不能，比如小于15字符的题目有：</p>
-<p><img src="/images/jj27.jpg" alt></p>
-<p>有时候必须把一些信息包含在题目中，因此取得很长的也有：</p>
-<p><img src="/images/jj26.jpg" alt></p>
-<blockquote>
-<p>统计发现大地测量课题题目长度主要集中在20-30个字符，平均值为25.6。 如果题目能简化在18字符以内，并包含核心问题，通俗易懂最好。</p>
-</blockquote>
-<h2 id="研究热点"><a href="#研究热点" class="headerlink" title="研究热点"></a>研究热点</h2><p>学科热点的研究和挖掘一直是科学界研究的重要内容之一。学科内不同研究领域通常用不同的词条表示。词条出现的频次和频率代表词条的热度，词条热度的变化能直接反映学科研究热点的变化和趋势。</p>
-<p>针对研究内容而言，最大的热点是<code>GNSS</code>，出现了122次，另外同类词<code>GPS</code>21次，<code>北斗</code>31次，也就是说4个课题中就有一个是直接带有<code>GNSS</code>的。顾及一些标题不含GNSS的研究，可以说导航定位课题占据了大地测量学的半壁江山。<code>重力</code>、<code>测高</code>、<code>InSAR</code>、<code>地震</code>等相关研究从数量统计上看属于第二梯队，再往后则是少数的地球动力学、地球物理、数学原理等交叉领域研究。</p>
-<p>另外一些可能有价值的统计：出现频次最高的地名是<code>青藏高原</code>，<code>中国</code>，<code>南极</code>和<code>尼泊尔</code>；频次最多的时间词汇是<code>实时</code>（25次），均和GNSS相关课题有关，其次是<code>现今</code>（19次），与构造研究有关，GNSS相关的<code>快速</code>关键词也出现较多。</p>
-<p>以上热点分析可为2023年的国家自然科学基金项目申报人员在拟定自己的申报题目时提供参考。</p>
-<p><img src="/images/jj29.png" alt></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>据不完全统计：</p>
-<ul>
-<li>武大项目最多，和第二梯队拉开了很大距离</li>
-<li>6年间，7人获得三次资助，60获得2次资助</li>
-<li>基于…的..的研究是最火爆的题目，名字平均长度25.6</li>
-<li>GNSS导航定位在大地测量学最火</li>
-</ul>
-<h2 id="清单"><a href="#清单" class="headerlink" title="清单"></a>清单</h2><blockquote>
-<p>!2020年信息不完整。</p>
-</blockquote>
-<h4 id="除面上和青年之外的项目资助清单："><a href="#除面上和青年之外的项目资助清单：" class="headerlink" title="除面上和青年之外的项目资助清单："></a>除面上和青年之外的项目资助清单：</h4><p><img src="/images/jj23.jpg" alt></p>
-<h4 id="面上项目清单"><a href="#面上项目清单" class="headerlink" title="面上项目清单"></a>面上项目清单</h4><p><img src="/images/jj24.jpg" alt></p>
-<h4 id="青年项目清单"><a href="#青年项目清单" class="headerlink" title="青年项目清单"></a>青年项目清单</h4><p><img src="/images/jj25.jpg" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/11/27/jj2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/27/jj2/" class="post-title-link" itemprop="url">国家自然科学基金-卫星测高立项统计</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-27 11:54:23" itemprop="dateCreated datePublished" datetime="2022-11-27T11:54:23+08:00">2022-11-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/11/27/jj2/" class="post-meta-item leancloud_visitors" data-flag-title="国家自然科学基金-卫星测高立项统计" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/11/27/jj2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/11/27/jj2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>因为接到大量询问，怎么查询基金，因此本文取回重发。新增加查询方法，文末附卫星测高基金资助清单。</p>
-</blockquote>
-<p>写基金书是科研人的核心工作之一，马上到2022年12月了，现在写一份基金书还来得及赶明年3月份提交，当然更多人应该是提前更久准备的。写基金书是一项消耗人的事情，从选题到编写初稿，再不断的修改完善，都需要持续的精力投入。基金对于科研人是如此重要，为促进基金交流，决定做一个国自然系列文章。内容初步包括：</p>
-<ul>
-<li>历年立项情报分析</li>
-<li>基金申报的交流报告</li>
-<li>邀请海洋遥感、测绘领域基金大牛做报告 </li>
-<li>选题和编写的技巧</li>
-<li>学科代码的重要性</li>
-</ul>
-<p>以<code>卫星测高</code>为例，分析2015年以来这个领域的立项信息。</p>
-<h2 id="卫星测高"><a href="#卫星测高" class="headerlink" title="卫星测高"></a>卫星测高</h2><p>卫星测高测量海面地形，分辨率高，覆盖全球，重访时间短。 自20世纪70年代中期首次执行任务以来，单次海面高度测量的精度提高了100倍，接近今天的1厘米水平。 测高任务收集的数据为地球科学的许多领域提供了宝贵的信息，卫星测高彻底改变了我们对海洋重力场、海洋动力学和海洋环流、与气候相关的海平面上升，甚至陆地水文学的认识。在本文中，我们总结2015年以来国家自然科学基金资助的项目情况。</p>
-<h3 id="情报查询"><a href="#情报查询" class="headerlink" title="情报查询"></a>情报查询</h3><blockquote>
-<p>现在基金委官网的查询虽然可以查询，但是功能较单一，我使用的是letpub网站的基金模块，VIP会员可以使用更多功能。地址：<a href="http://www.letpub.com.cn/index.php?page=grant" target="_blank" rel="noopener">http://www.letpub.com.cn/index.php?page=grant</a></p>
-</blockquote>
-<p>我们使用一些关键词，比如<code>卫星测高</code>、<code>卫星测高</code>、<code>雷达高度计</code>等，进行数据库检索，并经过人工判别剔除无关课题，最终统计表明2015年至2022年，基金委共资助66项<code>卫星测高</code>课题，每年平均约8项。</p>
-<p>该领域的资助项目主要在地学部，少数分布在信息学部。资助类别以面上项目和青年项目为主，面向项目为38项，青年项目为27项，有1项为同济大学承担的国际（地区）合作与交流项目（经费10万元）。该领域的一级学科主要为地球物理学和空间物理学、海洋科学和地理学。二级学科主要为物理大地测量学和海洋遥感，这个我们对卫星测高应用领域的认知是一致的。武大、同济、海洋一所等单位承担课题较多。特别注意的是南阳师范学院承担两项课题，说明这个领域是没有什么学校壁垒的，给广大二本青椒带了希望。值得注意的是有7名科学家获得过2次资助，有一名外籍人士获得过资助。</p>
-<h3 id="2015-2022立项清单"><a href="#2015-2022立项清单" class="headerlink" title="2015-2022立项清单"></a>2015-2022立项清单</h3><p><img src="/images/jj20.jpg" alt></p>
-<h3 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h3><ul>
-<li>大地测量学基金情报</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/11/26/jj1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/26/jj1/" class="post-title-link" itemprop="url">国家自然科学基金-卫星测高立项统计</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-11-26 18:07:51" itemprop="dateCreated datePublished" datetime="2022-11-26T18:07:51+08:00">2022-11-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/11/26/jj1/" class="post-meta-item leancloud_visitors" data-flag-title="国家自然科学基金-卫星测高立项统计" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/11/26/jj1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/11/26/jj1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>写基金书是科研人的核心工作之一，马上到2022年12月了，现在写一份基金书还来得及赶明年3月份提交，当然更多人应该是提前更久准备的。写基金书是一项消耗人的事情，从选题到编写初稿，再不断的修改完善，都需要持续的精力投入。基金对于科研人是如此重要，为促进基金交流，决定做一个国自然系列文章。内容初步包括：</p>
-<ul>
-<li>历年立项情报分析</li>
-<li>基金申报的交流报告</li>
-<li>邀请海洋遥感、测绘领域基金大牛做报告 </li>
-<li>选题和编写的技巧</li>
-<li>学科代码的重要性</li>
-<li>失败案例交流（邀请反面典型）</li>
-<li>打招呼是绝对不行的（邀请匿名专家哈哈哈哈）</li>
-</ul>
-<p>今天以<code>卫星测高</code>为例，分析2015年以来这个领域的立项信息。</p>
-<h2 id="卫星测高"><a href="#卫星测高" class="headerlink" title="卫星测高"></a>卫星测高</h2><p>卫星测高测量海面地形，分辨率高，覆盖全球，重访时间短。 自20世纪70年代中期首次执行任务以来，单次海面高度测量的精度提高了100倍，接近今天的1厘米水平。 测高任务收集的数据为地球科学的许多领域提供了宝贵的信息，卫星测高彻底改变了我们对海洋重力场、海洋动力学和海洋环流、与气候相关的海平面上升，甚至陆地水文学的认识。在本文中，我们总结2015年以来国家自然科学基金资助的项目情况。</p>
-<h3 id="情报分析"><a href="#情报分析" class="headerlink" title="情报分析"></a>情报分析</h3><p>我们使用一些关键词，比如<code>卫星测高</code>、<code>卫星测高</code>、<code>雷达高度计</code>等，进行数据库检索，并经过人工判别剔除无关课题，最终统计表明2015年至2022年，基金委共资助66项<code>卫星测高</code>课题，每年平均约8项。</p>
-<p>该领域的资助项目主要在地学部，少数分布在信息学部。资助类别以面上项目和青年项目为主，面向项目为38项，青年项目为27项，有1项为同济大学承担的国际（地区）合作与交流项目（经费10万元）。<br><img src="/images/jj1.png" alt></p>
-<p>该领域的一级学科主要为地球物理学和空间物理学、海洋科学和地理学。二级学科主要为物理大地测量学和海洋遥感，这个我们对卫星测高应用领域的认知是一致的。</p>
-<p><img src="/images/jj3.png" alt></p>
-<p><img src="/images/jj4.png" alt></p>
-<p>武大、同济、海洋一所等单位承担课题较多。特别注意的是南阳师范学院承担两项课题，说明这个领域是没有什么学校壁垒的，给广大二本青椒带了希望。</p>
-<p><img src="/images/jj5.png" alt></p>
-<p>下图是课题负责人分布图，值得注意的是有7名科学家获得过2次资助，有一名外籍人士获得过资助。</p>
-<p><img src="/images/jj6.png" alt></p>
-<h3 id="无用的研究和随意的预测"><a href="#无用的研究和随意的预测" class="headerlink" title="无用的研究和随意的预测"></a>无用的研究和随意的预测</h3><ul>
-<li>题目最长的是<code>融合岸/船/机/星载多源数据基于新一代GNSS-R卫星测高原理反演全球高精度和高空间分辨率海洋重力场的理论和方法</code>，一共是57字，课题负责人是中国空间技术研究院的郑伟。题目最短的是<code>台风致地转响应的高度计观察</code>，一共是13字，课题负责人是南海所卢著敏。</li>
-<li><code>基于三维成像雷达高度计的海洋重力场探测关键问题研究</code>（2019立项）和<code>宽刈幅高度计反演海洋重力场的关键技术研究</code>（2020立项）先后立项，这说明前人立项不影响后人申请，因此大家不用焦虑被抢先立项。</li>
-<li>2015年立项<code>宽刈幅高度计海面高度反演算法研究</code>，2018年立项<code>基于三维成像雷达高度计的海冰厚度探测机理与方法</code>，2019年立项<code>干涉成像高度计卫星轨道及载荷技术参数对海洋涡旋探测的定量化影响分析</code>，2020年立项<code>宽幅高精度干涉SAR海面高度测量与仿真研究</code>，2021年立项<code>基于宽刈幅测高资料的东海黑潮两侧亚中尺度过程三维结构特征分析</code>，2022年立项<code>成像高度计高精度海面地形反演与亚中尺度动力过程解耦方法研究</code>，这个小方向的资助每年都有1-2项。</li>
-<li>SWOT即将发射，宽刈幅高度计数据将开放获取，因此预计2023年将有2-3项相关课题立项，题目都想好了：1、成像高度计亚中尺度过程，2、成像高度计地表水文过程，2、成像高度计海底地形探测。</li>
-</ul>
-<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p>基金项目情报已经整理上传到GitHub仓库：<a href="https://github.com/GenericAltimetryTools/Fund" target="_blank" rel="noopener">https://github.com/GenericAltimetryTools/Fund</a> ，后面每年会更新一次。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1439,7 +1500,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">177</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1452,7 +1513,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1645,6 +1706,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 

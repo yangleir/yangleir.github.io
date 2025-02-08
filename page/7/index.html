@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">92</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">93</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">171</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">177</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -186,6 +186,768 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/08/02/llc1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/02/llc1/" class="post-title-link" itemprop="url">xmitgcm下载LLC海洋模式数据</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-02 11:50:14" itemprop="dateCreated datePublished" datetime="2022-08-02T11:50:14+08:00">2022-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2022/08/02/llc1/" class="post-meta-item leancloud_visitors" data-flag-title="xmitgcm下载LLC海洋模式数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/08/02/llc1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/02/llc1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上一节，我们介绍了xmitgcm的LLCreader入门操作，总体上这个工具可以通过网络自动加载门户网站（ECCO）的模式数据，实现对大数据模式LLC4320和LLC2160的读取。但还有许多问题尚未解决：</p>
+<ul>
+<li>能否保存数据到本地</li>
+<li>能否按照经纬范围选取数据</li>
+<li>能否选择连续的一段时间（如70天，每小时一个）</li>
+<li>能否做较复杂计算</li>
+</ul>
+<p>本节先介绍怎么通过LLCreader将数据下载本地，并使用GMT绘图。</p>
+<h4 id="加载llcreader"><a href="#加载llcreader" class="headerlink" title="加载llcreader"></a>加载llcreader</h4><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xmitgcm.llcreader <span class="keyword">as</span> llcreader</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化模型"><a href="#初始化模型" class="headerlink" title="初始化模型"></a>初始化模型</h4><p>因为LLC4320数据体量较大，这里先以LLC2160为例。我们选择<code>Theta</code>进行导出测试。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">model = llcreader.ECCOPortalLLC2160Model()</span><br><span class="line"></span><br><span class="line">ds_sst = model.get_dataset(varnames=[<span class="string">'Theta'</span>], k_levels=[0], <span class="attribute">type</span>=<span class="string">'latlon'</span>,</span><br><span class="line">                          <span class="attribute">iter_start</span>=model.iter_start,</span><br><span class="line">                          iter_stop=(model.iter_start + model.iter_step),</span><br><span class="line">                          <span class="attribute">read_grid</span>=<span class="literal">True</span>)</span><br><span class="line">ds_sst.Theta</span><br></pre></td></tr></table></figure>
+<p><img src="../images/llc1.png" alt></p>
+<p><code>ds_sst</code>的数据结构为Xarray的<code>dataset</code>，<code>ds_sst.Theta</code>的数据结构为Xarray的<code>dataarray</code>。可以看到<code>Theta</code>的数据大小是231M，这只是一个小时快照的单层全球数据，体积不算太大。</p>
+<p><img src="en-resource://database/1799:1" alt="424563f1e8a8cb5512488f4924a7206b.png"></p>
+<p>上图为其<code>coordinates</code>，这是<code>dataarray</code>数据结构的一个关键术语，其中黑色粗体<code>i,j,k,time</code>表示维度坐标(Dimension coordinate)，其他为无维度坐标(Non-dimension coordinate)。</p>
+<blockquote>
+<p>Xarray: <a href="https://docs.xarray.dev/en/stable/user-guide/terminology.html#term-Dimension-coordinate" target="_blank" rel="noopener">https://docs.xarray.dev/en/stable/user-guide/terminology.html#term-Dimension-coordinate</a></p>
+</blockquote>
+<h4 id="绘图查看"><a href="#绘图查看" class="headerlink" title="绘图查看"></a>绘图查看</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">temp</span><span class="selector-class">.Theta</span><span class="selector-class">.plot</span>()</span><br></pre></td></tr></table></figure>
+<p><img src="../images/llc2.png" alt></p>
+<p>维度坐标<code>i,j</code>作为其<code>x</code>和<code>y</code>轴，另一维度<code>time</code>和<code>k</code>(深度0)出现在标题上。</p>
+<p>因为LLC为特殊的网格结构，这里暂时不能直接实现地理绘图。后面会对此进行单独介绍。</p>
+<h4 id="保存-to-netcdf"><a href="#保存-to-netcdf" class="headerlink" title="保存 .to_netcdf()"></a>保存 .to_netcdf()</h4><p><code>to_netcdf()</code>是<code>Xarray</code>内置的函数，可将数据保存为nc格式。注意数据保存和<code>llcreader</code>函数无关，<code>llcreader</code>的主要作用是在线获得LLC模式数据，并转化成<code>Xarray</code>特有的数据结构，后面所有的操作都是使用<code>Xarray</code>，因此有必要对<code>Xarray</code>做全面的学习。后面会对此介绍。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds_sst.<span class="module-access"><span class="module"><span class="identifier">Theta</span>.</span></span><span class="keyword">to</span><span class="constructor">_netcdf('<span class="params">myfile</span>.<span class="params">nc</span>')</span></span><br></pre></td></tr></table></figure>
+<p>上述命令可以将<code>Theta</code>参数保存。通过<code>panoply</code>可以绘图展示SST参数的全球分布：</p>
+<p><img src="../images/llc3.png" alt></p>
+<h4 id="删除不重要的坐标"><a href="#删除不重要的坐标" class="headerlink" title="删除不重要的坐标"></a>删除不重要的坐标</h4><p>但可以发现保存的文件大小是2.5G，远远超过了其自身大小，这是什么原因呢？</p>
+<p><img src="../images/llc5.png" alt></p>
+<p>原来是把无维度坐标全部保存了，这些坐标其实也是数据，因此占用很大空间。一共有11个这样的2D坐标，再加上<code>Theta</code>，数据体积就达到2.5G了。<br><img src="../images/llc6.png" alt></p>
+<p>这些无维度坐标可以删去：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ds_sst.Theta.reset_coords<span class="params">()</span> <span class="comment"># 将无维度坐标转为变量(不删除)</span></span><br><span class="line">ds_sst[[<span class="string">"Theta"</span>]]<span class="string">.reset_coords</span><span class="params">(<span class="attr">drop</span>=True)</span> <span class="comment"># 将会删去无维度坐标</span></span><br></pre></td></tr></table></figure>
+<p><img src="../images/llc7.png" alt></p>
+<p>若想保留某些坐标，比如经纬度<code>XC,YC</code>：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ds_sst</span><span class="selector-class">.Theta</span><span class="selector-class">.reset_coords</span>()<span class="selector-attr">[[<span class="string">"XC"</span>, <span class="string">"YC"</span>,<span class="string">"Theta"</span>]</span>]</span><br></pre></td></tr></table></figure>
+<p>上面使用了<code>[[ ]]</code>做变量的筛选。</p>
+<blockquote>
+<p>参考：<a href="https://docs.xarray.dev/en/stable/user-guide/data-structures.html#transforming-datasets" target="_blank" rel="noopener">https://docs.xarray.dev/en/stable/user-guide/data-structures.html#transforming-datasets</a></p>
+</blockquote>
+<p>然后保存：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ds_sst<span class="literal">[["T<span class="identifier">heta</span>"]</span>].reset<span class="constructor">_coords(<span class="params">drop</span>=True)</span>.<span class="keyword">to</span><span class="constructor">_netcdf('<span class="params">myfile2</span>.<span class="params">nc</span>')</span></span><br><span class="line">ds_sst.<span class="module-access"><span class="module"><span class="identifier">Theta</span>.</span></span>reset<span class="constructor">_coords()</span><span class="literal">[["XC", "YC","T<span class="identifier">heta</span>"]</span>].<span class="keyword">to</span><span class="constructor">_netcdf('<span class="params">myfile3</span>.<span class="params">nc</span>')</span></span><br></pre></td></tr></table></figure>
+<p>这样，数据体积就小了，其中<code>myfile2.nc</code>仅包含<code>Theta</code>，大小213M。</p>
+<p><img src="../images/llc8.png" alt></p>
+<h4 id="GMT绘图"><a href="#GMT绘图" class="headerlink" title="GMT绘图"></a>GMT绘图</h4><p>GMT绘图比ython自带函数更加强大，既然已经下载到本地，则看一下GMT绘图效果：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">gmt begin ex02 png</span><br><span class="line">	gmt set MAP_ANNOT_OBLIQUE <span class="number">0</span></span><br><span class="line">	gmt subplot begin <span class="number">2</span>x1 -A+JTL -Fs16c/<span class="number">10</span>c -M0 -R1000/<span class="number">2000</span>/<span class="number">2500</span>/<span class="number">3500</span> -JX15/<span class="number">13</span>c -B100 -T<span class="string">"Aghulhas Rings"</span></span><br><span class="line">		gmt subplot set <span class="number">0</span>,<span class="number">0</span> -Ce3c</span><br><span class="line">		gmt grd2cpt myfile3.nc?Theta -Cjet -Z</span><br><span class="line">		gmt grdimage myfile3.nc?Theta -I+a90  </span><br><span class="line">		gmt colorbar -DJRM+o1<span class="number">.5</span>c/<span class="number">0</span>+mc -I0<span class="number">.3</span> -Bx2+lTheta -By+ldegree</span><br><span class="line"></span><br><span class="line">		gmt subplot set <span class="number">1</span>,<span class="number">0</span> -Ce3c</span><br><span class="line">		gmt grd2cpt myfile4.nc?Theta -Crainbow -Z</span><br><span class="line">		gmt grdimage myfile4.nc?Theta</span><br><span class="line">		gmt colorbar -DJRM+o1<span class="number">.5</span>c/<span class="number">0</span>+e+mc -Bx2+lTheta -By+ldegree</span><br><span class="line">	gmt subplot end</span><br><span class="line">gmt end show</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/4320.png" alt></p>
+<h4 id="下节预告"><a href="#下节预告" class="headerlink" title="下节预告"></a>下节预告</h4><ul>
+<li>范围的筛选</li>
+<li>时间维度的连续导出</li>
+</ul>
+<h2 id="交流群"><a href="#交流群" class="headerlink" title="交流群"></a>交流群</h2><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
+<p><strong>主要功能定位：</strong></p>
+<ul>
+<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
+<li>对国内海洋实测数据的申请提供必要的指导</li>
+<li>物理海洋、大地测量、海洋遥感等学科交流</li>
+<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
+</ul>
+<p><img src="../images/qq.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/13/gmt-authors/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/13/gmt-authors/" class="post-title-link" itemprop="url">GMT辅助文献计量学绘制作者产出和引用图</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-07-13 22:12:10" itemprop="dateCreated datePublished" datetime="2022-07-13T22:12:10+08:00">2022-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2022/07/13/gmt-authors/" class="post-meta-item leancloud_visitors" data-flag-title="GMT辅助文献计量学绘制作者产出和引用图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/07/13/gmt-authors/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/13/gmt-authors/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在分析某一领域的核心贡献者时，往往使用年发文数量和年平均引用数量这两个指标，怎么将这两个指标在一个图形中展示呢？计量软件<code>bibliometrix</code>工具可以绘制这类图形，但是不容易被大众解读。今天推荐GMT的一个特别工具<code>wiggle</code>实现该目标。我们使用的例子还是卫星测高这个研究群体。</p>
+<h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>从WoS下载卫星测高主题的元数据，1970年到2021年大约有8500多篇，作者有1,5000多位。</p>
+<p>将数据导入<code>bibliometrix</code>软件。</p>
+<blockquote>
+<p>bibliometrix是一个R语言的文献计量软件包，统计分析的功能较为强大，绘图的灵活性较弱。这里我们仅使用其统计功能。更多参考：<a href="https://bibliometrix.org/" target="_blank" rel="noopener">https://bibliometrix.org/</a></p>
+</blockquote>
+<p>在作者一栏，我们选择：</p>
+<p><img src="../images/AU1.png" alt></p>
+<p>这里就可以看到图形了，但是不仔细看，分不清楚引用量是怎么表达的。</p>
+<p><img src="../images/AU3.png" alt></p>
+<p>仔细看的话，发现圆点的大小表示论文数量，圆点的颜色深浅表示引用数量，这种展示对于量化分析并不友好。</p>
+<p>我们选择保存为csv文件，然后让GMT来绘图：</p>
+<p><img src="../images/AU2.png" alt></p>
+<h2 id="GMT代码"><a href="#GMT代码" class="headerlink" title="GMT代码"></a>GMT代码</h2><p>由于在一个csv文件中包含了所有信息，绘图需要使用循环的脚本，这里采用<code>pygmt</code>和<code>Python</code>相结合绘图。</p>
+<p>主要代码如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(r<span class="string">".\author\Author_Production_Over_Time.csv"</span>)</span><br><span class="line"><span class="attribute">au</span>=df[<span class="string">'Author'</span>]</span><br><span class="line"></span><br><span class="line">fig = pygmt.Figure()</span><br><span class="line">fig.basemap(region=[1978, 2023, -20, 200], <span class="attribute">projection</span>=<span class="string">"X15c/15c"</span>, frame=[<span class="string">"Snlr"</span>, <span class="string">"xaf1"</span>])</span><br><span class="line"></span><br><span class="line">fruits = au.unique()</span><br><span class="line"><span class="attribute">fruits</span>=fruits[::-1] </span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line">    <span class="builtin-name">print</span> (<span class="string">'Present author : %s'</span> % fruits[index])</span><br><span class="line">    <span class="attribute">z</span>=df[<span class="string">'freq'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">x</span>=df[<span class="string">'year'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">y</span>=np.ones(x.values.size)+k</span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> k == 0:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"20"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"gray+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            # Plot a vertical scale bar at the right middle. The bar length is 100 <span class="keyword">in</span></span><br><span class="line">            <span class="attribute">position</span>=<span class="string">"jLT+w10+lpublications+o0.2/0.2"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"20"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"gray+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,         </span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )</span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line">    <span class="builtin-name">print</span> (<span class="string">'Present author : %s'</span> % fruits[index])</span><br><span class="line">    <span class="attribute">z</span>=df[<span class="string">'TCpY'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">x</span>=df[<span class="string">'year'</span>][df[<span class="string">'Author'</span>]== fruits[index]]</span><br><span class="line">    <span class="attribute">y</span>=np.ones(x.values.size)+k</span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line">    <span class="keyword">if</span> k == 0:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=-z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"100"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"blue+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            # Plot a vertical scale bar at the right middle. The bar length is 100 <span class="keyword">in</span>            </span><br><span class="line">            <span class="attribute">position</span>=<span class="string">"jLT+w50+lcitations/year+o0.2/0.9"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        )    </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fig.wiggle(</span><br><span class="line">            <span class="attribute">x</span>=x.values,</span><br><span class="line">            <span class="attribute">y</span>=y,</span><br><span class="line">            <span class="attribute">z</span>=-z.values,</span><br><span class="line"></span><br><span class="line">            # <span class="builtin-name">Set</span> anomaly scale <span class="keyword">to</span> <span class="string">"20c"</span></span><br><span class="line">            <span class="attribute">scale</span>=<span class="string">"100"</span>,</span><br><span class="line">            # Fill positive <span class="keyword">and</span> negative areas red <span class="keyword">and</span> gray, respectively</span><br><span class="line">            color=[<span class="string">"red+p"</span>, <span class="string">"blue+n"</span>],</span><br><span class="line">            # <span class="builtin-name">Set</span> the outline width <span class="keyword">to</span> <span class="string">"1.0p"</span></span><br><span class="line">            <span class="attribute">pen</span>=<span class="string">"1.0p"</span>,</span><br><span class="line">            # Draw a blue track with a width of 0.5 points</span><br><span class="line">            <span class="attribute">track</span>=<span class="string">"0.5p,blue"</span>,</span><br><span class="line">            <span class="attribute">transparency</span>=50,</span><br><span class="line">        ) </span><br><span class="line"></span><br><span class="line"><span class="attribute">k</span>=-10</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(fruits)):</span><br><span class="line"></span><br><span class="line">    <span class="attribute">k</span>=k+10</span><br><span class="line"></span><br><span class="line">    fig.text(</span><br><span class="line">        region=[1978, 2030, -20, 200],</span><br><span class="line">        <span class="attribute">projection</span>=<span class="string">"X20c/15c"</span>,</span><br><span class="line">        <span class="attribute">x</span>=2017,</span><br><span class="line">        <span class="attribute">y</span>=1+k-10,</span><br><span class="line">        <span class="attribute">text</span>=fruits[index],</span><br><span class="line">        <span class="attribute">font</span>=<span class="string">"Courier-Bold"</span>,</span><br><span class="line">        <span class="attribute">justify</span>=<span class="string">"BL"</span>,</span><br><span class="line">        <span class="attribute">offset</span>=<span class="string">"0.75c/0c"</span>,</span><br><span class="line">    )        </span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/AU4.png" alt></p>
+<p>图上方红色区域表示作者的年度论文发表数量，下方的蓝色区域表示当年度发表论文的年均引用量。</p>
+<p>可以看出卫星测高领域产出最大和引用最多的作者中有多位多位中国人，排名首位的是美国<code>The Ohio State University</code>的华人C.K. Shum。</p>
+<blockquote>
+<p>测试数据和代码：<a href="https://www.jianguoyun.com/p/DR0zR7YQ2PCQBxiK_MwEIAA" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DR0zR7YQ2PCQBxiK_MwEIAA</a> </p>
+</blockquote>
+<p>文献计量分析的GMT案例到此结束。</p>
+<h4 id="交流群"><a href="#交流群" class="headerlink" title="交流群"></a>交流群</h4><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
+<p><strong>主要功能定位：</strong></p>
+<ul>
+<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
+<li>对国内海洋实测数据的申请提供必要的指导</li>
+<li>物理海洋、大地测量、海洋遥感等学科交流</li>
+<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
+</ul>
+<p><img src="../images/qq.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/09/3D-number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/09/3D-number/" class="post-title-link" itemprop="url">GMT绘制3D柱状地理分布图</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-07-09 21:55:36" itemprop="dateCreated datePublished" datetime="2022-07-09T21:55:36+08:00">2022-07-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2022/07/09/3D-number/" class="post-meta-item leancloud_visitors" data-flag-title="GMT绘制3D柱状地理分布图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/07/09/3D-number/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/09/3D-number/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本期再次回到GMT绘图，介绍一种使用GMT绘制3D柱状图的方法，本例子数据采用的是卫星测高领域的研究国家和机构的文章数量。本图件可以直观的展示某一领域研究机构的空间地理分布和强度。对于综述文章或者研究生的文献调研有一定用途。</p>
+</blockquote>
+<h2 id="WoS数据"><a href="#WoS数据" class="headerlink" title="WoS数据"></a>WoS数据</h2><p>根据前几期文章介绍的方法，从Web of Science数据库检索相关主题，例如本次我们采用<code>satellite altimet*</code>，得到8000多篇研究结果。下载研究国家/地区和研究机构的文章数量数据。</p>
+<p>机构数据：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Affiliations	Record Count	% of <span class="number">8</span>,<span class="number">505</span></span><br><span class="line">NATIONAL AERONAUTICS SPACE ADMINISTRATION	<span class="number">914</span>	<span class="number">10.747</span></span><br><span class="line">CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE 	<span class="number">828</span>	<span class="number">9.735</span></span><br><span class="line">INSTITUT DE RECHERCHE POUR LE DEVELOPPEMENT 	<span class="number">707</span>	<span class="number">8.313</span></span><br><span class="line">CHINESE ACADEMY OF SCIENCES	<span class="number">629</span>	<span class="number">7.396</span></span><br><span class="line">UNIVERSITE DE TOULOUSE	<span class="number">517</span>	<span class="number">6.079</span></span><br><span class="line">UNIVERSITE TOULOUSE III PAUL SABATIER	<span class="number">498</span>	<span class="number">5.855</span></span><br><span class="line">NASA GODDARD SPACE FLIGHT CENTER	<span class="number">483</span>	<span class="number">5.679</span></span><br><span class="line">LABORATOIRE D ETUDES EN GEOPHYSIQUE ET OCEANOGRAPHIE SPATIALES	<span class="number">439</span>	<span class="number">5.162</span></span><br><span class="line">NASA JET PROPULSION LABORATORY 	<span class="number">431</span>	<span class="number">5.068</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>国家数据：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">USA	<span class="number">3118</span></span><br><span class="line">CHINA	<span class="number">1493</span></span><br><span class="line">FRANCE	<span class="number">1385</span></span><br><span class="line">ENGLAND	<span class="number">804</span></span><br><span class="line">GERMANY	<span class="number">748</span></span><br><span class="line">AUSTRALIA	<span class="number">421</span></span><br><span class="line">ITALY	<span class="number">421</span></span><br><span class="line">SPAIN	<span class="number">371</span></span><br><span class="line">NETHERLANDS	<span class="number">340</span></span><br><span class="line">CANADA	<span class="number">323</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="从地名到坐标"><a href="#从地名到坐标" class="headerlink" title="从地名到坐标"></a>从地名到坐标</h2><p>使用google sheet结合Geocode插件对研究机构和国家名称进行坐标解析。</p>
+<blockquote>
+<p>参考：<a href="https://workspace.google.com/marketplace/app/geocode_by_awesome_table/904124517349" target="_blank" rel="noopener">https://workspace.google.com/marketplace/app/geocode_by_awesome_table/904124517349</a></p>
+</blockquote>
+<p>得到：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Affiliations	long	lati</span><br><span class="line">NATIONAL AERONAUTICS SPACE ADMINISTRATION	<span class="number">-77.016389</span>	<span class="number">38.883056</span></span><br><span class="line">CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE 	<span class="number">2.2639934</span>	<span class="number">48.8476037</span></span><br><span class="line">INSTITUT DE RECHERCHE POUR LE DEVELOPPEMENT 	<span class="number">2.3</span>	<span class="number">48.9</span></span><br><span class="line">CHINESE ACADEMY OF SCIENCES	<span class="number">116.3356321</span>	<span class="number">39.9106327</span></span><br><span class="line">UNIVERSITE DE TOULOUSE	<span class="number">1.4</span>	<span class="number">43.6</span></span><br><span class="line">UNIVERSITE TOULOUSE III PAUL SABATIER	<span class="number">1.4699399</span>	<span class="number">43.5619586</span></span><br><span class="line">NASA GODDARD SPACE FLIGHT CENTER	<span class="number">-76.852344</span>	<span class="number">38.99495</span></span><br><span class="line">LABORATOIRE D ETUDES EN GEOPHYSIQUE ET OCEANOGRAPHIE SPATIALES	<span class="number">1.45</span>	<span class="number">43.65</span></span><br><span class="line">NASA JET PROPULSION LABORATORY 	<span class="number">-118.1713944</span>	<span class="number">34.2013081</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><p>数据整理完毕后，使用GMT绘制3D柱状图。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">REM For windows</span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line">set ps=<span class="number">3</span>d.ps</span><br><span class="line">gmt pscoast -JQ0/<span class="number">37.5</span>/<span class="number">10</span>c -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Sazure2 -Gwheat -Bxa60 -Bya30 --FONT_TITLE=<span class="number">10</span>p -K  --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -p200/<span class="number">30</span> &gt; %ps%</span><br><span class="line">gawk <span class="string">"NF&gt;1 &#123;print $1, $2, $3&#125;"</span> loc | gmt psxyz  -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span>/<span class="number">0</span>/<span class="number">1000</span> -J -JZ1<span class="number">.5</span>i -So0<span class="number">.1</span>c -Gred -O -K -p -Bza200+l<span class="string">"Publication numbers by affiliation"</span> -BWSneZ -t20 &gt;&gt;%ps%</span><br><span class="line"></span><br><span class="line">gmt pscoast -JQ0/<span class="number">37.5</span>/<span class="number">10</span>c -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Sazure2 -Gwheat -Bxa60 -Bya30 --FONT_TITLE=<span class="number">10</span>p -K -O --MAP_ANNOT_OBLIQUE=<span class="number">45</span> -p200/<span class="number">30</span> -Y6c &gt;&gt; %ps%</span><br><span class="line">gawk <span class="string">"&#123;print $2, $3, $4&#125;"</span> loc_c | gmt psxyz -R<span class="number">-180</span>/<span class="number">180</span>/<span class="number">-90</span>/<span class="number">90</span>/<span class="number">0</span>/<span class="number">3200</span> -J -JZ1<span class="number">.5</span>i -So0<span class="number">.2</span>c -Gblue -Bza500+l<span class="string">"Publication numbers by country/region"</span> -BWSneZ -O  -p -hi1 &gt;&gt;%ps%</span><br><span class="line">gmt psconvert %ps%  -A -P -Tf</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="../images/3d_geo.png" alt></p>
+<p>图中上部分为国家和地区的发表卫星测高相关的文章数量，下部分为机构发表的文章数量。首先，国家和地区较为集中在美国、法国、中国、英国和德国，以中国为例，相关研究机构主要分布在东部地区，最高为位于北京的中科院大学。</p>
+<h2 id="附赠平面图绘制代码"><a href="#附赠平面图绘制代码" class="headerlink" title="附赠平面图绘制代码"></a>附赠平面图绘制代码</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM For windows</span></span><br><span class="line"></span><br><span class="line">gmt gmtset FORMAT_GEO_MAP = dddF MAP_FRAME_WIDTH=<span class="number">2</span>p</span><br><span class="line">gmt gmtset FONT_ANNOT_PRIMARY <span class="number">7</span>p,Helvetica,black FONT_LABEL <span class="number">7</span>p,Helvetica,black </span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ps=fig1.ps</span><br><span class="line">gmt pscoast -JN4.<span class="number">5</span>i -<span class="built_in">Rd</span> -Dc -A10000/<span class="number">0</span>/<span class="number">1</span> -Ba --FONT_TITLE=<span class="number">10</span>p -K  -W0.<span class="number">1</span>p --MAP_ANNOT_OBLIQUE=<span class="number">45</span>  &gt; <span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">1</span>, $<span class="number">2</span>, log($<span class="number">3</span>)/log(<span class="number">10</span>)/<span class="number">10</span>&#125;" loc | gmt psxy -R -J  -Sc -Gred -K -O -t55 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line">gawk "&#123;<span class="built_in">print</span> $<span class="number">2</span>, $<span class="number">3</span>, $<span class="number">4</span>/<span class="number">2000</span>&#125;" loc_c | gmt psxy -R -J  -Sc -Gblue -O -t75 &gt;&gt;<span class="variable">%ps%</span></span><br><span class="line"></span><br><span class="line">gmt psconvert <span class="variable">%ps%</span>  -A -P -Tg</span><br></pre></td></tr></table></figure>
+<p>注意国家发文数量使用了对数化处理。图件缺少比例尺，有兴趣的同学可以修改代码加上。</p>
+<p><img src="../images/2d_geo.png" alt></p>
+<p>至于哪一种表达方式效果更佳，小编也难以下结论，这或许和数据特点和个人喜好有关。</p>
+<h2 id="样本数据下载"><a href="#样本数据下载" class="headerlink" title="样本数据下载"></a>样本数据下载</h2><blockquote>
+<p><a href="https://www.jianguoyun.com/p/DSoojxEQ2PCQBxjioswEIAA" target="_blank" rel="noopener">https://www.jianguoyun.com/p/DSoojxEQ2PCQBxjioswEIAA</a> </p>
+</blockquote>
+<h2 id="号外"><a href="#号外" class="headerlink" title="号外"></a>号外</h2><p>因为公众号留言功能未开通，为了促进交流，小编建立了一个QQ交流群，欢迎大家入群。暂时没开通微信群。</p>
+<p><strong>主要功能定位：</strong></p>
+<ul>
+<li>交流国内外卫星遥感数据信息和现场实测数据信息</li>
+<li>对国内海洋实测数据的申请提供必要的指导</li>
+<li>物理海洋、大地测量、海洋遥感等学科交流</li>
+<li>传播有价值的科研工具、开源程序，提高科研生产力</li>
+</ul>
+<p><img src="../images/qq.png" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/03/gantt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/03/gantt/" class="post-title-link" itemprop="url">绘制卫星的gantt图</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-07-03 11:22:03" itemprop="dateCreated datePublished" datetime="2022-07-03T11:22:03+08:00">2022-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2022/07/03/gantt/" class="post-meta-item leancloud_visitors" data-flag-title="绘制卫星的gantt图" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/07/03/gantt/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/03/gantt/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以卫星高度计任务为例，绘制Gantt图，以展示过去、现在和未来的卫星任务时间轴。此类图形对于综述文章或者研究生开题报告有一定帮助。</p>
+<blockquote>
+<p>甘特图（Gantt Chart）简介：它是条状图的一种流行类型，显示项目进度以及其他与时间相关的系统进展的内在关系随着时间进展的情况，是由亨利·甘特 (Henry Laurence Gantt) 于1910年开发出。在项目管理中，甘特图显示项目的终端元素的开始和结束，概要元素或终端元素的依赖关系。</p>
+</blockquote>
+<p><img src="/images/ga1.png" alt></p>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>我们采用Python库<code>plotly</code>的<code>plotly.express</code>模块来绘制Gantt图。其优点是高度集成，节省代码，方便学习使用。</p>
+<blockquote>
+<p><code>plotly.express</code>可以绘制许多类型的图形，包含那些常见的不常见的、常用的不常用，如散点图、线条图、PIE图、Bar图、泡泡图、桑吉图、Sunburst图、Icicle图等等。详见：<a href="https://plotly.com/python/plotly-express/" target="_blank" rel="noopener">https://plotly.com/python/plotly-express/</a></p>
+</blockquote>
+<h2 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h2><p>输入的数据格式采用pandas的<code>DataFrame</code>，内容包含任务名称、开始时间和结束时间。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame([</span><br><span class="line">    dict(<span class="attribute">Task</span>=<span class="string">"Job A"</span>, <span class="attribute">Start</span>=<span class="string">'2009-01-01'</span>, <span class="attribute">Finish</span>=<span class="string">'2009-02-28'</span>),</span><br><span class="line">    dict(<span class="attribute">Task</span>=<span class="string">"Job B"</span>, <span class="attribute">Start</span>=<span class="string">'2009-03-05'</span>, <span class="attribute">Finish</span>=<span class="string">'2009-04-15'</span>),</span><br><span class="line">    dict(<span class="attribute">Task</span>=<span class="string">"Job C"</span>, <span class="attribute">Start</span>=<span class="string">'2009-02-20'</span>, <span class="attribute">Finish</span>=<span class="string">'2009-05-30'</span>)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>对于卫星任务，我们可以设置如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame([dict(<span class="attribute">Satellite</span>=<span class="string">"TP"</span>, <span class="attribute">Start</span>=<span class="string">'1992-8-11'</span>, <span class="attribute">Finish</span>=<span class="string">'2005-12-31'</span>,Country="USA-FR")])</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>Python全部绘图代码如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Install Plotly</span></span><br><span class="line"><span class="comment"># pip install plotly</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Import required libraries</span></span><br><span class="line">import plotly.express as px</span><br><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line"><span class="comment">#Create input data aggregated for each Satellite for each Country type</span></span><br><span class="line">df = pd.DataFrame([</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"GEOSAT"</span>, <span class="attribute">Start</span>=<span class="string">'1985-3-1'</span>, <span class="attribute">Finish</span>=<span class="string">'1989-12-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"ERS-1"</span>, <span class="attribute">Start</span>=<span class="string">'1991-7-1'</span>, <span class="attribute">Finish</span>=<span class="string">'1995-6-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"TP"</span>, <span class="attribute">Start</span>=<span class="string">'1992-8-11'</span>, <span class="attribute">Finish</span>=<span class="string">'2005-12-31'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"ERS-2"</span>, <span class="attribute">Start</span>=<span class="string">'1995-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2002-6-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"GFO"</span>, <span class="attribute">Start</span>=<span class="string">'1998-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2008-9-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Jason-2"</span>, <span class="attribute">Start</span>=<span class="string">'2001-11-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2013-7-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"ENVISAT"</span>, <span class="attribute">Start</span>=<span class="string">'2002-3-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2012-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Icesat-1"</span>, <span class="attribute">Start</span>=<span class="string">'2003-1-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2010-2-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Jason-2"</span>, <span class="attribute">Start</span>=<span class="string">'2008-6-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2019-10-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Cryosat-2"</span>, <span class="attribute">Start</span>=<span class="string">'2010-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2024-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2A"</span>, <span class="attribute">Start</span>=<span class="string">'2011-8-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2020-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Saral"</span>, <span class="attribute">Start</span>=<span class="string">'2013-2-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2022-12-31'</span>,Country="IN-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3A"</span>, <span class="attribute">Start</span>=<span class="string">'2016-2-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2023-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Jason-3"</span>, <span class="attribute">Start</span>=<span class="string">'2016-1-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2022-4-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3B"</span>, <span class="attribute">Start</span>=<span class="string">'2018-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2025-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3C"</span>, <span class="attribute">Start</span>=<span class="string">'2024-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2031-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-3D"</span>, <span class="attribute">Start</span>=<span class="string">'2028-4-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2035-4-1'</span>,Country="EU"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Icesat-2"</span>, <span class="attribute">Start</span>=<span class="string">'2018-9-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2023-1-1'</span>,Country="USA"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2B"</span>, <span class="attribute">Start</span>=<span class="string">'2018-10-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2023-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2C"</span>, <span class="attribute">Start</span>=<span class="string">'2020-9-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2025-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-6 Michael Freilich"</span>, <span class="attribute">Start</span>=<span class="string">'2020-11-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2027-1-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2D"</span>, <span class="attribute">Start</span>=<span class="string">'2021-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2026-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2E"</span>, <span class="attribute">Start</span>=<span class="string">'2022-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2027-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2F"</span>, <span class="attribute">Start</span>=<span class="string">'2023-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2028-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2G"</span>, <span class="attribute">Start</span>=<span class="string">'2024-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2029-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"HY-2H"</span>, <span class="attribute">Start</span>=<span class="string">'2025-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2030-4-1'</span>,Country="CN"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"SWOT"</span>, <span class="attribute">Start</span>=<span class="string">'2022-5-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2026-4-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"Sentinel-6B"</span>, <span class="attribute">Start</span>=<span class="string">'2025-1-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2032-1-1'</span>,Country="USA-FR"),</span><br><span class="line">    dict(<span class="attribute">Satellite</span>=<span class="string">"COMPIRA"</span>, <span class="attribute">Start</span>=<span class="string">'2022-10-1'</span>, <span class="attribute">Finish</span>=<span class="string">'2026-1-1'</span>,Country="JP"),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment">#generate visualization</span></span><br><span class="line">fig = px.timeline(df, <span class="attribute">x_start</span>=<span class="string">"Start"</span>, <span class="attribute">x_end</span>=<span class="string">"Finish"</span>, <span class="attribute">y</span>=<span class="string">"Satellite"</span>, color = <span class="string">"Country"</span>,text =<span class="string">"Satellite"</span>,<span class="attribute">width</span>=1000,height=800)</span><br><span class="line">fig.update_yaxes(<span class="attribute">autorange</span>=<span class="string">"reversed"</span>)</span><br><span class="line">fig.update_layout(<span class="attribute">showlegend</span>=<span class="literal">True</span>,legend_x=0.89,legend_y=0.99)</span><br><span class="line">fig.update_yaxes(<span class="attribute">title_text</span>=<span class="string">"Satellite"</span>)</span><br><span class="line">fig.update_xaxes(<span class="attribute">title_text</span>=<span class="string">"Time"</span>)</span><br><span class="line"></span><br><span class="line">fig.add_vline(<span class="attribute">x</span>=<span class="string">'2022-7-1'</span>,line_color="black",line_dash="dot",opacity=0.5)</span><br><span class="line"></span><br><span class="line">fig.add_vrect(<span class="attribute">x0</span>=<span class="string">'2022-7-1'</span>, <span class="attribute">x1</span>=<span class="string">'2038-1-1'</span>,line_color="green",fillcolor="red", <span class="attribute">opacity</span>=0.2,</span><br><span class="line">                           <span class="attribute">annotation_text</span>=<span class="string">""</span>, <span class="attribute">annotation_position</span>=<span class="string">"bottom left"</span>,</span><br><span class="line">              <span class="attribute">annotation</span>=dict(font_size=20, <span class="attribute">font_family</span>=<span class="string">"Times New Roman"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fig.update_xaxes(<span class="attribute">showgrid</span>=<span class="literal">True</span>, <span class="attribute">gridwidth</span>=1, <span class="attribute">gridcolor</span>=<span class="string">'LightPink'</span>)</span><br><span class="line">fig.update_yaxes(<span class="attribute">nticks</span>=30)</span><br><span class="line">fig.update_yaxes(<span class="attribute">showgrid</span>=<span class="literal">False</span>,showticklabels=False)</span><br><span class="line">fig.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save fig</span></span><br><span class="line">fig.write_image(<span class="string">"fig_sat.pdf"</span>)</span><br><span class="line">fig.write_image(<span class="string">"fig_sat.png"</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Jupyter Notebook版本的代码见：<a href="https://github.com/yangleir/RemoteSensing_paper/blob/main/fig1_gantt/gantt.ipynb" target="_blank" rel="noopener">https://github.com/yangleir/RemoteSensing_paper/blob/main/fig1_gantt/gantt.ipynb</a></p>
+</blockquote>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>通过上面的代码，我们绘制了Gantt图，通过卫星任务的国家和地区进行分组。此外，还添加了当前时间线，以及对未来时间区间做透明填充。</p>
+<p><img src="/images/ga2.png" alt></p>
+<h2 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h2><p>这里暂不探讨一些绘图的细节，有兴趣的同学可以尝试修改下方的部分代码，<code>False</code>改为<code>True</code>。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig.update<span class="constructor">_yaxes(<span class="params">nticks</span>=30)</span></span><br><span class="line">fig.update<span class="constructor">_yaxes(<span class="params">showgrid</span>=False,<span class="params">showticklabels</span>=False)</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/07/03/zotero-tags/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/03/zotero-tags/" class="post-title-link" itemprop="url">Zotero 为文献打标</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-07-03 10:50:20" itemprop="dateCreated datePublished" datetime="2022-07-03T10:50:20+08:00">2022-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2022/07/03/zotero-tags/" class="post-meta-item leancloud_visitors" data-flag-title="Zotero 为文献打标" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/07/03/zotero-tags/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/03/zotero-tags/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Zotero-为文献打标"><a href="#Zotero-为文献打标" class="headerlink" title="Zotero 为文献打标"></a>Zotero 为文献打标</h1><p>今天为大家分享一个Zotero使用小窍门，为文献打上可爱的表情。</p>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>希望对一些文献进行标星分类，表示其具有高价值。这样在日后的文献阅读中，可以在自己庞大的文献库中快速找到这些文献。</p>
+<p>除了标星之外，我们还可以使用有意思的图标对文献进行贴标签，形成相关的文献集，方便日后查阅回顾。</p>
+<h2 id="Emoji表情符号"><a href="#Emoji表情符号" class="headerlink" title="Emoji表情符号"></a>Emoji表情符号</h2><p>我们使用Emoji为文献打标签。</p>
+<p>前往Emoji站点搜索自己想要的表情符号，比如最常用的<code>喜欢
+❤️</code>标签，可以通过下面的网站搜索<code>Red heart</code>，就能够找到许多类似表情，然后复制它。</p>
+<blockquote>
+<p>推荐Emoji网站： <a href="https://emojipedia.org/" target="_blank" rel="noopener">https://emojipedia.org/</a></p>
+</blockquote>
+<h2 id="Zotero"><a href="#Zotero" class="headerlink" title="Zotero"></a>Zotero</h2><p>回到Zotero，选择喜欢的论文，点击右上侧的<code>Tags</code>选项，<code>add</code>一下，把复制的❤️标签粘贴。❤️的数量可以随意设置，五星就粘贴五次。</p>
+<p>这样完成了第一步打标签，在Zotero的左下角出现❤️标签，单击它，可以进行文献筛选。但是我们在文献的前方还是看不到标签，不利于我们快速定位文献。</p>
+<p>接下来，右击❤️标签，选择<code>Assign color</code>，然后弹出对话框，选择数字和颜色，确定即可。</p>
+<p><img src="/images/zo1.png" alt></p>
+<p>之后，在文献的前面就出现一个❤️的表情。</p>
+<p><img src="/images/zo2.png" alt></p>
+<p>取消标记，只需要按键盘数字1。</p>
+<p>之后，我们可以根据文献设置不同的标签。同一文献可以设置多个标签。</p>
+<p><img src="/images/zo3.png" alt></p>
+<p>如果想在一个文献集合中仅显示❤️文献，点击右下角的❤️即可完成筛选。</p>
+<p>这种打标的做法还是很方便的，特别是对于阅读大量文献的硕博士来说，常常忘记自己最欣赏的文章在哪里藏着是一个头疼事。</p>
+<p>尽管我们可以通过新建不同的<code>subcollection</code>来实现初步分类，但当每一个<code>subcollection</code>中的文献数据增加后，通过标签还是可以快速找到最爱。</p>
+<center><font face="黑体" size="3" color="gold">好了，今天的分享就到这了，希望有用。谢谢大家。</font></center>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/06/19/sv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/19/sv/" class="post-title-link" itemprop="url">世界知名海洋学家HARALD ULRIK SVERDRUP</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-19 13:48:06" itemprop="dateCreated datePublished" datetime="2022-06-19T13:48:06+08:00">2022-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
+              </span>
+
+          
+            <span id="/2022/06/19/sv/" class="post-meta-item leancloud_visitors" data-flag-title="世界知名海洋学家HARALD ULRIK SVERDRUP" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/06/19/sv/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/06/19/sv/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="HARALD-ULRIK-SVERDRUP"><a href="#HARALD-ULRIK-SVERDRUP" class="headerlink" title="HARALD ULRIK SVERDRUP"></a>HARALD ULRIK SVERDRUP</h1><p><img src="/images/sv1.jpg" alt></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>海洋学家和气象学家,曾任SIO所长和挪威极地研究所所长 。 </p>
+</blockquote>
+<ul>
+<li>Harald Ulrik Sverdrup于1888年11月出生于挪威大户Sverdrup家族。</li>
+<li>1911年，他在奥斯陆大学开始地球物理学生涯，然后从1913年到1917年在莱比锡大学攻读PhD学位。</li>
+<li>1926年被任命为卑尔根气象学主席，并于1931年被任命为Christian Michelsen Institute教授。</li>
+<li>1930年在华盛顿卡内基研究所工作，开始分析太平洋水文信息。</li>
+<li>1931年在Nautilus号潜艇上进行北极探险队。</li>
+<li>1936年被任命为SIO所长，并在那里工作了12年。在Sverdrup的领导下，SIO转变为现代海洋学机构，在此期间与Walter Munk合作，对二战登陆进行海浪预报。</li>
+<li>1947年，发表重要论文“斜压海洋中的风驱动洋流”。</li>
+<li>1948年，回到挪威，主持挪威极地研究所工作。 </li>
+<li>1957年8月突然去世。</li>
+</ul>
+<p>Sverdrup的是美国科学院和挪威科学院的成员，瑞典北极星勋章、美国国家科学院的阿加西奖章、皇家地理学会奖章和布鲁斯奖章获得者。曾担任国际物理海洋学协会和国际海洋勘探理事会主席、美国地球物理联盟副主席（兼海洋学部主席）。</p>
+<blockquote>
+<p><strong>家族成员</strong>：爸爸Edvard Sverdrup是挪威神学家，爷爷Harald Ulrik Sverdrup是牧师和挪威议会议员，叔公（爸爸的叔叔）Johan Sverdrup创立自由党，并曾任挪威首相，叔叔Jakob Sverdrup是挪威议会议员，叔叔Georg Sverdrup创立路德教会自由教会，任神学院院长。 妹妹Mimi Sverdrup Lunden是作家和女权活动家，兄弟Leif Sverdrup是美国陆军将军，兄弟Einar Sverdrup是挪威矿老板，死于抵抗德军入侵的保卫战。Harald Sverdrup未生育子女。</p>
+</blockquote>
+<h2 id="成就"><a href="#成就" class="headerlink" title="成就"></a>成就</h2><ul>
+<li>提出Sverdrup平衡，和Stommel、Munk前后独立发表了SSM论文。<code>Sverdrup (1947), Stommel (1948),and Munk (1950)</code>。</li>
+<li>领导SIO成为现代化的双一流海洋科学机构。</li>
+<li>解释赤道逆流。</li>
+<li>为诺曼底登陆预报海浪。</li>
+<li>海水流量以其名字缩写Sv命名。</li>
+</ul>
+<h2 id="传记"><a href="#传记" class="headerlink" title="传记"></a>传记</h2><p>根据Sverdrup在1948年返回挪威后为美国国家科学院撰写的自传（未出版），SIO后任所长William整理并发表这份Sverdrup传记。下面通过这篇文章回顾其一生。</p>
+<blockquote>
+<p>[1]A. NIERENBERG W. Harald Ulrik Sverdrup[M]. National Academies Press, 1996.</p>
+</blockquote>
+<h3 id="挪威和德国期间"><a href="#挪威和德国期间" class="headerlink" title="挪威和德国期间"></a>挪威和德国期间</h3><p>在挪威，Harald Sverdrup不仅被公认为伟大的科学家，而且还是北极探险家和古老而尊贵的大户人家一员。</p>
+<p><img src="/images/sv2.png" alt></p>
+<p>Harald Sverdrup于1888年11月15日出生在挪威松恩的松达尔，他的父亲Johan Edvard Sverdrup (1866-1923)在那里的成人学校任教。Harald Sverdrup的爸爸和他的四个叔叔一样，是挪威国教（路德教会）的牧师，1908年，他爸爸成为奥斯陆的教会历史教授。</p>
+<p>Sverdrup家族的首个史料记录出现在1620年，但在清晰的家谱中，Sverdrup只能追溯到他的曾曾爷爷（一位挪威北部的大地主）。 1813年，这位曾曾爷爷的三个儿子之一的Georg Sverdrup成为奥斯陆大学最早的古典哲学和语言教授，他还参加了挪威制宪会议，并且是最终文件的三位作者之一。三儿子中最小的一个，也就是海洋学家Harald Sverdrup的曾爷爷Jacob Liv Borch Sverdrup (1775-1841) 成为土地管理专家，并在挪威建立了第一所农业学校，他的两个儿子声名显赫，Johan Sverdrup (1816-1892)是议会成员，并成为自由党的领袖，并成功引入了议会制度。Harald Sverdrup的爷爷Harald Ulrik Sverdrup (1813-91)排行老大，也是一名牧师，还长期在议会任职，并经营了许多生意，从水果种植到银行，再到航运。</p>
+<p>他的妈妈Maria Vollan在他还是个孩子的时候就去世了。由于爸爸多变的职业生涯，Harald少年时代的大部分时间都在挪威西部的各个地方度过，并由家庭教师教授文化课，直到他 14岁才在开始进入校园上学。在Harald的青春期，他经历了对自然科学的兴趣和家族神学专业之间的冲突。根据他自己的说法，他是丹麦先进出版物<strong>Frem</strong>的热心读者，这份杂志涵盖了整个科学领域，他很难将进化论与他的宗教信仰相协调。</p>
+<p>以优异的成绩离开中学后，他在奥斯陆度过了一年的时间，并通过大学初试。他参加了Norwegian Academy of War的义务兵，并学习了物理和数学。他在回忆录中特别指出，他参加义务兵的一年并没有因为需要体能训练而浪费时间，体能训练对他漫长的北极考察中的生存和表现至关重要。</p>
+<p>1908年进入大学时，Sverdrup的专业是天文学。1911年，他获得了挪威杰出气象学家和卑尔根学院创始人Vilhelm<br>Bjerknes教授的助教职位，并确定了他的研究兴趣。 他们的关系不是通常的导师与学生的关系。 Bjerknes的助手是他们这一代最聪明的年轻科学家，他们包括Jacob Bjerknes（Vilhelm<br>Bjerknes的儿子，出生于瑞典的美国籍气象学家）、Tor Bergeron（瑞典气象学家）、Olaf Devik（挪威物理学家）、Theodore Hesselberg（挪威气象学家，曾担任气象研究所所长40年）、Carl-Gustaf Rossby（对，就是那位Rossby）和Halvor Solberg（挪威科学与文学院院士）。</p>
+<p>Sverdrup指出美国<strong>卡内基研究所</strong>的长期资助在早期在发展地球科学方面发挥的重要作用，Sverdrup本人在整个职业生涯中都得到了该机构的支持。</p>
+<p>Sverdrup最初希望继续研究天文学，但他对<strong>气象学和海洋学</strong>越来越感兴趣，于是转了专业。1912年，Bjerknes前往莱比锡大学担任教授和新地球物理研究所所长，1913至1917年，Sverdrup陪同他在德国工作，并在那里完成了奥斯陆大学的PhD论文，于1917年6月获得了博士学位。</p>
+<h3 id="一个持续7年的北极航次"><a href="#一个持续7年的北极航次" class="headerlink" title="一个持续7年的北极航次"></a>一个持续7年的北极航次</h3><p>Sverdrup 似乎无法避免北极科考的命运。</p>
+<p>1913年，Roald Amundsen重新开始了他的北极探险计划，Sverdrup拒绝了首席科学家助理的邀请，因为他希望完成他的大学工作。</p>
+<p>1917年，他被提升为首席科学家，于是他接受了。Sverdrup在北极的经历塑造了他作为一个男人和一个科学家的双重性格。他在晚年向他的学生们讲述了北极的艰辛故事，并评论说：“那些年真的很有价值，因为它们让我与大自然进行了最密切的接触。”</p>
+<p><img src="/images/sv4.jpg" alt></p>
+<p>探险队于1918年 7 月 18 日离开挪威，预计航次时间为三到四年，但却持续了七年半，其中包括1921-22年在美国的十个月的中断，这期间他第一次访问了华盛顿卡内基研究所，这也是他第一次到美国旅行。</p>
+<p>Sverdrup直到1925 年 12 月 22 日才返回挪威。</p>
+<p>Sverdrup 认为北极科考调查可更好的理解洋流的基本物理特性，因为在极地可以得到最好的和最简单的海洋动力学观察（那里是地球自转最大的）。他讲述了Nansen如何凭经验认识到<strong>矢量旋转</strong>作为深度函数的可能性，并向Bjerknes建议应该更正式地研究它。Bjerknes将这个问题分配给了一位年轻的数学物理学家 <strong>V. Walfrid Ekman</strong>，他解决了这个问题，被称为Ekman Spiral现象。它直接类比于电磁学中的Coq效应（skin effect）。</p>
+<p>Sverdrup于1926年被任命为卑尔根气象学的主席（Bjerknes空出），在这个岗位上，他研究了在七年北极探险的数据，并编辑了航次报告，他个人贡献了约三分之二。然而，在担任这个职位之前，他在华盛顿的卡内基研究所花了十个月研究同一航次的电磁数据，他在这期间两次拒绝了长期职位。他还访问了几个美国实验室，包括对SIO的短暂访问。有趣的是，如果Sverdrup接受了卡内基的长期职位，他几乎肯定会成为1930年成立的伍兹霍尔海洋研究所的第一任所长。那样的话，美国海洋学的机构历史将会大不相同。</p>
+<h3 id="结婚"><a href="#结婚" class="headerlink" title="结婚"></a>结婚</h3><p>回到挪威后不久，Sverdrup与古德伦·布隆·沃蒙德结婚。他们没有孩子，但他收养了古德伦第一次婚姻的女儿。</p>
+<h3 id="SIO"><a href="#SIO" class="headerlink" title="SIO"></a>SIO</h3><p>直到1935年12月，Sverdrup的生活发生了巨大的变化。他的领导从美国回来，告诉Sverdrup，他可能会替代Thomas Wayland Vaughan（1924年，成为SIO所长，1936年退休）成为新的SIO所长。Sverdrup同意了，他接受了很快发出的邀请。Sverdrup从1936年担任SIO的负责人近12年。</p>
+<p>1936年选择Sverdrup担任SIO所长，这是加州大学做出的最明智的决定之一。除了长期担任加州大学校长的Sproul之外，没有人能够预见到巨大的后果。Sproul与Sverdrup稳步合作，以改善该机构（SIO曾被前大学校长忽视）。Sproul是一位伟大的大学校长，当他发现杰出的人才时，他全力以赴地支持，并创造了一个让个人留下来工作的环境。</p>
+<p>1936年，SIO是一个偏远且尘土飞扬的小型海洋站，有一艘只能进行沿海航行的研究船和大约30名工作人员，其中包括8名教职员工。它的年度运营预算约为 89,000 美元，主要来自斯克里普斯家族的捐款。</p>
+<p>Sverdrup 1936到达拉霍亚时，一定对这里简陋的设施感到惊讶，据说他的爱人在她第一次看到一家人将长期居住的小房子时哭了。Sverdrup 带着几个近期目标开始工作，他首先需要一艘新的远洋调查船，<strong>他还想增加该机构的收入</strong>，提高员工士气，并在研究人员之间建立更紧密的联系。他的长期目标是制定SIO研究计划并改善该机构的教学。</p>
+<p>Sverdrup于1937年从当时在拉霍亚家族Robert Paine Scripps那里得到了他需要的船只。Scripps先生对Sverdrup印象深刻，并同意不仅为该机构提供一艘远洋船 R/V EW Scripps，而且还同意增加该机构的家庭捐款。Sverdrup对Scripps家族长期支持的希望因Scripps先生第二年的英年早逝而破灭。</p>
+<p>Sverdrup在SIO和加州大学洛杉矶分校之间建立了密切的工作联系，该校于1936年为SIO学生授予学位。他活跃于学术评议会，在加州大学洛杉矶分校教授课程，并与加州大学洛杉矶分校的管理人员和教师建立了友谊。Vilhelm Bjerknes 的另外两个助手 Jacob Bjerknes 和 Jorgen Holmboe正在加州大学洛杉矶分校建立气象系。Sverdrup还与加州大学洛杉矶分校的物理学家建立了密切的联系，以改善SIO和加州大学洛杉矶分校的研究生教学。</p>
+<p>SIO是第一家也是长期以来唯一一家提供海洋学研究生教学的美国研究机构。Sverdrup很幸运在他到达时，SIO已经拥有了几位才华横溢的年轻老师，包括Roger Revelle。1939年，另一位年轻的物理学家Munk来到SIO与Sverdrup一起学习。</p>
+<h3 id="二战"><a href="#二战" class="headerlink" title="二战"></a>二战</h3><p>Harald Sverdrup作为SIO所长的三年任期到了，但这时挪威已经被占领。当他意识到自己将无限期地留在拉霍亚时，他决定成为美国公民。其他说法表明，他在战争期间的安全许可问题也是一个推动因素。他的战时工作需要高度保密，而且由于他的大部分家人仍留在被占领的挪威，他的许可被间歇性地取消和更新。尽管当时在海军服役的Roger Revelle努力使Sverdrup的安全状态正常化，但还是发生了一些情况。</p>
+<p>战争一开始，美国军方就对海洋学家和气象学家提出了紧急要求。反潜战成为军方的重中之重，加利福尼亚大学战争研究部（UCDWR ）成立了海军无线电和声学实验室，以开展该主题的研究。<strong>SIO很快将自己转变为战时海洋学研究中心</strong>。</p>
+<p>可能是因为他的外国人身份，Sverdrup与加州大学战争研究部UCDWR的水下声学工作没有直接联系。UCDWR由物理学家Gaylord P. Harnwell指导，他后来成为宾夕法尼亚大学的杰出校长，并着有出色的电学和磁学成果。Sverdrup致力于解决与预测海滩阵地海浪条件相关的一系列问题，他的海流和海浪预测方法被用来指导盟军诺曼底登陆。这项工作为海军挽救了许多生命。</p>
+<p>在战后，Sverdrup讨论他的二战相关工作的价值时，表现出很大的谦逊。虽然这些成就具有重要的实际意义，但他指出它们是基于非常古老的波浪定理，并取自经典流体动力学。在阅读他现有的信件时，无论在何种情况下，他的语气都非常平稳，这让人感到震惊。这种内在的平静的心态，可能是他在逆境中以及相对较短的时间内取得如此多成就的原因。 Sverdrup认为<strong>耐力是挪威人与生俱来的特质</strong>，因为他们“在一个人烟稀少的崎岖国家长大…变得自力更生、足智多谋，具备了忍受单调、寂寞和每天辛勤劳作的气质。” </p>
+<p>战时和战后一段时间对于海洋学来说是非常重要的时期。海军各部门通过直接资助和成立<strong>海军研究办公室（Office of Naval Research）</strong>在推进该领域发挥了至关重要的作用，这为美国日后取得的巨大科学成就奠定了行政基础。有故事甚至说，<strong>海军支持</strong>实际上使SIO在战争结束后免于解散。事实上，加州大学的董事会认为战争结束后SIO不再有继续存在的理由，<strong>海军对此不以为然，并直接与学校高层接洽，承诺“只要预算可行”就在财政上支持SIO</strong>。Edward Cochrane海军上将在Roger Revelle的敦促下，写信给加州大学校长Sproul，表示将继续支持SIO的战后海洋学研究。</p>
+<p><strong>持续的海军资助至关重要，并发挥了重要作用。</strong>SIO和海军建立了合作关系，奠定了SIO在该领域的世界领先地位。这是一个富有成果的伙伴关系，大大加强了海军和学术界的联系。海军还做出了一项具体承诺，<strong>将无限期地支持SIO的几个教授，并提供持续的研究资金</strong>。</p>
+<p>SIO的一个教授职位让Carl Eckart（美国物理学家、物理海洋学家，UCDWR主任）留下，当时Carl Eckart在UCDWR度过了战争时期，并准备重返芝加哥大学担任教授。由于UCDWR在战争结束后解散，因此必须迅速做出选择，而Sverdrup已准备邀请他留在SIO。在那些年里，Eckart是SIO最重要的成员之一，仅次于Sverdrup。</p>
+<p>在战后海洋学发展过程中，Sverdrup是西海岸的核心人物。Sverdrup为SIO制定的战后计划包含许多要素。他想培训更多的海洋学家，扩大SIO研究船队，并将人力和船只集中在一个共同的科学研究计划上，从而使SIO可以出海调查并解决基本的海洋学问题。 </p>
+<h3 id="离开"><a href="#离开" class="headerlink" title="离开"></a>离开</h3><p>Sverdrup于1948年离开SIO返回挪威。他给出的理由是，他可以在一个较小国家的国际事务中发挥更大的影响力。但可能还有其他原因，当时加州大学的工资是出了名的低。其次毫无疑问Harald Sverdrup和他的妻子Gudrun都想家了。</p>
+<p>Sverdrup回到奥斯陆后，领导了<strong>挪威极地研究所</strong>。通过安排1949-52年的挪威-英国-瑞典探险队到南极洲，<strong>他恢复了他早期的极地探索工作</strong>。他还从1949年起担任奥斯陆大学地球物理学教授直至去世。</p>
+<p>Sverdrup在挪威极地研究所的工作没有SIO的工作强度或深度，但他实现了在国际社会发挥作用的目标。</p>
+<p>他于1957年8月21日突然去世。</p>
+<p>关于Harald Sverdrup的去世，有几种不同的说法。他的一名学生说，就在医生说他身体状况良好时，他心脏病发作死亡，也有人说他在参加会议时去世了。</p>
+<p><img src="/images/sv5.png" alt></p>
+<center><font face="黑体" size="3" color="gold">图：Maud在北极。</font></center>
+<center><font face="黑体" size="3" color="gold">插图创造者：Baby的小肉手</font></center>
+<center><font face="黑体" size="3" color="red">算法提供：Disco Diffusion v5.2</font></center>
+<center><font face="黑体" size="3" color="gray">"A beautiful painting of  polar expedition to the Arctic on R/V Maud", "blue color scheme"</font></center>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -980,715 +1742,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/25/spetial-issue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/25/spetial-issue/" class="post-title-link" itemprop="url">Remote Sensing 专刊：卫星测高进展</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-25 21:51:32" itemprop="dateCreated datePublished" datetime="2022-05-25T21:51:32+08:00">2022-05-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/05/25/spetial-issue/" class="post-meta-item leancloud_visitors" data-flag-title="Remote Sensing 专刊：卫星测高进展" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/25/spetial-issue/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/25/spetial-issue/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="专刊信息"><a href="#专刊信息" class="headerlink" title="专刊信息"></a>专刊信息</h2><p>近日，《Remote Sensing》（中科院二区TOP）推出“Advances in Satellite Altimetry”专刊，特邀编辑为希腊克里特理工大学Stelios Mertikas教授、澳大利亚纽卡斯尔大学Xiaoli Deng教授和欧空局地球观测项目主管Jérôme Benveniste博士。</p>
-<p>在本期专刊中，将接受雷达和激光测高领域的最新研究成果，比如处理算法、定标检验、干涉测高、空间基准、海洋遥感、海平面变化、环流和海洋动力、海岸带测高、极地测高、内陆测高、海洋测绘等各方面应用，并鼓励提交测高应用综述文章。</p>
-<h2 id="截止时间"><a href="#截止时间" class="headerlink" title="截止时间"></a>截止时间</h2><p>专刊截止时间：31 January 2023</p>
-<h2 id="投稿地址"><a href="#投稿地址" class="headerlink" title="投稿地址"></a>投稿地址</h2><p><a href="https://www.mdpi.com/journal/remotesensing/special_issues/satellite_altimetry" target="_blank" rel="noopener">https://www.mdpi.com/journal/remotesensing/special_issues/satellite_altimetry</a></p>
-<p><img src="/images/rs.png" alt></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/24/arctic-russia/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/24/arctic-russia/" class="post-title-link" itemprop="url">Nature：北极合作不能孤立俄罗斯</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-24 21:26:25" itemprop="dateCreated datePublished" datetime="2022-05-24T21:26:25+08:00">2022-05-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/05/24/arctic-russia/" class="post-meta-item leancloud_visitors" data-flag-title="Nature：北极合作不能孤立俄罗斯" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/24/arctic-russia/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/24/arctic-russia/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>世界正在经历“百年未有之大变局”，而俄乌冲突无疑是一个重大事件和重要节点。</p>
-</blockquote>
-<p>2022年2月24日，俄罗斯以“非军事化、去纳粹化”为由发起特别军事行动，至今俄乌冲突已超三个月。由此引发的世界级冲击波，对全球各个方面产生深远影响。几个月内，西方在各领域推动与俄“脱钩”，有关俄罗斯的国际科技合作也受到了巨大冲击。有评论称<code>这一科学共同体正在被地缘冲突逐渐摧毁，并预示着科学逆全球化和联盟化的趋势，以及西方科学帝国主义的回归。</code><a href="https://www.sohu.com/a/530246586_260616" target="_blank" rel="noopener">（出处）</a></p>
-<p>近期Nature发表多篇评述文章，不同立场的科学家对科技领域对俄罗斯的孤立做法进行了严肃的讨论。</p>
-<h2 id="Nature-文章"><a href="#Nature-文章" class="headerlink" title="Nature 文章"></a>Nature 文章</h2><p>以下内容为仅代表作者个人观点，不代表Nature和本微信公众号观点。</p>
-<h3 id="一、乌克兰的抵制"><a href="#一、乌克兰的抵制" class="headerlink" title="一、乌克兰的抵制"></a>一、乌克兰的抵制</h3><blockquote>
-<p>原文：<a href="https://www.nature.com/articles/d41586-022-00695-2" target="_blank" rel="noopener">https://www.nature.com/articles/d41586-022-00695-2</a><br>作者：Dmytro Chumachenko, National Aerospace University “Kharkiv Aviation Institute”, Kharkiv, Ukraine.</p>
-</blockquote>
-<p><img src="/images/n1.png" alt></p>
-<h5 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h5><p>我是乌克兰科学界<strong>公开信</strong>（<a href="https://doi.org/hjw9）的发起人之一，该公开信呼吁对俄罗斯2月24日对乌克兰的可耻军事袭击进行广泛的学术制裁（Nature" target="_blank" rel="noopener">https://doi.org/hjw9）的发起人之一，该公开信呼吁对俄罗斯2月24日对乌克兰的可耻军事袭击进行广泛的学术制裁（Nature</a>  <a href="https://doi.org/hjxc;2022）。" target="_blank" rel="noopener">https://doi.org/hjxc;2022）。</a> 到目前为止，已有6,000多名来自乌克兰和世界各地的科学家签署了该协议（go.nature.com/3hoh）。</p>
-<p>这种制裁将有效地切断俄罗斯获得新技术、科学研究和信息支持的渠道。如阻止对所有科学数据库和国际资助计划的访问，以及将俄罗斯的科学出版物踢出SCI等检索。</p>
-<p>在乌克兰这个难过的时刻，我们恳求国际研究界的大力支持（Nature <a href="https://doi.org/hjxb" target="_blank" rel="noopener">https://doi.org/hjxb</a>; 2022）。只有团结一致，我们才能在这场可怕的战争中幸存下来。要签署请愿书，请访问 go.nature.com/3cmwp。</p>
-<h3 id="二、极地研究需要俄罗斯"><a href="#二、极地研究需要俄罗斯" class="headerlink" title="二、极地研究需要俄罗斯"></a>二、极地研究需要俄罗斯</h3><blockquote>
-<p>原文： <a href="https://www.nature.com/articles/d41586-022-01266-1" target="_blank" rel="noopener">https://www.nature.com/articles/d41586-022-01266-1</a><br>作者：Sarah Marie Strand, Association of Polar Early Career Scientists, Tromsø, Norway.<br>Mathieu Casado, Laboratory for Sciences of Climate and Environment, Gif-sur-Yvette, France.</p>
-</blockquote>
-<p><img src="/images/n2.png" alt></p>
-<h5 id="译文-1"><a href="#译文-1" class="headerlink" title="译文"></a>译文</h5><p>作为极地青年科学协会(APECS; go.nature.com/3ghrtwe)执行委员会的执行董事和副主席，我们表达对多国极地研究人员对俄罗斯学术制裁的震惊。这种分裂将阻碍科学进步，并阻止应对气候变化的重要行动。</p>
-<p>极地研究有超越国界的历史传统。例如，1961年的《南极条约》保障了南极洲的国际地位。在冷战期间，美国、法国和苏联合作制定了分析沃斯托克冰芯的计划，该冰芯提供了几个冰川周期中二氧化碳浓度的首次记录，以及将这些排放与全球变暖联系起来的可靠证据。</p>
-<p>APECS支持对石油、天然气等燃料的制裁，但谴责学术制裁。科学植根于合作，所以我们应该抵制孤立俄罗斯气候科学家的行动。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/05/04/wave-bouy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/04/wave-bouy/" class="post-title-link" itemprop="url">波浪骑士数据处理概述</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-04 20:49:46" itemprop="dateCreated datePublished" datetime="2022-05-04T20:49:46+08:00">2022-05-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/05/04/wave-bouy/" class="post-meta-item leancloud_visitors" data-flag-title="波浪骑士数据处理概述" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/05/04/wave-bouy/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/04/wave-bouy/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>波浪骑士是测量海浪的经典设备，目前市场最常见的有荷兰Datawell公司的Waverider产品，其成熟产品主要有两种：加速度计类型和GNSS类型。<br><img src="https://www.datawell.nl/portals/0/Images/Products/Buoys/DWR4_kleintje_thumb.png" alt="avatar"></p>
-<p>波浪骑士采集的数据有专门的软件进行读取和处理，本文以Datawell 数据为例简单总结处理方法。</p>
-<h1 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h1><p>下载<code>Waves5</code>软件并安装，安装无需注册。</p>
-<blockquote>
-<p>下载地址：<a href="https://www.datawell.nl/Support/Download.aspx" target="_blank" rel="noopener">https://www.datawell.nl/Support/Download.aspx</a></p>
-</blockquote>
-<h1 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h1><p>新建项目，并将存放数据的文件夹导入。之后，数据文件将在左侧栏的<code>Logged</code>中显示。<br><img src="/images/wave/wave1.png" alt><br>其数据格式主要有<code>raw</code>,<code>hxv</code>,<code>wvs</code>,<code>spt</code>。</p>
-<h1 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h1><h4 id="1、hxv-Raw-buoy-messages"><a href="#1、hxv-Raw-buoy-messages" class="headerlink" title="1、hxv:Raw buoy messages"></a>1、<code>hxv</code>:Raw buoy messages</h4><blockquote>
-<p>Meaning: HeXadecimal Vectors<br>Description: Stream of raw buoy messages<br>Buoys: DWR MkI, MkII, MkIII<br>From: HF receiver<br>Format: Ascii/Text, hexadecimal</p>
-</blockquote>
-<p><img src="/images/wave/wave4.png" alt><br>该数据包含了浮标的原始记录，半小时一个文件，通过右侧工具栏可以查看统计信息、波浪功率密度谱、二维和三维方向谱。</p>
-<p>数据样例</p>
-<blockquote>
-<p>00A4,8B53,80C0,0501,92B7<br>00A5,A1AB,8040,0101,A978<br>00A6,C3D7,00D0,0502,5EDF<br>00A7,65C6,0160,1C01,8E58</p>
-</blockquote>
-<p>数据格式</p>
-<blockquote>
-<p>Format<br>SSNN,YYYY,HHHN,NNWW,WPPP<br><br>SS: status<br>00: correct<br>01: transmission error, repaired<br>02: transmission error, not repaired<br>03: all-0 or all-1 vector<br>04: synchronizing<br>05: = 04 + 01<br>06: = 04 + 02<br>07: = 04 + 03<br>NN: index, 0-255, modulo 256<br>YYYY: spectral/system word<br>HHH: heave (vertical displacement), 12 bit, sign-magnitude<br>NNN: north displacement, 12 bit, sign-magnitude<br>WWW: west displacement, 12 bit, sign-magnitude<br>PPP: Parity, BCH(63,51)-code</p>
-</blockquote>
-<h4 id="2、raw-raw-buoy-displacements"><a href="#2、raw-raw-buoy-displacements" class="headerlink" title="2、raw: raw buoy displacements"></a>2、<code>raw</code>: raw buoy displacements</h4><blockquote>
-<p>Meaning: RAW displacements<br>Description: the heave, north, west displacements @ 1.28 Hz<br>Buoys: DWR MkI, MkII, MkIII<br>From: post-processing<br>Format: Ascii/Text, decimal</p>
-</blockquote>
-<p><img src="/images/wave/wave2.png" alt><br><img src="/images/wave/wave3.png" alt><br>该数据包含了浮标的位移信息，通过右侧工具栏可以查看时间序列、波浪功率密度谱、二维和三维方向谱。</p>
-<p>数据样例：</p>
-<blockquote>
-<p>0, 13, 3, -13<br>0, 3, 13, -13<br>0, 15, 17, -11<br>0, -10, 2, -1</p>
-</blockquote>
-<p>数据格式</p>
-<blockquote>
-<p>Format<br>sta, hv, no, we<br><br>sta: status<br>0 to 7: see *.HXV<br>16: one of the three displacements outside +/- 4s.<br>32: two of the three displacements outside +/- 4s.<br>48: all three displacements outside +/- 4s.<br>64: dummy vector to replace unreceived vector<br>128: gap in GPS link (DWR-G buoys only)<br>hv: heave [cm]<br>no: north displacement [cm]<br>we: west displacement [cm]</p>
-</blockquote>
-<h4 id="3、WVS-the-chronological-list-of-upcross-waves"><a href="#3、WVS-the-chronological-list-of-upcross-waves" class="headerlink" title="3、WVS:the chronological list of upcross waves"></a>3、<code>WVS</code>:the chronological list of upcross waves</h4><blockquote>
-<p>Meaning: upcross WaVeS data<br>Description: the chronological list of upcross waves<br>Buoys: DWR MkI, MkII, MkIII<br>From: post-processing<br>Format: Ascii/Text, decimal</p>
-</blockquote>
-<p><img src="/images/wave/wave5.png" alt><br>该数据包含了按时间排列的波浪主要信息，通过右侧工具栏可以查看波峰、波谷和周期信息。</p>
-<p>数据样例</p>
-<blockquote>
-<p>2012-01-25T05:00:00.000,100, 116, 4.1, 78, 4.0, 62, 3.9, 40, 3.2, 0.534,553<br>171, 28, -21, 4.071<br>451, 14, -7, 2.835<br>385, 8, -20, 2.637<br>15, 32, -49, 3.230</p>
-</blockquote>
-<p>数据格式</p>
-<blockquote>
-<p>Format<br>Summary (12 parameters) .<br>Timestamp: date and time (ISO8601)<br>Coverage: percentage of raw data used in constructing the upcross waves [%]<br>Hmax: maximum wave height [cm]<br>T(Hmax): period of the highest wave [s]<br>H[1/10]: mean height of the highest 1/10 of the waves [cm]<br>T(H[1/10]): mean period of the highest 1/10 of the waves [s]<br>H[1/3]: mean height of the highest third of the waves [cm]<br>T(H[1/3]): mean period of the highest third of the waves [s]<br>Hav: mean height of all waves [cm]<br>Tav: mean period of all waves [s]<br>eps: bandwidth parameter [-]<br>NumWaves: number of upcross waves [-]<br><br>List of upcross waves (NumWaves x 4 matrix) .<br>rank, crest, trough, period<br><br>rank: index of wave when sorted ascendingly (1 = highest)<br>crest: maximum heave within present upcross wave<br>trough: minimum heave within present upcross wave<br>period: duration of present upcross wave<br>NB: the wave height of an upcross wave is the difference between crest and trough.</p>
-</blockquote>
-<h4 id="4、spt-the-heave-and-directional-spectrum"><a href="#4、spt-the-heave-and-directional-spectrum" class="headerlink" title="4、spt:the heave and directional spectrum"></a>4、<code>spt</code>:the heave and directional spectrum</h4><blockquote>
-<p>Meaning: SPecTral data<br>Description: the heave and directional spectrum<br>Buoys: DWR MkI, MkII, MkIII<br>From: post-processing<br>Format: Ascii/Text, decimal</p>
-</blockquote>
-<p><img src="/images/wave/wave6.png" alt><br>该数据包含了按时间排列的波浪谱信息。</p>
-<p>数据样例：</p>
-<blockquote>
-<p>10<br>22.0<br>3.774<br>1.7287E-2<br>25.00<br>14.30<br>7<br>0.04125<br>-0.04500<br>0.07750<br>260.2<br>53.833<br>0.025,9.9040E-5,60.5,78.6,-2.95,1.71<br>0.030,6.6547E-4,99.8,69.2,3.77,2.47<br>0.035,7.6734E-3,279.8,46.3,-0.37,4.47<br>0.040,8.4804E-3,292.5,67.5,4.55,2.50</p>
-</blockquote>
-<p>数据格式</p>
-<blockquote>
-<p>Format<br>System file (12 parameters)<br>tn: transmission index (1 to 8)<br>Hs: significant wave height [cm]<br>Tz: zero-upcross period [s]<br>Smax: maximum of the psd S(f) [m^2/Hz]<br>Tref: reference temperature [°C, centigrade]<br>Tsea: Sea surface temperature [°C, centigrade]<br>Bat: Battery status (0 = empty to 7 = full)<br>Av: offset of the vertical accelerometer<br>Ax: offset of the x-accelerometer<br>Ay: offset of the y-accelerometer<br>Ori: buoy orientation [°]<br>Incli: magnetic inclination [°]<br><br>Spectrum file (64 x 6 array)<br>f, S(f) / Smax, Dir(f), Spr(f), Skew(f), Kurt(f)<br><br>f: wave frequency [Hz]<br>S(f) / Smax: relative psd (power spectral density) [-]<br>Dir(f): wave direction [°]<br>Spr(f): directional spread [°]<br>Skew(f): skewness of the directional distribution [-]<br>Kurt(f): kurtosis of the directional distribution [-]</p>
-</blockquote>
-<h1 id="波浪能量密度谱计算方法"><a href="#波浪能量密度谱计算方法" class="headerlink" title="波浪能量密度谱计算方法"></a>波浪能量密度谱计算方法</h1><p>能量密度谱主要包含一下信息：</p>
-<blockquote>
-<p>能量：海面高度波动的方差。<br>能量密度谱：积分之后即能量。<br>周期：峰值即周期（频率）。</p>
-</blockquote>
-<p>使用Matlab可做如下计算和测试：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">% Load spectral density data <span class="keyword">From</span> SPT file</span><br><span class="line"><span class="attribute">TrPath</span>=<span class="string">'test.spt'</span>;</span><br><span class="line">TrFid = fopen(TrPath,<span class="string">'r'</span>); % 路径</span><br><span class="line"><span class="attribute">FormatString</span>=<span class="string">'%f,%f %*[^\n]'</span>; % 读取数据的类型</span><br><span class="line">Ctr = textscan(TrFid, FormatString, <span class="string">'HeaderLines'</span>, 12,<span class="string">'EndOfLine'</span>,<span class="string">'\r\n'</span>);</span><br><span class="line">Ctr = cell2mat(Ctr); % 转矩阵</span><br><span class="line">fclose(TrFid);</span><br><span class="line"></span><br><span class="line">% Load max value of spectral density form SPT file</span><br><span class="line"><span class="attribute">TrPath</span>=<span class="string">'test.spt'</span>;</span><br><span class="line">TrFid = fopen(TrPath,<span class="string">'r'</span>); </span><br><span class="line"><span class="attribute">FormatString</span>=<span class="string">'%f'</span>; % 读取数据格式</span><br><span class="line">smax = textscan(TrFid, FormatString, <span class="string">'HeaderLines'</span>, 3);</span><br><span class="line">smax = cell2mat(smax); % 转矩阵</span><br><span class="line">fclose(TrFid);</span><br><span class="line"></span><br><span class="line">% Calculate PSD using<span class="built_in"> RAW </span>data</span><br><span class="line"><span class="attribute">wb</span>=load('test.raw');</span><br><span class="line"><span class="attribute">fs_g</span>=1.28;% hz</span><br><span class="line"><span class="attribute">len</span>=length(wb(:,2));</span><br><span class="line">[Pxx_wb,fxx_wb]=pwelch(wb(:,2)/100,fix(len/20),[],[],fs_g,<span class="string">'onesided'</span>);</span><br><span class="line"></span><br><span class="line">% Plot</span><br><span class="line">figure(<span class="string">'name'</span>,<span class="string">'wavebuoy'</span>)</span><br><span class="line">plot(Ctr(:,1),Ctr(:,2)*smax(1));hold on</span><br><span class="line">plot(fxx_wb, Pxx_wb);</span><br><span class="line">legend(<span class="string">'From SPT file'</span>,<span class="string">'By matlab pwelch'</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/wave/psd.png" alt></p>
-<p>可见使用波浪骑士的原始波动数据计算PSD和<code>SPT</code>文件中的PSD是符合的。所以采集数据之后，既可以使用<code>wave5</code>进行数据处理，也可以自己编程实现，二者一致。</p>
-<h1 id="方向谱"><a href="#方向谱" class="headerlink" title="方向谱"></a>方向谱</h1><p>波浪骑士可观测海浪的三个方向的加速度，进而可以通过交叉谱确定方向谱。</p>
-<p><code>Maltab</code>开源程序包<code>diwasp</code>也可以独立计算方向谱，下面比较<code>Wave5</code>软件和<code>diwasp</code>计算方向谱的差异。</p>
-<blockquote>
-<p>Matlab程序</p>
-</blockquote>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">% WB的方向谱</span><br><span class="line">folder ='C:\Users\lei\Documents\MATLAB\diwasp'; </span><br><span class="line">addpath( genpath(folder) );   </span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>fs=<span class="number">1.28</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>depth=<span class="number">25</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>datatypes=&#123;'elev<span class="character">','</span>dspx<span class="character">','</span>dspy'&#125;;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>layout=repmat(<span class="literal">[<span class="number">0</span> <span class="number">0</span> <span class="number">25</span>]</span>',<span class="literal">[<span class="number">1</span> <span class="identifier">length</span>(ID.<span class="identifier">datatypes</span>)]</span>);</span><br><span class="line"></span><br><span class="line">wb=load('C:\Users\lei\Documents\wavebuoy\<span class="number">2021</span>\November\<span class="number">2021</span>-<span class="number">10</span>-<span class="number">24</span>T06h30Z.raw');</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">ID</span>.</span></span>data=wb(:,<span class="number">2</span>:<span class="number">4</span>)/<span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SM</span>.</span></span>freqs = <span class="literal">[<span class="number">0.01</span>:<span class="number">0.002</span>:<span class="number">0.7</span>]</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SM</span>.</span></span>dirs = <span class="literal">[-<span class="number">180</span>:<span class="number">1</span>:<span class="number">180</span>]</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">SM</span>.</span></span>xaxisdir = <span class="number">0</span> ;</span><br><span class="line"></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>dres = <span class="number">180</span> ;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>nfft = <span class="number">64</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>iter = <span class="number">100</span>;</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span>smooth = 'ON';</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">EP</span>.</span></span><span class="keyword">method</span> = 'DFTM';</span><br><span class="line"></span><br><span class="line"><span class="literal">[SM<span class="identifier">out</span>,EP<span class="identifier">out</span>]</span>=dirspec(ID,SM,EP,&#123;'PLOTTYPE',<span class="number">2</span>,'FILEOUT<span class="character">','</span>sampleout.spec'&#125;);</span><br></pre></td></tr></table></figure>
-<p>结果为：<br><img src="/images/wave/wave7.png" alt></p>
-<blockquote>
-<p>MATLAB计算的方向谱和波浪骑士自带工具显示的方向谱形态大致符合，但是角度相差了90度。原因不确定，但可能是参考轴的差异引起。后面需要进一步分析差异原因。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/04/23/tide/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/23/tide/" class="post-title-link" itemprop="url">GMT绘制分潮同潮图</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-23 15:50:23" itemprop="dateCreated datePublished" datetime="2022-04-23T15:50:23+08:00">2022-04-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/04/23/tide/" class="post-meta-item leancloud_visitors" data-flag-title="GMT绘制分潮同潮图" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/04/23/tide/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/23/tide/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>海洋潮汐由诸多分潮组成，同潮图的绘制是潮汐研究的常见操作。这里介绍<code>GMT</code>绘制同潮图的主要步骤，并导出振幅和相位的等值线，转为<code>kml</code>格式，以便在<code>google earth</code>查看。</p>
-<h1 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h1><p>使用AVISO网站的FES2014潮汐模型，各分潮为单独的nc文件。<br>内容包含：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line"><span class="number">2</span>n2<span class="selector-class">.nc</span>  k2<span class="selector-class">.nc</span>  m3<span class="selector-class">.nc</span>  m8<span class="selector-class">.nc</span>    mm<span class="selector-class">.nc</span>   msf<span class="selector-class">.nc</span>  nu2<span class="selector-class">.nc</span>  q1<span class="selector-class">.nc</span>  s2<span class="selector-class">.nc</span>  ssa.nc</span><br><span class="line">j1<span class="selector-class">.nc</span>   l2<span class="selector-class">.nc</span>  m4<span class="selector-class">.nc</span>  mf<span class="selector-class">.nc</span>    mn4<span class="selector-class">.nc</span>  mu2<span class="selector-class">.nc</span>  o1<span class="selector-class">.nc</span>   r2<span class="selector-class">.nc</span>  s4<span class="selector-class">.nc</span>  t2.nc</span><br><span class="line">k1<span class="selector-class">.nc</span>   m2<span class="selector-class">.nc</span>  m6<span class="selector-class">.nc</span>  mks2<span class="selector-class">.nc</span>  ms4<span class="selector-class">.nc</span>  n2<span class="selector-class">.nc</span>   p1<span class="selector-class">.nc</span>   s1<span class="selector-class">.nc</span>  sa.nc</span><br></pre></td></tr></table></figure>
-
-<h1 id="绘图代码"><a href="#绘图代码" class="headerlink" title="绘图代码"></a>绘图代码</h1><p>以山东周边海域M2和S2分潮为例绘图。</p>
-<p>主要用到了<code>grdcontour</code>绘制等值线，在相位一行代码中，注意加入<code>-Z+p</code>，代码如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">ps=sd.ps</span><br><span class="line"></span><br><span class="line">gmt pscoast -R115/125/34/42 -JM6i -Baf -Gburlywood  -Di -A10 -P -K --FORMAT_GEO_MAP=dddF &gt; <span class="variable">$ps</span></span><br><span class="line">gmt grdimage <span class="string">"m2.nc?amplitude"</span> -J -R -O -K -Q &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt pscoast -R -J -Gwhite  -Df -K -O &gt;&gt; <span class="variable">$ps</span></span><br><span class="line"></span><br><span class="line">gmt grdcontour -R <span class="string">"m2.nc?phase"</span> -J -Gl123/37/120/34,122/39/125/39 -C20 -A40+f7p+a0+u@. -Z+p  -Wc0.25p,white -Wa0.75p,white -O -K  &gt;&gt; <span class="variable">$ps</span></span><br><span class="line">gmt grdcontour -R <span class="string">"m2.nc?amplitude"</span> -J -GlBL/TR -C20 -A40+f7p+a0  -Wc0.25p,black -Wa0.75p,black -O -K  &gt;&gt; <span class="variable">$ps</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/sd.png" alt></p>
-<center>M2</center>
-
-<p><img src="/images/sd_s2.png" alt></p>
-<center>S2</center>
-
-
-<h1 id="数据导出"><a href="#数据导出" class="headerlink" title="数据导出"></a>数据导出</h1><p>首先使用<code>grdcontour</code>的<code>-D</code>输出等值线文件，再使用<code>gmt2kml</code>制作kml文件，可进一步导入Google Earth。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># <span class="selector-tag">Output</span> <span class="selector-tag">data</span></span><br><span class="line"><span class="selector-tag">gmt</span> <span class="selector-tag">grdcontour</span> <span class="selector-tag">-R</span> "<span class="selector-tag">m2</span><span class="selector-class">.nc</span>?<span class="selector-tag">phase</span>" <span class="selector-tag">-J</span> <span class="selector-tag">-C10</span> <span class="selector-tag">-A20</span>+<span class="selector-tag">f7p</span>+<span class="selector-tag">a0</span>  <span class="selector-tag">-Wc0</span><span class="selector-class">.25p</span>,<span class="selector-tag">gray</span> <span class="selector-tag">-Wa0</span><span class="selector-class">.75p</span>,<span class="selector-tag">gray</span> <span class="selector-tag">-Dcontours_p</span><span class="selector-class">.txt</span></span><br><span class="line"><span class="selector-tag">gmt</span> <span class="selector-tag">grdcontour</span> <span class="selector-tag">-R</span> "<span class="selector-tag">m2</span><span class="selector-class">.nc</span>?<span class="selector-tag">amplitude</span>" <span class="selector-tag">-J</span> <span class="selector-tag">-C10</span> <span class="selector-tag">-A20</span>+<span class="selector-tag">f7p</span>+<span class="selector-tag">a0</span>  <span class="selector-tag">-Wc0</span><span class="selector-class">.25p</span>,<span class="selector-tag">red</span> <span class="selector-tag">-Wa0</span><span class="selector-class">.75p</span>,<span class="selector-tag">red</span> <span class="selector-tag">-Dcontours_a</span><span class="selector-class">.txt</span></span><br><span class="line"># <span class="selector-tag">Transform</span> <span class="selector-tag">to</span> <span class="selector-tag">kml</span></span><br><span class="line"><span class="selector-tag">gmt</span> 2<span class="selector-tag">kml</span> <span class="selector-tag">contours_p</span><span class="selector-class">.txt</span> <span class="selector-tag">-Wthick</span>,<span class="selector-tag">black</span> <span class="selector-tag">-Fl</span> &gt; <span class="selector-tag">contours_p</span><span class="selector-class">.kml</span></span><br><span class="line"><span class="selector-tag">gmt</span> 2<span class="selector-tag">kml</span> <span class="selector-tag">contours_a</span><span class="selector-class">.txt</span> <span class="selector-tag">-Wthick</span>,<span class="selector-tag">white</span> <span class="selector-tag">-Fl</span> &gt; <span class="selector-tag">contours_a</span><span class="selector-class">.kml</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/ge.png" alt></p>
-<center>导入Google Earth</center>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/04/04/snow/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/04/snow/" class="post-title-link" itemprop="url">海冰遥感测量的中国研究-基于文献计量学</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-04 08:14:02" itemprop="dateCreated datePublished" datetime="2022-04-04T08:14:02+08:00">2022-04-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/04/04/snow/" class="post-meta-item leancloud_visitors" data-flag-title="海冰遥感测量的中国研究-基于文献计量学" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/04/04/snow/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/04/snow/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="海冰遥感测量的中国研究"><a href="#海冰遥感测量的中国研究" class="headerlink" title="海冰遥感测量的中国研究"></a>海冰遥感测量的中国研究</h1><blockquote>
-<p>本文使用文献计量快速获取中国学者在海冰厚度遥感方面的研究现状。工具为VOSviewer和R语言包bibliometrix，数据源为Web of Science。</p>
-</blockquote>
-<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p>卫星高度计可以通过测量海冰表面（含积雪）到海水面的高度，进而利用浮力公式得到海冰总厚度。因为雷达高度计分辨率低，而激光高度计沿轨分辨率高，因此极地海冰研究多采用激光高度计。由于浮力公式和介质密度密切相关，因此海水密度、海冰密度和积雪密度是影响测量结果精度的关键因子。下图说明了海冰厚度反演的基本原理（季青 etal., 2016）：</p>
-<p><img src="/images/snow/1.png" alt></p>
-<h2 id="数据源"><a href="#数据源" class="headerlink" title="数据源"></a>数据源</h2><p>由于数据开放程度高，原理简单，海冰反演在我国的研究较为广泛。另外我国极地事业的不断发展也对海冰调查提出了更多需求，促进了该领域的发展。下面以Web of Science检索的SCI文章为样本，简单统计中国学者的研究情况。使用的关键词为“sea ice” and “depth” and “satellite”，设置国家为中国，出现106篇文章，其中包含一部分的国际合作研究。</p>
-<p><img src="/images/snow/2.png" alt></p>
-<h2 id="文章数量"><a href="#文章数量" class="headerlink" title="文章数量"></a>文章数量</h2><p>从数量看，中国学者发表的海冰厚度成果增长趋势明显，2021年发表的相关SCI文章超过15篇。预计我国在将来还将发表更多的海冰厚度反演文章。</p>
-<p><img src="/images/snow/3.png" alt></p>
-<p>从数量看，作者主要有Qu Bo（Nantong University），Wang Bin（Tsinghua Univ），Zhou Lu（Tsinghua Univ），Cheng Xiao（Sun Yat Sen Univ），Liu JP（Beijing Normal Univ）, Xie  Hongjie (Univ Texas San Antonio)等人。</p>
-<h2 id="合作作者"><a href="#合作作者" class="headerlink" title="合作作者"></a>合作作者</h2><p><img src="/images/snow/4.png" alt></p>
-<p>从合作网络看，国内学者在海冰反演领域合作密切，并以单位及合作单位的形成作者群体，图中红橙蓝节点为清华、北师、遥感所的合作，其中清华又表现出丰富的国际合作。图中左下为极地中心（Lei ruibo）、武大研究群体，中间的紫色群体有桥梁连接作用，为MOSAiC任务的研究人员，有丰富和国际合作背景。继续向左连接到另一个国外研究群体（Xie Hongjie），并最终连接南京大学（Shen Xiaoyi）群体，在南大群体作者中可见卫星中心相关人员，表示二者有项目合作。</p>
-<h2 id="合作机构"><a href="#合作机构" class="headerlink" title="合作机构"></a>合作机构</h2><p><img src="/images/snow/5.png" alt></p>
-<p>从卫星海冰厚度的研究机构看，国内主要有清华、北大、中科院、北师、中山大学、武大、原海洋局系统单位、南大、南信等单位。主要的国外合作机构有nasa等。最大的节点为清华和中科院，清华的国际合作又强于其他机构。</p>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><img src="/images/snow/6.png" alt></p>
-<p>意外的是，尽管WoS数据检索主题是“sea ice”，但关键词主题最广的却是积雪厚度（snow depth），由此可见积雪厚度对卫星反演海冰的重要性和创新性，这也说明现在从事海冰厚度反演，无法避免的需要积雪厚度信息。此外，也可发现除了Icesat、Cryosat等激光高度计卫星外，也有我国学者使用amsr-e卫星辐射计亮温数据等进行相关研究，表明海冰厚度可以被动遥感进行反演，辐射计的特点主要是刈幅宽，周期短，正好可以补充高度计的不足，未来主被动结合的海冰厚度信息提取或许是一个趋势。</p>
-<h2 id="国际合作"><a href="#国际合作" class="headerlink" title="国际合作"></a>国际合作</h2><p><img src="/images/snow/7.png" alt></p>
-<p>中国最大的合作伙伴是美国，其次是欧盟国家。另外中国和俄罗斯、澳大利也、新西兰、韩国、印度也都存在直接合作。</p>
-<blockquote>
-<p>本文内容比较简单，许多信息未挖掘，又想法的同学可增加中外的研究差异、热点演化等。文献计量分析近年来发展迅猛，诸多国内外学术期刊均接受该类文章。其意义在于帮助新手快速了解领域进展，老手快速掌握前沿热点，促进科学选题。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2022/03/24/gmt-newuser/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/xingchi.jpg">
-      <meta itemprop="name" content="Yang Lei">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="学习笔记">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/24/gmt-newuser/" class="post-title-link" itemprop="url">5分钟学会GMT</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-24 19:50:08" itemprop="dateCreated datePublished" datetime="2022-03-24T19:50:08+08:00">2022-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-10 23:18:25" itemprop="dateModified" datetime="2024-06-10T23:18:25+08:00">2024-06-10</time>
-              </span>
-
-          
-            <span id="/2022/03/24/gmt-newuser/" class="post-meta-item leancloud_visitors" data-flag-title="5分钟学会GMT" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/03/24/gmt-newuser/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/24/gmt-newuser/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文面向GMT的初学者或者即将打算学习GMT的新人。</p>
-</blockquote>
-<h2 id="GMT简介"><a href="#GMT简介" class="headerlink" title="GMT简介"></a>GMT简介</h2><p>GMT是一套地学绘图的工具，可以输出高质量的论文插图，并具备优秀的数据处理工具，比如进行网格插值、数据筛选、空间滤波甚至重力场反演等。GMT在测绘、地球物理、海洋、遥感等领域有广泛的使用，GMT通常被指定为研究生必备技能之一。然而由于其采用命令行模式，有一定的学习门槛。不过掌握之后，会大大提高科研生产力。</p>
-<p>GMT由美国夏威夷大学Paul教授等人开发，至今已有30多年历史，且仍旧在更新维护。中国也有一批热衷于更新GMT的粉丝。</p>
-<p><img src="/images/gmt/gmt.png" alt></p>
-<center>基本每天更新代码的Paul爷爷</center>
-
-<p>下面分Windows和Linux来介绍安装GMT使用。</p>
-<h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>需要准备的程序：</p>
-<ul>
-<li>GMT可执行程序，地址：<a href="https://github.com/GenericMappingTools/gmt/releases/tag/6.3.0" target="_blank" rel="noopener">https://github.com/GenericMappingTools/gmt/releases/tag/6.3.0</a></li>
-<li>GhostScript，地址：<a href="https://www.ghostscript.com/releases/gsdnld.html" target="_blank" rel="noopener">https://www.ghostscript.com/releases/gsdnld.html</a></li>
-<li>gsview（可选）, 地址：<a href="https://pages.cs.wisc.edu/~ghost/" target="_blank" rel="noopener">https://pages.cs.wisc.edu/~ghost/</a></li>
-</ul>
-<p>Ghostscript是为了解释ps矢量语言，支持转化成pdf格式。gsview是为了打开ps文件。</p>
-<p>安装后，记得查看下系统路径<code>PATH</code>时候设置？如果没自动设置路径，请手动加上。</p>
-<p>不需要重启电脑。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>GMT采用了脚本程序，在window中可以写bat文件进行批量运行。简单说就是把一行一行的代码放进bat中依次执行，后面的绘图代码将叠加到上一行的结果之上。</p>
-<p>一般，请前往GMT安装目录找到<code>example</code>目录，随便进入一个例子（动画除外），找到<code>bat</code>文件，双击执行，结束后当前目录会有图片产生。</p>
-<p>例子的目录一般在：<code>C:\programs\gmt6\share\doc\examples</code></p>
-<blockquote>
-<p>注意，有些例子使用了在线数据，因此需要联网运行。有些例子可能使用了<code>gawk</code>等文本处理工具，需要下载后放到GMT的<code>bin</code>目录（其他可以被path搜索的目录也行）。</p>
-</blockquote>
-<p>下面是<code>ex01</code>代码：</p>
-<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM		GMT EXAMPLE 01</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line"><span class="comment">REM Purpose:	Make two contour maps based on the data in the file osu91a1f_16.nc</span></span><br><span class="line"><span class="comment">REM GMT modules:	set, subplot, grdcontour, coast</span></span><br><span class="line"><span class="comment">REM</span></span><br><span class="line">gmt begin ex01</span><br><span class="line">	gmt <span class="built_in">set</span> MAP_GRID_CROSS_SIZE_PRIMARY <span class="number">0</span> FONT_ANNOT_PRIMARY <span class="number">10</span>p</span><br><span class="line">	gmt subplot begin <span class="number">2</span>x1 -A -M0.<span class="number">5</span>c -Blrtb -Bafg -T"Low Order Geoid" -Fs16c/<span class="number">0</span> -Rg -JH16c</span><br><span class="line">		gmt coast -JH? -Glightbrown -Slightblue -c0,<span class="number">0</span></span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -Ln -Wcthinnest,- -Wathin,- -T+d8p/<span class="number">2</span>p+l</span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -LP -T+d8p/<span class="number">2</span>p+l</span><br><span class="line"></span><br><span class="line">		gmt coast -JH0/? -Glightbrown -Slightblue -c1,<span class="number">0</span></span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -Ln -Wcthinnest,- -Wathin,- -T+d8p/<span class="number">2</span>p</span><br><span class="line">		gmt grdcontour @osu91a1f_16.nc -C10 -A50+f7p -Gd10c -LP -T+d8p/<span class="number">2</span>p</span><br><span class="line">	gmt subplot end</span><br><span class="line">gmt end show</span><br></pre></td></tr></table></figure>
-
-<p>上述代码是GMT6风格。大概意思如下：<br>‘REM’表示注释，<code>gmt begin</code> 表示开始，<code>gmt set</code>在本例中修改一些绘图默认值，<code>gmt coast</code>表示正式的绘图开始，这一行是加海岸线，后面各有不同含义，按顺序执行。</p>
-<p>如果上面的例子复杂了，也可以打开<code>cmd</code>，运行一行的代码:</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">gmt</span> pscoast -JM6i -<span class="keyword">Baf </span>-EGB,<span class="keyword">IT,FR+gblue+p0.25p,red </span>-EES,PT,GR+gyellow -P &gt; <span class="meta">map</span>.ps</span><br></pre></td></tr></table></figure>
-
-<p>使用gsview打开ps图片<br><img src="/images/gmt/gmt1.png" alt></p>
-<center>一副GMT绘制的地图</center>
-
-<p>装换格式使用：</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt psconvert <span class="keyword">map</span>.<span class="keyword">ps</span> -A -Tg</span><br></pre></td></tr></table></figure>
-
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>这里以<code>Ubuntu</code>为例。</p>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>联网情况下，GMT安装只需要几行命令，不要自己编译。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install gmt gmt-dcw gmt-gshhg</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install ghostscript</span><br></pre></td></tr></table></figure>
-
-<p>检查安装是否成功使用，直接在命令窗口输入<code>gmt</code>，出现版本信息即表示安装成功。</p>
-<h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><p>Linux下同样采用脚本，把每一行命令写到一个可执行的文本即可。</p>
-<p>和Windows有所不同的是，Linux下面有大量的文本处理工具可以使用，比如<code>cat</code>,<code>sed</code>,<code>ls</code>,<code>awk</code>等。</p>
-<p>在命令窗口输入:</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">gmt</span> pscoast -JM6i -<span class="keyword">Baf </span>-EGB,<span class="keyword">IT,FR+gblue+p0.25p,red </span>-EES,PT,GR+gyellow -P &gt; <span class="meta">map</span>.ps</span><br></pre></td></tr></table></figure>
-<p>可以得到和Windows一样的结果。</p>
-<p>如果使用批处理运行，比如代码已经写进<code>test.sh</code>，则执行<code>./test.sh</code>。</p>
-<h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>命令窗口输入<code>gmt docs gmt</code>，可以打开本地帮助。</p>
-<h2 id="论坛"><a href="#论坛" class="headerlink" title="论坛"></a>论坛</h2><p>有问题可以去论坛提问，这里有许多活跃用户。GMT论坛已经更换了很多次，这次看起来比较稳定。</p>
-<p>GMT论坛地址：<a href="https://forum.generic-mapping-tools.org/" target="_blank" rel="noopener">https://forum.generic-mapping-tools.org/</a></p>
-<h2 id="QQ群"><a href="#QQ群" class="headerlink" title="QQ群"></a>QQ群</h2><p>国内有两个千人的群，都比较不错。</p>
-<p>GMT QQ群1: 218905582<br>GMT QQ群2: 791856541</p>
-<h2 id="中文社区"><a href="#中文社区" class="headerlink" title="中文社区"></a>中文社区</h2><p>有一些翻译的中文手册和案例，可作为初学者参考。</p>
-<p>地址：<a href="https://gmt-china.org/" target="_blank" rel="noopener">https://gmt-china.org/</a></p>
-<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>可以在GitHub搜索到一些共享的例子。</p>
-<h2 id="本公众号"><a href="#本公众号" class="headerlink" title="本公众号"></a>本公众号</h2><p>初心是提供海洋数据服务，有空会更新一些GMT案例，往往比较实用，且别处找不太到。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>另外，还有许多的个人网站和博客，不一一列举。</p>
-<h1 id="MATLAB，Python，Julia的GMT版本"><a href="#MATLAB，Python，Julia的GMT版本" class="headerlink" title="MATLAB，Python，Julia的GMT版本"></a>MATLAB，Python，Julia的GMT版本</h1><p>GMT MATLAB和Julia相对成熟，特别是MATLAB版本完美结合GMT，实现互相调用数据。Julia用的不多，但好像有一些黑科技在里面，可以实现一般GMT做不到事情。Python还在开发中，工具不完全，可以尝尝鲜，但不能替代GMT。</p>
-<p>三者程序：<a href="https://github.com/GenericMappingTools" target="_blank" rel="noopener">https://github.com/GenericMappingTools</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1761,7 +1814,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">177</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1774,7 +1827,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
