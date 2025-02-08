@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="[导读] 研究团队通过75天的SWOT数据，采用改进的映射技术，绘制了模式1的$\mathrm{M}_2$内潮，构建了名为SWOT-75d的内潮模型。SWOT-75d在强内潮区域显著降低了方差，甚至在中北太平洋等部分区域的表现超越了基于30年卫星测高数据的Nadir-30y模型。通过使用SWOT-75d的平滑相位数据对Nadir-30y进行调整，改进后的模型在内潮校正方面表现更加优异，证明这一方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SWOT 内潮">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2025/02/08/it/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="[导读] 研究团队通过75天的SWOT数据，采用改进的映射技术，绘制了模式1的$\mathrm{M}_2$内潮，构建了名为SWOT-75d的内潮模型。SWOT-75d在强内潮区域显著降低了方差，甚至在中北太平洋等部分区域的表现超越了基于30年卫星测高数据的Nadir-30y模型。通过使用SWOT-75d的平滑相位数据对Nadir-30y进行调整，改进后的模型在内潮校正方面表现更加优异，证明这一方">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-08T15:09:18.000Z">
+<meta property="article:modified_time" content="2025-02-08T15:11:06.639Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="SWOT">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2025/02/08/it/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>SWOT 内潮 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">95</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">187</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/calendar" rel="section"><i class="fa fa-fw fa-calendar"></i>日程表</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2025/02/08/it/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SWOT 内潮
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-08 23:09:18 / 修改时间：23:11:06" itemprop="dateCreated datePublished" datetime="2025-02-08T23:09:18+08:00">2025-02-08</time>
+            </span>
+
+          
+            <span id="/2025/02/08/it/" class="post-meta-item leancloud_visitors" data-flag-title="SWOT 内潮" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2025/02/08/it/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/02/08/it/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>[导读] 研究团队通过75天的SWOT数据，采用改进的映射技术，绘制了模式1的$\mathrm{M}_2$内潮，构建了名为SWOT-75d的内潮模型。SWOT-75d在强内潮区域显著降低了方差，甚至在中北太平洋等部分区域的表现超越了基于30年卫星测高数据的Nadir-30y模型。通过使用SWOT-75d的平滑相位数据对Nadir-30y进行调整，改进后的模型在内潮校正方面表现更加优异，证明这一方法能够有效校正时间变化的内潮特征。</p>
+</blockquote>
+<p>内潮广泛分布于全球海洋，通过现场观测和卫星测量呈现出明显的周期性特征。内潮的形成源于正压潮汐与海底地形的相互作用，并在开阔海洋中传播，覆盖范围可达数百乃至数千公里。内潮在物质输送、初级生产力和上层海洋混合等重要海洋过程中的作用不容忽视，其对经向翻转环流和全球气候的影响亦不容小觑。</p>
+<p>然而，内潮的生成与传播受海洋层化和环流变化的显著调节，呈现出从日变化到几十年的复杂时间尺度。传统的内潮观测模型主要依赖多年的卫星测高数据，通常只能捕捉到稳定的内潮，而难以全面反映随时间变化的非相干内潮特征。</p>
+<p>新的SWOT任务通过高分辨率的二维海表高度观测，为内潮研究带来了新的契机。这篇论文依托75天的SWOT数据，采用优化后的映射技术，深入探讨内潮的时空变化。研究核心聚焦于两个关键问题：如何利用短期SWOT数据准确提取模式1的$\mathrm{M}_2$内潮，以及即时内潮模型是否能够更好地服务于SWOT的内潮校正。</p>
+<blockquote>
+<p>SWOT任务于2022年12月发射，使用Ka波段雷达干涉仪（KaRIn）测量二维海表高度（SSH），误差更低，空间分辨率为2公里。2023年初，SWOT在1天重复轨道上进行了校准，覆盖全球28个观测带；2023年7月起进入科学阶段，切换至21天重复轨道，覆盖586个观测带。2024年1月，SWOT项目发布了两组数据：包括103天的校准数据和75天的科学数据。</p>
+</blockquote>
+<p>在之前的研究中，作者使用1993至2022年间的30年SSH数据，构建了模式1的$\mathrm{M}_2$内潮模型，该模型称为Nadir-30y，代表30年的相干内潮模型。<strong>Nadir-30y模型只能包含相干内潮，因为它依赖于多年的稳定数据平均，难以捕捉时间变化的非相干内潮</strong>。如果要研究非相干内潮的动态变化，则需要具有更高时间分辨率和连续覆盖的观测数据，例如短期内的高分辨率卫星数据（如SWOT数据）或密集的现场观测数据。</p>
+<blockquote>
+<p>非相干内潮是<strong>时间上不稳定</strong>的，其相位和振幅会受到季节性变化、洋流波动和水体层化变化等因素的影响。由于这些变化没有固定的周期性，在长期观测中表现为随机波动。</p>
+</blockquote>
+<p>![[Pasted image 20241027152140.png]]<br>SWOT-75d与Nadir-30y的比较显示，SWOT-75d在表现上不如30年的Nadir-30y模型，这是因为75天的数据较短，容易受到中尺度涡的干扰。而Nadir-30y基于30年数据构建，具有更窄的谱峰和更小的误差，代表了模式1的$\mathrm{M}_2$内潮的气候常态。尽管如此，SWOT-75d仍成功展示了全球内潮的基本特征，如夏威夷海岭和西北太平洋的内潮活动。同时，它在大西洋和阿拉伯海等区域展示了清晰的内潮波束。总体上，SWOT-75d和Nadir-30y在空间分布上具有较高的相似度，相关系数达到0.63，但SWOT-75d的振幅比Nadir-30y高出70%，主要是由于模型误差的影响。</p>
+<p><strong>模型误差</strong>显示，SWOT-75d在强内潮区域误差较大，而Nadir-30y因30年的数据支持，误差更小、更稳定。<strong>独立数据评估</strong>表明，SWOT-75d在强内潮区域有良好表现，尽管整体误差较大，但它反映了即时的内潮信息。<strong>季节性评估</strong>显示，SWOT-75d在热带和特定区域超过了Nadir-30y，反映了这些区域内潮的季节性变化。总体来看，Nadir-30y适合长期稳定的内潮校正，而SWOT-75d在季节性和即时变化的捕捉上更有优势。</p>
+<p>研究提出了一种改进SWOT内潮校正的方法，通过引入即时相位调整的内潮模型Nadir-30y*，增强了对时间变化内潮的校正精度。调整后的模型保留了与Nadir-30y相同的振幅，但更好地反映了2023年9月7日至11月21日期间的即时相位信息。</p>
+<p>利用75天SWOT数据对Nadir-30y和Nadir-30y*进行了评估。结果显示，Nadir-30y*在全球范围内的校正效果优于Nadir-30y，方差减少量从16.0毫米²提高到19.3毫米²，相当于20%的性能提升。这表明相位调整能够有效应对短时间窗口内的内潮变化。<br>这一改进对提升SWOT的内潮校正精度具有重要意义，尤其是在应对季节性和十年尺度的变化时，显示出显著的优势。</p>
+<p>然而，相位调整的效果因区域和季节而异，表明时间变化的复杂性需要进一步深入研究。</p>
+<blockquote>
+<p>参考文献：Z. Zhao, “Internal Tides from SWOT: A 75-day Instantaneous Mode-1 M2 Internal Tide Model”, Accessed: Oct. 11, 2024. [Online]. Available: <a target="_blank" rel="noopener" href="https://www.authorea.com/users/645492/articles/1230657-internal-tides-from-swot-a-75-day-instantaneous-mode-1-m2-internal-tide-model?commit=4aa748ad5a2add93e970732b8365bb221726972e">https://www.authorea.com/users/645492/articles/1230657-internal-tides-from-swot-a-75-day-instantaneous-mode-1-m2-internal-tide-model?commit=4aa748ad5a2add93e970732b8365bb221726972e</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SWOT/" rel="tag"># SWOT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/08/igw/" rel="prev" title="JGR Ocean SWOT测量印尼海域的内孤立波">
+      <i class="fa fa-chevron-left"></i> JGR Ocean SWOT测量印尼海域的内孤立波
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/02/08/usbuoy/" rel="next" title="DARPA“海洋物联计划”将布放5万个浮标">
+      DARPA“海洋物联计划”将布放5万个浮标 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v7.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

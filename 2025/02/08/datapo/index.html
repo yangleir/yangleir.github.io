@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://assz0a.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="海洋科学研究和实际应用的推进，离不开高质量的数据支持。从卫星观测到水下探测，从全球尺度到局地细节，各类海洋与大气数据平台为科学家和工程师提供了重要资源。本文将为大家梳理多个关键数据资源平台，帮助您快速了解并使用这些工具。 1. 卫星高度计数据：RADSRADS（Radar Altimeter Database System）是一个高精度的卫星高度计数据处理系统，涵盖全球海洋表面高程、波浪和风速等关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="资源共享 | 物理海洋科学数据">
+<meta property="og:url" content="http://assz0a.coding-pages.com/2025/02/08/datapo/index.html">
+<meta property="og:site_name" content="学习笔记">
+<meta property="og:description" content="海洋科学研究和实际应用的推进，离不开高质量的数据支持。从卫星观测到水下探测，从全球尺度到局地细节，各类海洋与大气数据平台为科学家和工程师提供了重要资源。本文将为大家梳理多个关键数据资源平台，帮助您快速了解并使用这些工具。 1. 卫星高度计数据：RADSRADS（Radar Altimeter Database System）是一个高精度的卫星高度计数据处理系统，涵盖全球海洋表面高程、波浪和风速等关">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-08T15:17:47.000Z">
+<meta property="article:modified_time" content="2025-02-08T15:18:46.420Z">
+<meta property="article:author" content="Yang Lei">
+<meta property="article:tag" content="数据共享">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://assz0a.coding-pages.com/2025/02/08/datapo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>资源共享 | 物理海洋科学数据 | 学习笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学习笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">95</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">187</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools" rel="section"><i class="fa fa-fw fa-wrench"></i>Tools</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/calendar" rel="section"><i class="fa fa-fw fa-calendar"></i>日程表</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://assz0a.coding-pages.com/2025/02/08/datapo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xingchi.jpg">
+      <meta itemprop="name" content="Yang Lei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学习笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          资源共享 | 物理海洋科学数据
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-08 23:17:47 / 修改时间：23:18:46" itemprop="dateCreated datePublished" datetime="2025-02-08T23:17:47+08:00">2025-02-08</time>
+            </span>
+
+          
+            <span id="/2025/02/08/datapo/" class="post-meta-item leancloud_visitors" data-flag-title="资源共享 | 物理海洋科学数据" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2025/02/08/datapo/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/02/08/datapo/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>海洋科学研究和实际应用的推进，离不开高质量的数据支持。从卫星观测到水下探测，从全球尺度到局地细节，各类海洋与大气数据平台为科学家和工程师提供了重要资源。本文将为大家梳理多个关键数据资源平台，帮助您快速了解并使用这些工具。</p>
+<h4 id="1-卫星高度计数据：RADS"><a href="#1-卫星高度计数据：RADS" class="headerlink" title="1. 卫星高度计数据：RADS"></a><strong>1. 卫星高度计数据：RADS</strong></h4><p>RADS（Radar Altimeter Database System）是一个高精度的卫星高度计数据处理系统，涵盖全球海洋表面高程、波浪和风速等关键变量。这些数据为海平面变化监测、海洋动力学研究和气候分析提供了坚实的基础。</p>
+<h2 id="http-rads-tudelft-nl-rads"><a href="#http-rads-tudelft-nl-rads" class="headerlink" title="http://rads.tudelft.nl/rads"></a><a target="_blank" rel="noopener" href="http://rads.tudelft.nl/rads">http://rads.tudelft.nl/rads</a></h2><h4 id="2-高密度-XBTs-数据：Atlantic-和-Indo-Pacific"><a href="#2-高密度-XBTs-数据：Atlantic-和-Indo-Pacific" class="headerlink" title="2. 高密度 XBTs 数据：Atlantic 和 Indo-Pacific"></a><strong>2. 高密度 XBTs 数据：Atlantic 和 Indo-Pacific</strong></h4><p>XBT 提供高分辨率的温跃层和水温数据，特别适用于大西洋和印度-太平洋海域的热量传输研究。该数据对海洋环流模式验证和气候变化研究至关重要。</p>
+<h2 id="http-www-aoml-noaa-gov-phod-hdenxbt-index-php"><a href="#http-www-aoml-noaa-gov-phod-hdenxbt-index-php" class="headerlink" title="http://www.aoml.noaa.gov/phod/hdenxbt/index.php"></a><a target="_blank" rel="noopener" href="http://www.aoml.noaa.gov/phod/hdenxbt/index.php">http://www.aoml.noaa.gov/phod/hdenxbt/index.php</a></h2><h4 id="3-近实时数据的-Google-Earth-展示：AOML-GTS"><a href="#3-近实时数据的-Google-Earth-展示：AOML-GTS" class="headerlink" title="3. 近实时数据的 Google Earth 展示：AOML-GTS"></a><strong>3. 近实时数据的 Google Earth 展示：AOML-GTS</strong></h4><p>由美国国家海洋和大气管理局（NOAA）的AOML（Atlantic Oceanographic and Meteorological Laboratory）提供，通过GTS（Global Telecommunication System）将全球近实时海洋和气象数据整合到Google Earth中，方便可视化和快速访问。</p>
+<h2 id="https-www-aoml-noaa-gov-phod-goos-php"><a href="#https-www-aoml-noaa-gov-phod-goos-php" class="headerlink" title="https://www.aoml.noaa.gov/phod/goos.php"></a><a target="_blank" rel="noopener" href="https://www.aoml.noaa.gov/phod/goos.php">https://www.aoml.noaa.gov/phod/goos.php</a></h2><h4 id="4-Argo-漂流器与剖面数据：Scripps-Argo-Portal"><a href="#4-Argo-漂流器与剖面数据：Scripps-Argo-Portal" class="headerlink" title="4. Argo 漂流器与剖面数据：Scripps Argo Portal"></a><strong>4. Argo 漂流器与剖面数据：Scripps Argo Portal</strong></h4><p>Argo计划由全球数千个自动剖面漂流器组成，提供温盐剖面和洋流数据。Scripps Argo Portal 为科学家提供便捷的访问途径，是研究海洋结构和热盐输运的核心资源。</p>
+<h2 id="http-www-argo-ucsd-edu"><a href="#http-www-argo-ucsd-edu" class="headerlink" title="http://www.argo.ucsd.edu/"></a><a target="_blank" rel="noopener" href="http://www.argo.ucsd.edu/">http://www.argo.ucsd.edu/</a></h2><h4 id="5-全球表层漂流计划：AOML"><a href="#5-全球表层漂流计划：AOML" class="headerlink" title="5. 全球表层漂流计划：AOML"></a><strong>5. 全球表层漂流计划：AOML</strong></h4><p>AOML管理的全球表层漂流计划（Global Surface Drifter Program）专注于海洋表层温度和流速观测，是研究洋流和气候变化的基础数据来源。</p>
+<h2 id="http-www-aoml-noaa-gov-phod-dac-dacdata-php"><a href="#http-www-aoml-noaa-gov-phod-dac-dacdata-php" class="headerlink" title="http://www.aoml.noaa.gov/phod/dac/dacdata.php"></a><a target="_blank" rel="noopener" href="http://www.aoml.noaa.gov/phod/dac/dacdata.php">http://www.aoml.noaa.gov/phod/dac/dacdata.php</a></h2><h4 id="6-热带系泊观测系统：TOGA-TAO"><a href="#6-热带系泊观测系统：TOGA-TAO" class="headerlink" title="6. 热带系泊观测系统：TOGA-TAO"></a><strong>6. 热带系泊观测系统：TOGA-TAO</strong></h4><p>TOGA-TAO（Tropical Ocean Global Atmosphere - Tropical Atmosphere Ocean）观测系统部署了多个系泊浮标，监测热带海洋和大气交互作用，特别是厄尔尼诺和拉尼娜现象。</p>
+<h2 id="http-www-pmel-noaa-gov-tao-data-deliv-deliv-html"><a href="#http-www-pmel-noaa-gov-tao-data-deliv-deliv-html" class="headerlink" title="http://www.pmel.noaa.gov/tao/data_deliv/deliv.html"></a><a target="_blank" rel="noopener" href="http://www.pmel.noaa.gov/tao/data_deliv/deliv.html">http://www.pmel.noaa.gov/tao/data_deliv/deliv.html</a></h2><h4 id="7-NOS-海平面数据：tidesandcurrents"><a href="#7-NOS-海平面数据：tidesandcurrents" class="headerlink" title="7. NOS 海平面数据：tidesandcurrents"></a><strong>7. NOS 海平面数据：tidesandcurrents</strong></h4><p>由NOAA的国家海洋服务（NOS）提供，tidesandcurrents平台收录了美国沿海和大洋岛屿的潮位和海平面数据，可用于沿海管理和海平面上升分析。</p>
+<h2 id="https-tidesandcurrents-noaa-gov"><a href="#https-tidesandcurrents-noaa-gov" class="headerlink" title="https://tidesandcurrents.noaa.gov/"></a><a target="_blank" rel="noopener" href="https://tidesandcurrents.noaa.gov/">https://tidesandcurrents.noaa.gov/</a></h2><h4 id="8-全球海平面数据：GLOSS"><a href="#8-全球海平面数据：GLOSS" class="headerlink" title="8. 全球海平面数据：GLOSS"></a><strong>8. 全球海平面数据：GLOSS</strong></h4><p>全球海平面观测系统（GLOSS）提供长期的全球潮位站观测数据，是监测海平面变化的重要基础。</p>
+<h2 id="http-www-gloss-sealevel-org-data"><a href="#http-www-gloss-sealevel-org-data" class="headerlink" title="http://www.gloss-sealevel.org/data/"></a><a target="_blank" rel="noopener" href="http://www.gloss-sealevel.org/data/">http://www.gloss-sealevel.org/data/</a></h2><h4 id="9-UHSLC-海平面数据：UHSLC"><a href="#9-UHSLC-海平面数据：UHSLC" class="headerlink" title="9. UHSLC 海平面数据：UHSLC"></a><strong>9. UHSLC 海平面数据：UHSLC</strong></h4><p>夏威夷大学的海平面中心（UHSLC）汇总了全球高质量的潮位数据，适用于研究海洋波动、季节性变化和气候变化的长期趋势。</p>
+<h2 id="http-uhslc-soest-hawaii-edu"><a href="#http-uhslc-soest-hawaii-edu" class="headerlink" title="http://uhslc.soest.hawaii.edu/"></a><a target="_blank" rel="noopener" href="http://uhslc.soest.hawaii.edu/">http://uhslc.soest.hawaii.edu/</a></h2><h4 id="10-太平洋西北门户：NANOOS"><a href="#10-太平洋西北门户：NANOOS" class="headerlink" title="10. 太平洋西北门户：NANOOS"></a><strong>10. 太平洋西北门户：NANOOS</strong></h4><p>NANOOS（Northwest Association of Networked Ocean Observing Systems）专注于太平洋西北沿海地区的数据整合，为区域生态监测和资源管理提供支持。</p>
+<h2 id="http-www-nanoos-org"><a href="#http-www-nanoos-org" class="headerlink" title="http://www.nanoos.org/"></a><a target="_blank" rel="noopener" href="http://www.nanoos.org/">http://www.nanoos.org/</a></h2><h4 id="11-局地数据：CMOP"><a href="#11-局地数据：CMOP" class="headerlink" title="11. 局地数据：CMOP"></a><strong>11. 局地数据：CMOP</strong></h4><p>CMOP（Center for Coastal Margin Observation &amp; Prediction）整合了沿岸和河口区域的多尺度观测数据，适用于局地生态系统研究。</p>
+<h2 id="http-www-stccmop-org-datamart"><a href="#http-www-stccmop-org-datamart" class="headerlink" title="http://www.stccmop.org/datamart"></a><a target="_blank" rel="noopener" href="http://www.stccmop.org/datamart">http://www.stccmop.org/datamart</a></h2><h4 id="12-大气数据：MADIS"><a href="#12-大气数据：MADIS" class="headerlink" title="12. 大气数据：MADIS"></a><strong>12. 大气数据：MADIS</strong></h4><p>MADIS（Meteorological Assimilation Data Ingest System）提供包括飞机数据（如AMDAR）在内的多源气象数据，是天气预报和气候分析的核心数据源。</p>
+<h2 id="https-madis-ncep-noaa-gov"><a href="#https-madis-ncep-noaa-gov" class="headerlink" title="https://madis.ncep.noaa.gov/"></a><a target="_blank" rel="noopener" href="https://madis.ncep.noaa.gov/">https://madis.ncep.noaa.gov/</a></h2><h4 id="13-卫星-SSH-格网化数据：AVISO"><a href="#13-卫星-SSH-格网化数据：AVISO" class="headerlink" title="13. 卫星 SSH 格网化数据：AVISO"></a><strong>13. 卫星 SSH 格网化数据：AVISO</strong></h4><p>AVISO 平台通过格网化处理提供了卫星观测的海表高度（SSH）数据，是研究海洋环流、涡旋和海平面变化的重要资源。</p>
+<h2 id="http-www-aviso-oceanobs-com-en-data-products-index-html"><a href="#http-www-aviso-oceanobs-com-en-data-products-index-html" class="headerlink" title="http://www.aviso.oceanobs.com/en/data/products/index.html"></a><a target="_blank" rel="noopener" href="http://www.aviso.oceanobs.com/en/data/products/index.html">http://www.aviso.oceanobs.com/en/data/products/index.html</a></h2><h4 id="14-海洋再分析数据：ECCO-和-SODA"><a href="#14-海洋再分析数据：ECCO-和-SODA" class="headerlink" title="14. 海洋再分析数据：ECCO 和 SODA"></a><strong>14. 海洋再分析数据：ECCO 和 SODA</strong></h4><ul>
+<li>ECCO（Estimating the Circulation and Climate of the Ocean）项目利用数据同化技术，为全球海洋提供物理场的长期再分析数据。</li>
+<li>SODA（Simple Ocean Data Assimilation）数据集同样提供高质量的再分析结果，涵盖温盐、流速等多变量。</li>
+</ul>
+<h2 id="http-www-atmos-umd-edu-ocean"><a href="#http-www-atmos-umd-edu-ocean" class="headerlink" title="http://www.atmos.umd.edu/~ocean/"></a><a target="_blank" rel="noopener" href="http://www.atmos.umd.edu/~ocean/">http://www.atmos.umd.edu/~ocean/</a></h2><h4 id="15-EOSDIS-浏览器：MODIS"><a href="#15-EOSDIS-浏览器：MODIS" class="headerlink" title="15. EOSDIS 浏览器：MODIS"></a><strong>15. EOSDIS 浏览器：MODIS</strong></h4><p>EOSDIS（Earth Observing System Data and Information System）浏览器提供对MODIS卫星数据的快速访问，包括海洋色、海表温度和植被覆盖等全球遥感数据。</p>
+<h2 id="https-worldview-earthdata-nasa-gov"><a href="#https-worldview-earthdata-nasa-gov" class="headerlink" title="https://worldview.earthdata.nasa.gov/"></a><a target="_blank" rel="noopener" href="https://worldview.earthdata.nasa.gov/">https://worldview.earthdata.nasa.gov/</a></h2><p>以上数据平台涵盖了从卫星观测到局地监测的多维度信息，可广泛应用于海洋科研、气候分析和资源管理。未来的海洋科学研究离不开这些宝贵的数据资源，也期待更多科学家和工程师借助这些工具取得新的突破！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB/" rel="tag"># 数据共享</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/08/swot100/" rel="prev" title="科学家利用SWOT任务数据融合技术显著提升全球海洋观测分辨率">
+      <i class="fa fa-chevron-left"></i> 科学家利用SWOT任务数据融合技术显著提升全球海洋观测分辨率
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/02/08/sofar-gnss/" rel="next" title="美军资助背景浮标现身我国近海引质疑，国家安全部发出警示">
+      美军资助背景浮标现身我国近海引质疑，国家安全部发出警示 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8D%AB%E6%98%9F%E9%AB%98%E5%BA%A6%E8%AE%A1%E6%95%B0%E6%8D%AE%EF%BC%9ARADS"><span class="nav-number">1.</span> <span class="nav-text">1. 卫星高度计数据：RADS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-rads-tudelft-nl-rads"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;rads.tudelft.nl&#x2F;rads</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%AB%98%E5%AF%86%E5%BA%A6-XBTs-%E6%95%B0%E6%8D%AE%EF%BC%9AAtlantic-%E5%92%8C-Indo-Pacific"><span class="nav-number">1.</span> <span class="nav-text">2. 高密度 XBTs 数据：Atlantic 和 Indo-Pacific</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-aoml-noaa-gov-phod-hdenxbt-index-php"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.aoml.noaa.gov&#x2F;phod&#x2F;hdenxbt&#x2F;index.php</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%BF%91%E5%AE%9E%E6%97%B6%E6%95%B0%E6%8D%AE%E7%9A%84-Google-Earth-%E5%B1%95%E7%A4%BA%EF%BC%9AAOML-GTS"><span class="nav-number">1.</span> <span class="nav-text">3. 近实时数据的 Google Earth 展示：AOML-GTS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-www-aoml-noaa-gov-phod-goos-php"><span class="nav-number"></span> <span class="nav-text">https:&#x2F;&#x2F;www.aoml.noaa.gov&#x2F;phod&#x2F;goos.php</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Argo-%E6%BC%82%E6%B5%81%E5%99%A8%E4%B8%8E%E5%89%96%E9%9D%A2%E6%95%B0%E6%8D%AE%EF%BC%9AScripps-Argo-Portal"><span class="nav-number">1.</span> <span class="nav-text">4. Argo 漂流器与剖面数据：Scripps Argo Portal</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-argo-ucsd-edu"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.argo.ucsd.edu&#x2F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%85%A8%E7%90%83%E8%A1%A8%E5%B1%82%E6%BC%82%E6%B5%81%E8%AE%A1%E5%88%92%EF%BC%9AAOML"><span class="nav-number">1.</span> <span class="nav-text">5. 全球表层漂流计划：AOML</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-aoml-noaa-gov-phod-dac-dacdata-php"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.aoml.noaa.gov&#x2F;phod&#x2F;dac&#x2F;dacdata.php</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E7%83%AD%E5%B8%A6%E7%B3%BB%E6%B3%8A%E8%A7%82%E6%B5%8B%E7%B3%BB%E7%BB%9F%EF%BC%9ATOGA-TAO"><span class="nav-number">1.</span> <span class="nav-text">6. 热带系泊观测系统：TOGA-TAO</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-pmel-noaa-gov-tao-data-deliv-deliv-html"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.pmel.noaa.gov&#x2F;tao&#x2F;data_deliv&#x2F;deliv.html</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-NOS-%E6%B5%B7%E5%B9%B3%E9%9D%A2%E6%95%B0%E6%8D%AE%EF%BC%9Atidesandcurrents"><span class="nav-number">1.</span> <span class="nav-text">7. NOS 海平面数据：tidesandcurrents</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-tidesandcurrents-noaa-gov"><span class="nav-number"></span> <span class="nav-text">https:&#x2F;&#x2F;tidesandcurrents.noaa.gov&#x2F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%85%A8%E7%90%83%E6%B5%B7%E5%B9%B3%E9%9D%A2%E6%95%B0%E6%8D%AE%EF%BC%9AGLOSS"><span class="nav-number">1.</span> <span class="nav-text">8. 全球海平面数据：GLOSS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-gloss-sealevel-org-data"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.gloss-sealevel.org&#x2F;data&#x2F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-UHSLC-%E6%B5%B7%E5%B9%B3%E9%9D%A2%E6%95%B0%E6%8D%AE%EF%BC%9AUHSLC"><span class="nav-number">1.</span> <span class="nav-text">9. UHSLC 海平面数据：UHSLC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-uhslc-soest-hawaii-edu"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;uhslc.soest.hawaii.edu&#x2F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E5%A4%AA%E5%B9%B3%E6%B4%8B%E8%A5%BF%E5%8C%97%E9%97%A8%E6%88%B7%EF%BC%9ANANOOS"><span class="nav-number">1.</span> <span class="nav-text">10. 太平洋西北门户：NANOOS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-nanoos-org"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.nanoos.org&#x2F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E5%B1%80%E5%9C%B0%E6%95%B0%E6%8D%AE%EF%BC%9ACMOP"><span class="nav-number">1.</span> <span class="nav-text">11. 局地数据：CMOP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-stccmop-org-datamart"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.stccmop.org&#x2F;datamart</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E5%A4%A7%E6%B0%94%E6%95%B0%E6%8D%AE%EF%BC%9AMADIS"><span class="nav-number">1.</span> <span class="nav-text">12. 大气数据：MADIS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-madis-ncep-noaa-gov"><span class="nav-number"></span> <span class="nav-text">https:&#x2F;&#x2F;madis.ncep.noaa.gov&#x2F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E5%8D%AB%E6%98%9F-SSH-%E6%A0%BC%E7%BD%91%E5%8C%96%E6%95%B0%E6%8D%AE%EF%BC%9AAVISO"><span class="nav-number">1.</span> <span class="nav-text">13. 卫星 SSH 格网化数据：AVISO</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-aviso-oceanobs-com-en-data-products-index-html"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.aviso.oceanobs.com&#x2F;en&#x2F;data&#x2F;products&#x2F;index.html</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E6%B5%B7%E6%B4%8B%E5%86%8D%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%EF%BC%9AECCO-%E5%92%8C-SODA"><span class="nav-number">1.</span> <span class="nav-text">14. 海洋再分析数据：ECCO 和 SODA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-atmos-umd-edu-ocean"><span class="nav-number"></span> <span class="nav-text">http:&#x2F;&#x2F;www.atmos.umd.edu&#x2F;~ocean&#x2F;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#15-EOSDIS-%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%9AMODIS"><span class="nav-number">1.</span> <span class="nav-text">15. EOSDIS 浏览器：MODIS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-worldview-earthdata-nasa-gov"><span class="nav-number"></span> <span class="nav-text">https:&#x2F;&#x2F;worldview.earthdata.nasa.gov&#x2F;</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yang Lei"
+      src="/images/xingchi.jpg">
+  <p class="site-author-name" itemprop="name">Yang Lei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://getmyte.com/" title="https:&#x2F;&#x2F;getmyte.com&#x2F;" rel="noopener" target="_blank">getmyte</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.economist.com/" title="https:&#x2F;&#x2F;www.economist.com&#x2F;" rel="noopener" target="_blank">Economist</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://l7.antv.vision/en/" title="https:&#x2F;&#x2F;l7.antv.vision&#x2F;en&#x2F;" rel="noopener" target="_blank">AntV</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Lei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v7.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    url = encodeURI(url);
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.getAttribute('id'));
+      var title = visitors.getAttribute('data-flag-title');
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.getAttribute('id'));
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            let { url, time } = item;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+            'X-LC-Key': 'YRcXfwqMVEWtFfgTumCdt2il',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'a05sUJqbxBXDbnppdO8OVgiC-gzGzoHsz',
+      appKey: 'YRcXfwqMVEWtFfgTumCdt2il',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
